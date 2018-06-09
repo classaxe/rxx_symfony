@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ system|upper }} &gt; {{ mode }}{% endblock %}
+
+{% block body %}
+<div class="codes">
+    <h1>{{ system|upper }} {{ mode }}</h1>
+    <p>Countries in this system are given by NDB List approved
+    <a href="http://www.ndblist.info/beacons/countrylist.pdf" rel="external"
+      title="NDBList country, state and province codes">standard codes</a>.
+    </p>
+    <div class="links">[
+        {% for key, region in regions %}
+            {%  if key != 0 %} | {%  endif %}
+            <a href="#{{ region.region }}">{{ region.name }}</a>
+        {% endfor %}
+    ]</div>
+
+    {% for region in regions %}
+    <div class="region">
+        <div class="header">
+            <h2 id='{{ region.region }}'>{{ region.name }}</h2>
+            <div class="links">
+                [ {%  if region.map %}<a href="{{ region.map }}" rel="external">Map</a> | {% endif %}<a href="#top">Top</a> ]
+            </div>
+        </div>
+        {% if region.countries|length  %}
+            {% set countries = region.countries %}
+            {% set countriesPerColumn = (countries|length / 2)|round(0, 'ceil') %}
+
+            {% for country in countries %}
+
+                {% if countriesPerColumn == 1 or loop.index % countriesPerColumn == 1 %}
+                    <table border="0">
+
+                {% endif %}
+
+                <tr>
+                    <td class="name">{{ country.name }}</td><td class="abbr">{{ country.itu }}</td>
+                </tr>
+
+                {% if loop.last or loop.index % countriesPerColumn == 0 %}
+
+                    </table>
+                {% endif %}
+
+            {% endfor %}
+        {% endif %}
+
+
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

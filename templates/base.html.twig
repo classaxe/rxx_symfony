@@ -3,7 +3,37 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}RXX{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        {% block stylesheets %}{% endblock %}<style type="text/css">
+{% if system == "reu" %}
+            body { background: #fff8f8; }
+            h1 { color: #ff3333; }
+{%  endif %}
+{% if system == "rna" %}
+            body { background: #f8f8ff; }
+            h1 { color: #3333ff; }
+{%  endif %}
+{% if system == "rww" %}
+            body { background: #fafffa; }
+            h1 { color: #33a033; }
+{%  endif %}
+            body { font-family: Arial, Helvetica, sans-serif; }
+            .codes { border: 2px solid #888; padding: 0.5em; background: #ffffff; }
+            .codes h1 { margin: 0.25em 0; font-size: 120%; }
+            .codes .links { text-align: center; font-size: small; margin: 1em 0; }
+            .codes .links a { color: #0033a0; text-decoration: none; font-weight: bold; }
+            .codes .region { display: block; margin: 0.5em 0; padding: 0.25em; font-weight: bold; border: 1px solid #888; }
+            .codes .region:after { content: ''; display: table; clear: both; height: 1px; overflow: hidden; }
+            .codes .region .header { background: #707070; color: #ffffff; padding: 0.2em; }
+            .codes .region .header h2 { float: left; margin: 0; font-size: small; }
+            .codes .region .header .links { float: right; margin: 0; }
+            .codes .region .header .links a { color: #ffff80; font-weight: bold; text-decoration: none; }
+            .codes .region .header:after { content: ''; display: table; clear: both; }
+            .codes .region table { background: #ffffff; color: #000; width: 48%; float: left; margin: 0; }
+            .codes .region table + table { margin: 0 0 0 4%; }
+            .codes .region table tr td.name { width: 80%; font-size: 80%; }
+            .codes .region table tr td.abbr { width: 20%; font-size: 80%; text-align: right; }
+        </style>
+
     </head>
     <body>
         {% block body %}{% endblock %}
