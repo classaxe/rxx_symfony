@@ -42,6 +42,20 @@ class Itu
      */
     private $region = '';
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="hasSp", type="integer", nullable=false)
+     */
+    private $hasSp;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="spTitle", length=45, nullable=false)
+     */
+    private $spTitle = '';
+
     public function getId(): ?int
     {
         return $this->id;
@@ -82,6 +96,31 @@ class Itu
 
         return $this;
     }
+
+    public function getHasSp(): ?int
+    {
+        return $this->hasSp;
+    }
+
+    public function setHasSp(int $hasSp): self
+    {
+        $this->hasSp = $hasSp;
+
+        return $this;
+    }
+
+    public function getSpTitle(): ?string
+    {
+        return $this->spTitle;
+    }
+
+    public function setSpTitle(string $spTitle): self
+    {
+        $this->spTitle = $spTitle;
+
+        return $this;
+    }
+
 
 
 }

@@ -5,50 +5,44 @@
 {% block body %}
 <div class="help">
     <h1>{{ system|upper }} {{ mode }}</h1>
-    <p>Countries in this system are given by NDB List approved
+    <p>States and provinces in this system are given by NDB List approved
     <a href="http://www.ndblist.info/beacons/countrylist.pdf" rel="external"
       title="NDBList country, state and province codes">standard codes</a>.
     </p>
-    {% if regions|length > 1 %}
+    {% if countries|length > 1 %}
     <div class="links">[
-        {% for key, region in regions %}
+        {% for key, country in countries %}
             {%  if key != 0 %} | {%  endif %}
-            <a href="#{{ region.region }}">{{ region.name }}</a>
+            <a href="#{{ country.itu }}">{{ country.name }}</a>
         {% endfor %}
     ]</div>
     {% endif %}
 
-    {% for region in regions %}
+
+    {% for country in countries %}
     <div class="zone">
         <div class="header">
-            <h2 id='{{ region.region }}'>{{ region.name }}</h2>
+            <h2 id='{{ country.itu }}'>{{ country.name }}</h2>
             <div class="links">
-                [ {%  if region.map %}<a href="{{ region.map }}" rel="external">Map</a> | {% endif %}<a href="#top">Top</a> ]
+                [ {%  if country.map %}<a href="{{ country.map }}" rel="external">Map</a> | {% endif %}<a href="#top">Top</a> ]
             </div>
         </div>
-        {% if region.countries|length  %}
-            {% set countries = region.countries %}
-            {% set entriesPerColumn = (countries|length / region.columns )|round(0, 'ceil') %}
-
-            {% for country in countries %}
-
+        {% if country.states|length  %}
+            {% set states = country.states %}
+            {% set entriesPerColumn = (states|length / country.columns)|round(0, 'ceil') %}
+            {% for state in states %}
                 {% if entriesPerColumn == 1 or loop.index % entriesPerColumn == 1 %}
-                    <table class="cols_{{ region.columns }}">
-
+                    <table border="0" class="cols_{{ country.columns }}">
                 {% endif %}
-
                 <tr>
-                    <td class="name">{{ country.name }}</td><td class="abbr">{{ country.itu }}</td>
+                    <td class="name">{{ state.name }}</td><td class="abbr">{{ state.sp }}</td>
                 </tr>
-
                 {% if loop.last or loop.index % entriesPerColumn == 0 %}
-
                     </table>
                 {% endif %}
 
             {% endfor %}
         {% endif %}
-
 
     </div>
     {% endfor %}
