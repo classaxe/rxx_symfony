@@ -2,8 +2,6 @@
 namespace App\Controller;
 
 use App\Service\Country as CountryService;
-use App\Service\StateProvince as StateProvinceService;
-
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 
@@ -18,21 +16,12 @@ class StateLocator extends Controller {
     private $countryService;
 
     /**
-     * @var StateProvinceService
-     */
-    private $stateProvinceService;
-
-    /**
-     * CountryLocator constructor.
+     * StateLocator constructor.
      * @param CountryService $countryService
-     * @param RegionService $regionService
      */
-    public function __construct(
-        CountryService $countryService,
-        StateProvinceService $stateProvinceService
-    ) {
+    public function __construct(CountryService $countryService)
+    {
         $this->countryService = $countryService;
-        $this->stateProvinceService = $stateProvinceService;
     }
 
     /**
@@ -47,15 +36,7 @@ class StateLocator extends Controller {
      */
     public function stateLocatorController($system, $filter)
     {
-        $baseUrl = $this->generateUrl('system', array('system' => $system));
-        $countries = $this->countryService->getCountriesHavingStates($filter);
-        foreach($countries as &$country) {
-            $code =             $country->getItu();
-            $country->states =  $this->stateProvinceService->getStates($code);
-            $country->map =     $this->countryService->getMapUrlForCountry($baseUrl, $code);
-            $country->columns = $this->countryService->getColumnsForCountryStates($code);
-        }
-//        return new Response(Rxx::y($countries));
+        $countries = $this->countryService->getCountriesAndStates($filter);
 
         return
             $this->render(

@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: mfrancis
- * Date: 2018-06-11
- * Time: 07:49
- */
-
 namespace App\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
@@ -20,7 +13,7 @@ class StateProvince
     /**
      * @var EntityManagerInterface
      */
-    protected $em;
+    private $em;
 
     /**
      * Region constructor.

@@ -1,15 +1,9 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: mfrancis
- * Date: 2018-06-11
- * Time: 07:49
- */
-
 namespace App\Service;
 
 use App\Entity\Itu as ItuEntity;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Service\StateProvince as StateProvinceService;
 
 /**
  * Class Country
@@ -20,22 +14,31 @@ class Country
     /**
      * @var EntityManagerInterface
      */
-    protected $em;
+    private $em;
+
+    /**
+     * @var StateProvince
+     */
+    private $stateProvinceService;
 
     /**
      * Country constructor.
      * @param EntityManagerInterface $em
      */
-    public function __construct(EntityManagerInterface $em)
-    {
+    public function __construct(
+        EntityManagerInterface $em,
+        StateProvinceService $stateProvinceService
+    ) {
         $this->em = $em;
+        $this->stateProvinceService = $stateProvinceService;
+
     }
 
     /**
      * @param null $regions
      * @return array
      */
-    public function getCountries($regions = null)
+    public function getCountriesForRegion($regions = null)
     {
         $filter = ($regions ? ['region' => explode(',', $regions)] : []);
 
@@ -43,6 +46,22 @@ class Country
             $this->em
                 ->getRepository(ItuEntity::class)
                 ->findBy($filter, ['name' => 'ASC']);
+    }
+
+    /**
+     * @param null $filter
+     * @return mixed
+     */
+    public function getCountriesAndStates($filter = null) {
+        $countries = $this->getCountriesHavingStates($filter);
+
+        foreach($countries as &$country) {
+            $code =             $country->getItu();
+            $country->states =  $this->stateProvinceService->getStates($code);
+            $country->map =     $this->getMapUrlForCountry($code);
+            $country->columns = $this->getColumnsForCountryStates($code);
+        }
+        return $countries;
     }
 
     /**
@@ -82,15 +101,15 @@ class Country
      * @param $code
      * @return bool|string
      */
-    public function getMapUrlForCountry($baseUrl, $code)
+    public function getMapUrlForCountry($code)
     {
         switch($code) {
             case "AUS":
-                return $baseUrl.'map_au';
+                return 'map_au';
             case "CAN":
-                return $baseUrl.'map_na';
+                return 'map_na';
             case "USA":
-                return $baseUrl.'map_na';
+                return 'map_na';
             default:
                 return false;
         }

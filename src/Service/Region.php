@@ -1,14 +1,8 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: mfrancis
- * Date: 2018-06-11
- * Time: 07:49
- */
-
 namespace App\Service;
 
 use App\Entity\Region as RegionEntity;
+use App\Service\Country as CountryService;
 use Doctrine\ORM\EntityManagerInterface;
 
 /**
@@ -20,15 +14,24 @@ class Region
     /**
      * @var EntityManagerInterface
      */
-    protected $em;
+    private $em;
+
+    /**
+     * @var Country
+     */
+    private $countryService;
 
     /**
      * Region constructor.
      * @param EntityManagerInterface $em
+     * @param Country $countryService
      */
-    public function __construct(EntityManagerInterface $em)
-    {
+    public function __construct(
+        EntityManagerInterface $em,
+        CountryService $countryService
+    ) {
         $this->em = $em;
+        $this->countryService = $countryService;
     }
 
     /**
@@ -50,23 +53,39 @@ class Region
      * @param $region
      * @return bool|string
      */
-    public function getMapUrlForRegion($baseUrl, $region)
+    public function getMapUrlForRegion($region)
     {
         switch($region) {
             case "af":
-                return $baseUrl.'map_af';
+                return 'map_af';
             case "as":
-                return $baseUrl.'map_as';
+                return 'map_as';
             case "ca":
-                return $baseUrl.'map_na';
+                return 'map_na';
             case "eu":
-                return $baseUrl.'map_eu';
+                return 'map_eu';
             case "na":
-                return $baseUrl.'map_na';
+                return 'map_na';
             case "sa":
-                return $baseUrl.'map_sa';
+                return 'map_sa';
             default:
                 return false;
         }
+    }
+
+    /**
+     * @param $filter
+     * @return array
+     */
+    public function getRegionsAndCountries($filter)
+    {
+        $regions = $this->getRegions($filter);
+        foreach ($regions as &$region) {
+            $code =                 $region->getRegion();
+            $region->map =          $this->getMapUrlForRegion($code);
+            $region->countries =    $this->countryService->getCountriesForRegion($code);
+            $region->columns = 2;
+        }
+        return $regions;
     }
 }

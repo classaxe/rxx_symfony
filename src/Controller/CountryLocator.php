@@ -1,7 +1,6 @@
 <?php
 namespace App\Controller;
 
-use App\Service\Country as CountryService;
 use App\Service\Region as RegionService;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
@@ -11,10 +10,6 @@ use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
  * @package App\Controller
  */
 class CountryLocator extends Controller {
-    /**
-     * @var CountryService
-     */
-    private $countryService;
 
     /**
      * @var RegionService
@@ -23,14 +18,10 @@ class CountryLocator extends Controller {
 
     /**
      * CountryLocator constructor.
-     * @param CountryService $countryService
      * @param RegionService $regionService
      */
-    public function __construct(
-        CountryService $countryService,
-        RegionService $regionService
-    ) {
-        $this->countryService = $countryService;
+    public function __construct(RegionService $regionService)
+    {
         $this->regionService = $regionService;
     }
 
@@ -46,14 +37,7 @@ class CountryLocator extends Controller {
      */
     public function countryLocatorController($system, $filter)
     {
-        $baseUrl = $this->generateUrl('system', array('system' => $system));
-        $regions = $this->regionService->getRegions($filter);
-        foreach ($regions as &$region) {
-            $code =                 $region->getRegion();
-            $region->map =          $this->regionService->getMapUrlForRegion($baseUrl, $code);
-            $region->countries =    $this->countryService->getCountries($code);
-            $region->columns = 2;
-        }
+        $regions = $this->regionService->getRegionsAndCountries($filter);
 
         return
             $this->render(
