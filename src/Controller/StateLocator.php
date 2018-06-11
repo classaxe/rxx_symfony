@@ -12,11 +12,11 @@ use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
  * @package App\Controller
  */
 class StateLocator extends Controller {
-
     /**
      * @var CountryService
      */
     private $countryService;
+
     /**
      * @var StateProvinceService
      */

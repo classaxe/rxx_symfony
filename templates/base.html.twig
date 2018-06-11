@@ -3,14 +3,8 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}RXX{% endblock %}</title>
+        <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
 {% block stylesheets %}{% endblock %}
-        <style type="text/css">
-            body { font-family: Arial, Helvetica, sans-serif; }
-{% include 'css/system.css.twig' %}
-{% include 'css/help.css.twig' %}
-{% block style %}{% endblock %}
-        </style>
-
     </head>
     <body class="{{ system|lower }}">
         {% block body %}{% endblock %}

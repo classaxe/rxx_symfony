@@ -1,0 +1,34 @@
+body { font-family: Arial, Helvetica, sans-serif; }
+
+/* [ System Colours ] */
+body.reu    { background: #fff8f8; }
+body.reu h1 { color: #ff3333; }
+body.rna    { background: #f8f8ff; }
+body.rna h1 { color: #3333ff; }
+body.rww    { background: #fafffa; }
+body.rww h1 { color: #33a033; }
+
+/* [ Help dialogs ] */
+.help { border: 2px solid #888; padding: 0.5em; background: #ffffff; }
+.help p { margin: 0.5em 0; font-size: 100%; }
+.help h1 { margin: 0.125em 0; font-size: 120%; font-weight: normal; }
+.help a { color: #0033a0; text-decoration: none; font-weight: bold; }
+.help a:hover { text-decoration: underline; }
+.help .links { text-align: center; font-size: small; margin: 1em 0; font-size: 70%; }
+.help .zone { display: block; margin: 0.5em 0; padding: 0.25em; font-weight: bold; border: 1px solid #888; }
+.help .zone:after { content: ''; display: table; clear: both; height: 1px; overflow: hidden; }
+.help .zone .header { background: #707070; color: #ffffff; padding: 0.2em; }
+.help .zone .header h2 { float: left; margin: 0; font-size: small; }
+.help .zone .header .links { float: right; margin: 0; }
+.help .zone .header .links a { color: #ffff80; font-weight: bold; text-decoration: none; }
+.help .zone .header .links a:hover { text-decoration: underline; }
+.help .zone .header:after { content: ''; display: table; clear: both; }
+.help .zone table { background: #ffffff; color: #000; float: left; margin: 0; border-spacing: 0; }
+.help .zone table.cols_2 { width: 48%; }
+.help .zone table.cols_2 + table.cols_2 { margin: 0 0 0 4%; }
+.help .zone table.cols_3 { width: 33%; }
+.help .zone table.cols_3 + table.cols_2 { margin: 0 0 0 2%; }
+.help .zone table tr:hover { background: #ffff00; }
+.help .zone table tr td { padding: 2px 0.5em; font-weight: normal; font-size: 70%; }
+.help .zone table tr td.name { width: 80%; }
+.help .zone table tr td.abbr { width: 20%; text-align: right; }
