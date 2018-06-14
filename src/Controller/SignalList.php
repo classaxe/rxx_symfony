@@ -19,16 +19,14 @@ class SignalList extends Controller {
      */
     public function seeklistController($system)
     {
-        $signal = $this->getDoctrine()
-            ->getRepository(Signals::class)
-            ->find(1);
-        return $this->render(
-            'signals/index.html.twig',
-            array(
-                'system' => $system,
-                'mode' => 'Signals',
-                'signal' => $signal
-            )
-        );
+        $parameters = [
+            'system' => $system,
+            'mode' => 'Signals',
+            'signal' => $this->getDoctrine()
+                ->getRepository(Signals::class)
+                ->find(1)
+        ];
+
+        return $this->render('signals/index.html.twig', $parameters);
     }
 }

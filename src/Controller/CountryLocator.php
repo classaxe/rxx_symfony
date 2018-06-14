@@ -37,17 +37,13 @@ class CountryLocator extends Controller {
      */
     public function countryLocatorController($system, $filter)
     {
-        $regions = $this->regionService->getRegionsAndCountries($filter);
+        $parameters = [
+            'system' => $system,
+            'mode' => 'Country Code Locator',
+            'regions' => $this->regionService->getRegionsAndCountries($filter)
+        ];
 
-        return
-            $this->render(
-                'countries/index.html.twig',
-                array(
-                    'system' => $system,
-                    'mode' => 'Country Code Locator',
-                    'regions' => $regions
-                )
-            );
+        return $this->render('countries/index.html.twig', $parameters);
     }
 
 }

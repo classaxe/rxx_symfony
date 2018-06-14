@@ -32,7 +32,8 @@ class DefaultSystem extends Controller {
      */
     public function defaultSystemController()
     {
-        $system = $this->geoService->getDefaultSystem();
-        return $this->redirectToRoute("system", array('system' => $system));
+        $parameters = ['system' => $this->geoService->getDefaultSystem()];
+
+        return $this->redirectToRoute("system", $parameters);
     }
 }

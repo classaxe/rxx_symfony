@@ -9,17 +9,17 @@
     <a href="http://www.ndblist.info/beacons/countrylist.pdf" rel="external"
       title="NDBList country, state and province codes">standard codes</a>.
     </p>
-    {% if countries|length > 1 %}
+{% if countries|length > 1 %}
+
     <div class="links">[
-        {% for key, country in countries %}
-            {%  if key != 0 %} | {%  endif %}
-            <a href="#{{ country.itu }}">{{ country.name }}</a>
-        {% endfor %}
+{% for key, country in countries %}
+        <a href="#{{ country.itu }}">{{ country.name }}</a>{%  if not loop.last %} |{%  endif %}
+
+{% endfor %}
     ]</div>
-    {% endif %}
 
-
-    {% for country in countries %}
+{% endif %}
+{% for country in countries %}
     <div class="zone">
         <div class="header">
             <h2 id='{{ country.itu }}'>{{ country.name }}</h2>
@@ -27,24 +27,16 @@
                 [ {%  if country.map %}<a href="{{ url('system', { 'system' : system }) }}{{ country.map }}" rel="external">Map</a> | {% endif %}<a href="#top">Top</a> ]
             </div>
         </div>
-        {% if country.states|length  %}
-            {% set states = country.states %}
-            {% set entriesPerColumn = (states|length / country.columns)|round(0, 'ceil') %}
-            {% for state in states %}
-                {% if entriesPerColumn == 1 or loop.index % entriesPerColumn == 1 %}
-                    <table border="0" class="cols_{{ country.columns }}">
-                {% endif %}
-                <tr>
-                    <td class="name">{{ state.name }}</td><td class="abbr">{{ state.sp }}</td>
-                </tr>
-                {% if loop.last or loop.index % entriesPerColumn == 0 %}
-                    </table>
-                {% endif %}
-
-            {% endfor %}
-        {% endif %}
-
+{% if country.states|length  %}
+        <ol class="row small-up-1 medium-up-2 large-up-3 clearfix">
+{% set states = country.states %}
+{% for state in states %}
+            <li class="column">{{ state.name }}<span class="abbr">{{ state.sp }}</span></li>
+{% endfor %}
+        </ol>
+{% endif %}
     </div>
-    {% endfor %}
+
+{% endfor %}
 </div>
 {% endblock %}

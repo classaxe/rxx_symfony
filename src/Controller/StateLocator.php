@@ -36,17 +36,13 @@ class StateLocator extends Controller {
      */
     public function stateLocatorController($system, $filter)
     {
-        $countries = $this->countryService->getCountriesAndStates($filter);
+        $parameters = [
+            'system' => $system,
+            'mode' => 'State and Province Locator',
+            'countries' => $this->countryService->getCountriesAndStates($filter)
+        ];
 
-        return
-            $this->render(
-                'states/index.html.twig',
-                array(
-                    'system' => $system,
-                    'mode' => 'State and Province Locator',
-                    'countries' => $countries
-                )
-            );
+        return $this->render('states/index.html.twig', $parameters);
     }
 
 }

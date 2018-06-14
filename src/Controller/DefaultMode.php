@@ -17,6 +17,8 @@ class DefaultMode extends Controller {
      */
     public function defaultModeController($system)
     {
-        return $this->redirectToRoute("signal_list", array('system' => $system));
+        $parameters =['system' => $system];
+
+        return $this->redirectToRoute("signal_list", $parameters);
     }
 }

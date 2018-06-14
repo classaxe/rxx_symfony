@@ -23,12 +23,9 @@ body.rww h1 { color: #33a033; }
 .help .zone .header .links a { color: #ffff80; font-weight: bold; text-decoration: none; }
 .help .zone .header .links a:hover { text-decoration: underline; }
 .help .zone .header:after { content: ''; display: table; clear: both; }
-.help .zone table { background: #ffffff; color: #000; float: left; margin: 0; border-spacing: 0; }
-.help .zone table.cols_2 { width: 48%; }
-.help .zone table.cols_2 + table.cols_2 { margin: 0 0 0 4%; }
-.help .zone table.cols_3 { width: 33%; }
-.help .zone table.cols_3 + table.cols_2 { margin: 0 0 0 2%; }
-.help .zone table tr:hover { background: #ffff00; }
-.help .zone table tr td { padding: 2px 0.5em; font-weight: normal; font-size: 70%; }
-.help .zone table tr td.name { width: 80%; }
-.help .zone table tr td.abbr { width: 20%; text-align: right; }
+
+.help .zone ol { background: #ffffff; color: #000; margin: 0; }
+.help .zone li { list-style: none; font-size: 80%; font-weight: normal; }
+.help .zone li span.abbr { float: right; font-weight: bold; }
+.help .zone li:hover { background: #ffff00; }
+
