@@ -8,10 +8,18 @@
 
 namespace App\Utils;
 
+use Symfony\Component\HttpFoundation\Response;
 
 class Rxx
 {
-    public static function y($var) {
+    public static function y($var)
+    {
         return "<pre>".print_r($var, true)."</pre>";
     }
+
+    public static function debug($var)
+    {
+        return new Response(static::y($var));
+    }
+
 }

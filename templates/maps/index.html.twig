@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ system|upper }} &gt; {{ mode }}{% endblock %}
+
+{% block body %}
+{% include 'menu/menu.html.twig' %}
+<div class="help">
+    <h1>{{ title }}</h1>
+{% if zones|length > 1 %}
+
+    <div class="links">[
+{% for key, zone in zones %}
+        <a href="#{{ key }}">{{ zone.shortName }}</a>{%  if not loop.last %} |{%  endif %}
+
+{% endfor %}
+    ]</div>
+{% endif %}
+    <div class="help">
+{% for key, zone in zones %}
+{% set mode = zone.mode %}
+{% set map = zone.map %}
+{% set multiple = true %}
+{% if zone.countryBtn is defined %}{% set countryBtn = zone.countryBtn %}{% else %}{% set countryBtn = '' %}{% endif %}
+{% if zone.countryFilter is defined %}{% set countryFilter = zone.countryFilter %}{% else %}{% set countryFilter = '' %}{% endif %}
+{% if zone.stateBtn is defined %}{% set stateBtn = zone.stateBtn %}{% else %}{% set stateBtn = '' %}{% endif %}
+{% if zone.stateFilter is defined %}{% set stateFilter = zone.stateFilter %}{% else %}{% set stateFilter = '' %}{% endif %}
+        <div class="map">
+{% include 'maps/inner.html.twig' %}
+        </div>
+{% endfor %}
+    </div>
+</div>
+{% endblock %}

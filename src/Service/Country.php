@@ -59,7 +59,6 @@ class Country
             $code =             $country->getItu();
             $country->states =  $this->stateProvinceService->getStates($code);
             $country->map =     $this->getMapUrlForCountry($code);
-            $country->columns = $this->getColumnsForCountryStates($code);
         }
         return $countries;
     }
@@ -78,23 +77,6 @@ class Country
                 ->findBy($filter, ['name' => 'ASC']);
     }
 
-    /**
-     * @param $code
-     * @return int
-     */
-    public function getColumnsForCountryStates($code)
-    {
-        switch($code)  {
-            case "AUS":
-                return  2;
-            case "CAN":
-                return  3;
-            case "USA":
-                return  3;
-            default:
-                return  2;
-        }
-    }
 
     /**
      * @param $baseUrl

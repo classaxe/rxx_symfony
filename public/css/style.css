@@ -17,15 +17,19 @@ body.rww h1 { color: #33a033; }
 .help .links { text-align: center; font-size: small; margin: 1em 0; font-size: 70%; }
 .help .zone { display: block; margin: 0.5em 0; padding: 0.25em; font-weight: bold; border: 1px solid #888; }
 .help .zone:after { content: ''; display: table; clear: both; height: 1px; overflow: hidden; }
-.help .zone .header { background: #707070; color: #ffffff; padding: 0.2em; }
-.help .zone .header h2 { float: left; margin: 0; font-size: small; }
-.help .zone .header .links { float: right; margin: 0; }
-.help .zone .header .links a { color: #ffff80; font-weight: bold; text-decoration: none; }
-.help .zone .header .links a:hover { text-decoration: underline; }
-.help .zone .header:after { content: ''; display: table; clear: both; }
+.help .header { background: #707070; color: #ffffff; padding: 0.2em; }
+.help .header h2 { float: left; margin: 0; font-size: small; }
+.help .header .links { float: right; margin: 0; }
+.help .header .links a { color: #ffff80; font-weight: bold; text-decoration: none; }
+.help .header .links a:hover { text-decoration: underline; }
+.help .header:after { content: ''; display: table; clear: both; }
 
-.help .zone ol { background: #ffffff; color: #000; margin: 0; }
-.help .zone li { list-style: none; font-size: 80%; font-weight: normal; }
-.help .zone li span.abbr { float: right; font-weight: bold; }
-.help .zone li:hover { background: #ffff00; }
+.help ol { background: #ffffff; color: #000; margin: 0; }
+.help li { list-style: none; font-size: 80%; font-weight: normal; }
+.help li span.abbr { float: right; font-weight: bold; }
+.help li:hover { background: #ffff00; }
+
+.help .body { border: 1px solid #707070; padding: 0.25em; border-style: solid; border-top: none; }
+.help img.map { width: 100%; }
+.help div.map { margin: 0 0 1em 0; }
 

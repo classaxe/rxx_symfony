@@ -4,7 +4,6 @@ namespace App\Controller;
 use App\Entity\Signals;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Response;
 
 class SignalList extends Controller {
 

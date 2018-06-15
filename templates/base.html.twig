@@ -4,7 +4,8 @@
         <meta charset="UTF-8">
         <title>{% block title %}RXX{% endblock %}</title>
         <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
-        <link rel='stylesheet prefetch' href='//cdnjs.cloudflare.com/ajax/libs/foundation/6.1.1/foundation.min.css'>
+        {#<link rel='stylesheet prefetch' href='//cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/css/foundation.min.css'>#}
+        <link rel="stylesheet prefetch" href="{{ asset('css/foundation.min.css') }}" />
 {% block stylesheets %}{% endblock %}
     </head>
     <body class="{{ system|lower }}">

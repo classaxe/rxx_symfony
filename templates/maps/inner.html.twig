@@ -1,0 +1,25 @@
+            <div class="header"{% if key is defined %} id="{{ key }}"{% endif %}>
+                <h2>{{ mode }}</h2>
+{%  if (stateBtn is defined or countryBtn is defined or multiple is defined or countryBtn is defined) %}
+                <div class="links">[
+{% if multiple is defined %}
+                    <a href="#top">Top</a> |
+                    <a href="{{ url('system', { 'system' : system }) }}map_{{ key }}" target="_blank" rel="external">Popup</a>{% if ((stateBtn is defined and stateBtn) or (countryBtn is defined and countryBtn)) %} |{% endif %}
+
+{% endif %}
+{% if (stateBtn is defined and stateBtn) %}
+                    <a href="{{ url('show_sp', { 'system' : system, 'filter' : stateFilter }) }}" target="_blank" rel="external">{{ stateBtn }}</a>{% if ((stateBtn is defined and stateBtn) and (countryBtn is defined and countryBtn)) %} |{% endif %}
+
+{% endif %}
+{% if countryBtn is defined and countryBtn %}
+                    <a href="{{ url('show_itu', { 'system' : system, 'filter' : countryFilter }) }}" target="_blank" rel="external">{{ countryBtn }}</a>
+{% endif %}
+                ]</div>
+{% endif %}
+            </div>
+            <div class="body">
+{% if text is defined %}
+                {{ text|raw }}
+{% endif %}
+                <img src="{{ asset('image/' ~ map) }}" alt="{{ mode }}" title="{{ mode }}" class="map" />
+            </div>
