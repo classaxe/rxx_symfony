@@ -13,29 +13,17 @@ use Symfony\Component\HttpFoundation\Response;
 class Rxx
 {
     const types = array(
-        'NDB' =>      [
-            'type' =>   0,
-            'color' =>  '#ffffff',
-            'label' =>  'NDB',
-            'width' =>  11
-        ],
         'DGPS' =>     [
             'type' =>   1,
             'color' =>  '#00d8ff',
             'label' =>  'DGPS',
             'width' =>  13
         ],
-        'TIME' =>     [
+        'DSC' =>      [
             'type' =>   0,
-            'color' => '#ffe0b0',
-            'label' =>  'Time',
-            'width' =>  13
-        ],
-        'NAVTEX' =>   [
-            'type' =>   0,
-            'color' => '#ffb8d8',
-            'label' =>  'Navtex',
-            'width' =>  15
+            'color' => '#ffb000',
+            'label' =>  'DSC',
+            'width' =>  11
         ],
         'HAMBCN' =>   [
             'type' =>   0,
@@ -43,17 +31,29 @@ class Rxx
             'label' =>  'Ham',
             'width' =>  12
         ],
+        'NAVTEX' =>   [
+            'type' =>   0,
+            'color' => '#ffb8d8',
+            'label' =>  'Navtex',
+            'width' =>  15
+        ],
+        'NDB' =>      [
+            'type' =>   0,
+            'color' =>  '#ffffff',
+            'label' =>  'NDB',
+            'width' =>  11
+        ],
+        'TIME' =>     [
+            'type' =>   0,
+            'color' => '#ffe0b0',
+            'label' =>  'Time',
+            'width' =>  13
+        ],
         'OTHER' =>    [
             'type' =>   0,
             'color' => '#b8f8ff',
             'label' =>  'Other',
             'width' =>  13
-        ],
-        'DSC' =>      [
-            'type' =>   0,
-            'color' => '#ffb000',
-            'label' =>  'DCS',
-            'width' =>  11
         ],
         'ALL' =>      [
             'type' =>   99,

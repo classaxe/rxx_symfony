@@ -1,4 +1,5 @@
 <select name="region" id="region">
+    <option value="">(All Continents)</option>
 {% for region in regions %}
     <option value="{{ region.region }}">{{ region.name }}</option>
 {% endfor %}

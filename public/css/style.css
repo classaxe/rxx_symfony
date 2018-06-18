@@ -37,13 +37,16 @@ body.rww .menu .is-active>a { background: #33a033; color: #ffffff; }
 body.rww h1 { color: #33a033; }
 body.rww .controlPanel .controls { background: #e6ffe6; }
 
-
+/* [ Menu ] */
+body .menu-centered { width: 602px; margin: auto; }
 body .menu-centered .header h2 { font-size: 130%; margin: 0.25em 0; }
 body .menu-centered .system { background: #ffffff; border-top: none !important; border-bottom: none !important; }
+body .menu-centered .system a { width: 200px; text-align: center; }
 body .menu-centered .mode { background: #ffffff; }
 body .menu-centered .system a, body .menu-centered .mode a { padding: 0.25em 0.5em; font-size: 80%; }
+body .menu-centered .system a:hover, body .menu-centered .mode a:hover { text-decoration: underline; }
 body .menu-centered .system .is-active>a, body .menu-centered .mode .is-active>a { font-weight: bold; }
-
+body .menu-centered .system .is-active>a:hover, body .menu-centered .mode .is-active>a:hover { text-decoration: none; }
 
 /* [ Help dialogs ] */
 .help { border: 2px solid #888; padding: 0.5em; background: #ffffff; }
@@ -97,29 +100,36 @@ body .menu-centered .system .is-active>a, body .menu-centered .mode .is-active>a
 
 .controlPanel .header { text-align: center; border-radius: 1em 1em 0 0; font-size: 80%; font-weight: bold; box-shadow: #777 2px 2px 5px;}
 .controlPanel .controls { background: #ffffff; border: 1px solid #cacaca; box-shadow: #777 2px 2px 5px;}
-.controlPanel .controls label { display: inline-block; font-size: 80%; white-space: nowrap; font-weight: bold; float: left; padding: 0 0.5em; }
-.controlPanel .controls .value { display: inline-block; float: right; }
-.controlPanel .controls .checkboxgroup { border: 1px solid #cacaca; margin: 0.1em 0 0 0; }
-.controlPanel .controls .checkboxgroup label { float: left; font-size: 70%; font-weight: normal; display: inline-block; padding: 0 0.5em 0 0.5em; }
-.controlPanel .controls .checkboxgroup input { float: left; font-size: 70%; margin: 0.5em 0.25em; }
-.controlPanel .controls input[type='text'] { margin: 0; border-radius: 0; height: 1.5em; font-size: 80%; float: right; }
-.controlPanel .controls select { -webkit-appearance: menulist; -moz-appearance: menulist; font-size: 80%; background-image: none; height: 1.5em; }
+.xcontrolPanel .controls label { display: inline-block; font-size: 80%; white-space: nowrap; font-weight: bold; float: left; padding: 0 0.5em; }
+.xcontrolPanel .controls .value { display: inline-block; float: right; }
+.xcontrolPanel .controls .checkboxgroup { border: 1px solid #cacaca; margin: 0.1em 0 0 0; }
+.xcontrolPanel .controls .checkboxgroup label { float: left; font-size: 70%; font-weight: normal; display: inline-block; padding: 0 0.5em 0 0.5em; }
+.xcontrolPanel .controls .checkboxgroup input { float: left; font-size: 70%; margin: 0.5em 0.25em; }
+.xcontrolPanel .controls input[type='text'] { margin: 0; border-radius: 0; height: 1.5em; font-size: 80%; float: right; }
+.xcontrolPanel .controls select {
+    -webkit-appearance: menulist; -moz-appearance: menulist; font-size: 80%; background-image: none; height: 1.5em; margin: 0;
+}
 
-.listener_list { width: 500px; }
-.listener_list .controls label { width: 70px; }
-.listener_list .controls .value { width:420px; }
-.listener_list .controls .value input[type='text']#filter { width: 260px; float: left; }
+.controlPanel { width: auto; display: inline-block;}
+.controlPanel .controls { padding: 0.25em; }
+#form div { clear: both; height: 1.5em;}
+#form div label { float: left; width: 80px; }
+#form div input[type='text'] { margin: 0; border-radius: 0; height: 1.5em; font-size: 80%; float: left; width: 420px; }
+#form div select { -webkit-appearance: menulist; -moz-appearance: menulist; font-size: 80%; background-image: none; height: 1.5em; margin: 0; width: 420px; }
+#form div input#form_filter { width: 240px; }
+#form div p { margin: 0; border-radius: 0; height: 1.5em; font-size: 80%; float: right; text-align: right; }
+#form div div { clear: none; float: left; }
+#form div div label { float: none; width: auto; font-size: 80%; margin: 0 0.125em; padding: 0 0.125em; line-height: 1.5em; }
 
-.type_inactive, tr.inactive td { background-color: #d0d0d0; }
-.type_ndb,      tr.ndb      td { background-color: #ffffff; }
-.type_dgps,     tr.dgps     td { background-color: #00d8ff; }
-.type_dsc,      tr.dsc      td { background-color: #ffb000; }
-.type_time,     tr.time     td { background-color: #ffe0b0; }
-.type_navtex,   tr.navtex   td { background-color: #ffb8d8; }
-.type_hambcn,   tr.hambcn   td { background-color: #b8ffc0; }
-.type_other,    tr.other    td { background-color: #b8f8ff; }
+#form div #form_submit { background: white; border: 1px solid #cacaca; font-size: 80%; margin: 0 50%; padding: 0.25em 1em; text-align: center; float: none;  }
 
-.type_all  { background-color: #ff0000; color: #fff; font-style:italic; font-weight: bold; color:#FFF; }
+.type_inactive  + label, tr.inactive td { background-color: #d0d0d0; }
+.type_ndb       + label, tr.ndb      td { background-color: #ffffff; }
+.type_dgps      + label, tr.dgps     td { background-color: #00d8ff; }
+.type_dsc       + label, tr.dsc      td { background-color: #ffb000; }
+.type_time      + label, tr.time     td { background-color: #ffe0b0; }
+.type_navtex    + label, tr.navtex   td { background-color: #ffb8d8; }
+.type_ham       + label, tr.hambcn   td { background-color: #b8ffc0; }
+.type_other     + label, tr.other    td { background-color: #b8f8ff; }
 
-.menu-centered { width: 602px; margin: auto; }
-.menu-centered .system a { width: 200px; text-align: center; }
+.type_all       + label { background-color: #ff0000; color: #fff; font-style:italic; font-weight: bold; color:#FFF; }
