@@ -1,0 +1,21 @@
+<div class="controlPanel listener_list">
+    <div class="header">{{ form_title }}</div>
+    <div class="controls clearfix">
+        <label for="filter">Search For</label>
+        <div class="value" style="float:right;font-size:75%">
+            <input type="text" name="filter" id="filter" value="{% if (filter is defined and filter) %}{{ filter }}{% endif %}" />
+            <div style="float:right;padding: 0 0.5em">{{ searchResultText }}</div>
+        </div>
+        <br>
+        <label>Types</label>
+        <div class="value">
+{% include 'controls/signal.types.html.twig' %}
+        </div>
+        <br class="clearfix">
+        <label>Continent</label>
+        <div class="value">
+{% include 'controls/regions.html.twig' %}
+        </div>
+        <br class="clearfix">
+    </div>
+</div>

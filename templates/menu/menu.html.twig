@@ -1,51 +1,20 @@
 
 <div class="menu-centered">
-    <ul class="menu">
+    <ul class="menu header">
+        <li><h2>
+{% if (system == 'rna') %}Signals Received in N & C America + Hawaii{% endif %}
+{% if (system == 'reu') %}Signals Received in Europe{% endif %}
+{% if (system == 'rww') %}Signals Received Worldwide{% endif %}
+</h2></li>
+    </ul>
+    <ul class="menu system">
         <li{% if (system == 'rna') %} class="is-active"{% endif %}><a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'system' : 'rna'})) }}">North America (RNA)</a></li>
         <li{% if (system == 'reu') %} class="is-active"{% endif %}><a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'system' : 'reu'})) }}">Europe (REU)</a></li>
         <li{% if (system == 'rww') %} class="is-active"{% endif %}><a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'system' : 'rww'})) }}">Worldwide (RWW)</a></li>
     </ul>
-    <ul class="menu">
+    <ul class="menu mode">
         <li{% if (app.request.get('_route') == 'signal_list') %} class="is-active"{% endif %}><a href="{{ url('signal_list', { 'system' : system }) }}">Signals</a></li>
         <li{% if (app.request.get('_route') == 'show_maps') %} class="is-active"{% endif %}><a href="{{ url('show_maps', { 'system' : system }) }}">Maps</a></li>
+        <li{% if (app.request.get('_route') == 'listener_list') %} class="is-active"{% endif %}><a href="{{ url('listener_list', { 'system' : system }) }}">Listeners</a></li>
     </ul>
 </div>
-
-{#
-<table cellpadding='10' cellspacing='0' width='651' class='titleTable'>
-    <tr>
-        <td align='center'><h1 title='Version Merge branch 'master' of github.com (28 May 2018 21:53 EDT)' style='cursor:pointer; cursor:hand;'>Signals Received in N &amp; C America + Hawaii</h1></td>
-    </tr>
-</table>
-<table cellpadding='0' cellspacing='0' border='0' class='noprint'>
-    <tr>
-        <td><table border="0" cellpadding="2" cellspacing="0" class='navTable' bgcolor='#ffffff'>
-                <tr>
-                    <td width='210' class='navSelected' title='Currently selected system'><font color='white'><b>North America</b></font></td>
-                    <td width='210' class='navOff' onmouseover='return navOver(this,1);' onMouseOut='return navOver(this,0);' title='Click here to go to this page'><a href='/dx/ndb/rna/maps?sys=system_REU'>Europe</a></td>
-                    <td width='215' class='navOff' onmouseover='return navOver(this,1);' onMouseOut='return navOver(this,0);' title='Click here to go to this page'><a href='/dx/ndb/rna/maps?sys=system_RWW'>Worldwide</a></td>
-                </tr>
-            </table></td>
-    </tr>
-    <tr>
-        <td><table border="0" cellpadding="2" cellspacing="0" class='navTable' bgcolor='#ffffff'>
-                <tr>
-                    <td width='50' class='navOff' onMouseOver='return navOver(this,1);' onMouseOut='return navOver(this,0);' title='Click here to go to this page'><a href='/dx/ndb/rna/signal_list'>Signals</a></td>
-                    <td width='50' class='navOff' onMouseOver='return navOver(this,1);' onMouseOut='return navOver(this,0);' title='Click here to go to this page'><a href='/dx/ndb/rna/signal_seeklist'>Seeklist</a></td>
-                    <td width='55' class='navOff' onMouseOver='return navOver(this,1);' onMouseOut='return navOver(this,0);' title='Click here to go to this page'><a href='/dx/ndb/rna/listener_list'>Listeners</a></td>
-                    <td width='30' class='navOff' onMouseOver='return navOver(this,1);' onMouseOut='return navOver(this,0);' title='Click here to go to this page'><a href='/dx/ndb/rna/cle'>CLE</a></td>
-                    <td width='35' class='navSelected' title='Reload this page'><a href='/dx/ndb/rna/maps'><font color='white'>Maps</font></a></td>
-                    <td width='35' class='navOff' onMouseOver='return navOver(this,1);' onMouseOut='return navOver(this,0);' title='Click here to go to this page'><a href='/dx/ndb/rna/tools'>Tools</a></td>
-                    <td width='55' class='navOff' onMouseOver='return navOver(this,1);' onMouseOut='return navOver(this,0);' title='Click here to go to this page'><a href='/dx/ndb/rna/weather'>Weather</a></td>
-                    <td width='35' class='navOff' onMouseOver='return navOver(this,1);' onMouseOut='return navOver(this,0);' title='Click here to go to this page'><a href='/dx/ndb/rna/stats'>Stats</a></td>
-                    <td width='45' class='navOff' onMouseOver='return navOver(this,1);' onMouseOut='return navOver(this,0);' title='Click here to go to this page'><a href='/dx/ndb/rna/awards'>Awards</a></td>
-                    <td width='35' class='navOff' onMouseOver='return navOver(this,1);' onMouseOut='return navOver(this,0);' title='Click here to go to this page'><a href='/dx/ndb/rna/poll_list'>Polls</a></td>
-                    <td width='45' class='navOff' onMouseOver='return navOver(this,1);' onMouseOut='return navOver(this,0);' title='Click here to go to this page'><a href='/dx/ndb/rna/logon'>Log On</a></td>
-                    <td width='30' class='navOff' onMouseOver='return navOver(this,1);' onMouseOut='return navOver(this,0);' title='Click here to go to this page'><a href='/dx/ndb/rna/labs'>Labs</a></td>
-                    <td width='35' class='navOff' onMouseOver='return navOver(this,1);' onMouseOut='return navOver(this,0);' title='Click here to go to this page'><a href='/dx/ndb/rna/help'>Help</a></td>
-                    <td width='45' class='navOff' onMouseOver='return navOver(this,1);' onMouseOut='return navOver(this,0);' title='Click here to go to this page'><a href='/dx/ndb/rna/donate'>Donate</a></td>
-                </tr>
-            </table></td>
-    </tr>
-</table>&nbsp;
-#}

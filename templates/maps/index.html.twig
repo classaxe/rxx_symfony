@@ -4,7 +4,7 @@
 
 {% block body %}
 {% include 'menu/menu.html.twig' %}
-<div class="help">
+<div class="main">
     <h1>{{ title }}</h1>
 {% if zones|length > 1 %}
 
@@ -15,7 +15,7 @@
 {% endfor %}
     ]</div>
 {% endif %}
-    <div class="help">
+    <div class="main">
 {% for key, zone in zones %}
 {% set mode = zone.mode %}
 {% set map = zone.map %}

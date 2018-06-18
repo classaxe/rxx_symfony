@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+{% include 'menu/menu.html.twig' %}
+<div class="main">
+    <h1>{{ mode }}</h1>
+    {{ text|raw }}
+    {% set form_title='Customise ' ~ system|upper ~ ' Listener Report' %}
+    {% include 'forms/listener/search.html.twig' %}
+</div>
+{% endblock %}

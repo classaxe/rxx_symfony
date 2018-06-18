@@ -2,11 +2,48 @@ body { font-family: Arial, Helvetica, sans-serif; }
 
 /* [ System Colours ] */
 body.reu    { background: #fff8f8; }
+body.reu .menu-centered .header { border: 3px solid #ff0000; background: #ffe6e6; }
+body.reu .menu-centered .header h2 { color: #ff3333; }
+body.reu .menu-centered .system { border: 1px solid #ff0000; }
+body.reu .menu-centered .system li:not(:last-child) a { border-right: 1px solid #ff3333; }
+body.reu .menu-centered .mode { border: 1px solid #ff0000; }
+body.reu .menu-centered .mode li:not(:last-child) a { border-right: 1px solid #ff3333; }
+body.reu .menu a { color: #ff3333; }
+body.reu .menu .is-active>a { background: #ff3333; color: #ffffff; }
 body.reu h1 { color: #ff3333; }
+body.reu .controlPanel .controls { background: #ffe6e6; }
+
 body.rna    { background: #f8f8ff; }
+body.rna .menu-centered .header { border: 3px solid #3333ff; background: #e6e6ff; }
+body.rna .menu-centered .header h2 { font-size: 150%; margin: 0.25em 0; color: #3333ff; }
+body.rna .menu-centered .system { border: 1px solid #3333ff; }
+body.rna .menu-centered .system li:not(:last-child) a { border-right: 1px solid #3333ff; }
+body.rna .menu-centered .mode { border: 1px solid #3333ff; }
+body.rna .menu-centered .mode li:not(:last-child) a { border-right: 1px solid #3333ff; }
+body.rna .menu a { color: #3333ff; }
+body.rna .menu .is-active>a { background: #3333ff; color: #ffffff; }
 body.rna h1 { color: #3333ff; }
+body.rna .controlPanel .controls { background: #e6e6ff; }
+
 body.rww    { background: #fafffa; }
+body.rww .menu-centered .header { border: 3px solid #33a033; background: #e6ffe6; }
+body.rww .menu-centered .header h2 { font-size: 150%; margin: 0.25em 0; color: #33a033; }
+body.rww .menu-centered .system { border: 1px solid #33a033; }
+body.rww .menu-centered .system li:not(:last-child) a { border-right: 1px solid #33a033; }
+body.rww .menu-centered .mode { border: 1px solid #33a033; }
+body.rww .menu-centered .mode li:not(:last-child) a { border-right: 1px solid #33a033; }
+body.rww .menu a { color: #33a033; }
+body.rww .menu .is-active>a { background: #33a033; color: #ffffff; }
 body.rww h1 { color: #33a033; }
+body.rww .controlPanel .controls { background: #e6ffe6; }
+
+
+body .menu-centered .header h2 { font-size: 130%; margin: 0.25em 0; }
+body .menu-centered .system { background: #ffffff; border-top: none !important; border-bottom: none !important; }
+body .menu-centered .mode { background: #ffffff; }
+body .menu-centered .system a, body .menu-centered .mode a { padding: 0.25em 0.5em; font-size: 80%; }
+body .menu-centered .system .is-active>a, body .menu-centered .mode .is-active>a { font-weight: bold; }
+
 
 /* [ Help dialogs ] */
 .help { border: 2px solid #888; padding: 0.5em; background: #ffffff; }
@@ -33,3 +70,56 @@ body.rww h1 { color: #33a033; }
 .help img.map { width: 100%; }
 .help div.map { margin: 0 0 1em 0; }
 
+/* [ Main Screen ] */
+.main { padding: 0.5em; }
+.main p { margin: 0.5em 0; font-size: 100%; }
+.main h1 { margin: 0.125em 0; font-size: 120%; font-weight: normal; }
+.main a { color: #0033a0; text-decoration: none; font-weight: bold; }
+.main a:hover { text-decoration: underline; }
+.main .links { text-align: center; font-size: small; margin: 1em 0; font-size: 70%; }
+.main .zone { display: block; margin: 0.5em 0; font-weight: bold; padding:0; }
+.main .zone:after { content: ''; display: table; clear: both; height: 1px; overflow: hidden; }
+.main .header { background: #707070; color: #ffffff; padding: 0.2em; }
+.main .header h2 { float: left; margin: 0; font-size: small; }
+.main .header .links { float: right; margin: 0; }
+.main .header .links a { color: #ffff80; font-weight: bold; text-decoration: none; }
+.main .header .links a:hover { text-decoration: underline; }
+.main .header:after { content: ''; display: table; clear: both; }
+
+.main .zone ol { background: #ffffff; color: #000; margin: 0; }
+.main .zone li { list-style: none; font-size: 80%; font-weight: normal; }
+.main .zone li span.abbr { float: right; font-weight: bold; }
+.main .zone li:hover { background: #ffff00; }
+
+.main .body { border: 1px solid #707070; border-style: solid; border-top: none; }
+.main img.map { width: 100%; }
+.main div.map { margin: 0 0 1em 0; }
+
+.controlPanel .header { text-align: center; border-radius: 1em 1em 0 0; font-size: 80%; font-weight: bold; box-shadow: #777 2px 2px 5px;}
+.controlPanel .controls { background: #ffffff; border: 1px solid #cacaca; box-shadow: #777 2px 2px 5px;}
+.controlPanel .controls label { display: inline-block; font-size: 80%; white-space: nowrap; font-weight: bold; float: left; padding: 0 0.5em; }
+.controlPanel .controls .value { display: inline-block; float: right; }
+.controlPanel .controls .checkboxgroup { border: 1px solid #cacaca; margin: 0.1em 0 0 0; }
+.controlPanel .controls .checkboxgroup label { float: left; font-size: 70%; font-weight: normal; display: inline-block; padding: 0 0.5em 0 0.5em; }
+.controlPanel .controls .checkboxgroup input { float: left; font-size: 70%; margin: 0.5em 0.25em; }
+.controlPanel .controls input[type='text'] { margin: 0; border-radius: 0; height: 1.5em; font-size: 80%; float: right; }
+.controlPanel .controls select { -webkit-appearance: menulist; -moz-appearance: menulist; font-size: 80%; background-image: none; height: 1.5em; }
+
+.listener_list { width: 500px; }
+.listener_list .controls label { width: 70px; }
+.listener_list .controls .value { width:420px; }
+.listener_list .controls .value input[type='text']#filter { width: 260px; float: left; }
+
+.type_inactive, tr.inactive td { background-color: #d0d0d0; }
+.type_ndb,      tr.ndb      td { background-color: #ffffff; }
+.type_dgps,     tr.dgps     td { background-color: #00d8ff; }
+.type_dsc,      tr.dsc      td { background-color: #ffb000; }
+.type_time,     tr.time     td { background-color: #ffe0b0; }
+.type_navtex,   tr.navtex   td { background-color: #ffb8d8; }
+.type_hambcn,   tr.hambcn   td { background-color: #b8ffc0; }
+.type_other,    tr.other    td { background-color: #b8f8ff; }
+
+.type_all  { background-color: #ff0000; color: #fff; font-style:italic; font-weight: bold; color:#FFF; }
+
+.menu-centered { width: 602px; margin: auto; }
+.menu-centered .system a { width: 200px; text-align: center; }

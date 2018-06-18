@@ -1,0 +1,5 @@
+<select name="region" id="region">
+{% for region in regions %}
+    <option value="{{ region.region }}">{{ region.name }}</option>
+{% endfor %}
+</select>
