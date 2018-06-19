@@ -1,29 +1,29 @@
 {% if listeners|length > 0 %}
-<table border="1" class="results">
+<table border="1" class="listener results">
     <thead>
         <tr>
-            <th>Name</th>
-            <th>Callsign</th>
-            <th>QTH</th>
-            <th>S/P</th>
-            <th>ITU</th>
-            <th class="txt_vertical"><div>Continent</div></th>
-            <th>GSQ</th>
-            <th class="txt_vertical"><div>Timezone</div></th>
-            <th>Logs</th>
-            <th>Latest Log</th>
+            <th id="l.name">Name</th>
+            <th id="l.callsign">Callsign</th>
+            <th id="l.qth">QTH</th>
+            <th id="l.sp">S/P</th>
+            <th id="l.itu">ITU</th>
+            <th id="l.region" class="txt_vertical"><div>Continent</div></th>
+            <th id="l.gsq">GSQ</th>
+            <th id="l.timezone" class="txt_vertical"><div>Timezone</div></th>
+            <th id="l.countLogs">Logs</th>
+            <th id="l.logLatest">Latest Log</th>
 {% for type in args.types %}
 {% if type != 'type_ALL' %}
-            <th class="txt_vertical"><div>{{ type|slice(5) }}</div></th>
+            <th id="l.count{{ type|slice(5)|capitalize }}" class="txt_vertical"><div>{{ type|slice(5) }}</div></th>
 {% endif %}
 {% endfor %}
-            <th>Web</th>
+            <th id="l.website">Web</th>
             <th>NWL</th>
         </tr>
     </thead>
     <tbody>
-        <tr>
 {% for listener in listeners %}
+        <tr>
             <td class="{% if listener.PrimaryQth %}primaryQth{% else %}secondaryQth{% endif %}">{{ listener.name }}</td>
             <td>{{ listener.callsign }}</td>
             <td>{{ listener.qth }}</td>
@@ -33,7 +33,7 @@
             <td class="txt_r monspace">{{ listener.gsq }}</td>
             <td class="txt_r">{{ listener.timezone }}</td>
             <td class="txt_r">{{ listener.countLogs }}</td>
-            <td class="text-nowrap txt_r monspace">{{ listener.logLatest|date("Y-m-d") }}</td>
+            <td class="text-nowrap txt_r monspace">{% if listener.logLatest|date("Y-m-d") > '1900-01-01' %}{{ listener.logLatest|date("Y-m-d") }}{% endif %}</td>
 {% for type in args.types %}
 {% if type != 'type_ALL' %}
             <td class="txt_r {{ type|lower }}">{{ attribute(listener, 'count'~type|slice(5)|capitalize) }}</td>

@@ -133,7 +133,7 @@ body .menu-centered .system .is-active>a:hover, body .menu-centered .mode .is-ac
 .results thead { border-color: #808080; }
 .results thead tr th { border-color: #808080; background: #707070; color: #ffffff; height: 5em; border-bottom: 3px solid #a0a0a0; vertical-align: bottom; font-size: 80%; padding: 0.25em;}
 .results thead tr th:hover { border-bottom: 3px solid #FCC247; cursor: pointer; }
-.results thead tr th.active { border-bottom: 3px solid #FCC247; cursor: pointer; }
+.results thead tr th.sorted { border-bottom: 3px solid #FCC247; cursor: pointer; color: #FCC247; }
 
 .results tbody { border-color: #808080; }
 .results tbody tr td { border-color: #808080; height: 1.25em; vertical-align: bottom; font-size: 80%; padding: 0.125em;}

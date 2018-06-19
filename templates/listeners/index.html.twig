@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{% endblock %}
+{% block title %}{{ system|upper }} &gt; Listeners List{% endblock %}
 
 {% block body %}
 {% include 'menu/menu.html.twig' %}
@@ -11,10 +11,9 @@
     {% set form_title='Customise ' ~ system|upper ~ ' Listener Report' %}
     {% include 'forms/listener/search.html.twig' %}
 </div>
-    {% include 'grids/listener/results.html.twig' %}
+{% include 'grids/listener/results.html.twig' %}
 
-<script type="text/javascript">
+<script>
     $('#form_filter_help').html('{{ matched }}');
-
 </script>
 {% endblock %}
