@@ -14,7 +14,7 @@ class ListenerRepository extends ServiceEntityRepository
         parent::__construct($registry, Listener::class);
     }
 
-    public function getFilteredListeners($system, $arguments)
+    public function getFilteredListeners($system, $args)
     {
         $qb = $this->createQueryBuilder('l');
         switch($system) {
@@ -31,26 +31,27 @@ class ListenerRepository extends ServiceEntityRepository
                     ->setParameter('hwa', 'hwa');
                 break;
         }
-        if ($arguments['filter']) {
+        if ($args['filter']) {
             $qb
                 ->andWhere('(l.name like :filter or l.qth like :filter or l.callsign like :filter)')
-                ->setParameter('filter', '%'.$arguments['filter'].'%')
+                ->setParameter('filter', '%'.$args['filter'].'%')
             ;
         }
-        if ($arguments['country']) {
+        if ($args['country']) {
             $qb
                 ->andWhere('(l.itu = :country)')
-                ->setParameter('country', $arguments['country'])
+                ->setParameter('country', $args['country'])
             ;
         }
-        if ($arguments['region']) {
+        if (isset($args['region']) && $args['region']) {
             $qb
                 ->andWhere('(l.region = :region)')
-                ->setParameter('region', $arguments['region'])
+                ->setParameter('region', $args['region'])
             ;
         }
+        $sort = $args['sort'];
         return $qb
-            ->orderBy('l.name', 'ASC')
+            ->orderBy($args['sort'], $args['order'])
             ->getQuery()
             ->execute();
     }

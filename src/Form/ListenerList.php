@@ -12,6 +12,7 @@ use App\Repository\ItuRepository;
 use App\Repository\RegionRepository;
 use App\Repository\TypeRepository;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -61,6 +62,20 @@ class ListenerList extends AbstractType
 
         $formBuilder
             ->add(
+                'sort',
+                HiddenType::class,
+                [
+                    'empty_data' => 'l.name'
+                ]
+            )
+            ->add(
+                'order',
+                HiddenType::class,
+                [
+                    'empty_data' => 'ASC'
+                ]
+            )
+            ->add(
                 'filter',
                 TextType::class,
                 [
@@ -78,7 +93,7 @@ class ListenerList extends AbstractType
                     'choices' => $this->type->getAllTypes(),
                     'choice_attr' => function ($choiceValue, $key, $value) {
                         return ['class' => strToLower($value)];
-                    },
+                    }
                 ]
             )
             ->add(

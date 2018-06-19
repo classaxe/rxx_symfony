@@ -31,24 +31,28 @@ class ListenerList extends Controller {
         ];
         $form = $form->buildForm($this->createFormBuilder(), $options);
         $form->handleRequest($request);
-        $arguments = [
+        $args = [
             'filter' =>     '',
             'types' =>      [],
             'country' =>    '',
-            'region' =>     ''
+            'region' =>     '',
+            'sort' =>       'l.name',
+            'order' =>      'ASC'
         ];
         if ($form->isSubmitted() && $form->isValid()) {
-            $arguments = $form->getData();
-//            print Rxx::y($arguments);
+            $args = $form->getData();
+//            print Rxx::y($args);
         }
         $total = $listenerRepository->getTotalListeners($system);
         $showingAll = (
-            empty($arguments['filter']) &&
-            empty($arguments['types']) &&
-            empty($arguments['country']) &&
-            empty($arguments['country'])
+            empty($args['filter']) &&
+            empty($args['country']) &&
+            empty($args['region'])
         );
-        $filtered = $listenerRepository->getFilteredListeners($system, $arguments);
+        if (empty($args['types'])) {
+            $args['types'][] = 'type_NDB';
+        }
+        $filtered = $listenerRepository->getFilteredListeners($system, $args);
         $matched =
             ($showingAll ?
                 "(Showing all $total listeners)"
@@ -56,8 +60,8 @@ class ListenerList extends Controller {
                 "(Showing ".count($filtered)." of $total listeners)"
             );
         $parameters = [
-            'system' => $system,
-            'mode' => 'Listeners',
+            'system' =>     $system,
+            'mode' =>       'Listeners',
             'text' =>
                 "<ul>\n"
                 ."    <li>Log and station counts are updated each time new log data is added - "
@@ -65,9 +69,10 @@ class ListenerList extends Controller {
                 ."    <li>To see stats for different types of signals, check the boxes shown for 'Types' below.</li>\n"
                 ."    <li>This report prints best in Landscape.</li>\n"
                 ."</ul>\n",
-            'form' => $form->createView(),
-            'listeners' => $filtered,
-            'matched' => $matched
+            'form' =>   $form->createView(),
+            'args' =>       $args,
+            'listeners' =>  $filtered,
+            'matched' =>    $matched
         ];
 
         return $this->render('listeners/index.html.twig', $parameters);
