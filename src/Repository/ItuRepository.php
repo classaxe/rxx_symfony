@@ -28,7 +28,7 @@ class ItuRepository extends ServiceEntityRepository
                     ->andWhere('c.region = :oc')
                     ->andWhere('c.itu = :hwa')
                     ->orWhere('c.region in (:na_ca)')
-                    ->setParameter('na_ca', array('na','ca'))
+                    ->setParameter('na_ca', ['na','ca'])
                     ->setParameter('oc', 'oc')
                     ->setParameter('hwa', 'hwa');
                 break;

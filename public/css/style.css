@@ -123,13 +123,15 @@ body .menu-centered .system .is-active>a:hover, body .menu-centered .mode .is-ac
 
 #form div #form_submit { background: white; border: 1px solid #cacaca; font-size: 80%; margin: 0 50%; padding: 0.25em 1em; text-align: center; float: none;  }
 
-.type_inactive  + label, tr.inactive td { background-color: #d0d0d0; }
-.type_ndb       + label, tr.ndb      td { background-color: #ffffff; }
-.type_dgps      + label, tr.dgps     td { background-color: #00d8ff; }
-.type_dsc       + label, tr.dsc      td { background-color: #ffb000; }
-.type_time      + label, tr.time     td { background-color: #ffe0b0; }
-.type_navtex    + label, tr.navtex   td { background-color: #ffb8d8; }
-.type_ham       + label, tr.hambcn   td { background-color: #b8ffc0; }
-.type_other     + label, tr.other    td { background-color: #b8f8ff; }
+div#form_types div { padding: 0 0 0 2px; }
+div.type_inactive, tr.inactive td { background-color: #d0d0d0; }
+div.type_ndb     , tr.ndb      td { background-color: #ffffff; }
+div.type_dgps    , tr.dgps     td { background-color: #00d8ff; }
+div.type_dsc     , tr.dsc      td { background-color: #ffb000; }
+div.type_time    , tr.time     td { background-color: #ffe0b0; }
+div.type_navtex  , tr.navtex   td { background-color: #ffb8d8; }
+div.type_hambcn  , tr.hambcn   td { background-color: #b8ffc0; }
+div.type_other   , tr.other    td { background-color: #b8f8ff; }
 
-.type_all       + label { background-color: #ff0000; color: #fff; font-style:italic; font-weight: bold; color:#FFF; }
+div.type_all                      { background-color: #ff0000; }
+div.type_all label                { color: #fff; font-style:italic; font-weight: bold; }

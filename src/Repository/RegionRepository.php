@@ -22,4 +22,13 @@ class RegionRepository extends ServiceEntityRepository
             ->execute();
     }
 
+    public function getAllRegionOptions()
+    {
+        $regions = $this->getAllRegions();
+        $out = ['(All Regions)' => ''];
+        foreach ($regions as $row) {
+            $out[$row->getName()] = $row->getRegion();
+        }
+        return $out;
+    }
 }

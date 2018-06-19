@@ -1,6 +1,0 @@
-<div class="checkboxgroup">
-{% for key, type in types %}
-    <label style="width:{{ type.width }}%" class="type_{{ key|lower }}"><input type="checkbox" style="vertical-align: middle" name="type_{{ key|lower }}" value="1"
-{% if key=='ALL' %} onchange="set_signal_list_types(document.form, this.checked)"{% endif %}>{{ type.label }}</label>
-{% endfor %}
-</div>
