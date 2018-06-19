@@ -1,4 +1,6 @@
+{# Include our twig widget customisations #}
 {% form_theme form 'forms/custom_form_div_layout.html.twig' %}
+
 <div class="controlPanel listener_list">
     <div class="header">{{ form_title }}</div>
     <div class="controls clearfix">
@@ -9,19 +11,12 @@
 </div>
 
 <script type="text/javascript" src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>
-
+<script type="text/javascript" src="{{ asset('js/functions.js') }}"></script>
 <script type="text/javascript">
-function setFormTypesStyles() {
-    $("div#form_types div input").each(function() {
-        $(this).parent().attr('class', $(this).attr('class'))
-    });
-}
-
-$(document).ready( function() { setFormTypesStyles() });
-$('div#form_types div :checkbox[value=type_ALL]').click(function(){
-    $('div#form_types div :checkbox').prop('checked', $(this).prop("checked"));
+$(document).ready( function() {
+    setFormTypesStyles();
+    setFormTypesAllAction();
 });
-
 </script>
 
 

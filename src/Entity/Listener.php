@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="listeners", indexes={@ORM\Index(name="count_logs", columns={"count_logs"}), @ORM\Index(name="name", columns={"name"}), @ORM\Index(name="QTH", columns={"QTH"}), @ORM\Index(name="primary_QTH", columns={"primary_QTH"}), @ORM\Index(name="region", columns={"region"}), @ORM\Index(name="SP", columns={"SP"}), @ORM\Index(name="ITU", columns={"ITU"}), @ORM\Index(name="map_x", columns={"map_x"})})
  * @ORM\Entity
  */
-class Listeners
+class Listener
 {
     /**
      * @var int

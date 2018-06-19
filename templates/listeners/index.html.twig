@@ -11,4 +11,9 @@
     {% set form_title='Customise ' ~ system|upper ~ ' Listener Report' %}
     {% include 'forms/listener/search.html.twig' %}
 </div>
+
+<script type="text/javascript">
+    $('#form_filter_help').html('{{ matched }}');
+
+</script>
 {% endblock %}
