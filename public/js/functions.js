@@ -17,9 +17,15 @@ function setFormTypesAllAction() {
 }
 
 function setColumnSortActions() {
-    $('table.results thead tr th').each(function() {
+    $('table.results thead tr th[id]').each(function() {
         $(this).click(function () {
-            $('#form_sort').val(this.id);
+            var column = this.id.split('_')[0];
+            var dir = this.id.split('_')[1];
+            if ($(this).hasClass('sorted')) {
+                dir = ($('#form_order').val()=='a' ? 'd' : 'a');
+            }
+            $('#form_sort').val(column);
+            $('#form_order').val(dir);
             $('#form_submit').click();
         })
     });
@@ -27,8 +33,9 @@ function setColumnSortActions() {
 
 function setColumnSortedClass() {
     $('table.results thead tr th').each(function() {
-        if (this.id == $('#form_sort').val()) {
-            $(this).attr('class', $(this).attr('class')+' sorted');
+        if (this.id.split('_')[0] == $('#form_sort').val()) {
+            $(this).append($('#form_order').val() == 'd' ? ' &#9662;' : ' &#9652;');
+            $(this).addClass('sorted');
         }
     });
 }

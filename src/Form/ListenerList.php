@@ -65,14 +65,14 @@ class ListenerList extends AbstractType
                 'sort',
                 HiddenType::class,
                 [
-                    'empty_data' => 'l.name'
+                    'data' => 'name'
                 ]
             )
             ->add(
                 'order',
                 HiddenType::class,
                 [
-                    'empty_data' => 'ASC'
+                    'data' => 'a'
                 ]
             )
             ->add(

@@ -559,4 +559,29 @@ class Listener
     }
 
 
+    public function getFormattedLogLatest(): ?string
+    {
+        return ($this->logLatest->format("Y-m-d") > '1900-01-01' ? $this->logLatest->format("Y-m-d") : '');
+    }
+
+    public function getFormattedRegion(): ?string
+    {
+        return strtoupper($this->region);
+    }
+
+    public function getFormattedWebsiteLink(): ?string
+    {
+        return ($this->website ? "<a href=\"{$this->website}\">WWW</a>" : "");
+    }
+
+    public function getFormattedNdbWeblogLink(): ?string
+    {
+        return "<a href=\"{$this->id}\">NWL</a>";
+    }
+
+    public function getNameColumnClass(): ?string
+    {
+        return "<a href=\"{$this->id}\">NWL</a>";
+    }
+
 }

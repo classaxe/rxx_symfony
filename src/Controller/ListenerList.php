@@ -36,8 +36,8 @@ class ListenerList extends Controller {
             'types' =>      [],
             'country' =>    '',
             'region' =>     '',
-            'sort' =>       'l.name',
-            'order' =>      'ASC'
+            'sort' =>       'name',
+            'order' =>      'a'
         ];
         if ($form->isSubmitted() && $form->isValid()) {
             $args = $form->getData();
@@ -69,7 +69,8 @@ class ListenerList extends Controller {
                 ."    <li>To see stats for different types of signals, check the boxes shown for 'Types' below.</li>\n"
                 ."    <li>This report prints best in Landscape.</li>\n"
                 ."</ul>\n",
-            'form' =>   $form->createView(),
+            'form' =>       $form->createView(),
+            'columns' =>    $listenerRepository->getColumns(),
             'args' =>       $args,
             'listeners' =>  $filtered,
             'matched' =>    $matched
