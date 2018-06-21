@@ -4,7 +4,7 @@
                 <div class="links">[
 {% if multiple is defined %}
                     <a href="#top">Top</a> |
-                    <a href="{{ url('system', { 'system' : system }) }}map_{{ key }}" target="_blank" rel="external">Popup</a>{% if ((stateBtn is defined and stateBtn) or (countryBtn is defined and countryBtn)) %} |{% endif %}
+                    <a href="{{ url('system', { 'system' : system }) }}map_{{ key }}"{% if rel is defined %} rel="{{ rel }}{% endif %}">Popup</a>{% if ((stateBtn is defined and stateBtn) or (countryBtn is defined and countryBtn)) %} |{% endif %}
 
 {% endif %}
 {% if (stateBtn is defined and stateBtn) %}

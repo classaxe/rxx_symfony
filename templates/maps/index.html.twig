@@ -19,6 +19,7 @@
 {% for key, zone in zones %}
 {% set mode = zone.mode %}
 {% set map = zone.map %}
+{% set rel = zone.rel %}
 {% set multiple = true %}
 {% if zone.countryBtn is defined %}{% set countryBtn = zone.countryBtn %}{% else %}{% set countryBtn = '' %}{% endif %}
 {% if zone.countryFilter is defined %}{% set countryFilter = zone.countryFilter %}{% else %}{% set countryFilter = '' %}{% endif %}
@@ -30,4 +31,9 @@
 {% endfor %}
     </div>
 </div>
+<script>
+$(document).ready( function() {
+    setExternalLinks();
+});
+</script>
 {% endblock %}

@@ -2,11 +2,8 @@
 
 namespace App\Repository;
 
-use App\Entity\Itu;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Symfony\Bridge\Doctrine\RegistryInterface;
 
-class TypeRepository extends ServiceEntityRepository
+class TypeRepository
 {
     const types = [
         'DGPS' =>   'type_DGPS',
@@ -18,11 +15,6 @@ class TypeRepository extends ServiceEntityRepository
         'Other' =>  'type_OTHER',
         '(All)' =>  'type_ALL'
     ];
-
-    public function __construct(RegistryInterface $registry)
-    {
-        parent::__construct($registry, Itu::class);
-    }
 
     public function getAllTypes()
     {

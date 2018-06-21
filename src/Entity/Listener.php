@@ -558,10 +558,37 @@ class Listener
         return $this;
     }
 
+    /* Custom getters for column display */
+
+    public function getFormattedCallsignLink(): ?string
+    {
+        if (!$this->callsign) {
+            return '';
+        }
+        $popup_url =    "https://hamcall.net/call?callsign={$this->callsign}";
+        $popup_name =   "callsign_{$this->id}";
+        $popup_args =   "width=640,height=480,status=1,scrollbars=1,resizable=1";
+
+        return "<a href=\"$popup_url\"  rel=\"popup|{$popup_name}|{$popup_args}\">{$this->callsign}</a>";
+    }
 
     public function getFormattedLogLatest(): ?string
     {
-        return ($this->logLatest->format("Y-m-d") > '1900-01-01' ? $this->logLatest->format("Y-m-d") : '');
+        if ($this->logLatest->format("Y-m-d") < '1900-01-01') {
+            return '';
+        }
+        return $this->logLatest->format("Y-m-d");
+    }
+
+    public function getFormattedNdbWeblogLink(): ?string
+    {
+        if (!$this->countLogs) {
+            return '';
+        }
+        $popup_url =    "https://www.classaxe.com/dx/ndb/rna/export_ndbweblog_index/{$this->id}";
+        $popup_name =   "nwl_{$this->id}";
+        $popup_args =   "width=640,height=480,status=1,scrollbars=1,resizable=1";
+        return "<a href=\"$popup_url\"  rel=\"popup|{$popup_name}|{$popup_args}\">NWL</a>";
     }
 
     public function getFormattedRegion(): ?string
@@ -571,17 +598,54 @@ class Listener
 
     public function getFormattedWebsiteLink(): ?string
     {
-        return ($this->website ? "<a href=\"{$this->website}\">WWW</a>" : "");
+        if (!$this->website) {
+            return '';
+        }
+        $popup_url =    $this->website;
+        $popup_name =   "www_{$this->id}";
+        $popup_args =   "width=640,height=480,status=1,scrollbars=1,resizable=1";
+        return
+            "<a href=\"{$popup_url}\" rel=\"popup|{$popup_name}|{$popup_args}\">WWW</a>";
     }
 
-    public function getFormattedNdbWeblogLink(): ?string
+    public function getFormattedCountDgps(): ?string
     {
-        return "<a href=\"{$this->id}\">NWL</a>";
+        return ($this->countDgps ? $this->countDgps : '');
     }
 
-    public function getNameColumnClass(): ?string
+    public function getFormattedCountDsc(): ?string
     {
-        return "<a href=\"{$this->id}\">NWL</a>";
+        return ($this->countDsc ? $this->countDsc : '');
+    }
+
+    public function getFormattedCountHambcn(): ?string
+    {
+        return ($this->countHambcn ? $this->countHambcn : '');
+    }
+
+    public function getFormattedCountLogs(): ?string
+    {
+        return ($this->countLogs ? $this->countLogs : '');
+    }
+
+    public function getFormattedCountNavtex(): ?string
+    {
+        return ($this->countNavtex ? $this->countNavtex : '');
+    }
+
+    public function getFormattedCountNdb(): ?string
+    {
+        return ($this->countNdb ? $this->countNdb : '');
+    }
+
+    public function getFormattedCountOther(): ?string
+    {
+        return ($this->countOther ? $this->countOther : '');
+    }
+
+    public function getFormattedCountTime(): ?string
+    {
+        return ($this->countTime ? $this->countTime : '');
     }
 
 }

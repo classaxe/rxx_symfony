@@ -24,7 +24,7 @@ class ListenerRepository extends ServiceEntityRepository
         'callsign' => [
             'admin'     =>  false,
             'arg'       =>  '',
-            'field'     =>  'callsign',
+            'field'     =>  'formattedCallsignLink',
             'label'     =>  'Callsign',
             'order'     =>  'a',
             'sort'      =>  'l.callsign',
@@ -101,7 +101,7 @@ class ListenerRepository extends ServiceEntityRepository
         'countLogs' => [
             'admin'     =>  false,
             'arg'       =>  '',
-            'field'     =>  'countLogs',
+            'field'     =>  'formattedCountLogs',
             'label'     =>  'Logs',
             'order'     =>  'd',
             'sort'      =>  'l.countLogs',
@@ -112,7 +112,7 @@ class ListenerRepository extends ServiceEntityRepository
         'logLatest' => [
             'admin'     =>  false,
             'arg'       =>  '',
-            'field'     =>  'FormattedLogLatest',
+            'field'     =>  'formattedLogLatest',
             'label'     =>  'Latest Log',
             'order'     =>  'd',
             'sort'      =>  'l.logLatest',
@@ -123,7 +123,7 @@ class ListenerRepository extends ServiceEntityRepository
         'countDgps' => [
             'admin'     =>  false,
             'arg'       =>  'type_DGPS',
-            'field'     =>  'countDgps',
+            'field'     =>  'formattedCountDgps',
             'label'     =>  '<div>DGPS</div>',
             'order'     =>  'd',
             'sort'      =>  'l.countDgps',
@@ -134,7 +134,7 @@ class ListenerRepository extends ServiceEntityRepository
         'countDsc' => [
             'admin'     =>  false,
             'arg'       =>  'type_DSC',
-            'field'     =>  'listener.countDsc',
+            'field'     =>  'formattedCountDsc',
             'label'     =>  '<div>DSC</div>',
             'order'     =>  'd',
             'sort'      =>  'l.countDsc',
@@ -145,7 +145,7 @@ class ListenerRepository extends ServiceEntityRepository
         'countHambcn' => [
             'admin'     =>  false,
             'arg'       =>  'type_HAMBCN',
-            'field'     =>  'countHambcn',
+            'field'     =>  'formattedCountHambcn',
             'label'     =>  '<div>HAMBCN</div>',
             'order'     =>  'd',
             'sort'      =>  'l.countHambcn',
@@ -156,7 +156,7 @@ class ListenerRepository extends ServiceEntityRepository
         'countNavtex' => [
             'admin'     =>  false,
             'arg'       =>  'type_NAVTEX',
-            'field'     =>  'countNavtex',
+            'field'     =>  'formattedCountNavtex',
             'label'     =>  '<div>NAVTEX</div>',
             'order'     =>  'd',
             'sort'      =>  'l.countNavtex',
@@ -167,7 +167,7 @@ class ListenerRepository extends ServiceEntityRepository
         'countNdb' => [
             'admin'     =>  false,
             'arg'       =>  'type_NDB',
-            'field'     =>  'countNdb',
+            'field'     =>  'formattedCountNdb',
             'label'     =>  '<div>NDB</div>',
             'order'     =>  'd',
             'sort'      =>  'l.countNdb',
@@ -178,7 +178,7 @@ class ListenerRepository extends ServiceEntityRepository
         'countTime' => [
             'admin'     =>  false,
             'arg'       =>  'type_TIME',
-            'field'     =>  'countTime',
+            'field'     =>  'formattedCountTime',
             'label'     =>  '<div>TIME</div>',
             'order'     =>  'd',
             'sort'      =>  'l.countTime',
@@ -189,7 +189,7 @@ class ListenerRepository extends ServiceEntityRepository
         'countOther' => [
             'admin'     =>  false,
             'arg'       =>  'type_OTHER',
-            'field'     =>  'countOther',
+            'field'     =>  'formattedCountOther',
             'label'     =>  '<div>OTHER</div>',
             'order'     =>  'd',
             'sort'      =>  'l.countOther',
