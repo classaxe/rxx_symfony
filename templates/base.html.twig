@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}RXX{% endblock %}</title>
+    <title>{% block title %}{{ system|upper }} &gt; {{ mode }}{% endblock %}</title>
     <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
     <link rel="stylesheet prefetch" href="{{ asset('css/foundation.min.css') }}" />
 {% block stylesheets %}{% endblock %}
@@ -10,6 +10,7 @@
     <script src="{{ asset('js/functions.js') }}"></script>
 </head>
 <body class="{{ system|lower }}">
+{% block body_head %}{% endblock %}
 {% block body %}{% endblock %}
 {% block javascripts %}{% endblock %}
 </body>

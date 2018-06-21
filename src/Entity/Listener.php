@@ -604,8 +604,9 @@ class Listener
         $popup_url =    $this->website;
         $popup_name =   "www_{$this->id}";
         $popup_args =   "width=640,height=480,status=1,scrollbars=1,resizable=1";
+        $short_url =    preg_replace(['(^https?://)', '(/$)'], '', $popup_url);
         return
-            "<a href=\"{$popup_url}\" rel=\"popup|{$popup_name}|{$popup_args}\">WWW</a>";
+            "<a href=\"{$popup_url}\" rel=\"popup|{$popup_name}|{$popup_args}\">{$short_url}</a>";
     }
 
     public function getFormattedCountDgps(): ?string
@@ -641,6 +642,11 @@ class Listener
     public function getFormattedCountOther(): ?string
     {
         return ($this->countOther ? $this->countOther : '');
+    }
+
+    public function getFormattedCountSignals(): ?string
+    {
+        return ($this->countSignals ? $this->countSignals : '');
     }
 
     public function getFormattedCountTime(): ?string

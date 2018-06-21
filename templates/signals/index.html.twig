@@ -1,8 +1,5 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}{{ system|upper }} &gt; Signals List{% endblock %}
+{% extends 'main.html.twig' %}
 
 {% block body %}
-{% include 'menu/menu.html.twig' %}
 <h1>{{ signal.khz }}-{{  signal.call }}</h1>
 {% endblock %}

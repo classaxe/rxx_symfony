@@ -1,10 +1,6 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}{{ system|upper }} &gt; Listeners List{% endblock %}
+{% extends 'main.html.twig' %}
 
 {% block body %}
-{% include 'menu/menu.html.twig' %}
-
 <div class="main">
     <h1>{{ mode }}</h1>
     {{ text|raw }}

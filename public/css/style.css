@@ -136,9 +136,19 @@ body .menu-centered .system .is-active>a:hover, body .menu-centered .mode .is-ac
 .results thead tr th.sorted { border-bottom: 3px solid #FCC247; background: #8A7E66; cursor: pointer; color: #FCC247; }
 
 .results tbody { border-color: #808080; }
-.results tbody tr td { border-color: #808080; height: 1.25em; vertical-align: bottom; font-size: 80%; padding: 0.125em;}
+.results tbody tr td { border-color: #808080; height: 1.25em; vertical-align: bottom; font-size: 80%; padding: 0.125em 0.25em;}
 .results .txt_r { text-align: right; }
 .results .monspace { font-family: "Courier New bold", Courier, monospace; }
 .results .txt_vertical { position: relative; min-width: 1.5em; }
 
-.results .txt_vertical div { position: absolute; top: 50%; left: 50%; transform: rotate(90deg) translateX(-50%) translateY(-50%); transform-origin: left top; }
+.results .txt_vertical div { position: absolute; top: 50%; white-space: nowrap; left: 50%; transform: rotate(90deg) translateX(-50%) translateY(-50%); transform-origin: left top; }
+
+/* Hide display of URLs for each link caused by foundation class - wastes a lot of paper otherwise */
+@media print {
+    a[href]:after {
+        content: none !important;
+    }
+    .results { border: 1px solid green; }
+    body { font-size: 85%; width: 95%; }
+    .menu-centered { display: none; }
+}
