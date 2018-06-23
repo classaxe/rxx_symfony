@@ -14,7 +14,7 @@ class ItuRepository extends ServiceEntityRepository
         parent::__construct($registry, Itu::class);
     }
 
-    public function getAllCountriesForSystem($system)
+    public function getAllForSystem($system)
     {
         $qb = $this->createQueryBuilder('c');
         switch($system) {
@@ -40,9 +40,9 @@ class ItuRepository extends ServiceEntityRepository
             ->execute();
     }
 
-    public function getAllCountryOptionsForSystem($system)
+    public function getAllOptionsForSystem($system)
     {
-        $countries = $this->getAllCountriesForSystem($system);
+        $countries = $this->getAllForSystem($system);
         $out = ['(All Countries' => ''];
         foreach ($countries as $row) {
             $out[$row->getName()] = $row->getItu();
@@ -50,35 +50,4 @@ class ItuRepository extends ServiceEntityRepository
         return $out;
     }
 
-/*
-    public function getAvailableRooms($date_start, $date_final)
-	{
-    	$em = $this->getEntityManager();
-    	$qb = $em->createQueryBuilder();
-
-    	$nots = $em->createQuery("
-    	SELECT IDENTITY(b.room) FROM AppBundle:Reservation b
-        	WHERE NOT (b.dateOut   < '$date_start'
-           	OR
-           	b.dateIn > '$date_final')
-    	");
-
-    	$dql_query = $nots->getDQL();
-    	$qb->resetDQLParts();
-
-
-    	$query = $qb->select('r')
-                	->from('AppBundle:Room', 'r')
-                	->where($qb->expr()->notIn('r.id', $dql_query ))
-                	->getQuery()
-                	->getResult();
-
-    	try {
-
-        	return $query;
-    	} catch (NoResultException $e) {
-        	return null;
-    	}
-	}
-*/
 }

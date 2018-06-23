@@ -12,6 +12,7 @@ body.reu .menu a { color: #ff3333; }
 body.reu .menu .is-active>a { background: #ff3333; color: #ffffff; }
 body.reu h1 { color: #ff3333; }
 body.reu .controlPanel .controls { background: #ffe6e6; }
+body.reu .footer { border-top: 3px solid #ff3333;}
 
 body.rna    { background: #f8f8ff; }
 body.rna .menu-centered .header { border: 3px solid #3333ff; background: #e6e6ff; }
@@ -24,6 +25,7 @@ body.rna .menu a { color: #3333ff; }
 body.rna .menu .is-active>a { background: #3333ff; color: #ffffff; }
 body.rna h1 { color: #3333ff; }
 body.rna .controlPanel .controls { background: #e6e6ff; }
+body.rna .footer { border-top: 3px solid #3333ff;}
 
 body.rww    { background: #fafffa; }
 body.rww .menu-centered .header { border: 3px solid #33a033; background: #e6ffe6; }
@@ -36,6 +38,7 @@ body.rww .menu a { color: #33a033; }
 body.rww .menu .is-active>a { background: #33a033; color: #ffffff; }
 body.rww h1 { color: #33a033; }
 body.rww .controlPanel .controls { background: #e6ffe6; }
+body.rww .footer { border-top: 3px solid #33a033;}
 
 /* [ Menu ] */
 body .menu-centered { width: 602px; margin: auto; }
@@ -47,6 +50,13 @@ body .menu-centered .system a, body .menu-centered .mode a { padding: 0.25em 0.5
 body .menu-centered .system a:hover, body .menu-centered .mode a:hover { text-decoration: underline; }
 body .menu-centered .system .is-active>a, body .menu-centered .mode .is-active>a { font-weight: bold; }
 body .menu-centered .system .is-active>a:hover, body .menu-centered .mode .is-active>a:hover { text-decoration: none; }
+
+/* [ Footer ] */
+.footer { text-align: center; margin: 1em 0.5em; padding: 0.25em 0; }
+.footer p { margin: 0 0 1em 0; line-height: 1.25em; font-size: 70%; }
+.footer p.preamble { margin: 1em 0 0 0; }
+.footer p.copyright { xfont-size: 50%; }
+
 
 /* [ Help dialogs ] */
 .help { border: 2px solid #888; padding: 0.5em; background: #ffffff; }

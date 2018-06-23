@@ -13,7 +13,7 @@ class RegionRepository extends ServiceEntityRepository
         parent::__construct($registry, Region::class);
     }
 
-    public function getAllRegions()
+    public function getAll()
     {
         return $this
             ->createQueryBuilder('region')
@@ -22,9 +22,9 @@ class RegionRepository extends ServiceEntityRepository
             ->execute();
     }
 
-    public function getAllRegionOptions()
+    public function getAllOptions()
     {
-        $regions = $this->getAllRegions();
+        $regions = $this->getAll();
         $out = ['(All Regions)' => ''];
         foreach ($regions as $row) {
             $out[$row->getName()] = $row->getRegion();

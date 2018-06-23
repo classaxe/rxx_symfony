@@ -21,13 +21,14 @@ class ModeRepository
 
     ];
 
+    public function get($code)
+    {
+        return self::modes[$code];
+    }
+
     public function getAll()
     {
         return self::modes;
     }
 
-    public function get($code)
-    {
-        return self::modes[$code];
-    }
 }

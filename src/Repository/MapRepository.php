@@ -103,23 +103,21 @@ class MapRepository
         ],
     ];
 
-    public static function getMap($key) {
+    public static function get($key) {
         return static::maps[$key];
     }
 
-    public static function getAllMaps()
+    public static function getAllForSystem($system)
     {
-        return static::maps;
-    }
+        $out = [
+            'maps' =>   [],
+            'title' =>  static::system_maps[$system]['title']
+        ];
+        foreach (static::system_maps[$system]['maps'] as $zone) {
+            $out['maps'][$zone] = static::maps[$zone];
+        }
 
-    public static function getSystemMaps($system)
-    {
-        return static::system_maps[$system];
-    }
-
-    public static function getAllSystemMaps()
-    {
-        return static::system_maps;
+        return $out;
     }
 
 }

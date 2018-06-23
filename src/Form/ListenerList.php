@@ -90,7 +90,7 @@ class ListenerList extends AbstractType
                     'label' => 'Show Counts',
                     'expanded' => true,
                     'multiple' => true,
-                    'choices' => $this->type->getAllTypes(),
+                    'choices' => $this->type->getAll(),
                     'choice_attr' => function ($choiceValue, $key, $value) {
                         return ['class' => strToLower($value)];
                     }
@@ -101,7 +101,7 @@ class ListenerList extends AbstractType
                 ChoiceType::class,
                 [
                     'label' => 'Country',
-                    'choices' => $this->country->getAllCountryOptionsForSystem($system),
+                    'choices' => $this->country->getAllOptionsForSystem($system),
                 ]
             );
 
@@ -112,7 +112,7 @@ class ListenerList extends AbstractType
                     ChoiceType::class,
                     [
                         'label' => 'Region',
-                        'choices' => $this->region->getAllRegionOptions(),
+                        'choices' => $this->region->getAllOptions(),
                     ]
                 );
         }

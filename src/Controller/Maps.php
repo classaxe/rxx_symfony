@@ -27,7 +27,7 @@ class Maps extends Controller {
      */
     public function map($system, $area, MapRepository $mapRepository)
     {
-        $parameters = $mapRepository->getMap($area);
+        $parameters = $mapRepository->get($area);
         $parameters['system'] = $system;
 
         return $this->render('maps/map.html.twig', $parameters);
@@ -48,8 +48,7 @@ class Maps extends Controller {
         ModeRepository $modeRepository,
         SystemRepository $systemRepository
     ) {
-        $systemMaps =   $mapRepository->getSystemMaps($system);
-        $maps =         $mapRepository->getAllMaps();
+        $systemMaps =   $mapRepository->getAllForSystem($system);
 
         $parameters = [
             'mode' =>       'Maps',
@@ -57,12 +56,8 @@ class Maps extends Controller {
             'system' =>     $system,
             'systems' =>    $systemRepository->getAll(),
             'title' =>      $systemMaps['title'],
-            'zones' =>      [],
+            'zones' =>      $systemMaps['maps'],
         ];
-
-        foreach($systemMaps['maps'] as $zone) {
-            $parameters['zones'][$zone] = $maps[$zone];
-        }
 
 //        return Rxx::debug($parameters);
         return $this->render('maps/index.html.twig', $parameters);

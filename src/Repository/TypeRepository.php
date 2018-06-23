@@ -16,7 +16,7 @@ class TypeRepository
         '(All)' =>  'type_ALL'
     ];
 
-    public function getAllTypes()
+    public function getAll()
     {
         return self::types;
     }
