@@ -2,23 +2,18 @@
 namespace App\Controller;
 
 use App\Repository\MapRepository;
-use App\Service\Region as RegionService;
+use App\Repository\ModeRepository;
+use App\Repository\SystemRepository;
+use App\Utils\Rxx;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
-use App\Utils\Rxx;
+
 
 /**
  * Class CountryLocator
  * @package App\Controller
  */
 class Maps extends Controller {
-
-    private $mapRepository;
-
-    public function __construct(MapRepository $mapRepository)
-    {
-        $this->mapRepository = $mapRepository;
-    }
 
     /**
      * @Route(
@@ -30,9 +25,9 @@ class Maps extends Controller {
      *     name="show_map"
      * )
      */
-    public function map($system, $area)
+    public function map($system, $area, MapRepository $mapRepository)
     {
-        $parameters = $this->mapRepository->getMap($area);
+        $parameters = $mapRepository->getMap($area);
         $parameters['system'] = $system;
 
         return $this->render('maps/map.html.twig', $parameters);
@@ -44,18 +39,25 @@ class Maps extends Controller {
      *     requirements={
      *        "system": "reu|rna|rww"
      *     },
-     *     name="show_maps"
+     *     name="maps"
      * )
      */
-    public function maps($system)
-    {
-        $systemMaps =   $this->mapRepository->getSystemMaps($system);
-        $maps =         $this->mapRepository->getAllMaps();
+    public function mapsController(
+        $system,
+        MapRepository $mapRepository,
+        ModeRepository $modeRepository,
+        SystemRepository $systemRepository
+    ) {
+        $systemMaps =   $mapRepository->getSystemMaps($system);
+        $maps =         $mapRepository->getAllMaps();
+
         $parameters = [
-            'zones' =>   [],
-            'mode' =>   'Maps',
-            'system' => $system,
-            'title' =>  $systemMaps['title']
+            'mode' =>       'Maps',
+            'modes' =>      $modeRepository->getAll(),
+            'system' =>     $system,
+            'systems' =>    $systemRepository->getAll(),
+            'title' =>      $systemMaps['title'],
+            'zones' =>      [],
         ];
 
         foreach($systemMaps['maps'] as $zone) {

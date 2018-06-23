@@ -2,8 +2,10 @@
 namespace App\Controller;
 
 use App\Form\ListenerList as ListenerListForm;
-use App\Utils\Rxx;
+use App\Repository\ModeRepository;
+use App\Repository\SystemRepository;
 use App\Repository\ListenerRepository;
+use App\Utils\Rxx;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,7 +26,12 @@ class ListenerList extends Controller {
      * )
      */
     public function listenerListController(
-        $system, Request $request, ListenerListForm $form, ListenerRepository $listenerRepository
+        $system,
+        Request $request,
+        ListenerListForm $form,
+        ListenerRepository $listenerRepository,
+        ModeRepository $modeRepository,
+        SystemRepository $systemRepository
     ) {
         $options = [
             'system' =>     $system
@@ -60,8 +67,15 @@ class ListenerList extends Controller {
                 "(Showing ".count($filtered)." of $total listeners)"
             );
         $parameters = [
-            'system' =>     $system,
+            'args' =>       $args,
+            'columns' =>    $listenerRepository->getColumns(),
+            'form' =>       $form->createView(),
+            'listeners' =>  $filtered,
+            'matched' =>    $matched,
             'mode' =>       'Listeners List',
+            'modes' =>      $modeRepository->getAll(),
+            'system' =>     $system,
+            'systems' =>    $systemRepository->getAll(),
             'text' =>
                 "<ul>\n"
                 ."    <li>Log and station counts are updated each time new log data is added - "
@@ -69,11 +83,6 @@ class ListenerList extends Controller {
                 ."    <li>To see stats for different types of signals, check the boxes shown for 'Types' below.</li>\n"
                 ."    <li>This report prints best in Portrait.</li>\n"
                 ."</ul>\n",
-            'form' =>       $form->createView(),
-            'columns' =>    $listenerRepository->getColumns(),
-            'args' =>       $args,
-            'listeners' =>  $filtered,
-            'matched' =>    $matched
         ];
 
         return $this->render('listeners/index.html.twig', $parameters);

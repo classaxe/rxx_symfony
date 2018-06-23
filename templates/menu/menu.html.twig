@@ -1,20 +1,20 @@
 
 <div class="menu-centered">
     <ul class="menu header">
-        <li><h2>
-{% if (system == 'rna') %}Signals Received in N & C America + Hawaii{% endif %}
-{% if (system == 'reu') %}Signals Received in Europe{% endif %}
-{% if (system == 'rww') %}Signals Received Worldwide{% endif %}
-</h2></li>
+        <li><h2>{{ systems[system]['title'] }}</h2></li>
     </ul>
     <ul class="menu system">
-        <li{% if (system == 'rna') %} class="is-active"{% endif %}><a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'system' : 'rna'})) }}">North America (RNA)</a></li>
-        <li{% if (system == 'reu') %} class="is-active"{% endif %}><a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'system' : 'reu'})) }}">Europe (REU)</a></li>
-        <li{% if (system == 'rww') %} class="is-active"{% endif %}><a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'system' : 'rww'})) }}">Worldwide (RWW)</a></li>
+{% for key, systemRepo in systems %}
+        <li{% if (system == key) %} class="is-active"{% endif %}>
+            <a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'system' : key})) }}">{{ systemRepo['menu'] }}</a>
+        </li>
+{% endfor %}
     </ul>
     <ul class="menu mode">
-        <li{% if (app.request.get('_route') == 'signal_list') %} class="is-active"{% endif %}><a href="{{ url('signal_list', { 'system' : system }) }}">Signals</a></li>
-        <li{% if (app.request.get('_route') == 'show_maps') %} class="is-active"{% endif %}><a href="{{ url('show_maps', { 'system' : system }) }}">Maps</a></li>
-        <li{% if (app.request.get('_route') == 'listener_list') %} class="is-active"{% endif %}><a href="{{ url('listener_list', { 'system' : system }) }}">Listeners</a></li>
+{% for key, modeRepo in modes %}
+        <li{% if (app.request.get('_route') == key) %} class="is-active"{% endif %}>
+            <a href="{{ url(key, { 'system' : system }) }}">{{ modeRepo['menu'] }}</a>
+        </li>
+{% endfor %}
     </ul>
 </div>
