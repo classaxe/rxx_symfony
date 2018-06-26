@@ -55,7 +55,6 @@ body .menu-centered .system .is-active>a:hover, body .menu-centered .mode .is-ac
 .footer { text-align: center; margin: 1em 0.5em; padding: 0.25em 0; }
 .footer p { margin: 0 0 1em 0; line-height: 1.25em; font-size: 70%; }
 .footer p.preamble { margin: 1em 0 0 0; }
-.footer p.copyright { xfont-size: 50%; }
 
 
 /* [ Help dialogs ] */
@@ -115,16 +114,26 @@ body .menu-centered .system .is-active>a:hover, body .menu-centered .mode .is-ac
 .controlPanel .controls { padding: 0.25em; }
 #form div { clear: both; height: 1.5em; }
 #form div label { float: left; width: 100px; font-weight: bold; }
-#form div input[type='text'] { margin: 0; border-radius: 0; height: 1.5em; font-size: 80%; float: left; width: 420px; }
-#form div select { -webkit-appearance: menulist; -moz-appearance: menulist; font-size: 80%; background-image: none; height: 1.5em; margin: 0; width: 420px; }
-#form div input#form_filter { width: 240px; }
+#form div input[type='text'] { margin: 0; border-radius: 0; height: 1.75em; font-size: 80%; float: left; }
+#form div input[type='password'] { margin: 0; border-radius: 0; height: 1.75em; font-size: 80%; float: left;}
+#form div select { -webkit-appearance: menulist; -moz-appearance: menulist; font-size: 80%; background-image: none; height: 1.75em; margin: 0; }
 #form div p { margin: 0; border-radius: 0; height: 1.5em; font-size: 80%; float: right; text-align: right; }
 #form div div { clear: none; float: left; }
 #form div div label { float: none; width: auto; font-size: 80%; font-weight: normal; margin: 0 0.125em; padding: 0 0.125em; line-height: 1.5em; }
+#lastError { border: 1px solid #ff0000; background: #ffe0e0; color: #ff0000; padding: 0.25em; margin: 0.5em 0; display: inline-block; }
+
+/* [ Form listener_list ] */
+.listener_list #form input[type='text'],
+.listener_list #form select { width: 420px; }
+.listener_list #form input#form_filter { width: 240px; }
+
+/* [ Form logon ] */
+.logon #form input[type='text'],
+.logon #form input[type='password'] { width: 150px; }
 
 #form div #form_submit { background: white; border: 1px solid #cacaca; font-size: 80%; margin: 0 50%; padding: 0.25em 1em; text-align: center; float: none;  }
 
-#form_types div { padding: 0 0 0 2px; }
+#form_types div { padding: 0 0 0 2px; margin: 1px 0 0 0;}
 .type_inactive, tr.inactive td { background-color: #d0d0d0 !important; }
 .type_ndb     , tr.ndb      td { background-color: #ffffff !important; }
 .type_dgps    , tr.dgps     td { background-color: #00d8ff !important; }

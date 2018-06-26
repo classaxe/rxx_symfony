@@ -57,6 +57,7 @@ class BaseController extends Controller {
         $this->session =            $session;
         $this->parameters = [
             'isAdmin' =>    $session->get('isAdmin', 0),
+            'lastError' =>  $session->get('lastError', ''),
             'modes' =>      $modeRepository->getAll(),
             'systems' =>    $systemRepository->getAll(),
         ];

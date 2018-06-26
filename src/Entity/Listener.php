@@ -15,8 +15,9 @@ use Doctrine\ORM\Mapping as ORM;
  *     @ORM\Index(name="region", columns={"region"}),
  *     @ORM\Index(name="SP", columns={"SP"}),
  *     @ORM\Index(name="ITU", columns={"ITU"}),
- *     @ORM\Index(name="map_x", columns={"map_x"})
- * })
+ *     @ORM\Index(name="map_x", columns={"map_x"}),
+ *     @ORM\Index(name="map_y", columns={"map_y"})
+ * * })
  * @ORM\Entity
  */
 class Listener

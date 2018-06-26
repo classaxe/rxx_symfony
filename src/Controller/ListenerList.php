@@ -3,9 +3,7 @@ namespace App\Controller;
 
 use App\Form\ListenerList as ListenerListForm;
 use App\Repository\ListenerRepository;
-use App\Utils\Rxx;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
 /**

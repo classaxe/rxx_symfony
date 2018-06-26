@@ -1,0 +1,20 @@
+{% extends 'main.html.twig' %}
+
+{% block body %}
+<div class="main">
+    <h1>{{ mode }}</h1>
+    <div>
+    {{ text|raw }}
+{% if lastError %}
+        <div id="lastError"><strong>Error:</strong> {{ lastError }}</div>
+{% endif %}
+    </div>
+{% if not isAdmin %}
+    {% set form_title='Administrator Logon' %}
+    {% set form_class='logon' %}
+    {% include 'forms/form.html.twig' %}
+{% endif %}
+</div>
+
+{% endblock %}
+

@@ -5,9 +5,10 @@
     <h1>{{ mode }}</h1>
     {{ text|raw }}
     {% set form_title='Customise ' ~ system|upper ~ ' Listener Report' %}
-    {% include 'forms/listener/search.html.twig' %}
+    {% set form_class='listener_list' %}
+    {% include 'forms/form.html.twig' %}
 </div>
-{% include 'grids/listener/results.html.twig' %}
+{% include 'grids/listeners.html.twig' %}
 
 <script>
     $(document).ready( function() {

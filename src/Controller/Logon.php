@@ -1,18 +1,20 @@
 <?php
 namespace App\Controller;
 
-use App\Form\ListenerList as ListenerListForm;
-use App\Repository\ListenerRepository;
-use App\Utils\Rxx;
-use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use App\Form\Logon as LogonForm;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Dotenv\Dotenv;
+
 
 /**
  * Class ListenerList
  * @package App\Controller
  */
 class Logon extends BaseController {
+
+    private $username = '';
+    private $password = '';
 
     /**
      * @Route(
@@ -26,65 +28,73 @@ class Logon extends BaseController {
     public function logonController(
         $system,
         Request $request,
-        ListenerListForm $form,
-        ListenerRepository $listenerRepository
+        LogonForm $form
     ) {
-        if (!$this->session->get('isAdmin', 0)) {
-            $this->session->set('isAdmin', 1);
-            return $this->redirectToRoute('logon', ['system' => $system]);
+        if (!$this->getConfig()) {
+            return $this->configError();
         }
-        $options = [
-            'system' =>     $system
-        ];
-        $form = $form->buildForm($this->createFormBuilder(), $options);
+
+        $form = $form->buildForm($this->createFormBuilder(), ['system' => $system]);
         $form->handleRequest($request);
         $args = [
-            'filter' =>     '',
-            'types' =>      [],
-            'country' =>    '',
-            'region' =>     '',
-            'sort' =>       'name',
-            'order' =>      'a'
+            'user' =>       '',
+            'password' =>   ''
         ];
         if ($form->isSubmitted() && $form->isValid()) {
             $args = $form->getData();
-//            print $this->rxx::y($args);
+            if ($args['user'] !== $this->username || $args['password'] !== $this->password) {
+                $this->session->set('lastError', 'Incorrect Username and / or Password.');
+                return $this->redirectToRoute('logon', ['system' => $system]);
+            } else {
+                if (!$this->session->get('isAdmin', 0)) {
+                    $this->session->set('isAdmin', 1);
+                    $this->session->set('lastError', '');
+                    return $this->redirectToRoute('logon', ['system' => $system]);
+                }
+            }
+        } else {
+            $this->session->set('lastError', '');
         }
-        $total = $listenerRepository->getTotalListeners($system);
-        $showingAll = (
-            empty($args['filter']) &&
-            empty($args['country']) &&
-            empty($args['region'])
+        $text = ($this->session->get('isAdmin', 0) ?
+             "<p>You are now logged on as an Administrator and may perform administrative functions.</p>\n"
+            ."<p>To log off, select <strong>Log Off</strong> from the main menu.</p>\n"
+          :
+            "<p>You must logon in order to perform administrative functions.</p>\n"
         );
-        if (empty($args['types'])) {
-            $args['types'][] = 'type_NDB';
-        }
-        $filtered = $listenerRepository->getFilteredListeners($system, $args);
-        $matched =
-            ($showingAll ?
-                "(Showing all $total listeners)"
-             :
-                "(Showing ".count($filtered)." of $total listeners)"
-            );
+
         $parameters = [
             'args' =>       $args,
-            'columns' =>    $listenerRepository->getColumns(),
             'form' =>       $form->createView(),
-            'listeners' =>  $filtered,
-            'matched' =>    $matched,
-            'mode' =>       'Listeners List',
+            'mode' =>       'Logon',
             'system' =>     $system,
-            'text' =>
-                "<ul>\n"
-                ."    <li>Log and station counts are updated each time new log data is added - "
-                ."figures are for logs in the system at this time.</li>\n"
-                ."    <li>To see stats for different types of signals, check the boxes shown for 'Types' below.</li>\n"
-                ."    <li>This report prints best in Portrait.</li>\n"
-                ."</ul>\n",
+            'text' =>       $text
         ];
         $parameters = array_merge($parameters, $this->parameters);
 //        return $this->rxx::debug($this->parameters);
-        return $this->render('listeners/index.html.twig', $parameters);
+        return $this->render('logon/index.html.twig', $parameters);
     }
 
+    private function configError()
+    {
+        return $this->rxx::error(
+            'ADMIN_USER and ADMIN_PASS environment variables must be defined in server or a .env file.'
+        );
+    }
+
+    private function getConfig()
+    {
+        if (!getenv('ADMIN_USER') || !getenv('ADMIN_PASS')) {
+            if (!class_exists(Dotenv::class)) {
+                return false;
+            }
+        }
+        (new Dotenv())->load($this->get('kernel')->getProjectDir().'/.env');
+        $this->username = getenv('ADMIN_USER');
+        $this->password = getenv('ADMIN_PASS');
+        if (!$this->username || !$this->password) {
+            return false;
+        }
+        return true;
+
+    }
 }
