@@ -3,7 +3,6 @@
 namespace App\Repository;
 
 use App\Entity\Itu;
-use App\Utils\Rxx;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -50,4 +49,15 @@ class ItuRepository extends ServiceEntityRepository
         return $out;
     }
 
+    public function getAllOptionsForSystemAndRegion($system, $region='')
+    {
+        $countries = $this->getAllForSystem($system);
+        $out = ['(All Countries'.($region ? ' in selected region' : '').')' => ''];
+        foreach ($countries as $row) {
+            if (!$region || $region === $row->getRegion()) {
+                $out[$row->getName()] = $row->getItu();
+            }
+        }
+        return $out;
+    }
 }

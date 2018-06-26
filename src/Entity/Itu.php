@@ -7,7 +7,10 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Itu
  *
- * @ORM\Table(name="itu", indexes={@ORM\Index(name="ITU", columns={"ITU"}), @ORM\Index(name="region", columns={"region"})})
+ * @ORM\Table(name="itu", indexes={
+ *     @ORM\Index(name="ITU", columns={"ITU"}),
+ *     @ORM\Index(name="region", columns={"region"})
+ * })
  * @ORM\Entity
  */
 class Itu

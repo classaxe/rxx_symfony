@@ -13,6 +13,16 @@ class RegionRepository extends ServiceEntityRepository
         parent::__construct($registry, Region::class);
     }
 
+    public function get($code)
+    {
+        return $this
+            ->createQueryBuilder('region')
+            ->andWhere('region.region = :region')
+            ->setParameter('region',$code)
+            ->getQuery()
+            ->getSingleResult();
+    }
+
     public function getAll()
     {
         return $this

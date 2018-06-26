@@ -28,7 +28,8 @@ class ListenerList extends BaseController {
         ListenerRepository $listenerRepository
     ) {
         $options = [
-            'system' =>     $system
+            'system' =>     $system,
+            'region' =>     (isset($_REQUEST['form']['region']) ? $_REQUEST['form']['region'] : '')
         ];
         $form = $form->buildForm($this->createFormBuilder(), $options);
         $form->handleRequest($request);
@@ -42,7 +43,6 @@ class ListenerList extends BaseController {
         ];
         if ($form->isSubmitted() && $form->isValid()) {
             $args = $form->getData();
-//            print $this->rxx::y($args);
         }
         $total = $listenerRepository->getTotalListeners($system);
         $showingAll = (

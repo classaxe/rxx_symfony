@@ -59,6 +59,7 @@ class ListenerList extends AbstractType
     public function buildForm(FormBuilderInterface $formBuilder, array $options)
     {
         $system =   $options['system'];
+        $region =   $options['region'];
 
         $formBuilder
             ->add(
@@ -101,7 +102,7 @@ class ListenerList extends AbstractType
                 ChoiceType::class,
                 [
                     'label' => 'Country',
-                    'choices' => $this->country->getAllOptionsForSystem($system),
+                    'choices' => $this->country->getAllOptionsForSystemAndRegion($system, $region),
                 ]
             );
 

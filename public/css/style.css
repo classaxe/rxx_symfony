@@ -108,7 +108,7 @@ body .menu-centered .system .is-active>a:hover, body .menu-centered .mode .is-ac
 .main div.map { margin: 0 0 1em 0; }
 
 .controlPanel .header { text-align: center; border-radius: 1em 1em 0 0; font-size: 80%; font-weight: bold; box-shadow: #777 2px 2px 5px;}
-.controlPanel .controls { background: #ffffff; border: 1px solid #cacaca; box-shadow: #777 2px 2px 5px;}
+.controlPanel .controls { background: #ffffff; border: 1px solid #cacaca; box-shadow: #777 2px 2px 5px; margin: 0 0 0.5em 0; }
 
 .controlPanel { width: auto; display: inline-block;}
 .controlPanel .controls { padding: 0.25em; }
@@ -120,6 +120,7 @@ body .menu-centered .system .is-active>a:hover, body .menu-centered .mode .is-ac
 #form div p { margin: 0; border-radius: 0; height: 1.5em; font-size: 80%; float: right; text-align: right; }
 #form div div { clear: none; float: left; }
 #form div div label { float: none; width: auto; font-size: 80%; font-weight: normal; margin: 0 0.125em; padding: 0 0.125em; line-height: 1.5em; }
+#form ul { display: none; } /* Hides 'This value is not valid' error with bad country / region combination */
 #lastError { border: 1px solid #ff0000; background: #ffe0e0; color: #ff0000; padding: 0.25em; margin: 0.5em 0; display: inline-block; }
 
 /* [ Form listener_list ] */

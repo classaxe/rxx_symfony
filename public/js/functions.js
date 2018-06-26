@@ -19,6 +19,20 @@ function setFormTypesAllAction() {
     });
 }
 
+/* [ Enable Country change to resubmit form ] */
+function setFormCountryAction() {
+    $('select#form_country').change(function () {
+        $('#form_submit').click();
+    });
+}
+
+/* [ Enable Region change to resubmit form ] */
+function setFormRegionAction() {
+    $('select#form_region').change(function () {
+        $('#form_submit').click();
+    });
+}
+
 /* [ Enable sort actions for all sortable columns ] */
 function setColumnSortActions() {
     $('table.results thead tr th[id]').each(function() {
