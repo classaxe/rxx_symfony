@@ -2,9 +2,6 @@
 namespace App\Controller;
 
 use App\Repository\MapRepository;
-use App\Repository\ModeRepository;
-use App\Repository\SystemRepository;
-use App\Utils\Rxx;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 
@@ -13,7 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
  * Class CountryLocator
  * @package App\Controller
  */
-class Maps extends Controller {
+class Maps extends BaseController {
 
     /**
      * @Route(
@@ -44,22 +41,18 @@ class Maps extends Controller {
      */
     public function mapsController(
         $system,
-        MapRepository $mapRepository,
-        ModeRepository $modeRepository,
-        SystemRepository $systemRepository
+        MapRepository $mapRepository
     ) {
         $systemMaps =   $mapRepository->getAllForSystem($system);
 
         $parameters = [
             'mode' =>       'Maps',
-            'modes' =>      $modeRepository->getAll(),
             'system' =>     $system,
-            'systems' =>    $systemRepository->getAll(),
             'title' =>      $systemMaps['title'],
             'zones' =>      $systemMaps['maps'],
         ];
 
-//        return Rxx::debug($parameters);
+        $parameters = array_merge($parameters, $this->parameters);
         return $this->render('maps/index.html.twig', $parameters);
     }
 }

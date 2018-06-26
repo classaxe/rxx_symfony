@@ -7,7 +7,16 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Listeners
  *
- * @ORM\Table(name="listeners", indexes={@ORM\Index(name="count_logs", columns={"count_logs"}), @ORM\Index(name="name", columns={"name"}), @ORM\Index(name="QTH", columns={"QTH"}), @ORM\Index(name="primary_QTH", columns={"primary_QTH"}), @ORM\Index(name="region", columns={"region"}), @ORM\Index(name="SP", columns={"SP"}), @ORM\Index(name="ITU", columns={"ITU"}), @ORM\Index(name="map_x", columns={"map_x"})})
+ * @ORM\Table(name="listeners",indexes={
+ *     @ORM\Index(name="count_logs", columns={"count_logs"}),
+ *     @ORM\Index(name="name", columns={"name"}),
+ *     @ORM\Index(name="QTH", columns={"QTH"}),
+ *     @ORM\Index(name="primary_QTH", columns={"primary_QTH"}),
+ *     @ORM\Index(name="region", columns={"region"}),
+ *     @ORM\Index(name="SP", columns={"SP"}),
+ *     @ORM\Index(name="ITU", columns={"ITU"}),
+ *     @ORM\Index(name="map_x", columns={"map_x"})
+ * })
  * @ORM\Entity
  */
 class Listener
@@ -217,16 +226,26 @@ class Listener
      */
     private $website;
 
+    /**
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * @return null|string
+     */
     public function getCallsign(): ?string
     {
         return $this->callsign;
     }
 
+    /**
+     * @param string $callsign
+     * @return Listener
+     */
     public function setCallsign(string $callsign): self
     {
         $this->callsign = $callsign;
@@ -234,11 +253,18 @@ class Listener
         return $this;
     }
 
+    /**
+     * @return int|null
+     */
     public function getCountDgps(): ?int
     {
         return $this->countDgps;
     }
 
+    /**
+     * @param int $countDgps
+     * @return Listener
+     */
     public function setCountDgps(int $countDgps): self
     {
         $this->countDgps = $countDgps;
@@ -246,11 +272,18 @@ class Listener
         return $this;
     }
 
+    /**
+     * @return int|null
+     */
     public function getCountDsc(): ?int
     {
         return $this->countDsc;
     }
 
+    /**
+     * @param int $countDsc
+     * @return Listener
+     */
     public function setCountDsc(int $countDsc): self
     {
         $this->countDsc = $countDsc;
@@ -258,11 +291,18 @@ class Listener
         return $this;
     }
 
+    /**
+     * @return int|null
+     */
     public function getCountHambcn(): ?int
     {
         return $this->countHambcn;
     }
 
+    /**
+     * @param int $countHambcn
+     * @return Listener
+     */
     public function setCountHambcn(int $countHambcn): self
     {
         $this->countHambcn = $countHambcn;
@@ -270,11 +310,18 @@ class Listener
         return $this;
     }
 
+    /**
+     * @return int|null
+     */
     public function getCountLogs(): ?int
     {
         return $this->countLogs;
     }
 
+    /**
+     * @param int $countLogs
+     * @return Listener
+     */
     public function setCountLogs(int $countLogs): self
     {
         $this->countLogs = $countLogs;
@@ -282,11 +329,18 @@ class Listener
         return $this;
     }
 
+    /**
+     * @return int|null
+     */
     public function getCountNavtex(): ?int
     {
         return $this->countNavtex;
     }
 
+    /**
+     * @param int $countNavtex
+     * @return Listener
+     */
     public function setCountNavtex(int $countNavtex): self
     {
         $this->countNavtex = $countNavtex;
@@ -294,11 +348,18 @@ class Listener
         return $this;
     }
 
+    /**
+     * @return int|null
+     */
     public function getCountNdb(): ?int
     {
         return $this->countNdb;
     }
 
+    /**
+     * @param int $countNdb
+     * @return Listener
+     */
     public function setCountNdb(int $countNdb): self
     {
         $this->countNdb = $countNdb;
@@ -306,11 +367,18 @@ class Listener
         return $this;
     }
 
+    /**
+     * @return int|null
+     */
     public function getCountOther(): ?int
     {
         return $this->countOther;
     }
 
+    /**
+     * @param int $countOther
+     * @return Listener
+     */
     public function setCountOther(int $countOther): self
     {
         $this->countOther = $countOther;
@@ -318,11 +386,18 @@ class Listener
         return $this;
     }
 
+    /**
+     * @return int|null
+     */
     public function getCountTime(): ?int
     {
         return $this->countTime;
     }
 
+    /**
+     * @param int $countTime
+     * @return Listener
+     */
     public function setCountTime(int $countTime): self
     {
         $this->countTime = $countTime;
@@ -330,11 +405,18 @@ class Listener
         return $this;
     }
 
+    /**
+     * @return int|null
+     */
     public function getCountSignals(): ?int
     {
         return $this->countSignals;
     }
 
+    /**
+     * @param int $countSignals
+     * @return Listener
+     */
     public function setCountSignals(int $countSignals): self
     {
         $this->countSignals = $countSignals;
@@ -342,11 +424,18 @@ class Listener
         return $this;
     }
 
+    /**
+     * @return null|string
+     */
     public function getEmail(): ?string
     {
         return $this->email;
     }
 
+    /**
+     * @param string $email
+     * @return Listener
+     */
     public function setEmail(string $email): self
     {
         $this->email = $email;
@@ -354,11 +443,18 @@ class Listener
         return $this;
     }
 
+    /**
+     * @return null|string
+     */
     public function getEquipment(): ?string
     {
         return $this->equipment;
     }
 
+    /**
+     * @param string $equipment
+     * @return Listener
+     */
     public function setEquipment(string $equipment): self
     {
         $this->equipment = $equipment;
@@ -366,11 +462,18 @@ class Listener
         return $this;
     }
 
+    /**
+     * @return null|string
+     */
     public function getGsq(): ?string
     {
         return $this->gsq;
     }
 
+    /**
+     * @param string $gsq
+     * @return Listener
+     */
     public function setGsq(string $gsq): self
     {
         $this->gsq = $gsq;
@@ -378,11 +481,18 @@ class Listener
         return $this;
     }
 
+    /**
+     * @return null|string
+     */
     public function getItu(): ?string
     {
         return $this->itu;
     }
 
+    /**
+     * @param string $itu
+     * @return Listener
+     */
     public function setItu(string $itu): self
     {
         $this->itu = $itu;
@@ -390,11 +500,18 @@ class Listener
         return $this;
     }
 
+    /**
+     * @return float|null
+     */
     public function getLat(): ?float
     {
         return $this->lat;
     }
 
+    /**
+     * @param float $lat
+     * @return Listener
+     */
     public function setLat(float $lat): self
     {
         $this->lat = $lat;
@@ -402,11 +519,18 @@ class Listener
         return $this;
     }
 
+    /**
+     * @return null|string
+     */
     public function getLogFormat(): ?string
     {
         return $this->logFormat;
     }
 
+    /**
+     * @param string $logFormat
+     * @return Listener
+     */
     public function setLogFormat(string $logFormat): self
     {
         $this->logFormat = $logFormat;
@@ -414,11 +538,18 @@ class Listener
         return $this;
     }
 
+    /**
+     * @return \DateTimeInterface|null
+     */
     public function getLogLatest(): ?\DateTimeInterface
     {
         return $this->logLatest;
     }
 
+    /**
+     * @param \DateTimeInterface $logLatest
+     * @return Listener
+     */
     public function setLogLatest(\DateTimeInterface $logLatest): self
     {
         $this->logLatest = $logLatest;
@@ -426,11 +557,18 @@ class Listener
         return $this;
     }
 
+    /**
+     * @return float|null
+     */
     public function getLon(): ?float
     {
         return $this->lon;
     }
 
+    /**
+     * @param float $lon
+     * @return Listener
+     */
     public function setLon(float $lon): self
     {
         $this->lon = $lon;
@@ -438,11 +576,18 @@ class Listener
         return $this;
     }
 
+    /**
+     * @return int|null
+     */
     public function getMapX(): ?int
     {
         return $this->mapX;
     }
 
+    /**
+     * @param int $mapX
+     * @return Listener
+     */
     public function setMapX(int $mapX): self
     {
         $this->mapX = $mapX;
@@ -450,11 +595,18 @@ class Listener
         return $this;
     }
 
+    /**
+     * @return int|null
+     */
     public function getMapY(): ?int
     {
         return $this->mapY;
     }
 
+    /**
+     * @param int $mapY
+     * @return Listener
+     */
     public function setMapY(int $mapY): self
     {
         $this->mapY = $mapY;
@@ -462,11 +614,18 @@ class Listener
         return $this;
     }
 
+    /**
+     * @return null|string
+     */
     public function getName(): ?string
     {
         return $this->name;
     }
 
+    /**
+     * @param string $name
+     * @return Listener
+     */
     public function setName(string $name): self
     {
         $this->name = $name;
@@ -474,11 +633,18 @@ class Listener
         return $this;
     }
 
+    /**
+     * @return null|string
+     */
     public function getNotes(): ?string
     {
         return $this->notes;
     }
 
+    /**
+     * @param string $notes
+     * @return Listener
+     */
     public function setNotes(string $notes): self
     {
         $this->notes = $notes;
@@ -486,11 +652,18 @@ class Listener
         return $this;
     }
 
+    /**
+     * @return bool|null
+     */
     public function getPrimaryQth(): ?bool
     {
         return $this->primaryQth;
     }
 
+    /**
+     * @param bool $primaryQth
+     * @return Listener
+     */
     public function setPrimaryQth(bool $primaryQth): self
     {
         $this->primaryQth = $primaryQth;
@@ -498,11 +671,18 @@ class Listener
         return $this;
     }
 
+    /**
+     * @return null|string
+     */
     public function getQth(): ?string
     {
         return $this->qth;
     }
 
+    /**
+     * @param string $qth
+     * @return Listener
+     */
     public function setQth(string $qth): self
     {
         $this->qth = $qth;
@@ -510,11 +690,18 @@ class Listener
         return $this;
     }
 
+    /**
+     * @return null|string
+     */
     public function getRegion(): ?string
     {
         return $this->region;
     }
 
+    /**
+     * @param string $region
+     * @return Listener
+     */
     public function setRegion(string $region): self
     {
         $this->region = $region;
@@ -522,11 +709,18 @@ class Listener
         return $this;
     }
 
+    /**
+     * @return null|string
+     */
     public function getSp(): ?string
     {
         return $this->sp;
     }
 
+    /**
+     * @param string $sp
+     * @return Listener
+     */
     public function setSp(string $sp): self
     {
         $this->sp = $sp;
@@ -534,11 +728,18 @@ class Listener
         return $this;
     }
 
+    /**
+     * @return null|string
+     */
     public function getTimezone(): ?string
     {
         return $this->timezone;
     }
 
+    /**
+     * @param string $timezone
+     * @return Listener
+     */
     public function setTimezone(string $timezone): self
     {
         $this->timezone = $timezone;
@@ -546,11 +747,18 @@ class Listener
         return $this;
     }
 
+    /**
+     * @return null|string
+     */
     public function getWebsite(): ?string
     {
         return $this->website;
     }
 
+    /**
+     * @param string $website
+     * @return Listener
+     */
     public function setWebsite(string $website): self
     {
         $this->website = $website;
@@ -560,6 +768,9 @@ class Listener
 
     /* Custom getters for column display */
 
+    /**
+     * @return null|string
+     */
     public function getFormattedCallsignLink(): ?string
     {
         if (!$this->callsign) {
@@ -572,6 +783,17 @@ class Listener
         return "<a href=\"$popup_url\"  rel=\"popup|{$popup_name}|{$popup_args}\">{$this->callsign}</a>";
     }
 
+    /**
+     * @return null|string
+     */
+    public function getFormattedDeleteLink(): ?string
+    {
+        return '<a href="">Delete</a>';
+    }
+
+    /**
+     * @return null|string
+     */
     public function getFormattedLogLatest(): ?string
     {
         if ($this->logLatest->format("Y-m-d") < '1900-01-01') {
@@ -580,6 +802,17 @@ class Listener
         return $this->logLatest->format("Y-m-d");
     }
 
+    /**
+     * @return null|string
+     */
+    public function getFormattedMapPos(): ?string
+    {
+        return $this->mapX.','.$this->mapY;
+    }
+
+    /**
+     * @return null|string
+     */
     public function getFormattedNdbWeblogLink(): ?string
     {
         if (!$this->countLogs) {
@@ -591,11 +824,17 @@ class Listener
         return "<a href=\"$popup_url\"  rel=\"popup|{$popup_name}|{$popup_args}\">NWL</a>";
     }
 
+    /**
+     * @return null|string
+     */
     public function getFormattedRegion(): ?string
     {
         return strtoupper($this->region);
     }
 
+    /**
+     * @return null|string
+     */
     public function getFormattedWebsiteLink(): ?string
     {
         if (!$this->website) {
@@ -609,46 +848,73 @@ class Listener
             "<a href=\"{$popup_url}\" rel=\"popup|{$popup_name}|{$popup_args}\">{$short_url}</a>";
     }
 
+    /**
+     * @return null|string
+     */
     public function getFormattedCountDgps(): ?string
     {
         return ($this->countDgps ? $this->countDgps : '');
     }
 
+    /**
+     * @return null|string
+     */
     public function getFormattedCountDsc(): ?string
     {
         return ($this->countDsc ? $this->countDsc : '');
     }
 
+    /**
+     * @return null|string
+     */
     public function getFormattedCountHambcn(): ?string
     {
         return ($this->countHambcn ? $this->countHambcn : '');
     }
 
+    /**
+     * @return null|string
+     */
     public function getFormattedCountLogs(): ?string
     {
         return ($this->countLogs ? $this->countLogs : '');
     }
 
+    /**
+     * @return null|string
+     */
     public function getFormattedCountNavtex(): ?string
     {
         return ($this->countNavtex ? $this->countNavtex : '');
     }
 
+    /**
+     * @return null|string
+     */
     public function getFormattedCountNdb(): ?string
     {
         return ($this->countNdb ? $this->countNdb : '');
     }
 
+    /**
+     * @return null|string
+     */
     public function getFormattedCountOther(): ?string
     {
         return ($this->countOther ? $this->countOther : '');
     }
 
+    /**
+     * @return null|string
+     */
     public function getFormattedCountSignals(): ?string
     {
         return ($this->countSignals ? $this->countSignals : '');
     }
 
+    /**
+     * @return null|string
+     */
     public function getFormattedCountTime(): ?string
     {
         return ($this->countTime ? $this->countTime : '');

@@ -11,10 +11,23 @@
 {% endfor %}
     </ul>
     <ul class="menu mode">
-{% for key, modeRepo in modes %}
+{% for key, modeRepo in modes[0] %}
+{% if ((isAdmin and modeRepo.admin) or (not isAdmin and modeRepo.guest))%}
         <li{% if (app.request.get('_route') == key) %} class="is-active"{% endif %}>
             <a href="{{ url(key, { 'system' : system }) }}">{{ modeRepo['menu'] }}</a>
         </li>
+{% endif %}
 {% endfor %}
     </ul>
+{% if isAdmin %}
+    <ul class="menu mode">
+        {% for key, modeRepo in modes[1] %}
+            {% if ((isAdmin and modeRepo.admin) or (not isAdmin and modeRepo.guest))%}
+                <li{% if (app.request.get('_route') == key) %} class="is-active"{% endif %}>
+                    <a href="{{ url(key, { 'system' : system }) }}">{{ modeRepo['menu'] }}</a>
+                </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+{% endif %}
 </div>

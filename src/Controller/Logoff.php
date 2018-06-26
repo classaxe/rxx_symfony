@@ -12,23 +12,27 @@ use Symfony\Component\HttpFoundation\Request;
  * Class ListenerList
  * @package App\Controller
  */
-class ListenerList extends BaseController {
+class Logoff extends BaseController {
 
     /**
      * @Route(
-     *     "/{system}/listener_list",
+     *     "/{system}/logoff",
      *     requirements={
      *        "system": "reu|rna|rww"
      *     },
-     *     name="listener_list"
+     *     name="logoff"
      * )
      */
-    public function listenerListController(
+    public function logoffController(
         $system,
         Request $request,
         ListenerListForm $form,
         ListenerRepository $listenerRepository
     ) {
+        if ($this->session->get('isAdmin', 0)) {
+            $this->session->set('isAdmin', 0);
+            return $this->redirectToRoute('logoff', ['system' => $system]);
+        }
         $options = [
             'system' =>     $system
         ];

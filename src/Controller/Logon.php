@@ -12,23 +12,27 @@ use Symfony\Component\HttpFoundation\Request;
  * Class ListenerList
  * @package App\Controller
  */
-class ListenerList extends BaseController {
+class Logon extends BaseController {
 
     /**
      * @Route(
-     *     "/{system}/listener_list",
+     *     "/{system}/logon",
      *     requirements={
      *        "system": "reu|rna|rww"
      *     },
-     *     name="listener_list"
+     *     name="logon"
      * )
      */
-    public function listenerListController(
+    public function logonController(
         $system,
         Request $request,
         ListenerListForm $form,
         ListenerRepository $listenerRepository
     ) {
+        if (!$this->session->get('isAdmin', 0)) {
+            $this->session->set('isAdmin', 1);
+            return $this->redirectToRoute('logon', ['system' => $system]);
+        }
         $options = [
             'system' =>     $system
         ];
@@ -79,6 +83,7 @@ class ListenerList extends BaseController {
                 ."</ul>\n",
         ];
         $parameters = array_merge($parameters, $this->parameters);
+//        return $this->rxx::debug($this->parameters);
         return $this->render('listeners/index.html.twig', $parameters);
     }
 

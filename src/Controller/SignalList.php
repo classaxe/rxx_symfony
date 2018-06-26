@@ -7,7 +7,7 @@ use App\Repository\SystemRepository;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class SignalList extends Controller {
+class SignalList extends BaseController {
 
     /**
      * @Route(
@@ -19,20 +19,16 @@ class SignalList extends Controller {
      * )
      */
     public function signalListController(
-        $system,
-        ModeRepository $modeRepository,
-        SystemRepository $systemRepository
+        $system
     ) {
         $parameters = [
             'mode' =>       'Signals',
-            'modes' =>      $modeRepository->getAll(),
             'signal' => $this->getDoctrine()
                 ->getRepository(Signals::class)
                 ->find(1),
-            'system' =>     $system,
-            'systems' =>    $systemRepository->getAll()
+            'system' =>     $system
         ];
-
+        $parameters = array_merge($parameters, $this->parameters);
         return $this->render('signals/index.html.twig', $parameters);
     }
 }

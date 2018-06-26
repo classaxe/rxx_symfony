@@ -43,9 +43,9 @@ body.rww .footer { border-top: 3px solid #33a033;}
 /* [ Menu ] */
 body .menu-centered { width: 602px; margin: auto; }
 body .menu-centered .header h2 { font-size: 130%; margin: 0.25em 0; }
-body .menu-centered .system { background: #ffffff; border-top: none !important; border-bottom: none !important; }
+body .menu-centered .system { background: #ffffff; border-top: none !important; }
 body .menu-centered .system a { width: 200px; text-align: center; }
-body .menu-centered .mode { background: #ffffff; }
+body .menu-centered .mode { background: #ffffff; border-top: 0 !important; }
 body .menu-centered .system a, body .menu-centered .mode a { padding: 0.25em 0.5em; font-size: 80%; }
 body .menu-centered .system a:hover, body .menu-centered .mode a:hover { text-decoration: underline; }
 body .menu-centered .system .is-active>a, body .menu-centered .mode .is-active>a { font-weight: bold; }

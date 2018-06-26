@@ -3,7 +3,7 @@
     <thead>
         <tr>
 {% for key, column in columns %}
-{% if (not column.arg or (column.arg and column.arg in args.types)) %}
+{% if ((not column.admin or isAdmin) and (not column.arg or (column.arg and column.arg in args.types))) %}
             <th{%  if key and column.order %} id="{{ key }}_{{ column.order }}"{% endif %}
 {% if column.th_class %} class="{{ column.th_class }}"{% endif %}
 {% if column.tooltip %} title="{{ column.tooltip }}"{% endif %}
@@ -16,7 +16,7 @@
 {% for listener in listeners %}
         <tr>
 {% for key, column in columns %}
-{% if (not column.arg or (column.arg and column.arg in args.types)) %}
+{% if ((not column.admin or isAdmin) and (not column.arg or (column.arg and column.arg in args.types))) %}
 {% if key == 'name' %}
             <td class="{% if listener.PrimaryQth %}primaryQth{% else %}secondaryQth{% endif %}">
 {% else %}
