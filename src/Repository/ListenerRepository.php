@@ -17,7 +17,7 @@ class ListenerRepository extends ServiceEntityRepository
             'label'     =>  'Name',
             'order'     =>  'a',
             'sort'      =>  'l.name',
-            'td_class'  =>  '{% if listener.PrimaryQth %}primaryQth{% else %}secondaryQth{% endif %}',
+            'td_class'  =>  '(handled by twig)',
             'th_class'  =>  '',
             'tooltip'   =>  '',
         ],
@@ -208,6 +208,29 @@ class ListenerRepository extends ServiceEntityRepository
             'th_class'  =>  'txt_vertical',
             'tooltip'   =>  'Total number of signals of all types',
         ],
+        'website' => [
+            'admin'     =>  false,
+            'arg'       =>  '',
+            'field'     =>  'formattedWebsiteLink',
+            'label'     =>  'WWW',
+            'sortBy'    =>  [['l.wn','DESC'],['l.website', 'DIR']],
+            'order'     =>  'a',
+            'sort'      =>  'l.website',
+            'td_class'  =>  '',
+            'th_class'  =>  '',
+            'tooltip'   =>  '',
+        ],
+        'nwl' => [
+            'admin'     =>  false,
+            'arg'       =>  '',
+            'field'     =>  'formattedNdbWeblogLink',
+            'label'     =>  'NWL',
+            'order'     =>  '',
+            'sort'      =>  '',
+            'td_class'  =>  '',
+            'th_class'  =>  '',
+            'tooltip'   =>  'NDB Weblog for Listener',
+        ],
         'mapPos' => [
             'admin'     =>  true,
             'arg'       =>  '',
@@ -245,6 +268,12 @@ class ListenerRepository extends ServiceEntityRepository
     public function getFilteredListeners($system, $args)
     {
         $qb = $this->createQueryBuilder('l');
+        if ($this->columns[$args['sort']]['sort']) {
+            $qb
+                ->addSelect(
+                    "(CASE WHEN (".$this->columns[$args['sort']]['sort'].")='' THEN 1 ELSE 0 END) AS _blank"
+                );
+        }
         switch($system) {
             case "reu":
                 $qb
@@ -277,15 +306,25 @@ class ListenerRepository extends ServiceEntityRepository
                 ->setParameter('region', $args['region'])
             ;
         }
-        $qb
-            ->orderBy(
-                ($this->columns[$args['sort']]['sort']),
-                ($args['order'] == 'd' ? 'DESC' : 'ASC')
-            );
-        return
+        if ($this->columns[$args['sort']]['sort']) {
             $qb
-                ->getQuery()
-                ->execute();
+                ->orderBy(
+                    '_blank',
+                    'ASC'
+                )
+                ->addOrderBy(
+                    ($this->columns[$args['sort']]['sort']),
+                    ($args['order'] == 'd' ? 'DESC' : 'ASC')
+                );
+
+        }
+        $result = $qb->getQuery()->execute();
+        // Necessary to resolve extra nesting in results caused by extra select to ignore empty fields in sort order
+        $out = [];
+        foreach ($result as $key => $value) {
+            $out[] = $value[0];
+        }
+        return $out;
     }
 
     public function getTotalListeners($system)

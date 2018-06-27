@@ -17,12 +17,7 @@
         <tr>
 {% for key, column in columns %}
 {% if ((not column.admin or isAdmin) and (not column.arg or (column.arg and column.arg in args.types))) %}
-{% if key == 'name' %}
-            <td class="{% if listener.PrimaryQth %}primaryQth{% else %}secondaryQth{% endif %}">
-{% else %}
-            <td{% if column.td_class %} class="{{ column.td_class }}"{% endif %}>
-{% endif %}
-{{ attribute(listener, column.field)|raw }}</td>
+            <td{% if key == 'name' and listener.PrimaryQth is defined %} class="{% if listener.PrimaryQth %}primaryQth{% else %}secondaryQth{% endif %}">{% else %}{% if column.td_class %} class="{{ column.td_class }}"{% endif %}>{% endif %}{{ attribute(listener, column.field)|raw }}</td>
 {% endif %}
 {% endfor %}
         </tr>

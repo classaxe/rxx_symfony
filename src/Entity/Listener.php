@@ -822,7 +822,7 @@ class Listener
         $popup_url =    "https://www.classaxe.com/dx/ndb/rna/export_ndbweblog_index/{$this->id}";
         $popup_name =   "nwl_{$this->id}";
         $popup_args =   "width=640,height=480,status=1,scrollbars=1,resizable=1";
-        return "<a href=\"$popup_url\"  rel=\"popup|{$popup_name}|{$popup_args}\">NWL</a>";
+        return "<a href=\"$popup_url\" rel=\"popup|{$popup_name}|{$popup_args}\">NWL</a>";
     }
 
     /**

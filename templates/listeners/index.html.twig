@@ -4,10 +4,11 @@
 <div class="main">
     <h1>{{ mode }}</h1>
     {{ text|raw }}
-    {% set form_title='Customise ' ~ system|upper ~ ' Listener Report' %}
-    {% set form_class='listener_list' %}
-    {% include 'forms/form.html.twig' %}
+{% set form_title='Customise ' ~ system|upper ~ ' Listener Report' %}
+{% set form_class='listener_list' %}
+{% include 'forms/form.html.twig' %}
 </div>
+
 {% include 'grids/listeners.html.twig' %}
 
 <script>
