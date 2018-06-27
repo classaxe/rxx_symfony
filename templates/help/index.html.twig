@@ -1,0 +1,492 @@
+{% extends 'main.html.twig' %}
+{# This could use some work #}
+{% block body %}
+<h2>Help</h2><br><br>
+<p align='center'><small>Quick Links [
+    <nobr><a href='#quick'><b>Quick Start Guide</b></a></nobr> |
+    <nobr><a href='#ndbs'><b>About NDBs</b></a></nobr> |
+    <nobr><a href='#about'><b>About this system</b></a></nobr> |
+    <nobr><a href='#signal_list'><b>Signal Listings</b></a></nobr> |
+    <nobr><a href='#signal_profile'><b>Signal Profile</b></a></nobr><br>
+    <nobr><a href='#listener_list'><b>Listener Listings</b></a></nobr> |
+    <nobr><a href='#included'><b>Getting your data included</b></a></nobr> |
+    <nobr><script language='javascript' type='text/javascript'>document.write("<b><a href='mail"+"to"+":martin"+"@"+"classaxe"+"."+"com?subject=RNA%20/%20REU%20System'>Contact the Editor"+"</a></b>")</script></nobr> ]
+</small></p>
+
+<ul>
+    <li>
+        <h2><a name='quick'></a>Quick Start Guide</h2> &nbsp; <small>[ <a href='#top'><b>Top</b></a> ]</small>
+        <p>The following systems are available:</p>
+        <ul>
+            <li><b>RNA</b>&#010;shows stations known to have been received in North America</li>
+            <li><b>REU</b>&#010;shows stations known to have been received in Europe</li>
+            <li><b>RWW</b>&#010;shows stations received Worldwide</li>
+        </ul>
+        <br>
+        <img src='../assets/help_select_system.gif' width='588' height='130' alt='View of system and page menu if RNA is currently selected.' style='float:none;'>
+        <p>Those of you who like longer answers are invited to read on...</p>
+    </li>
+
+    <li>
+        <h2><a name='ndbs'></a>About NDBs</h2> &nbsp; <small>[ <a href='#top'><b>Top</b></a> ]</small>
+        <p>NDBs (or 'Non Directional Beacons') are like radio lighthouses, guiding aircraft to airport runways and keeping ships away from dangerous waters.</p>
+        <table cellpadding='0' cellspacing='0' border='0'>
+            <tr>
+                <td align='center'>
+                    <img src='../assets/help_aeromap.gif' width='457' height='272' alt='Example of an aeronavigation map - note NDBs shown in purple boxes' style='float:none;'><br>
+                    <small><b>Example of an aeronavigation map. Note NDBs shown in purple boxes</b></small>
+                </td>
+            </tr>
+        </table>
+        <p>Most NDBs transmit their Morse coded callsign continuously in the LF band from 200-500KHz with low powers (usually 25 watts or less). Many enthusiasts enjoy trying to log as many NDBs as they can. The <a href='http://www.ndblist.info' target='_blank'><b>beaconworld website</b></a> is a great place to learn more about this fascinating hobby.</p>
+    </li>
+
+    <li>
+        <h2><a name='about'></a>About this system</h2> &nbsp; <small>[ <a href='#top'><b>Top</b></a> ]</small>
+        <p>This system was based on a concept by <b>Andy Robins</b> and was initially seeded using his originally compiled data.<br>
+        The version you are now using was designed and programmed by <script language='javascript' type='text/javascript'>document.write("<a href='mail"+"to"+":martin"+"@"+"classaxe"+"."+"com?subject=RNA%20/%20REU%20System'><b>Martin Francis"+"</b></a>")</script>
+        and was originally created exclusively to show loggings of NDBs, however several contributors provide details of other utility signals received and so it has now been expanded to include other forms of transmission.<br>
+        It provides powerful new features such as searches, log histories for signals and for contributors, together with highly automated data import facilities.
+        Some features (such as adding, editing or deleting signals and listeners, or the adding of log data for a listener) require the user to be 'logged on' as
+            an administrator. Administrator Help is provided only to logged-on administrators.</p>
+    </li>
+
+    <li>
+        <h2><a name='signal_list'></a>Signal Listings</h2> &nbsp; <small>[ <a href='#top'><b>Top</b></a> ]</small>
+        <p>To access information on all types of signal, press the 'Signals' option from the main menu. Here is an example of what you might see, but note this picture is for illustrative purposes only:</p>
+        <p><img src='../assets/help_signal_list.gif' alt='Example of Signal listing' width='709' height='289'></p>
+        <p>The table presented shows the frequency and Callsign / IDs of all stations heard.<br>
+        Click on any column heading to sort by that column. Clicking a second time reverses the sort order.<br>
+        In this listing, several types of signal are shown, and these are colour-coded:</p>
+        <ul>
+            <li><span style="background-color: #FFFFFF" title="NDB"><b>&nbsp;White&nbsp;</b></span> for <b>NDBs</b>;</li>
+            <li><span style="background-color: #00ccff" title="DGPS Station"><b>&nbsp;Blue&nbsp;</b></span> for <b>DGPS stations</b>, always given by their reference station ID, prefixed with a # - you will need decoder software to discover these, then use the lookup tool on the tools menu to find that station reference ID;</li>
+            <li><span style="background-color: #D8FFE0" title="Amateur Beacon"><b>&nbsp;Green&nbsp;</b></span> for <b>Amateur Radio beacons</b>;</li>
+            <li><span style="background-color: #FFE0B0" title="Time Signal Station"><b>&nbsp;Orange&nbsp;</b></span> for <b>Time Signal stations</b>;</li>
+            <li><span style="background-color: #FFB8D8" title="NAVTEX Station"><b>&nbsp;Pink&nbsp;</b></span> for <b>NAVTEX stations</b>, always given in this format: $NNA where NN is the Nav Area (as a number - use 17 for Polar) and A is the station identifier letter;</li>
+            <li><span style="background-color: #B8F8FF" title="Other Utility Station"><b>&nbsp;Cyan&nbsp;</b></span> for <b>other Utility stations</b>;</li>
+            <li><span style="background-color: #d0d0d0" title="(Reportedly off air or decommissioned)"><b>&nbsp;Grey&nbsp;</b></span> is used to indicate Stations reported as <b>'Off the air'</b> (OTA). These are always shown at the very bottom of any listing, normally on the last few pages of results if you are not listing all results at once.</li>
+        </ul><br><br>
+
+        <ul>
+            <li><b>Displayed Columns:</b><br>
+            Note that <b>LSB</b>, <b>USB</b>, <b>Sec</b> and <b>Fmt</b> are only shown if NDBs are included in the listing.<br>
+            <table cellpadding='2' cellspacing='1' border='0' bgcolor='#c0c0c0' style='display: inline;'>
+                <tr class='downloadTableHeadings_nosort'>
+                    <th align='left'>Column</th><th>Description</th>
+                </tr>
+                <tr class='rownormal'>
+                    <th align='left'>KHz</th><td>Carrier frequency of the signal. In North America all but a very few NDBs transmit on channels spaced 1KHz apart.<br>
+                    Exceptions include <a href='javascript:signal_info("2348")'><b>RPB-414.5</b></a> and <a href='javascript:signal_info("1914")'><b>SJX-381.5</b></a>. NDBs outside North America often use 0.5KHz channel spacing. Amateur radio beacons often use much smaller channel spacing.</td>
+                </tr>
+                <tr class='rownormal'>
+                    <th align='left'>ID</th><td>Morse callsign or DGPS Ident (where prefixed with #).<br>
+                    Click on the ID for any signal to open a window showing details for that station.</td>
+                </tr>
+                <tr class='rownormal'>
+                    <th align='left'>LSB</th><td>Where NDBs transmit a modulated Morse coded tone, this is the upper sideband offset, relative to the carrier frequency.<br>
+                    Usually around 400Hz in Canada and 1020Hz in USA. In France most NDBs transmit no tones at all but use straight CW on/off keying.</td>
+                </tr>
+                <tr class='rownormal'>
+                    <th align='left'>USB</th><td>In Canada, federally-run NDBs use only USB though some private NDBs (with numbers in their callsigns) also transmit an LSB. Most US stations transmit both sidebands, and some only transmit the lower sideband.</td>
+                </tr>
+                <tr class='rownormal'>
+                    <th align='left'>Sec</th><td>The time in seconds for the ident cycle to be transmitted. Where two values are shown, the first is for the ident part of the cycle, the second is for the entire cycle to repeat.</td>
+                </tr>
+                <tr class='rownormal'>
+                    <th align='left' id='fmt'>Fmt</th>
+                    <td>The format used when transmitting the signal. Some of these include:
+                        <ul>
+                            <li>DAID - Dash after ID.</li>
+                            <li>DA3ID - Dash after third ID.</li>
+                            <li>DBID - Dash before ID.</li>
+                            <li>TWEB - an aero beacon that also transmits voice weather broadcasts.</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr class='rownormal'>
+                    <th align='left'>QTH</th>
+                    <td>QTH is an Amateur Radio abbreviation meaning 'Location'.</td>
+                </tr>
+                <tr class='rownormal'>
+                    <th align='left'>S/P</th>
+                    <td>State or Province code for the state or province in which the station is located.</td>
+                </tr>
+                <tr class='rownormal'>
+                    <th align='left'>ITU</th>
+                    <td>NDB List approved <a href='http://www.ndblist.info/beacons/countrylist.pdf' target='_blank'><b>three-letter country code</b></a> - use this handy <a href='javascript:show_itu()'><b>Lookup tool</b></a> to find these values.</td>
+                </tr>
+                <tr class='rownormal'>
+                    <th align='left'>PWR</th>
+                    <td>Where known, this is the transmitter power in Watts.</td>
+                </tr>
+                <tr class='rownormal'>
+                    <th align='left'>GSQ</th>
+                    <td><a href='http://www.arrl.org/locate/gridinfo.html' target='_blank'><b>Maidenhead Grid Locator Square</b></a> signifying the station's
+                    geographical location. Click <a href='http://www.arrl.org/locate/grid.html' target='_blank'><b>here</b></a> to use the ARRL grid square conversion system.</td>
+                </tr>
+                <tr class='rownormal'>
+                    <th align='left'>Notes</th>
+                    <td>Extra notes about the signal.</td>
+                </tr>
+                <tr class='rownormal'>
+                    <th align='left'>Heard In</th>
+                    <td>List of US states, Canadian provinces and in the case of other countries, country codes indicating where the station is known to have been received.</td>
+                </tr>
+                <tr class='rownormal'>
+                    <th align='left'>Logs</th>
+                    <td>Shows the number of Loggings held in the system for each station. Click to see all loggings listed, with distances.</td>
+                </tr>
+                <tr class='rownormal'>
+                <th nowrap align='left'>Last Logged</th>
+                    <td>Date last reported to this system (in YYYY-MM-DD format).</td>
+                </tr>
+            </table>
+            </li><br><br>
+
+            <li><b>Customising the report:</b><br>
+            Above the results table is a form allowing you to tailor the report produced.<br>
+            <form name='form' style='display: inline;' action='#'>
+            <table cellpadding='2' border='0' cellspacing='1' class='downloadtable'>
+                <tr class='rownormal'>
+                    <th class='downloadTableHeadings' align='center' colspan='2'>Customise Report</th>
+                </tr>
+                <tr class='rownormal'>
+                    <th align='left'>Show</th>
+                    <td>
+                    <select name="limit" class="formField">
+                        <option value="10">10 Results</option>
+                        <option value="25">25 Results</option>
+                        <option value="50" selected>50 Results</option>
+                        <option value="100">100 Results</option>
+                        <option value="250">250 Results</option>
+                        <option value="-1">All Results</option>
+                    </select>
+                    <input type='button' class='formbutton' disabled name='previous' value='&nbsp;<&nbsp;'>
+                    <input type='button' class='formbutton' name='next' value='&nbsp;>&nbsp;'>
+                    <select name="offset" class="formField">
+                        <option value="0" selected>Show 1-50</option>
+                        <option value="50">Show 51-100</option>
+                        <option value="100">Show 101-150</option>
+                        <option value="150">Show 151-200</option>
+                        <option value="200">Show 201-250</option>
+                        <option value="250">Show 251-300</option>
+                        <option value="300">Show 301-320</option>
+                    </select> of 320 records.
+                    </td>
+                </tr>
+                <tr class='rownormal'>
+                    <th align='left' rowspan='2'>
+                    <span title='Only signals heard in these states and countries'>Heard In</span><br>
+                    ---OR---<br>
+                    <span title='Only signals heard by the selected listener'>Heard By</span></th>
+                    <td title='Separate multiple options using spaces'><input type='text' name='filter_heard' size='40' value='ON MI WI IN OH PA' class='formfield'>    <b title='Show where any terms match'> Any<input type='radio' value='any' name='grp' checked></b>    <b title='Show where all terms match'>All<input type='radio' value='all' name='grp'></b></td>
+                </tr>
+                <tr class='rownormal'>
+                    <td>
+                    <select name='listenerID' class='formfield' onchange='set_listener_and_heard_in(document.form)'>
+                    <option value='' selected>Anyone (or enter values in "Heard In" box above)</option>
+                    <option value='5'>Al Burzynski San Antonio TX USA</option>
+                    <option value='49'>Alex Wiecek Mississauga ON CAN</option>
+                    <option value='35'>Andy Robins Kalamazoo MI USA</option>
+                    <option value='22'>Steve McDonald Mayne Island BC CAN</option>
+                    <option value='31'>Steve Ratzlaff Elgin, NE Oregon OR USA</option>
+                    <option value='32'>Steve Ratzlaff S Tucson AZ USA</option>
+                    <option value='9'>Tom Dawson Round Hill VA USA</option>
+                    <option value='38'>Tucker Sizemore Huntersville NC USA</option>
+                    </select></td>
+                </tr>
+                <tr class='rownormal'>
+                    <th align='left'>Frequencies&nbsp;</th>
+                    <td>
+                    <input title='Enter a frequency to omit signals below this value' type='text' name='filter_khz_1' size='5' maxlength='5' value='400' class='formfield'> - <input title='Enter a frequency to omit signals above this value' type='text' name='filter_khz_2' size='5' maxlength='5' value='419.9' class='formfield'> KHz
+                    &nbsp; <span title='State or Province'><b>S/P:</b></span> <input title='Enter a state or province (e.g. MI or NB) to show only stations physically located in this state or province' type='text' name='filter_sp' size='3' maxlength='3' value='' class='formfield'>
+                    &nbsp; <span title='Country'><b>ITU:</b></span> <input title='Enter a country (e.g. CAN or CUB) to show only stations physically located in this country (use the Beaconlist approved country codes)' type='text' name='filter_itu' size='3' maxlength='3' value='' class='formfield'>
+                    &nbsp; <span title='Callsign or DGPS ID'><b>ID:</b></span> <input type='text' name='filter_id' size='4' maxlength='4' value='' class='formfield' title='Limit results to stations with this ID or partial ID -
+                    use _ to indicate a wildcard character'></td>
+                </tr>
+                <tr class='rownormal'>
+                    <th align='left'>Types&nbsp;</th>
+                    <td nowrap style='padding: 0px;'>
+                    <table cellpadding='0' cellspacing='0' border='0' width='100%'>
+                        <tr>
+                            <td bgcolor='#00D8FF' width='16%' nowrap onclick='document.form.type_DGPS.checked=!document.form.type_DGPS.checked'><input type='checkbox' name='type_DGPS' value='1'>DGPS</td>
+                            <td bgcolor='#B8FFC0' width='17%' nowrap onclick='document.form.type_HAMBCN.checked=!document.form.type_HAMBCN.checked'><input type='checkbox' name='type_HAMBCN' value='1'>Ham</td>
+                            <td bgcolor='#FFB8D8' width='17%' nowrap onclick='document.form.type_NAVTEX.checked=!document.form.type_NAVTEX.checked'><input type='checkbox' name='type_NAVTEX' value='1'>NAVTEX</td>
+                            <td bgcolor='#FFFFFF' width='17%' nowrap onclick='document.form.type_NDB.checked=!document.form.type_NDB.checked'><input type='checkbox' name='type_NDB' value='1' checked>NDB</td>
+                            <td bgcolor='#FFE0B0' width='17%' nowrap onclick='document.form.type_TIME.checked=!document.form.type_TIME.checked'><input type='checkbox' name='type_TIME' value='1'>Time</td>
+                            <td bgcolor='#B8F8FF' width='16%' nowrap onclick='document.form.type_OTHER.checked=!document.form.type_OTHER.checked'><input type='checkbox' name='type_OTHER' value='1'>Other</td>
+                        </tr>
+                    </table></td>
+                </tr>
+                <tr class='rownormal'>
+                    <th colspan='2'><input type='button' value='&nbsp;Go&nbsp;' class='formButton' title='Execute search' onclick='alert("Information\n\nThis would execute your search based on the criteria entered");'></td>
+                </tr>
+            </table>
+            </form></li>
+            <li>
+                <b>Show, Back, Next and Jump To Page:</b><br>
+                The results are 'paged' to make them load faster with slower connections, but you can choose to show all results, jump backwards or forwards, or go
+                straight to a particular page.
+            </li>&nbsp;
+            <li>
+                <b>Heard In:</b><br>
+                You can enter values in the 'Heard In' box to show only those signals heard in specific US States, Canadian Provinces or other countries.<br>
+                <ul>
+                    <li>To show signals heard in Ontario, Michigan <b>and</b> France, enter ON MI FRA in the 'Heard In' box and select 'All'.</li>
+                    <li>To show signals heard in Ontario, Michigan <b>or</b> Illinois, enter ON MI IL in the 'Heard In' box and select 'Any'.</li>
+                </ul>
+            </li>&nbsp;
+            <li>
+                <b>Heard By:</b><br>
+                You can also values in the 'Heard By' box to show only those signals heard by specific listeners at given locations<br>
+                <ul>
+                    <li>To show signals heard by Andy Robins, select his name in the drop down box. This disables the 'Heard In' box since you cannot use both functions at once.</li>
+                    <li>When you choose a specific listener in the drop-down box, two new columns are shown in the results - DX in KM and in Miles.</li>
+                </ul>
+            </li>&nbsp;
+            <li>
+                <b>Frequencies:</b><br>
+                You can limit the results to show only signals in a certain frequency range by entering values in either (or both) of the two frequency boxes.
+            </li>
+            &nbsp;
+            <li>
+                <b>State / Province:</b><br>
+                You can limit the results to show only signals located in a specific state or province by entering values in the S/P box.
+            </li>
+            <li>
+                <b>ID:</b><br>
+                If you type a <b>Y</b> in this box, only signals containing a Y in their callsign will be displayed.<br>
+                If you type <b>DIW</b>, only signals whose callsigns are DIW are shown.<br>
+                The <b>_</b> symbol is a 'wildcard' character, so if you wanted to show all signals with three letters whose callsigns start with Y and end with Y you would enter <b>Y_Y</b>.<br>
+                To show only DGPS stations (whose idents are always shown in this system prefixed with a #) you could simply type in a <b>#</b>.
+            </li>&nbsp;
+            <li>
+                <b>Types:</b><br>
+                By default the system will only show NDBs, hoever you can select other forms of transmission to see these displayed.
+            </li>&nbsp;
+            <li>
+                <b>Combining settings for powerful searches:</b><br>
+                Any of the settings can be used in combination for sophisticated searched.<br>
+                Here are two examples from the <b>RNA</b> system:
+                <ul>
+                    <li>
+                        <a href='http://www.classaxe.com/dx/ndb/rna/?mode=signal_list&sortBy=call&limit=-1&offset=0&filter_heard=ON+MI&filter_itu=CAN&grp=any&filter_khz_1=198&filter_khz_2=500&filter_sp=ON&filter_id=Y_Y'><b>Example 1</b></a> displays all three-letter NDBs starting and ending with a Y between 198 and 500KHz located in Ontario Canada and heard in Ontario OR Michigan, sorted by ID.
+                    </li>
+                    <li>
+                        <a href='http://www.classaxe.com/dx/ndb/rna/?mode=signal_list&sortBy=last_heard_d&limit=10&offset=20&filter_heard=ON+MI&grp=all&filter_khz_1=300&filter_khz_2=&filter_sp=&filter_id=%23'><b>Example 2</b></a> displays the third page of ten results listing DGPS stations above 300KHz heard in Ontario AND Michigan, sorted by date last logged in descending order.<br>
+                    </li>
+                </ul>
+                (Note that matched terms in each case are shown <font color='#0000ff'><b>highlighted</b></font>.)
+            </li>&nbsp;
+            <li>
+                <b>Detailed information for Each Signal</b><br>
+                To see detailed information for any given station, click on the station's ID. This opens a popup window giving more details.
+            </li>&nbsp;
+            <li>
+                <b>Loggings for Each Signal</b><br>
+                To see actual loggings for any given signal, click on the station's ID as before, then click on the <b>Logs</b> tab in the window that opens where available to see
+                a comprehensive list of all loggings with time and date, listener and listener location, and automatically calculated distances in both Miles and KM.
+            </li>
+
+        </ul>
+    </li>
+
+    <li>
+        <h2><a name='signal_profile'></a>Signal Profile</h2> &nbsp; <small>[ <a href='#top'><b>Top</b></a> ]</small>
+        <p>This screen shows more information on the signal and includes buttons to view all loggings of the station and the current weather at weather stations near to the transmitter location.<br>
+        <img src='../assets/help_signal_profile.gif' width='651' height='411' alt='Signal Profile for TRI in Trinidad'>
+    </li>
+
+
+    <li>
+        <h2><a name='listener_list'></a>Listener Listings</h2> &nbsp; <small>[ <a href='#top'><b>Top</b></a> ]</small>
+        <p>To see a list of listeners whose logs are included in the reports, click the Listeners tab on the main menu.<br>
+        <ul>
+            <li>
+                Once again, all columns are sortable by clicking on the column heading.
+            </li>
+            <li>
+                You can limit displayed results to specific listeners, states or callsigns.
+            </li>
+            <li>
+                Click on a listener's name to see details on that listener.
+            </li>
+            <li>
+                Click on a listener's <b>callsign</b> to run a search for information in the QRZ database relating to that callsign.
+            </li>
+            <li>
+                Click on a listener's <b>GSQ</b> to see a map of the location they are based in.
+            </li>
+            <li>
+                The <b>Logs</b> column indicates the number of loggings by that listener held in the system.
+            </li>
+            <li>
+                To see actual loggings by a listener, click on the listeners name as described above, then in the window that appears, click the
+                <b>Logs</b> tab (if available) to see a list of all loggings in the system by that person.
+            </li>
+        </ul>
+    </li>
+
+    <li>
+        <h2><a name='included'></a>Getting YOUR log information included</h2> &nbsp; <small>[ <a href='#top'><b>Top</b></a> ]</small>
+        <p>
+            The best way to do this is to subscribe to the NDB List at <a href='http://www.ndblist.info'>http://www.ndblist.info</a> - it's free and open only to bonafide NDB DXers. You will have to search through information at the beaconworld site, but that's part of the test for joining! Once you are subscribed to the NDBList, post your logs to the list and the editor managing the system (see below) will import your posted logs into the system. This process automatically assigns GSQ, State / Province, Country and even DX in KM and Miles automatically.
+        </p>
+
+        <p>
+            When publishing your logs it would be very helpful if you use a text format using <b>spaces</b> NOT <b>Tabs</b> to separate columns,
+            and format it for a fixed point size font such as Courier. Please remember to prefix any offset values that are approximate with a ~ symbol to indicate that the values are approximate only.
+        </p>
+
+        <p>
+            Here are some valid examples, starting with the absolute ideal (as far as I'm concerned) - this format includes all data interpretted by the system.
+        </p>
+        <ul>
+            <li><b>Date</b> (full date including year means less work for the person importing the log and also less chance of errors)</li>
+            <li><b>Time</b> (always UTC!)</li>
+            <li><b>KHz</b></li>
+            <li><b>Call / ID</b></li>
+            <li><b>Offsets</b> (use ~ to indicate approximate values) and format</li>
+            <li><b>Time of cycle</b> in seconds</li>
+        </ul>
+        <p>
+            It also includes additional fields (SP, ITU, QTH) to make the posted message more meaningful to other readers,
+            and also to help the editor deal with possible ambiguities (e.g. two stations called CO on 407KHz):
+        </p>
+
+        <table cellpadding='4' cellspacing='1' border='0' bgcolor='#c0c0c0'>
+            <tr>
+                <td bgcolor='#ffffff'>
+<pre>
+-------------------------------------------------------------------
+DD/MM/YYYY UTC   kHz   Call  Offsets      Sec  SP ITU Location
+-------------------------------------------------------------------
+03/07/2004 15:42 326   VV    370  DAID    5.6  ON CAN Wiarton
+03/07/2004 15:47 329   AMN   1037         6.9  MI USA Alma
+03/07/2004 15:44 329   IA    1028 -1033   5.7  NY USA Niagara Falls
+03/07/2004 16:20 329   YHN   403          10.5 ON CAN Hornepayne
+03/07/2004 15:50 332   PH    1013         7.2  MI USA Port Huron
+03/07/2004 17:56 334   BNR   1037         6.8  OH USA Benton Ridge
+03/07/2004 17:50 334   YSH   401          9.9  ON CAN Smith Falls
+----------------------------------------------------------------------
+</pre>
+                </td>
+            </tr>
+        </table>
+        <p>
+            Here's a much simpler example that also works but leaves one or two fields blank when importing logs:
+        </p>
+        <table cellpadding='4' cellspacing='1' border='0' bgcolor='#c0c0c0'>
+            <tr>
+                <td bgcolor='#ffffff'>
+<pre>
+Log for July 2004
+---------------------------------
+DD UTC   kHz   Call  LSB  USB
+---------------------------------
+03 15:42 326   VV         ~370
+03 15:47 329   AMN        1037
+03 15:44 329   IA    1033 1028
+05 16:20 329   YHN        403
+03 15:50 332   PH         1013
+03 17:56 334   BNR        1037
+03 17:50 334   YSH        401
+</pre>
+                </td>
+            </tr>
+        </table>
+
+        <p>
+            ...or like this:
+        </p>
+        <table cellpadding='4' cellspacing='1' border='0' bgcolor='#c0c0c0'>
+            <tr>
+                <td bgcolor='#ffffff'>
+<pre>
+------------------------------------
+MMDDYYYY UTC   kHz   Call  LSB  USB
+------------------------------------
+07032004 15:42 326   VV         ~370
+07032004 15:47 329   AMN        1037
+07032004 15:44 329   IA    1033 1028
+07032004 16:20 329   YHN        403
+07032004 15:50 332   PH         1013
+07032004 17:56 334   BNR        1037
+07032004 17:50 334   YSH        401
+</pre>
+                </td>
+            </tr>
+        </table>
+
+        <p>
+            ... or perhaps even like this:
+        </p>
+        <table cellpadding='4' cellspacing='1' border='0' bgcolor='#c0c0c0'>
+            <tr>
+                <td bgcolor='#ffffff'>
+<pre>
+Log for July 2004
+----------------------------------------------------------------------
+DD UTC  kHz   Call  LSB  USB  Pwr. KM    GSQ    Location
+----------------------------------------------------------------------
+03 1542 326   VV         ~370 400  164   EN94jq Wiarton, ON, CAN
+03 1547 329   AMN        1037 25   433   EN73oh Alma, MI, USA
+03 1544 329   IA    1033 1028 150  100   FN03nc Niagara Falls, NY, USA
+05 1620 329   YHN        403  500  713   EN79qf Hornepayne, ON, CAN
+03 1550 332   PH         1013      279   EN82qu Port Huron, MI, USA
+03 1756 334   BNR        1037      470   EN81ea Benton Ridge, OH, USA
+03 1750 334   YSH        401  25   296   FN14xv Smith Falls, ON, CAN
+</pre>
+                </td>
+            </tr>
+        </table>
+
+        <p>
+            ...absolute values also work if that's your choice:
+        </p>
+        <table cellpadding='4' cellspacing='1' border='0' bgcolor='#c0c0c0'>
+            <tr>
+                <td bgcolor='#ffffff'>
+<pre>
+July 3rd 2004
+-----------------------------------------------
+hh:mm KHZ   ID    ABS             Location
+-----------------------------------------------
+15:42 326   VV    ~326.370         Wiarton, ON, CAN
+15:47 329   AMN   330.037          Alma, MI, USA
+15:44 329   IA    327.967 330.028  Niagara Falls, NY, USA
+16:20 329   YHN   329.403          Hornepayne, ON, CAN
+15:50 332   PH    333.013          Port Huron, MI, USA
+17:56 334   BNR   335.037          Benton Ridge, OH, USA
+17:50 334   YSH   334.401          Smith Falls, ON, CAN
+</pre>
+                </td>
+            </tr>
+        </table>
+    </li>
+</ul>
+
+
+<p>
+    <b>Dealing with Ambiguities:</b><br>
+    Provided there is no ambiguity in the details (i.e. two stations exist with the same callsign), a log as simple as the last one shown is acceptable. Be aware however where you fail to give a frequency and the callsign is used on more
+    than one station, as in the case of CB to at least specify what state the transmitter is in. In some rare cases there may be more than one station with the same callsign AND frequency - e.g. 407-CO (there's one in CO and one in MO) - in these rare cases a nore saying which one you believe you heard would be useful.
+</p>
+
+<p>
+    <b>Relevant Fields:</b><br>
+    The only details interpretted by RNA / REU's import system are Date (UTC and may be shown in vitually any format imaginable),
+    time (UTC hhmm or hh:mm), KHZ, callsign (for DGPS stations use the Station ID prefixed with a # - see the <a href='./?mode=tools'><b>Tools</b></a> menu for a lookup tool), LSB and USB.
+</p>
+<p>
+    <b>Please try and avoid using tabs</b> and use a fixed spacing type font such as Courier to format your results wherever possible
+    as this makes it <b>MUCH</b> easier for the system editor to import results into the system. Any other fields you include (such as GSQ, 'New', Location, State etc) are
+    best shown at the end of the table.
+</p>
+
+<p>
+    <b>If in doubt...</b><br>
+    Please post a short log to the list or email it to the system editor (see bottom of page) and see if it validates correctly. This will save a LOT of time in the long run and some logs are MUCH easier to read than other requiring extensive modification by the editor prior to processing.
+</p>
+{% endblock %}

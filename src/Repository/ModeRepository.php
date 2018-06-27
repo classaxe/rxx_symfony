@@ -36,7 +36,13 @@ class ModeRepository
                 'guest' =>  false,
                 'menu' =>   'Log Off',
                 'title' =>  'Log Off'
-            ]
+            ],
+            'help' =>    [
+                'admin' =>  true,
+                'guest' =>  true,
+                'menu' =>   'Help',
+                'title' =>  'Help'
+            ],
         ],
         [
             'signal_list' =>    [
