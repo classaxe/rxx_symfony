@@ -1,21 +1,24 @@
 {% extends 'main.html.twig' %}
 {# This could use some work #}
 {% block body %}
-<h2>Help</h2><br><br>
-<p align='center'><small>Quick Links [
-    <nobr><a href='#quick'><b>Quick Start Guide</b></a></nobr> |
-    <nobr><a href='#ndbs'><b>About NDBs</b></a></nobr> |
-    <nobr><a href='#about'><b>About this system</b></a></nobr> |
-    <nobr><a href='#signal_list'><b>Signal Listings</b></a></nobr> |
-    <nobr><a href='#signal_profile'><b>Signal Profile</b></a></nobr><br>
-    <nobr><a href='#listener_list'><b>Listener Listings</b></a></nobr> |
-    <nobr><a href='#included'><b>Getting your data included</b></a></nobr> |
-    <nobr><script language='javascript' type='text/javascript'>document.write("<b><a href='mail"+"to"+":martin"+"@"+"classaxe"+"."+"com?subject=RNA%20/%20REU%20System'>Contact the Editor"+"</a></b>")</script></nobr> ]
-</small></p>
+<div class="main">
+<h1>Help</h1>
+<div class="links">
+Quick Links [
+    <a href='#quick'>Quick Start Guide</a> |
+    <a href='#ndbs'>About NDBs</a> |
+    <a href='#about'>About this system</a> |
+    <a href='#signal_list'>Signal Listings</a> |
+    <a href='#signal_profile'>Signal Profile</a> <br />
+    <a href='#listener_list'>Listener Listings</a> |
+    <a href='#included'>Getting your data included</a> |
+    <script language='javascript' type='text/javascript'>document.write("<a href='mail"+"to"+":martin"+"@"+"classaxe"+"."+"com?subject=RNA%20/%20REU%20System'>Contact the Editor"+"</a>")</script>
+]
+</div>
 
 <ul>
     <li>
-        <h2><a name='quick'></a>Quick Start Guide</h2> &nbsp; <small>[ <a href='#top'><b>Top</b></a> ]</small>
+        <h2><a name='quick'></a>Quick Start Guide</h2> <small>[ <a href='#top'><b>Top</b></a> ]</small><br />
         <p>The following systems are available:</p>
         <ul>
             <li><b>RNA</b>&#010;shows stations known to have been received in North America</li>
@@ -23,18 +26,18 @@
             <li><b>RWW</b>&#010;shows stations received Worldwide</li>
         </ul>
         <br>
-        <img src='../assets/help_select_system.gif' width='588' height='130' alt='View of system and page menu if RNA is currently selected.' style='float:none;'>
+        <img src="{{ asset('image/help/help_select_system.gif') }}" width='588' height='130' alt='View of system and page menu if RNA is currently selected.' style='float:none;'>
         <p>Those of you who like longer answers are invited to read on...</p>
     </li>
 
     <li>
-        <h2><a name='ndbs'></a>About NDBs</h2> &nbsp; <small>[ <a href='#top'><b>Top</b></a> ]</small>
+        <h2><a name='ndbs'></a>About NDBs</h2> <small>[ <a href='#top'><b>Top</b></a> ]</small><br />
         <p>NDBs (or 'Non Directional Beacons') are like radio lighthouses, guiding aircraft to airport runways and keeping ships away from dangerous waters.</p>
         <table cellpadding='0' cellspacing='0' border='0'>
             <tr>
                 <td align='center'>
-                    <img src='../assets/help_aeromap.gif' width='457' height='272' alt='Example of an aeronavigation map - note NDBs shown in purple boxes' style='float:none;'><br>
-                    <small><b>Example of an aeronavigation map. Note NDBs shown in purple boxes</b></small>
+                    <img src="{{ asset('image/help/help_aeromap.gif') }}" width='457' height='272' alt='Example of an aeronavigation map - note NDBs shown in purple boxes' style='float:none;'><br>
+                    <small><b>Example of an aeronavigation map. Note NDBs shown in purple boxes</b></small><br />
                 </td>
             </tr>
         </table>
@@ -42,7 +45,7 @@
     </li>
 
     <li>
-        <h2><a name='about'></a>About this system</h2> &nbsp; <small>[ <a href='#top'><b>Top</b></a> ]</small>
+        <h2><a name='about'></a>About this system</h2> <small>[ <a href='#top'><b>Top</b></a> ]</small><br />
         <p>This system was based on a concept by <b>Andy Robins</b> and was initially seeded using his originally compiled data.<br>
         The version you are now using was designed and programmed by <script language='javascript' type='text/javascript'>document.write("<a href='mail"+"to"+":martin"+"@"+"classaxe"+"."+"com?subject=RNA%20/%20REU%20System'><b>Martin Francis"+"</b></a>")</script>
         and was originally created exclusively to show loggings of NDBs, however several contributors provide details of other utility signals received and so it has now been expanded to include other forms of transmission.<br>
@@ -52,9 +55,9 @@
     </li>
 
     <li>
-        <h2><a name='signal_list'></a>Signal Listings</h2> &nbsp; <small>[ <a href='#top'><b>Top</b></a> ]</small>
+        <h2><a name='signal_list'></a>Signal Listings</h2> <small>[ <a href='#top'><b>Top</b></a> ]</small><br />
         <p>To access information on all types of signal, press the 'Signals' option from the main menu. Here is an example of what you might see, but note this picture is for illustrative purposes only:</p>
-        <p><img src='../assets/help_signal_list.gif' alt='Example of Signal listing' width='709' height='289'></p>
+        <p><img src="{{ asset('image/help/help_signal_list.gif') }}" alt='Example of Signal listing' width='709' height='289'></p>
         <p>The table presented shows the frequency and Callsign / IDs of all stations heard.<br>
         Click on any column heading to sort by that column. Clicking a second time reverses the sort order.<br>
         In this listing, several types of signal are shown, and these are colour-coded:</p>
@@ -293,14 +296,14 @@
     </li>
 
     <li>
-        <h2><a name='signal_profile'></a>Signal Profile</h2> &nbsp; <small>[ <a href='#top'><b>Top</b></a> ]</small>
+        <h2><a name='signal_profile'></a>Signal Profile</h2> &nbsp; <small>[ <a href='#top'><b>Top</b></a> ]</small><br />
         <p>This screen shows more information on the signal and includes buttons to view all loggings of the station and the current weather at weather stations near to the transmitter location.<br>
-        <img src='../assets/help_signal_profile.gif' width='651' height='411' alt='Signal Profile for TRI in Trinidad'>
+        <img src="{{ asset('image/help/help_signal_profile.gif') }}" width='651' height='411' alt='Signal Profile for TRI in Trinidad'>
     </li>
 
 
     <li>
-        <h2><a name='listener_list'></a>Listener Listings</h2> &nbsp; <small>[ <a href='#top'><b>Top</b></a> ]</small>
+        <h2><a name='listener_list'></a>Listener Listings</h2> &nbsp; <small>[ <a href='#top'><b>Top</b></a> ]</small><br />
         <p>To see a list of listeners whose logs are included in the reports, click the Listeners tab on the main menu.<br>
         <ul>
             <li>
@@ -329,7 +332,7 @@
     </li>
 
     <li>
-        <h2><a name='included'></a>Getting YOUR log information included</h2> &nbsp; <small>[ <a href='#top'><b>Top</b></a> ]</small>
+        <h2><a name='included'></a>Getting YOUR log information included</h2> &nbsp; <small>[ <a href='#top'><b>Top</b></a> ]</small><br />
         <p>
             The best way to do this is to subscribe to the NDB List at <a href='http://www.ndblist.info'>http://www.ndblist.info</a> - it's free and open only to bonafide NDB DXers. You will have to search through information at the beaconworld site, but that's part of the test for joining! Once you are subscribed to the NDBList, post your logs to the list and the editor managing the system (see below) will import your posted logs into the system. This process automatically assigns GSQ, State / Province, Country and even DX in KM and Miles automatically.
         </p>
@@ -355,10 +358,7 @@
             and also to help the editor deal with possible ambiguities (e.g. two stations called CO on 407KHz):
         </p>
 
-        <table cellpadding='4' cellspacing='1' border='0' bgcolor='#c0c0c0'>
-            <tr>
-                <td bgcolor='#ffffff'>
-<pre>
+<pre class="log">
 -------------------------------------------------------------------
 DD/MM/YYYY UTC   kHz   Call  Offsets      Sec  SP ITU Location
 -------------------------------------------------------------------
@@ -371,16 +371,11 @@ DD/MM/YYYY UTC   kHz   Call  Offsets      Sec  SP ITU Location
 03/07/2004 17:50 334   YSH   401          9.9  ON CAN Smith Falls
 ----------------------------------------------------------------------
 </pre>
-                </td>
-            </tr>
-        </table>
+
         <p>
             Here's a much simpler example that also works but leaves one or two fields blank when importing logs:
         </p>
-        <table cellpadding='4' cellspacing='1' border='0' bgcolor='#c0c0c0'>
-            <tr>
-                <td bgcolor='#ffffff'>
-<pre>
+<pre class="log">
 Log for July 2004
 ---------------------------------
 DD UTC   kHz   Call  LSB  USB
@@ -393,17 +388,11 @@ DD UTC   kHz   Call  LSB  USB
 03 17:56 334   BNR        1037
 03 17:50 334   YSH        401
 </pre>
-                </td>
-            </tr>
-        </table>
 
         <p>
             ...or like this:
         </p>
-        <table cellpadding='4' cellspacing='1' border='0' bgcolor='#c0c0c0'>
-            <tr>
-                <td bgcolor='#ffffff'>
-<pre>
+<pre class="log">
 ------------------------------------
 MMDDYYYY UTC   kHz   Call  LSB  USB
 ------------------------------------
@@ -415,17 +404,10 @@ MMDDYYYY UTC   kHz   Call  LSB  USB
 07032004 17:56 334   BNR        1037
 07032004 17:50 334   YSH        401
 </pre>
-                </td>
-            </tr>
-        </table>
-
         <p>
             ... or perhaps even like this:
         </p>
-        <table cellpadding='4' cellspacing='1' border='0' bgcolor='#c0c0c0'>
-            <tr>
-                <td bgcolor='#ffffff'>
-<pre>
+<pre class="log">
 Log for July 2004
 ----------------------------------------------------------------------
 DD UTC  kHz   Call  LSB  USB  Pwr. KM    GSQ    Location
@@ -438,17 +420,10 @@ DD UTC  kHz   Call  LSB  USB  Pwr. KM    GSQ    Location
 03 1756 334   BNR        1037      470   EN81ea Benton Ridge, OH, USA
 03 1750 334   YSH        401  25   296   FN14xv Smith Falls, ON, CAN
 </pre>
-                </td>
-            </tr>
-        </table>
-
         <p>
             ...absolute values also work if that's your choice:
         </p>
-        <table cellpadding='4' cellspacing='1' border='0' bgcolor='#c0c0c0'>
-            <tr>
-                <td bgcolor='#ffffff'>
-<pre>
+<pre class="log">
 July 3rd 2004
 -----------------------------------------------
 hh:mm KHZ   ID    ABS             Location
@@ -461,9 +436,7 @@ hh:mm KHZ   ID    ABS             Location
 17:56 334   BNR   335.037          Benton Ridge, OH, USA
 17:50 334   YSH   334.401          Smith Falls, ON, CAN
 </pre>
-                </td>
-            </tr>
-        </table>
+
     </li>
 </ul>
 
@@ -489,4 +462,5 @@ hh:mm KHZ   ID    ABS             Location
     <b>If in doubt...</b><br>
     Please post a short log to the list or email it to the system editor (see bottom of page) and see if it validates correctly. This will save a LOT of time in the long run and some logs are MUCH easier to read than other requiring extensive modification by the editor prior to processing.
 </p>
+</div>
 {% endblock %}

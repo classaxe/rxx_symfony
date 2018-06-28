@@ -10,7 +10,7 @@ body.reu .menu-centered .mode { border: 1px solid #ff0000; }
 body.reu .menu-centered .mode li:not(:last-child) a { border-right: 1px solid #ff3333; }
 body.reu .menu a { color: #ff3333; }
 body.reu .menu .is-active>a { background: #ff3333; color: #ffffff; }
-body.reu h1 { color: #ff3333; }
+body.reu h1, body.reu h2 { color: #ff3333; }
 body.reu .controlPanel .controls { background: #ffe6e6; }
 body.reu .footer { border-top: 3px solid #ff3333;}
 
@@ -23,7 +23,7 @@ body.rna .menu-centered .mode { border: 1px solid #3333ff; }
 body.rna .menu-centered .mode li:not(:last-child) a { border-right: 1px solid #3333ff; }
 body.rna .menu a { color: #3333ff; }
 body.rna .menu .is-active>a { background: #3333ff; color: #ffffff; }
-body.rna h1 { color: #3333ff; }
+body.rna h1, body.rna h2 { color: #3333ff; }
 body.rna .controlPanel .controls { background: #e6e6ff; }
 body.rna .footer { border-top: 3px solid #3333ff;}
 
@@ -36,7 +36,7 @@ body.rww .menu-centered .mode { border: 1px solid #33a033; }
 body.rww .menu-centered .mode li:not(:last-child) a { border-right: 1px solid #33a033; }
 body.rww .menu a { color: #33a033; }
 body.rww .menu .is-active>a { background: #33a033; color: #ffffff; }
-body.rww h1 { color: #33a033; }
+body.rww h1, body.rww h2 { color: #33a033; }
 body.rww .controlPanel .controls { background: #e6ffe6; }
 body.rww .footer { border-top: 3px solid #33a033;}
 
@@ -85,7 +85,9 @@ body .menu-centered .system .is-active>a:hover, body .menu-centered .mode .is-ac
 /* [ Main Screen ] */
 .main { padding: 0.5em; }
 .main p { margin: 0.5em 0; font-size: 100%; }
-.main h1 { margin: 0.125em 0; font-size: 120%; font-weight: normal; }
+.main h1 { margin: 0.125em 0; font-size: 120%; font-weight: bold; }
+.main h2 { margin: 0.125em 0; font-size: 120%; font-weight: normal; display: inline-block; float: left; }
+.main h2 + small { display: inline-block; float: left; margin: 0.5em 1em 0.5em 1em; }
 .main a { color: #0033a0; text-decoration: none; font-weight: bold; }
 .main a:hover { text-decoration: underline; }
 .main .links { text-align: center; font-size: small; margin: 1em 0; font-size: 70%; }
@@ -172,3 +174,6 @@ body .menu-centered .system .is-active>a:hover, body .menu-centered .mode .is-ac
     body { font-size: 85%; width: 95%; }
     .menu-centered { display: none; }
 }
+
+/* [ Help pages */
+pre.log { background: #ffffff; border: 1px solid #888; padding: 0 5px; display: inline-block; }
