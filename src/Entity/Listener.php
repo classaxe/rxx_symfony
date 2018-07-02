@@ -767,6 +767,19 @@ class Listener
         return $this;
     }
 
+    /**
+     * @return null|string
+     */
+    public function getFormattedAddlogLink(): ?string
+    {
+        $popup_url =    'http://example.com';
+        $popup_name =   "addlog_{$this->id}";
+        $popup_args =   "width=640,height=480,status=1,scrollbars=1,resizable=1";
+        $short_url =    preg_replace(['(^https?://)', '(/$)'], '', $popup_url);
+        return
+            "<a href=\"{$popup_url}\" rel=\"external\" data-popup=\"{$popup_name}|{$popup_args}\">Add...</a>";
+    }
+
     /* Custom getters for column display */
 
     /**
@@ -777,76 +790,11 @@ class Listener
         if (!$this->callsign) {
             return '';
         }
-        $popup_url =    "https://hamcall.net/call?callsign={$this->callsign}";
+        $popup_url =    "https://hamcall.net/call?callsign=".urlencode($this->callsign);
         $popup_name =   "callsign_{$this->id}";
         $popup_args =   "width=640,height=480,status=1,scrollbars=1,resizable=1";
 
-        return "<a href=\"$popup_url\"  rel=\"popup|{$popup_name}|{$popup_args}\">{$this->callsign}</a>";
-    }
-
-    /**
-     * @return null|string
-     */
-    public function getFormattedDeleteLink(): ?string
-    {
-        return '<a href="">Delete</a>';
-    }
-
-    /**
-     * @return null|string
-     */
-    public function getFormattedLogLatest(): ?string
-    {
-        if ($this->logLatest->format("Y-m-d") < '1900-01-01') {
-            return '';
-        }
-        return $this->logLatest->format("Y-m-d");
-    }
-
-    /**
-     * @return null|string
-     */
-    public function getFormattedMapPos(): ?string
-    {
-        return $this->mapX.','.$this->mapY;
-    }
-
-    /**
-     * @return null|string
-     */
-    public function getFormattedNdbWeblogLink(): ?string
-    {
-        if (!$this->countLogs) {
-            return '';
-        }
-        $popup_url =    "https://www.classaxe.com/dx/ndb/rna/export_ndbweblog_index/{$this->id}";
-        $popup_name =   "nwl_{$this->id}";
-        $popup_args =   "width=640,height=480,status=1,scrollbars=1,resizable=1";
-        return "<a href=\"$popup_url\" rel=\"popup|{$popup_name}|{$popup_args}\">NWL</a>";
-    }
-
-    /**
-     * @return null|string
-     */
-    public function getFormattedRegion(): ?string
-    {
-        return strtoupper($this->region);
-    }
-
-    /**
-     * @return null|string
-     */
-    public function getFormattedWebsiteLink(): ?string
-    {
-        if (!$this->website) {
-            return '';
-        }
-        $popup_url =    $this->website;
-        $popup_name =   "www_{$this->id}";
-        $popup_args =   "width=640,height=480,status=1,scrollbars=1,resizable=1";
-        $short_url =    preg_replace(['(^https?://)', '(/$)'], '', $popup_url);
-        return
-            "<a href=\"{$popup_url}\" rel=\"popup|{$popup_name}|{$popup_args}\">{$short_url}</a>";
+        return "<a href=\"$popup_url\" rel=\"external\" data-popup=\"{$popup_name}|{$popup_args}\">{$this->callsign}</a>";
     }
 
     /**
@@ -919,6 +867,82 @@ class Listener
     public function getFormattedCountTime(): ?string
     {
         return ($this->countTime ? $this->countTime : '');
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getFormattedDeleteLink(): ?string
+    {
+        return '<a href="">Delete</a>';
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getFormattedLogLatest(): ?string
+    {
+        if ($this->logLatest->format("Y-m-d") < '1900-01-01') {
+            return '';
+        }
+        return $this->logLatest->format("Y-m-d");
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getFormattedMapPos(): ?string
+    {
+        return $this->mapX.','.$this->mapY;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getFormattedNameLink(): ?string
+    {
+        $popup_url =    "https://www.classaxe.com/dx/ndb/rna/export_ndbweblog_index/{$this->id}";
+        $popup_name =   "nwl_{$this->id}";
+        $popup_args =   "width=640,height=480,status=1,scrollbars=1,resizable=1";
+        return "<a href=\"$popup_url\" rel=\"external\" data-popup=\"{$popup_name}|{$popup_args}\">NWL</a>";
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getFormattedNdbWeblogLink(): ?string
+    {
+        if (!$this->countLogs) {
+            return '';
+        }
+        $popup_url =    "https://www.classaxe.com/dx/ndb/rna/export_ndbweblog_index/{$this->id}";
+        $popup_name =   "nwl_{$this->id}";
+        $popup_args =   "width=640,height=480,status=1,scrollbars=1,resizable=1";
+        return "<a href=\"$popup_url\" rel=\"external\" data-popup=\"{$popup_name}|{$popup_args}\">NWL</a>";
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getFormattedRegion(): ?string
+    {
+        return strtoupper($this->region);
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getFormattedWebsiteLink(): ?string
+    {
+        if (!$this->website) {
+            return '';
+        }
+        $popup_url =    $this->website;
+        $popup_name =   "www_{$this->id}";
+        $popup_args =   "width=640,height=480,status=1,scrollbars=1,resizable=1";
+        $short_url =    preg_replace(['(^https?://)', '(/$)'], '', $popup_url);
+        return
+            "<a href=\"{$popup_url}\" rel=\"external\" data-popup=\"{$popup_name}|{$popup_args}\">{$short_url}</a>";
     }
 
 }

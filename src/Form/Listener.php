@@ -22,7 +22,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
  * Class ListenerList
  * @package App\Form
  */
-class ListenerList extends AbstractType
+class Listener extends AbstractType
 {
     /**
      * @var ItuRepository
@@ -59,42 +59,14 @@ class ListenerList extends AbstractType
     public function buildForm(FormBuilderInterface $formBuilder, array $options)
     {
         $system =   $options['system'];
-        $region =   $options['region'];
+        $id =       $options['id'];
 
         $formBuilder
             ->add(
-                'sort',
+                'id',
                 HiddenType::class,
                 [
-                    'data' => 'name'
-                ]
-            )
-            ->add(
-                'order',
-                HiddenType::class,
-                [
-                    'data' => 'a'
-                ]
-            )
-            ->add(
-                'filter',
-                TextType::class,
-                [
-                    'label' => 'Search For',
-                    'help' => '&nbsp;'
-                ]
-            )
-            ->add(
-                'types',
-                ChoiceType::class,
-                [
-                    'label' => 'Show Counts',
-                    'expanded' => true,
-                    'multiple' => true,
-                    'choices' => $this->type->getAll(),
-                    'choice_attr' => function ($choiceValue, $key, $value) {
-                        return ['class' => strToLower($value)];
-                    }
+                    'data' => $id
                 ]
             )
             ->add(
@@ -102,27 +74,12 @@ class ListenerList extends AbstractType
                 ChoiceType::class,
                 [
                     'label' => 'Country',
-                    'choices' => $this->country->getAllOptionsForSystemAndRegion($system, $region),
+                    'choices' => $this->country->getAllOptionsForSystem(),
                 ]
-            );
-
-        if ($system=='rww') {
-            $formBuilder
-                ->add(
-                    'region',
-                    ChoiceType::class,
-                    [
-                        'label' => 'Region',
-                        'choices' => $this->region->getAllOptions(),
-                    ]
-                );
-        }
-
-        $formBuilder
+            )
             ->add(
                 'submit',
-                SubmitType::class,
-                [
+                SubmitType::class, [
                     'label' => 'Go'
                 ]
             );

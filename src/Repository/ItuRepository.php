@@ -13,7 +13,7 @@ class ItuRepository extends ServiceEntityRepository
         parent::__construct($registry, Itu::class);
     }
 
-    public function getAllForSystem($system)
+    public function getAllForSystem($system = null)
     {
         $qb = $this->createQueryBuilder('c');
         switch($system) {
@@ -39,7 +39,7 @@ class ItuRepository extends ServiceEntityRepository
             ->execute();
     }
 
-    public function getAllOptionsForSystem($system)
+    public function getAllOptionsForSystem($system = null)
     {
         $countries = $this->getAllForSystem($system);
         $out = ['(All Countries' => ''];

@@ -62,9 +62,13 @@ function setColumnSortedClass() {
 /* [ Set links to open in external or popup window if rel attribute is set ] */
 function setExternalLinks() {
     $('a[rel="external"]').attr('target', '_blank');
-    $('a[rel^="popup|"]').click(function() {
-        var args = this.rel.split('|')[1];
-        window.open(this.href,this.rel.split('|')[1], this.rel.split('|')[2]);
+    $('a[data-popup]').click(function() {
+        var args = $(this).attr('data-popup').split('|');
+        window.open(this.href, args[0], args[1]);
         return false;
     });
+}
+
+function dw(string) {
+    document.write(string);
 }

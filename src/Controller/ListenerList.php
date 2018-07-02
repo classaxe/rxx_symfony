@@ -14,7 +14,7 @@ class ListenerList extends BaseController {
 
     /**
      * @Route(
-     *     "/{system}/listener_list",
+     *     "/{system}/listeners",
      *     requirements={
      *        "system": "reu|rna|rww"
      *     },

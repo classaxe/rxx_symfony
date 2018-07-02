@@ -92,7 +92,7 @@ body .menu-centered .system .is-active>a:hover, body .menu-centered .mode .is-ac
 .main a { color: #0033a0; text-decoration: none; font-weight: bold; }
 .main a:hover { text-decoration: underline; }
 .main .links { text-align: center; font-size: small; margin: 1em 0; font-size: 70%; }
-.main .links_left { text-align: left; font-size: small; margin: 1em 0; font-size: 80%; }
+.main .links_left { text-align: left; font-size: small; margin: 1em 0; font-size: 70%; }
 .main .zone { display: block; margin: 0.5em 0; font-weight: bold; padding:0; }
 .main .zone:after { content: ''; display: table; clear: both; height: 1px; overflow: hidden; }
 .main .header { background: #707070; color: #ffffff; padding: 0.2em; }
@@ -132,6 +132,11 @@ body .menu-centered .system .is-active>a:hover, body .menu-centered .mode .is-ac
 .listener_list #form select { width: 420px; }
 .listener_list #form input#form_filter { width: 240px; }
 
+/* [ Form listener_edit ] */
+.listener_edit #form input[type='text'],
+.listener_edit #form select { width: 420px; }
+.listener_edit #form input#form_filter { width: 240px; }
+
 /* [ Form logon ] */
 .logon #form input[type='text'],
 .logon #form input[type='password'] { width: 150px; }
@@ -151,12 +156,12 @@ body .menu-centered .system .is-active>a:hover, body .menu-centered .mode .is-ac
 .type_all                      { background-color: #ff0000; }
 .type_all label                { color: #fff; font-style:italic; font-weight: bold !important; }
 
-.results .primaryQth { font-weight: bold; }
-.results .secondaryQth { padding-left: 2em; }
-.results { margin: 0 0.5em; }
+.results { margin: 0 0.5em; border-collapse: collapse; }
+.results, .results th, .results td { border: 1px solid #808080; }
 .results thead { border-color: #808080; }
-.results thead tr th { border-color: #808080; background: #707070; color: #ffffff; height: 7em; border-bottom: 3px solid #a0a0a0; vertical-align: bottom; font-size: 80%; padding: 0.25em;}
-.results thead tr th:hover { border-bottom: 3px solid #FCC247; background: #8A7E66; cursor: pointer; }
+.results thead tr th { border-color: #808080; background: #707070; color: #ffffff; height: 7em; vertical-align: bottom; font-size: 80%; padding: 0.25em;}
+.results thead tr th.sort { border-color: #808080; background: #707070; color: #ffffff; height: 7em; border-bottom: 3px solid #a0a0a0; vertical-align: bottom; font-size: 80%; padding: 0.25em;}
+.results thead tr th.sort:hover { border-bottom: 3px solid #FCC247; background: #8A7E66; cursor: pointer; }
 .results thead tr th.sorted { border-bottom: 3px solid #FCC247; background: #8A7E66; cursor: pointer; color: #FCC247; }
 
 .results tbody { border-color: #808080; }
@@ -164,8 +169,14 @@ body .menu-centered .system .is-active>a:hover, body .menu-centered .mode .is-ac
 .results .txt_r { text-align: right; }
 .results .monspace { font-family: "Courier New bold", Courier, monospace; }
 .results .txt_vertical { position: relative; min-width: 1.5em; }
-
 .results .txt_vertical div { position: absolute; top: 50%; white-space: nowrap; left: 50%; transform: rotate(90deg) translateX(-50%) translateY(-50%); transform-origin: left top; }
+
+
+/* [ Listeners Grid ] */
+.results.listener tr td { white-space: nowrap;}
+.results.listener .primaryQth { font-weight: bold; }
+.results.listener .secondaryQth { padding-left: 1.5em; }
+
 
 /* Hide display of URLs for each link caused by foundation class - wastes a lot of paper otherwise */
 @media print {

@@ -21,6 +21,17 @@ class ListenerRepository extends ServiceEntityRepository
             'th_class'  =>  '',
             'tooltip'   =>  '',
         ],
+        'addlog' => [
+            'admin'     =>  true,
+            'arg'       =>  '',
+            'field'     =>  'formattedAddlogLink',
+            'label'     =>  'Log',
+            'order'     =>  '',
+            'sort'      =>  '',
+            'td_class'  =>  '',
+            'th_class'  =>  '',
+            'tooltip'   =>  '',
+        ],
         'callsign' => [
             'admin'     =>  false,
             'arg'       =>  '',
@@ -237,7 +248,7 @@ class ListenerRepository extends ServiceEntityRepository
             'field'     =>  'formattedMapPos',
             'label'     =>  '<div>Map Pos</div>',
             'order'     =>  'a',
-            'sort'      =>  'l.mapPos',
+            'sort'      =>  'l.mapX',
             'td_class'  =>  '',
             'th_class'  =>  'txt_vertical',
             'tooltip'   =>  '',
@@ -247,8 +258,8 @@ class ListenerRepository extends ServiceEntityRepository
             'arg'       =>  '',
             'field'     =>  'formattedDeleteLink',
             'label'     =>  'Admin',
-            'order'     =>  'a',
-            'sort'      =>  'l.id',
+            'order'     =>  '',
+            'sort'      =>  '',
             'td_class'  =>  '',
             'th_class'  =>  '',
             'tooltip'   =>  '',
@@ -335,7 +346,8 @@ class ListenerRepository extends ServiceEntityRepository
     {
         $qb = $this
             ->createQueryBuilder('l')
-            ->select('l.name')
+            ->select('l.id')
+            ->addSelect('l.name')
             ->addSelect('l.sp')
             ->addSelect('l.itu');
         $this->addFilterSystem($qb, $system);

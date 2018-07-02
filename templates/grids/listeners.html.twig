@@ -1,11 +1,11 @@
 {% if listeners|length > 0 %}
-<table border="1" class="listener results">
+<table class="listener results">
     <thead>
         <tr>
 {% for key, column in columns %}
 {% if ((not column.admin or isAdmin) and (not column.arg or (column.arg and column.arg in args.types))) %}
             <th{%  if key and column.order %} id="{{ key }}_{{ column.order }}"{% endif %}
-{% if column.th_class %} class="{{ column.th_class }}"{% endif %}
+{% if column.th_class or column.sort%} class="{{ column.th_class }}{% if column.sort %} sort{% endif %}"{% endif %}
 {% if column.tooltip %} title="{{ column.tooltip }}"{% endif %}
 >{{ column.label|raw }}</th>
 {% endif %}
@@ -17,7 +17,14 @@
         <tr>
 {% for key, column in columns %}
 {% if ((not column.admin or isAdmin) and (not column.arg or (column.arg and column.arg in args.types))) %}
-            <td{% if key == 'name' and listener.PrimaryQth is defined %} class="{% if listener.PrimaryQth %}primaryQth{% else %}secondaryQth{% endif %}">{% else %}{% if column.td_class %} class="{{ column.td_class }}"{% endif %}>{% endif %}{{ attribute(listener, column.field)|raw }}</td>
+            <td{% if key == 'name' %} title="{{ listener.PrimaryQth ? 'Primary Location' : 'Secondary Location' }}" class="{{ listener.PrimaryQth ? 'primaryQth' : 'secondaryQth' }}">{% else %}{% if column.td_class %} class="{{ column.td_class }}"{% endif %}>{% endif %}
+
+{% if key == 'name' %}
+                <a href="{{ url('listener', { 'system' : system, 'id': listener.id }) }}" rel="external" data-popup="edit_{{ listener.id }}|width=640,height=480,status=1,scrollbars=1,resizable=1">{{ attribute(listener, column.field)|raw }}</a>
+{% else %}
+                {{ attribute(listener, column.field)|raw }}
+{% endif %}
+            </td>
 {% endif %}
 {% endfor %}
         </tr>
