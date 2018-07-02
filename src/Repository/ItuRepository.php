@@ -13,45 +13,47 @@ class ItuRepository extends ServiceEntityRepository
         parent::__construct($registry, Itu::class);
     }
 
-    public function getAllForSystem($system = null)
+    public function getAll($system = null, $havingListeners = false)
     {
         $qb = $this->createQueryBuilder('c');
         switch($system) {
             case "reu":
                 $qb
-                    ->andWhere('c.region = :eu')
+                    ->where(
+                        $qb->expr()->eq('c.region', ':eu')
+                    )
                     ->setParameter('eu','eu');
                 break;
             case "rna":
                 $qb
-                    ->andWhere('c.region = :oc')
-                    ->andWhere('c.itu = :hwa')
-                    ->orWhere('c.region in (:na_ca)')
-                    ->setParameter('na_ca', ['na','ca'])
+                    ->where(
+                        $qb->expr()->orX(
+                            $qb->expr()->in('c.region', ':na_ca'),
+                            $qb->expr()->andX(
+                                $qb->expr()->eq('c.region', ':oc'),
+                                $qb->expr()->eq('c.itu',':hwa')
+                            )
+                        )
+                    )
                     ->setParameter('oc', 'oc')
-                    ->setParameter('hwa', 'hwa');
+                    ->setParameter('hwa', 'hwa')
+                    ->setParameter('na_ca', ['na','ca'])
+                    ;
                 break;
         }
-
+        if ($havingListeners) {
+            $qb
+                ->andWhere('c.itu in(SELECT DISTINCT l.itu FROM App\Entity\Listener l)');
+        }
         return $qb
             ->orderBy('c.name', 'ASC')
             ->getQuery()
             ->execute();
     }
 
-    public function getAllOptionsForSystem($system = null)
+    public function getAllOptions($system = false, $region = false, $havingListeners=false)
     {
-        $countries = $this->getAllForSystem($system);
-        $out = ['(All Countries' => ''];
-        foreach ($countries as $row) {
-            $out[$row->getName()] = $row->getItu();
-        }
-        return $out;
-    }
-
-    public function getAllOptionsForSystemAndRegion($system, $region='')
-    {
-        $countries = $this->getAllForSystem($system);
+        $countries = $this->getAll($system, $havingListeners);
         $out = ['(All Countries'.($region ? ' in selected region' : '').')' => ''];
         foreach ($countries as $row) {
             if (!$region || $region === $row->getRegion()) {

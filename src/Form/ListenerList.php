@@ -102,7 +102,8 @@ class ListenerList extends AbstractType
                 ChoiceType::class,
                 [
                     'label' => 'Country',
-                    'choices' => $this->country->getAllOptionsForSystemAndRegion($system, $region),
+                    'choices' =>
+                        $this->country->getAllOptions($system, $region, true),
                 ]
             );
 
