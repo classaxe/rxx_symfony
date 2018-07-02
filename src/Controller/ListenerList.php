@@ -61,13 +61,15 @@ class ListenerList extends BaseController {
                 "(Showing ".count($filtered)." of $total listeners)"
             );
         $parameters = [
-            'args' =>       $args,
-            'columns' =>    $listenerRepository->getColumns(),
-            'form' =>       $form->createView(),
-            'listeners' =>  $filtered,
-            'matched' =>    $matched,
-            'mode' =>       'Listeners List',
-            'system' =>     $system,
+            'args' =>               $args,
+            'columns' =>            $listenerRepository->getColumns(),
+            'form' =>               $form->createView(),
+            'latestListeners' =>    $listenerRepository->getLatestLoggedListeners($system),
+            'latestLogs' =>         $listenerRepository->getLatestLogs($system),
+            'listeners' =>          $filtered,
+            'matched' =>            $matched,
+            'mode' =>               'Listeners List',
+            'system' =>             $system,
             'text' =>
                 "<ul>\n"
                 ."    <li>Log and station counts are updated each time new log data is added - "

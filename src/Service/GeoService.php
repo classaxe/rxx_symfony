@@ -13,6 +13,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use MaxMind\Db\Reader\InvalidDatabaseException;
 use GeoIp2\Exception\AddressNotFoundException;
 use GeoIp2\Database\Reader;
+use Symfony\Component\DependencyInjection\Container;
 
 /**
  * Class GeoService
@@ -24,6 +25,8 @@ class GeoService
      * @var Visitor
      */
     private $visitor;
+
+    private $dbPath = '/usr/local/share/GeoIP/GeoIP2-City.mmdb';
 
     /**
      * GeoService constructor.
@@ -41,9 +44,22 @@ class GeoService
     {
         $ip = $this->visitor->getIpAddress();
         try {
-            $reader = new Reader('/usr/local/share/GeoIP/GeoIP2-City.mmdb');
-        } catch (InvalidDatabaseException $e) {
-            return 'rna';
+            $reader = new Reader($this->dbPath);
+        } catch (\Exception $e) {
+            $user =     posix_getpwuid(posix_geteuid());
+            $uName =    $user['name'];
+            $group =    posix_getgrgid($user['gid']);
+            $gName =    $group['name'];
+            $binPath = substr(dirname(__DIR__),0, -4)."/bin/";
+            die (
+                "<h1>GeoIP Error</h1>\n"
+                ."<p>{$this->dbPath} is missing.<br />\n"
+                ."Please run these commands:</p>"
+                ."<pre>sudo mkdir -p ".dirname($this->dbPath).";\n"
+                ."sudo chown $uName:$gName ".dirname($this->dbPath).";\n"
+                ."{$binPath}console geoip2:update</pre>"
+            );
+            return "rna";
         }
         try {
             $record = $reader->city($ip);

@@ -1,0 +1,10 @@
+{%  if isAdmin %}
+    <div class="links_left">
+        <div><strong>Latest Logs: {{ latestLogs['date'] }}</strong></div>
+        <div>
+{% for listener in latestLogs['listeners'] %}
+    {{ listener.name|raw }}{% if not loop.last %}, {% else %}.{% endif %}
+{% endfor %}
+        </div>
+    </div>
+{% endif %}

@@ -1,0 +1,10 @@
+{%  if isAdmin %}
+    <div class="links_left">
+        <div><strong>Add Log for these latest contributors:</strong></div>
+        <div>
+{% for listener in latestListeners %}
+    {{ listener.name|raw }} ({% if listener.sp %}{{ listener.sp }}{% else %}{{ listener.itu }}{% endif %}){% if not loop.last %}, {% endif %}
+{% endfor %}
+        </div>
+    </div>
+{% endif %}

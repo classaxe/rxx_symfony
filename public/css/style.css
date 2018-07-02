@@ -88,9 +88,11 @@ body .menu-centered .system .is-active>a:hover, body .menu-centered .mode .is-ac
 .main h1 { margin: 0.125em 0; font-size: 120%; font-weight: bold; }
 .main h2 { margin: 0.125em 0; font-size: 120%; font-weight: normal; display: inline-block; float: left; }
 .main h2 + small { display: inline-block; float: left; margin: 0.5em 1em 0.5em 1em; }
+.main h3 { margin: 0.125em 0; font-size: 90%; display: inline-block; float: left; }
 .main a { color: #0033a0; text-decoration: none; font-weight: bold; }
 .main a:hover { text-decoration: underline; }
 .main .links { text-align: center; font-size: small; margin: 1em 0; font-size: 70%; }
+.main .links_left { text-align: left; font-size: small; margin: 1em 0; font-size: 80%; }
 .main .zone { display: block; margin: 0.5em 0; font-weight: bold; padding:0; }
 .main .zone:after { content: ''; display: table; clear: both; height: 1px; overflow: hidden; }
 .main .header { background: #707070; color: #ffffff; padding: 0.2em; }
@@ -109,7 +111,7 @@ body .menu-centered .system .is-active>a:hover, body .menu-centered .mode .is-ac
 .main img.map { width: 100%; }
 .main div.map { margin: 0 0 1em 0; }
 
-.controlPanel .header { text-align: center; border-radius: 1em 1em 0 0; font-size: 80%; font-weight: bold; box-shadow: #777 2px 2px 5px;}
+.controlPanel .header { padding: 0 1em; white-space: nowrap; text-align: center; border-radius: 1em 1em 0 0; font-size: 80%; font-weight: bold; box-shadow: #777 2px 2px 5px;}
 .controlPanel .controls { background: #ffffff; border: 1px solid #cacaca; box-shadow: #777 2px 2px 5px; margin: 0 0 0.5em 0; }
 
 .controlPanel { width: auto; display: inline-block;}

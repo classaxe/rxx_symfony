@@ -6,9 +6,16 @@
     {{ text|raw }}
 {% set form_title='Customise ' ~ system|upper ~ ' Listener Report' %}
 {% set form_class='listener_list' %}
-{% include 'forms/form.html.twig' %}
+{% include 'listeners/latest.html.twig' %}
+{% include 'listeners/addlogfor.html.twig' %}
+<div class="row">
+    <div class="small-12 medium-8 columns">
+        {% include 'forms/form.html.twig' %}
+    </div>
+    <div class="small-12 medium-4 columns">
+        {% include 'listeners/maps.html.twig' %}
+    </div>
 </div>
-
 {% include 'grids/listeners.html.twig' %}
 
 <script>

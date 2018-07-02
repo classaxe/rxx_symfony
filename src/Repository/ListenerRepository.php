@@ -265,15 +265,8 @@ class ListenerRepository extends ServiceEntityRepository
         return $this->columns;
     }
 
-    public function getFilteredListeners($system, $args)
+    private function addFilterSystem(&$qb, $system)
     {
-        $qb = $this->createQueryBuilder('l');
-        if ($this->columns[$args['sort']]['sort']) {
-            $qb
-                ->addSelect(
-                    "(CASE WHEN (".$this->columns[$args['sort']]['sort'].")='' THEN 1 ELSE 0 END) AS _blank"
-                );
-        }
         switch($system) {
             case "reu":
                 $qb
@@ -288,23 +281,34 @@ class ListenerRepository extends ServiceEntityRepository
                     ->setParameter('hwa', 'hwa');
                 break;
         }
+    }
+
+    public function getFilteredListeners($system, $args)
+    {
+        $qb = $this->createQueryBuilder('l');
+        if ($this->columns[$args['sort']]['sort']) {
+            $qb
+                ->addSelect(
+                    "(CASE WHEN (".$this->columns[$args['sort']]['sort'].")='' THEN 1 ELSE 0 END) AS _blank"
+                );
+        }
+
+        $this->addFilterSystem($qb, $system);
+
         if ($args['filter']) {
             $qb
                 ->andWhere('(l.name like :filter or l.qth like :filter or l.callsign like :filter)')
-                ->setParameter('filter', '%'.$args['filter'].'%')
-            ;
+                ->setParameter('filter', '%'.$args['filter'].'%');
         }
         if ($args['country']) {
             $qb
                 ->andWhere('(l.itu = :country)')
-                ->setParameter('country', $args['country'])
-            ;
+                ->setParameter('country', $args['country']);
         }
         if (isset($args['region']) && $args['region']) {
             $qb
                 ->andWhere('(l.region = :region)')
-                ->setParameter('region', $args['region'])
-            ;
+                ->setParameter('region', $args['region']);
         }
         if ($this->columns[$args['sort']]['sort']) {
             $qb
@@ -327,25 +331,82 @@ class ListenerRepository extends ServiceEntityRepository
         return $out;
     }
 
+    public function getLatestLoggedListeners($system, $limit=25)
+    {
+        $qb = $this
+            ->createQueryBuilder('l')
+            ->select('l.name')
+            ->addSelect('l.sp')
+            ->addSelect('l.itu');
+        $this->addFilterSystem($qb, $system);
+        $qb
+            ->setMaxResults($limit)
+            ->orderBy('l.logLatest', 'DESC');
+
+        $result = $qb
+            ->getQuery()
+            ->execute();
+        uasort($result, array($this, 'cmp_obj'));
+
+        return $result;
+    }
+
+    static function cmp_obj($a, $b)
+    {
+        $al = strtolower($a['name']);
+        $bl = strtolower($b['name']);
+        if ($al == $bl) {
+            return 0;
+        }
+        return ($al > $bl) ? +1 : -1;
+    }
+
+    private function getLatestLogsListenersForDate($system, $date)
+    {
+        $qb = $this
+            ->createQueryBuilder('l')
+            ->select('l.name');
+        $this->addFilterSystem($qb, $system);
+        $qb
+            ->andWhere('(l.logLatest = :date)')
+            ->setParameter('date', $date)
+            ->orderBy('l.name', 'ASC');
+
+        return $qb
+            ->getQuery()
+            ->execute();
+    }
+
+    private function getLatestLogsDate($system)
+    {
+        $qb = $this
+            ->createQueryBuilder('l')
+            ->select('max(l.logLatest)');
+
+        $this->addFilterSystem($qb, $system);
+
+        return $qb
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    public function getLatestLogs($system)
+    {
+        $date =             $this->getLatestLogsDate($system);
+        $listeners =        $this->getLatestLogsListenersForDate($system, $date);
+        return [
+            'date' =>       $date,
+            'listeners' =>  $listeners
+        ];
+    }
+
     public function getTotalListeners($system)
     {
         $qb = $this
             ->createQueryBuilder('l')
             ->select('count(l.id)');
-        switch($system) {
-            case "reu":
-                $qb
-                    ->andWhere('l.region = :eu')
-                    ->setParameter('eu','eu');
-                break;
-            case "rna":
-                $qb
-                    ->andWhere('(l.region = :oc and l.itu = :hwa) or (l.region in (:na_ca))')
-                    ->setParameter('na_ca', ['na','ca'])
-                    ->setParameter('oc', 'oc')
-                    ->setParameter('hwa', 'hwa');
-                break;
-        }
+
+        $this->addFilterSystem($qb, $system);
 
         return $qb
             ->getQuery()
