@@ -2,10 +2,9 @@
 
 namespace App\Repository;
 
-
 class ModeRepository
 {
-    const modes = [
+    const MODES = [
         [
             'signal_list' =>    [
                 'admin' =>  true,
@@ -56,12 +55,11 @@ class ModeRepository
 
     public function get($code)
     {
-        return self::modes[$code];
+        return self::MODES[$code];
     }
 
     public function getAll()
     {
-        return self::modes;
+        return self::MODES;
     }
-
 }

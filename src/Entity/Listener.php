@@ -247,7 +247,7 @@ class Listener
      * @param string $callsign
      * @return Listener
      */
-    public function setCallsign(string $callsign): self
+    public function setCallsign(?string $callsign): self
     {
         $this->callsign = $callsign;
 
@@ -437,7 +437,7 @@ class Listener
      * @param string $email
      * @return Listener
      */
-    public function setEmail(string $email): self
+    public function setEmail(?string $email): self
     {
         $this->email = $email;
 
@@ -456,7 +456,7 @@ class Listener
      * @param string $equipment
      * @return Listener
      */
-    public function setEquipment(string $equipment): self
+    public function setEquipment(?string $equipment): self
     {
         $this->equipment = $equipment;
 
@@ -475,7 +475,7 @@ class Listener
      * @param string $gsq
      * @return Listener
      */
-    public function setGsq(string $gsq): self
+    public function setGsq(?string $gsq): self
     {
         $this->gsq = $gsq;
 
@@ -494,7 +494,7 @@ class Listener
      * @param string $itu
      * @return Listener
      */
-    public function setItu(string $itu): self
+    public function setItu(?string $itu): self
     {
         $this->itu = $itu;
 
@@ -513,7 +513,7 @@ class Listener
      * @param float $lat
      * @return Listener
      */
-    public function setLat(float $lat): self
+    public function setLat(?float $lat): self
     {
         $this->lat = $lat;
 
@@ -532,7 +532,7 @@ class Listener
      * @param string $logFormat
      * @return Listener
      */
-    public function setLogFormat(string $logFormat): self
+    public function setLogFormat(?string $logFormat): self
     {
         $this->logFormat = $logFormat;
 
@@ -570,7 +570,7 @@ class Listener
      * @param float $lon
      * @return Listener
      */
-    public function setLon(float $lon): self
+    public function setLon(?float $lon): self
     {
         $this->lon = $lon;
 
@@ -589,7 +589,7 @@ class Listener
      * @param int $mapX
      * @return Listener
      */
-    public function setMapX(int $mapX): self
+    public function setMapX(?int $mapX): self
     {
         $this->mapX = $mapX;
 
@@ -608,7 +608,7 @@ class Listener
      * @param int $mapY
      * @return Listener
      */
-    public function setMapY(int $mapY): self
+    public function setMapY(?int $mapY): self
     {
         $this->mapY = $mapY;
 
@@ -627,7 +627,7 @@ class Listener
      * @param string $name
      * @return Listener
      */
-    public function setName(string $name): self
+    public function setName(?string $name): self
     {
         $this->name = $name;
 
@@ -646,7 +646,7 @@ class Listener
      * @param string $notes
      * @return Listener
      */
-    public function setNotes(string $notes): self
+    public function setNotes(?string $notes): self
     {
         $this->notes = $notes;
 
@@ -665,7 +665,7 @@ class Listener
      * @param bool $primaryQth
      * @return Listener
      */
-    public function setPrimaryQth(bool $primaryQth): self
+    public function setPrimaryQth(?bool $primaryQth): self
     {
         $this->primaryQth = $primaryQth;
 
@@ -684,7 +684,7 @@ class Listener
      * @param string $qth
      * @return Listener
      */
-    public function setQth(string $qth): self
+    public function setQth(?string $qth): self
     {
         $this->qth = $qth;
 
@@ -703,7 +703,7 @@ class Listener
      * @param string $region
      * @return Listener
      */
-    public function setRegion(string $region): self
+    public function setRegion(?string $region): self
     {
         $this->region = $region;
 
@@ -722,7 +722,7 @@ class Listener
      * @param string $sp
      * @return Listener
      */
-    public function setSp(string $sp): self
+    public function setSp(?string $sp): self
     {
         $this->sp = $sp;
 
@@ -741,7 +741,7 @@ class Listener
      * @param string $timezone
      * @return Listener
      */
-    public function setTimezone(string $timezone): self
+    public function setTimezone(?string $timezone): self
     {
         $this->timezone = $timezone;
 
@@ -760,7 +760,7 @@ class Listener
      * @param string $website
      * @return Listener
      */
-    public function setWebsite(string $website): self
+    public function setWebsite(?string $website): self
     {
         $this->website = $website;
 
@@ -775,7 +775,6 @@ class Listener
         $popup_url =    'http://example.com';
         $popup_name =   "addlog_{$this->id}";
         $popup_args =   "width=640,height=480,status=1,scrollbars=1,resizable=1";
-        $short_url =    preg_replace(['(^https?://)', '(/$)'], '', $popup_url);
         return
             "<a href=\"{$popup_url}\" rel=\"external\" data-popup=\"{$popup_name}|{$popup_args}\">Add...</a>";
     }
@@ -794,7 +793,8 @@ class Listener
         $popup_name =   "callsign_{$this->id}";
         $popup_args =   "width=640,height=480,status=1,scrollbars=1,resizable=1";
 
-        return "<a href=\"$popup_url\" rel=\"external\" data-popup=\"{$popup_name}|{$popup_args}\">{$this->callsign}</a>";
+        return
+            "<a href=\"$popup_url\" rel=\"external\" data-popup=\"{$popup_name}|{$popup_args}\">{$this->callsign}</a>";
     }
 
     /**
@@ -944,5 +944,4 @@ class Listener
         return
             "<a href=\"{$popup_url}\" rel=\"external\" data-popup=\"{$popup_name}|{$popup_args}\">{$short_url}</a>";
     }
-
 }

@@ -13,16 +13,16 @@ class ItuRepository extends ServiceEntityRepository
         parent::__construct($registry, Itu::class);
     }
 
-    public function getAll($system = null, $havingListeners = false)
+    public function getMatching($system = false, $region = false, $havingListeners = false)
     {
         $qb = $this->createQueryBuilder('c');
-        switch($system) {
+        switch ($system) {
             case "reu":
                 $qb
                     ->where(
                         $qb->expr()->eq('c.region', ':eu')
                     )
-                    ->setParameter('eu','eu');
+                    ->setParameter('eu', 'eu');
                 break;
             case "rna":
                 $qb
@@ -31,19 +31,32 @@ class ItuRepository extends ServiceEntityRepository
                             $qb->expr()->in('c.region', ':na_ca'),
                             $qb->expr()->andX(
                                 $qb->expr()->eq('c.region', ':oc'),
-                                $qb->expr()->eq('c.itu',':hwa')
+                                $qb->expr()->eq('c.itu', ':hwa')
                             )
                         )
                     )
+                    ->setParameter('na_ca', ['na','ca'])
                     ->setParameter('oc', 'oc')
                     ->setParameter('hwa', 'hwa')
-                    ->setParameter('na_ca', ['na','ca'])
                     ;
                 break;
         }
+        if ($region) {
+            $qb
+                ->andWhere(
+                    $qb->expr()->in('c.region', ':region')
+                )
+                ->setParameter('region', $region)
+            ;
+        }
         if ($havingListeners) {
             $qb
-                ->andWhere('c.itu in(SELECT DISTINCT l.itu FROM App\Entity\Listener l)');
+                ->andWhere(
+                    $qb->expr()->in(
+                        'c.itu',
+                        'SELECT DISTINCT l.itu FROM App\Entity\Listener l'
+                    )
+                );
         }
         return $qb
             ->orderBy('c.name', 'ASC')
@@ -51,14 +64,12 @@ class ItuRepository extends ServiceEntityRepository
             ->execute();
     }
 
-    public function getAllOptions($system = false, $region = false, $havingListeners=false)
+    public function getMatchingOptions($system = false, $region = false, $havingListeners = false)
     {
-        $countries = $this->getAll($system, $havingListeners);
+        $countries = $this->getMatching($system, $region, $havingListeners);
         $out = ['(All Countries'.($region ? ' in selected region' : '').')' => ''];
         foreach ($countries as $row) {
-            if (!$region || $region === $row->getRegion()) {
-                $out[$row->getName()] = $row->getItu();
-            }
+            $out[$row->getName()] = $row->getItu();
         }
         return $out;
     }

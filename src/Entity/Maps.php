@@ -215,6 +215,4 @@ class Maps
 
         return $this;
     }
-
-
 }

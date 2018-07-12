@@ -9,6 +9,8 @@
 namespace App\Form;
 
 use App\Repository\ItuRepository;
+use App\Repository\State;
+
 use App\Repository\RegionRepository;
 use App\Repository\TypeRepository;
 use Symfony\Component\Form\AbstractType;
@@ -51,6 +53,31 @@ class Listener extends AbstractType
         $this->type = $type;
     }
 
+    public function getFieldGroups()
+    {
+        return [
+            'Contact Details' =>    [
+                'name',
+                'callsign',
+                'email',
+                'website'
+            ],
+            'Location' =>   [
+//                'town',
+//                'sp',
+                'itu',
+//                'gsq',
+//                'timezone',
+//                'primary',
+//                'mapX',
+//                'mapY'
+            ],
+//            'Other' =>  [
+//                'notes',
+//                'equipment'
+//            ]
+        ];
+    }
     /**
      * @param FormBuilderInterface $formBuilder
      * @param array $options
@@ -58,29 +85,70 @@ class Listener extends AbstractType
      */
     public function buildForm(FormBuilderInterface $formBuilder, array $options)
     {
-        $system =   $options['system'];
-        $id =       $options['id'];
-
         $formBuilder
             ->add(
                 'id',
                 HiddenType::class,
                 [
-                    'data' => $id
+                    'data' => $options['id']
                 ]
             )
             ->add(
-                'country',
+                'name',
+                TextType::class,
+                [
+                    'label'     => 'Name',
+                    'data'      => $options['name'],
+                    'block_name'     => 'Contact Details'
+                ]
+            )
+            ->add(
+                'callsign',
+                TextType::class,
+                [
+                    'label'     => 'Callsign',
+                    'data'      => $options['callsign']
+                ]
+            )
+            ->add(
+                'email',
+                TextType::class,
+                [
+                    'label'     => 'Email Address',
+                    'data'      => $options['email']
+                ]
+            )
+            ->add(
+                'website',
+                TextType::class,
+                [
+                    'label'     => 'Website',
+                    'data'      => $options['website']
+                ]
+            )
+//            ->add(
+//                'sp',
+//                ChoiceType::class,
+//                [
+//                    'label'     => 'State / Province',
+//                    'choices'   => $this->sp->getMatchingOptions(),
+//                    'data'      => $options['itu']
+//                ]
+//            )
+            ->add(
+                'itu',
                 ChoiceType::class,
                 [
-                    'label' => 'Country',
-                    'choices' => $this->country->getAllOptionsForSystem(),
+                    'label'     => 'Country',
+                    'choices'   => $this->country->getMatchingOptions(),
+                    'data'      => $options['itu']
                 ]
             )
             ->add(
                 'submit',
-                SubmitType::class, [
-                    'label' => 'Go'
+                SubmitType::class,
+                [
+                    'label' => 'Save'
                 ]
             );
 

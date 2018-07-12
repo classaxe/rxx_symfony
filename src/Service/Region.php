@@ -55,7 +55,7 @@ class Region
      */
     public function getMapUrlForRegion($region)
     {
-        switch($region) {
+        switch ($region) {
             case "af":
                 return 'map_af';
             case "as":

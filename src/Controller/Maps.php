@@ -5,12 +5,12 @@ use App\Repository\MapRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 
-
 /**
  * Class CountryLocator
  * @package App\Controller
  */
-class Maps extends BaseController {
+class Maps extends BaseController
+{
 
     /**
      * @Route(

@@ -6,12 +6,12 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Dotenv\Dotenv;
 
-
 /**
  * Class ListenerList
  * @package App\Controller
  */
-class Logon extends BaseController {
+class Logon extends BaseController
+{
 
     private $username = '';
     private $password = '';
@@ -95,6 +95,5 @@ class Logon extends BaseController {
             return false;
         }
         return true;
-
     }
 }

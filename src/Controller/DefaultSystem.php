@@ -9,7 +9,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
  * Class DefaultSystem
  * @package App\Controller
  */
-class DefaultSystem extends Controller {
+class DefaultSystem extends Controller
+{
     /**
      * @var GeoService
      */

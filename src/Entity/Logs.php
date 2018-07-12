@@ -7,7 +7,18 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Logs
  *
- * @ORM\Table(name="logs", indexes={@ORM\Index(name="idx_date", columns={"date"}), @ORM\Index(name="idx_dx_km", columns={"dx_km"}), @ORM\Index(name="idx_dx_miles", columns={"dx_miles"}), @ORM\Index(name="idx_heard_in", columns={"heard_in"}), @ORM\Index(name="idx_listenerID", columns={"listenerID"}), @ORM\Index(name="idx_signalID", columns={"signalID"}), @ORM\Index(name="idx_daytime", columns={"daytime"})})
+ * @ORM\Table(
+ *     name="logs",
+ *     indexes={
+ *          @ORM\Index(name="idx_date", columns={"date"}),
+ *          @ORM\Index(name="idx_dx_km", columns={"dx_km"}),
+ *          @ORM\Index(name="idx_dx_miles", columns={"dx_miles"}),
+ *          @ORM\Index(name="idx_heard_in", columns={"heard_in"}),
+ *          @ORM\Index(name="idx_listenerID", columns={"listenerID"}),
+ *          @ORM\Index(name="idx_signalID", columns={"signalID"}),
+ *          @ORM\Index(name="idx_daytime", columns={"daytime"})
+ *     }
+ * )
  * @ORM\Entity
  */
 class Logs
@@ -310,6 +321,4 @@ class Logs
 
         return $this;
     }
-
-
 }

@@ -26,5 +26,4 @@ class Rxx
     {
         return "<pre>".print_r($var, true)."</pre>";
     }
-
 }

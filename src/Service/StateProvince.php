@@ -33,5 +33,4 @@ class StateProvince
                 ->getRepository(SpEntity::class)
                 ->findBy($filter, ['name' => 'ASC']);
     }
-
 }

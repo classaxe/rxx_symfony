@@ -103,7 +103,7 @@ class ListenerList extends AbstractType
                 [
                     'label' => 'Country',
                     'choices' =>
-                        $this->country->getAllOptions($system, $region, true),
+                        $this->country->getMatchingOptions($system, $region, true),
                 ]
             );
 

@@ -6,12 +6,12 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Dotenv\Dotenv;
 
-
 /**
  * Class ListenerList
  * @package App\Controller
  */
-class Help extends BaseController {
+class Help extends BaseController
+{
 
     private $username = '';
     private $password = '';
@@ -35,5 +35,4 @@ class Help extends BaseController {
         $parameters = array_merge($parameters, $this->parameters);
         return $this->render('help/index.html.twig', $parameters);
     }
-
 }

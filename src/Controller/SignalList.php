@@ -7,7 +7,8 @@ use App\Repository\SystemRepository;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class SignalList extends BaseController {
+class SignalList extends BaseController
+{
 
     /**
      * @Route(

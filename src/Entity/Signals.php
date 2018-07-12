@@ -7,7 +7,34 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Signals
  *
- * @ORM\Table(name="signals", uniqueConstraints={@ORM\UniqueConstraint(name="no_duplicates", columns={"call", "khz", "GSQ", "ITU", "SP"})}, indexes={@ORM\Index(name="last_heard", columns={"last_heard"}), @ORM\Index(name="type", columns={"type"}), @ORM\Index(name="ID", columns={"ID"}), @ORM\Index(name="active", columns={"active"}), @ORM\Index(name="khz", columns={"khz"}), @ORM\Index(name="SP", columns={"SP"}), @ORM\Index(name="ITU", columns={"ITU"}), @ORM\Index(name="logs", columns={"logs"}), @ORM\Index(name="call", columns={"call"}), @ORM\Index(name="heard_in_af", columns={"heard_in_af"}), @ORM\Index(name="heard_in_as", columns={"heard_in_as"}), @ORM\Index(name="heard_in_ca", columns={"heard_in_ca"}), @ORM\Index(name="heard_in_eu", columns={"heard_in_eu"}), @ORM\Index(name="heard_in_iw", columns={"heard_in_iw"}), @ORM\Index(name="heard_in_na", columns={"heard_in_na"}), @ORM\Index(name="heard_in_oc", columns={"heard_in_oc"}), @ORM\Index(name="heard_in_sa", columns={"heard_in_sa"}), @ORM\Index(name="first_heard", columns={"first_heard"}), @ORM\Index(name="heard_in_an", columns={"heard_in_an"}), @ORM\Index(name="heard_in_xx", columns={"heard_in_xx"})})
+ * @ORM\Table(
+ *     name="signals",
+ *     uniqueConstraints={
+ *          @ORM\UniqueConstraint(name="no_duplicates", columns={"call", "khz", "GSQ", "ITU", "SP"})
+ *     },
+ *     indexes={
+ *          @ORM\Index(name="last_heard", columns={"last_heard"}),
+ *          @ORM\Index(name="type", columns={"type"}),
+ *          @ORM\Index(name="ID", columns={"ID"}),
+ *          @ORM\Index(name="active", columns={"active"}),
+ *          @ORM\Index(name="khz", columns={"khz"}),
+ *          @ORM\Index(name="SP", columns={"SP"}),
+ *          @ORM\Index(name="ITU", columns={"ITU"}),
+ *          @ORM\Index(name="logs", columns={"logs"}),
+ *          @ORM\Index(name="call", columns={"call"}),
+ *          @ORM\Index(name="heard_in_af", columns={"heard_in_af"}),
+ *          @ORM\Index(name="heard_in_as", columns={"heard_in_as"}),
+ *          @ORM\Index(name="heard_in_ca", columns={"heard_in_ca"}),
+ *          @ORM\Index(name="heard_in_eu", columns={"heard_in_eu"}),
+ *          @ORM\Index(name="heard_in_iw", columns={"heard_in_iw"}),
+ *          @ORM\Index(name="heard_in_na", columns={"heard_in_na"}),
+ *          @ORM\Index(name="heard_in_oc", columns={"heard_in_oc"}),
+ *          @ORM\Index(name="heard_in_sa", columns={"heard_in_sa"}),
+ *          @ORM\Index(name="first_heard", columns={"first_heard"}),
+ *          @ORM\Index(name="heard_in_an", columns={"heard_in_an"}),
+ *          @ORM\Index(name="heard_in_xx", columns={"heard_in_xx"})
+ *     }
+ * )
  * @ORM\Entity
  */
 class Signals
@@ -652,6 +679,4 @@ class Signals
 
         return $this;
     }
-
-
 }

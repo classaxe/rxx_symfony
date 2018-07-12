@@ -11,7 +11,8 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
  * Class BaseController
  * @package App\Controller
  */
-class BaseController extends Controller {
+class BaseController extends Controller
+{
 
     /**
      * @var array

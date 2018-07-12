@@ -7,7 +7,13 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Attachment
  *
- * @ORM\Table(name="attachment", indexes={@ORM\Index(name="destinationID", columns={"destinationID"}), @ORM\Index(name="destinationTable", columns={"destinationTable"})})
+ * @ORM\Table(
+ *     name="attachment",
+ *     indexes={
+ *          @ORM\Index(name="destinationID", columns={"destinationID"}),
+ *          @ORM\Index(name="destinationTable", columns={"destinationTable"})
+ *     }
+ * )
  * @ORM\Entity
  */
 class Attachment
@@ -73,14 +79,24 @@ class Attachment
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="historyAddedDate", type="datetime", nullable=false, options={"default"="0000-00-00 00:00:00"})
+     * @ORM\Column(
+     *     name="historyAddedDate",
+     *     type="datetime",
+     *     nullable=false,
+     *     options={"default"="0000-00-00 00:00:00"}
+     * )
      */
     private $historyaddeddate = '0000-00-00 00:00:00';
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="historyModifiedDate", type="datetime", nullable=false, options={"default"="0000-00-00 00:00:00"})
+     * @ORM\Column(
+     *     name="historyModifiedDate",
+     *     type="datetime",
+     *     nullable=false,
+     *     options={"default"="0000-00-00 00:00:00"}
+     * )
      */
     private $historymodifieddate = '0000-00-00 00:00:00';
 
@@ -196,6 +212,4 @@ class Attachment
 
         return $this;
     }
-
-
 }

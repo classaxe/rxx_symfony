@@ -32,6 +32,17 @@ class ListenerRepository extends ServiceEntityRepository
             'th_class'  =>  '',
             'tooltip'   =>  '',
         ],
+        'email' => [
+            'admin'     =>  true,
+            'arg'       =>  '',
+            'field'     =>  'email',
+            'label'     =>  'Email',
+            'order'     =>  'a',
+            'sort'      =>  'l.email',
+            'td_class'  =>  '',
+            'th_class'  =>  '',
+            'tooltip'   =>  '',
+        ],
         'callsign' => [
             'admin'     =>  false,
             'arg'       =>  '',
@@ -278,11 +289,11 @@ class ListenerRepository extends ServiceEntityRepository
 
     private function addFilterSystem(&$qb, $system)
     {
-        switch($system) {
+        switch ($system) {
             case "reu":
                 $qb
                     ->andWhere('(l.region = :eu)')
-                    ->setParameter('eu','eu');
+                    ->setParameter('eu', 'eu');
                 break;
             case "rna":
                 $qb
@@ -331,7 +342,6 @@ class ListenerRepository extends ServiceEntityRepository
                     ($this->columns[$args['sort']]['sort']),
                     ($args['order'] == 'd' ? 'DESC' : 'ASC')
                 );
-
         }
         $result = $qb->getQuery()->execute();
         // Necessary to resolve extra nesting in results caused by extra select to ignore empty fields in sort order
@@ -342,7 +352,7 @@ class ListenerRepository extends ServiceEntityRepository
         return $out;
     }
 
-    public function getLatestLoggedListeners($system, $limit=25)
+    public function getLatestLoggedListeners($system, $limit = 25)
     {
         $qb = $this
             ->createQueryBuilder('l')
@@ -358,12 +368,12 @@ class ListenerRepository extends ServiceEntityRepository
         $result = $qb
             ->getQuery()
             ->execute();
-        uasort($result, array($this, 'cmp_obj'));
+        uasort($result, array($this, 'cmpObj'));
 
         return $result;
     }
 
-    static function cmp_obj($a, $b)
+    public static function cmpObj($a, $b)
     {
         $al = strtolower($a['name']);
         $bl = strtolower($b['name']);

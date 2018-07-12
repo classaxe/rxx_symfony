@@ -8,7 +8,6 @@
 
 namespace App\Service;
 
-
 /**
  * Class Visitor
  * @package App\Service
@@ -20,22 +19,14 @@ class Visitor
      */
     public function getIpAddress()
     {
-        /* From Laravel
-                return
-                    Collection::make([
-                    'x',
-                    'y',
-                    'z'])
-                    -first(function ($header) {
-                        return getenv($header);
-                });
-        */
-        $ip = getenv('HTTP_CLIENT_IP')?:
-            getenv('HTTP_X_FORWARDED_FOR')?:
-                getenv('HTTP_X_FORWARDED')?:
-                    getenv('HTTP_FORWARDED_FOR')?:
-                        getenv('HTTP_FORWARDED')?:
-                            getenv('REMOTE_ADDR');
+        $ip =
+            getenv('PHPUNIT_CLIENT_IP')?:
+                getenv('HTTP_CLIENT_IP')?:
+                    getenv('HTTP_X_FORWARDED_FOR')?:
+                        getenv('HTTP_X_FORWARDED')?:
+                            getenv('HTTP_FORWARDED_FOR')?:
+                                getenv('HTTP_FORWARDED')?:
+                                    getenv('REMOTE_ADDR');
 
 //        $ip = '206.248.171.206'; // Canada, Ontario
 //        $ip = '72.130.194.78';   // USA, Minnesota
@@ -45,5 +36,4 @@ class Visitor
 
         return $ip;
     }
-
 }

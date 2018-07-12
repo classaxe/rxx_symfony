@@ -2,10 +2,9 @@
 
 namespace App\Repository;
 
-
 class SystemRepository
 {
-    const authors = [
+    const AUTHORS = [
         [
             'email' =>  'martin@classaxe.com',
             'name' =>   'Martin Francis',
@@ -17,7 +16,8 @@ class SystemRepository
             'role' =>   '(Initial Concept)'
         ],
     ];
-    const awards = [
+
+    const AWARDS = [
         [
             'email' =>  '',
             'name' =>   'Joseph Miller, KJ8O',
@@ -25,10 +25,10 @@ class SystemRepository
         ]
     ];
 
-    const systems = [
+    const SYSTEMS = [
         'rna' =>    [
-            'authors' =>    self::authors,
-            'awards' =>     self::awards,
+            'authors' =>    self::AUTHORS,
+            'awards' =>     self::AWARDS,
             'editors' =>    [
                 [
                     'email' =>  'peterconway@talktalk.net',
@@ -50,8 +50,8 @@ class SystemRepository
             'title' =>      'Signals Received in N & C America + Hawaii',
         ],
         'reu' =>    [
-            'authors' =>    self::authors,
-            'awards' =>     self::awards,
+            'authors' =>    self::AUTHORS,
+            'awards' =>     self::AWARDS,
             'editors' =>    [
                 [
                     'email' =>  'aunumero73@gmail.com',
@@ -78,8 +78,8 @@ class SystemRepository
             'title' =>      'Signals Received in Europe',
         ],
         'rww' =>    [
-            'authors' =>    self::authors,
-            'awards' =>     self::awards,
+            'authors' =>    self::AUTHORS,
+            'awards' =>     self::AWARDS,
             'editors' =>    [
                 [
                     'email' =>  'peterconway@talktalk.net',
@@ -104,12 +104,11 @@ class SystemRepository
 
     public function get($code)
     {
-        return self::systems[$code];
+        return self::SYSTEMS[$code];
     }
 
     public function getAll()
     {
-        return self::systems;
+        return self::SYSTEMS;
     }
-
 }

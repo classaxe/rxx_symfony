@@ -67,7 +67,7 @@ body .menu-centered .system .is-active>a:hover, body .menu-centered .mode .is-ac
 .help .zone { display: block; margin: 0.5em 0; padding: 0.25em; font-weight: bold; border: 1px solid #888; }
 .help .zone:after { content: ''; display: table; clear: both; height: 1px; overflow: hidden; }
 .help .header { background: #707070; color: #ffffff; padding: 0.2em; }
-.help .header h2 { float: left; margin: 0; font-size: small; }
+.help .header h2 { float: left; margin: 0; font-size: small; color: #ffffff !important; }
 .help .header .links { float: right; margin: 0; }
 .help .header .links a { color: #ffff80; font-weight: bold; text-decoration: none; }
 .help .header .links a:hover { text-decoration: underline; }
@@ -96,7 +96,7 @@ body .menu-centered .system .is-active>a:hover, body .menu-centered .mode .is-ac
 .main .zone { display: block; margin: 0.5em 0; font-weight: bold; padding:0; }
 .main .zone:after { content: ''; display: table; clear: both; height: 1px; overflow: hidden; }
 .main .header { background: #707070; color: #ffffff; padding: 0.2em; }
-.main .header h2 { float: left; margin: 0; font-size: small; }
+.main .header h2 { float: left; margin: 0; font-size: small; color: #ffffff !important; }
 .main .header .links { float: right; margin: 0; }
 .main .header .links a { color: #ffff80; font-weight: bold; text-decoration: none; }
 .main .header .links a:hover { text-decoration: underline; }
@@ -176,6 +176,7 @@ body .menu-centered .system .is-active>a:hover, body .menu-centered .mode .is-ac
 .results.listener tr td { white-space: nowrap;}
 .results.listener .primaryQth { font-weight: bold; }
 .results.listener .secondaryQth { padding-left: 1.5em; }
+.results.listener .secondaryQth a { font-weight: normal; }
 
 
 /* Hide display of URLs for each link caused by foundation class - wastes a lot of paper otherwise */

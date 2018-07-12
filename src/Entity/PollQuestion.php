@@ -101,6 +101,4 @@ class PollQuestion
 
         return $this;
     }
-
-
 }

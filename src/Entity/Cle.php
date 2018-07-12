@@ -823,6 +823,4 @@ class Cle
 
         return $this;
     }
-
-
 }

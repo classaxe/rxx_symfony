@@ -1,10 +1,9 @@
 {% extends 'popup.html.twig' %}
-
 {% block body %}
+{% if id %}{% set form_title='Edit Listener' %}{% else %}{% set form_title='Add Listener' %}{% endif %}
 <div class="main">
-    {% if id %}{% set form_title='Edit Listener' %}{% else %}{% set form_title='Add Listener' %}{% endif %}
 {% set form_class='listener_edit' %}
-    {% include 'forms/form.html.twig' %}
+{% include 'listeners/form.html.twig' %}
 <script>
     $(document).ready( function() {
     });

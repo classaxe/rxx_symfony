@@ -9,7 +9,8 @@ use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
  * Class CountryLocator
  * @package App\Controller
  */
-class CountryLocator extends Controller {
+class CountryLocator extends Controller
+{
 
     /**
      * @var RegionService
@@ -45,5 +46,4 @@ class CountryLocator extends Controller {
 
         return $this->render('countries/index.html.twig', $parameters);
     }
-
 }

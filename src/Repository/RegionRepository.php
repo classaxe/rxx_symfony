@@ -18,7 +18,7 @@ class RegionRepository extends ServiceEntityRepository
         return $this
             ->createQueryBuilder('region')
             ->andWhere('region.region = :region')
-            ->setParameter('region',$code)
+            ->setParameter('region', $code)
             ->getQuery()
             ->getSingleResult();
     }

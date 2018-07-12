@@ -7,7 +7,8 @@ use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
  * Class ListenerList
  * @package App\Controller
  */
-class Logoff extends BaseController {
+class Logoff extends BaseController
+{
 
     /**
      * @Route(
@@ -23,5 +24,4 @@ class Logoff extends BaseController {
         $this->session->set('isAdmin', 0);
         return $this->redirectToRoute('logon', ['system' => $system]);
     }
-
 }

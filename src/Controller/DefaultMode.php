@@ -4,7 +4,8 @@ namespace App\Controller;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class DefaultMode extends Controller {
+class DefaultMode extends Controller
+{
     /**
      * @Route(
      *     "/{system}/",

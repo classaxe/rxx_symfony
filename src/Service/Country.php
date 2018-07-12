@@ -31,7 +31,6 @@ class Country
     ) {
         $this->em = $em;
         $this->stateProvinceService = $stateProvinceService;
-
     }
 
     /**
@@ -52,10 +51,11 @@ class Country
      * @param null $filter
      * @return mixed
      */
-    public function getCountriesAndStates($filter = null) {
+    public function getCountriesAndStates($filter = null)
+    {
         $countries = $this->getCountriesHavingStates($filter);
 
-        foreach($countries as &$country) {
+        foreach ($countries as &$country) {
             $code =             $country->getItu();
             $country->states =  $this->stateProvinceService->getStates($code);
             $country->map =     $this->getMapUrlForCountry($code);
@@ -85,7 +85,7 @@ class Country
      */
     public function getMapUrlForCountry($code)
     {
-        switch($code) {
+        switch ($code) {
             case "AUS":
                 return 'map_au';
             case "CAN":
@@ -96,6 +96,4 @@ class Country
                 return false;
         }
     }
-
-
 }

@@ -2,10 +2,9 @@
 
 namespace App\Repository;
 
-
 class MapRepository
 {
-    const maps = [
+    const MAPS = [
         'af' => [
             'mode' =>           'African NDB List approved Country Codes',
             'countryBtn' =>     'Countries',
@@ -68,7 +67,9 @@ class MapRepository
             'map' =>            'pacific_map.gif',
             'countryBtn' =>     'Countries',
             'countryFilter' =>  'oc',
-            'text' =>           '(Originally produced for <a href="/dx/ndb/log/steve/?mode=station_list&yyyymm=200307">Steve Ratzlaff\'s Pacific Report</a>)',
+            'text' =>
+                '(Originally produced for <a href="/dx/ndb/log/steve/?mode=station_list&yyyymm=200307">'
+                .'Steve Ratzlaff\'s Pacific Report</a>)',
             'shortName' =>      'Pacific',
             'rel' =>            'popup|map_pacific|width=366,height=429,resizable=1',
         ],
@@ -88,7 +89,7 @@ class MapRepository
         ]
     ];
 
-    const system_maps = [
+    const SYSTEM_MAPS = [
         'reu' =>    [
             'maps' =>   ['eu', 'as', 'af' ],
             'title' =>  'Maps for European Listeners'
@@ -103,21 +104,22 @@ class MapRepository
         ],
     ];
 
-    public static function get($key) {
-        return static::maps[$key];
+    public static function get($key)
+    {
+        return static::MAPS[$key];
     }
 
     public static function getAllForSystem($system)
     {
         $out = [
             'maps' =>   [],
-            'title' =>  static::system_maps[$system]['title']
+            'title' =>  static::SYSTEM_MAPS[$system]['title']
         ];
-        foreach (static::system_maps[$system]['maps'] as $zone) {
-            $out['maps'][$zone] = static::maps[$zone];
+
+        foreach (static::SYSTEM_MAPS[$system]['maps'] as $zone) {
+            $out['maps'][$zone] = static::MAPS[$zone];
         }
 
         return $out;
     }
-
 }

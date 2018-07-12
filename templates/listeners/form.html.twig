@@ -1,0 +1,20 @@
+{# Include our twig widget customisations #}
+{% form_theme form 'forms/custom_form_div_layout.html.twig' %}
+    <div class="controlPanel {{ form_class }}">
+        <div class="header">{{ form_title }}</div>
+        <div class="controls clearfix">
+        {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+            <div id="form">
+                {{ form_row(form.id)  }}
+{% for group, fields in fieldGroups %}
+                <fieldset>
+                    <legend>{{ group }}</legend>
+{% for field in fields%}
+    {{ form_row(attribute(form, field))  }}
+{% endfor %}
+                </fieldset>
+{% endfor %}
+            </div>
+        {{ form_end(form, {'render_rest': false}) }}
+        </div>
+    </div>

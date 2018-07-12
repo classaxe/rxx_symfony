@@ -43,6 +43,9 @@ class GeoService
     public function getDefaultSystem()
     {
         $ip = $this->visitor->getIpAddress();
+        if (!$ip) {
+            return "rna";
+        }
         try {
             $reader = new Reader($this->dbPath);
         } catch (\Exception $e) {
@@ -50,8 +53,8 @@ class GeoService
             $uName =    $user['name'];
             $group =    posix_getgrgid($user['gid']);
             $gName =    $group['name'];
-            $binPath = substr(dirname(__DIR__),0, -4)."/bin/";
-            die (
+            $binPath = substr(dirname(__DIR__), 0, -4)."/bin/";
+            die(
                 "<h1>GeoIP Error</h1>\n"
                 ."<p>{$this->dbPath} is missing.<br />\n"
                 ."Please run these commands:</p>"
@@ -75,5 +78,4 @@ class GeoService
             return 'rna';
         }
     }
-
 }

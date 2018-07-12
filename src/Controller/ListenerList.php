@@ -10,7 +10,8 @@ use Symfony\Component\HttpFoundation\Request;
  * Class ListenerList
  * @package App\Controller
  */
-class ListenerList extends BaseController {
+class ListenerList extends BaseController
+{
 
     /**
      * @Route(
@@ -64,8 +65,6 @@ class ListenerList extends BaseController {
             'args' =>               $args,
             'columns' =>            $listenerRepository->getColumns(),
             'form' =>               $form->createView(),
-            'latestListeners' =>    $listenerRepository->getLatestLoggedListeners($system),
-            'latestLogs' =>         $listenerRepository->getLatestLogs($system),
             'listeners' =>          $filtered,
             'matched' =>            $matched,
             'mode' =>               'Listeners List',
@@ -78,8 +77,11 @@ class ListenerList extends BaseController {
                 ."    <li>This report prints best in Portrait.</li>\n"
                 ."</ul>\n",
         ];
+        if ($this->parameters['isAdmin']) {
+            $parameters['latestListeners'] =    $listenerRepository->getLatestLoggedListeners($system);
+            $parameters['latestLogs'] =         $listenerRepository->getLatestLogs($system);
+        }
         $parameters = array_merge($parameters, $this->parameters);
         return $this->render('listeners/index.html.twig', $parameters);
     }
-
 }
