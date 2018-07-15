@@ -9,7 +9,7 @@
 {% for person in systems[system][credit] %}
         <strong>
 {% if person.email %}
-    <script>dw(">'metsyS02%{{ system|upper|reverse }}=tcejbus?{{ person.email|reverse }}:otliam'=ferh a<".split('').reverse().join(''));</script>{{ person.name }}<script>dw('</a>');</script>
+    <a href="#" data-contact=" metsyS02%{{ system|upper|reverse }}=tcejbus?{{ person.email|reverse|replace({'@':'#'}) }}:otliam ">{{ person.name }}</a>
 {% else %}
         {{ person.name }}
 {% endif %}
@@ -22,3 +22,6 @@
 {% endfor %}
     <p class="copyright"><strong>&copy;{{ "now"|date("Y") }} Martin Francis</strong></p>
 </div>
+<script>
+    setEmailLinks();
+</script>

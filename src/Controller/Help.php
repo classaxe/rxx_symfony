@@ -25,7 +25,7 @@ class Help extends BaseController
      *     name="help"
      * )
      */
-    public function logonController(
+    public function helpController(
         $system
     ) {
         $parameters = [

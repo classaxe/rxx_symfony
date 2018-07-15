@@ -2,10 +2,10 @@
 
 <!-- https://phpunit.de/manual/current/en/appendixes.configuration.html -->
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/6.1/phpunit.xsd"
+         xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/6.5/phpunit.xsd"
          backupGlobals="false"
          colors="true"
-         bootstrap="vendor/autoload.php"
+         bootstrap="tests/autoload.php"
 >
     <php>
         <ini name="error_reporting" value="-1" />
@@ -15,6 +15,7 @@
         <env name="APP_SECRET" value="s$cretf0rt3st" />
         <env name="SHELL_VERBOSITY" value="-1" />
         <!-- define your env variables for the test env here -->
+        <!-- Please note that the bootstrap above allows .env variables to be used -->
     </php>
 
     <testsuites>

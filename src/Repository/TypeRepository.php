@@ -4,7 +4,6 @@ namespace App\Repository;
 
 class TypeRepository
 {
-
     public function getAll()
     {
         return [

@@ -69,6 +69,10 @@ function setExternalLinks() {
     });
 }
 
-function dw(string) {
-    document.write(string);
+function setEmailLinks() {
+    $('a[data-contact]').each(function() {
+        var link = $(this).attr('data-contact').split('').reverse().join('').trim().replace('#','@');
+        $(this).attr('href', link);
+        $(this).removeAttr('data-contact');
+    });
 }
