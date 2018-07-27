@@ -7,16 +7,18 @@ use App\Tests\Base;
 class LogonTest extends Base
 {
     const MESSAGES = [
-        1 =>    "Testing %s/logoff: Expected HTTP response code %s, saw %s.",
-        2 =>    "Testing %s/logon: Expected HTTP response code %s, saw %s.",
-        3 =>    "Testing %s/logon: Expected page title '%s', saw '%s'.",
-        4 =>    "Testing %s/logon: Expected %s logon form(s), saw %s.",
+        1 =>    "Test 1:\nRequested %s/logoff\nExpected HTTP response code %s, saw %s.",
+        2 =>    "Test 2:\nRequested %s/logon\nExpected HTTP response code %s, saw %s.",
+        3 =>    "Test 3:\nRequested %s/logon\nExpected page title '%s', saw '%s'.",
+        4 =>    "Test 4:\nRequested %s/logon\nExpected %s logon form(s), saw %s.",
+        5 =>    "Test 5:\nRequested %s/logon for user '%s'\nExpected response '%s', saw '%s'.",
     ];
 
     public function test()
     {
         foreach ($this->getSystems() as $system) {
             $this->setNoRedirect();
+
             $this->client->request('GET', '/' . $system . '/logoff');
             $expected = 302;
             $actual =   $this->getResponseStatusCode();
@@ -40,19 +42,11 @@ class LogonTest extends Base
             $message = $this->getError(4, [$system, $expected, $actual]);
             $this->assertEquals($expected, $actual, $message);
 
+            $this->setYesRedirect();
+
             foreach ($this->getAdminUsers() as $user => $data) {
-                $this->setNoRedirect();
                 $this->client->request('GET', '/' . $system . '/logoff');
 
-                $this->client->request('GET', '/' . $system . '/logon');
-
-                $forms = $this->getCrawler()->filter('form[name="form"]');
-                $expected = 1;
-                $actual = $forms->count();
-                $message = $this->getError(4, [$system, $expected, $actual]);
-                $this->assertEquals($expected, $actual, $message);
-
-                $this->setYesRedirect();
                 $form = $this
                     ->getCrawler()
                     ->filter('button#form_submit')
@@ -65,14 +59,27 @@ class LogonTest extends Base
                     );
                 $this->client->submit($form);
 
-                $forms = $this->getCrawler()->filter('form[name="form"]');
-                $expected = $data['valid'] ? 0 : 1;
-                $actual =   $forms->count();
-                if ($expected != $actual) {
-                    print "For user $user - ".print_r($data, true);
-                    print $this->getResponseContent();
-                }
-                $message =  $this->getError(3, [$system, $expected, $actual]);
+                $expected = (
+                    $data['valid'] ?
+                        'You are now logged on as an Administrator and may perform administrative functions.'
+                     :
+                        'Error: Incorrect Username and / or Password.'
+                    );
+
+                $errMsg =   $this->getCrawler()->filter('div#lastError');
+                $okMsg =    $this->getCrawler()->filter('p#success');
+
+                $actual =   (
+                    $errMsg->count() ?
+                        $errMsg->text()
+                    :
+                        ($okMsg->count() ?
+                            $okMsg->text()
+                        :
+                            ''
+                        )
+                    );
+                $message =  $this->getError(5, [$system, $user, $expected, $actual]);
                 $this->assertEquals($expected, $actual, $message);
             }
         }

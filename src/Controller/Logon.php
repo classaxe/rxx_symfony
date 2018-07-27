@@ -56,7 +56,7 @@ class Logon extends BaseController
             $this->session->set('lastError', '');
         }
         $text = ($this->session->get('isAdmin', 0) ?
-             "<p>You are now logged on as an Administrator and may perform administrative functions.</p>\n"
+             "<p id='success'>You are now logged on as an Administrator and may perform administrative functions.</p>\n"
             ."<p>To log off, select <strong>Log Off</strong> from the main menu.</p>\n"
           :
             "<p>You must logon in order to perform administrative functions.</p>\n"

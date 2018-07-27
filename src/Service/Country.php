@@ -3,7 +3,7 @@ namespace App\Service;
 
 use App\Entity\Itu as ItuEntity;
 use Doctrine\ORM\EntityManagerInterface;
-use App\Service\StateProvince as StateProvinceService;
+use App\Repository\SpRepository;
 
 /**
  * Class Country
@@ -16,10 +16,6 @@ class Country
      */
     private $em;
 
-    /**
-     * @var StateProvince
-     */
-    private $stateProvinceService;
 
     /**
      * Country constructor.
@@ -27,10 +23,10 @@ class Country
      */
     public function __construct(
         EntityManagerInterface $em,
-        StateProvinceService $stateProvinceService
+        SpRepository $sp
     ) {
         $this->em = $em;
-        $this->stateProvinceService = $stateProvinceService;
+        $this->sp = $sp;
     }
 
     /**
@@ -57,7 +53,7 @@ class Country
 
         foreach ($countries as &$country) {
             $code =             $country->getItu();
-            $country->states =  $this->stateProvinceService->getStates($code);
+            $country->states =  $this->sp->getStates($code);
             $country->map =     $this->getMapUrlForCountry($code);
         }
         return $countries;

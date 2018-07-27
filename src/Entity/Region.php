@@ -24,6 +24,13 @@ class Region
     /**
      * @var string
      *
+     * @ORM\Column(name="map", type="string", length=10, nullable=false)
+     */
+    private $map = '';
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="name", type="string", length=50, nullable=false)
      */
     private $name = '';
@@ -38,6 +45,18 @@ class Region
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getMap(): ?string
+    {
+        return $this->map;
+    }
+
+    public function setMap(string $map): self
+    {
+        $this->map = $map;
+
+        return $this;
     }
 
     public function getName(): ?string

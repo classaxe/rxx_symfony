@@ -2,15 +2,14 @@
 
 namespace App\Tests\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use App\Tests\Base;
 
 class DefaultModeTest extends Base
 {
     const MESSAGES = [
-        1 =>    "Testing /%s/ Expected page title '%s', saw '%s'.",
-        2 =>    "Testing /%s/ Expected HTTP response code %s, saw %s.",
-        3 =>    "Testing /%s/ Expected redirect path %s, saw %s.",
+        1 =>    "Test 1:\nRequested /%s/\nExpected Page Title '%s', saw '%s'.",
+        2 =>    "Test 2:\nRequested /%s/\nExpected HTTP Response Code %s, saw %s.",
+        3 =>    "Test 3:\nRequested /%s/\nExpected Redirect Path %s, saw %s.",
     ];
 
     protected function getDefaultMode()

@@ -49,31 +49,6 @@ class Region
     }
 
     /**
-     * @param $baseUrl
-     * @param $region
-     * @return bool|string
-     */
-    public function getMapUrlForRegion($region)
-    {
-        switch ($region) {
-            case "af":
-                return 'map_af';
-            case "as":
-                return 'map_as';
-            case "ca":
-                return 'map_na';
-            case "eu":
-                return 'map_eu';
-            case "na":
-                return 'map_na';
-            case "sa":
-                return 'map_sa';
-            default:
-                return false;
-        }
-    }
-
-    /**
      * @param $filter
      * @return array
      */
@@ -82,9 +57,7 @@ class Region
         $regions = $this->getRegions($filter);
         foreach ($regions as &$region) {
             $code =                 $region->getRegion();
-            $region->map =          $this->getMapUrlForRegion($code);
             $region->countries =    $this->countryService->getCountriesForRegion($code);
-            $region->columns = 2;
         }
         return $regions;
     }

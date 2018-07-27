@@ -2,15 +2,14 @@
 
 namespace App\Tests\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use App\Tests\Base;
 
 class DefaultSystemTest extends Base
 {
     const MESSAGES = [
-        1 =>    "Testing / Expected page title '%s', saw '%s'.",
-        2 =>    "Testing / Expected HTTP response code %s, saw %s.",
-        3 =>    "Testing / Expected redirect path %s, saw %s.",
+        1 =>    "Test 1:\nRequested /\nExpected Page Title '%s', saw '%s'.",
+        2 =>    "Test 2:\nRequested /\nExpected HTTP Response Code %s, saw %s.",
+        3 =>    "Test 3:\nRequested /\nExpected Redirect Path %s, saw %s.",
     ];
 
     public function test()

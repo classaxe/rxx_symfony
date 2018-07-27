@@ -9,7 +9,7 @@
     </p>
 {% if regions|length > 1 %}
 
-    <div class="links">[
+    <div class="links quicklinks">[
 {% for key, region in regions %}
         <a href="#{{ region.region }}">{{ region.name }}</a>{%  if not loop.last %} |{%  endif %}
 

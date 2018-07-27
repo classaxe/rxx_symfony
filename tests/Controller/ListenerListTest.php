@@ -8,13 +8,13 @@ use App\Repository\TypeRepository;
 class ListenerListTest extends Base
 {
     const MESSAGES = [
-        1 =>    "Testing %s/listeners as %s: Expected HTTP response code %s, saw %s.",
-        2 =>    "Testing %s/listeners as %s: Expected page title '%s', saw '%s'.",
-        3 =>    "Testing %s/listeners as %s: Expected %s region selector(s), saw %s.",
-        4 =>    "Testing %s/listeners as %s: Expected %s result column(s), saw %s.",
-        5 =>    "Testing %s/listeners as %s: Expected greater than %s result row(s), saw %s.",
-        6 =>    "Testing %s/listeners as %s: Expected %s result column(s), saw %s.",
-        7 =>    "Testing %s/listeners as %s: Expected message '%s', saw '%s'.",
+        1 =>    "Test 1:\nRequested %s/listeners as %s:\nExpected HTTP response code %s, saw %s.",
+        2 =>    "Test 2:\nRequested %s/listeners as %s:\nExpected page title '%s', saw '%s'.",
+        3 =>    "Test 3:\nRequested %s/listeners as %s:\nExpected %s region selector(s), saw %s.",
+        4 =>    "Test 4:\nRequested %s/listeners as %s with one signal type selected:\nExpected %s result column(s), saw %s.",
+        5 =>    "Test 5:\nRequested %s/listeners as %s:\nExpected greater than %s result row(s), saw %s.",
+        6 =>    "Test 6:\nRequested %s/listeners as %s with all signal types selected:\nExpected %s result column(s), saw %s.",
+        7 =>    "Test 7:\nRequested %s/listeners as %s with query matching nothing:\nExpected message '%s', saw '%s'.",
     ];
 
     const COLS_MIN =    14;     // Only NDBs selected
@@ -38,20 +38,20 @@ class ListenerListTest extends Base
     {
         foreach ($this->getSystems() as $system) {
             $this->client->request('GET', '/' . $system . '/listeners');
-            $expected = 200;
-            $actual = $this->getResponseStatusCode();
-            $message = $this->getError(1, [$system, $usertype, $expected, $actual]);
+            $expected =     200;
+            $actual =       $this->getResponseStatusCode();
+            $message =      $this->getError(1, [$system, $usertype, $expected, $actual]);
             $this->assertEquals($expected, $actual, $message);
 
-            $expected = strToUpper($system) . ' > Listeners List';
-            $actual = $this->getResponsePageTitle();
-            $message = $this->getError(2, [$system, $usertype, $expected, $actual]);
+            $expected =     strToUpper($system) . ' > Listeners List';
+            $actual =       $this->getResponsePageTitle();
+            $message =      $this->getError(2, [$system, $usertype, $expected, $actual]);
             $this->assertEquals($expected, $actual, $message);
 
-            $selectors = $this->getCrawler()->filter('#form_region');
-            $expected = $system === 'rww' ? 1 : 0;
-            $actual = $selectors->count();
-            $message = $this->getError(3, [$system, $usertype, $expected, $actual]);
+            $selectors =    $this->getCrawler()->filter('#form_region');
+            $expected =     $system === 'rww' ? 1 : 0;
+            $actual =       $selectors->count();
+            $message =      $this->getError(3, [$system, $usertype, $expected, $actual]);
             $this->assertEquals($expected, $actual, $message);
 
             $headRow =      $this->getCrawler()->filter('table.listener.results thead tr')->eq(0);

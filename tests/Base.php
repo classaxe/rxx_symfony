@@ -18,6 +18,40 @@ abstract class Base extends WebTestCase
         $this->client = $client;
     }
 
+    protected function getCountriesHavingStates()
+    {
+        return [
+            'aus' => ['title' => 'Australia',            'map' => 'map_au'],
+            'can' => ['title' => 'Canada',               'map' => 'map_na'],
+            'usa' => ['title' => 'USA',                  'map' => 'map_na']
+        ];
+    }
+
+    protected function getRegions()
+    {
+        return [
+            'af' => ['title' => 'Africa',               'map' => 'map_af'],
+            'an' => ['title' => 'Antarctica',           'map' => false   ],
+            'as' => ['title' => 'Asia',                 'map' => 'map_as'],
+            'ca' => ['title' => 'Carribean',            'map' => 'map_na'],
+            'eu' => ['title' => 'Europe',               'map' => 'map_eu'],
+            'iw' => ['title' => 'International Waters', 'map' => false   ],
+            'na' => ['title' => 'North America',        'map' => 'map_na'],
+            'oc' => ['title' => 'Oceania (Pacific)',    'map' => false   ],
+            'sa' => ['title' => 'South America',        'map' => 'map_sa'],
+            'xx' => ['title' => 'Unknown',              'map' => false   ]
+        ];
+    }
+
+    protected function countRegionsWithMaps()
+    {
+        $count = 0;
+        foreach ($this->getRegions() as $region => $config) {
+            $count+= $config['map'] ? 1 : 0;
+        }
+        return $count;
+    }
+
     /**
      * @return array
      */
@@ -93,7 +127,13 @@ abstract class Base extends WebTestCase
      */
     protected function getError($id = null, $args = [])
     {
-        return sprintf('ERROR '.static::MESSAGES[$id], ...$args);
+        return
+            str_replace(
+                "\n",
+                "\n\x7f       ",
+                sprintf("\x7f   ".static::MESSAGES[$id], ...$args)
+            )
+            ."\n";
     }
 
     /**
