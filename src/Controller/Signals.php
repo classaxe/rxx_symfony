@@ -1,31 +1,31 @@
 <?php
 namespace App\Controller;
 
-use App\Entity\Signals;
+use App\Entity\Signals as SignalsEntity;
 use App\Repository\ModeRepository;
 use App\Repository\SystemRepository;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class SignalList extends BaseController
+class Signals extends Base
 {
 
     /**
      * @Route(
-     *     "/{system}/signal_list",
+     *     "/{system}/signals",
      *     requirements={
      *        "system": "reu|rna|rww"
      *     },
-     *     name="signal_list"
+     *     name="signals"
      * )
      */
-    public function signalListController(
+    public function signalsController(
         $system
     ) {
         $parameters = [
             'mode' =>       'Signals',
             'signal' => $this->getDoctrine()
-                ->getRepository(Signals::class)
+                ->getRepository(SignalsEntity::class)
                 ->find(1),
             'system' =>     $system
         ];

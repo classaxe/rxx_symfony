@@ -6,7 +6,7 @@ class ModeRepository
 {
     const MODES = [
         [
-            'signal_list' =>    [
+            'signals' =>    [
                 'admin' =>  true,
                 'guest' =>  true,
                 'menu' =>   'Signals',
@@ -44,7 +44,7 @@ class ModeRepository
             ],
         ],
         [
-            'signal_list' =>    [
+            'help/admin' =>    [
                 'admin' =>  true,
                 'guest' =>  false,
                 'menu' =>   'Admin Help',

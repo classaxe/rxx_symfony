@@ -6,20 +6,19 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 
 /**
- * Class CountryLocator
+ * Class Countries
  * @package App\Controller
  */
-class Maps extends BaseController
+class Maps extends Base
 {
-
     /**
      * @Route(
-     *     "/{system}/map_{area}",
+     *     "/{system}/map/{area}",
      *     requirements={
      *        "system": "reu|rna|rww",
      *        "area": "af|alaska|as|au|eu|japan|na|pacific|polynesia|sa"
      *     },
-     *     name="show_map"
+     *     name="map"
      * )
      */
     public function map($system, $area, MapRepository $mapRepository)

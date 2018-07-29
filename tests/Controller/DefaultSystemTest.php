@@ -12,7 +12,7 @@ class DefaultSystemTest extends Base
         3 =>    "Test 3:\nRequested /\nExpected Redirect Path %s, saw %s.",
     ];
 
-    public function test()
+    public function testAllVisitors()
     {
         foreach ($this->getVisitors() as $country => $profile) {
             $this

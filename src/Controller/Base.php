@@ -8,10 +8,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 /**
- * Class BaseController
+ * Class Base
  * @package App\Controller
  */
-class BaseController extends Controller
+class Base extends Controller
 {
 
     /**
@@ -40,7 +40,7 @@ class BaseController extends Controller
     protected $systemRepository;
 
     /**
-     * BaseController constructor.
+     * Base constructor.
      * @param ModeRepository $modeRepository
      * @param Rxx $rxx
      * @param SystemRepository $systemRepository

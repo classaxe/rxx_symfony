@@ -1,16 +1,13 @@
 <?php
 namespace App\Controller;
 
-use App\Form\Logon as LogonForm;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Dotenv\Dotenv;
 
 /**
  * Class ListenerList
  * @package App\Controller
  */
-class Help extends BaseController
+class Help extends Base
 {
 
     private $username = '';
@@ -30,6 +27,26 @@ class Help extends BaseController
     ) {
         $parameters = [
             'mode' =>       'Help',
+            'system' =>     $system,
+        ];
+        $parameters = array_merge($parameters, $this->parameters);
+        return $this->render('help/index.html.twig', $parameters);
+    }
+
+    /**
+     * @Route(
+     *     "/{system}/help/admin",
+     *     requirements={
+     *        "system": "reu|rna|rww"
+     *     },
+     *     name="help/admin"
+     * )
+     */
+    public function helpAdminController(
+        $system
+    ) {
+        $parameters = [
+            'mode' =>       'Admin Help',
             'system' =>     $system,
         ];
         $parameters = array_merge($parameters, $this->parameters);

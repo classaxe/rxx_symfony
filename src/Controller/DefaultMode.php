@@ -20,6 +20,6 @@ class DefaultMode extends Controller
     {
         $parameters =['system' => $system];
 
-        return $this->redirectToRoute("signal_list", $parameters);
+        return $this->redirectToRoute("signals", $parameters);
     }
 }

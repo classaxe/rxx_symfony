@@ -3,7 +3,7 @@ namespace App\Service;
 
 use App\Entity\Itu as ItuEntity;
 use Doctrine\ORM\EntityManagerInterface;
-use App\Repository\SpRepository;
+use App\Repository\StateRepository;
 
 /**
  * Class Country
@@ -23,7 +23,7 @@ class Country
      */
     public function __construct(
         EntityManagerInterface $em,
-        SpRepository $sp
+        StateRepository $sp
     ) {
         $this->em = $em;
         $this->sp = $sp;
@@ -83,11 +83,11 @@ class Country
     {
         switch ($code) {
             case "AUS":
-                return 'map_au';
+                return 'au';
             case "CAN":
-                return 'map_na';
+                return 'na';
             case "USA":
-                return 'map_na';
+                return 'na';
             default:
                 return false;
         }

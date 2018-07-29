@@ -5,7 +5,7 @@
     <h1>{{ title }}</h1>
 {% if zones|length > 1 %}
 
-    <div class="links">[
+    <div class="links quicklinks">[
 {% for key, zone in zones %}
         <a href="#{{ key }}">{{ zone.shortName }}</a>{%  if not loop.last %} |{%  endif %}
 
@@ -16,7 +16,7 @@
 {% for key, zone in zones %}
 {% set mode = zone.mode %}
 {% set map = zone.map %}
-{% set rel = zone.rel %}
+{% set popup = zone.popup %}
 {% set multiple = true %}
 {% if zone.countryBtn is defined %}{% set countryBtn = zone.countryBtn %}{% else %}{% set countryBtn = '' %}{% endif %}
 {% if zone.countryFilter is defined %}{% set countryFilter = zone.countryFilter %}{% else %}{% set countryFilter = '' %}{% endif %}

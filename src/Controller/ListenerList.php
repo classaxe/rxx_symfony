@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
  * Class ListenerList
  * @package App\Controller
  */
-class ListenerList extends BaseController
+class ListenerList extends Base
 {
 
     /**

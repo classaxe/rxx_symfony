@@ -8,7 +8,7 @@
 
 namespace App\Form;
 
-use App\Repository\ItuRepository;
+use App\Repository\CountryRepository;
 use App\Repository\RegionRepository;
 use App\Repository\TypeRepository;
 use Symfony\Component\Form\AbstractType;
@@ -25,7 +25,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 class ListenerList extends AbstractType
 {
     /**
-     * @var ItuRepository
+     * @var CountryRepository
      */
     private $country;
 
@@ -41,10 +41,10 @@ class ListenerList extends AbstractType
 
     /**
      * ListenerList constructor.
-     * @param ItuRepository $country
+     * @param CountryRepository $country
      * @param RegionRepository $region
      */
-    public function __construct(ItuRepository $country, RegionRepository $region, TypeRepository $type)
+    public function __construct(CountryRepository $country, RegionRepository $region, TypeRepository $type)
     {
         $this->country = $country;
         $this->region = $region;

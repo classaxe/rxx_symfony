@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
  * Class ListenerList
  * @package App\Controller
  */
-class Listener extends BaseController
+class Listener extends Base
 {
 
     /**

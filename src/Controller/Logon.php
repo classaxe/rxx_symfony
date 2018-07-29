@@ -10,7 +10,7 @@ use Symfony\Component\Dotenv\Dotenv;
  * Class ListenerList
  * @package App\Controller
  */
-class Logon extends BaseController
+class Logon extends Base
 {
 
     private $username = '';

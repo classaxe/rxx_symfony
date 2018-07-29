@@ -27,6 +27,122 @@ abstract class Base extends WebTestCase
         ];
     }
 
+    protected function getMap($area)
+    {
+        return $this->getMaps()[$area];
+    }
+
+    protected function getMaps()
+    {
+        return [
+            'af' => [
+                'mode' =>           'African NDB List approved Country Codes',
+                'countryBtn' =>     'Countries',
+                'countryFilter' =>  'af',
+                'map' =>            'af_map.gif',
+                'shortName' =>      'Africa',
+                'popup' =>          'map_af|width=646,height=652,resizable=1',
+            ],
+            'alaska' => [
+                'mode' =>           'Beacons in Alaska',
+                'map' =>            'map_alaska_beacons.gif',
+                'text' =>           'OR... try the <a href="state_map/?simple=1&SP=AK">interactive map of Alaska</a>',
+                'shortName' =>      'Alaska',
+                'popup' =>          'map_alaska|width=466,height=443,resizable=1',
+            ],
+            'as' => [
+                'mode' =>           'Asian NDB List Country Codes',
+                'countryBtn' =>     'Countries',
+                'countryFilter' =>  'as',
+                'map' =>            'as_map.gif',
+                'shortName' =>      'Asia',
+                'popup' =>          'map_as|width=856,height=575,resizable=1',
+            ],
+            'au' => [
+                'mode' =>           'Australian NDB List Country Codes',
+                'stateBtn' =>       'Territories',
+                'stateFilter' =>    'aus',
+                'map' =>            'au_map.gif',
+                'shortName' =>      'Australia',
+                'popup' =>          'map_au|width=511,height=469,resizable=1',
+            ],
+            'eu' => [
+                'mode' =>           'European NDB List Country Codes',
+                'countryBtn' =>     'Countries',
+                'countryFilter' =>  'eu',
+                'map' =>            'eu_map.gif',
+                'shortName' =>      'Europe',
+                'popup' =>          'map_eu|width=704,height=696,resizable=1',
+            ],
+            'japan' => [
+                'mode' =>           'Japanese NDB List Country Codes',
+                'map' =>            'japan_map.gif',
+                'countryBtn' =>     'Countries',
+                'countryFilter' =>  'as',
+                'shortName' =>      'Japan',
+                'popup' =>          'map_japan|width=517,height=690,resizable=1',
+            ],
+            'na' => [
+                'mode' =>           'North American NDB List Country Codes',
+                'stateBtn' =>       'States',
+                'stateFilter' =>    'can,usa',
+                'countryBtn' =>     'Countries',
+                'countryFilter' =>  'na',
+                'map' =>            'na_map.gif',
+                'shortName' =>      'North America',
+                'popup' =>          'map_na|width=669,height=660,resizable=1',
+            ],
+            'pacific' => [
+                'mode' =>           'Pacific Beacons Map',
+                'map' =>            'pacific_map.gif',
+                'countryBtn' =>     'Countries',
+                'countryFilter' =>  'oc',
+                'text' =>
+                    '(Originally produced for <a href="/dx/ndb/log/steve/?mode=station_list&yyyymm=200307">'
+                    .'Steve Ratzlaff\'s Pacific Report</a>)',
+                'shortName' =>      'Pacific',
+                'popup' =>          '|map_pacific|width=366,height=429,resizable=1',
+            ],
+            'polynesia' => [
+                'mode' =>           'French Polynesian Beacons Map',
+                'map' =>            'map_french_polynesia.gif',
+                'shortName' =>      'French Polynesia',
+                'popup' =>          'map_polynesia|width=458,height=440,resizable=1',
+            ],
+            'sa' => [
+                'mode' =>           'South American NDB List Country Codes',
+                'map' =>            'sa_map.gif',
+                'countryBtn' =>     'Countries',
+                'countryFilter' =>  'sa',
+                'shortName' =>      'South America',
+                'popup' =>          'map_sa|width=490,height=686,resizable=1',
+            ]
+        ];
+    }
+
+    protected function getMapsForSystems()
+    {
+        return [
+            'reu' =>    [
+                'maps' =>   ['eu', 'as', 'af' ],
+                'title' =>  'Maps for European Listeners'
+            ],
+            'rna' =>    [
+                'maps' =>   [ 'na', 'alaska', 'sa', 'pacific', 'japan', 'polynesia' ],
+                'title' =>  'Maps for North American Listeners'
+            ],
+            'rww' =>    [
+                'maps' =>   [ 'na', 'sa', 'eu', 'as', 'af', 'au'],
+                'title' =>  'Maps for All Listeners'
+            ],
+        ];
+    }
+
+    protected function getMapsForSystem($system)
+    {
+        return $this->getMapsForSystems()[$system]['maps'];
+    }
+
     protected function getRegions()
     {
         return [
@@ -219,7 +335,6 @@ abstract class Base extends WebTestCase
             $this->setNoRedirect();
         }
         $this->currentUserType = 'admin';
-
     }
 
     protected function setUserPublic()

@@ -22,7 +22,7 @@
         <div class="header">
             <h2 id='{{ region.region }}'>{{ region.name }}</h2>
             <div class="links">
-                [ {%  if region.map %}<a href="{{ url('system', { 'system' : system }) }}{{ region.map }}" target="_blank" rel="external">Map</a> | {% endif %}<a href="#top">Top</a> ]
+                [ {%  if region.map %}<a href="{{ url('map', { 'system' : system, 'area' : region.map }) }}" rel="external">Map</a> | {% endif %}<a href="#top">Top</a> ]
             </div>
         </div>
 {% if region.countries|length  %}
@@ -37,4 +37,9 @@
 
 {% endfor %}
 </div>
+<script>
+    $(document).ready( function() {
+        setExternalLinks();
+    });
+</script>
 {% endblock %}

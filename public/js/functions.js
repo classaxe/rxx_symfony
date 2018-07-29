@@ -63,7 +63,7 @@ function setColumnSortedClass() {
 function setExternalLinks() {
     $('a[rel="external"]').attr('target', '_blank');
     $('a[data-popup]').click(function() {
-        var args = $(this).attr('data-popup').split('|');
+        var args = $(this).data('popup').split('|');
         window.open(this.href, args[0], args[1]);
         return false;
     });

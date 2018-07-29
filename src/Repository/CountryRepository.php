@@ -6,7 +6,7 @@ use App\Entity\Itu;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
-class ItuRepository extends ServiceEntityRepository
+class CountryRepository extends ServiceEntityRepository
 {
     public function __construct(RegistryInterface $registry)
     {

@@ -4,7 +4,7 @@ namespace App\Tests\Controller;
 
 use App\Tests\Base;
 
-class LogonTest extends Base
+class LogonLogoffTest extends Base
 {
     const MESSAGES = [
         1 =>    "Test 1:\nRequested %s/logoff\nExpected HTTP response code %s, saw %s.",
@@ -14,7 +14,7 @@ class LogonTest extends Base
         5 =>    "Test 5:\nRequested %s/logon for user '%s'\nExpected response '%s', saw '%s'.",
     ];
 
-    public function test()
+    public function testAllSystems()
     {
         foreach ($this->getSystems() as $system) {
             $this->setNoRedirect();
@@ -83,6 +83,5 @@ class LogonTest extends Base
                 $this->assertEquals($expected, $actual, $message);
             }
         }
-
     }
 }

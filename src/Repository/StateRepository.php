@@ -9,7 +9,7 @@ use App\Entity\Sp as SpEntity;
  * Class Region
  * @package App\Service
  */
-class SpRepository extends ServiceEntityRepository
+class StateRepository extends ServiceEntityRepository
 {
     public function __construct(RegistryInterface $registry)
     {

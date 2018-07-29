@@ -14,10 +14,10 @@ class DefaultModeTest extends Base
 
     protected function getDefaultMode()
     {
-        return 'signal_list';
+        return 'signals';
     }
 
-    public function test()
+    public function testAllSystems()
     {
         foreach ($this->getSystems() as $system) {
             $this->setNoRedirect();

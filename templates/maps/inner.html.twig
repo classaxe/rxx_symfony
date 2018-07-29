@@ -4,15 +4,15 @@
                 <div class="links">[
 {% if multiple is defined %}
                     <a href="#top">Top</a> |
-                    <a href="{{ url('system', { 'system' : system }) }}map_{{ key }}"{% if rel is defined %} rel="{{ rel }}{% endif %}">Popup</a>{% if ((stateBtn is defined and stateBtn) or (countryBtn is defined and countryBtn)) %} |{% endif %}
+                    <a href="{{ url('system', { 'system' : system }) }}map/{{ key }}"{% if (popup is defined and popup) %} data-popup="{{ popup }}"{% endif %}>Popup</a>{% if ((stateBtn is defined and stateBtn) or (countryBtn is defined and countryBtn)) %} |{% endif %}
 
 {% endif %}
 {% if (stateBtn is defined and stateBtn) %}
-                    <a href="{{ url('show_sp', { 'system' : system, 'filter' : stateFilter }) }}" target="_blank" rel="external">{{ stateBtn }}</a>{% if ((stateBtn is defined and stateBtn) and (countryBtn is defined and countryBtn)) %} |{% endif %}
+                    <a href="{{ url('states', { 'system' : system, 'filter' : stateFilter }) }}" data-type='sp' rel="external">{{ stateBtn }}</a>{% if ((stateBtn is defined and stateBtn) and (countryBtn is defined and countryBtn)) %} |{% endif %}
 
 {% endif %}
-{% if countryBtn is defined and countryBtn %}
-                    <a href="{{ url('show_itu', { 'system' : system, 'filter' : countryFilter }) }}" target="_blank" rel="external">{{ countryBtn }}</a>
+{% if (countryBtn is defined and countryBtn) %}
+                    <a href="{{ url('countries', { 'system' : system, 'filter' : countryFilter }) }}" data-type='itu' rel="external">{{ countryBtn }}</a>
 {% endif %}
                 ]</div>
 {% endif %}

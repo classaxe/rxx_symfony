@@ -6,10 +6,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 
 /**
- * Class CountryLocator
+ * Class Countries
  * @package App\Controller
  */
-class CountryLocator extends Controller
+class Countries extends Controller
 {
 
     /**
@@ -18,7 +18,7 @@ class CountryLocator extends Controller
     private $regionService;
 
     /**
-     * CountryLocator constructor.
+     * Countries constructor.
      * @param RegionService $regionService
      */
     public function __construct(RegionService $regionService)
@@ -28,12 +28,12 @@ class CountryLocator extends Controller
 
     /**
      * @Route(
-     *     "/{system}/show_itu/{filter}",
+     *     "/{system}/countries/{filter}",
      *     requirements={
      *        "system": "reu|rna|rww"
      *     },
      *     defaults={"filter"=""},
-     *     name="show_itu"
+     *     name="countries"
      * )
      */
     public function countryLocatorController($system, $filter)
