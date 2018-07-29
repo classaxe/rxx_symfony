@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Class ListenerList
+ * Class Listeners
  * @package App\Controller
  */
 class Listener extends Base

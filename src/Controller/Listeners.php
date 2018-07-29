@@ -7,10 +7,10 @@ use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Class ListenerList
+ * Class Listeners
  * @package App\Controller
  */
-class ListenerList extends Base
+class Listeners extends Base
 {
 
     /**
@@ -19,7 +19,7 @@ class ListenerList extends Base
      *     requirements={
      *        "system": "reu|rna|rww"
      *     },
-     *     name="listener_list"
+     *     name="listeners"
      * )
      */
     public function listenerListController(

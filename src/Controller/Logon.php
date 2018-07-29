@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Dotenv\Dotenv;
 
 /**
- * Class ListenerList
+ * Class Listeners
  * @package App\Controller
  */
 class Logon extends Base

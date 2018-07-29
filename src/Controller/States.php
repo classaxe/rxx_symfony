@@ -1,7 +1,7 @@
 <?php
 namespace App\Controller;
 
-use App\Service\Country as CountryService;
+use App\Repository\CountryRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 
@@ -12,17 +12,17 @@ use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 class States extends Controller
 {
     /**
-     * @var CountryService
+     * @var CountryRepository
      */
-    private $countryService;
+    private $country;
 
     /**
      * States constructor.
-     * @param CountryService $countryService
+     * @param CountryRepository $countryService
      */
-    public function __construct(CountryService $countryService)
+    public function __construct(CountryRepository $country)
     {
-        $this->countryService = $countryService;
+        $this->country = $country;
     }
 
     /**
@@ -40,7 +40,7 @@ class States extends Controller
         $parameters = [
             'system' => $system,
             'mode' => 'State and Province Locator',
-            'countries' => $this->countryService->getCountriesAndStates($filter)
+            'countries' => $this->country->getCountriesAndStates($filter)
         ];
 
         return $this->render('states/index.html.twig', $parameters);

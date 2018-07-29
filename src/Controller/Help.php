@@ -4,7 +4,7 @@ namespace App\Controller;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * Class ListenerList
+ * Class Listeners
  * @package App\Controller
  */
 class Help extends Base

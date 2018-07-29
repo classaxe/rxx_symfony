@@ -18,7 +18,7 @@ class ModeRepository
                 'menu' =>   'Maps',
                 'title' =>  'Maps'
             ],
-            'listener_list' =>    [
+            'listeners' =>    [
                 'admin' =>  true,
                 'guest' =>  true,
                 'menu' =>   'Listeners',

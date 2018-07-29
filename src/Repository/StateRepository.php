@@ -16,13 +16,13 @@ class StateRepository extends ServiceEntityRepository
         parent::__construct($registry, SpEntity::class);
     }
 
-    public function getStates($country = null)
+    public function getStates($itu = null)
     {
         return
             $this
                 ->createQueryBuilder('sp')
                 ->where('sp.itu IN(:filter)')
-                ->setParameter('filter', $country)
+                ->setParameter('filter', $itu)
                 ->getQuery()
                 ->execute();
     }

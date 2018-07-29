@@ -19,7 +19,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 /**
- * Class ListenerList
+ * Class Listeners
  * @package App\Form
  */
 class ListenerList extends AbstractType
@@ -40,7 +40,7 @@ class ListenerList extends AbstractType
     private $type;
 
     /**
-     * ListenerList constructor.
+     * Listeners constructor.
      * @param CountryRepository $country
      * @param RegionRepository $region
      */

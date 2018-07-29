@@ -1,7 +1,7 @@
 <?php
 namespace App\Controller;
 
-use App\Service\Region as RegionService;
+use App\Repository\RegionRepository as Region;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 
@@ -13,17 +13,17 @@ class Countries extends Controller
 {
 
     /**
-     * @var RegionService
+     * @var Region
      */
-    private $regionService;
+    private $region;
 
     /**
      * Countries constructor.
-     * @param RegionService $regionService
+     * @param Region $region
      */
-    public function __construct(RegionService $regionService)
+    public function __construct(Region $region)
     {
-        $this->regionService = $regionService;
+        $this->region = $region;
     }
 
     /**
@@ -41,7 +41,7 @@ class Countries extends Controller
         $parameters = [
             'system' => $system,
             'mode' => 'Country Code Locator',
-            'regions' => $this->regionService->getRegionsAndCountries($filter)
+            'regions' => $this->region->getAllWithCountries($filter)
         ];
 
         return $this->render('countries/index.html.twig', $parameters);

@@ -4,7 +4,7 @@ namespace App\Controller;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 
 /**
- * Class ListenerList
+ * Class Listeners
  * @package App\Controller
  */
 class Logoff extends Base
