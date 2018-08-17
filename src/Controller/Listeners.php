@@ -1,7 +1,7 @@
 <?php
 namespace App\Controller;
 
-use App\Form\ListenerList as ListenerListForm;
+use App\Form\Listeners as ListenerListForm;
 use App\Repository\ListenerRepository;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 use Symfony\Component\HttpFoundation\Request;
@@ -68,6 +68,7 @@ class Listeners extends Base
             'listeners' =>          $filtered,
             'matched' =>            $matched,
             'mode' =>               'Listeners List',
+            'listenerPopup' =>      'width=590,height=480,status=1,scrollbars=1,resizable=1',
             'system' =>             $system,
             'text' =>
                 "<ul>\n"

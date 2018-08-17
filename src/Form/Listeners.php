@@ -22,7 +22,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
  * Class Listeners
  * @package App\Form
  */
-class ListenerList extends AbstractType
+class Listeners extends AbstractType
 {
     /**
      * @var CountryRepository
@@ -103,7 +103,7 @@ class ListenerList extends AbstractType
                 [
                     'label' => 'Country',
                     'choices' =>
-                        $this->country->getMatchingOptions($system, $region, true),
+                        $this->country->getMatchingOptions($system, $region, true, true),
                 ]
             );
 
@@ -124,7 +124,8 @@ class ListenerList extends AbstractType
                 'submit',
                 SubmitType::class,
                 [
-                    'label' => 'Go'
+                    'label'         => 'Go',
+                    'attr'          => [ 'class' => 'button small']
                 ]
             );
 

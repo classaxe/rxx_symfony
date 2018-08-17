@@ -46,7 +46,14 @@ class Logon extends AbstractType
                     'help' => '&nbsp;'
                 ]
             )
-            ->add('submit', SubmitType::class, ['label' => 'Logon']);
+            ->add(
+                'submit',
+                SubmitType::class,
+                [
+                    'label' => 'Logon',
+                    'attr'          => [ 'class' => 'button small']
+                ]
+            );
 
         return $formBuilder->getForm();
     }

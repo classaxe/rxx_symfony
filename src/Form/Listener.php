@@ -9,11 +9,13 @@
 namespace App\Form;
 
 use App\Repository\CountryRepository;
-use App\Repository\State;
+use App\Repository\StateRepository;
 
 use App\Repository\RegionRepository;
 use App\Repository\TypeRepository;
+
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -37,6 +39,11 @@ class Listener extends AbstractType
     private $region;
 
     /**
+     * @var StateRepository
+     */
+    private $sp;
+
+    /**
      * @var TypeRepository
      */
     private $type;
@@ -46,27 +53,32 @@ class Listener extends AbstractType
      * @param CountryRepository $country
      * @param RegionRepository $region
      */
-    public function __construct(CountryRepository $country, RegionRepository $region, TypeRepository $type)
-    {
-        $this->country = $country;
-        $this->region = $region;
-        $this->type = $type;
+    public function __construct(
+        CountryRepository $country,
+        RegionRepository $region,
+        StateRepository $sp,
+        TypeRepository $type
+    ) {
+        $this->country =    $country;
+        $this->region =     $region;
+        $this->sp =         $sp;
+        $this->type =       $type;
     }
 
-    public function getFieldGroups()
+    public function getFieldGroups($isAdmin)
     {
         return [
             'Contact Details' =>    [
                 'name',
                 'callsign',
-                'email',
+                ($isAdmin ? 'email' : ''),
                 'website'
             ],
             'Location' =>   [
-//                'town',
-//                'sp',
+                'qth',
+                'sp',
                 'itu',
-//                'gsq',
+                'gsq',
 //                'timezone',
 //                'primary',
 //                'mapX',
@@ -75,7 +87,12 @@ class Listener extends AbstractType
 //            'Other' =>  [
 //                'notes',
 //                'equipment'
-//            ]
+//            ],
+            '' => [
+                'print',
+                'close',
+                ($isAdmin ? 'save' : '')
+            ]
         ];
     }
     /**
@@ -85,6 +102,7 @@ class Listener extends AbstractType
      */
     public function buildForm(FormBuilderInterface $formBuilder, array $options)
     {
+        $isAdmin = $options['isAdmin'];
         $formBuilder
             ->add(
                 'id',
@@ -97,60 +115,103 @@ class Listener extends AbstractType
                 'name',
                 TextType::class,
                 [
-                    'label'     => 'Name',
-                    'data'      => $options['name'],
-                    'block_name'     => 'Contact Details'
+                    'label'         => 'Name',
+                    'data'          => $options['name'],
+                    'block_name'    => 'Contact Details',
+                    'disabled'      => !$isAdmin
                 ]
             )
             ->add(
                 'callsign',
                 TextType::class,
                 [
-                    'label'     => 'Callsign',
-                    'data'      => $options['callsign']
+                    'label'         => 'Callsign',
+                    'data'          => $options['callsign'],
+                    'disabled'      => !$isAdmin
                 ]
             )
             ->add(
                 'email',
                 TextType::class,
                 [
-                    'label'     => 'Email Address',
-                    'data'      => $options['email']
+                    'label' => 'Email Address',
+                    'data' => $options['email'],
+                    'disabled' => !$isAdmin
                 ]
             )
             ->add(
                 'website',
                 TextType::class,
                 [
-                    'label'     => 'Website',
-                    'data'      => $options['website']
+                    'label'         => 'Website',
+                    'data'          => $options['website'],
+                    'disabled'      => !$isAdmin
                 ]
             )
-//            ->add(
-//                'sp',
-//                ChoiceType::class,
-//                [
-//                    'label'     => 'State / Province',
-//                    'choices'   => $this->sp->getMatchingOptions(),
-//                    'data'      => $options['itu']
-//                ]
-//            )
+            ->add(
+                'qth',
+                TextType::class,
+                [
+                    'label'         => 'Town / City',
+                    'data'          => $options['qth'],
+                    'disabled'      => !$isAdmin,
+                ]
+            )
+            ->add(
+                'sp',
+                ChoiceType::class,
+                [
+                    'label'         => 'State / Prov',
+                    'choices'       => $this->sp->getMatchingOptions(),
+                    'data'          => $options['itu'],
+                    'disabled'      => !$isAdmin
+                ]
+            )
             ->add(
                 'itu',
                 ChoiceType::class,
                 [
-                    'label'     => 'Country',
-                    'choices'   => $this->country->getMatchingOptions(),
-                    'data'      => $options['itu']
+                    'label'         => 'Country',
+                    'choices'       => $this->country->getMatchingOptions(),
+                    'data'          => $options['itu'],
+                    'disabled'      => !$isAdmin
                 ]
             )
             ->add(
-                'submit',
+                'gsq',
+                TextType::class,
+                [
+                    'label'         => 'Grid Square',
+                    'data'          => $options['gsq'],
+                    'disabled'      => !$isAdmin,
+                    'attr'          => ['size' => '6', 'maxlen' => 6, 'style' => "width: 6em"]
+                ]
+            )
+            ->add(
+                'print',
+                ButtonType::class,
+                [
+                    'label'         => 'Print...',
+                    'attr'          => [ 'class' => 'button small']
+                ]
+            )
+            ->add(
+                'close',
+                ButtonType::class,
+                [
+                    'label'         => 'Close',
+                    'attr'          => [ 'class' => 'button small']
+                ]
+            )
+            ->add(
+                'save',
                 SubmitType::class,
                 [
-                    'label' => 'Save'
+                    'label'         => 'Save',
+                    'attr'          => [ 'class' => 'button small']
                 ]
-            );
+            )
+        ;
 
         return $formBuilder->getForm();
     }

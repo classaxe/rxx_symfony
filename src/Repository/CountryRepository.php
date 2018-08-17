@@ -10,6 +10,10 @@ class CountryRepository extends ServiceEntityRepository
 {
     private $sp;
 
+    const RECEIVED_IN_EUROPE = "reu";
+
+    const RECIEVED_IN_NORTH_AMERICA = "rna";
+
     public function __construct(
         RegistryInterface $registry,
         StateRepository $sp
@@ -28,14 +32,14 @@ class CountryRepository extends ServiceEntityRepository
         $qb = $this->createQueryBuilder('c');
 
         switch ($system) {
-            case "reu":
+            case self::RECEIVED_IN_EUROPE:
                 $qb
                     ->where(
                         $qb->expr()->eq('c.region', ':eu')
                     )
                     ->setParameter('eu', 'eu');
                 break;
-            case "rna":
+            case self::RECIEVED_IN_NORTH_AMERICA:
                 $qb
                     ->where(
                         $qb->expr()->orX(
@@ -107,10 +111,16 @@ class CountryRepository extends ServiceEntityRepository
         return $countries;
     }
 
-    public function getMatchingOptions($system = false, $region = false, $havingListeners = false)
-    {
+    public function getMatchingOptions(
+        $system = false,
+        $region = false,
+        $havingListeners = false,
+        $withAllOption = false
+    ) {
         $countries = $this->getMatching($system, $region, $havingListeners);
-        $out = ['(All Countries'.($region ? ' in selected region' : '').')' => ''];
+        if ($withAllOption) {
+            $out = ['(All Countries'.($region ? ' in selected region' : '').')' => ''];
+        }
         foreach ($countries as $row) {
             $out[$row->getName()] = $row->getItu();
         }

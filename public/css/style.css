@@ -117,16 +117,20 @@ body .menu-centered .system .is-active>a:hover, body .menu-centered .mode .is-ac
 .controlPanel { width: auto; display: inline-block;}
 .controlPanel .controls { padding: 0.25em; }
 #form div { clear: both; height: 1.5em; }
-#form div label { float: left; width: 100px; font-weight: bold; }
+#form div label { float: left; width: 100px; font-weight: bold; padding: 0 0 0.125em 0; }
 #form div input[type='text'] { margin: 0; border-radius: 0; height: 1.75em; font-size: 80%; float: left; }
 #form div input[type='password'] { margin: 0; border-radius: 0; height: 1.75em; font-size: 80%; float: left;}
 #form div select { -webkit-appearance: menulist; -moz-appearance: menulist; font-size: 80%; background-image: none; height: 1.75em; margin: 0; }
 #form div p { margin: 0; border-radius: 0; height: 1.5em; font-size: 80%; float: right; text-align: right; }
 #form div div { clear: none; float: left; }
-#form div div label { float: none; width: auto; font-size: 80%; font-weight: normal; margin: 0 0.125em; padding: 0 0.125em; line-height: 1.5em; }
+#form div div label { float: none; width: auto; font-size: 80%; font-weight: normal; margin: 0 0.1em; padding: 0 0.1em; line-height: 1.5em; }
 #form ul { display: none; } /* Hides 'This value is not valid' error with bad country / region combination */
 #lastError { border: 1px solid #ff0000; background: #ffe0e0; color: #ff0000; padding: 0.25em; margin: 0.5em 0; display: inline-block; }
 
+#form fieldset { margin: 0; padding: 0 0 0.25em 0; }
+#form fieldset legend { margin: 0; padding: 0; font-size: 80%; text-align: center; }
+
+#form div button { float: left; clear: none !important; width: 6em; }
 /* [ Form listener_list ] */
 .listener_list #form input[type='text'],
 .listener_list #form select { width: 420px; }
@@ -141,7 +145,10 @@ body .menu-centered .system .is-active>a:hover, body .menu-centered .mode .is-ac
 .logon #form input[type='text'],
 .logon #form input[type='password'] { width: 150px; }
 
-#form div #form_submit { background: white; border: 1px solid #cacaca; font-size: 80%; margin: 0 50%; padding: 0.25em 1em; text-align: center; float: none;  }
+#form button { margin: 0.25em 50%; padding: 0.25em 1em; }
+#form fieldset#group_ { padding: 0; margin: 0; text-align: center; }
+#form fieldset#group_ div { display: inline-block;}
+#form fieldset#group_ button { margin: 0.25em 0; float: left; clear: none; }
 
 #form_types div { padding: 0 0 0 2px; margin: 1px 0 0 0;}
 .type_inactive, tr.inactive td { background-color: #d0d0d0 !important; }

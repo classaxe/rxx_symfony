@@ -20,7 +20,7 @@
             <td{% if key == 'name' %} title="{{ listener.PrimaryQth ? 'Primary Location' : 'Secondary Location' }}" class="{{ listener.PrimaryQth ? 'primaryQth' : 'secondaryQth' }}">{% else %}{% if column.td_class %} class="{{ column.td_class }}"{% endif %}>{% endif %}
 
 {% if key == 'name' %}
-                <a href="{{ url('listener', { 'system' : system, 'id': listener.id }) }}" rel="external" data-popup="edit_{{ listener.id }}|width=640,height=480,status=1,scrollbars=1,resizable=1">{{ attribute(listener, column.field)|raw }}</a>
+                <a href="{{ url('listener', { 'system' : system, 'id': listener.id }) }}" rel="external" data-popup="edit_{{ listener.id }}|{{ listenerPopup }}">{{ attribute(listener, column.field)|raw }}</a>
 {% else %}
                 {{ attribute(listener, column.field)|raw }}
 {% endif %}

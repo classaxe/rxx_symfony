@@ -32,25 +32,25 @@ class Listener extends Base
         $id,
         Request $request,
         ListenerForm $listenerForm,
-        ListenerRepository $listenerRepository
+        ListenerRepository $listenerRepo
     ) {
-        $listener_Repo =
-            $this
-                ->getDoctrine()
-                ->getRepository(ListenerEntity::class);
+        $isAdmin = $this->parameters['isAdmin'];
         $listener =
-            $listener_Repo
+            $listenerRepo
                 ->find($id);
         if (!$listener) {
             $id = null;
         }
         $options = [
-            'id' =>         $id,
-            'callsign' =>   $id ? $listener->getCallsign() : '',
-            'email' =>      $id ? $listener->getEmail() : '',
-            'itu' =>        $id ? $listener->getItu() : '',
-            'name' =>       $id ? $listener->getName() : '',
-            'website' =>    $id ? $listener->getWebsite() : '',
+            'isAdmin'   =>  $isAdmin,
+            'id'        =>  $id,
+            'callsign'  =>  $id ? $listener->getCallsign() : '',
+            'email'     =>  $id ? $listener->getEmail() : '',
+            'gsq'       =>  $id ? $listener->getGsq() : '',
+            'itu'       =>  $id ? $listener->getItu() : '',
+            'name'      =>  $id ? $listener->getName() : '',
+            'qth'       =>  $id ? $listener->getQth() : '',
+            'website'   =>  $id ? $listener->getWebsite() : '',
         ];
 
         $form = $listenerForm->buildForm(
@@ -58,21 +58,20 @@ class Listener extends Base
             $options
         );
         $form->handleRequest($request);
-        if ($form->isSubmitted()) {
+        if ($isAdmin && $form->isSubmitted()) {
             $form_data = $form->getData();
             $data['form'] = $form_data;
-            $listener = $listener_Repo->find($id);
-            $listener
-                ->setEmail($form_data['email']);
+            $listener = $listenerRepo->find($id);
+            $listener->setEmail($form_data['email']);
             $em = $this->getDoctrine()->getManager();
             $em->flush();
         }
 
         $parameters = [
             'id' =>                 $id,
-            'fieldGroups' =>        $listenerForm->getFieldGroups(),
+            'fieldGroups' =>        $listenerForm->getFieldGroups($isAdmin),
             'form' =>               $form->createView(),
-            'mode' =>               'Edit Listener',
+            'mode' =>               ($isAdmin ? ($id ? 'Edit' : 'Add').' Listener' : 'Listener Details'),
             'system' =>             $system,
         ];
         $parameters = array_merge($parameters, $this->parameters);

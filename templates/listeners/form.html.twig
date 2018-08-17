@@ -1,16 +1,18 @@
 {# Include our twig widget customisations #}
 {% form_theme form 'forms/custom_form_div_layout.html.twig' %}
     <div class="controlPanel {{ form_class }}">
-        <div class="header">{{ form_title }}</div>
+        <div class="header">{{ mode }}</div>
         <div class="controls clearfix">
         {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
             <div id="form">
                 {{ form_row(form.id)  }}
 {% for group, fields in fieldGroups %}
-                <fieldset>
+                <fieldset id="group_{{ group|lower|replace({' ' : '_'}) }}">
                     <legend>{{ group }}</legend>
-{% for field in fields%}
-    {{ form_row(attribute(form, field))  }}
+{% for field in fields %}
+{%  if field %}
+                    {{ form_row(attribute(form, field))  }}
+{% endif %}
 {% endfor %}
                 </fieldset>
 {% endfor %}

@@ -16,13 +16,31 @@ class StateRepository extends ServiceEntityRepository
         parent::__construct($registry, SpEntity::class);
     }
 
-    public function getStates($itu = null)
+    public function getMatchingOptions($itu = false)
     {
-        return
+        $states = $this->getStates($itu);
+        $out = [];
+//        print "<pre>".print_r($states, true)."</pre>";
+        foreach ($states as $row) {
+            $out[$row->getName()] = $row->getSp();
+        }
+
+        return $out;
+    }
+
+    public function getStates($itu = false)
+    {
+        $qb =
             $this
-                ->createQueryBuilder('sp')
+                ->createQueryBuilder('sp');
+        if ($itu) {
+            $qb
                 ->where('sp.itu IN(:filter)')
-                ->setParameter('filter', $itu)
+                ->setParameter('filter', $itu);
+        }
+        return
+            $qb
+                ->orderBy('sp.sp', 'ASC')
                 ->getQuery()
                 ->execute();
     }
