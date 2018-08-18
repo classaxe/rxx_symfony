@@ -4,7 +4,7 @@
 <div class="main">
 <h1>{{ mode }}</h1>
 {% include 'status.html.twig' %}
-{% include 'listeners/latest.html.twig' %}
+{% include 'listeners/latestlogs.html.twig' %}
 {% include 'listeners/addlogfor.html.twig' %}
 {% if not isAdmin %}{{ text|raw }}{% endif %}
 {% set form_title='Customise ' ~ system|upper ~ ' Listeners List' %}
@@ -18,7 +18,7 @@
     </div>
 </div>
 
-{% include 'grids/listeners.html.twig' %}
+{% include 'listeners/grid.html.twig' %}
 
 <script>
     $(document).ready( function() {

@@ -105,6 +105,6 @@ class Listener extends Base
             'system' =>             $system,
         ];
         $parameters = array_merge($parameters, $this->parameters);
-        return $this->render('listeners/edit.html.twig', $parameters);
+        return $this->render('listener/edit.html.twig', $parameters);
     }
 }
