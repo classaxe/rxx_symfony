@@ -57,10 +57,18 @@ class Base extends Controller
         $this->systemRepository =   $systemRepository;
         $this->session =            $session;
         $this->parameters = [
-            'isAdmin' =>    $session->get('isAdmin', 0),
-            'lastError' =>  $session->get('lastError', ''),
-            'modes' =>      $modeRepository->getAll(),
-            'systems' =>    $systemRepository->getAll(),
+            'isAdmin' =>        $this->session->get('isAdmin', 0),
+            'lastError' =>      $this->session->get('lastError', ''),
+            'lastMessage' =>    $this->session->get('lastMessage', ''),
+            'modes' =>          $this->modeRepository->getAll(),
+            'systems' =>        $this->systemRepository->getAll(),
         ];
+    }
+
+    public function getMergedParameters($parameters = [])
+    {
+        $this->session->set('lastError', '');
+        $this->session->set('lastMessage', '');
+        return array_merge($parameters, $this->parameters);
     }
 }

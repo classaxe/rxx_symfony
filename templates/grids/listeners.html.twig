@@ -1,4 +1,10 @@
 {% if listeners|length > 0 %}
+<p class="report_actions">
+    <input type="button" class="button small" value="Print..." onclick="window.print()">
+    {% if isAdmin %}
+        <input type="button" class="button small" value="Add Listener..." onclick="window.open('{{ path('listener', {'system' : system})}}','new','{{ listenerPopup }}')">
+    {% endif %}
+</p>
 <table class="listener results">
     <thead>
         <tr>
@@ -31,6 +37,12 @@
 {% endfor %}
     </tbody>
 </table>
+<p class="report_actions">
+    <input type="button" class="button small" value="Print..." onclick="window.print()">
+    {% if isAdmin %}
+        <input type="button" class="button small" value="Add Listener..." onclick="window.open('{{ path('listener', {'system' : system})}}','new','{{ listenerPopup }}')">
+    {% endif %}
+</p>
 {% else %}
     <p class="no-results">(No listeners found matching your criteria)</p>
 {% endif %}

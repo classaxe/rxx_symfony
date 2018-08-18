@@ -17,10 +17,11 @@ use App\Repository\TypeRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
-use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\FormBuilderInterface;
 
 /**
  * Class Listeners
@@ -79,15 +80,15 @@ class Listener extends AbstractType
                 'sp',
                 'itu',
                 'gsq',
-//                'timezone',
-//                'primary',
-//                'mapX',
-//                'mapY'
+                ($isAdmin ? 'mapX' : ''),
+                ($isAdmin ? 'mapY' : ''),
             ],
-//            'Other' =>  [
-//                'notes',
-//                'equipment'
-//            ],
+            'Station Details' =>  [
+                'primary',
+                'timezone',
+                'equipment',
+                'notes',
+            ],
             '' => [
                 'print',
                 'close',
@@ -108,7 +109,7 @@ class Listener extends AbstractType
                 'id',
                 HiddenType::class,
                 [
-                    'data' => $options['id']
+                    'data'          => $options['id']
                 ]
             )
             ->add(
@@ -117,8 +118,8 @@ class Listener extends AbstractType
                 [
                     'label'         => 'Name',
                     'data'          => $options['name'],
-                    'block_name'    => 'Contact Details',
-                    'disabled'      => !$isAdmin
+                    'disabled'      => !$isAdmin,
+                    'empty_data'    => '',
                 ]
             )
             ->add(
@@ -127,16 +128,18 @@ class Listener extends AbstractType
                 [
                     'label'         => 'Callsign',
                     'data'          => $options['callsign'],
-                    'disabled'      => !$isAdmin
+                    'disabled'      => !$isAdmin,
+                    'empty_data'    => '',
                 ]
             )
             ->add(
                 'email',
                 TextType::class,
                 [
-                    'label' => 'Email Address',
-                    'data' => $options['email'],
-                    'disabled' => !$isAdmin
+                    'label'         => 'Email Address',
+                    'data'          => $options['email'],
+                    'disabled'      => !$isAdmin,
+                    'empty_data'    => '',
                 ]
             )
             ->add(
@@ -145,7 +148,8 @@ class Listener extends AbstractType
                 [
                     'label'         => 'Website',
                     'data'          => $options['website'],
-                    'disabled'      => !$isAdmin
+                    'disabled'      => !$isAdmin,
+                    'empty_data'    => '',
                 ]
             )
             ->add(
@@ -155,6 +159,7 @@ class Listener extends AbstractType
                     'label'         => 'Town / City',
                     'data'          => $options['qth'],
                     'disabled'      => !$isAdmin,
+                    'empty_data'    => '',
                 ]
             )
             ->add(
@@ -163,7 +168,7 @@ class Listener extends AbstractType
                 [
                     'label'         => 'State / Prov',
                     'choices'       => $this->sp->getMatchingOptions(),
-                    'data'          => $options['itu'],
+                    'data'          => $options['sp'],
                     'disabled'      => !$isAdmin
                 ]
             )
@@ -184,7 +189,77 @@ class Listener extends AbstractType
                     'label'         => 'Grid Square',
                     'data'          => $options['gsq'],
                     'disabled'      => !$isAdmin,
+                    'empty_data'    => '',
                     'attr'          => ['size' => '6', 'maxlen' => 6, 'style' => "width: 6em"]
+                ]
+            )
+            ->add(
+                'timezone',
+                TextType::class,
+                [
+                    'label'         => 'Timezone',
+                    'attr'          => ['size' => '3', 'maxlen' => 3, 'style' => "width: 4em"],
+                    'data'          => $options['timezone'],
+                    'disabled'      => !$isAdmin,
+                    'empty_data'    => '',
+                ]
+            )
+            ->add(
+                'primary',
+                ChoiceType::class,
+                [
+                    'label'         => 'Primary',
+                    'choices'       => [
+                        'Yes' => 1,
+                        'No' => 0,
+                    ],
+                    'data'          => $options['primary'],
+                    'disabled'      => !$isAdmin,
+                    'attr'          => [ 'style' => "width: 6em"]
+                ]
+            )
+            ->add(
+                'mapX',
+                TextType::class,
+                [
+                    'label'         => 'Map X',
+                    'attr'          => ['size' => '3', 'maxlen' => 3, 'style' => "width: 4em;"],
+                    'data'          => $options['mapX'],
+                    'disabled'      => !$isAdmin,
+                    'empty_data'    => 0,
+                ]
+            )
+            ->add(
+                'mapY',
+                TextType::class,
+                [
+                    'label'         => 'Map Y',
+                    'attr'          => ['size' => '3', 'maxlen' => 3, 'style' => "width: 4em;"],
+                    'data'          => $options['mapY'],
+                    'disabled'      => !$isAdmin,
+                    'empty_data'    => 0,
+                ]
+            )
+            ->add(
+                'equipment',
+                TextareaType::class,
+                [
+                    'label'         => 'Equipment',
+                    'data'          => $options['equipment'],
+                    'empty_data'    => '',
+                    'disabled'      => !$isAdmin,
+                    'attr'          => ['rows' => '3', 'cols' => '80']
+                ]
+            )
+            ->add(
+                'notes',
+                TextareaType::class,
+                [
+                    'label'         => 'Notes',
+                    'attr'          => ['rows' => '3', 'cols' => '80'],
+                    'data'          => $options['notes'],
+                    'disabled'      => !$isAdmin,
+                    'empty_data'    => '',
                 ]
             )
             ->add(
@@ -192,7 +267,10 @@ class Listener extends AbstractType
                 ButtonType::class,
                 [
                     'label'         => 'Print...',
-                    'attr'          => [ 'class' => 'button small']
+                    'attr'          => [
+                        'class' =>      'button small',
+                        'onclick' =>    'window.print()'
+                    ]
                 ]
             )
             ->add(
@@ -200,7 +278,10 @@ class Listener extends AbstractType
                 ButtonType::class,
                 [
                     'label'         => 'Close',
-                    'attr'          => [ 'class' => 'button small']
+                    'attr'          => [
+                        'class' =>      'button small',
+                        'onclick' =>    'window.close()'
+                    ]
                 ]
             )
             ->add(
@@ -208,7 +289,9 @@ class Listener extends AbstractType
                 SubmitType::class,
                 [
                     'label'         => 'Save',
-                    'attr'          => [ 'class' => 'button small']
+                    'attr'          => [
+                        'class' =>      'button small'
+                    ]
                 ]
             )
         ;

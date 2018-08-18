@@ -116,30 +116,35 @@ body .menu-centered .system .is-active>a:hover, body .menu-centered .mode .is-ac
 
 .controlPanel { width: auto; display: inline-block;}
 .controlPanel .controls { padding: 0.25em; }
-#form div { clear: both; height: 1.5em; }
+#form div { clear: both; }
 #form div label { float: left; width: 100px; font-weight: bold; padding: 0 0 0.125em 0; }
 #form div input[type='text'] { margin: 0; border-radius: 0; height: 1.75em; font-size: 80%; float: left; }
 #form div input[type='password'] { margin: 0; border-radius: 0; height: 1.75em; font-size: 80%; float: left;}
 #form div select { -webkit-appearance: menulist; -moz-appearance: menulist; font-size: 80%; background-image: none; height: 1.75em; margin: 0; }
+#form div textarea { font-size: 80%; margin: 0 0 0.25em 0; }
+
 #form div p { margin: 0; border-radius: 0; height: 1.5em; font-size: 80%; float: right; text-align: right; }
-#form div div { clear: none; float: left; }
+#form div div { clear: none; height: 1.5em; float: left; }
 #form div div label { float: none; width: auto; font-size: 80%; font-weight: normal; margin: 0 0.1em; padding: 0 0.1em; line-height: 1.5em; }
-#form ul { display: none; } /* Hides 'This value is not valid' error with bad country / region combination */
-#lastError { border: 1px solid #ff0000; background: #ffe0e0; color: #ff0000; padding: 0.25em; margin: 0.5em 0; display: inline-block; }
+#form ul     { display: none; } /* Hides 'This value is not valid' error with bad country / region combination */
+#lastError   { border: 1px solid #ff0000; background: #ffe0e0; color: #ff0000; padding: 0.25em 0.5em; margin: 0.5em 0; display: inline-block; }
+#lastMessage { border: 1px solid #008000; background: #e0ffe0; color: #008000; padding: 0.25em 0.5em; margin: 0.5em 0; display: inline-block; }
 
 #form fieldset { margin: 0; padding: 0 0 0.25em 0; }
 #form fieldset legend { margin: 0; padding: 0; font-size: 80%; text-align: center; }
 
 #form div button { float: left; clear: none !important; width: 6em; }
+
 /* [ Form listener_list ] */
 .listener_list #form input[type='text'],
 .listener_list #form select { width: 420px; }
 .listener_list #form input#form_filter { width: 240px; }
 
 /* [ Form listener_edit ] */
+.listener_edit #form label { width: 20%; min-width: 120px; }
 .listener_edit #form input[type='text'],
-.listener_edit #form select { width: 420px; }
-.listener_edit #form input#form_filter { width: 240px; }
+.listener_edit #form textarea,
+.listener_edit #form select { width: 75%; padding: 0.125em 0.25em; margin: 0 0 0.25em 0 }
 
 /* [ Form logon ] */
 .logon #form input[type='text'],
@@ -185,6 +190,8 @@ body .menu-centered .system .is-active>a:hover, body .menu-centered .mode .is-ac
 .results.listener .secondaryQth { padding-left: 1.5em; }
 .results.listener .secondaryQth a { font-weight: normal; }
 
+.report_actions { text-align: center; margin: 0.25em !important; }
+.report_actions .button { margin: 0; padding: 0.5em 1em; width: 120px;}
 
 /* Hide display of URLs for each link caused by foundation class - wastes a lot of paper otherwise */
 @media print {

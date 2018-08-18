@@ -3,6 +3,7 @@
 {% block body %}
 <div class="main">
 <h1>{{ mode }}</h1>
+{% include 'status.html.twig' %}
 {% include 'listeners/latest.html.twig' %}
 {% include 'listeners/addlogfor.html.twig' %}
 {% if not isAdmin %}{{ text|raw }}{% endif %}
@@ -16,6 +17,7 @@
         {% include 'listeners/maps.html.twig' %}
     </div>
 </div>
+
 {% include 'grids/listeners.html.twig' %}
 
 <script>
@@ -31,11 +33,5 @@
         $('#form_filter_help').html('{{ matched }}');
     });
 </script>
-    <p class="text-center">
-        <input type="button" class="button small" value="Print..." onclick="window.print()" style="width: 120px;">
-{% if isAdmin %}
-        <input type="button" class="button small" value="Add Listener..." onclick="window.open('{{ path('listener', {'system' : system})}}','new','{{ listenerPopup }}')" style="width: 120px;">
-{% endif %}
-    </p>
 </div>
 {% endblock %}

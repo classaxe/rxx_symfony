@@ -34,25 +34,31 @@ class Listener extends Base
         ListenerForm $listenerForm,
         ListenerRepository $listenerRepo
     ) {
-        $isAdmin = $this->parameters['isAdmin'];
-        $listener =
-            $listenerRepo
-                ->find($id);
-        if (!$listener) {
-            $id = null;
+        if ((int) $id) {
+            $listener = $listenerRepo->find((int)$id);
+            if (!$listener) {
+                return $this->redirectToRoute('listeners', ['system' => $system]);
+            }
         }
+        $isAdmin = $this->parameters['isAdmin'];
         $options = [
             'isAdmin'   =>  $isAdmin,
             'id'        =>  $id,
             'callsign'  =>  $id ? $listener->getCallsign() : '',
             'email'     =>  $id ? $listener->getEmail() : '',
+            'equipment' =>  $id ? $listener->getEquipment() : '',
             'gsq'       =>  $id ? $listener->getGsq() : '',
             'itu'       =>  $id ? $listener->getItu() : '',
+            'mapX'      =>  $id ? $listener->getMapX() : '',
+            'mapY'      =>  $id ? $listener->getMapY() : '',
             'name'      =>  $id ? $listener->getName() : '',
+            'notes'     =>  $id ? $listener->getNotes() : '',
+            'primary'   =>  $id ? $listener->getPrimaryQth() : '',
             'qth'       =>  $id ? $listener->getQth() : '',
+            'sp'        =>  $id ? $listener->getSp() : '',
+            'timezone'  =>  $id ? $listener->getTimezone() : '',
             'website'   =>  $id ? $listener->getWebsite() : '',
         ];
-
         $form = $listenerForm->buildForm(
             $this->createFormBuilder(),
             $options
@@ -61,10 +67,36 @@ class Listener extends Base
         if ($isAdmin && $form->isSubmitted()) {
             $form_data = $form->getData();
             $data['form'] = $form_data;
-            $listener = $listenerRepo->find($id);
-            $listener->setEmail($form_data['email']);
+            if ($id) {
+                $listener = $listenerRepo->find($id);
+            } else {
+                $listener = new ListenerEntity();
+                $listener
+                    ->setLogLatest(\App\Utils\Rxx::getUtcDateTime('0000-00-00'));
+            }
+            $listener
+                ->setCallsign($form_data['callsign'])
+                ->setEmail($form_data['email'])
+                ->setEquipment($form_data['equipment'])
+                ->setGsq($form_data['gsq'])
+                ->setItu($form_data['itu'])
+                ->setMapX($form_data['mapX'])
+                ->setMapY($form_data['mapY'])
+                ->setName($form_data['name'])
+                ->setNotes($form_data['notes'])
+                ->setPrimaryQth($form_data['primary'])
+                ->setQth($form_data['qth'])
+                ->setSp($form_data['sp'])
+                ->setTimezone($form_data['timezone'])
+                ->setWebsite($form_data['website'])
+            ;
             $em = $this->getDoctrine()->getManager();
+            if (!$id) {
+                $em->persist($listener);
+            }
             $em->flush();
+            $id = $listener->getId();
+            return $this->redirectToRoute('listener', ['system' => $system, 'id' => $id]);
         }
 
         $parameters = [
@@ -76,5 +108,45 @@ class Listener extends Base
         ];
         $parameters = array_merge($parameters, $this->parameters);
         return $this->render('listeners/edit.html.twig', $parameters);
+    }
+
+    /**
+     * @Route(
+     *     "/{system}/listener/{id}/delete",
+     *     requirements={
+     *        "system": "reu|rna|rww"
+     *     },
+     *     defaults={"id"=""},
+     *     name="listener_delete"
+     * )
+     */
+    public function listenerDeleteController(
+        $system,
+        $id,
+        ListenerRepository $listenerRepo
+    ) {
+        if (!(int) $id) {
+            return $this->redirectToRoute('listeners', ['system' => $system]);
+        }
+        $listener = $listenerRepo->find((int) $id);
+        if (!$listener) {
+            return $this->redirectToRoute('listeners', ['system' => $system]);
+        }
+        if (!$this->parameters['isAdmin']) {
+            return $this->redirectToRoute('listener', ['system' => $system, 'id' => $id]);
+        }
+        if ($listener->getCountLogs() > 0) {
+            $this->session->set(
+                'lastError',
+                "Listener ".$listener->getName()." has ".$listener->getCountLogs()." logs and cannot be deleted"
+            );
+            return $this->redirectToRoute('listeners', ['system' => $system]);
+        }
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($listener);
+        $em->flush();
+
+        $this->session->set('lastMessage', "Listener ".$listener->getName()." has been deleted");
+        return $this->redirectToRoute('listeners', ['system' => $system]);
     }
 }

@@ -5,9 +5,7 @@
     <h1>{{ mode }}</h1>
     <div>
     {{ text|raw }}
-{% if lastError %}
-        <div id="lastError"><strong>Error:</strong> {{ lastError }}</div>
-{% endif %}
+{% include 'status.html.twig' %}
     </div>
 {% if not isAdmin %}
     {% set form_title='Administrator Logon' %}

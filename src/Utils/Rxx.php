@@ -24,6 +24,15 @@ class Rxx
 
     public static function y($var)
     {
-        return "<pre>".print_r($var, true)."</pre>";
+        return "<pre>".var_dump($var)."</pre>";
+    }
+
+    public static function getUtcDateTime($yyyymmdd)
+    {
+        $bits = explode('-', $yyyymmdd);
+        $dateTime = new \DateTime();
+        $dateTime->setTimezone(new \DateTimeZone('UTC'));
+        $dateTime->setDate($bits[0], $bits[1], $bits[2]);
+        return $dateTime;
     }
 }

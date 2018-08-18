@@ -68,7 +68,7 @@ class Listeners extends Base
             'listeners' =>          $filtered,
             'matched' =>            $matched,
             'mode' =>               'Listeners List',
-            'listenerPopup' =>      'width=590,height=480,status=1,scrollbars=1,resizable=1',
+            'listenerPopup' =>      'width=590,height=640,status=1,scrollbars=1,resizable=1',
             'system' =>             $system,
             'text' =>
                 "<ul>\n"
@@ -82,7 +82,6 @@ class Listeners extends Base
             $parameters['latestListeners'] =    $listenerRepository->getLatestLoggedListeners($system);
             $parameters['latestLogs'] =         $listenerRepository->getLatestLogs($system);
         }
-        $parameters = array_merge($parameters, $this->parameters);
-        return $this->render('listeners/index.html.twig', $parameters);
+        return $this->render('listeners/index.html.twig', $this->getMergedParameters($parameters));
     }
 }

@@ -874,7 +874,8 @@ class Listener
      */
     public function getFormattedDeleteLink(): ?string
     {
-        return '<a href="">Delete</a>';
+        $url =  "listener/$this->id}/delete";
+        return "<a href=\"{$url}\" onclick=\"return confirm('Delete this Listener?  Are you sure?');\">Delete</a>";
     }
 
     /**
@@ -901,7 +902,7 @@ class Listener
      */
     public function getFormattedNameLink(): ?string
     {
-        $popup_url =    "https://www.classaxe.com/dx/ndb/rna/export_ndbweblog_index/{$this->id}";
+        $popup_url =    "export_ndbweblog_index/{$this->id}";
         $popup_name =   "nwl_{$this->id}";
         $popup_args =   "width=640,height=480,status=1,scrollbars=1,resizable=1";
         return "<a href=\"$popup_url\" rel=\"external\" data-popup=\"{$popup_name}|{$popup_args}\">NWL</a>";
@@ -915,7 +916,7 @@ class Listener
         if (!$this->countLogs) {
             return '';
         }
-        $popup_url =    "https://www.classaxe.com/dx/ndb/rna/export_ndbweblog_index/{$this->id}";
+        $popup_url =    "export_ndbweblog_index/{$this->id}";
         $popup_name =   "nwl_{$this->id}";
         $popup_args =   "width=640,height=480,status=1,scrollbars=1,resizable=1";
         return "<a href=\"$popup_url\" rel=\"external\" data-popup=\"{$popup_name}|{$popup_args}\">NWL</a>";
