@@ -21,7 +21,7 @@ use Doctrine\ORM\Mapping as ORM;
  * )
  * @ORM\Entity
  */
-class Logs
+class Log
 {
     /**
      * @var int

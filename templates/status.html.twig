@@ -1,6 +1,6 @@
 {% if lastError %}
-    <div id="lastError"><strong>Error:</strong> {{ lastError }}</div>
+    <div id="lastError"><strong>Error:</strong> {{ lastError|raw }}</div>
 {% endif %}
 {% if lastMessage %}
-    <div id="lastMessage"><strong>Message:</strong> {{ lastMessage }}</div>
+    <div id="lastMessage"><strong>Message:</strong> {{ lastMessage|raw }}</div>
 {% endif %}

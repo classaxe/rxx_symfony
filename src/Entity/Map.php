@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="maps")
  * @ORM\Entity
  */
-class Maps
+class Map
 {
     /**
      * @var string

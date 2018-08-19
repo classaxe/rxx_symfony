@@ -37,7 +37,7 @@ use Doctrine\ORM\Mapping as ORM;
  * )
  * @ORM\Entity
  */
-class Signals
+class Signal
 {
     /**
      * @var int

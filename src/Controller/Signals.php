@@ -1,7 +1,7 @@
 <?php
 namespace App\Controller;
 
-use App\Entity\Signals as SignalsEntity;
+use App\Entity\Signal as SignalsEntity;
 use App\Repository\ModeRepository;
 use App\Repository\SystemRepository;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
