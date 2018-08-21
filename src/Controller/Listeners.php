@@ -54,18 +54,18 @@ class Listeners extends Base
         if (empty($args['types'])) {
             $args['types'][] = 'type_NDB';
         }
-        $filtered = $listenerRepository->getFilteredListeners($system, $args);
+        $listeners = $listenerRepository->getFilteredListeners($system, $args);
         $matched =
             ($showingAll ?
                 "(Showing all $total listeners)"
              :
-                "(Showing ".count($filtered)." of $total listeners)"
+                "(Showing ".count($listeners)." of $total listeners)"
             );
         $parameters = [
             'args' =>               $args,
             'columns' =>            $listenerRepository->getColumns(),
             'form' =>               $form->createView(),
-            'listeners' =>          $filtered,
+            'listeners' =>          $listeners,
             'matched' =>            $matched,
             'mode' =>               'Listeners List',
             'listenerPopup' =>      'width=590,height=640,status=1,scrollbars=1,resizable=1',

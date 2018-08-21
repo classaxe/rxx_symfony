@@ -190,7 +190,7 @@ class Listener extends AbstractType
                     'data'          => $options['gsq'],
                     'disabled'      => !$isAdmin,
                     'empty_data'    => '',
-                    'attr'          => ['size' => '6', 'maxlen' => 6, 'style' => "width: 6em"]
+                    'attr'          => ['size' => '6', 'maxlength' => 6, 'style' => "width: 6em"]
                 ]
             )
             ->add(
@@ -198,7 +198,7 @@ class Listener extends AbstractType
                 TextType::class,
                 [
                     'label'         => 'Timezone',
-                    'attr'          => ['size' => '3', 'maxlen' => 3, 'style' => "width: 4em"],
+                    'attr'          => ['size' => '3', 'maxlength' => 3, 'style' => "width: 4em"],
                     'data'          => $options['timezone'],
                     'disabled'      => !$isAdmin,
                     'empty_data'    => '',
@@ -223,7 +223,7 @@ class Listener extends AbstractType
                 TextType::class,
                 [
                     'label'         => 'Map X',
-                    'attr'          => ['size' => '3', 'maxlen' => 3, 'style' => "width: 4em;"],
+                    'attr'          => ['size' => '3', 'maxlength' => 3, 'style' => "width: 4em;"],
                     'data'          => $options['mapX'],
                     'disabled'      => !$isAdmin,
                     'empty_data'    => 0,
@@ -234,7 +234,7 @@ class Listener extends AbstractType
                 TextType::class,
                 [
                     'label'         => 'Map Y',
-                    'attr'          => ['size' => '3', 'maxlen' => 3, 'style' => "width: 4em;"],
+                    'attr'          => ['size' => '3', 'maxlength' => 3, 'style' => "width: 4em;"],
                     'data'          => $options['mapY'],
                     'disabled'      => !$isAdmin,
                     'empty_data'    => 0,

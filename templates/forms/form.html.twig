@@ -2,7 +2,7 @@
 {% form_theme form 'forms/custom_form_div_layout.html.twig' %}
 <div class="controlPanel {{ form_class }}">
     <div class="header">{{ form_title }}</div>
-    <div class="controls clearfix">
+    <div class="content clearfix">
     {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
     {{ form_widget(form) }}
     {{ form_end(form, {'render_rest': false}) }}

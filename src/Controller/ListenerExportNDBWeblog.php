@@ -146,6 +146,5 @@ class ListenerExportNDBWeblog extends Base
             return false;
         }
         return $listener;
-
     }
 }

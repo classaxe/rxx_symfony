@@ -1,6 +1,6 @@
-{% if listeners|length > 0 %}
-{% include 'listeners/actions.html.twig' %}
-<table class="listener results">
+<div style="height:0px;overflow:hidden"></div>
+{% if signals|length > 0 %}
+<table class="signals results" style="width: 100%">
     <thead>
         <tr>
 {% for key, column in columns %}
@@ -14,16 +14,16 @@
         </tr>
     </thead>
     <tbody>
-{% for listener in listeners %}
+{% for signal in signals %}
         <tr>
 {% for key, column in columns %}
 {% if ((not column.admin or isAdmin) and (not column.arg or (column.arg and column.arg in args.types))) %}
-            <td{% if key == 'name' %} title="{{ listener.PrimaryQth ? 'Primary Location' : 'Secondary Location' }}" class="{{ listener.PrimaryQth ? 'primaryQth' : 'secondaryQth' }}">{% else %}{% if column.td_class %} class="{{ column.td_class }}"{% endif %}>{% endif %}
+            <td{% if column.td_class %} class="{{ column.td_class }}"{% endif %}>
 
-{% if key == 'name' %}
-                <a href="{{ url('listener', { 'system' : system, 'id': listener.id }) }}" rel="external" data-popup="edit_{{ listener.id }}|{{ listenerPopup }}">{{ attribute(listener, column.field)|raw }}</a>
+{% if key == 'call' %}
+                <a href="{{ url('listener', { 'system' : system, 'id': signal.id }) }}" rel="external" data-popup="edit_{{ signal.id }}|{{ signalPopup }}">{{ attribute(signal, column.field)|raw }}</a>
 {% else %}
-                {{ attribute(listener, column.field)|raw }}
+                {{ attribute(signal, column.field)|raw }}
 {% endif %}
             </td>
 {% endif %}
@@ -32,7 +32,6 @@
 {% endfor %}
     </tbody>
 </table>
-{% include 'listeners/actions.html.twig' %}
 {% else %}
-    <p class="no-results">(No listeners found matching your criteria)</p>
+    <p class="no-results">(No signals have been reported by this listener)</p>
 {% endif %}

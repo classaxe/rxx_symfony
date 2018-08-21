@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}{{ system|upper }} &gt; {{ mode }}{% endblock %}</title>
+    <title>{% block title %}{{ system|upper }} &gt; {{ mode|raw }}{% endblock %}</title>
     <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
     <link rel="stylesheet prefetch" href="{{ asset('css/foundation.min.css') }}" />
 {% block stylesheets %}{% endblock %}

@@ -30,15 +30,20 @@ class Listener extends Base
         $id,
         Request $request,
         ListenerForm $listenerForm,
-        ListenerRepository $listenerRepo
+        ListenerRepository $listenerRepository
     ) {
         if ((int) $id) {
-            $listener = $listenerRepo->find((int)$id);
+            $listener = $listenerRepository->find((int)$id);
             if (!$listener) {
                 return $this->redirectToRoute('listeners', ['system' => $system]);
             }
+        } else {
+            $listener = false;
         }
         $isAdmin = $this->parameters['isAdmin'];
+        if (!$listener && !$isAdmin) {
+            return $this->redirectToRoute('listeners', ['system' => $system]);
+        }
         $options = [
             'isAdmin'   =>  $isAdmin,
             'id'        =>  $id,
@@ -66,7 +71,7 @@ class Listener extends Base
             $form_data = $form->getData();
             $data['form'] = $form_data;
             if ($id) {
-                $listener = $listenerRepo->find($id);
+                $listener = $listenerRepository->find($id);
             } else {
                 $listener = new ListenerEntity();
                 $listener
@@ -101,10 +106,11 @@ class Listener extends Base
             'id' =>                 $id,
             'fieldGroups' =>        $listenerForm->getFieldGroups($isAdmin),
             'form' =>               $form->createView(),
-            'mode' =>               ($isAdmin ? ($id ? 'Edit' : 'Add').' Listener' : 'Listener Details'),
+            'mode' =>               ($isAdmin && !$id ? 'Add Listener' : $listener->getName().' &gt; Profile'),
+            'menuOptions' =>        $listenerRepository->getMenuOptions($listener),
             'system' =>             $system,
         ];
         $parameters = array_merge($parameters, $this->parameters);
-        return $this->render('listener/edit.html.twig', $parameters);
+        return $this->render('listener/profile.html.twig', $parameters);
     }
 }

@@ -9,7 +9,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
 
 class ListenerRepository extends ServiceEntityRepository
 {
-    private $columns = [
+    private $listenersColumns = [
         'name' => [
             'admin'     =>  false,
             'arg'       =>  '',
@@ -277,6 +277,127 @@ class ListenerRepository extends ServiceEntityRepository
         ],
     ];
 
+    private $listenerSignalsColumns = [
+        'khz' => [
+            'admin'     =>  false,
+            'arg'       =>  '',
+            'field'     =>  'khz',
+            'label'     =>  'KHz',
+            'order'     =>  'a',
+            'sort'      =>  's.KHz',
+            'td_class'  =>  '',
+            'th_class'  =>  '',
+            'tooltip'   =>  '',
+        ],
+        'call' => [
+            'admin'     =>  false,
+            'arg'       =>  '',
+            'field'     =>  'call',
+            'label'     =>  'ID',
+            'order'     =>  'a',
+            'sort'      =>  's.call',
+            'td_class'  =>  '',
+            'th_class'  =>  '',
+            'tooltip'   =>  '',
+        ],
+        'qth' => [
+            'admin'     =>  false,
+            'arg'       =>  '',
+            'field'     =>  'qth',
+            'label'     =>  'Location',
+            'order'     =>  'a',
+            'sort'      =>  's.qth',
+            'td_class'  =>  '',
+            'th_class'  =>  '',
+            'tooltip'   =>  '',
+        ],
+        'sp' => [
+            'admin'     =>  false,
+            'arg'       =>  '',
+            'field'     =>  'sp',
+            'label'     =>  'S/P',
+            'order'     =>  'a',
+            'sort'      =>  's.sp',
+            'td_class'  =>  '',
+            'th_class'  =>  '',
+            'tooltip'   =>  'State / Province',
+        ],
+        'itu' => [
+            'admin'     =>  false,
+            'arg'       =>  '',
+            'field'     =>  'itu',
+            'label'     =>  'ITU',
+            'order'     =>  'a',
+            'sort'      =>  's.itu',
+            'td_class'  =>  '',
+            'th_class'  =>  '',
+            'tooltip'   =>  'ITU Country Code',
+        ],
+        'gsq' => [
+            'admin'     =>  false,
+            'arg'       =>  '',
+            'field'     =>  'gsq',
+            'label'     =>  'GSQ',
+            'order'     =>  'a',
+            'sort'      =>  's.gsq',
+            'td_class'  =>  '',
+            'th_class'  =>  '',
+            'tooltip'   =>  'Maidenhead Locator Grid Square',
+        ],
+        'logs' => [
+            'admin'     =>  false,
+            'arg'       =>  '',
+            'field'     =>  'logs',
+            'label'     =>  'Logs',
+            'order'     =>  'a',
+            'sort'      =>  's.logs',
+            'td_class'  =>  '',
+            'th_class'  =>  '',
+            'tooltip'   =>  '',
+        ],
+        'latest' => [
+            'admin'     =>  false,
+            'arg'       =>  '',
+            'field'     =>  'latest',
+            'label'     =>  'Latst',
+            'order'     =>  'a',
+            'sort'      =>  's.date',
+            'td_class'  =>  '',
+            'th_class'  =>  '',
+            'tooltip'   =>  '',
+        ],
+        'dxKm' => [
+            'admin'     =>  false,
+            'arg'       =>  '',
+            'field'     =>  'dxKm',
+            'label'     =>  'KM',
+            'order'     =>  'a',
+            'sort'      =>  'l.dxKm',
+            'td_class'  =>  '',
+            'th_class'  =>  '',
+            'tooltip'   =>  '',
+        ],
+        'dxMiles' => [
+            'admin'     =>  false,
+            'arg'       =>  '',
+            'field'     =>  'dxMiles',
+            'label'     =>  'Miles',
+            'order'     =>  'a',
+            'sort'      =>  'l.dxMiles',
+            'td_class'  =>  '',
+            'th_class'  =>  '',
+            'tooltip'   =>  '',
+        ],
+    ];
+
+    private $menu_options = [
+        ['listener', 'Profile'],
+        ['listener_signals', 'Signals (%%signals%%)'],
+//        ['listener_logs', 'Logs'],
+//        ['listener_export', 'Export'],
+//        ['listener_weather', 'Weather']
+    ];
+
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, Listener::class);
@@ -284,7 +405,28 @@ class ListenerRepository extends ServiceEntityRepository
 
     public function getColumns()
     {
-        return $this->columns;
+        return $this->listenersColumns;
+    }
+
+    public function getSignalsColumns()
+    {
+        return $this->listenerSignalsColumns;
+    }
+
+    public function getMenuOptions($listener = false)
+    {
+        if (!$listener) {
+            return [];
+        }
+        $out = [];
+        foreach ($this->menu_options as $route => $label) {
+            $out[$route] = str_replace(
+                ['%%signals%%', '%%logs%%'],
+                [$listener->getCountSignals(), $listener->getCountLogs()],
+                $label
+            );
+        }
+        return $out;
     }
 
     private function addFilterSystem(&$qb, $system)
@@ -308,10 +450,10 @@ class ListenerRepository extends ServiceEntityRepository
     public function getFilteredListeners($system, $args)
     {
         $qb = $this->createQueryBuilder('l');
-        if ($this->columns[$args['sort']]['sort']) {
+        if ($this->listenersColumns[$args['sort']]['sort']) {
             $qb
                 ->addSelect(
-                    "(CASE WHEN (".$this->columns[$args['sort']]['sort'].")='' THEN 1 ELSE 0 END) AS _blank"
+                    "(CASE WHEN (".$this->listenersColumns[$args['sort']]['sort'].")='' THEN 1 ELSE 0 END) AS _blank"
                 );
         }
 
@@ -332,14 +474,14 @@ class ListenerRepository extends ServiceEntityRepository
                 ->andWhere('(l.region = :region)')
                 ->setParameter('region', $args['region']);
         }
-        if ($this->columns[$args['sort']]['sort']) {
+        if ($this->listenersColumns[$args['sort']]['sort']) {
             $qb
                 ->orderBy(
                     '_blank',
                     'ASC'
                 )
                 ->addOrderBy(
-                    ($this->columns[$args['sort']]['sort']),
+                    ($this->listenersColumns[$args['sort']]['sort']),
                     ($args['order'] == 'd' ? 'DESC' : 'ASC')
                 );
         }

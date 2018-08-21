@@ -1,7 +1,7 @@
 {% form_theme form 'forms/custom_form_div_layout.html.twig' %}
     <div class="controlPanel {{ form_class }}">
-        <div class="header">{{ mode }}</div>
-        <div class="controls clearfix">
+        <div class="header">{{ mode|raw }}</div>
+        <div class="content">
         {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
             <div id="form">
                 {{ form_row(form.id)  }}
