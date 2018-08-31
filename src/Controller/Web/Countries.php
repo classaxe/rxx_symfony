@@ -1,5 +1,5 @@
 <?php
-namespace App\Controller;
+namespace App\Controller\Web;
 
 use App\Repository\RegionRepository as Region;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -7,7 +7,7 @@ use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 
 /**
  * Class Countries
- * @package App\Controller
+ * @package App\Controller\Web
  */
 class Countries extends Controller
 {

@@ -1,5 +1,5 @@
 <?php
-namespace App\Controller;
+namespace App\Controller\Web;
 
 use App\Repository\ListenerRepository;
 use App\Repository\LogRepository;
@@ -8,7 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 
 /**
  * Class Listeners
- * @package App\Controller
+ * @package App\Controller\Web
  */
 class ListenerExportNDBWeblog extends Base
 {

@@ -1,5 +1,5 @@
 <?php
-namespace App\Controller;
+namespace App\Controller\Web;
 
 use App\Entity\Signal as SignalsEntity;
 use App\Repository\ModeRepository;

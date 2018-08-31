@@ -1,18 +1,18 @@
 <?php
-namespace App\Controller;
+namespace App\Controller\Web;
 
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 
 /**
  * Class Listeners
- * @package App\Controller
+ * @package App\Controller\Web
  */
 class Logoff extends Base
 {
 
     /**
      * @Route(
-     *     "/{system}/logoff",
+     *     "/{system}/admin/logoff",
      *     requirements={
      *        "system": "reu|rna|rww"
      *     },

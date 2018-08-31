@@ -359,7 +359,7 @@ class ListenerRepository extends ServiceEntityRepository
             'admin'     =>  false,
             'arg'       =>  '',
             'field'     =>  'latest',
-            'label'     =>  'Latst',
+            'label'     =>  'Latest',
             'order'     =>  'a',
             'sort'      =>  's.date',
             'td_class'  =>  '',

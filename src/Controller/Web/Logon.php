@@ -1,5 +1,5 @@
 <?php
-namespace App\Controller;
+namespace App\Controller\Web;
 
 use App\Form\Logon as LogonForm;
 use Symfony\Component\Routing\Annotation\Route;
@@ -8,7 +8,7 @@ use Symfony\Component\Dotenv\Dotenv;
 
 /**
  * Class Listeners
- * @package App\Controller
+ * @package App\Controller\Web
  */
 class Logon extends Base
 {
@@ -18,7 +18,7 @@ class Logon extends Base
 
     /**
      * @Route(
-     *     "/{system}/logon",
+     *     "/{system}/admin/logon",
      *     requirements={
      *        "system": "reu|rna|rww"
      *     },

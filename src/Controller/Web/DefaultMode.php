@@ -1,5 +1,5 @@
 <?php
-namespace App\Controller;
+namespace App\Controller\Web;
 
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;

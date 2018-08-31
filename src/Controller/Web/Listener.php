@@ -1,5 +1,5 @@
 <?php
-namespace App\Controller;
+namespace App\Controller\Web;
 
 use App\Entity\Listener as ListenerEntity;
 use App\Form\Listener as ListenerForm;
@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Class Listeners
- * @package App\Controller
+ * @package App\Controller\Web
  */
 class Listener extends Base
 {

@@ -182,7 +182,7 @@ body .menu-centered .system .is-active>a:hover, body .menu-centered .mode .is-ac
 .type_all label                { color: #fff; font-style:italic; font-weight: bold !important; }
 
 /* [ Grid CSS } */
-.results { margin: 0; border-collapse: collapse; }
+.results { margin: 0; border-collapse: collapse;; }
 .results, .results th, .results td { border: 1px solid #808080; }
 .results thead { border-color: #808080; }
 .results thead tr th { border-color: #808080; background: #707070; color: #ffffff; height: 7em; vertical-align: bottom; font-size: 80%; padding: 0.25em;}
@@ -204,6 +204,7 @@ body .menu-centered .system .is-active>a:hover, body .menu-centered .mode .is-ac
 .results.listener .secondaryQth { padding-left: 1.5em; }
 .results.listener .secondaryQth a { font-weight: normal; }
 
+.results.signals thead tr th { height: auto; }
 
 /* [ Report Actions ] */
 .report_actions { text-align: center; margin: 0.25em !important; }

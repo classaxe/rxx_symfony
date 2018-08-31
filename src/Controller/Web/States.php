@@ -1,5 +1,5 @@
 <?php
-namespace App\Controller;
+namespace App\Controller\Web;
 
 use App\Repository\CountryRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -7,7 +7,7 @@ use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 
 /**
  * Class States
- * @package App\Controller
+ * @package App\Controller\Web
  */
 class States extends Controller
 {

@@ -1,5 +1,5 @@
 <?php
-namespace App\Controller;
+namespace App\Controller\Web;
 
 use App\Repository\ModeRepository;
 use App\Repository\SystemRepository;
@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 /**
  * Class Base
- * @package App\Controller
+ * @package App\Controller\Base
  */
 class Base extends Controller
 {

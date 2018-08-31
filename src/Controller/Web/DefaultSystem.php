@@ -1,5 +1,5 @@
 <?php
-namespace App\Controller;
+namespace App\Controller\Web;
 
 use App\Service\GeoService;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
@@ -7,7 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 /**
  * Class DefaultSystem
- * @package App\Controller
+ * @package App\Controller\Web
  */
 class DefaultSystem extends Controller
 {

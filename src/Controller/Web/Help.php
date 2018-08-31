@@ -1,11 +1,11 @@
 <?php
-namespace App\Controller;
+namespace App\Controller\Web;
 
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Class Listeners
- * @package App\Controller
+ * @package App\Controller\Web
  */
 class Help extends Base
 {
