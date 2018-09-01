@@ -8,9 +8,6 @@
 
 namespace App\Service;
 
-use App\Service\Visitor;
-use Doctrine\ORM\EntityManagerInterface;
-use MaxMind\Db\Reader\InvalidDatabaseException;
 use GeoIp2\Exception\AddressNotFoundException;
 use GeoIp2\Database\Reader;
 use Symfony\Component\DependencyInjection\Container;
