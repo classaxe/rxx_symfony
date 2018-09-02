@@ -1,7 +1,7 @@
 <?php
 namespace App\Controller\Web;
 
-use App\Form\Listeners as ListenerListForm;
+use App\Form\ListenersList as ListenerListForm;
 use App\Repository\ListenerRepository;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 use Symfony\Component\HttpFoundation\Request;

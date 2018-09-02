@@ -44,7 +44,7 @@ function setColumnSortActions() {
             }
             $('#form_sort').val(column);
             $('#form_order').val(dir);
-            $('#form_submit').click();
+            $('form[name="form"]').submit();
         })
     });
 }

@@ -6,8 +6,17 @@
     <div class="controlPanel {{ form_class }}">
         <div class="header">{{ mode|raw }}</div>
         <div class="content">
+{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+{{ form_end(form, {'attr': {'novalidate': 'novalidate'}}) }}
 {% include 'listener/signals.grid.html.twig' %}
         </div>
     </div>
 </div>
+<script>
+    $(document).ready( function() {
+        setColumnSortActions();
+        setColumnSortedClass();
+        // setExternalLinks();
+    });
+</script>
 {% endblock %}

@@ -22,7 +22,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
  * Class Listeners
  * @package App\Form
  */
-class Listeners extends AbstractType
+class ListenersList extends AbstractType
 {
     /**
      * @var CountryRepository

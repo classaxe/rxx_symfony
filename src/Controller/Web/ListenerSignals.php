@@ -3,6 +3,7 @@ namespace App\Controller\Web;
 
 use App\Repository\ListenerRepository;
 use App\Repository\SignalRepository;
+use App\Form\ListenerSignals as ListenerSignalsForm;
 
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 use Symfony\Component\HttpFoundation\Request;
@@ -26,6 +27,8 @@ class ListenerSignals extends Base
     public function listenerSignalsController(
         $system,
         $id,
+        Request $request,
+        ListenerSignalsForm $form,
         ListenerRepository $listenerRepository,
         SignalRepository $signalRepository
     ) {
@@ -35,9 +38,26 @@ class ListenerSignals extends Base
                 return $this->redirectToRoute('listeners', ['system' => $system]);
             }
         }
+        $options = [];
+        $form = $form->buildForm($this->createFormBuilder(), $options);
+        $form->handleRequest($request);
+        $args = [
+            'filter' =>     '',
+            'types' =>      [],
+            'country' =>    '',
+            'region' =>     '',
+            'sort' =>       'khz',
+            'order' =>      'a'
+        ];
+        if ($form->isSubmitted() && $form->isValid()) {
+            $args = $form->getData();
+        }
+
         $parameters = [
+            'args' =>               $args,
             'id' =>                 $id,
             'columns' =>            $listenerRepository->getSignalsColumns(),
+            'form' =>               $form->createView(),
             'menuOptions' =>        $listenerRepository->getMenuOptions($listener),
             'mode' =>               $listener->getName().' &gt; Signals Received',
             'signals' =>            $signalRepository->getSignalsForListener($id),
