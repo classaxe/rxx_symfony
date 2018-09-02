@@ -17,11 +17,10 @@ class Listener extends Base
 
     /**
      * @Route(
-     *     "/{system}/listener/{id}",
+     *     "/{system}/listeners/{id}",
      *     requirements={
      *        "system": "reu|rna|rww"
      *     },
-     *     defaults={"id"=""},
      *     name="listener"
      * )
      */

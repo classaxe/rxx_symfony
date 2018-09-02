@@ -12,11 +12,10 @@ class ListenerDelete extends Base
 {
     /**
      * @Route(
-     *     "/{system}/listener/{id}/delete",
+     *     "/{system}/listeners/{id}/delete",
      *     requirements={
      *        "system": "reu|rna|rww"
      *     },
-     *     defaults={"id"=""},
      *     name="listener_delete"
      * )
      */

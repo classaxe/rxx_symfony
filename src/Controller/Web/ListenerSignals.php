@@ -16,11 +16,10 @@ class ListenerSignals extends Base
 
     /**
      * @Route(
-     *     "/{system}/listener/{id}/signals",
+     *     "/{system}/listeners/{id}/signals",
      *     requirements={
      *        "system": "reu|rna|rww"
      *     },
-     *     defaults={"id"=""},
      *     name="listener_signals"
      * )
      */

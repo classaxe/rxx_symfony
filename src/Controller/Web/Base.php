@@ -115,7 +115,7 @@ class Base extends Controller
                 ."    echo \"DROP SCHEMA IF EXISTS {$db}; CREATE SCHEMA {$db}\" | mysql -uroot -p\n"
                 ."    wget -qO- https://www.classaxe.com/dx/ndb/rxx.sql.gz | gunzip |  mysql -uroot -p {$db}\n"
                 ."\n"
-                ."If you still see his message after performing these steps, your mysql socket may be incorrect.\n"
+                ."If you still see this message after performing these steps, your mysql socket may be incorrect.\n"
                 ."Try running this command to create a symlink for your mysql default socket:\n"
                 ."\n"
                 ."    ln -s /var/run/mysqld/mysqld.sock /tmp/mysql.sock\n"
