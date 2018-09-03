@@ -277,14 +277,40 @@ class ListenerRepository extends ServiceEntityRepository
         ],
     ];
 
-    private $listenerSignalsColumns = [
+    private $listenerLogsColumns = [
+        'logDate' => [
+            'admin'     =>  false,
+            'arg'       =>  '',
+            'field'     =>  'logDate',
+            'label'     =>  'Date',
+            'order'     =>  'a',
+            'sort'      =>  'logDate',
+            'sort_2'    =>  'logTime',
+            'order_2'   =>  'a',
+            'td_class'  =>  '',
+            'th_class'  =>  '',
+            'tooltip'   =>  '',
+        ],
+        'logTime' => [
+            'admin'     =>  false,
+            'arg'       =>  '',
+            'field'     =>  'logTime',
+            'label'     =>  'Time',
+            'order'     =>  'a',
+            'sort'      =>  'logTime',
+            'td_class'  =>  '',
+            'th_class'  =>  '',
+            'tooltip'   =>  '',
+        ],
         'khz' => [
             'admin'     =>  false,
             'arg'       =>  '',
             'field'     =>  'khz',
             'label'     =>  'KHz',
             'order'     =>  'a',
-            'sort'      =>  's.KHz',
+            'sort'      =>  's.khz',
+            'sort_2'    =>  's.call',
+            'order_2'   =>  'a',
             'td_class'  =>  '',
             'th_class'  =>  '',
             'tooltip'   =>  '',
@@ -344,6 +370,143 @@ class ListenerRepository extends ServiceEntityRepository
             'th_class'  =>  '',
             'tooltip'   =>  'Maidenhead Locator Grid Square',
         ],
+        'sec' => [
+            'admin'     =>  false,
+            'arg'       =>  '',
+            'field'     =>  'secF',
+            'label'     =>  'Sec.',
+            'order'     =>  'a',
+            'sort'      =>  'l.sec',
+            'td_class'  =>  '',
+            'th_class'  =>  '',
+            'tooltip'   =>  'Cycle Time in seconds',
+        ],
+        'format' => [
+            'admin'     =>  false,
+            'arg'       =>  '',
+            'field'     =>  'format',
+            'label'     =>  'Fmt.',
+            'order'     =>  'a',
+            'sort'      =>  'l.format',
+            'td_class'  =>  '',
+            'th_class'  =>  '',
+            'tooltip'   =>  'Format of signal',
+        ],
+        'dxKm' => [
+            'admin'     =>  false,
+            'arg'       =>  '',
+            'field'     =>  'dxKm',
+            'label'     =>  'KM',
+            'order'     =>  'd',
+            'sort'      =>  'l.dxKm',
+            'td_class'  =>  '',
+            'th_class'  =>  '',
+            'tooltip'   =>  '',
+        ],
+        'dxMiles' => [
+            'admin'     =>  false,
+            'arg'       =>  '',
+            'field'     =>  'dxMiles',
+            'label'     =>  'Miles',
+            'order'     =>  'd',
+            'sort'      =>  'l.dxMiles',
+            'td_class'  =>  '',
+            'th_class'  =>  '',
+            'tooltip'   =>  '',
+        ],
+    ];
+
+    private $listenerSignalsColumns = [
+        'khz' => [
+            'admin'     =>  false,
+            'arg'       =>  '',
+            'field'     =>  'khz',
+            'label'     =>  'KHz',
+            'order'     =>  'a',
+            'sort'      =>  's.khz',
+            'sort_2'    =>  's.call',
+            'order_2'   =>  'a',
+            'td_class'  =>  '',
+            'th_class'  =>  '',
+            'tooltip'   =>  '',
+        ],
+        'call' => [
+            'admin'     =>  false,
+            'arg'       =>  '',
+            'field'     =>  'call',
+            'label'     =>  'ID',
+            'order'     =>  'a',
+            'sort'      =>  's.call',
+            'td_class'  =>  '',
+            'th_class'  =>  '',
+            'tooltip'   =>  '',
+        ],
+        'qth' => [
+            'admin'     =>  false,
+            'arg'       =>  '',
+            'field'     =>  'qth',
+            'label'     =>  'Location',
+            'order'     =>  'a',
+            'sort'      =>  's.qth',
+            'td_class'  =>  '',
+            'th_class'  =>  '',
+            'tooltip'   =>  '',
+        ],
+        'sp' => [
+            'admin'     =>  false,
+            'arg'       =>  '',
+            'field'     =>  'sp',
+            'label'     =>  'S/P',
+            'order'     =>  'a',
+            'sort'      =>  's.sp',
+            'td_class'  =>  '',
+            'th_class'  =>  '',
+            'tooltip'   =>  'State / Province',
+        ],
+        'itu' => [
+            'admin'     =>  false,
+            'arg'       =>  '',
+            'field'     =>  'itu',
+            'label'     =>  'ITU',
+            'order'     =>  'a',
+            'sort'      =>  's.itu',
+            'td_class'  =>  '',
+            'th_class'  =>  '',
+            'tooltip'   =>  'ITU Country Code',
+        ],
+        'gsq' => [
+            'admin'     =>  false,
+            'arg'       =>  '',
+            'field'     =>  'gsq',
+            'label'     =>  'GSQ',
+            'order'     =>  'a',
+            'sort'      =>  's.gsq',
+            'td_class'  =>  '',
+            'th_class'  =>  '',
+            'tooltip'   =>  'Maidenhead Locator Grid Square',
+        ],
+        'sec' => [
+            'admin'     =>  false,
+            'arg'       =>  '',
+            'field'     =>  'secF',
+            'label'     =>  'Sec.',
+            'order'     =>  'a',
+            'sort'      =>  'sec',
+            'td_class'  =>  '',
+            'th_class'  =>  '',
+            'tooltip'   =>  'Cycle Time in seconds',
+        ],
+        'format' => [
+            'admin'     =>  false,
+            'arg'       =>  '',
+            'field'     =>  'format',
+            'label'     =>  'Fmt.',
+            'order'     =>  'a',
+            'sort'      =>  's.format',
+            'td_class'  =>  '',
+            'th_class'  =>  '',
+            'tooltip'   =>  'Format of signal',
+        ],
         'logs' => [
             'admin'     =>  false,
             'arg'       =>  '',
@@ -360,8 +523,8 @@ class ListenerRepository extends ServiceEntityRepository
             'arg'       =>  '',
             'field'     =>  'latest',
             'label'     =>  'Latest',
-            'order'     =>  'a',
-            'sort'      =>  's.date',
+            'order'     =>  'd',
+            'sort'      =>  'latest',
             'td_class'  =>  '',
             'th_class'  =>  '',
             'tooltip'   =>  '',
@@ -371,8 +534,8 @@ class ListenerRepository extends ServiceEntityRepository
             'arg'       =>  '',
             'field'     =>  'dxKm',
             'label'     =>  'KM',
-            'order'     =>  'a',
-            'sort'      =>  'l.dxKm',
+            'order'     =>  'd',
+            'sort'      =>  'dxKm',
             'td_class'  =>  '',
             'th_class'  =>  '',
             'tooltip'   =>  '',
@@ -382,8 +545,8 @@ class ListenerRepository extends ServiceEntityRepository
             'arg'       =>  '',
             'field'     =>  'dxMiles',
             'label'     =>  'Miles',
-            'order'     =>  'a',
-            'sort'      =>  'l.dxMiles',
+            'order'     =>  'd',
+            'sort'      =>  'dxMiles',
             'td_class'  =>  '',
             'th_class'  =>  '',
             'tooltip'   =>  '',
@@ -393,7 +556,7 @@ class ListenerRepository extends ServiceEntityRepository
     private $menu_options = [
         ['listener', 'Profile'],
         ['listener_signals', 'Signals (%%signals%%)'],
-//        ['listener_logs', 'Logs'],
+        ['listener_logs', 'Logs (%%logs%%)'],
 //        ['listener_export', 'Export'],
 //        ['listener_weather', 'Weather']
     ];
@@ -406,6 +569,11 @@ class ListenerRepository extends ServiceEntityRepository
     public function getColumns()
     {
         return $this->listenersColumns;
+    }
+
+    public function getLogsColumns()
+    {
+        return $this->listenerLogsColumns;
     }
 
     public function getSignalsColumns()
@@ -575,5 +743,113 @@ class ListenerRepository extends ServiceEntityRepository
         return $qb
             ->getQuery()
             ->getSingleScalarResult();
+    }
+
+    public function getLogsForListener($listenerID, array $args)
+    {
+        $columns =
+             'trim(l.date) as logDate,'
+            .'trim(l.time) as logTime,'
+            .'s.id,'
+            .'trim(s.khz)+0 as khz,'
+            .'s.active,'
+            .'s.call,'
+            .'s.qth,'
+            .'s.sp,'
+            .'s.itu,'
+            .'s.gsq,'
+            .'s.type,'
+            .'trim(l.sec)+0 as sec,'
+            .'(CASE WHEN trim(l.sec)+0 = 0 then \'\' ELSE trim(l.sec)+0 END) as secF,'
+            .'l.format,'
+            .'l.dxKm,'
+            .'l.dxMiles';
+
+        $qb = $this
+            ->createQueryBuilder('li')
+            ->select($columns)
+            ->innerJoin('\App\Entity\Log', 'l')
+            ->andWhere('l.listenerid = li.id')
+
+            ->innerJoin('\App\Entity\Signal', 's')
+            ->andWhere('l.signalid = s.id')
+
+            ->andWhere('li.id = :listenerID')
+            ->setParameter('listenerID', $listenerID);
+
+        if ($this->listenerLogsColumns[$args['sort']]['sort']) {
+            $idx = $this->listenerLogsColumns[$args['sort']];
+            $qb
+                ->addOrderBy(
+                    ($idx['sort']),
+                    ($args['order'] == 'd' ? 'DESC' : 'ASC')
+                );
+            if (isset($idx['sort_2']) && isset($idx['order_2'])) {
+                $qb
+                    ->addOrderBy(
+                        ($idx['sort_2']),
+                        ($idx['order_2'] == 'd' ? 'DESC' : 'ASC')
+                    );
+            }
+        }
+
+        $result = $qb->getQuery()->execute();
+//        print "<pre>".print_r($result, true)."</pre>";
+        return $result;
+    }
+
+    public function getSignalsForListener($listenerID, array $args)
+    {
+        $columns =
+            's.id,'
+            .'trim(s.khz)+0 as khz,'
+            .'s.active,'
+            .'s.call,'
+            .'s.qth,'
+            .'s.sp,'
+            .'s.itu,'
+            .'trim(s.sec)+0 as sec,'
+            .'(CASE WHEN trim(s.sec)+0 = 0 then \'\' ELSE trim(s.sec)+0 END) as secF,'
+            .'s.format,'
+            .'s.gsq,'
+            .'s.type,'
+            .'l.dxKm,'
+            .'l.dxMiles,'
+            .'COUNT(l.signalid) as logs,'
+            .'MAX(l.date) as latest';
+
+        $qb = $this
+            ->createQueryBuilder('li')
+            ->select($columns)
+            ->innerJoin('\App\Entity\Log', 'l')
+            ->andWhere('l.listenerid = li.id')
+
+            ->innerJoin('\App\Entity\Signal', 's')
+            ->andWhere('l.signalid = s.id')
+
+            ->andWhere('li.id = :listenerID')
+            ->setParameter('listenerID', $listenerID)
+
+            ->groupBy('s.id');
+
+        if ($this->listenerSignalsColumns[$args['sort']]['sort']) {
+            $idx = $this->listenerSignalsColumns[$args['sort']];
+            $qb
+                ->addOrderBy(
+                    ($idx['sort']),
+                    ($args['order'] == 'd' ? 'DESC' : 'ASC')
+                );
+            if (isset($idx['sort_2']) && isset($idx['order_2'])) {
+                $qb
+                    ->addOrderBy(
+                        ($idx['sort_2']),
+                        ($idx['order_2'] == 'd' ? 'DESC' : 'ASC')
+                    );
+            }
+        }
+
+        $result = $qb->getQuery()->execute();
+//        print "<pre>".print_r($result, true)."</pre>";
+        return $result;
     }
 }

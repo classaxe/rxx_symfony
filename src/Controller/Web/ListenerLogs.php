@@ -1,7 +1,7 @@
 <?php
 namespace App\Controller\Web;
 
-use App\Form\ListenerSignals as ListenerSignalsForm;
+use App\Form\ListenerLogs as ListenerLogsForm;
 use App\Repository\ListenerRepository;
 use App\Repository\TypeRepository;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
@@ -11,23 +11,23 @@ use Symfony\Component\HttpFoundation\Request;
  * Class Listeners
  * @package App\Controller\Web
  */
-class ListenerSignals extends Base
+class ListenerLogs extends Base
 {
 
     /**
      * @Route(
-     *     "/{system}/listeners/{id}/signals",
+     *     "/{system}/listeners/{id}/logs",
      *     requirements={
      *        "system": "reu|rna|rww"
      *     },
-     *     name="listener_signals"
+     *     name="listener_logs"
      * )
      */
-    public function listenerSignalsController(
+    public function listenerLogsController(
         $system,
         $id,
         Request $request,
-        ListenerSignalsForm $form,
+        ListenerLogsForm $form,
         ListenerRepository $listenerRepository,
         TypeRepository $typeRepository
     ) {
@@ -41,7 +41,7 @@ class ListenerSignals extends Base
         $form = $form->buildForm($this->createFormBuilder(), $options);
         $form->handleRequest($request);
         $args = [
-            'sort' =>       'khz',
+            'sort' =>       'logDate',
             'order' =>      'a'
         ];
         if ($form->isSubmitted() && $form->isValid()) {
@@ -51,11 +51,11 @@ class ListenerSignals extends Base
         $parameters = [
             'args' =>               $args,
             'id' =>                 $id,
-            'columns' =>            $listenerRepository->getSignalsColumns(),
+            'columns' =>            $listenerRepository->getLogsColumns(),
             'form' =>               $form->createView(),
             'menuOptions' =>        $listenerRepository->getMenuOptions($listener),
             'mode' =>               $listener->getName().' &gt; Signals Received',
-            'signals' =>            $listenerRepository->getSignalsForListener($id, $args),
+            'signals' =>            $listenerRepository->getLogsForListener($id, $args),
             'signalPopup' =>        'width=590,height=640,status=1,scrollbars=1,resizable=1',
             'system' =>             $system,
             'typeRepository' =>     $typeRepository

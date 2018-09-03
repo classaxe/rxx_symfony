@@ -15,7 +15,8 @@
     </thead>
     <tbody>
 {% for signal in signals %}
-        <tr>
+{% set type = typeRepository.TypeForCode(signal.type) %}
+        <tr class="{% if signal.active == '0' %}inactive {% endif %}type_{{ type.class|lower }}" title="{{ type.title }}{% if signal.active == '0' %} (inactive){% endif %}">
 {% for key, column in columns %}
 {% if ((not column.admin or isAdmin) and (not column.arg or (column.arg and column.arg in args.types))) %}
             <td{% if column.td_class %} class="{{ column.td_class }}"{% endif %}>
