@@ -49,6 +49,13 @@ function setColumnSortActions() {
     });
 }
 
+/* [ Add title for td cells having class 'clipped' ] */
+function setClippedCellTitles() {
+    $('td.clipped').each(function() {
+        $(this).attr('title', $(this).text().trim());
+    });
+}
+
 /* [ Indicate which column is sorted by checking hidden fields on form ] */
 function setColumnSortedClass() {
     $('table.results thead tr th').each(function() {

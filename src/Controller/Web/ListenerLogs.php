@@ -53,14 +53,14 @@ class ListenerLogs extends Base
             'id' =>                 $id,
             'columns' =>            $listenerRepository->getLogsColumns(),
             'form' =>               $form->createView(),
-            'menuOptions' =>        $listenerRepository->getMenuOptions($listener),
-            'mode' =>               $listener->getName().' &gt; Signals Received',
-            'signals' =>            $listenerRepository->getLogsForListener($id, $args),
+            'mode' =>               'Logs for '.$listener->getFormattedNameAndLocation(),
+            'logs' =>               $listenerRepository->getLogsForListener($id, $args),
             'signalPopup' =>        'width=590,height=640,status=1,scrollbars=1,resizable=1',
             'system' =>             $system,
+            'tabs' =>               $listenerRepository->getTabs($listener),
             'typeRepository' =>     $typeRepository
         ];
         $parameters = array_merge($parameters, $this->parameters);
-        return $this->render('listener/signals.html.twig', $parameters);
+        return $this->render('listener/logs.html.twig', $parameters);
     }
 }

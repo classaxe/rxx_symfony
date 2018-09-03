@@ -31,7 +31,7 @@ class Listener extends Base
         ListenerForm $listenerForm,
         ListenerRepository $listenerRepository
     ) {
-        if ((int) $id) {
+        if ($id !== 'new' && (int) $id) {
             $listener = $listenerRepository->find((int)$id);
             if (!$listener) {
                 return $this->redirectToRoute('listeners', ['system' => $system]);
@@ -45,21 +45,21 @@ class Listener extends Base
         }
         $options = [
             'isAdmin'   =>  $isAdmin,
-            'id'        =>  $id,
-            'callsign'  =>  $id ? $listener->getCallsign() : '',
-            'email'     =>  $id ? $listener->getEmail() : '',
-            'equipment' =>  $id ? $listener->getEquipment() : '',
-            'gsq'       =>  $id ? $listener->getGsq() : '',
-            'itu'       =>  $id ? $listener->getItu() : '',
-            'mapX'      =>  $id ? $listener->getMapX() : '',
-            'mapY'      =>  $id ? $listener->getMapY() : '',
-            'name'      =>  $id ? $listener->getName() : '',
-            'notes'     =>  $id ? $listener->getNotes() : '',
-            'primary'   =>  $id ? $listener->getPrimaryQth() : '',
-            'qth'       =>  $id ? $listener->getQth() : '',
-            'sp'        =>  $id ? $listener->getSp() : '',
-            'timezone'  =>  $id ? $listener->getTimezone() : '',
-            'website'   =>  $id ? $listener->getWebsite() : '',
+            'id'        =>  $listener ? $id : '',
+            'callsign'  =>  $listener ? $listener->getCallsign() : '',
+            'email'     =>  $listener ? $listener->getEmail() : '',
+            'equipment' =>  $listener ? $listener->getEquipment() : '',
+            'gsq'       =>  $listener ? $listener->getGsq() : '',
+            'itu'       =>  $listener ? $listener->getItu() : '',
+            'mapX'      =>  $listener ? $listener->getMapX() : '',
+            'mapY'      =>  $listener ? $listener->getMapY() : '',
+            'name'      =>  $listener ? $listener->getName() : '',
+            'notes'     =>  $listener ? $listener->getNotes() : '',
+            'primary'   =>  $listener ? $listener->getPrimaryQth() : '',
+            'qth'       =>  $listener ? $listener->getQth() : '',
+            'sp'        =>  $listener ? $listener->getSp() : '',
+            'timezone'  =>  $listener ? $listener->getTimezone() : '',
+            'website'   =>  $listener ? $listener->getWebsite() : '',
         ];
         $form = $listenerForm->buildForm(
             $this->createFormBuilder(),
@@ -69,7 +69,7 @@ class Listener extends Base
         if ($isAdmin && $form->isSubmitted()) {
             $form_data = $form->getData();
             $data['form'] = $form_data;
-            if ($id) {
+            if ((int)$id) {
                 $listener = $listenerRepository->find($id);
             } else {
                 $listener = new ListenerEntity();
@@ -93,7 +93,7 @@ class Listener extends Base
                 ->setWebsite($form_data['website'])
             ;
             $em = $this->getDoctrine()->getManager();
-            if (!$id) {
+            if (!(int)$id) {
                 $em->persist($listener);
             }
             $em->flush();
@@ -105,9 +105,9 @@ class Listener extends Base
             'id' =>                 $id,
             'fieldGroups' =>        $listenerForm->getFieldGroups($isAdmin),
             'form' =>               $form->createView(),
-            'mode' =>               ($isAdmin && !$id ? 'Add Listener' : $listener->getName().' &gt; Profile'),
-            'menuOptions' =>        $listenerRepository->getMenuOptions($listener),
+            'mode' =>               ($isAdmin && !$listener ? 'Add Listener' : $listener->getName().' &gt; Profile'),
             'system' =>             $system,
+            'tabs' =>               $listenerRepository->getTabs($listener),
         ];
         $parameters = array_merge($parameters, $this->parameters);
         return $this->render('listener/profile.html.twig', $parameters);

@@ -1,6 +1,6 @@
 <div style="height:0px;overflow:hidden"></div>
-{% if signals|length > 0 %}
-<table class="listener signals results" style="width: 100%">
+{% if logs|length > 0 %}
+<table class="listener logs results" style="width: 100%">
     <thead>
         <tr>
 {% for key, column in columns %}
@@ -14,17 +14,17 @@
         </tr>
     </thead>
     <tbody>
-{% for signal in signals %}
-{% set type = typeRepository.TypeForCode(signal.type) %}
-        <tr class="{% if signal.active == '0' %}inactive {% endif %}type_{{ type.class|lower }}" title="{{ type.title }}{% if signal.active == '0' %} (inactive){% endif %}">
+{% for log in logs %}
+{% set type = typeRepository.TypeForCode(log.type) %}
+        <tr class="{% if log.active == '0' %}inactive {% endif %}type_{{ type.class|lower }}" title="{{ type.title }}{% if log.active == '0' %} (inactive){% endif %}">
 {% for key, column in columns %}
 {% if ((not column.admin or isAdmin) and (not column.arg or (column.arg and column.arg in args.types))) %}
             <td{% if column.td_class %} class="{{ column.td_class }}"{% endif %}>
 
 {% if key == 'call' %}
-                <a href="{{ url('listener', { 'system' : system, 'id': signal.id }) }}" rel="external" data-popup="edit_{{ signal.id }}|{{ signalPopup }}">{{ attribute(signal, column.field)|raw }}</a>
+                <a href="{{ url('listener', { 'system' : system, 'id': log.id }) }}" rel="external" data-popup="edit_{{ log.id }}|{{ signalPopup }}">{{ attribute(log, column.field)|raw }}</a>
 {% else %}
-                {{ attribute(signal, column.field)|raw }}
+                {{ attribute(log, column.field)|raw }}
 {% endif %}
             </td>
 {% endif %}
@@ -34,5 +34,5 @@
     </tbody>
 </table>
 {% else %}
-    <p class="no-results">(No signals have been reported by this listener)</p>
+    <p class="no-results">(No log have been reported by this listener)</p>
 {% endif %}

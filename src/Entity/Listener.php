@@ -874,7 +874,7 @@ class Listener
      */
     public function getFormattedDeleteLink(): ?string
     {
-        $url =  "listener/{$this->id}/delete";
+        $url =  "listeners/{$this->id}/delete";
         return "<a href=\"{$url}\" onclick=\"return confirm('Delete this Listener?  Are you sure?');\">Delete</a>";
     }
 
@@ -895,6 +895,14 @@ class Listener
     public function getFormattedMapPos(): ?string
     {
         return $this->mapX.','.$this->mapY;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getFormattedNameAndLocation(): ?string
+    {
+        return $this->name.', '.$this->qth.($this->sp ? ', '.$this->sp : '').', '.$this->itu;
     }
 
     /**

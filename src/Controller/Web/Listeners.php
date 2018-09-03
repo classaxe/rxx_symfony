@@ -68,7 +68,7 @@ class Listeners extends Base
             'listeners' =>          $listeners,
             'matched' =>            $matched,
             'mode' =>               'Listeners List',
-            'listenerPopup' =>      'width=590,height=640,status=1,scrollbars=1,resizable=1',
+            'listenerPopup' =>      'width=800,height=680,status=1,scrollbars=1,resizable=1',
             'system' =>             $system,
             'text' =>
                 "<ul>\n"

@@ -1,14 +1,14 @@
 {% extends 'popup.html.twig' %}
 {% block body %}
 <div class="main fullwidth">
-{% set form_class='listener_signals' %}
+{% set form_class='listener_logs' %}
     {% include 'listener/tabs.html.twig' %}
     <div class="controlPanel {{ form_class }}">
         <div class="header">{{ mode|raw }}</div>
         <div class="content">
 {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
 {{ form_end(form, {'attr': {'novalidate': 'novalidate'}}) }}
-{% include 'listener/signals.grid.html.twig' %}
+{% include 'listener/logs.grid.html.twig' %}
         </div>
     </div>
 </div>
