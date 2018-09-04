@@ -8,6 +8,7 @@
         <div class="content">
 {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
 {{ form_end(form, {'attr': {'novalidate': 'novalidate'}}) }}
+            <div id="form_page_help"></div>
 {% include 'listener/logs.grid.html.twig' %}
         </div>
     </div>
@@ -17,6 +18,7 @@
         setColumnSortActions();
         setColumnSortedClass();
         setClippedCellTitles();
+        $('#form_page_help').html('{{ matched }}');
     });
 </script>
 {% endblock %}

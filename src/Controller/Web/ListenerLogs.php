@@ -37,12 +37,18 @@ class ListenerLogs extends Base
                 return $this->redirectToRoute('listeners', ['system' => $system]);
             }
         }
-        $options = [];
+        $options = [
+            'limit' =>  100,
+            'page' =>   0,
+            'total' =>  $listener->getCountLogs()
+        ];
         $form = $form->buildForm($this->createFormBuilder(), $options);
         $form->handleRequest($request);
         $args = [
             'sort' =>       'logDate',
-            'order' =>      'a'
+            'order' =>      'a',
+            'limit' =>      100,
+            'page' =>       0
         ];
         if ($form->isSubmitted() && $form->isValid()) {
             $args = $form->getData();
@@ -53,6 +59,7 @@ class ListenerLogs extends Base
             'id' =>                 $id,
             'columns' =>            $listenerRepository->getLogsColumns(),
             'form' =>               $form->createView(),
+            'matched' =>            ($options['total'] > 100 ? 'of '.$options['total'] : ''),
             'mode' =>               'Logs for '.$listener->getFormattedNameAndLocation(),
             'logs' =>               $listenerRepository->getLogsForListener($id, $args),
             'signalPopup' =>        'width=590,height=640,status=1,scrollbars=1,resizable=1',

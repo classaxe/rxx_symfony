@@ -8,7 +8,6 @@
 
 namespace App\Columns;
 
-
 class ListenerSignals
 {
     public function getColumns()

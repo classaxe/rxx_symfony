@@ -246,6 +246,11 @@ class ListenerRepository extends ServiceEntityRepository
 
             ->andWhere('li.id = :listenerID')
             ->setParameter('listenerID', $listenerID);
+        if (isset($args['limit']) && isset($args['page'])) {
+            $qb
+                ->setFirstResult($args['page'] * $args['limit'])
+                ->setMaxResults($args['limit']);
+        }
 
         if ($this->listenerLogsColumns[$args['sort']]['sort']) {
             $idx = $this->listenerLogsColumns[$args['sort']];

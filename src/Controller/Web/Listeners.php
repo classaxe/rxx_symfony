@@ -1,7 +1,7 @@
 <?php
 namespace App\Controller\Web;
 
-use App\Form\ListenersList as ListenerListForm;
+use App\Form\Listeners as ListenersForm;
 use App\Repository\ListenerRepository;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 use Symfony\Component\HttpFoundation\Request;
@@ -25,7 +25,7 @@ class Listeners extends Base
     public function listenerListController(
         $system,
         Request $request,
-        ListenerListForm $form,
+        ListenersForm $form,
         ListenerRepository $listenerRepository
     ) {
         $options = [

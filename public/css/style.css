@@ -133,7 +133,7 @@ body .menu-centered .system .is-active>a:hover, body .menu-centered .mode .is-ac
 #form div label { float: left; width: 100px; font-weight: bold; padding: 0 0 0.125em 0; }
 #form div input[type='text'] { margin: 0; border-radius: 0; height: 1.75em; font-size: 80%; float: left; }
 #form div input[type='password'] { margin: 0; border-radius: 0; height: 1.75em; font-size: 80%; float: left;}
-#form div select { -webkit-appearance: menulist; -moz-appearance: menulist; appearance: menulist; font-size: 80%; padding: 0; background-image: none; height: 1.75em; margin: 0; }
+#form div select { -webkit-appearance: menulist; -moz-appearance: menulist; appearance: menulist; font-size: 80%; padding: 0; height: 1.75em; margin: 0; }
 #form div textarea { font-size: 80%; margin: 0 0 0.25em 0; }
 
 #form div p { margin: 0; border-radius: 0; height: 1.5em; font-size: 80%; float: right; text-align: right; }
@@ -162,6 +162,13 @@ body .menu-centered .system .is-active>a:hover, body .menu-centered .mode .is-ac
 /* [ Form logon ] */
 .logon #form input[type='text'],
 .logon #form input[type='password'] { width: 150px; }
+
+label[for="form_limit"] { float: left; margin: 0 0.5em 0 0; }
+select#form_limit,
+select#form_page { width: 7em; float: left; margin: 0 0.5em 0 0; }
+button#form_prev,
+button#form_next { float: left; margin: 0 0.5em 0 0; }
+button.tiny { font-size: 0.4rem !important; line-height: 0.6em; }
 
 #form button { margin: 0.25em 50%; padding: 0.25em 1em; }
 #form fieldset#group_ { padding: 0; margin: 0; text-align: center; }
