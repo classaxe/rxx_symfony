@@ -133,7 +133,7 @@ body .menu-centered .system .is-active>a:hover, body .menu-centered .mode .is-ac
 #form div label { float: left; width: 100px; font-weight: bold; padding: 0 0 0.125em 0; }
 #form div input[type='text'] { margin: 0; border-radius: 0; height: 1.75em; font-size: 80%; float: left; }
 #form div input[type='password'] { margin: 0; border-radius: 0; height: 1.75em; font-size: 80%; float: left;}
-#form div select { -webkit-appearance: menulist; -moz-appearance: menulist; font-size: 80%; background-image: none; height: 1.75em; margin: 0; }
+#form div select { -webkit-appearance: menulist; -moz-appearance: menulist; appearance: menulist; font-size: 80%; padding: 0; background-image: none; height: 1.75em; margin: 0; }
 #form div textarea { font-size: 80%; margin: 0 0 0.25em 0; }
 
 #form div p { margin: 0; border-radius: 0; height: 1.5em; font-size: 80%; float: right; text-align: right; }
@@ -185,7 +185,7 @@ body .menu-centered .system .is-active>a:hover, body .menu-centered .mode .is-ac
 .results { margin: 0; border-collapse: collapse;; }
 .results, .results th, .results td { border: 1px solid #808080; }
 .results thead { border-color: #808080; }
-.results thead tr th { border-color: #808080; background: #707070; color: #ffffff; height: 7em; vertical-align: bottom; font-size: 80%; padding: 0.25em;}
+.results thead tr th { border-color: #808080; background: #707070; color: #ffffff; height: 7em !important; max-height: 7em !important; vertical-align: bottom; font-size: 80%; padding: 0.25em;}
 .results thead tr th.sort { border-color: #808080; background: #707070; color: #ffffff; height: 7em; border-bottom: 3px solid #a0a0a0; vertical-align: bottom; font-size: 80%; padding: 0.25em;}
 .results thead tr th.sort:hover { border-bottom: 3px solid #FCC247; background: #8A7E66; cursor: pointer; }
 .results thead tr th.sorted { border-bottom: 3px solid #FCC247; background: #8A7E66; cursor: pointer; color: #FCC247; }
@@ -194,8 +194,10 @@ body .menu-centered .system .is-active>a:hover, body .menu-centered .mode .is-ac
 .results tbody tr td { border-color: #808080; height: 1.25em; vertical-align: bottom; font-size: 80%; padding: 0.125em 0.25em;}
 .results .txt_r { text-align: right; }
 .results .monspace { font-family: "Courier New bold", Courier, monospace; }
-.results .txt_vertical { position: relative; min-width: 1.5em; }
-.results .txt_vertical div { position: absolute; top: 50%; white-space: nowrap; left: 50%; transform: rotate(90deg) translateX(-50%) translateY(-50%); transform-origin: left top; }
+
+.results .txt_vertical { vertical-align: bottom; text-align: center; }
+.results .txt_vertical div { -ms-writing-mode: tb-rl; -webkit-writing-mode: vertical-rl; writing-mode: vertical-rl; white-space: nowrap; padding-bottom: 0.5em; display:table; border-spacing:0; }
+
 .results tr td { white-space: nowrap;}
 .results tr td.clipped { max-width: 100px; overflow: hidden; text-overflow: ellipsis; }
 
