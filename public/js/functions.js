@@ -83,3 +83,49 @@ function setEmailLinks() {
         $(this).removeAttr('data-contact');
     });
 }
+
+function setPagingActions() {
+    var select =    $('select#form_page');
+    var idx =       select.prop('selectedIndex');
+    var options =   $('select#form_page option');
+
+    select.change(function() {
+        $('button#form_prev').prop('disabled', 'disabled');
+        $('button#form_next').prop('disabled', 'disabled');
+        $('form[name="form"]').submit();
+    });
+
+    if (idx > 0) {
+        $('button#form_prev').click(function () {
+            var form = $('form[name="form"]');
+            var select = $('select#form_page');
+            var options = $('select#form_page option');
+            var idx = select.prop('selectedIndex');
+            $('button#form_prev').prop('disabled', 'disabled');
+            $('button#form_next').prop('disabled', 'disabled');
+            options.eq(idx - 1).prop('selected', true);
+            select.prop('selectedIndex', idx - 1);
+            form.submit();
+            return false;
+        });
+    } else {
+        $('button#form_prev').prop('disabled', 'disabled');
+    }
+
+    if (idx + 1 < options.length) {
+        $('button#form_next').click(function() {
+            var form =      $('form[name="form"]');
+            var select =    $('select#form_page');
+            var options =   $('select#form_page option');
+            var idx =       select.prop('selectedIndex');
+            $('button#form_prev').prop('disabled', 'disabled');
+            $('button#form_next').prop('disabled', 'disabled');
+            options.eq(idx + 1).prop('selected', true);
+            select.prop('selectedIndex', idx + 1);
+            form.submit();
+            return false;
+        });
+    } else {
+        $('button#form_next').prop('disabled', 'disabled');
+    }
+}

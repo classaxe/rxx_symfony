@@ -31,18 +31,29 @@ class ListenerSignals extends Base
         ListenerRepository $listenerRepository,
         TypeRepository $typeRepository
     ) {
+        $defaultlimit =     100;
+        $maxNoPaging =      100;
+
         if ((int) $id) {
             $listener = $listenerRepository->find((int)$id);
             if (!$listener) {
                 return $this->redirectToRoute('listeners', ['system' => $system]);
             }
         }
-        $options = [];
+
+        $options = [
+            'limit' =>          $defaultlimit,
+            'maxNoPaging' =>    $maxNoPaging,
+            'page' =>           0,
+            'total' =>          $listener->getCountSignals()
+        ];
         $form = $form->buildForm($this->createFormBuilder(), $options);
         $form->handleRequest($request);
         $args = [
-            'sort' =>       'khz',
-            'order' =>      'a'
+            'limit' =>          $defaultlimit,
+            'page' =>           0,
+            'order' =>          'a',
+            'sort' =>           'khz'
         ];
         if ($form->isSubmitted() && $form->isValid()) {
             $args = $form->getData();
@@ -53,6 +64,7 @@ class ListenerSignals extends Base
             'id' =>                 $id,
             'columns' =>            $listenerRepository->getSignalsColumns(),
             'form' =>               $form->createView(),
+            'matched' =>            ($options['total'] > $options['maxNoPaging'] ? 'of '.$options['total'].' signals' : ''),
             'mode' =>               'Signals received by '.$listener->getFormattedNameAndLocation(),
             'signals' =>            $listenerRepository->getSignalsForListener($id, $args),
             'signalPopup' =>        'width=590,height=640,status=1,scrollbars=1,resizable=1',

@@ -8,7 +8,7 @@
 
 namespace App\Form;
 
-use Symfony\Component\Form\AbstractType;
+use App\Form\Base;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
@@ -20,7 +20,7 @@ use Symfony\Component\Form\FormBuilderInterface;
  * Class ListenerLogs
  * @package App\Form
  */
-class ListenerLogs extends AbstractType
+class ListenerLogs extends Base
 {
     /**
      * @param FormBuilderInterface $formBuilder
@@ -43,62 +43,7 @@ class ListenerLogs extends AbstractType
                     'data' => 'a'
                 ]
             );
-        if ($options['total'] >= 100) {
-            $formBuilder
-                ->add(
-                    'limit',
-                    ChoiceType::class,
-                    [
-                        'label' =>      'Show',
-                        'choices' =>    $this->getlimitOptions($options['total']),
-                        'data' =>       100
-                    ]
-                )
-                ->add(
-                    'prev',
-                    ButtonType::class,
-                    [
-                        'label' =>      '<',
-                        'attr' =>       ['class' => 'button tiny']
-                    ]
-                )
-                ->add(
-                    'next',
-                    ButtonType::class,
-                    [
-                        'label' =>      '>',
-                        'attr' =>       ['class' => 'button tiny']
-                    ]
-                )
-            ->add(
-                'page',
-                ChoiceType::class,
-                [
-                    'label' =>      ' ',
-                    'choices' =>    $this->getPageOptions($options['total'], $options['limit']),
-                    'data' =>       0,
-                    'help' => '&nbsp;'
-                ]
-            )
-            ->add(
-                'page',
-                ChoiceType::class,
-                [
-                    'label' =>      ' ',
-                    'choices' =>    $this->getPageOptions($options['total'], $options['limit']),
-                    'data' =>       0
-                ]
-            );
-        } else {
-            $formBuilder
-                ->add(
-                    'limit',
-                    HiddenType::class,
-                    [
-                        'data' => '100'
-                    ]
-                );
-        }
+        $this->addPaging($formBuilder, $options);
 //        print '<pre>' . print_r($options, true).'</pre>';
         return $formBuilder->getForm();
     }

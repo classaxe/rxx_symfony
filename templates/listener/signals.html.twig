@@ -8,15 +8,18 @@
         <div class="content">
 {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
 {{ form_end(form, {'attr': {'novalidate': 'novalidate'}}) }}
+            <div id="form_paging_status"></div>
 {% include 'listener/signals.grid.html.twig' %}
         </div>
     </div>
 </div>
 <script>
     $(document).ready( function() {
+        setPagingActions();
         setColumnSortActions();
         setColumnSortedClass();
         setClippedCellTitles();
+        $('#form_paging_status').html('{{ matched }}');
     });
 </script>
 {% endblock %}

@@ -8,6 +8,7 @@
 
 namespace App\Form;
 
+use App\Form\Base;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -16,7 +17,7 @@ use Symfony\Component\Form\FormBuilderInterface;
  * Class Listeners
  * @package App\Form
  */
-class ListenerSignals extends AbstractType
+class ListenerSignals extends Base
 {
     /**
      * @param FormBuilderInterface $formBuilder
@@ -39,6 +40,9 @@ class ListenerSignals extends AbstractType
                     'data' => 'a'
                 ]
             );
+
+        $this->addPaging($formBuilder, $options);
+
         return $formBuilder->getForm();
     }
 }
