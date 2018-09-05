@@ -247,7 +247,7 @@ class ListenerRepository extends ServiceEntityRepository
             ->andWhere('li.id = :listenerID')
             ->setParameter('listenerID', $listenerID);
 
-        if (isset($args['limit']) && isset($args['page'])) {
+        if (isset($args['limit']) && $args['limit'] !== -1 && isset($args['page'])) {
             $qb
                 ->setFirstResult($args['page'] * $args['limit'])
                 ->setMaxResults($args['limit']);
@@ -308,7 +308,7 @@ class ListenerRepository extends ServiceEntityRepository
 
             ->groupBy('s.id');
 
-        if (isset($args['limit']) && isset($args['page'])) {
+        if (isset($args['limit']) && $args['limit'] !== -1 && isset($args['page'])) {
             $qb
                 ->setFirstResult($args['page'] * $args['limit'])
                 ->setMaxResults($args['limit']);
