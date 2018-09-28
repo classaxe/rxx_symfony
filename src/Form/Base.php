@@ -11,7 +11,8 @@ namespace App\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormBuilderInterface;
 
 /**
@@ -57,15 +58,35 @@ class Base extends AbstractType
                     'attr' =>       ['class' => 'button tiny']
                 ]
             )
-            ->add(
-                'page',
-                ChoiceType::class,
-                [
-                    'label' =>      ' ',
-                    'choices' =>    $this->getPageOptions($options['total'], $options['limit']),
-                    'data' =>       0
-                ]
-            );
+        ;
+        $formBuilder->addEventListener(
+            FormEvents::PRE_SET_DATA,
+            function (FormEvent $event) {
+                $data = $event->getData();
+                $form = $event->getForm();
+
+                if ($event) {
+                    print"<pre>".print_r($data->getLimit(), true)."</pre>"; die;
+                    print"<pre>".print_r(get_class_methods($event), true)."</pre>"; die;
+                }
+                // checks if the Product object is "new"
+                // If no data is passed to the form, the data is "null".
+                // This should be considered a new "Product"
+                if (!$data || null !== $data['limit']) {
+                    $form
+                        ->add(
+                            'page',
+                            ChoiceType::class,
+                            [
+                                'label' =>      ' ',
+    //                            'choices' =>    $this->getPageOptions($options['total'], $options['limit']),
+                                'data' =>       0
+                            ]
+                        );
+                }
+            }
+        );
+
     }
 
     /**

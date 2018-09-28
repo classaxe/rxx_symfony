@@ -11,10 +11,13 @@ namespace App\Controller\Rest;
 use Psr\Log\LoggerInterface;
 use FOS\RestBundle\Controller\FOSRestController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Stopwatch\Stopwatch;
+
 
 class RestBase extends FOSRestController
 {
     protected $logger;
+    private $stopwatch;
 
     public function __construct(LoggerInterface $logger)
     {
@@ -27,6 +30,19 @@ class RestBase extends FOSRestController
         $this->logger->info($source, $data);
     }
 
+    protected function memoryLogger($operation = 'start') {
+        switch ($operation) {
+            case 'start':
+                $this->stopwatch = new Stopwatch();
+                $this->stopwatch->start(__METHOD__);
+                break;
+            case 'stop':
+                $event =  $this->stopwatch->stop(__METHOD__);
+                return $event->getMemory();
+                break;
+        }
+
+    }
     protected function deleteEntity($entity)
     {
         if (!$entity) {

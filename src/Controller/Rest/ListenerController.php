@@ -67,7 +67,7 @@ class ListenerController extends RestBase
         $httpResponse = ($entity ? Response::HTTP_OK : Response::HTTP_NOT_FOUND);
         $view =         $this->view($entity, $httpResponse);
 
-        $this->log(__METHOD__, ['id' => $id, 'result' => $entity, 'status' => $httpResponse]);
+        $this->log(__METHOD__, ['id' => $id, 'status' => $httpResponse]);
         return $this->handleView($view);
     }
 
@@ -82,12 +82,14 @@ class ListenerController extends RestBase
      */
     public function getItems()
     {
+        $this->memoryLogger('start');
         $entities =     $this->findAllEntities($this->getEntityType());
         $httpResponse = ($entities ? Response::HTTP_OK : Response::HTTP_NOT_FOUND);
         $view =         $this->view($entities, $httpResponse);
-
-        $this->log(__METHOD__, ['result' => $entities, 'status' => $httpResponse]);
-        return $this->handleView($view);
+        $result =       $this->handleView($view);
+        $memory =       number_format($this->memoryLogger('stop'));
+        $this->log(__METHOD__, ['status' => $httpResponse, 'memory' => $memory]);
+        return $result;
     }
 
     /**
