@@ -95,11 +95,11 @@ function setPagingActions() {
         $('form[name="form"]').submit();
     });
 
-    // if ($('select#form_limit').val() === '-1') {
-    //     $('button#form_prev').hide();
-    //     $('button#form_next').hide();
-    //     $('select#form_page').hide();
-    // }
+    if ($('select#form_limit').val() === '-1') {
+        $('button#form_prev').hide();
+        $('button#form_next').hide();
+        $('select#form_page').hide();
+    }
 
     if (idx > 0) {
         $('button#form_prev').click(function () {

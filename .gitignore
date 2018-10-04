@@ -1,5 +1,6 @@
 .idea
 .DS_Store
+ubuntu-xenial-16.04-cloudimg-console.log
 ###> symfony/framework-bundle ###
 /.env
 /public/bundles/
