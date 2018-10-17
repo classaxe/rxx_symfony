@@ -8,9 +8,11 @@
 
 namespace App\Form;
 
+use App\Utils\Rxx;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -21,6 +23,8 @@ use Symfony\Component\Form\FormBuilderInterface;
  */
 class Base extends AbstractType
 {
+    private $options;
+
     /**
      * @param FormBuilderInterface $formBuilder
      * @param array $options
@@ -28,6 +32,8 @@ class Base extends AbstractType
      */
     public function addPaging(FormBuilderInterface &$formBuilder, array $options)
     {
+        $this->options = $options;
+
         if ($options['total'] < $options['maxNoPaging']) {
             return $formBuilder;
         }
@@ -59,14 +65,42 @@ class Base extends AbstractType
                 ]
             )
             ->add(
+                'page_hidden',
+                hiddenType::class,
+                [
+                    'data' =>       0
+                ]
+            )
+            ->add(
                 'page',
                 ChoiceType::class,
                 [
                     'label' =>      ' ',
-                    'choices' =>    $this->getPageOptions($options['total'], $options['limit']),
+                    'choices' =>    $this->getPageOptions($this->options['total'], $this->options['limit']),
                     'data' =>       0
-                    ]
+                ]
             );
+
+        $formBuilder->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) {
+            $form =     $event->getForm();
+            $data =     $event->getData();
+
+            print Rxx::y($data);
+
+            $limit =    $data['limit'];
+            $page =     $data['page_hidden'];
+            $form
+                ->remove('page')
+                ->add(
+                    'page',
+                    ChoiceType::class,
+                    [
+                        'label' =>      ' ',
+                        'choices' =>    $this->getPageOptions($this->options['total'], $limit),
+                        'data' =>       $page
+                    ]
+                );
+        });
     }
 
     /**

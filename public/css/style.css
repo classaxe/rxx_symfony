@@ -148,6 +148,7 @@ body .menu-centered .system .is-active>a:hover, body .menu-centered .mode .is-ac
 
 #form div button { float: left; clear: none !important; width: 6em; }
 
+pre { border: 1px dashed #ccc; background: #eee; padding: 0.25em 1em !important; margin: 0.5em !important; font-size: 8pt !important; display: inline-block; }
 /* [ Form listener_list ] */
 .listener_list #form input[type='text'],
 .listener_list #form select { width: 420px; }
@@ -165,7 +166,11 @@ body .menu-centered .system .is-active>a:hover, body .menu-centered .mode .is-ac
 
 label[for="form_limit"] { float: left; margin: 0 0.5em 0 0; }
 select#form_limit,
-select#form_page { width: 7em; float: left; margin: 0 0.5em 0 0; }
+select#form_page,
+select#form_page_initial {
+    width: 7em; float: left; margin: 0 0.5em 0 0;
+}
+
 button#form_prev,
 button#form_next { float: left; margin: 0 0.5em 0 0; }
 button.tiny { font-size: 0.4rem !important; line-height: 0.6em; }

@@ -24,7 +24,7 @@ class Rxx
 
     public static function y($var)
     {
-        return "<pre>".var_dump($var)."</pre>";
+        return "<pre>".str_replace("Array\n(", "Array (", print_r($var, true))."</pre>";
     }
 
     public static function getUtcDateTime($yyyymmdd)

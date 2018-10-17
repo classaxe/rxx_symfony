@@ -90,6 +90,7 @@ function setPagingActions() {
     var options =   $('select#form_page option');
 
     select.change(function() {
+        document.getElementById("form_page_hidden").value = $('select#form_page').prop('selectedIndex');
         $('button#form_prev').prop('disabled', 'disabled');
         $('button#form_next').prop('disabled', 'disabled');
         $('form[name="form"]').submit();
@@ -111,6 +112,7 @@ function setPagingActions() {
             $('button#form_next').prop('disabled', 'disabled');
             options.eq(idx - 1).prop('selected', true);
             select.prop('selectedIndex', idx - 1);
+            document.getElementById("form_page_hidden").value = $('select#form_page').prop('selectedIndex');
             form.submit();
             return false;
         });
@@ -128,6 +130,7 @@ function setPagingActions() {
             $('button#form_next').prop('disabled', 'disabled');
             options.eq(idx + 1).prop('selected', true);
             select.prop('selectedIndex', idx + 1);
+            document.getElementById("form_page_hidden").value = $('select#form_page').prop('selectedIndex');
             form.submit();
             return false;
         });
@@ -141,6 +144,7 @@ function setPagingActions() {
         var options = $('select#form_page option');
         options.eq(0).prop('selected', true);
         select.prop('selectedIndex', 0);
+        document.getElementById("form_page_hidden").value = $('select#form_page').prop('selectedIndex');
         if ($('select#form_limit').val() !== "-1") {
             options.eq(0).prop('text', '1-'+$('select#form_limit').val());
             $('button#form_prev').prop('disabled', 'disabled');

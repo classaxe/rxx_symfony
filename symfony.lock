@@ -1,6 +1,18 @@
 {
+    "behat/behat": {
+        "version": "v3.5.0"
+    },
+    "behat/gherkin": {
+        "version": "v4.5.1"
+    },
+    "behat/transliterator": {
+        "version": "v1.2.0"
+    },
     "composer/ca-bundle": {
         "version": "1.1.1"
+    },
+    "container-interop/container-interop": {
+        "version": "1.2.0"
     },
     "doctrine/annotations": {
         "version": "1.0",
@@ -79,6 +91,9 @@
     },
     "egulias/email-validator": {
         "version": "2.1.4"
+    },
+    "facebook/webdriver": {
+        "version": "1.6.0"
     },
     "fig/link-util": {
         "version": "1.0.0"
@@ -172,6 +187,9 @@
     },
     "symfony/cache": {
         "version": "v4.1.0"
+    },
+    "symfony/class-loader": {
+        "version": "v3.4.17"
     },
     "symfony/config": {
         "version": "v4.1.0"
@@ -289,6 +307,9 @@
     },
     "symfony/orm-pack": {
         "version": "v1.0.5"
+    },
+    "symfony/panther": {
+        "version": "v0.2.0"
     },
     "symfony/phpunit-bridge": {
         "version": "4.1",
