@@ -24,6 +24,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 class Base extends AbstractType
 {
     private $options;
+    private $limitOptions = [10, 25, 50, 100, 250, 500, 1000, 2500, 5000, 100000, 25000, 50000, 100000];
 
     /**
      * @param FormBuilderInterface $formBuilder
@@ -65,14 +66,14 @@ class Base extends AbstractType
                 ]
             )
             ->add(
-                'page_hidden',
+                'page',
                 hiddenType::class,
                 [
                     'data' =>       0
                 ]
             )
             ->add(
-                'page',
+                'page_ctl',
                 ChoiceType::class,
                 [
                     'label' =>      ' ',
@@ -84,15 +85,13 @@ class Base extends AbstractType
         $formBuilder->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) {
             $form =     $event->getForm();
             $data =     $event->getData();
-
-            print Rxx::y($data);
-
+//            print Rxx::y($data);
             $limit =    $data['limit'];
-            $page =     $data['page_hidden'];
+            $page =     $data['page'];
             $form
-                ->remove('page')
+                ->remove('page_ctl')
                 ->add(
-                    'page',
+                    'page_ctl',
                     ChoiceType::class,
                     [
                         'label' =>      ' ',
@@ -109,14 +108,12 @@ class Base extends AbstractType
      */
     private function getlimitOptions($limit)
     {
-        $values = [10, 25, 50, 100, 250, 500, 1000, 2500, 5000, 100000, 25000, 50000, 100000];
-        $options = [];
-        foreach ($values as $value) {
+        $options = ['All Results' => -1];
+        foreach ($this->limitOptions as $value) {
             if ($value < $limit) {
                 $options[$value.' results'] = $value;
             }
         }
-        $options['All Results'] = -1;
         return $options;
     }
 

@@ -167,7 +167,7 @@ pre { border: 1px dashed #ccc; background: #eee; padding: 0.25em 1em !important;
 label[for="form_limit"] { float: left; margin: 0 0.5em 0 0; }
 select#form_limit,
 select#form_page,
-select#form_page_initial {
+select#form_page_ctl {
     width: 7em; float: left; margin: 0 0.5em 0 0;
 }
 

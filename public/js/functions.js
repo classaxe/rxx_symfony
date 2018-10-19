@@ -85,76 +85,107 @@ function setEmailLinks() {
 }
 
 function setPagingActions() {
-    var select =    $('select#form_page');
-    var idx =       select.prop('selectedIndex');
-    var options =   $('select#form_page option');
+    var limit =     $('select#form_limit');
+    var page_ctl =  $('#form_page_ctl');
+    var options =   $('#form_page_ctl option');
+    var idx =       page_ctl.prop('selectedIndex');
+    var prev =      $('#form_prev');
+    var next =      $('#form_next');
 
-    select.change(function() {
-        document.getElementById("form_page_hidden").value = $('select#form_page').prop('selectedIndex');
-        $('button#form_prev').prop('disabled', 'disabled');
-        $('button#form_next').prop('disabled', 'disabled');
-        $('form[name="form"]').submit();
-    });
-
-    if ($('select#form_limit').val() === '-1') {
-        $('button#form_prev').hide();
-        $('button#form_next').hide();
-        $('select#form_page').hide();
+    if (limit.val() === '-1') {
+        prev.hide();
+        next.hide();
+        page_ctl.hide();
     }
 
-    if (idx > 0) {
-        $('button#form_prev').click(function () {
-            var form = $('form[name="form"]');
-            var select = $('select#form_page');
-            var options = $('select#form_page option');
-            var idx = select.prop('selectedIndex');
-            $('button#form_prev').prop('disabled', 'disabled');
-            $('button#form_next').prop('disabled', 'disabled');
-            options.eq(idx - 1).prop('selected', true);
-            select.prop('selectedIndex', idx - 1);
-            document.getElementById("form_page_hidden").value = $('select#form_page').prop('selectedIndex');
+    limit.change(
+        function() {
+            var form =      $('form[name="form"]');
+            var limit =     $('select#form_limit');
+            var page =      $('#form_page');
+            var page_ctl =  $('select#form_page_ctl');
+            var options =   $('select#form_page_ctl option');
+            var idx =       page_ctl.prop('selectedIndex');
+            var prev =      $('#form_prev');
+            var next =      $('#form_next');
+            options.eq(0).prop('selected', true);
+            page_ctl.prop('selectedIndex', 0);
+            if (limit.val() !== "-1") {
+                options.eq(0).prop('text', '1-' + limit.val());
+                prev.prop('disabled', 'disabled');
+                next.prop('disabled', 'disabled');
+            } else {
+                page_ctl.hide();
+                prev.hide();
+                next.hide();
+            }
+            page_ctl.prop('selectedIndex', 0);
+            page.val(0);
+            page_ctl.removeAttr('name');
             form.submit();
-            return false;
-        });
+        }
+    );
+    if (idx > 0) {
+        prev.click(
+            function () {
+                var form =      $('form[name="form"]');
+                var page =      $('#form_page');
+                var page_ctl =  $('#form_page_ctl');
+                var options =   $('#form_page_ctl option');
+                var idx =       page_ctl.prop('selectedIndex');
+                var prev =      $('#form_prev');
+                var next =      $('#form_next');
+                prev.prop('disabled', 'disabled');
+                next.prop('disabled', 'disabled');
+                options.eq(idx - 1).prop('selected', true);
+                page_ctl.prop('selectedIndex', idx - 1);
+                page.val(idx - 1);
+                page_ctl.removeAttr('name');
+                form.submit();
+                return false;
+            }
+        );
     } else {
-        $('button#form_prev').prop('disabled', 'disabled');
+        prev.prop('disabled', 'disabled');
     }
 
     if (idx + 1 < options.length) {
-        $('button#form_next').click(function() {
-            var form =      $('form[name="form"]');
-            var select =    $('select#form_page');
-            var options =   $('select#form_page option');
-            var idx =       select.prop('selectedIndex');
-            $('button#form_prev').prop('disabled', 'disabled');
-            $('button#form_next').prop('disabled', 'disabled');
-            options.eq(idx + 1).prop('selected', true);
-            select.prop('selectedIndex', idx + 1);
-            document.getElementById("form_page_hidden").value = $('select#form_page').prop('selectedIndex');
-            form.submit();
-            return false;
-        });
+        next.click(
+            function() {
+                var form =      $('form[name="form"]');
+                var page =      $('#form_page');
+                var page_ctl =  $('select#form_page_ctl');
+                var options =   $('select#form_page_ctl option');
+                var idx =       page_ctl.prop('selectedIndex');
+                var prev =      $('#form_prev');
+                var next =      $('#form_next');
+                prev.prop('disabled', 'disabled');
+                next.prop('disabled', 'disabled');
+                options.eq(idx + 1).prop('selected', true);
+                page_ctl.prop('selectedIndex', idx + 1);
+                page.val(idx + 1);
+                page_ctl.removeAttr('name');
+                form.submit();
+                return false;
+            }
+        );
     } else {
-        $('button#form_next').prop('disabled', 'disabled');
+        next.prop('disabled', 'disabled');
     }
 
-    $('select#form_limit').change(function() {
-        var form = $('form[name="form"]');
-        var select = $('select#form_page');
-        var options = $('select#form_page option');
-        options.eq(0).prop('selected', true);
-        select.prop('selectedIndex', 0);
-        document.getElementById("form_page_hidden").value = $('select#form_page').prop('selectedIndex');
-        if ($('select#form_limit').val() !== "-1") {
-            options.eq(0).prop('text', '1-'+$('select#form_limit').val());
-            $('button#form_prev').prop('disabled', 'disabled');
-            $('button#form_next').prop('disabled', 'disabled');
-        } else {
-            select.hide();
-            $('button#form_prev').hide();
-            $('button#form_next').hide();
+    page_ctl.change(
+        function() {
+            var form =      $('form[name="form"]');
+            var page =      $('#form_page');
+            var page_ctl =  $('#form_page_ctl');
+            var idx =       page_ctl.prop('selectedIndex');
+            var prev =      $('#form_prev');
+            var next =      $('#form_next');
+            prev.prop('disabled', 'disabled');
+            next.prop('disabled', 'disabled');
+            page.val(idx);
+            page_ctl.removeAttr('name');
+            form.submit();
         }
-
-        $('form[name="form"]').submit();
-    });
+    );
 }
