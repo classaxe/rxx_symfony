@@ -32,7 +32,6 @@
 // ***********************************************************************
 
 // {{ title|raw }}
-
 {% for signal in signals %}
-STATION("{{ signal.khz }}","{{ signal.call }}","{{ signal.qth|raw }}","{{ signal.sp }}","{{ signal.itu }}","{{ signal.sec }}","{{ (signal.format == 'DAID') ? 'Y' : 'N' }}","{{ signal.lsb }}","{{ signal.usb }}","{{ signal.pwr }}","{{ signal.lat }}","{{ signal.lon }}","{{ signal.notes }}","{{ signal.id }}","{{ signal.active == 1 ? '1' : '0' }}");
+STATION("{{ signal.khz }}","{{ signal.call }}","{{ signal.qth }}","{{ signal.sp }}","{{ signal.itu }}","{{ signal.sec }}","{{ (signal.format == 'DAID') ? 'Y' : 'N' }}","{{ signal.lsb }}","{{ signal.usb }}","{{ signal.pwr }}","{{ signal.lat }}","{{ signal.lon }}","{{ signal.notes|raw }}","{{ signal.id }}","{{ signal.active == 1 ? '1' : '0' }}");
 {% endfor %}

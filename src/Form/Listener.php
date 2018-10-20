@@ -208,7 +208,7 @@ class Listener extends AbstractType
                 'primary',
                 ChoiceType::class,
                 [
-                    'label'         => 'Primary',
+                    'label'         => 'Primary Location',
                     'choices'       => [
                         'Yes' => 1,
                         'No' => 0,
@@ -245,7 +245,7 @@ class Listener extends AbstractType
                 TextareaType::class,
                 [
                     'label'         => 'Equipment',
-                    'data'          => $options['equipment'],
+                    'data'          => html_entity_decode($options['equipment']),
                     'empty_data'    => '',
                     'disabled'      => !$isAdmin,
                     'attr'          => ['rows' => '3', 'cols' => '80']

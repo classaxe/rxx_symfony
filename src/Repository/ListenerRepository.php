@@ -16,8 +16,9 @@ class ListenerRepository extends ServiceEntityRepository
         ['listener', 'Profile'],
         ['listener_signals', 'Signals (%%signals%%)'],
         ['listener_logs', 'Logs (%%logs%%)'],
-//        ['listener_export', 'Export'],
-//        ['listener_weather', 'Weather']
+        ['listener_export', 'Export'],
+//        ['listener_weather', 'Weather'],
+//        ['listener_stats', 'stats']
     ];
 
     private $listenersColumns;
@@ -274,7 +275,7 @@ class ListenerRepository extends ServiceEntityRepository
         return $result;
     }
 
-    public function getSignalsForListener($listenerID, array $args)
+    public function getSignalsForListener($listenerID, array $args = [])
     {
         $columns =
             's.id,'
@@ -289,6 +290,12 @@ class ListenerRepository extends ServiceEntityRepository
             .'s.format,'
             .'s.gsq,'
             .'s.type,'
+            .'s.lsb,'
+            .'s.usb,'
+            .'s.pwr,'
+            .'s.lat,'
+            .'s.lon,'
+            .'s.notes,'
             .'l.dxKm,'
             .'l.dxMiles,'
             .'COUNT(l.signalid) as logs,'
@@ -314,7 +321,7 @@ class ListenerRepository extends ServiceEntityRepository
                 ->setMaxResults($args['limit']);
         }
 
-        if ($this->listenerSignalsColumns[$args['sort']]['sort']) {
+        if (isset($args['sort']) && $this->listenerSignalsColumns[$args['sort']]['sort']) {
             $idx = $this->listenerSignalsColumns[$args['sort']];
             $qb
                 ->addOrderBy(
@@ -331,7 +338,10 @@ class ListenerRepository extends ServiceEntityRepository
         }
 
         $result = $qb->getQuery()->execute();
-//        print "<pre>".print_r($result, true)."</pre>";
+        foreach ($result as &$row) {
+            $row['notes'] = str_replace("\"", "\\\"", Rxx::translateChars($row['notes']));
+        }
+  //      print Rxx::y($result); die;
         return $result;
     }
 }

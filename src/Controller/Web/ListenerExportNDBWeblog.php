@@ -22,12 +22,12 @@ class ListenerExportNDBWeblog extends Base
      *     name="listener_export_ndbweblog"
      * )
      */
-    public function baseController(
+    public function ndbWebLogController(
         $system,
         $id,
-        ListenerRepository $listenerRepo
+        ListenerRepository $listenerRepository
     ) {
-        if (!$listener = $this->getValidListener($id, $listenerRepo)) {
+        if (!$listener = $this->getValidListener($id, $listenerRepository)) {
             return $this->redirectToRoute('listeners', ['system' => $system]);
         }
         $parameters = [
@@ -52,9 +52,9 @@ class ListenerExportNDBWeblog extends Base
     public function configController(
         $system,
         $id,
-        ListenerRepository $listenerRepo
+        ListenerRepository $listenerRepository
     ) {
-        if (!$listener = $this->getValidListener($id, $listenerRepo)) {
+        if (!$listener = $this->getValidListener($id, $listenerRepository)) {
             return $this->redirectToRoute('listeners', ['system' => $system]);
         }
         $parameters = [
@@ -65,6 +65,7 @@ class ListenerExportNDBWeblog extends Base
         $parameters = array_merge($parameters, $this->parameters);
         $response = $this->render('listener/export/ndbweblog/config.js.twig', $parameters);
         $response->headers->set('Content-Type', 'application/javascript');
+        $response->headers->set('Content-Disposition','attachment;filename=config.js');
         return $response;
     }
 
@@ -81,21 +82,22 @@ class ListenerExportNDBWeblog extends Base
     public function logsController(
         $system,
         $id,
-        ListenerRepository $listenerRepo,
-        LogRepository $logRepo
+        ListenerRepository $listenerRepository,
+        LogRepository $logRepository
     ) {
-        if (!$listener = $this->getValidListener($id, $listenerRepo)) {
+        if (!$listener = $this->getValidListener($id, $listenerRepository)) {
             return $this->redirectToRoute('listeners', ['system' => $system]);
         }
         $parameters = [
             'title' =>              'NDB Weblog logs for '.$listener->getName(),
             'system' =>             $system,
             'listener' =>           $listener,
-            'logs' =>               $logRepo->getLogsForListener($id)
+            'logs' =>               $logRepository->getLogsForListener($id)
         ];
         $parameters = array_merge($parameters, $this->parameters);
         $response = $this->render('listener/export/ndbweblog/logs.js.twig', $parameters);
         $response->headers->set('Content-Type', 'application/javascript');
+        $response->headers->set('Content-Disposition','attachment;filename=logs.js');
         return $response;
     }
 
@@ -112,31 +114,36 @@ class ListenerExportNDBWeblog extends Base
     public function stationsController(
         $system,
         $id,
-        ListenerRepository $listenerRepo,
-        SignalRepository $signalRepo
+        ListenerRepository $listenerRepository
     ) {
-        if (!$listener = $this->getValidListener($id, $listenerRepo)) {
+        if (!$listener = $this->getValidListener($id, $listenerRepository)) {
             return $this->redirectToRoute('listeners', ['system' => $system]);
         }
         $parameters = [
             'title' =>              'NDB Weblog stations for '.$listener->getName(),
             'system' =>             $system,
             'listener' =>           $listener,
-            'signals' =>            $signalRepo->getSignalsForListener($id)
+            'signals' =>            $listenerRepository->getSignalsForListener($id)
         ];
-        $parameters = array_merge($parameters, $this->parameters);
-        $response = $this->render('listener/export/ndbweblog/stations.js.twig', $parameters);
+        $parameters =   array_merge($parameters, $this->parameters);
+        $response =     $this->render('listener/export/ndbweblog/stations.js.twig', $parameters);
         $response->headers->set('Content-Type', 'application/javascript');
+        $response->headers->set('Content-Disposition','attachment;filename=stations.js');
         return $response;
     }
 
-    private function getValidListener($id, $listenerRepo)
+    /**
+     * @param $id
+     * @param $listenerRepository
+     * @return bool
+     */
+    private function getValidListener($id, $listenerRepository)
     {
         if (!(int) $id) {
             $this->session->set('lastError', "Listener cannot be found.");
             return false;
         }
-        $listener = $listenerRepo->find((int) $id);
+        $listener = $listenerRepository->find((int) $id);
         if (!$listener) {
             $this->session->set('lastError', "Listener cannot be found");
             return false;

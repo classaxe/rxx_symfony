@@ -1,0 +1,37 @@
+{% extends 'popup.html.twig' %}
+{% block body %}
+    <div class="main fullwidth">
+        {% set form_class='listener_export' %}
+        {% include 'listener/tabs.html.twig' %}
+        <div class="controlPanel">
+            <div class="header">{{ mode|raw }}</div>
+            <div class="content">
+                {% if (logs > 0) %}
+                    <h2>Export this listener's logs in these formats:</h2><br style="clear:both"/>
+                    <ul>
+                        <li>Raw Text listing showing all {{ logs }} logs.</li>
+                        <li>Text listing showing all {{ logs }} logs.</li>
+                        <li>Text listing showing all {{ signals }} signals.</li>
+                        <li>Google Maps KML format showing all {{ signals }} signals.</li>
+                        <li>Use <a href="{{ url('listener_export_ndbweblog', { 'system' : system, 'id': id }) }}" rel="external" data-popup="nwl_{{ id }}|{{ popupNdbWeblog }}">Hosted version</a> of NDB WebLog for this listener.</li>
+                        <li>Obtain <a href="https://www.classaxe.com/dx/#ndbweblog" rel="external">NDBWebLog</a> files for standalone installations:
+                            <ul>
+                                <li>Download <a href="{{ url('listener_export_ndbweblog_config', { 'system' : system, 'id': id }) }}" rel="external">config.js</a></li>
+                                <li>Download <a href="{{ url('listener_export_ndbweblog_logs', { 'system' : system, 'id': id }) }}" rel="external">log.js</a></li>
+                                <li>Download <a href="{{ url('listener_export_ndbweblog_stations', { 'system' : system, 'id': id }) }}" rel="external">stations.js</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                {% else %}
+                    <h2>Export listener Logs</h2><br style="clear:both"/>
+                    <p>Sorry! This listener hasn't submitted any logs which we can export at this time.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready( function() {
+            setExternalLinks();
+        });
+    </script>
+{% endblock %}
