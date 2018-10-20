@@ -1,6 +1,7 @@
 <?php
-namespace App\Controller\Web;
+namespace App\Controller\Web\Admin;
 
+use App\Controller\Web\Base;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 
 /**

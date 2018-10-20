@@ -1,6 +1,7 @@
 <?php
-namespace App\Controller\Web;
+namespace App\Controller\Web\Listener;
 
+use App\Controller\Web\Base;
 use App\Entity\Listener as ListenerEntity;
 use App\Form\Listener as ListenerForm;
 use App\Repository\ListenerRepository;
@@ -10,9 +11,9 @@ use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Class Listeners
- * @package App\Controller\Web
+ * @package App\Controller\Web\Listener
  */
-class Listener extends Base
+class View extends Base
 {
 
     /**
@@ -24,7 +25,7 @@ class Listener extends Base
      *     name="listener"
      * )
      */
-    public function listenerController(
+    public function viewController(
         $system,
         $id,
         Request $request,

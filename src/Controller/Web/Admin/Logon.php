@@ -1,6 +1,7 @@
 <?php
-namespace App\Controller\Web;
+namespace App\Controller\Web\Admin;
 
+use App\Controller\Web\Base;
 use App\Form\Logon as LogonForm;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;

@@ -1,6 +1,7 @@
 <?php
-namespace App\Controller\Web;
+namespace App\Controller\Web\Listener;
 
+use App\Controller\Web\Base;
 use App\Repository\ListenerRepository;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 
@@ -8,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
  * Class Listeners
  * @package App\Controller\Web
  */
-class ListenerDelete extends Base
+class Delete extends Base
 {
     /**
      * @Route(
@@ -19,15 +20,15 @@ class ListenerDelete extends Base
      *     name="listener_delete"
      * )
      */
-    public function listenerDeleteController(
+    public function deleteController(
         $system,
         $id,
-        ListenerRepository $listenerRepo
+        ListenerRepository $listenerRepository
     ) {
         if (!(int) $id) {
             return $this->redirectToRoute('listeners', ['system' => $system]);
         }
-        $listener = $listenerRepo->find((int) $id);
+        $listener = $listenerRepository->find((int) $id);
         if (!$listener) {
             return $this->redirectToRoute('listeners', ['system' => $system]);
         }

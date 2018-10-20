@@ -1,6 +1,7 @@
 <?php
-namespace App\Controller\Web;
+namespace App\Controller\Web\Listener;
 
+use App\Controller\Web\Base;
 use App\Repository\ListenerRepository;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 
@@ -8,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
  * Class Listeners
  * @package App\Controller\Web
  */
-class ListenerExport extends Base
+class Export extends Base
 {
 
     /**
@@ -20,7 +21,7 @@ class ListenerExport extends Base
      *     name="listener_export"
      * )
      */
-    public function listenerExportController(
+    public function exportController(
         $system,
         $id,
         ListenerRepository $listenerRepository

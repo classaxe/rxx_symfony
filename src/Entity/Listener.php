@@ -913,7 +913,7 @@ class Listener
         if (!$this->countLogs) {
             return '';
         }
-        $popup_url =    "listener/{$this->id}/export/ndbweblog";
+        $popup_url =    "listener/{$this->id}/ndbweblog";
         $popup_name =   "nwl_{$this->id}";
         $popup_args =   "status=1,scrollbars=1,resizable=1";
         return "<a href=\"$popup_url\" rel=\"external\" data-popup=\"{$popup_name}|{$popup_args}\">NWL</a>";
