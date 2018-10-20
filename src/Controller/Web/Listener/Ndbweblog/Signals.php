@@ -37,7 +37,7 @@ class Signals extends Base
         ];
         $parameters =   array_merge($parameters, $this->parameters);
         $response =     $this->render('listener/ndbweblog/stations.js.twig', $parameters);
-        $response->headers->set('Content-Type', 'application/javascript');
+        $response->headers->set('Content-Type', 'application/vnd.google-earth.kml+xml');
         $response->headers->set('Content-Disposition','attachment;filename=stations.js');
         return $response;
     }
