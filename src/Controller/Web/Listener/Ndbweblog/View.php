@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller\Web\Listener\Ndbweblog;
 
+use App\Controller\Web\Listener\Base;
 use App\Repository\ListenerRepository;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 
@@ -34,6 +35,6 @@ class View extends Base
             'system' =>             $system,
         ];
         $parameters = array_merge($parameters, $this->parameters);
-        return $this->render('listener/export/ndbweblog/base.html.twig', $parameters);
+        return $this->render('listener/ndbweblog/index.html.twig', $parameters);
     }
 }

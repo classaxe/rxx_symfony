@@ -18,7 +18,7 @@ class LogRepository extends ServiceEntityRepository
     {
         $qb = $this
             ->createQueryBuilder('l')
-            ->select('l.date, l.time, l.dxKm, l.dxMiles, s.khz, s.call, s.sp, s.itu, s.gsq')
+            ->select('l.date, l.time, l.dxKm, l.dxMiles, s.khz, s.call, s.pwr, s.sp, s.itu, s.gsq, s.qth')
             ->andWhere('l.listenerid = :listenerID')
             ->setParameter('listenerID', $listenerID)
             ->innerJoin('\App\Entity\Signal', 's')

@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller\Web\Listener\Ndbweblog;
 
+use App\Controller\Web\Listener\Base;
 use App\Repository\ListenerRepository;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 
@@ -12,7 +13,7 @@ class Config extends Base
 {
     /**
      * @Route(
-     *     "/{system}/listener/{id}/export/config.js",
+     *     "/{system}/listener/{id}/ndbweblog/config.js",
      *     requirements={
      *        "system": "reu|rna|rww"
      *     },
@@ -34,7 +35,7 @@ class Config extends Base
             'listener' => $listener
         ];
         $parameters = array_merge($parameters, $this->parameters);
-        $response = $this->render('listener/export/ndbweblog/config.js.twig', $parameters);
+        $response = $this->render('listener/ndbweblog/config.js.twig', $parameters);
         $response->headers->set('Content-Type', 'application/javascript');
         $response->headers->set('Content-Disposition','attachment;filename=config.js');
         return $response;

@@ -1,5 +1,5 @@
 <?php
-namespace App\Controller\Web\Listener\Ndbweblog;
+namespace App\Controller\Web\Listener;
 
 use App\Controller\Web\Base as WebBase;
 use App\Repository\ListenerRepository;

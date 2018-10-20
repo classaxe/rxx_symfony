@@ -1,5 +1,5 @@
 <?php
-namespace App\Controller\Web\Listener\Ndbweblog;
+namespace App\Controller\Web\Listener\Export;
 
 use App\Controller\Web\Listener\Base;
 use App\Repository\ListenerRepository;
@@ -8,18 +8,18 @@ use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 
 /**
  * Class Listeners
- * @package App\Controller\Web\Listener\Ndbweblog
+ * @package App\Controller\Web\Listener\Export
  */
 class Logs extends Base
 {
     /**
      * @Route(
-     *     "/{system}/listener/{id}/ndbweblog/logs.js",
+     *     "/{system}/listener/{id}/export/logs",
      *     requirements={
      *        "system": "reu|rna|rww"
      *     },
      *     defaults={"id"=""},
-     *     name="listener_ndbweblog_logs"
+     *     name="listener_export_logs"
      * )
      */
     public function logsController(
@@ -32,15 +32,14 @@ class Logs extends Base
             return $this->redirectToRoute('listeners', ['system' => $system]);
         }
         $parameters = [
-            'title' =>              'NDB Weblog logs for '.$listener->getName(),
+            'title' =>              strToUpper($system).' log for '.$listener->getName()." on ".date('Y-m-d'),
             'system' =>             $system,
             'listener' =>           $listener,
             'logs' =>               $logRepository->getLogsForListener($id)
         ];
         $parameters = array_merge($parameters, $this->parameters);
-        $response = $this->render('listener/ndbweblog/logs.js.twig', $parameters);
-        $response->headers->set('Content-Type', 'application/javascript');
-        $response->headers->set('Content-Disposition','attachment;filename=logs.js');
+        $response = $this->render('listener/export/logs.txt.twig', $parameters);
+        $response->headers->set('Content-Type', 'text/plain');
         return $response;
     }
 }

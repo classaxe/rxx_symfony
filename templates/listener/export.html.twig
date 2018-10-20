@@ -9,10 +9,8 @@
                 {% if (logs > 0) %}
                     <h2>Export this listener's logs in these formats:</h2><br style="clear:both"/>
                     <ul>
-                        <li>Tab-delimited basic listing of all {{ logs }} logs.</li>
-                        <li>Pre-formatted text listing showing all {{ logs }} logs.</li>
-                        <li>Pre-formatted text listing showing all {{ signals }} signals.</li>
-                        <li>Google Maps KML format showing all {{ signals }} signals.</li>
+                        <li><a href="{{ url('listener_export_logs', { 'system' : system, 'id': id }) }}" rel="external">Pre-formatted text listing</a> showing all {{ logs }} logs.</li>
+                        <li><a href="{{ url('listener_export_signals_kml', { 'system' : system, 'id': id }) }}" rel="external">Google Maps KML format</a> showing all {{ signals }} signals.</li>
                         <li>Use <a href="{{ url('listener_ndbweblog', { 'system' : system, 'id': id }) }}" rel="external" data-popup="nwl_{{ id }}|{{ popupNdbWeblog }}">Hosted version</a> of NDB WebLog for this listener.</li>
                         <li>Obtain <a href="https://www.classaxe.com/dx/#ndbweblog" rel="external">NDBWebLog</a> files for standalone installations:
                             <ul>
