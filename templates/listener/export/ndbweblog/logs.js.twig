@@ -16,5 +16,10 @@
 // {{ title|raw }}
 
 {% for log in logs %}
-LOG("{{ 0 + log.khz }}","{{ log.call|raw }}","{{ log.date|date('Ymd') }}","{{ log.time }}","");
+LOG("{{
+    (0 + log.khz) }}","{{
+    log.call|raw }}","{{
+    log.date|date('Ymd') }}","{{
+    log.time
+}}","");
 {% endfor %}

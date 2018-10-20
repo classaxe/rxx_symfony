@@ -1,11 +1,8 @@
 <?php
 namespace App\Controller\Web;
 
-use App\Form\ListenerLogs as ListenerLogsForm;
 use App\Repository\ListenerRepository;
-use App\Repository\TypeRepository;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
-use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Class Listeners

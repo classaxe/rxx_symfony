@@ -3,7 +3,6 @@ namespace App\Controller\Web;
 
 use App\Repository\ListenerRepository;
 use App\Repository\LogRepository;
-use App\Repository\SignalRepository;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 
 /**
