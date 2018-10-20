@@ -13,7 +13,7 @@ class View extends Base
 {
     /**
      * @Route(
-     *     "/{system}/listener/{id}/ndbweblog",
+     *     "/{system}/listeners/{id}/ndbweblog",
      *     requirements={
      *        "system": "reu|rna|rww"
      *     },

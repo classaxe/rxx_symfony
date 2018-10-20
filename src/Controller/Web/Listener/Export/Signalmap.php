@@ -3,41 +3,45 @@ namespace App\Controller\Web\Listener\Export;
 
 use App\Controller\Web\Listener\Base;
 use App\Repository\ListenerRepository;
+use App\Repository\LogRepository;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 
 /**
  * Class Listeners
  * @package App\Controller\Web\Listener\Export
  */
-class Signals extends Base
+class Signalmap extends Base
 {
     /**
      * @Route(
-     *     "/{system}/listeners/{id}/export/signals.kml",
+     *     "/{system}/listeners/{id}/signalmap",
      *     requirements={
      *        "system": "reu|rna|rww"
      *     },
      *     defaults={"id"=""},
-     *     name="listener_export_signals_kml"
+     *     name="listener_export_signalmap"
      * )
      */
-    public function signalsKmlController(
+    public function signalmapController(
         $system,
         $id,
-        ListenerRepository $listenerRepository
+        ListenerRepository $listenerRepository,
+        LogRepository $logRepository
     ) {
         if (!$listener = $this->getValidListener($id, $listenerRepository)) {
             return $this->redirectToRoute('listeners', ['system' => $system]);
         }
         $parameters = [
-            'title' =>              'NDB Weblog stations for '.$listener->getName(),
+            'id' =>                 $id,
+            'lat' =>                $listener->getLat(),
+            'lon' =>                $listener->getLon(),
+            'title' =>              strToUpper($system).' Signals received by '.$listener->getName(),
             'system' =>             $system,
             'listener' =>           $listener,
-            'signals' =>            $listenerRepository->getSignalsForListener($id)
+            'logs' =>               $logRepository->getLogsForListener($id)
         ];
-        $parameters =   array_merge($parameters, $this->parameters);
-        $response =     $this->render('listener/export/signals.txt.twig', $parameters);
-        $response->headers->set('Content-Type', 'application/vnd.google-earth.kml+xml');
+        $parameters = array_merge($parameters, $this->parameters);
+        $response = $this->render('listener/export/signalmap.html.twig', $parameters);
         return $response;
     }
 }

@@ -14,7 +14,7 @@ class Logs extends Base
 {
     /**
      * @Route(
-     *     "/{system}/listener/{id}/export/logs",
+     *     "/{system}/listeners/{id}/export/logs",
      *     requirements={
      *        "system": "reu|rna|rww"
      *     },

@@ -15,4 +15,4 @@ qth_name   = "{{ listener.name|raw }}, {{ listener.qth|raw }}, {% if (listener.s
 qth_email  = "{{ listener.email }}";
 qth_home   = "";
 monthly    = 1;
-utc_offset = {{ listener.timezone }};
+utc_offset = {{ listener.timezone|raw }};

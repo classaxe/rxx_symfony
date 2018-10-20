@@ -13,7 +13,7 @@ class Signals extends Base
 {
     /**
      * @Route(
-     *     "/{system}/listener/{id}/ndbweblog/stations.js",
+     *     "/{system}/listeners/{id}/ndbweblog/stations.js",
      *     requirements={
      *        "system": "reu|rna|rww"
      *     },

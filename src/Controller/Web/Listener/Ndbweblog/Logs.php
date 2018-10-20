@@ -14,7 +14,7 @@ class Logs extends Base
 {
     /**
      * @Route(
-     *     "/{system}/listener/{id}/ndbweblog/logs.js",
+     *     "/{system}/listeners/{id}/ndbweblog/logs.js",
      *     requirements={
      *        "system": "reu|rna|rww"
      *     },

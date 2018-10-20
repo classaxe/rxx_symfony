@@ -13,7 +13,7 @@ class Config extends Base
 {
     /**
      * @Route(
-     *     "/{system}/listener/{id}/ndbweblog/config.js",
+     *     "/{system}/listeners/{id}/ndbweblog/config.js",
      *     requirements={
      *        "system": "reu|rna|rww"
      *     },
