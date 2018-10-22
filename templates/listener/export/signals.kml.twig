@@ -2,6 +2,7 @@
 <kml xmlns="http://www.opengis.net/kml/2.2">
 <Document>
     <name>{{ title }}</name>
+    <description>{{ description }}</description>
 {% for signal in signals %}
     <Placemark>
         <name>{{ signal.call }} {{ (0 + signal.khz) }}KHz</name>

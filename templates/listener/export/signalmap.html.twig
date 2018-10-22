@@ -25,18 +25,12 @@
 
     function initMap() {
         var map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 11,
+            zoom: 6,
             center: {lat: {{ lat }}, lng: {{ lon}} }
         });
 
-        var ctaLayer = new google.maps.KmlLayer({
-            url: 'http://googlemaps.github.io/js-v2-samples/ggeoxml/cta.kml',
-            map: map
-        });
-
         var signalsLayer = new google.maps.KmlLayer({
-            url: 'http://rxx.classaxe.com/rna/listeners/563/export/signals.kml',
-//            url: '{{ app.request.baseUrl }}/{{ system }}/listeners/{{ id }}/export/signals',
+            url: '{{ url('listener_export_signals_kml', { 'system' : system, 'id': id }) }}?v=' + (new Date()).getTime(),
             map: map
         });
 

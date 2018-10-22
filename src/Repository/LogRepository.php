@@ -32,6 +32,9 @@ class LogRepository extends ServiceEntityRepository
                 'ASC'
             );
         $result = $qb->getQuery()->execute();
+        foreach ($result as &$row) {
+            $row['qth'] = str_replace("\"", "\\\"", Rxx::translateChars($row['qth']));
+        }
         return $result;
     }
 }

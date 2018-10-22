@@ -339,6 +339,7 @@ class ListenerRepository extends ServiceEntityRepository
 
         $result = $qb->getQuery()->execute();
         foreach ($result as &$row) {
+            $row['qth'] = str_replace("\"", "\\\"", Rxx::translateChars($row['qth']));
             $row['notes'] = str_replace("\"", "\\\"", Rxx::translateChars($row['notes']));
         }
   //      print Rxx::y($result); die;

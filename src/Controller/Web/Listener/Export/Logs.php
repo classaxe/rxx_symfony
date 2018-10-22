@@ -31,11 +31,13 @@ class Logs extends Base
         if (!$listener = $this->getValidListener($id, $listenerRepository)) {
             return $this->redirectToRoute('listeners', ['system' => $system]);
         }
+        $logs = $logRepository->getLogsForListener($id);
         $parameters = [
-            'title' =>              strToUpper($system).' log for '.$listener->getName()." on ".date('Y-m-d'),
+            'title' =>              strToUpper($system) . ' log for '.$listener->getName() . " on " . date('Y-m-d'),
+            'subtitle' =>           '(' . count($logs) . ' records sorted by Date and Time)',
             'system' =>             $system,
             'listener' =>           $listener,
-            'logs' =>               $logRepository->getLogsForListener($id)
+            'logs' =>               $logs
         ];
         $parameters = array_merge($parameters, $this->parameters);
         $response = $this->render('listener/export/logs.txt.twig', $parameters);
