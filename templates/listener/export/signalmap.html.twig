@@ -27,43 +27,81 @@
 </head>
 <body>
 <h1>{{ title }}</h1>
+{% for type in 0..6 %}
+<label>Layer {{ type }}
+<input type="checkbox" id="layer_{{ type }}" checked="checked" />
+</label>
+{% endfor %}
+<div id="map"></div>
+<div id="status"></div>
 <div id="map"></div>
 <script>
+//<!--
+var layers = [], map, qth, qthInfo;
 
-    function initMap() {
-        var qthLatLng = {lat: {{ lat }}, lng: {{ lon}} };
+function initMap() {
+    var qthLatLng = {lat: {{ lat }}, lng: {{ lon}} };
 
-        var map = new google.maps.Map(document.getElementById('map'), {
-            center: qthLatLng,
-            scaleControl: true,
-            zoomControl: true,
-            zoom: 6,
-        });
+    map = new google.maps.Map(document.getElementById('map'), {
+        center: qthLatLng,
+        scaleControl: true,
+        zoomControl: true,
+        zoom: 6,
+    });
 
-        var qthInfo = new google.maps.InfoWindow({
-            content:
-                "<h2>{{ listener.name|raw }}</h2>" +
-                "<p>{{ listener.qth|raw }}{% if (listener.sp) %}, {{ listener.sp }}{% endif %}, {{ listener.itu }}</p>"
-        });
+    var icon = {
+        url: "http://maps.google.com/mapfiles/kml/pushpin/red-pushpin.png",
+        scaledSize: new google.maps.Size(30, 30),
+        origin: new google.maps.Point(0,0),
+        anchor: new google.maps.Point(0,0)
+    };
 
-        var qth = new google.maps.Marker({
-            position: qthLatLng,
-            map: map,
-            title: "{{ listener.name|raw }}"
-        });
+    qthInfo = new google.maps.InfoWindow({
+        content:
+            "<h2>{{ listener.name|raw }}</h2>" +
+            "<p>{{ listener.qth|raw }}{% if (listener.sp) %}, {{ listener.sp }}{% endif %}, {{ listener.itu }}</p>"
+    });
 
-        qth.addListener('click', function() {
-            qthInfo.open(map, qth);
-        });
+    qth = new google.maps.Marker({
+        position: qthLatLng,
+        map: map,
+        icon: icon,
+        title: "{{ listener.name|raw }}"
+    });
+
+    qth.addListener('click', function() {
+        qthInfo.open(map, qth);
+    });
 
 {% for type in 0..6 %}
-        var signalsLayer{{ type }} = new google.maps.KmlLayer({
-            url: '{{ url('listener_export_signals_kml', { 'system' : system, 'id' : id, 'type' : type }) }}?v=' + (new Date()).getTime(),
-            map: map
-        });
+    layers[{{ type }}] = new google.maps.KmlLayer({
+        url: '{{ url('listener_export_signals_kml', { 'system' : system, 'id' : id, 'type' : type }) }}?v=' + (new Date()).getTime(),
+        map: map
+    });
 {% endfor %}
 
+    function toggleLayers(i) {
+        if (layers[i].getMap() == null) {
+            layers[i].setMap(map);
+        } else {
+            layers[i].setMap(null);
+        }
+        // google.maps.event.addListener(layers[i], 'status_changed', function() {
+        //     document.getElementById('status').innerHTML += "toggleLayers(" + i + ") [setMap(" + layers[i].getMap() + "] returns status: " + layers[i].getStatus() + "<br>";
+        // });
     }
+
+    {% for type in 0..6 %}
+    google.maps.event.addDomListener(document.getElementById('layer_{{ type }}'), 'click', function(evt) {
+        toggleLayers({{ type }});
+    });
+    {% endfor %}
+// toggle layers at the beginning
+    {% for type in 0..6 %}
+//    toggleLayers({{ type }});
+    {% endfor %}
+
+}
 </script>
 <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCmvsfY0bgnVB-gl_nMHGQ71rp1WTz9tGM&callback=initMap">
