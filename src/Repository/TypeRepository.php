@@ -27,6 +27,20 @@ class TypeRepository
         return $out;
     }
 
+    public function getMapIconColorForCodes()
+    {
+        // Format is aabbggrr - alpha, blue, green, red NOT rrggbb as more usually seen
+        $out = static::getColorsForCodes();
+        foreach ($out as $key => &$value) {
+            $value =
+                "00"
+                .substr($value, 4, 2)
+                .substr($value, 2, 2)
+                .substr($value, 0, 2);
+        }
+        return $out;
+    }
+
     public function getTypeForCode($code)
     {
         switch ($code) {
