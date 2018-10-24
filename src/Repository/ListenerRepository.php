@@ -311,8 +311,15 @@ class ListenerRepository extends ServiceEntityRepository
             ->andWhere('l.signalid = s.id')
 
             ->andWhere('li.id = :listenerID')
-            ->setParameter('listenerID', $listenerID)
+            ->setParameter('listenerID', $listenerID);
 
+        if (isset($args['type']) && $args['type'] !== '') {
+            $qb
+                ->andWhere('s.type in(:type)')
+                ->setParameter('type', $args['type']);
+        }
+
+        $qb
             ->groupBy('s.id');
 
         if (isset($args['limit']) && $args['limit'] !== -1 && isset($args['page'])) {

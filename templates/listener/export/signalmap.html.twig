@@ -56,10 +56,12 @@
             qthInfo.open(map, qth);
         });
 
-        var signalsLayer = new google.maps.KmlLayer({
-            url: '{{ url('listener_export_signals_kml', { 'system' : system, 'id': id }) }}?v=' + (new Date()).getTime(),
+{% for type in 0..6 %}
+        var signalsLayer{{ type }} = new google.maps.KmlLayer({
+            url: '{{ url('listener_export_signals_kml', { 'system' : system, 'id' : id, 'type' : type }) }}?v=' + (new Date()).getTime(),
             map: map
         });
+{% endfor %}
 
     }
 </script>

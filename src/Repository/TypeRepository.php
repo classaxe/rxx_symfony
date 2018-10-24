@@ -29,12 +29,11 @@ class TypeRepository
 
     public function getMapIconColorForCodes()
     {
-        // Format is aabbggrr - alpha, blue, green, red NOT rrggbb as more usually seen
+        // Format is bbggrr - alpha, blue, green, red NOT rrggbb as more usually seen
         $out = static::getColorsForCodes();
         foreach ($out as $key => &$value) {
             $value =
-                "ff"
-                .substr($value, 4, 2)
+                 substr($value, 4, 2)
                 .substr($value, 2, 2)
                 .substr($value, 0, 2);
         }
