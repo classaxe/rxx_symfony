@@ -33,7 +33,7 @@ class TypeRepository
         $out = static::getColorsForCodes();
         foreach ($out as $key => &$value) {
             $value =
-                "00"
+                "ff"
                 .substr($value, 4, 2)
                 .substr($value, 2, 2)
                 .substr($value, 0, 2);

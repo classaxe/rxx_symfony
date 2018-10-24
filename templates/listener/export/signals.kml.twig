@@ -21,7 +21,7 @@
 {% endfor %}
 {% for signal in signals %}
     <Placemark>
-        <name>{{ signal.call }} {{ (0 + signal.khz) }}KHz</name>
+        <name>{{ signal.call }} {{ (0 + signal.khz) }}KHz{{ if signal.active != 1 }} (Inactive){{ endif }}</name>
         <description>{{ signal.qth|raw }}, {{ signal.sp ? signal.sp ~ ', ' }}{{ signal.itu }}</description>
         <styleUrl>#type_{{ signal.type }}{% if signal.active != 1 %}_ex{% endif %}</styleUrl>
         <Point><coordinates>{{ signal.lon}},{{ signal.lat }}</coordinates></Point>
