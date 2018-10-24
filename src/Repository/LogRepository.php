@@ -33,7 +33,7 @@ class LogRepository extends ServiceEntityRepository
             );
         $result = $qb->getQuery()->execute();
         foreach ($result as &$row) {
-            $row['qth'] = str_replace("\"", "\\\"", Rxx::translateChars($row['qth']));
+            $row['qth'] = str_replace("\"", "\\\"", html_entity_decode($row['qth']));
         }
         return $result;
     }

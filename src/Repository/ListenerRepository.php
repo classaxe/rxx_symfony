@@ -336,13 +336,11 @@ class ListenerRepository extends ServiceEntityRepository
                     );
             }
         }
-
         $result = $qb->getQuery()->execute();
         foreach ($result as &$row) {
-            $row['qth'] = str_replace("\"", "\\\"", Rxx::translateChars($row['qth']));
-            $row['notes'] = str_replace("\"", "\\\"", Rxx::translateChars($row['notes']));
+            $row['qth'] = str_replace("\"", "\\\"", html_entity_decode($row['qth']));
+            $row['notes'] = str_replace("\"", "\\\"", html_entity_decode($row['notes']));
         }
-  //      print Rxx::y($result); die;
         return $result;
     }
 }
