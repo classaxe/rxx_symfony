@@ -18,23 +18,32 @@ class TypeRepository
         ];
     }
 
+    public function getColorsForCodes()
+    {
+        $out = [];
+        for($i=0; $i<=6; $i++) {
+            $out[$i] = static::getTypeForCode($i)['color'];
+        }
+        return $out;
+    }
+
     public function getTypeForCode($code)
     {
         switch ($code) {
             case 0:
-                return ['class' => 'NDB',       'title' => 'NDB Beacon'];
+                return ['class' => 'NDB',       'color' => 'ffffff',    'title' => 'NDB Beacon'];
             case 1:
-                return ['class' => 'DGPS',      'title' => 'DGPS Station'];
+                return ['class' => 'DGPS',      'color' => '00d8ff',    'title' => 'DGPS Station'];
             case 2:
-                return ['class' => 'TIME',      'title' => 'Time Signal Station'];
+                return ['class' => 'TIME',      'color' => 'ffe0b0',    'title' => 'Time Signal Station'];
             case 3:
-                return ['class' => 'NAVTEX',    'title' => 'NavTex Station'];
+                return ['class' => 'NAVTEX',    'color' => 'ffb8d8',    'title' => 'NavTex Station'];
             case 4:
-                return ['class' => 'HAMBCN',    'title' => 'Amateur Radio Beacon'];
+                return ['class' => 'HAMBCN',    'color' => 'b8ffc0',    'title' => 'Amateur Radio Beacon'];
             case 5:
-                return ['class' => 'OTHER',     'title' => 'Other form of transmission'];
+                return ['class' => 'OTHER',     'color' => 'b8f8ff',    'title' => 'Other form of transmission'];
             case 6:
-                return ['class' => 'DSC',       'title' => 'DSC Station'];
+                return ['class' => 'DSC',       'color' => 'ffb000',    'title' => 'DSC Station'];
             default:
                 return ['class' => '',          'title' => ''];
         }
