@@ -350,4 +350,28 @@ class ListenerRepository extends ServiceEntityRepository
         }
         return $result;
     }
+
+    public function getSignalTypesForListener($listenerID) {
+        $qb = $this
+            ->createQueryBuilder('li')
+            ->select('s.type')
+            ->innerJoin('\App\Entity\Log', 'l')
+            ->andWhere('l.listenerid = li.id')
+
+            ->innerJoin('\App\Entity\Signal', 's')
+            ->andWhere('l.signalid = s.id')
+
+            ->andWhere('li.id = :listenerID')
+            ->setParameter('listenerID', $listenerID)
+
+            ->groupBy('s.type');
+
+        $results = $qb->getQuery()->execute();
+        $out = [];
+        foreach ($results as $result) {
+            $out[$result['type']] = $result['type'];
+        }
+        return $out;
+    }
+
 }

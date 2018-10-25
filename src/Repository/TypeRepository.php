@@ -4,61 +4,52 @@ namespace App\Repository;
 
 class TypeRepository
 {
+    const types = [
+        0 =>    ['bbggrr' => 'ffffff',  'class' => 'NDB',       'color' => 'ffffff',    'label' => 'NDB',      'title' => 'NDB Beacon'],
+        1 =>    ['bbggrr' => 'ffd800',  'class' => 'DGPS',      'color' => '00d8ff',    'label' => 'DGPS',     'title' => 'DGPS Station'],
+        2 =>    ['bbggrr' => 'b0e0ff',  'class' => 'TIME',      'color' => 'ffe0b0',    'label' => 'Time',     'title' => 'Time Signal Station'],
+        3 =>    ['bbggrr' => 'd8b8ff',  'class' => 'NAVTEX',    'color' => 'ffb8d8',    'label' => 'Navtex',   'title' => 'NavTex Station'],
+        4 =>    ['bbggrr' => 'c0ffb8',  'class' => 'HAMBCN',    'color' => 'b8ffc0',    'label' => 'Ham',      'title' => 'Amateur Radio Beacon'],
+        5 =>    ['bbggrr' => 'fff8b8',  'class' => 'OTHER',     'color' => 'b8f8ff',    'label' => 'Other',    'title' => 'Other form of transmission'],
+        6 =>    ['bbggrr' => '00b0ff',  'class' => 'DSC',       'color' => 'ffb000',    'label' => 'DSC',      'title' => 'DSC Station']
+    ];
+
     public function getAll()
     {
-        return [
-            'DGPS' =>   'type_DGPS',
-            'DSC' =>    'type_DSC',
-            'Ham' =>    'type_HAMBCN',
-            'Navtex' => 'type_NAVTEX',
-            'NDB' =>    'type_NDB',
-            'Time' =>   'type_TIME',
-            'Other' =>  'type_OTHER',
-            '(All)' =>  'type_ALL'
-        ];
+        return static::types;
+    }
+
+    public function getAllChoices()
+    {
+        $out = [];
+        foreach (static::types as $key => $type) {
+            $out[$type['label']] = 'type_'.$type['class'];
+        }
+        ksort($out);
+        $out['(All)'] = 'type_ALL';
+        return $out;
     }
 
     public function getColorsForCodes()
     {
         $out = [];
-        for($i=0; $i<=6; $i++) {
-            $out[$i] = static::getTypeForCode($i)['color'];
+        foreach (static::types as $key=>$type) {
+            $out[$key] = $type['color'];
         }
         return $out;
     }
 
     public function getMapIconColorForCodes()
     {
-        // Format is bbggrr - alpha, blue, green, red NOT rrggbb as more usually seen
-        $out = static::getColorsForCodes();
-        foreach ($out as $key => &$value) {
-            $value =
-                 substr($value, 4, 2)
-                .substr($value, 2, 2)
-                .substr($value, 0, 2);
+        $out = [];
+        foreach (static::types as $key=>$type) {
+            $out[$key] = $type['bbggrr'];
         }
         return $out;
     }
 
     public function getTypeForCode($code)
     {
-        switch ($code) {
-            case 0:
-                return ['class' => 'NDB',       'color' => 'ffffff',    'title' => 'NDB Beacon'];
-            case 1:
-                return ['class' => 'DGPS',      'color' => '00d8ff',    'title' => 'DGPS Station'];
-            case 2:
-                return ['class' => 'TIME',      'color' => 'ffe0b0',    'title' => 'Time Signal Station'];
-            case 3:
-                return ['class' => 'NAVTEX',    'color' => 'ffb8d8',    'title' => 'NavTex Station'];
-            case 4:
-                return ['class' => 'HAMBCN',    'color' => 'b8ffc0',    'title' => 'Amateur Radio Beacon'];
-            case 5:
-                return ['class' => 'OTHER',     'color' => 'b8f8ff',    'title' => 'Other form of transmission'];
-            case 6:
-                return ['class' => 'DSC',       'color' => 'ffb000',    'title' => 'DSC Station'];
-            default:
-                return ['class' => '',          'title' => ''];
-        }
+        return static::types[$code];
     }
 }

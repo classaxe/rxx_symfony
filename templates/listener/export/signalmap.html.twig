@@ -1,39 +1,42 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="viewport" content="initial-scale=1.0">
-    <meta charset="utf-8">
-    <title>{{ title }}</title>
-    <style>
-        /* Always set the map height explicitly to define the size of the div
-         * element that contains the map. */
-        #map {
-            height: 92%;
-        }
-        h1 { margin: 0; }
-        /* Optional: Makes the sample page fill the window. */
-        html, body {
-            height: 100%;
-            margin: 0;
-            padding: 0;
-        }
-        .gm-style-iw h2 {
-            margin: 0.25em 0;
-        }
-        .gm-style-iw p {
-            margin: 0.25em 0;
-        }
-    </style>
+<meta name="viewport" content="initial-scale=1.0">
+<meta charset="utf-8">
+<title>{{ title }}</title>
+<link rel="stylesheet" href="{{ asset('css/style.css') }}" />
+<style>
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+    #header {
+        height: 4.5em;
+    }
+    #header #form_types { display: inline-block; border: 1px solid #aaa; margin: 0 5px; border-radius: 4px; }
+    #header #form_types div { float: left; padding: 2px 4px; margin: 0; }
+    #map {
+        height: 80%; overflow: auto; border: 1px solid #aaa;
+    }
+    h1 { margin: 0.125em 5px; white-space: nowrap; }
+    .gm-style-iw h2 {
+        margin: 0.25em 0;
+    }
+    .gm-style-iw p {
+        margin: 0.25em 0;
+    }
+</style>
 </head>
 <body>
-<h1>{{ title }}</h1>
-{% for type in 0..6 %}
-<label>Layer {{ type }}
-<input type="checkbox" id="layer_{{ type }}" checked="checked" />
-</label>
+<div id="header">
+    <h1>{{ title }}</h1>
+    <div id="form_types">
+{% for type,settings in types %}
+    <div class="type_{{ settings.class|lower }}"><label><input type="checkbox" id="layer_{{ type }}" checked="checked" />{{ settings.label }}</label></div>
 {% endfor %}
-<div id="map"></div>
-<div id="status"></div>
+    </div>
+</div>
 <div id="map"></div>
 <script>
 //<!--
@@ -73,7 +76,7 @@ function initMap() {
         qthInfo.open(map, qth);
     });
 
-{% for type in 0..6 %}
+{% for type,settings in types %}
     layers[{{ type }}] = new google.maps.KmlLayer({
         url: '{{ url('listener_export_signals_kml', { 'system' : system, 'id' : id, 'type' : type }) }}?v=' + (new Date()).getTime(),
         map: map
@@ -91,15 +94,11 @@ function initMap() {
         // });
     }
 
-    {% for type in 0..6 %}
+{% for type,settings in types %}
     google.maps.event.addDomListener(document.getElementById('layer_{{ type }}'), 'click', function(evt) {
         toggleLayers({{ type }});
     });
-    {% endfor %}
-// toggle layers at the beginning
-    {% for type in 0..6 %}
-//    toggleLayers({{ type }});
-    {% endfor %}
+{% endfor %}
 
 }
 </script>

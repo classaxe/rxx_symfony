@@ -91,7 +91,7 @@ class Listeners extends AbstractType
                     'label' => 'Show Counts',
                     'expanded' => true,
                     'multiple' => true,
-                    'choices' => $this->type->getAll(),
+                    'choices' => $this->type->getAllChoices(),
                     'choice_attr' => function ($choiceValue, $key, $value) {
                         return ['class' => strToLower($value)];
                     }
