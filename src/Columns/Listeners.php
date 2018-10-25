@@ -256,6 +256,17 @@ class Listeners
                 'th_class'  =>  '',
                 'tooltip'   =>  'NDB Weblog for Listener',
             ],
+            'map' => [
+                'admin'     =>  false,
+                'arg'       =>  '',
+                'field'     =>  'formattedSignalsMapLink',
+                'label'     =>  'Map',
+                'order'     =>  '',
+                'sort'      =>  '',
+                'td_class'  =>  '',
+                'th_class'  =>  '',
+                'tooltip'   =>  'Map showing Signals for Listener',
+            ],
             'mapPos' => [
                 'admin'     =>  true,
                 'arg'       =>  '',

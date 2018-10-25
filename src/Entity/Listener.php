@@ -922,6 +922,18 @@ class Listener
     /**
      * @return null|string
      */
+    public function getFormattedSignalsMapLink(): ?string
+    {
+        if (!$this->countLogs) {
+            return '';
+        }
+        $popup_url =    "listeners/{$this->id}/signalmap";
+        return "<a href=\"$popup_url\" rel=\"external\">Map</a>";
+    }
+
+    /**
+     * @return null|string
+     */
     public function getFormattedRegion(): ?string
     {
         return strtoupper($this->region);
