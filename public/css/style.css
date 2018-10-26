@@ -243,3 +243,25 @@ pre.log { background: #ffffff; border: 1px solid #888; padding: 0 5px; display: 
 #tabsPanel { padding: 0 0 0 20px; }
 #tabsPanel .button { margin: 0; border-radius: 5px 5px 0 0; padding: 0.5em 1em 0.5em 1em; border-bottom: none; }
 #tabsPanel .button.is-active { font-weight: bold; }
+
+/* [ Google Map Pages ] */
+html, body.map {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+body.map #header {
+    height: 4.5em;
+}
+body.map #header #form_layers { display: inline-block; border: 1px solid #aaa; margin: 0 5px; border-radius: 4px; }
+body.map #header #form_layers div { float: left; padding: 2px 4px; margin: 0; }
+body.map #map {
+    height: 80%; overflow: auto; border: 1px solid #aaa;
+}
+body.map h1 { margin: 0.125em 5px; white-space: nowrap; }
+body.map .gm-style-iw h2 {
+    margin: 0.25em 0;
+}
+body.map .gm-style-iw p {
+    margin: 0.25em 0;
+}

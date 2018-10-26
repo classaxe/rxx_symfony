@@ -5,33 +5,15 @@
 <meta charset="utf-8">
 <title>{{ title }}</title>
 <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
-<style>
-    html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-    }
-    #header {
-        height: 4.5em;
-    }
-    #header #form_types { display: inline-block; border: 1px solid #aaa; margin: 0 5px; border-radius: 4px; }
-    #header #form_types div { float: left; padding: 2px 4px; margin: 0; }
-    #map {
-        height: 80%; overflow: auto; border: 1px solid #aaa;
-    }
-    h1 { margin: 0.125em 5px; white-space: nowrap; }
-    .gm-style-iw h2 {
-        margin: 0.25em 0;
-    }
-    .gm-style-iw p {
-        margin: 0.25em 0;
-    }
-</style>
 </head>
-<body>
+<body class="map">
 <div id="header">
     <h1>{{ title }}</h1>
-    <div id="form_types">
+    <div id="form_layers">
+        <div><label><input type="checkbox" id="layer_qth" checked="checked" />QTH</label></div>
+        <div><label><input type="checkbox" id="layer_grid" checked="checked" />Grid</label></div>
+    </div>
+    <div id="form_layers">
 {% for type,settings in types %}
     <div class="type_{{ settings.class|lower }}"><label><input type="checkbox" id="layer_{{ type }}" checked="checked" />{{ settings.label }}</label></div>
 {% endfor %}
@@ -40,24 +22,31 @@
 <div id="map"></div>
 <script>
 //<!--
-var layers = [], map, qth, qthInfo;
+var layers = [], map, qthInfo;
+layers['grid'] = [];
 
 function initMap() {
+    var icon, la, lon;
     var qthLatLng = {lat: {{ lat }}, lng: {{ lon}} };
 
     map = new google.maps.Map(document.getElementById('map'), {
         center: qthLatLng,
         scaleControl: true,
         zoomControl: true,
-        zoom: 6,
+        zoom: 2
     });
 
-    var icon = {
-        url: "http://maps.google.com/mapfiles/kml/pushpin/red-pushpin.png",
-        scaledSize: new google.maps.Size(30, 30),
-        origin: new google.maps.Point(0,0),
-        anchor: new google.maps.Point(0,0)
+    icon = {
+        scaledSize: new google.maps.Size(30,30),
+        url: "http://maps.google.com/mapfiles/kml/pushpin/red-pushpin.png"
     };
+
+    layers['qth'] = new google.maps.Marker({
+        position: qthLatLng,
+        map: map,
+        icon: icon,
+        title: "{{ listener.name|raw }}"
+    });
 
     qthInfo = new google.maps.InfoWindow({
         content:
@@ -65,16 +54,55 @@ function initMap() {
             "<p>{{ listener.qth|raw }}{% if (listener.sp) %}, {{ listener.sp }}{% endif %}, {{ listener.itu }}</p>"
     });
 
-    qth = new google.maps.Marker({
-        position: qthLatLng,
-        map: map,
-        icon: icon,
-        title: "{{ listener.name|raw }}"
+    layers['qth'].addListener('click', function() {
+        qthInfo.open(map, layers['qth']);
     });
 
-    qth.addListener('click', function() {
-        qthInfo.open(map, qth);
-    });
+    function toggleLayers(i) {
+        if (layers[i].getMap() == null) {
+            layers[i].setMap(map);
+        } else {
+            layers[i].setMap(null);
+        }
+    }
+
+    function toggleGrid() {
+        if (layers['grid'][0].getMap() == null) {
+            for(var i in layers['grid']) {
+                layers['grid'][i].setMap(map)
+            }
+        } else {
+            for(var i in layers['grid']) {
+                layers['grid'][i].setMap(null)
+            }
+        }
+    }
+
+    for (la=0; la<180; la+=10) {
+        layers['grid'].push(
+            new google.maps.Polyline({
+                path: [{lat: (la-90), lng: -180}, {lat:(la-90), lng: 0}, {lat: (la-90), lng: 180}],
+                geodesic: false,
+                strokeColor: '#808080',
+                strokeOpacity: 0.5,
+                strokeWeight: 0.5
+            })
+        );
+    }
+    for (lon=0; lon<360; lon+=20) {
+        layers['grid'].push(
+            new google.maps.Polyline({
+                path: [{lat:85.05, lng: lon}, {lat:-85.05, lng: lon}],
+                geodesic: false,
+                strokeColor: '#808080',
+                strokeOpacity: 0.5,
+                strokeWeight: 0.5
+            })
+        );
+    }
+    for(var i in layers['grid']) {
+        layers['grid'][i].setMap(map)
+    }
 
 {% for type,settings in types %}
     layers[{{ type }}] = new google.maps.KmlLayer({
@@ -83,17 +111,13 @@ function initMap() {
     });
 {% endfor %}
 
-    function toggleLayers(i) {
-        if (layers[i].getMap() == null) {
-            layers[i].setMap(map);
-        } else {
-            layers[i].setMap(null);
-        }
-        // google.maps.event.addListener(layers[i], 'status_changed', function() {
-        //     document.getElementById('status').innerHTML += "toggleLayers(" + i + ") [setMap(" + layers[i].getMap() + "] returns status: " + layers[i].getStatus() + "<br>";
-        // });
-    }
 
+    google.maps.event.addDomListener(document.getElementById('layer_grid'), 'click', function(evt) {
+        toggleGrid();
+    });
+    google.maps.event.addDomListener(document.getElementById('layer_qth'), 'click', function(evt) {
+        toggleLayers('qth');
+    });
 {% for type,settings in types %}
     google.maps.event.addDomListener(document.getElementById('layer_{{ type }}'), 'click', function(evt) {
         toggleLayers({{ type }});
