@@ -269,6 +269,7 @@ body.map .gm-style-iw p {
 
 .gridLabel {
     position: absolute;
+    z-index: -100000;
     color: #404040;
     font-weight: bold;
     font-family: Tahoma, Arial, Helvetica, sans-serif;
