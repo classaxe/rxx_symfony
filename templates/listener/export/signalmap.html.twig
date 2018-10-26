@@ -5,166 +5,20 @@
 <meta charset="utf-8">
 <title>{{ title }}</title>
 <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
-    <script>
-        //<![CDATA[
-        var gridColor, gridOpacity, layers = [], map;
-
-        layers['grid'] = [];
-        gridColor="#808080";
-        gridOpacity=0.5;
-
-        function initMap() {
-            var icon, la, lo, qthInfo;
-            var qthLatLng = {lat: {{ lat }}, lng: {{ lon}} };
-
-            // Thanks to Michal, 'UX Lead at Alphero' for this custom text overlay code
-            // Ref: https://stackoverflow.com/a/3955258/815790
-            function TxtOverlay(pos, txt, cls, map) {
-                this.pos = pos;
-                this.txt_ = txt;
-                this.cls_ = cls;
-                this.map_ = map;
-                this.div_ = null;
-                this.setMap(map);
-            };
-
-            TxtOverlay.prototype = new google.maps.OverlayView();
-
-            TxtOverlay.prototype.onAdd = function() {
-                var div = document.createElement('DIV');
-                div.className = this.cls_;
-                div.innerHTML = this.txt_;
-                this.div_ = div;
-                var overlayProjection = this.getProjection();
-                var position = overlayProjection.fromLatLngToDivPixel(this.pos);
-                div.style.left = position.x + 'px';
-                div.style.top = position.y + 'px';
-                var panes = this.getPanes();
-                panes.floatPane.appendChild(div);
-            };
-
-            TxtOverlay.prototype.draw = function() {
-                var overlayProjection = this.getProjection();
-                var position = overlayProjection.fromLatLngToDivPixel(this.pos);
-                var div = this.div_;
-                div.style.left = position.x + 'px';
-                div.style.top = position.y + 'px';
-            };
-
-            TxtOverlay.prototype.onRemove = function() {
-                this.div_.parentNode.removeChild(this.div_);
-                this.div_ = null;
-            };
-
-            map = new google.maps.Map(document.getElementById('map'), {
-                center: qthLatLng,
-                scaleControl: true,
-                zoomControl: true,
-                zoom: 2
-            });
-
-            icon = {
-                scaledSize: new google.maps.Size(30,30),
-                url: "http://maps.google.com/mapfiles/kml/pushpin/red-pushpin.png"
-            };
-
-            layers['qth'] = new google.maps.Marker({
-                position: qthLatLng,
-                map: map,
-                icon: icon,
-                title: "{{ listener.name|raw }}"
-            });
-
-            qthInfo = new google.maps.InfoWindow({
-                content:
-                    "<h2>{{ listener.name|raw }}</h2>" +
-                    "<p>{{ listener.qth|raw }}{% if (listener.sp) %}, {{ listener.sp }}{% endif %}, {{ listener.itu }}</p>"
-            });
-
-            layers['qth'].addListener('click', function() {
-                qthInfo.open(map, layers['qth']);
-            });
-
-            for (la=0; la<180; la+=10) {
-                layers['grid'].push(
-                    new google.maps.Polyline({
-                        path: [{lat: (la-90), lng: -180}, {lat:(la-90), lng: 0}, {lat: (la-90), lng: 180}],
-                        geodesic: false,
-                        strokeColor: gridColor,
-                        strokeOpacity: gridOpacity,
-                        strokeWeight: 0.5
-                    })
-                );
-            }
-            for (lo=0; lo<360; lo+=20) {
-                layers['grid'].push(
-                    new google.maps.Polyline({
-                        path: [{lat:85.05, lng: lo}, {lat:-85.05, lng: lo}],
-                        geodesic: false,
-                        strokeColor: gridColor,
-                        strokeOpacity: gridOpacity,
-                        strokeWeight: 0.5
-                    })
-                );
-            }
-            for (la=10; la<170; la+=10) {
-                for (lo = 0; lo < 360; lo += 20) {
-                    layers['grid'].push(
-                        txt = new TxtOverlay(
-                            new google.maps.LatLng(la -90 +5,lo -180 + 10),
-                            String.fromCharCode((lo/20) +65) + String.fromCharCode((la/10) +65),
-                            "gridLabel",
-                            map
-                        )
-                    );
-                }
-            }
-            for(var i in layers['grid']) {
-                layers['grid'][i].setMap(map)
-            }
-
-            {% for type,settings in types %}
-            layers[{{ type }}] = new google.maps.KmlLayer({
-                url: '{{ url('listener_export_signals_kml', { 'system' : system, 'id' : id, 'type' : type }) }}?v=' + (new Date()).getTime(),
-                map: map
-            });
-            {% endfor %}
-
-            function toggleLayer(i) {
-                if (layers[i].getMap() == null) {
-                    layers[i].setMap(map);
-                } else {
-                    layers[i].setMap(null);
-                }
-            }
-
-            function toggleGrid() {
-                if (layers['grid'][0].getMap() == null) {
-                    for(var i in layers['grid']) {
-                        layers['grid'][i].setMap(map)
-                    }
-                } else {
-                    for(var i in layers['grid']) {
-                        layers['grid'][i].setMap(null)
-                    }
-                }
-            }
-
-            google.maps.event.addDomListener(document.getElementById('layer_grid'), 'click', function(evt) {
-                toggleGrid();
-            });
-            google.maps.event.addDomListener(document.getElementById('layer_qth'), 'click', function(evt) {
-                toggleLayer('qth');
-            });
-            {% for type,settings in types %}
-            google.maps.event.addDomListener(document.getElementById('layer_{{ type }}'), 'click', function(evt) {
-                toggleLayer({{ type }});
-            });
-            {% endfor %}
-
-        }
-        //]]>
-    </script>
+<script src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>
+<script src="{{ asset('js/functions.js') }}"></script>
+<script>
+//<![CDATA[
+var listener = {
+    source: '{{ url('listener_export_signals_kml', { 'system' : system, 'id' : id }) }}',
+    lat: {{ lat }},
+    lng: {{ lon }},
+    name: "{{ listener.name }}",
+    qth: "{{ listener.qth }}{% if (listener.sp) %}, {{ listener.sp }}{% endif %}, {{ listener.itu }}",
+    types: [{{ types|keys|join(',') }}]
+}
+//]]>
+</script>
 </head>
 <body class="map">
 <div id="header">
@@ -190,8 +44,6 @@
 <div class="footer" id="footer">
     <p class="copyright"><strong>&copy;{{ "now"|date("Y") }} Martin Francis, showing data submitted to {{ system|upper }}</strong></p>
 </div>
-<script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCmvsfY0bgnVB-gl_nMHGQ71rp1WTz9tGM&callback=initMap">
-</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCmvsfY0bgnVB-gl_nMHGQ71rp1WTz9tGM&callback=initListenerSignalsMap"></script>
 </body>
 </html>
