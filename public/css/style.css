@@ -249,12 +249,13 @@ html, body.map {
     height: 100%;
     margin: 0;
     padding: 0;
+    background: #f0f0f0;
 }
 body.map #header {
     height: 4.5em;
 }
-body.map #header #form_layers { display: inline-block; border: 1px solid #aaa; margin: 0 5px; border-radius: 4px; }
-body.map #header #form_layers div { float: left; padding: 2px 4px; margin: 0; }
+body.map #header .form_layers { display: inline-block; background: #ffffff; border: 1px solid #aaa; margin: 0 5px; border-radius: 4px; }
+body.map #header .form_layers div { float: left; padding: 2px 4px; margin: 0; }
 body.map #map {
     height: 80%; overflow: auto; border: 1px solid #aaa;
 }
@@ -264,4 +265,12 @@ body.map .gm-style-iw h2 {
 }
 body.map .gm-style-iw p {
     margin: 0.25em 0;
+}
+
+.gridLabel {
+    position: absolute;
+    color: #404040;
+    font-weight: bold;
+    font-family: Tahoma, Arial, Helvetica, sans-serif;
+    opacity: 0.9;
 }
