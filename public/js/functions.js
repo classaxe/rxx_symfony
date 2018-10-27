@@ -348,6 +348,14 @@ function initListenerSignalsMap() {
         }
     }
 
+    function toggleQth() {
+        if (layers['qth'].getMap() == null) {
+            layers['qth'].setMap(map);
+        } else {
+            layers['qth'].setMap(null);
+        }
+    }
+
     function toggleGrid() {
         if (layers['grid'][0].getMap() == null) {
             for(var i in layers['grid']) {
@@ -366,7 +374,7 @@ function initListenerSignalsMap() {
         toggleInactive();
     });
     google.maps.event.addDomListener(document.getElementById('layer_qth'), 'click', function(evt) {
-        toggleLayer('qth');
+        toggleQth();
     });
     listener.types.forEach(function(type){
         google.maps.event.addDomListener(document.getElementById('layer_' + type), 'click', function (evt) {
