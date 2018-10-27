@@ -190,7 +190,6 @@ function setPagingActions() {
     );
 }
 
-//<![CDATA[
 var gridColor, gridOpacity, layers = [], map;
 
 layers['grid'] = [];
@@ -198,7 +197,7 @@ gridColor="#808080";
 gridOpacity=0.5;
 
 function initListenerSignalsMap() {
-    var icon, la, lo, qthInfo, qthLatLng, type;
+    var icon, la, lo, qthInfo, signalType, type;
 
     // Thanks to Michal, 'UX Lead at Alphero' for this custom text overlay code
     // Ref: https://stackoverflow.com/a/3955258/815790
@@ -239,10 +238,8 @@ function initListenerSignalsMap() {
         this.div_ = null;
     };
 
-    qthLatLng = { lat: listener.lat, lng: listener.lng };
-
     map = new google.maps.Map(document.getElementById('map'), {
-        center: qthLatLng,
+        center: { lat: listener.lat, lng: listener.lng },
         scaleControl: true,
         zoomControl: true,
         zoom: 2
@@ -250,11 +247,11 @@ function initListenerSignalsMap() {
 
     icon = {
         scaledSize: new google.maps.Size(30,30),
-        url: "http://maps.google.com/mapfiles/kml/pushpin/red-pushpin.png"
+        url: "//maps.google.com/mapfiles/kml/pushpin/red-pushpin.png"
     };
 
     layers['qth'] = new google.maps.Marker({
-        position: qthLatLng,
+        position: { lat: listener.lat, lng: listener.lng },
         map: map,
         icon: icon,
         title: listener.name
@@ -270,6 +267,7 @@ function initListenerSignalsMap() {
         qthInfo.open(map, layers['qth']);
     });
 
+    // Grid overlay
     for (la=0; la<180; la+=10) {
         layers['grid'].push(
             new google.maps.Polyline({
@@ -308,18 +306,45 @@ function initListenerSignalsMap() {
         layers['grid'][i].setMap(map)
     }
 
+    // Signal Types overlays
     for (type in listener.types) {
-        layers[type] = new google.maps.KmlLayer({
-            url: listener.source + '/' + type + '?v=' + (new Date()).getTime(),
+        signalType = listener.types[type]
+        layers[signalType + '_0'] = new google.maps.KmlLayer({
+            url: listener.source + '/' + signalType + '/0?v=a' + listener.logLatest,
+            preserveViewport: true,
+            map: map
+        });
+        layers[signalType + '_1'] = new google.maps.KmlLayer({
+            url: listener.source + '/' + signalType + '/1?v=a' + listener.logLatest,
+            preserveViewport: true,
             map: map
         });
     }
 
-    function toggleLayer(i) {
-        if (layers[i].getMap() == null) {
-            layers[i].setMap(map);
+    function toggleInactive() {
+        for (type in listener.types) {
+            signalType = listener.types[type]
+            if (document.getElementById('layer_' + signalType).checked) {
+                if (document.getElementById('layer_inactive').checked) {
+                    layers[signalType + '_0'].setMap(map);
+                } else {
+                    layers[signalType + '_0'].setMap(null);
+                }
+            }
+        }
+    }
+
+    function toggleLayer(type) {
+        if (layers[type + '_1'].getMap() == null) {
+            layers[type + '_1'].setMap(map);
+            if (document.getElementById('layer_inactive').checked) {
+                layers[type + '_0'].setMap(map);
+            }
         } else {
-            layers[i].setMap(null);
+            if (!document.getElementById('layer_inactive').checked) {
+                layers[type + '_0'].setMap(null);
+            }
+            layers[type + '_1'].setMap(null);
         }
     }
 
@@ -336,6 +361,9 @@ function initListenerSignalsMap() {
     }
     google.maps.event.addDomListener(document.getElementById('layer_grid'), 'click', function(evt) {
         toggleGrid();
+    });
+    google.maps.event.addDomListener(document.getElementById('layer_inactive'), 'click', function(evt) {
+        toggleInactive();
     });
     google.maps.event.addDomListener(document.getElementById('layer_qth'), 'click', function(evt) {
         toggleLayer('qth');
