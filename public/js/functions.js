@@ -323,7 +323,7 @@ function initListenerSignalsMap() {
 
     function toggleInactive() {
         for (type in listener.types) {
-            signalType = listener.types[type]
+            signalType = listener.types[type];
             if (document.getElementById('layer_' + signalType).checked) {
                 if (document.getElementById('layer_inactive').checked) {
                     layers[signalType + '_0'].setMap(map);
@@ -339,11 +339,11 @@ function initListenerSignalsMap() {
             layers[type + '_1'].setMap(map);
             if (document.getElementById('layer_inactive').checked) {
                 layers[type + '_0'].setMap(map);
-            }
-        } else {
-            if (!document.getElementById('layer_inactive').checked) {
+            } else {
                 layers[type + '_0'].setMap(null);
             }
+        } else {
+            layers[type + '_0'].setMap(null);
             layers[type + '_1'].setMap(null);
         }
     }
