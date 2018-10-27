@@ -41,8 +41,6 @@ class Signalmap extends Base
         uasort($listenerSignalTypes, array('self', 'sortSignalTypesByLabel'));
         $parameters = [
             'id' =>                 $id,
-            'lat' =>                $listener->getLat(),
-            'lon' =>                $listener->getLon(),
             'title' =>              strToUpper($system).' Signals received by '.$listener->getName(),
             'types' =>              $listenerSignalTypes,
             'system' =>             $system,
