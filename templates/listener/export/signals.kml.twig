@@ -4,7 +4,8 @@
     <name>{{ title }}</name>
     <description>{{ description }}</description>
 {% for type,settings in types %}
-{% if filter == null or type in (filter.type) %}
+{% if (filter == null or filter.type is not defined or filter.type == '*' or type in (filter.type)) %}
+{% if (filter == null or filter.active is not defined or filter.active == '*' or filter.active =='1') %}
     <Style id="type_{{ type }}">
         <IconStyle>
             <scale>0.5</scale>
@@ -12,6 +13,8 @@
             <Icon><href>http://maps.google.com/mapfiles/kml/paddle/wht-circle.png</href></Icon>
         </IconStyle>
     </Style>
+{% endif %}
+{% if (filter == null or filter.active is not defined or filter.active =='0') %}
     <Style id="type_{{ type }}_ex">
         <IconStyle>
             <scale>0.5</scale>
@@ -20,14 +23,15 @@
         </IconStyle>
     </Style>
 {% endif %}
+{% endif %}
 {% endfor %}
-{% for signal in signals %}
+{% for signal in signals %}{% if (signal.lat != 0 and signal.lat !=0) %}
     <Placemark>
         <name>{{ signal.call }} {{ (0 + signal.khz) }}KHz{% if signal.active != 1 %} (Inactive){% endif %}</name>
         <description>{{ signal.qth|raw }}, {{ signal.sp ? signal.sp ~ ', ' }}{{ signal.itu }}</description>
         <styleUrl>#type_{{ signal.type }}{% if signal.active != 1 %}_ex{% endif %}</styleUrl>
         <Point><coordinates>{{ signal.lon}},{{ signal.lat }}</coordinates></Point>
     </Placemark>
-{% endfor %}
+{% endif %}{% endfor %}
 </Document>
 </kml>

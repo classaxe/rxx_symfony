@@ -319,6 +319,12 @@ class ListenerRepository extends ServiceEntityRepository
                 ->setParameter('type', $args['type']);
         }
 
+        if (isset($args['active']) && $args['active'] !== '') {
+            $qb
+                ->andWhere('s.active = :active')
+                ->setParameter('active', $args['active']);
+        }
+
         $qb
             ->groupBy('s.id');
 
