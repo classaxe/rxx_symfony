@@ -17,7 +17,7 @@ class ListenerRepository extends ServiceEntityRepository
         ['listener_signals', 'Signals (%%signals%%)'],
         ['listener_logs', 'Logs (%%logs%%)'],
         ['listener_export', 'Export'],
-//        ['listener_weather', 'Weather'],
+        ['listener_weather', 'Weather'],
 //        ['listener_stats', 'stats']
     ];
 
