@@ -49,9 +49,16 @@ class SignalsKml extends Base
             'types' =>              $typeRepository->getAll()
         ];
         $parameters =   array_merge($parameters, $this->parameters);
+        $filename =
+             "signals_"
+            .$id
+            .($type !== '*' ? "_type_".str_replace(',','_', $type) : '')
+            .($active !== '*' ? "_".($active ? "active" : "inactive") : "")
+            .".kml";
         $response =     $this->render('listener/export/signals.kml.twig', $parameters);
-//        $response->headers->set('Content-Type', 'text/plain');
+        $response->headers->set('Content-Disposition',"attachment;filename={$filename}");
         $response->headers->set('Content-Type', 'application/vnd.google-earth.kml+xml');
+//        $response->headers->set('Content-Type', 'text/plain');
         return $response;
     }
 }

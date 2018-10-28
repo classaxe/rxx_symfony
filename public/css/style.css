@@ -252,12 +252,12 @@ html, body.map {
     background: #f0f0f0;
 }
 body.map #header {
-    height: 4.5em;
+    min-height: 4.5em;
 }
 body.map #header .form_layers { display: inline-block; background: #ffffff; border: 1px solid #aaa; margin: 0 5px; border-radius: 4px; }
 body.map #header .form_layers div { float: left; padding: 2px 4px; margin: 0; }
 body.map #map {
-    height: 80%; overflow: auto; border: 1px solid #aaa;
+    height: 80%; margin: 0 0.25em; overflow: auto; border: 1px solid #aaa;
 }
 body.map h1 { margin: 0.125em 5px; white-space: nowrap; }
 body.map .gm-style-iw h2 {
