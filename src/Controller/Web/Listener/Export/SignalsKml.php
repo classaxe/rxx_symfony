@@ -30,7 +30,7 @@ class SignalsKml extends Base
         ListenerRepository $listenerRepository,
         TypeRepository $typeRepository
     ) {
-        if (!$listener = $this->getValidListener($id, $listenerRepository)) {
+        if (!$listener = $this->getValidReportingListener($id, $listenerRepository)) {
             return $this->redirectToRoute('listeners', ['system' => $system]);
         }
         $filter =                   [];

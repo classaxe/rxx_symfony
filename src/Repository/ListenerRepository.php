@@ -57,13 +57,27 @@ class ListenerRepository extends ServiceEntityRepository
         if (!$listener) {
             return [];
         }
+        $logs =     $listener->getCountLogs();
+        $signals =  $listener->getCountSignals();
         $out = [];
-        foreach ($this->tabs as $route => $label) {
-            $out[$route] = str_replace(
-                ['%%signals%%', '%%logs%%'],
-                [$listener->getCountSignals(), $listener->getCountLogs()],
-                $label
-            );
+        foreach ($this->tabs as $idx => $data) {
+            $route = $data[0];
+            switch ($route) {
+                case "listener_export":
+                case "listener_logs":
+                case "listener_signals":
+                    if ($logs) {
+                        $out[] = str_replace(
+                            ['%%logs%%', '%%signals%%'],
+                            [$logs, $signals],
+                            $data
+                        );
+                    }
+                    break;
+                default:
+                    $out[] = $data;
+                    break;
+            }
         }
         return $out;
     }
@@ -219,7 +233,7 @@ class ListenerRepository extends ServiceEntityRepository
     public function getLogsForListener($listenerID, array $args)
     {
         $columns =
-             'trim(l.date) as logDate,'
+            'trim(l.date) as logDate,'
             .'trim(l.time) as logTime,'
             .'s.id,'
             .'trim(s.khz)+0 as khz,'

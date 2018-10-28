@@ -26,7 +26,7 @@ class Config extends Base
         $id,
         ListenerRepository $listenerRepository
     ) {
-        if (!$listener = $this->getValidListener($id, $listenerRepository)) {
+        if (!$listener = $this->getValidReportingListener($id, $listenerRepository)) {
             return $this->redirectToRoute('listeners', ['system' => $system]);
         }
         $parameters = [

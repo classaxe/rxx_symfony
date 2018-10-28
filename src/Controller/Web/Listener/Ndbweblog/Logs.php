@@ -28,7 +28,7 @@ class Logs extends Base
         ListenerRepository $listenerRepository,
         LogRepository $logRepository
     ) {
-        if (!$listener = $this->getValidListener($id, $listenerRepository)) {
+        if (!$listener = $this->getValidReportingListener($id, $listenerRepository)) {
             return $this->redirectToRoute('listeners', ['system' => $system]);
         }
         $parameters = [

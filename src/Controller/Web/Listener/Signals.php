@@ -1,7 +1,7 @@
 <?php
 namespace App\Controller\Web\Listener;
 
-use App\Controller\Web\Base;
+use App\Controller\Web\Listener\Base;
 use App\Form\ListenerSignals as ListenerSignalsForm;
 use App\Repository\ListenerRepository;
 use App\Repository\TypeRepository;
@@ -36,8 +36,7 @@ class Signals extends Base
         $maxNoPaging =      100;
 
         if ((int) $id) {
-            $listener = $listenerRepository->find((int)$id);
-            if (!$listener) {
+            if (!$listener = $this->getValidReportingListener($id, $listenerRepository)) {
                 return $this->redirectToRoute('listeners', ['system' => $system]);
             }
         }

@@ -1,7 +1,7 @@
 <?php
 namespace App\Controller\Web\Listener;
 
-use App\Controller\Web\Base;
+use App\Controller\Web\Listener\Base;
 use App\Form\ListenerLogs as ListenerLogsForm;
 use App\Repository\ListenerRepository;
 use App\Repository\TypeRepository;
@@ -35,11 +35,8 @@ class Logs extends Base
         $defaultlimit =     100;
         $maxNoPaging =      100;
 
-        if ((int) $id) {
-            $listener = $listenerRepository->find((int)$id);
-            if (!$listener) {
-                return $this->redirectToRoute('listeners', ['system' => $system]);
-            }
+        if (!$listener = $this->getValidReportingListener($id, $listenerRepository)) {
+            return $this->redirectToRoute('listeners', ['system' => $system]);
         }
 
         $options = [

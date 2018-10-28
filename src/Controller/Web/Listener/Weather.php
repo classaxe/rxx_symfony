@@ -60,9 +60,7 @@ class Weather extends Base
             if ((int)$id) {
                 $listener = $listenerRepository->find($id);
             } else {
-                $listener = new ListenerEntity();
-                $listener
-                    ->setLogLatest(\App\Utils\Rxx::getUtcDateTime('0000-00-00'));
+                return $this->redirectToRoute('listeners', ['system' => $system]);
             }
             $listener
                 ->setCallsign($form_data['callsign'])

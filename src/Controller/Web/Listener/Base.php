@@ -23,13 +23,25 @@ class Base extends WebBase
             $this->session->set('lastError', "Listener cannot be found.");
             return false;
         }
-        $listener = $listenerRepository->find((int) $id);
-        if (!$listener) {
-            $this->session->set('lastError', "Listener cannot be found");
+        if (!$listener = $listenerRepository->find((int) $id)) {
+            $this->session->set('lastError', "Listener ".((int) $id)." cannot be found");
+            return false;
+        }
+        return $listener;
+    }
+
+    /**
+     * @param $id
+     * @param $listenerRepository
+     * @return bool
+     */
+    protected function getValidReportingListener($id, $listenerRepository)
+    {
+        if (!$listener = $this->getValidListener($id, $listenerRepository)) {
             return false;
         }
         if (!$listener->getCountLogs()) {
-            $this->session->set('lastError', "Listener <strong>".$listener->getName()."</strong> has no logs to view.");
+            $this->session->set('lastError', "Listener <strong>".$listener->getName()."</strong> has submitted no logs.");
             return false;
         }
         return $listener;

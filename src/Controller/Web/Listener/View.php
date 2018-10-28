@@ -1,7 +1,7 @@
 <?php
 namespace App\Controller\Web\Listener;
 
-use App\Controller\Web\Base;
+use App\Controller\Web\Listener\Base;
 use App\Entity\Listener as ListenerEntity;
 use App\Form\Listener as ListenerForm;
 use App\Repository\ListenerRepository;
@@ -33,8 +33,7 @@ class View extends Base
         ListenerRepository $listenerRepository
     ) {
         if ($id !== 'new' && (int) $id) {
-            $listener = $listenerRepository->find((int)$id);
-            if (!$listener) {
+            if (!$listener = $this->getValidListener($id, $listenerRepository)) {
                 return $this->redirectToRoute('listeners', ['system' => $system]);
             }
         } else {
