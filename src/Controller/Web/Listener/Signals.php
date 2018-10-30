@@ -32,8 +32,8 @@ class Signals extends Base
         ListenerRepository $listenerRepository,
         TypeRepository $typeRepository
     ) {
-        $defaultlimit =     100;
-        $maxNoPaging =      100;
+        $defaultlimit =     20;
+        $maxNoPaging =      20;
 
         if ((int) $id) {
             if (!$listener = $this->getValidReportingListener($id, $listenerRepository)) {

@@ -18,7 +18,7 @@ class ListenerRepository extends ServiceEntityRepository
         ['listener_logs', 'Logs (%%logs%%)'],
         ['listener_export', 'Export'],
         ['listener_weather', 'Weather'],
-//        ['listener_stats', 'stats']
+        ['listener_stats', 'Stats']
     ];
 
     private $listenersColumns;
@@ -393,5 +393,4 @@ class ListenerRepository extends ServiceEntityRepository
         }
         return $out;
     }
-
 }

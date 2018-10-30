@@ -78,7 +78,7 @@ class Weather extends Base
                     "----------------------\n"
                     . "(Weather via ".strToUpper($system).")";
             } else {
-                $weather[] = "(No data available from ".$form_data['icao']." for the last ".$form_data['hours']." hours)";
+                $weather[] = "(No data available from station ".$form_data['icao']." for the last ".$form_data['hours']." hours)";
             }
         }
 

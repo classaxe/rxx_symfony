@@ -38,7 +38,7 @@ class Signalmap extends Base
         foreach ($listenerRepository->getSignalTypesForListener($id) as $type) {
             $listenerSignalTypes[$type] = $typeRepository->getTypeForCode($type);
         }
-        uasort($listenerSignalTypes, array('self', 'sortSignalTypesByLabel'));
+        uasort($listenerSignalTypes, array($typeRepository, 'sortByOrder'));
         $parameters = [
             'id' =>                 $id,
             'title' =>              strToUpper($system).' Signals received by '.$listener->getName(),
@@ -50,12 +50,5 @@ class Signalmap extends Base
         $parameters = array_merge($parameters, $this->parameters);
         $response = $this->render('listener/export/signalmap.html.twig', $parameters);
         return $response;
-    }
-
-    public static function sortSignalTypesByLabel($a, $b) {
-        if ($a['label'] == $b['label']) {
-            return 0;
-        }
-        return ($a['label'] < $b['label']) ? -1 : 1;
     }
 }

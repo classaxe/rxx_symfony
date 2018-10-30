@@ -1,0 +1,33 @@
+{% extends 'popup.html.twig' %}
+{% block body %}
+<div class="main fullwidth">
+{% set form_class='listener_stats' %}
+{% include 'listener/tabs.html.twig' %}
+    <div class="controlPanel {{ form_class }}">
+        <div class="header">{{ mode|raw }}</div>
+        <div class="content">
+            <h2>Signal Statistics</h2><br class="clear" />
+            <div class="stats clearfix">
+            {% for type,data in typeRepository.all %}
+                {% set idx = "count" ~ data.class|capitalize %}
+                <div class="signal_stat ">
+                    <label class="type_{{ data.class|lower }}">{{ data.title }}{{ data.class != 'OTHER' ? 's' : '' }}:</label>
+                    <div>{{ attribute(listener, idx)|number_format }}</div>
+                </div><br class="clear" />
+            {% endfor %}
+                <div class="signal_stat">
+                    <label class="type_all">Total Signals:</label>
+                    <div>{{ listener.countSignals|number_format  }}</div>
+                </div><br class="clear" />
+            </div>
+            <h2>Log Statistics</h2><br class="clear" />
+            <div class="stats clearfix">
+                <div class="signal_stat">
+                    <label class="type_all">Total Logs:</label>
+                    <div>{{ listener.countLogs|number_format  }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

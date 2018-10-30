@@ -32,8 +32,8 @@ class Logs extends Base
         ListenerRepository $listenerRepository,
         TypeRepository $typeRepository
     ) {
-        $defaultlimit =     100;
-        $maxNoPaging =      100;
+        $defaultlimit =     20;
+        $maxNoPaging =      20;
 
         if (!$listener = $this->getValidReportingListener($id, $listenerRepository)) {
             return $this->redirectToRoute('listeners', ['system' => $system]);

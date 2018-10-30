@@ -166,11 +166,21 @@ pre { border: 1px dashed #ccc; background: #eee; padding: 0.25em 1em !important;
 .listener_edit #form textarea,
 .listener_edit #form select { width: 75%; padding: 0.125em 0.25em; margin: 0 0 0.25em 0 }
 
+/* [ Form listener_signals ] */
+.listener_signals .results thead tr th {
+    height: 3em !important;
+}
+
+/* [ Form listener_logs ] */
+.listener_logs .results thead tr th {
+    height: 3em !important;
+}
+
 /* [ Form listener_weather ] */
 .listener_weather #form div { display: inline-block; }
 .listener_weather #form_icao { width: 20em; font-size: 10pt; font-family: 'Courier New', monospace; font-weight: bold; }
 .listener_weather #form_hours { width: 3.5em; text-align: right; }
-.listener_weather #weather { height: 15em; font-size: 10pt; font-family: 'Courier New', monospace; }
+.listener_weather #weather { height: 25em; font-size: 10pt; font-family: 'Courier New', monospace; }
 .listener_weather #form div button { width: 8.5em; }
 
 fieldset#group_weather_report_details div * {
@@ -179,6 +189,11 @@ fieldset#group_weather_report_details div * {
 fieldset#group_weather_report_details div label {
     width: auto; line-height: unset; margin: 0 0.5em;
 }
+/* [ Listener Stats ] */
+.listener_stats div.stats { clear: both; border: 1px solid #ccc; background: #ffffff; padding: 0.25em 0.25em 0 0.25em; margin: 0.25em 0; width: 18em; }
+.listener_stats div.signal_stat { margin: 0; padding: 0; display: inline-block; width: 20em; line-height: initial; }
+.listener_stats div.signal_stat label { font-weight: bold; width: 15em; margin: 0; padding: 0.25em; border: 1px solid #ccc; float: left; line-height: initial; }
+.listener_stats div.signal_stat div  { display: inline-block; float: left; margin: 0 0.25em; padding: 0.25em; width: 4em; text-align: right; line-height: initial;}
 
 /* [ Form logon ] */
 .logon #form input[type='text'],
@@ -210,7 +225,7 @@ button.tiny { font-size: 0.4rem !important; line-height: 0.6em; }
 .type_hambcn  , tr.hambcn   td { background-color: #b8ffc0 !important; }
 .type_other   , tr.other    td { background-color: #b8f8ff !important; }
 
-.type_all                      { background-color: #ff0000; }
+.type_all                      { background-color: #ff0000; color: #ffffff; }
 .type_all label                { color: #fff; font-style:italic; font-weight: bold !important; }
 
 /* [ Grid CSS } */
