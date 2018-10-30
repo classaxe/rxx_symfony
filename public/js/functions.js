@@ -400,6 +400,17 @@ function initMapsShowGrid() {
             layers['grid'][i].setMap(map);
         }
     }
-
     return showGrid;
+}
+
+function getMetar(decoded) {
+    window.open('https://www.aviationweather.gov/metar/data' +
+        '?ids='+$('#form_icao').val() +
+        '&format=' +(decoded ? 'decoded' : 'raw') +
+        '&taf=on' +
+        '&layout=off' +
+        '&hours='+$('#form_hours').val(),
+        'popMETAR'+decoded,
+        'scrollbars=1,resizable=1,location=1'
+    );
 }

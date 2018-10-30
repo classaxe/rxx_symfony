@@ -12,6 +12,31 @@ use Symfony\Component\HttpFoundation\Response;
 
 class Rxx
 {
+    public static function convertGsqToDegrees($GSQ)
+    {
+        $GSQ =      strToUpper($GSQ);
+        $offset =   (strlen($GSQ)==6 ? 1/48 : 0);
+
+        if (strlen($GSQ) == 4) {
+            $GSQ = $GSQ."MM";
+        }
+        if (!preg_match('/[a-rA-R][a-rA-R][0-9][0-9][a-xA-X][a-xA-X]/i', $GSQ)) {
+            return false;
+        }
+        $lon_d = ord(substr($GSQ, 0, 1))-65;
+        $lon_m = substr($GSQ, 2, 1);
+        $lon_s = ord(substr($GSQ, 4, 1))-65;
+
+        $lat_d = ord(substr($GSQ, 1, 1))-65;
+        $lat_m = substr($GSQ, 3, 1);
+        $lat_s = ord(substr($GSQ, 5, 1))-65;
+
+        $lon = (int)round((2 * ($lon_d*10 + $lon_m + $lon_s/24 + $offset) - 180)*10000)/10000;
+        $lat = (int)round(($lat_d*10 + $lat_m + $lat_s/24 + $offset - 90)*10000)/10000;
+
+        return ["lat" => $lat, "lon" => $lon];
+    }
+
     public static function debug($var)
     {
         return new Response(static::y($var));

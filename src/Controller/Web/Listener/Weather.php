@@ -1,11 +1,12 @@
 <?php
 namespace App\Controller\Web\Listener;
 
-use App\Controller\Web\Base;
-use App\Entity\Listener as ListenerEntity;
+use App\Controller\Web\Listener\Base;
 use App\Form\Listener\Weather as ListenerWeatherForm;
 use App\Repository\ListenerRepository;
+use App\Repository\IcaoRepository;
 
+use App\Utils\Rxx;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 use Symfony\Component\HttpFoundation\Request;
 
@@ -29,73 +30,68 @@ class Weather extends Base
         $system,
         $id,
         Request $request,
+        IcaoRepository $icaoRepository,
         ListenerWeatherForm $listenerWeatherForm,
         ListenerRepository $listenerRepository
     ) {
-        if ($id !== 'new' && (int) $id) {
-            $listener = $listenerRepository->find((int)$id);
-            if (!$listener) {
-                return $this->redirectToRoute('listeners', ['system' => $system]);
-            }
-        } else {
-            $listener = false;
-        }
-        $isAdmin = $this->parameters['isAdmin'];
-        if (!$listener && !$isAdmin) {
+        if (!$listener = $this->getValidListener($id, $listenerRepository)) {
             return $this->redirectToRoute('listeners', ['system' => $system]);
         }
+        $weather = false;
         $options = [
             'hours'     =>  '12',
-            'id'        =>  $listener ? $id : '',
-            'name'      =>  ''
+            'id'        =>  $id,
+            'icao'      =>  '',
+            'lat'       =>  $listener->getLat(),
+            'lon'       =>  $listener->getLon(),
+            'limit'     =>  10
         ];
         $form = $listenerWeatherForm->buildForm(
             $this->createFormBuilder(),
             $options
         );
         $form->handleRequest($request);
-        if ($isAdmin && $form->isSubmitted()) {
+        if ($form->isSubmitted()) {
             $form_data = $form->getData();
             $data['form'] = $form_data;
-            if ((int)$id) {
-                $listener = $listenerRepository->find($id);
+
+            $weather = $icaoRepository::getMetar($form_data['icao'], $form_data['hours']);
+            if ($weather) {
+                $icao = $icaoRepository->getLocalIcaos(
+                    $listener->getLat(),
+                    $listener->getLon(),
+                    1,
+                    $form_data['icao']
+                )[0];
+                array_unshift(
+                    $weather,
+                    "QNH at ".$icao['icao']." - "
+                    . $icao['name']
+                    . ($icao['sp'] ? ", " . $icao['sp'] : "")
+                    . ", " . $icao['cnt'] . "\n"
+                    . "(".$icao['mi']." miles / ".$icao['km']." km from QTH)\n"
+                    . "----------------------\n"
+                    . "DD UTC  MB     SLP \n"
+                    . "----------------------"
+                );
+                $weather[] =
+                    "----------------------\n"
+                    . "(Weather via ".strToUpper($system).")";
             } else {
-                return $this->redirectToRoute('listeners', ['system' => $system]);
+                $weather[] = "(No data available from ".$form_data['icao']." for the last ".$form_data['hours']." hours)";
             }
-            $listener
-                ->setCallsign($form_data['callsign'])
-                ->setEmail($form_data['email'])
-                ->setEquipment($form_data['equipment'])
-                ->setGsq($form_data['gsq'])
-                ->setItu($form_data['itu'])
-                ->setMapX($form_data['mapX'])
-                ->setMapY($form_data['mapY'])
-                ->setName($form_data['name'])
-                ->setNotes($form_data['notes'])
-                ->setPrimaryQth($form_data['primary'])
-                ->setQth($form_data['qth'])
-                ->setSp($form_data['sp'])
-                ->setTimezone($form_data['timezone'])
-                ->setWebsite($form_data['website'])
-            ;
-            $em = $this->getDoctrine()->getManager();
-            if (!(int)$id) {
-                $em->persist($listener);
-            }
-            $em->flush();
-            $id = $listener->getId();
-            return $this->redirectToRoute('listener', ['system' => $system, 'id' => $id]);
         }
 
         $parameters = [
             'id' =>                 $id,
-            'fieldGroups' =>        $listenerWeatherForm->getFieldGroups($isAdmin),
+            'fieldGroups' =>        $listenerWeatherForm->getFieldGroups(),
             'form' =>               $form->createView(),
             'mode' =>               $listener->getName().' &gt; Weather',
             'system' =>             $system,
             'tabs' =>               $listenerRepository->getTabs($listener),
+            'weather' =>            $weather
         ];
         $parameters = array_merge($parameters, $this->parameters);
-        return $this->render('listener/profile.html.twig', $parameters);
+        return $this->render('listener/weather.html.twig', $parameters);
     }
 }

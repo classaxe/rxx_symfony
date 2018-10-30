@@ -3,7 +3,6 @@
 namespace App\Repository;
 
 use App\Entity\Log;
-use App\Utils\Rxx;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -18,7 +17,19 @@ class LogRepository extends ServiceEntityRepository
     {
         $qb = $this
             ->createQueryBuilder('l')
-            ->select('l.date, l.time, l.dxKm, l.dxMiles, s.khz, s.call, s.pwr, s.sp, s.itu, s.gsq, s.qth')
+            ->select(
+                'l.date,'
+                .'l.time,'
+                .'l.dxKm,'
+                .'l.dxMiles,'
+                .'s.khz,'
+                .'s.call,'
+                .'s.pwr,'
+                .'s.sp,'
+                .'s.itu,'
+                .'s.gsq,'
+                .'s.qth'
+            )
             ->andWhere('l.listenerid = :listenerID')
             ->setParameter('listenerID', $listenerID)
             ->innerJoin('\App\Entity\Signal', 's')

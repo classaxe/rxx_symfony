@@ -8,15 +8,12 @@
 
 namespace App\Form\Listener;
 
-use App\Repository\CountryRepository;
-use App\Repository\StateRepository;
-
-use App\Repository\RegionRepository;
-use App\Repository\TypeRepository;
+use App\Repository\IcaoRepository;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -30,50 +27,24 @@ use Symfony\Component\Form\FormBuilderInterface;
 class Weather extends AbstractType
 {
     /**
-     * @var CountryRepository
+     * @var IcaoRepository
      */
-    private $country;
+    private $icao;
 
-    /**
-     * @var RegionRepository
-     */
-    private $region;
-
-    /**
-     * @var StateRepository
-     */
-    private $sp;
-
-    /**
-     * @var TypeRepository
-     */
-    private $type;
-
-    /**
-     * Listeners constructor.
-     * @param CountryRepository $country
-     * @param RegionRepository $region
-     */
     public function __construct(
-        CountryRepository $country,
-        RegionRepository $region,
-        StateRepository $sp,
-        TypeRepository $type
+        IcaoRepository $icaoRepository
     ) {
-        $this->country =    $country;
-        $this->region =     $region;
-        $this->sp =         $sp;
-        $this->type =       $type;
+        $this->icao =   $icaoRepository;
     }
 
-    public function getFieldGroups($isAdmin)
+    public function getFieldGroups()
     {
         return [
-            '' =>    [
-                'name',
+            'Weather Report Details' =>    [
+                'icao',
                 'hours',
                 'qnh',
-                'metar',
+                'raw',
                 'decoded'
             ]
         ];
@@ -94,21 +65,23 @@ class Weather extends AbstractType
                 ]
             )
             ->add(
-                'name',
-                TextType::class,
+                'icao',
+                ChoiceType::class,
                 [
-                    'label'         => ' ',
-                    'data'          => $options['name'],
-                    'empty_data'    => '',
+                    'label'         => '',
+                    'choices'       => $this->icao->getMatchingOptions($options['lat'], $options['lon'], $options['limit']),
+                    'data'          => $options['icao'],
                 ]
             )
             ->add(
                 'hours',
-                TextType::class,
+                IntegerType::class,
                 [
-                    'label'         => 'Hours',
-                    'data'          => $options['hours'],
-                    'empty_data'    => '',
+                    'label'         =>  'Hours',
+                    'data'          =>  $options['hours'],
+                    'empty_data'    =>  '',
+                    'attr'          =>  ['min' => 0]
+
                 ]
             )
             ->add(
@@ -122,22 +95,24 @@ class Weather extends AbstractType
                 ]
             )
             ->add(
-                'metar',
-                SubmitType::class,
+                'raw',
+                ButtonType::class,
                 [
-                    'label'         => 'Metar',
+                    'label'         => 'Metar - Raw',
                     'attr'          => [
-                        'class' =>      'button small'
+                        'class' =>      'button small',
+                        'onclick' =>    'getMetar(0)'
                     ]
                 ]
             )
             ->add(
                 'decoded',
-                SubmitType::class,
+                ButtonType::class,
                 [
-                    'label'         => 'Decoded',
+                    'label'         => 'Metar - Decoded',
                     'attr'          => [
-                        'class' =>      'button small'
+                        'class' =>      'button small',
+                        'onclick' =>    'getMetar(1)'
                     ]
                 ]
             )
