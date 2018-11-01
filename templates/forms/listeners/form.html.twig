@@ -1,0 +1,26 @@
+{# Include our twig widget customisations #}
+{% form_theme form 'forms/custom_form_div_layout.html.twig' %}
+<div class="controlPanel {{ form_class }}">
+    <div class="header">{{ form_title }}</div>
+    <div class="content clearfix">
+{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+        <div id="form">
+            {{ form_row(form.filter) }}
+            {{ form_row(form.types) }}
+            {{ form_row(form.country) }}
+{% if system == 'rww' %}
+            {{ form_row(form.region) }}
+{% endif %}
+{% if form.limit is defined %}
+            {{ form_row(form.limit) }}
+            {{ form_row(form.prev) }}
+            {{ form_row(form.next) }}
+            {{ form_row(form.page_ctl) }}
+{% endif %}
+            <div id="form_paging_status"></div>
+            {{ form_row(form.submit) }}
+        </div>
+{{ form_widget(form) }}
+{{ form_end(form, {'render_rest': false}) }}
+    </div>
+</div>

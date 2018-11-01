@@ -127,6 +127,13 @@ class ListenerRepository extends ServiceEntityRepository
                 ->andWhere('(l.region = :region)')
                 ->setParameter('region', $args['region']);
         }
+
+        if (isset($args['limit']) && $args['limit'] !== -1 && isset($args['page'])) {
+            $qb
+                ->setFirstResult($args['page'] * $args['limit'])
+                ->setMaxResults($args['limit']);
+        }
+
         if ($this->listenersColumns[$args['sort']]['sort']) {
             $qb
                 ->orderBy(
@@ -145,6 +152,31 @@ class ListenerRepository extends ServiceEntityRepository
             $out[] = $value[0];
         }
         return $out;
+    }
+
+    public function getFilteredListenersCount($system, $args)
+    {
+        $qb =
+            $this->createQueryBuilder('l')
+                ->select('COUNT(l.id) as count');
+        $this->addFilterSystem($qb, $system);
+        if ($args['filter']) {
+            $qb
+                ->andWhere('(l.name like :filter or l.qth like :filter or l.callsign like :filter)')
+                ->setParameter('filter', '%'.$args['filter'].'%');
+        }
+        if ($args['country']) {
+            $qb
+                ->andWhere('(l.itu = :country)')
+                ->setParameter('country', $args['country']);
+        }
+        if (isset($args['region']) && $args['region']) {
+            $qb
+                ->andWhere('(l.region = :region)')
+                ->setParameter('region', $args['region']);
+        }
+        $result = $qb->getQuery()->execute();
+        return $result[0]['count'];
     }
 
     public function getLatestLoggedListeners($system, $limit = 25)

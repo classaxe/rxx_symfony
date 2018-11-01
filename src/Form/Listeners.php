@@ -8,6 +8,7 @@
 
 namespace App\Form;
 
+use App\Form\Base;
 use App\Repository\CountryRepository;
 use App\Repository\RegionRepository;
 use App\Repository\TypeRepository;
@@ -22,7 +23,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
  * Class Listeners
  * @package App\Form
  */
-class Listeners extends AbstractType
+class Listeners extends Base
 {
     /**
      * @var CountryRepository
@@ -128,6 +129,8 @@ class Listeners extends AbstractType
                     'attr'          => [ 'class' => 'button small']
                 ]
             );
+
+//        $this->addPaging($formBuilder, $options);
 
         return $formBuilder->getForm();
     }

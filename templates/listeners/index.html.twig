@@ -11,7 +11,8 @@
 {% set form_class='listener_list' %}
 <div class="row">
     <div class="small-12 medium-8 columns">
-        {% include 'forms/form.html.twig' %}
+        {% include 'forms/listeners/form.html.twig' %}
+        <div id="form_paging_status"></div>
     </div>
     <div class="small-12 medium-4 columns">
         {% include 'listeners/maps.html.twig' %}
@@ -22,6 +23,7 @@
 
 <script>
     $(document).ready( function() {
+        setPagingActions();
         setFormTypesStyles();
         setFormTypesDefault();
         setFormTypesAllAction();
@@ -30,7 +32,7 @@
         setColumnSortActions();
         setColumnSortedClass();
         setExternalLinks();
-        $('#form_filter_help').html('{{ matched }}');
+        $('#form_paging_status').html('{{ matched }}');
     });
 </script>
 </div>

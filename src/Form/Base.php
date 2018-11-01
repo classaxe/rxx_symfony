@@ -35,7 +35,7 @@ class Base extends AbstractType
     {
         $this->options = $options;
 
-        if ($options['total'] < $options['maxNoPaging']) {
+        if ($this->options['total'] < $this->options['maxNoPaging']) {
             return $formBuilder;
         }
 
@@ -45,8 +45,8 @@ class Base extends AbstractType
                 ChoiceType::class,
                 [
                     'label' =>      'Show',
-                    'choices' =>    $this->getlimitOptions($options['total']),
-                    'data' =>       $options['limit']
+                    'choices' =>    $this->getlimitOptions($this->options['total']),
+                    'data' =>       $this->options['limit']
                 ]
             )
             ->add(
@@ -54,7 +54,7 @@ class Base extends AbstractType
                 ButtonType::class,
                 [
                     'label' =>      '<',
-                    'attr' =>       ['class' => 'button tiny']
+                    'attr' =>       ['class' => 'button tiny', 'style' => 'display:none']
                 ]
             )
             ->add(
@@ -62,13 +62,14 @@ class Base extends AbstractType
                 ButtonType::class,
                 [
                     'label' =>      '>',
-                    'attr' =>       ['class' => 'button tiny']
+                    'attr' =>       ['class' => 'button tiny', 'style' => 'display:none']
                 ]
             )
             ->add(
                 'page',
                 hiddenType::class,
                 [
+                    'label' =>      '>',
                     'data' =>       0
                 ]
             )
@@ -78,16 +79,14 @@ class Base extends AbstractType
                 [
                     'label' =>      ' ',
                     'choices' =>    $this->getPageOptions($this->options['total'], $this->options['limit']),
-                    'data' =>       0
+                    'data' =>       0,
+                    'attr' =>       ['style' => 'display:none']
                 ]
             );
 
         $formBuilder->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) {
             $form =     $event->getForm();
             $data =     $event->getData();
-//            print Rxx::y($data);
-            $limit =    $data['limit'];
-            $page =     $data['page'];
             $form
                 ->remove('page_ctl')
                 ->add(
@@ -95,8 +94,9 @@ class Base extends AbstractType
                     ChoiceType::class,
                     [
                         'label' =>      ' ',
-                        'choices' =>    $this->getPageOptions($this->options['total'], $limit),
-                        'data' =>       $page
+                        'choices' =>    $this->getPageOptions($this->options['total'], $data['limit']),
+                        'data' =>       $data['page'],
+                        'attr' =>       ['style' => 'display:none']
                     ]
                 );
         });

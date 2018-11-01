@@ -12,6 +12,8 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class Listeners extends Base
 {
+    const defaultlimit =     100;
+    const maxNoPaging =      100;
 
     /**
      * @Route(
@@ -28,12 +30,9 @@ class Listeners extends Base
         ListenersForm $form,
         ListenerRepository $listenerRepository
     ) {
-        $options = [
-            'system' =>     $system,
-            'region' =>     (isset($_REQUEST['form']['region']) ? $_REQUEST['form']['region'] : '')
-        ];
-        $form = $form->buildForm($this->createFormBuilder(), $options);
-        $form->handleRequest($request);
+        $defaultlimit =     100;
+        $maxNoPaging =      100;
+
         $args = [
             'filter' =>     '',
             'types' =>      [],
@@ -42,10 +41,21 @@ class Listeners extends Base
             'sort' =>       'name',
             'order' =>      'a'
         ];
+
+        $options = [
+            'limit' =>          static::defaultlimit,
+            'maxNoPaging' =>    static::maxNoPaging,
+            'page' =>           0,
+            'system' =>         $system,
+            'region' =>         (isset($_REQUEST['form']['region']) ? $_REQUEST['form']['region'] : ''),
+            'total' =>          $listenerRepository->getFilteredListenersCount($system, $args)
+        ];
+        $form = $form->buildForm($this->createFormBuilder(), $options);
+        $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $args = $form->getData();
         }
-        $total = $listenerRepository->getTotalListeners($system);
+        $options['total'] = $listenerRepository->getFilteredListenersCount($system, $args);
         $showingAll = (
             empty($args['filter']) &&
             empty($args['country']) &&
@@ -55,18 +65,13 @@ class Listeners extends Base
             $args['types'][] = 'type_NDB';
         }
         $listeners = $listenerRepository->getFilteredListeners($system, $args);
-        $matched =
-            ($showingAll ?
-                "(Showing all $total listeners)"
-             :
-                "(Showing ".count($listeners)." of $total listeners)"
-            );
+
         $parameters = [
             'args' =>               $args,
             'columns' =>            $listenerRepository->getColumns(),
             'form' =>               $form->createView(),
             'listeners' =>          $listeners,
-            'matched' =>            $matched,
+            'matched' =>            ($options['total'] > $options['maxNoPaging'] ? 'of '.$options['total'].' listeners' : ''),
             'mode' =>               'Listeners List',
             'listenerPopup' =>      'width=800,height=680,status=1,scrollbars=1,resizable=1',
             'system' =>             $system,

@@ -1,12 +1,11 @@
 <?php
 namespace App\Controller\Web\Listener;
 
-use App\Controller\Web\Listener\Base;
 use App\Form\ListenerSignals as ListenerSignalsForm;
 use App\Repository\ListenerRepository;
 use App\Repository\TypeRepository;
-use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 
 /**
  * Class Listeners
@@ -14,6 +13,8 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class Signals extends Base
 {
+    const defaultlimit =     20;
+    const maxNoPaging =      20;
 
     /**
      * @Route(
@@ -32,33 +33,27 @@ class Signals extends Base
         ListenerRepository $listenerRepository,
         TypeRepository $typeRepository
     ) {
-        $defaultlimit =     20;
-        $maxNoPaging =      20;
-
-        if ((int) $id) {
-            if (!$listener = $this->getValidReportingListener($id, $listenerRepository)) {
-                return $this->redirectToRoute('listeners', ['system' => $system]);
-            }
+        if (!$listener = $this->getValidReportingListener($id, $listenerRepository)) {
+            return $this->redirectToRoute('listeners', ['system' => $system]);
         }
 
         $options = [
-            'limit' =>          $defaultlimit,
-            'maxNoPaging' =>    $maxNoPaging,
+            'limit' =>          static::defaultlimit,
+            'maxNoPaging' =>    static::maxNoPaging,
             'page' =>           0,
             'total' =>          $listener->getCountSignals()
         ];
         $form = $form->buildForm($this->createFormBuilder(), $options);
         $form->handleRequest($request);
         $args = [
-            'limit' =>          $defaultlimit,
-            'page' =>           0,
+            'limit' =>          static::defaultlimit,
             'order' =>          'a',
+            'page' =>           0,
             'sort' =>           'khz'
         ];
         if ($form->isSubmitted() && $form->isValid()) {
             $args = $form->getData();
         }
-
         $parameters = [
             'args' =>               $args,
             'id' =>                 $id,

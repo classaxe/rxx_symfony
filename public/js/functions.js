@@ -92,10 +92,10 @@ function setPagingActions() {
     var prev =      $('#form_prev');
     var next =      $('#form_next');
 
-    if (limit.val() === '-1') {
-        prev.hide();
-        next.hide();
-        page_ctl.hide();
+    if (limit.val() !== '-1') {
+        prev.show();
+        next.show();
+        page_ctl.show();
     }
 
     limit.change(
@@ -111,6 +111,9 @@ function setPagingActions() {
             options.eq(0).prop('selected', true);
             page_ctl.prop('selectedIndex', 0);
             if (limit.val() !== "-1") {
+                prev.show();
+                next.show();
+                page_ctl.show();
                 options.eq(0).prop('text', '1-' + limit.val());
                 prev.prop('disabled', 'disabled');
                 next.prop('disabled', 'disabled');
