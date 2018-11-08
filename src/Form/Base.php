@@ -46,7 +46,6 @@ class Base extends AbstractType
                 TextType::class,
                 [
                     'label' =>      'Show',
-//                    'choices' =>    $this->getlimitOptions($this->options['total']),
                     'data' =>       $this->options['limit']
                 ]
             )
@@ -71,7 +70,6 @@ class Base extends AbstractType
                 TextType::class,
                 [
                     'label' =>      ' ',
-//                    'choices' =>    $this->getPageOptions($this->options['total'], $this->options['limit']),
                     'data' =>       0,
                     'attr' =>       ['style' => 'display:none']
                 ]
@@ -104,21 +102,6 @@ class Base extends AbstractType
                     ]
                 );
         });
-    }
-
-    /**
-     * @param $limit
-     * @return array
-     */
-    private function getlimitOptions($limit)
-    {
-        $options = ['All Results' => -1];
-        foreach ($this->limitOptions as $value) {
-            if ($value < $limit) {
-                $options[$value.' results'] = $value;
-            }
-        }
-        return $options;
     }
 
     /**
