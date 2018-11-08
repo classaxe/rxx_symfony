@@ -128,9 +128,9 @@ class ListenerRepository extends ServiceEntityRepository
                 ->setParameter('region', $args['region']);
         }
 
-        if (isset($args['limit']) && $args['limit'] !== -1 && isset($args['page'])) {
+        if (isset($args['limit']) && (int)$args['limit'] !== -1 && isset($args['page'])) {
             $qb
-                ->setFirstResult($args['page'] * $args['limit'])
+                ->setFirstResult((int)$args['page'] * (int)$args['limit'])
                 ->setMaxResults($args['limit']);
         }
 

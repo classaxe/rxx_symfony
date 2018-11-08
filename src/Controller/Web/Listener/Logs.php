@@ -62,6 +62,11 @@ class Logs extends Base
             'matched' =>            ($options['total'] > $options['maxNoPaging'] ? 'of '.$options['total']. ' log records.' : ''),
             'mode' =>               'Logs for '.$listener->getFormattedNameAndLocation(),
             'logs' =>               $listenerRepository->getLogsForListener($id, $args),
+            'results' => [
+                'limit' =>              isset($args['limit']) ? $args['limit'] : static::defaultlimit,
+                'page' =>               isset($args['page']) ? $args['page'] : 0,
+                'total' =>              $options['total']
+            ],
             'signalPopup' =>        'width=590,height=640,status=1,scrollbars=1,resizable=1',
             'system' =>             $system,
             'tabs' =>               $listenerRepository->getTabs($listener),

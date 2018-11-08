@@ -13,6 +13,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -42,10 +43,10 @@ class Base extends AbstractType
         $formBuilder
             ->add(
                 'limit',
-                ChoiceType::class,
+                TextType::class,
                 [
                     'label' =>      'Show',
-                    'choices' =>    $this->getlimitOptions($this->options['total']),
+//                    'choices' =>    $this->getlimitOptions($this->options['total']),
                     'data' =>       $this->options['limit']
                 ]
             )
@@ -67,10 +68,12 @@ class Base extends AbstractType
             )
             ->add(
                 'page',
-                hiddenType::class,
+                TextType::class,
                 [
-                    'label' =>      '>',
-                    'data' =>       0
+                    'label' =>      ' ',
+//                    'choices' =>    $this->getPageOptions($this->options['total'], $this->options['limit']),
+                    'data' =>       0,
+                    'attr' =>       ['style' => 'display:none']
                 ]
             )
             ->add(
@@ -79,10 +82,11 @@ class Base extends AbstractType
                 [
                     'label' =>      ' ',
                     'choices' =>    $this->getPageOptions($this->options['total'], $this->options['limit']),
-                    'data' =>       0,
+                    'data' =>       $this->options['page'],
                     'attr' =>       ['style' => 'display:none']
                 ]
             );
+        ;
 
         $formBuilder->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) {
             $form =     $event->getForm();

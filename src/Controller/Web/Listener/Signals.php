@@ -49,10 +49,12 @@ class Signals extends Base
             'limit' =>          static::defaultlimit,
             'order' =>          'a',
             'page' =>           0,
-            'sort' =>           'khz'
+            'sort' =>           'khz',
+            'total' =>          $listener->getCountSignals()
         ];
         if ($form->isSubmitted() && $form->isValid()) {
             $args = $form->getData();
+            $args['total'] = $listener->getCountSignals();
         }
         $parameters = [
             'args' =>               $args,
@@ -61,6 +63,11 @@ class Signals extends Base
             'form' =>               $form->createView(),
             'matched' =>            ($options['total'] > $options['maxNoPaging'] ? 'of '.$options['total'].' signals' : ''),
             'mode' =>               'Signals received by '.$listener->getFormattedNameAndLocation(),
+            'results' => [
+                'limit' =>              isset($args['limit']) ? $args['limit'] : static::defaultlimit,
+                'page' =>               isset($args['page']) ? $args['page'] : 0,
+                'total' =>              $options['total']
+            ],
             'signals' =>            $listenerRepository->getSignalsForListener($id, $args),
             'signalPopup' =>        'width=590,height=640,status=1,scrollbars=1,resizable=1',
             'system' =>             $system,

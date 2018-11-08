@@ -3,6 +3,7 @@ namespace App\Controller\Web;
 
 use App\Form\Listeners as ListenersForm;
 use App\Repository\ListenerRepository;
+use App\Utils\Rxx;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 use Symfony\Component\HttpFoundation\Request;
 
@@ -30,16 +31,15 @@ class Listeners extends Base
         ListenersForm $form,
         ListenerRepository $listenerRepository
     ) {
-        $defaultlimit =     100;
-        $maxNoPaging =      100;
-
         $args = [
-            'filter' =>     '',
-            'types' =>      [],
             'country' =>    '',
+            'filter' =>     '',
+            'limit' =>      static::defaultlimit,
+            'order' =>      'a',
+            'page' =>       0,
             'region' =>     '',
             'sort' =>       'name',
-            'order' =>      'a'
+            'types' =>      [],
         ];
 
         $options = [
@@ -55,7 +55,6 @@ class Listeners extends Base
         if ($form->isSubmitted() && $form->isValid()) {
             $args = $form->getData();
         }
-        $options['total'] = $listenerRepository->getFilteredListenersCount($system, $args);
         $showingAll = (
             empty($args['filter']) &&
             empty($args['country']) &&
@@ -82,6 +81,11 @@ class Listeners extends Base
                 ."    <li>To see stats for different types of signals, check the boxes shown for 'Types' below.</li>\n"
                 ."    <li>This report prints best in Portrait.</li>\n"
                 ."</ul>\n",
+            'results' => [
+                'limit' =>              $args['limit'],
+                'page' =>               $args['page'],
+                'total' =>              $listenerRepository->getFilteredListenersCount($system, $args)
+            ]
         ];
         if ($this->parameters['isAdmin']) {
             $parameters['latestListeners'] =    $listenerRepository->getLatestLoggedListeners($system);

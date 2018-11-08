@@ -84,8 +84,35 @@ function setEmailLinks() {
     });
 }
 
+function getlimitOptions(max, value)
+{
+    var values = [10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 100000, 20000, 50000, 100000];
+    var out = "<option value='-1'>All results</option>";
+    for (var i in values) {
+        if (values[i] > max) {
+            continue;
+        }
+        out +=
+            "<option value=\"" + values[i] + "\"" +
+            (parseInt(value) === values[i] ? " selected=\"selected\"" : "") +
+            ">" +
+            values[i] + ' results'
+            "</option>"
+    }
+    return out;
+}
+
 function setPagingActions() {
-    var limit =     $('select#form_limit');
+    var limit =     $('#form_limit');
+
+    if (limit.length) {
+        limit[0].outerHTML =
+            "<select id=\"form_limit\" name=\"form[limit]\" required=\"required\">" +
+            getlimitOptions(paging.total, limit.val()) +
+            "</select>";
+
+        limit =     $('#form_limit');
+    }
     var page_ctl =  $('#form_page_ctl');
     var options =   $('#form_page_ctl option');
     var idx =       page_ctl.prop('selectedIndex');
@@ -101,10 +128,10 @@ function setPagingActions() {
     limit.change(
         function() {
             var form =      $('form[name="form"]');
-            var limit =     $('select#form_limit');
+            var limit =     $('#form_limit');
             var page =      $('#form_page');
-            var page_ctl =  $('select#form_page_ctl');
-            var options =   $('select#form_page_ctl option');
+            var page_ctl =  $('#form_page_ctl');
+            var options =   $('#form_page_ctl option');
             var idx =       page_ctl.prop('selectedIndex');
             var prev =      $('#form_prev');
             var next =      $('#form_next');
@@ -157,8 +184,8 @@ function setPagingActions() {
             function() {
                 var form =      $('form[name="form"]');
                 var page =      $('#form_page');
-                var page_ctl =  $('select#form_page_ctl');
-                var options =   $('select#form_page_ctl option');
+                var page_ctl =  $('#form_page_ctl');
+                var options =   $('#form_page_ctl option');
                 var idx =       page_ctl.prop('selectedIndex');
                 var prev =      $('#form_prev');
                 var next =      $('#form_next');

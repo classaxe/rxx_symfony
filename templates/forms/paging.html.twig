@@ -1,0 +1,16 @@
+{% if form.limit is defined %}
+    {{ form_row(form.limit) }}
+    {{ form_row(form.prev) }}
+    {{ form_row(form.next) }}
+    {{ form_row(form.page) }}
+    {{ form_row(form.page_ctl) }}
+{% endif %}
+
+<div id="form_paging_status"></div>
+<script>
+var paging = {
+    limit: {{ results.limit  }},
+    page: {{ results.page  }},
+    total: {{ results.total }}
+}
+</script>
