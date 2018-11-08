@@ -76,10 +76,9 @@ class Base extends AbstractType
             )
             ->add(
                 'page_ctl',
-                ChoiceType::class,
+                TextType::class,
                 [
                     'label' =>      ' ',
-                    'choices' =>    $this->getPageOptions($this->options['total'], $this->options['limit']),
                     'data' =>       $this->options['page'],
                     'attr' =>       ['style' => 'display:none']
                 ]
@@ -93,29 +92,13 @@ class Base extends AbstractType
                 ->remove('page_ctl')
                 ->add(
                     'page_ctl',
-                    ChoiceType::class,
+                    TextType::class,
                     [
                         'label' =>      ' ',
-                        'choices' =>    $this->getPageOptions($this->options['total'], $data['limit']),
                         'data' =>       $data['page'],
                         'attr' =>       ['style' => 'display:none']
                     ]
                 );
         });
-    }
-
-    /**
-     * @param $total
-     * @param $limit
-     * @return array
-     */
-    private function getPageOptions($total, $limit)
-    {
-        $options = [];
-        $pages = $total/$limit;
-        for ($i=0; $i < $pages; $i++) {
-            $options[1+($i*$limit).'-'.(($i+1)*$limit)] = $i;
-        }
-        return $options;
     }
 }

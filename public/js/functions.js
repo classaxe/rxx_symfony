@@ -102,18 +102,44 @@ function getlimitOptions(max, value)
     return out;
 }
 
+function getPagingOptions(total, limit, page)
+{
+    // return "<option>total="+total+",limit="+limit+"</option>";
+    var out = "";
+    pages = total/limit;
+    for (var i=0; i < pages; i++) {
+        out +=
+            "<option value=\"" + i + "\"" +
+            (parseInt(page) === i ? " selected=\"selected\"" : "") +
+            ">" +
+            (1 + (i*limit)) +
+            '-' +
+            (((i+1) * limit) > total ? total : ((i+1) * limit)) +
+            "</option>";
+    }
+    return out;
+}
+
+
 function setPagingActions() {
     var limit =     $('#form_limit');
-
     if (limit.length) {
         limit[0].outerHTML =
             "<select id=\"form_limit\" name=\"form[limit]\" required=\"required\">" +
             getlimitOptions(paging.total, limit.val()) +
             "</select>";
-
         limit =     $('#form_limit');
     }
+
     var page_ctl =  $('#form_page_ctl');
+    if (page_ctl.length) {
+        page_ctl[0].outerHTML =
+            "<select id=\"form_page_ctl\" name=\"form[page_ctl]\" style=\"display:none\">" +
+            getPagingOptions(paging.total, limit.val(), page_ctl.val()) +
+            "</select>";
+        page_ctl =  $('#form_page_ctl');
+    }
+
     var options =   $('#form_page_ctl option');
     var idx =       page_ctl.prop('selectedIndex');
     var prev =      $('#form_prev');

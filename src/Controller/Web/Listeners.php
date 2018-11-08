@@ -82,8 +82,8 @@ class Listeners extends Base
                 ."    <li>This report prints best in Portrait.</li>\n"
                 ."</ul>\n",
             'results' => [
-                'limit' =>              $args['limit'],
-                'page' =>               $args['page'],
+                'limit' =>              isset($args['limit']) ? $args['limit'] : static::defaultlimit,
+                'page' =>               isset($args['page']) ? $args['page'] : 0,
                 'total' =>              $listenerRepository->getFilteredListenersCount($system, $args)
             ]
         ];

@@ -11,7 +11,7 @@
 {% if system == 'rww' %}
             {{ form_row(form.region) }}
 {% endif %}
-{#{% include 'forms/paging.html.twig' %}#}
+{% include 'forms/paging.html.twig' %}
             {{ form_row(form.submit) }}
         </div>
 {{ form_widget(form) }}

@@ -130,7 +130,7 @@ class Listeners extends Base
                 ]
             );
 
-//        $this->addPaging($formBuilder, $options);
+        $this->addPaging($formBuilder, $options);
 
         return $formBuilder->getForm();
     }
