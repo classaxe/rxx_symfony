@@ -63,14 +63,15 @@ class Listeners extends Base
         if (empty($args['types'])) {
             $args['types'][] = 'type_NDB';
         }
-        $listeners = $listenerRepository->getFilteredListeners($system, $args);
+        $listeners =    $listenerRepository->getFilteredListeners($system, $args);
+        $total =        $listenerRepository->getFilteredListenersCount($system, $args);
 
         $parameters = [
             'args' =>               $args,
             'columns' =>            $listenerRepository->getColumns(),
             'form' =>               $form->createView(),
             'listeners' =>          $listeners,
-            'matched' =>            ($options['total'] > $options['maxNoPaging'] ? 'of '.$options['total'].' listeners' : ''),
+            'matched' =>            ($options['total'] > $options['maxNoPaging'] ? 'of ' : 'all ') . $total . ' listeners',
             'mode' =>               'Listeners List',
             'listenerPopup' =>      'width=800,height=680,status=1,scrollbars=1,resizable=1',
             'system' =>             $system,
@@ -84,7 +85,7 @@ class Listeners extends Base
             'results' => [
                 'limit' =>              isset($args['limit']) ? $args['limit'] : static::defaultlimit,
                 'page' =>               isset($args['page']) ? $args['page'] : 0,
-                'total' =>              $listenerRepository->getFilteredListenersCount($system, $args)
+                'total' =>              $total
             ]
         ];
         if ($this->parameters['isAdmin']) {

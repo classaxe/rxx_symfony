@@ -199,7 +199,7 @@ fieldset#group_weather_report_details div label {
 .logon #form input[type='text'],
 .logon #form input[type='password'] { width: 150px; }
 
-label[for="form_limit"] { float: left; margin: 0 0.5em 0 0; }
+label[for="form_limit"] { float: left; min-width: 4em;}
 select#form_limit,
 select#form_page,
 select#form_page_ctl {
