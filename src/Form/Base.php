@@ -45,60 +45,35 @@ class Base extends AbstractType
                 'limit',
                 TextType::class,
                 [
+                    'attr' =>       ['style' => 'display:none'],
+                    'data' =>       $this->options['limit'],
                     'label' =>      'Show',
-                    'data' =>       $this->options['limit']
                 ]
             )
             ->add(
                 'prev',
                 ButtonType::class,
                 [
+                    'attr' =>       ['class' => 'button', 'style' => 'display:none'],
                     'label' =>      '<',
-                    'attr' =>       ['class' => 'button tiny', 'style' => 'display:none']
                 ]
             )
             ->add(
                 'next',
                 ButtonType::class,
                 [
+                    'attr' =>       ['class' => 'button', 'style' => 'display:none'],
                     'label' =>      '>',
-                    'attr' =>       ['class' => 'button tiny', 'style' => 'display:none']
                 ]
             )
             ->add(
                 'page',
                 TextType::class,
                 [
-                    'label' =>      ' ',
+                    'attr' =>       ['style' => 'display:none'],
                     'data' =>       0,
-                    'attr' =>       ['style' => 'display:none']
-                ]
-            )
-            ->add(
-                'page_ctl',
-                TextType::class,
-                [
                     'label' =>      ' ',
-                    'data' =>       $this->options['page'],
-                    'attr' =>       ['style' => 'display:none']
                 ]
             );
-        ;
-
-        $formBuilder->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) {
-            $form =     $event->getForm();
-            $data =     $event->getData();
-            $form
-                ->remove('page_ctl')
-                ->add(
-                    'page_ctl',
-                    TextType::class,
-                    [
-                        'label' =>      ' ',
-                        'data' =>       $data['page'],
-                        'attr' =>       ['style' => 'display:none']
-                    ]
-                );
-        });
     }
 }

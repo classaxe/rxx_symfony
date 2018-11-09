@@ -131,53 +131,48 @@ function setPagingActions() {
         limit =     $('#form_limit');
     }
 
-    var page_ctl =  $('#form_page_ctl');
-    if (page_ctl.length) {
-        page_ctl[0].outerHTML =
-            "<select id=\"form_page_ctl\" name=\"form[page_ctl]\" style=\"display:none\">" +
-            getPagingOptions(paging.total, limit.val(), page_ctl.val()) +
+    var page =  $('#form_page');
+    if (page.length) {
+        page[0].outerHTML =
+            "<select id=\"form_page\" name=\"form[page\]\" style=\"display:none\">" +
+            getPagingOptions(paging.total, limit.val(), paging.page) +
             "</select>";
-        page_ctl =  $('#form_page_ctl');
+        page =  $('#form_page');
     }
 
-    var options =   $('#form_page_ctl option');
-    var idx =       page_ctl.prop('selectedIndex');
+    var options =   $('#form_page option');
+    var idx =       page.prop('selectedIndex');
     var prev =      $('#form_prev');
     var next =      $('#form_next');
 
     if (limit.val() !== '-1') {
         prev.show();
         next.show();
-        page_ctl.show();
+        page.show();
     }
 
     limit.change(
         function() {
             var form =      $('form[name="form"]');
             var limit =     $('#form_limit');
-            var page =      $('#form_page');
-            var page_ctl =  $('#form_page_ctl');
-            var options =   $('#form_page_ctl option');
-            var idx =       page_ctl.prop('selectedIndex');
+            var options =   $('#form_page option');
             var prev =      $('#form_prev');
             var next =      $('#form_next');
             options.eq(0).prop('selected', true);
-            page_ctl.prop('selectedIndex', 0);
+            page.prop('selectedIndex', 0);
             if (limit.val() !== "-1") {
                 prev.show();
                 next.show();
-                page_ctl.show();
+                page.show();
                 options.eq(0).prop('text', '1-' + limit.val());
                 prev.prop('disabled', 'disabled');
                 next.prop('disabled', 'disabled');
             } else {
-                page_ctl.hide();
+                page.hide();
                 prev.hide();
                 next.hide();
             }
-            page_ctl.prop('selectedIndex', 0);
-            page.val(0);
-            page_ctl.removeAttr('name');
+            page.prop('selectedIndex', 0);
             form.submit();
         }
     );
@@ -186,17 +181,14 @@ function setPagingActions() {
             function () {
                 var form =      $('form[name="form"]');
                 var page =      $('#form_page');
-                var page_ctl =  $('#form_page_ctl');
-                var options =   $('#form_page_ctl option');
-                var idx =       page_ctl.prop('selectedIndex');
+                var options =   $('#form_page option');
+                var idx =       page.prop('selectedIndex');
                 var prev =      $('#form_prev');
                 var next =      $('#form_next');
                 prev.prop('disabled', 'disabled');
                 next.prop('disabled', 'disabled');
                 options.eq(idx - 1).prop('selected', true);
-                page_ctl.prop('selectedIndex', idx - 1);
-                page.val(idx - 1);
-                page_ctl.removeAttr('name');
+                page.prop('selectedIndex', idx - 1);
                 form.submit();
                 return false;
             }
@@ -210,17 +202,14 @@ function setPagingActions() {
             function() {
                 var form =      $('form[name="form"]');
                 var page =      $('#form_page');
-                var page_ctl =  $('#form_page_ctl');
-                var options =   $('#form_page_ctl option');
-                var idx =       page_ctl.prop('selectedIndex');
+                var options =   $('#form_page option');
+                var idx =       page.prop('selectedIndex');
                 var prev =      $('#form_prev');
                 var next =      $('#form_next');
                 prev.prop('disabled', 'disabled');
                 next.prop('disabled', 'disabled');
                 options.eq(idx + 1).prop('selected', true);
-                page_ctl.prop('selectedIndex', idx + 1);
-                page.val(idx + 1);
-                page_ctl.removeAttr('name');
+                page.prop('selectedIndex', idx + 1);
                 form.submit();
                 return false;
             }
@@ -229,18 +218,14 @@ function setPagingActions() {
         next.prop('disabled', 'disabled');
     }
 
-    page_ctl.change(
+    page.change(
         function() {
             var form =      $('form[name="form"]');
             var page =      $('#form_page');
-            var page_ctl =  $('#form_page_ctl');
-            var idx =       page_ctl.prop('selectedIndex');
             var prev =      $('#form_prev');
             var next =      $('#form_next');
             prev.prop('disabled', 'disabled');
             next.prop('disabled', 'disabled');
-            page.val(idx);
-            page_ctl.removeAttr('name');
             form.submit();
         }
     );
