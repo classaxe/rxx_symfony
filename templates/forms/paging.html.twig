@@ -3,9 +3,9 @@
     {{ form_row(form.prev) }}
     {{ form_row(form.next) }}
     {{ form_row(form.page) }}
+    <div id="form_paging_status"></div>
 {% endif %}
 
-<div id="form_paging_status"></div>
 <script>
 var paging = {
     limit: {{ results.limit  }},

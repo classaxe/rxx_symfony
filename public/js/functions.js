@@ -96,7 +96,7 @@ function getlimitOptions(max, value)
             "<option value=\"" + values[i] + "\"" +
             (parseInt(value) === values[i] ? " selected=\"selected\"" : "") +
             ">" +
-            values[i] + ' results'
+            values[i] + ' results' +
             "</option>"
     }
     return out;
@@ -122,6 +122,9 @@ function getPagingOptions(total, limit, page)
 
 
 function setPagingActions() {
+    var filter =    $('#form_filter');
+    var prev =      $('#form_prev');
+    var next =      $('#form_next');
     var limit =     $('#form_limit');
     if (limit.length) {
         limit[0].outerHTML =
@@ -141,9 +144,6 @@ function setPagingActions() {
     }
 
     var options =   $('#form_page option');
-    var idx =       page.prop('selectedIndex');
-    var prev =      $('#form_prev');
-    var next =      $('#form_next');
 
     if (limit.val() !== '-1') {
         prev.show();
@@ -176,19 +176,18 @@ function setPagingActions() {
             form.submit();
         }
     );
-    if (idx > 0) {
+    if (paging.page > 0) {
         prev.click(
             function () {
                 var form =      $('form[name="form"]');
                 var page =      $('#form_page');
                 var options =   $('#form_page option');
-                var idx =       page.prop('selectedIndex');
                 var prev =      $('#form_prev');
                 var next =      $('#form_next');
                 prev.prop('disabled', 'disabled');
                 next.prop('disabled', 'disabled');
-                options.eq(idx - 1).prop('selected', true);
-                page.prop('selectedIndex', idx - 1);
+                options.eq(paging.page - 1).prop('selected', true);
+                page.prop('selectedIndex', paging.page - 1);
                 form.submit();
                 return false;
             }
@@ -197,19 +196,18 @@ function setPagingActions() {
         prev.prop('disabled', 'disabled');
     }
 
-    if (idx + 1 < options.length) {
+    if (paging.page + 1 < options.length) {
         next.click(
             function() {
                 var form =      $('form[name="form"]');
                 var page =      $('#form_page');
                 var options =   $('#form_page option');
-                var idx =       page.prop('selectedIndex');
                 var prev =      $('#form_prev');
                 var next =      $('#form_next');
                 prev.prop('disabled', 'disabled');
                 next.prop('disabled', 'disabled');
-                options.eq(idx + 1).prop('selected', true);
-                page.prop('selectedIndex', idx + 1);
+                options.eq(paging.page + 1).prop('selected', true);
+                page.prop('selectedIndex', paging.page + 1);
                 form.submit();
                 return false;
             }
@@ -224,6 +222,21 @@ function setPagingActions() {
             var page =      $('#form_page');
             var prev =      $('#form_prev');
             var next =      $('#form_next');
+            prev.prop('disabled', 'disabled');
+            next.prop('disabled', 'disabled');
+            form.submit();
+        }
+    );
+
+    filter.change(
+        function() {
+            var form =      $('form[name="form"]');
+            var page =      $('#form_page');
+            var options =   $('#form_page option');
+            var prev =      $('#form_prev');
+            var next =      $('#form_next');
+            options.eq(0).prop('selected', true);
+            page.prop('selectedIndex', 0);
             prev.prop('disabled', 'disabled');
             next.prop('disabled', 'disabled');
             form.submit();

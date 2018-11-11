@@ -54,7 +54,7 @@ class Base extends AbstractType
                 'prev',
                 ButtonType::class,
                 [
-                    'attr' =>       ['class' => 'button', 'style' => 'display:none'],
+                    'attr' =>       ['class' => 'button tiny', 'style' => 'display:none'],
                     'label' =>      '<',
                 ]
             )
@@ -62,7 +62,7 @@ class Base extends AbstractType
                 'next',
                 ButtonType::class,
                 [
-                    'attr' =>       ['class' => 'button', 'style' => 'display:none'],
+                    'attr' =>       ['class' => 'button tiny', 'style' => 'display:none'],
                     'label' =>      '>',
                 ]
             )
