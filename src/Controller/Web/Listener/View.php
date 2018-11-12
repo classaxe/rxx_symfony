@@ -1,13 +1,12 @@
 <?php
 namespace App\Controller\Web\Listener;
 
-use App\Controller\Web\Listener\Base;
 use App\Entity\Listener as ListenerEntity;
 use App\Form\Listener as ListenerForm;
 use App\Repository\ListenerRepository;
-
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 use Symfony\Component\HttpFoundation\Request;
+use App\Utils\Rxx;
 
 /**
  * Class Listeners
@@ -74,14 +73,28 @@ class View extends Base
             } else {
                 $listener = new ListenerEntity();
                 $listener
-                    ->setLogLatest(\App\Utils\Rxx::getUtcDateTime('0000-00-00'));
+                    ->setLogLatest(Rxx::getUtcDateTime('0000-00-00'));
+            }
+            if ($form_data['gsq']) {
+                $GSQ =
+                    strtoUpper(substr($form_data['gsq'], 0, 4))
+                    .strtoLower(substr($form_data['gsq'], 4, 2));
+                $a =    Rxx::convertGsqToDegrees($GSQ);
+                $lat =  $a["lat"];
+                $lon =  $a["lon"];
+            } else {
+                $GSQ =  '';
+                $lat =  0;
+                $lon =  0;
             }
             $listener
                 ->setCallsign($form_data['callsign'])
                 ->setEmail($form_data['email'])
                 ->setEquipment($form_data['equipment'])
-                ->setGsq($form_data['gsq'])
+                ->setGsq($GSQ)
                 ->setItu($form_data['itu'])
+                ->setLat($lat)
+                ->setLon($lon)
                 ->setMapX($form_data['mapX'])
                 ->setMapY($form_data['mapY'])
                 ->setName($form_data['name'])
