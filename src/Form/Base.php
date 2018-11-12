@@ -25,7 +25,6 @@ use Symfony\Component\Form\FormBuilderInterface;
 class Base extends AbstractType
 {
     private $options;
-    private $limitOptions = [10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 100000, 20000, 50000, 100000];
 
     /**
      * @param FormBuilderInterface $formBuilder

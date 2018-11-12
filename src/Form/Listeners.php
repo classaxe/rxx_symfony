@@ -62,49 +62,56 @@ class Listeners extends Base
         $system =   $options['system'];
         $region =   $options['region'];
 
+        $this->addPaging($formBuilder, $options);
+
         $formBuilder
             ->add(
                 'sort',
                 HiddenType::class,
                 [
-                    'data' => 'name'
+                    'data' =>       'name'
                 ]
             )
             ->add(
                 'order',
                 HiddenType::class,
                 [
-                    'data' => 'a'
+                    'data' =>       'a'
                 ]
             )
             ->add(
                 'filter',
                 TextType::class,
                 [
-                    'label' => 'Search For',
-                    'help' => '&nbsp;'
+                    'label' =>      'Search For',
+                    'required' =>   false
                 ]
             )
             ->add(
                 'types',
                 ChoiceType::class,
                 [
-                    'label' => 'Show Counts',
-                    'expanded' => true,
-                    'multiple' => true,
-                    'choices' => $this->type->getAllChoices(),
+                    'choices' =>    $this->type->getAllChoices(),
                     'choice_attr' => function ($choiceValue, $key, $value) {
                         return ['class' => strToLower($value)];
-                    }
+                    },
+                    'expanded' =>   true,
+                    'label' =>      'Show Counts',
+                    'multiple' =>   true,
                 ]
             )
             ->add(
                 'country',
                 ChoiceType::class,
                 [
+                    'choices' => $this->country->getMatchingOptions(
+                        $system,
+                        $region,
+                        true,
+                        true
+                    ),
                     'label' => 'Country',
-                    'choices' =>
-                        $this->country->getMatchingOptions($system, $region, true, true),
+                    'required' => false
                 ]
             );
 
@@ -114,8 +121,9 @@ class Listeners extends Base
                     'region',
                     ChoiceType::class,
                     [
-                        'label' => 'Region',
                         'choices' => $this->region->getAllOptions(),
+                        'label' => 'Region',
+                        'required' =>   false
                     ]
                 );
         }

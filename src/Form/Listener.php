@@ -83,7 +83,7 @@ class Listener extends AbstractType
                 ($isAdmin ? 'mapX' : ''),
                 ($isAdmin ? 'mapY' : ''),
             ],
-            'Station Details' =>  [
+            'Receiving Station Details' =>  [
                 'primary',
                 'timezone',
                 'equipment',
@@ -116,182 +116,225 @@ class Listener extends AbstractType
                 'name',
                 TextType::class,
                 [
-                    'label'         => 'Name',
+                    'attr'          => [
+                        'onchange'      => "try{setCustomValidity('')}catch(e){}",
+                        'oninvalid'     => "setCustomValidity('Please enter this listener\'s name')"
+                    ],
                     'data'          => $options['name'],
                     'disabled'      => !$isAdmin,
                     'empty_data'    => '',
+                    'label'         => 'Name',
                 ]
             )
             ->add(
                 'callsign',
                 TextType::class,
                 [
-                    'label'         => 'Callsign',
                     'data'          => $options['callsign'],
                     'disabled'      => !$isAdmin,
                     'empty_data'    => '',
+                    'label'         => 'Callsign',
+                    'required'      => false
                 ]
             )
             ->add(
                 'email',
                 TextType::class,
                 [
-                    'label'         => 'Email Address',
                     'data'          => $options['email'],
                     'disabled'      => !$isAdmin,
                     'empty_data'    => '',
+                    'label'         => 'Email Address',
+                    'required'      => false
                 ]
             )
             ->add(
                 'website',
                 TextType::class,
                 [
-                    'label'         => 'Website',
                     'data'          => $options['website'],
                     'disabled'      => !$isAdmin,
                     'empty_data'    => '',
+                    'label'         => 'Website',
+                    'required'      => false
                 ]
             )
             ->add(
                 'qth',
                 TextType::class,
                 [
-                    'label'         => 'Town / City',
+                    'attr'          => [
+                        'onchange'      => "try{setCustomValidity('')}catch(e){}",
+                        'oninvalid'     => "setCustomValidity('Please enter this listener\'s approximate location')"
+                    ],
                     'data'          => $options['qth'],
                     'disabled'      => !$isAdmin,
                     'empty_data'    => '',
+                    'label'         => 'Town / City',
                 ]
             )
             ->add(
                 'sp',
                 ChoiceType::class,
                 [
-                    'label'         => 'State / Prov',
                     'choices'       => $this->sp->getMatchingOptions(),
                     'data'          => $options['sp'],
-                    'disabled'      => !$isAdmin
+                    'disabled'      => !$isAdmin,
+                    'label'         => 'State / Prov'
                 ]
             )
             ->add(
                 'itu',
                 ChoiceType::class,
                 [
-                    'label'         => 'Country',
                     'choices'       => $this->country->getMatchingOptions(),
                     'data'          => $options['itu'],
-                    'disabled'      => !$isAdmin
+                    'disabled'      => !$isAdmin,
+                    'label'         => 'Country',
                 ]
             )
             ->add(
                 'gsq',
                 TextType::class,
                 [
-                    'label'         => 'Grid Square',
+                    'attr'          => [
+                        'maxlength'     => 6,
+                        'onchange'      => "try{setCustomValidity('')}catch(e){}",
+                        'oninvalid'     => "setCustomValidity('Please provide the grid square so we can calculate distances')",
+                        'size'          => 6,
+                        'style'         => "width: 6em"
+                    ],
                     'data'          => $options['gsq'],
                     'disabled'      => !$isAdmin,
                     'empty_data'    => '',
-                    'attr'          => ['size' => '6', 'maxlength' => 6, 'style' => "width: 6em"]
+                    'label'         => 'Grid Square',
                 ]
             )
             ->add(
                 'timezone',
                 TextType::class,
                 [
-                    'label'         => 'Timezone',
-                    'attr'          => ['size' => '3', 'maxlength' => 3, 'style' => "width: 4em"],
+                    'attr'          => [
+                        'maxlength'     => 3,
+                        'onchange'      => "try{setCustomValidity('')}catch(e){}",
+                        'oninvalid'     => "setCustomValidity('Please provide the hours ahead or behind UTC (use -n for timezones west of london)')",
+                        'size'          => 3,
+                        'style'         => "width: 4em"
+                    ],
                     'data'          => $options['timezone'],
                     'disabled'      => !$isAdmin,
                     'empty_data'    => '',
+                    'label'         => 'Timezone',
                 ]
             )
             ->add(
                 'primary',
                 ChoiceType::class,
                 [
-                    'label'         => 'Primary Location',
+                    'attr'          => [
+                        'style'         => "width: 6em"
+                    ],
                     'choices'       => [
-                        'Yes' => 1,
-                        'No' => 0,
+                        'Yes'           => 1,
+                        'No'            => 0,
                     ],
                     'data'          => $options['primary'],
                     'disabled'      => !$isAdmin,
-                    'attr'          => [ 'style' => "width: 6em"]
+                    'label'         => 'Primary Location',
                 ]
             )
             ->add(
                 'mapX',
                 TextType::class,
                 [
-                    'label'         => 'Map X',
-                    'attr'          => ['size' => '3', 'maxlength' => 3, 'style' => "width: 4em;"],
+                    'attr'          => [
+                        'maxlength'     => 3,
+                        'size'          => 3,
+                        'style'         => "width: 4em;"
+                    ],
                     'data'          => $options['mapX'],
                     'disabled'      => !$isAdmin,
                     'empty_data'    => 0,
+                    'label'         => 'Map X',
+                    'required'      => false
                 ]
             )
             ->add(
                 'mapY',
                 TextType::class,
                 [
-                    'label'         => 'Map Y',
-                    'attr'          => ['size' => '3', 'maxlength' => 3, 'style' => "width: 4em;"],
+                    'attr'          => [
+                        'maxlength'     => 3,
+                        'size'          => 3,
+                        'style'         => "width: 4em;"
+                    ],
                     'data'          => $options['mapY'],
                     'disabled'      => !$isAdmin,
                     'empty_data'    => 0,
+                    'label'         => 'Map Y',
+                    'required'      => false
                 ]
             )
             ->add(
                 'equipment',
                 TextareaType::class,
                 [
-                    'label'         => 'Equipment',
+                    'attr'          => [
+                        'cols'          => 80,
+                        'rows'          => 3,
+                    ],
                     'data'          => html_entity_decode($options['equipment']),
                     'empty_data'    => '',
                     'disabled'      => !$isAdmin,
-                    'attr'          => ['rows' => '3', 'cols' => '80']
+                    'label'         => 'Equipment',
+                    'required'      => false
                 ]
             )
             ->add(
                 'notes',
                 TextareaType::class,
                 [
-                    'label'         => 'Notes',
-                    'attr'          => ['rows' => '3', 'cols' => '80'],
+                    'attr'          => [
+                        'cols'          => 80,
+                        'rows'          => 3,
+                    ],
                     'data'          => $options['notes'],
                     'disabled'      => !$isAdmin,
                     'empty_data'    => '',
+                    'label'         => 'Notes',
+                    'required'      => false
                 ]
             )
             ->add(
                 'print',
                 ButtonType::class,
                 [
-                    'label'         => 'Print...',
                     'attr'          => [
-                        'class' =>      'button small',
-                        'onclick' =>    'window.print()'
-                    ]
+                        'class'         => 'button small',
+                        'onclick'       => 'window.print()'
+                    ],
+                    'label'         => 'Print...',
                 ]
             )
             ->add(
                 'close',
                 ButtonType::class,
                 [
-                    'label'         => 'Close',
                     'attr'          => [
                         'class' =>      'button small',
                         'onclick' =>    'window.close()'
-                    ]
+                    ],
+                    'label'         => 'Close',
                 ]
             )
             ->add(
                 'save',
                 SubmitType::class,
                 [
-                    'label'         => 'Save',
                     'attr'          => [
-                        'class' =>      'button small'
-                    ]
+                        'class'         => 'button small'
+                    ],
+                    'label'         => 'Save',
                 ]
             )
         ;

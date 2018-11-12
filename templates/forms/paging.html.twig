@@ -1,10 +1,18 @@
+<div>
+    {{ form_widget(form.sort) }}
+    {{ form_widget(form.order) }}
+    {{ form_widget(form._token) }}
 {% if form.limit is defined %}
-    {{ form_row(form.limit) }}
-    {{ form_row(form.prev) }}
-    {{ form_row(form.next) }}
-    {{ form_row(form.page) }}
-    <div id="form_paging_status"></div>
+    {{ form_label(form.limit) }}
+    <div>
+    {{ form_widget(form.limit) }}
+    {{ form_widget(form.prev) }}
+    {{ form_widget(form.next) }}
+    {{ form_widget(form.page) }}
+    <span id="form_paging_status"></span>
+    </div>
 {% endif %}
+</div>
 
 <script>
 var paging = {

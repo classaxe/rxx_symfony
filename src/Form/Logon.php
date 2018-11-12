@@ -34,24 +34,34 @@ class Logon extends AbstractType
                 'user',
                 TextType::class,
                 [
-                    'label' => 'Username',
-                    'help' => '&nbsp;'
+                    'attr'          => [
+                        'onchange'      => "try{setCustomValidity('')}catch(e){}",
+                        'oninvalid'     => "setCustomValidity('Please provide a valid Username')",
+                    ],
+                    'help'          => '&nbsp;',
+                    'label'         => 'Username',
                 ]
             )
             ->add(
                 'password',
                 PasswordType::class,
                 [
-                    'label' => 'Password',
-                    'help' => '&nbsp;'
+                    'attr'          => [
+                        'onchange'      => "try{setCustomValidity('')}catch(e){}",
+                        'oninvalid'     => "setCustomValidity('Please provide a valid Password')",
+                    ],
+                    'help'          => '&nbsp;',
+                    'label'         => 'Password',
                 ]
             )
             ->add(
                 'submit',
                 SubmitType::class,
                 [
-                    'label' => 'Logon',
-                    'attr'          => [ 'class' => 'button small']
+                    'attr'          => [
+                        'class'         => 'button small'
+                    ],
+                    'label'         => 'Logon',
                 ]
             );
 

@@ -157,21 +157,23 @@ body .menu-centered .system .is-active>a:hover, body .menu-centered .mode .is-ac
 pre { border: 1px dashed #ccc; background: #eee; padding: 0.25em 1em !important; margin: 0.5em !important; font-size: 8pt !important; display: inline-block; }
 
 /* [ Form listener_list ] */
-.listener_list { width: 540px; }
-.listener_list .content { height: 170px; }
-.listener_list div div { display: inline-block;}
+.listener_list { width: 525px; }
+.listener_list div div { display: inline-block; }
 .listener_list input[type='text'],
-.listener_list select { width: 420px; }
+.listener_list select { width: 410px; }
+
+.listener_list #form_prev,
+.listener_list #form_next  {
+    float: left; line-height: 1.75em; margin: 0 0 0 0.5em; padding: 0.25em; width: 3em; text-align: center;
+}
 .listener_list #form_page {
-    width: 8em; float: left; margin: 0;
+    width: 8em; float: left; margin: 0 0 0 0.5em;
 }
-.listener_list div #form_prev,
-.listener_list div #form_next  {
-    float: left; line-height: 1em; padding: 0.25em; width: 2em; text-align: center; margin: 0;
+.listener_list #form_paging_status {
+    display: inline-block; width: 8em; padding: 0; line-height: 1.25em; margin: 0 0 0 0.5em;
 }
-label[for="form_page"] { display: none;}
-.listener_list #form_paging_status { clear: both; float: none; width: 10em; }
-.listener_list #form_submit { margin: 0.5em 220px 0; }
+
+.listener_list #form_submit { margin: 0.5em 220px 0;  }
 
 /* [ Form listener_edit ] */
 .listener_edit #form label { width: 20%; min-width: 120px; }
@@ -215,7 +217,7 @@ fieldset#group_weather_report_details div label {
 label[for="form_limit"] { float: left; min-width: 4em;}
 select#form_limit,
 select#form_page {
-    width: 7em; float: left; margin: 0 0.5em 0 0;
+    width: 8em; float: left; margin: 0 0.5em 0 0;
 }
 button#form_prev,
 button#form_next { float: left; margin: 0 0.5em 0 0; clear: none; font-size: 0.4rem !important; line-height: 0.6em; }

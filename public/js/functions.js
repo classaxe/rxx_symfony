@@ -87,7 +87,7 @@ function setEmailLinks() {
 function getlimitOptions(max, value)
 {
     var values = [10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 100000, 20000, 50000, 100000];
-    var out = "<option value='-1'>All results</option>";
+    var out = "";
     for (var i in values) {
         if (values[i] > max) {
             continue;
@@ -99,12 +99,15 @@ function getlimitOptions(max, value)
             values[i] + ' results' +
             "</option>"
     }
+    out +=
+        "<option value=\"-1\"" +
+        (parseInt(value) === -1 ? " selected=\"selected\"" : "") +
+        ">All results</option>";
     return out;
 }
 
 function getPagingOptions(total, limit, page)
 {
-    // return "<option>total="+total+",limit="+limit+"</option>";
     var out = "";
     pages = total/limit;
     for (var i=0; i < pages; i++) {

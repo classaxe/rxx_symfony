@@ -6,10 +6,9 @@
     <div class="controlPanel {{ form_class }}">
         <div class="header">{{ mode|raw }}</div>
         <div class="content">
-{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+{{ form_start(form) }}
             {% include 'forms/paging.html.twig' %}
-{{ form_end(form, {'attr': {'novalidate': 'novalidate'}}) }}
-            <div id="form_paging_status"></div>
+{{ form_end(form) }}
 {% include 'listener/signals.grid.html.twig' %}
         </div>
     </div>
