@@ -22,6 +22,13 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Listener
 {
+    private $popup = [
+        'addlog'    => "width=640,height=480,status=1,scrollbars=1,resizable=1",
+        'hamcall'   => "width=640,height=480,status=1,scrollbars=1,resizable=1",
+        'listener'  => "width=800,height=680,status=1,scrollbars=1,resizable=1",
+        'nwl'       => "status=1,scrollbars=1,resizable=1",
+        'www'       => "width=640,height=480,status=1,scrollbars=1,resizable=1"
+    ];
     /**
      * @var int
      *
@@ -774,7 +781,7 @@ class Listener
     {
         $popup_url =    'http://example.com';
         $popup_name =   "addlog_{$this->id}";
-        $popup_args =   "width=640,height=480,status=1,scrollbars=1,resizable=1";
+        $popup_args =   $this->popup['addlog'];
         return
             "<a href=\"{$popup_url}\" rel=\"external\" data-popup=\"{$popup_name}|{$popup_args}\">Add...</a>";
     }
@@ -791,18 +798,32 @@ class Listener
         }
         $popup_url =    "https://hamcall.net/call?callsign=".urlencode($this->callsign);
         $popup_name =   "callsign_{$this->id}";
-        $popup_args =   "width=640,height=480,status=1,scrollbars=1,resizable=1";
-
+        $popup_args =   $this->popup['hamcall'];
         return
             "<a href=\"$popup_url\" rel=\"external\" data-popup=\"{$popup_name}|{$popup_args}\">{$this->callsign}</a>";
     }
 
+    private function getLogLink($value) {
+        $popup_url =    "listeners/{$this->id}/logs";
+        $popup_name =   "edit_{$this->id}";
+        $popup_args =   $this->popup['listener'];
+        return "<a href=\"$popup_url\" rel=\"external\" data-popup=\"{$popup_name}|{$popup_args}\">{$value}</a>";
+
+    }
+
+    private function getSignalsLink($value) {
+        $popup_url =    "listeners/{$this->id}/signals";
+        $popup_name =   "edit_{$this->id}";
+        $popup_args =   $this->popup['listener'];
+        return "<a href=\"$popup_url\" rel=\"external\" data-popup=\"{$popup_name}|{$popup_args}\">{$value}</a>";
+
+    }
     /**
      * @return null|string
      */
     public function getFormattedCountDgps(): ?string
     {
-        return ($this->countDgps ? $this->countDgps : '');
+        return ($this->countDgps ? $this->getSignalsLink($this->countDgps) : '');
     }
 
     /**
@@ -810,7 +831,7 @@ class Listener
      */
     public function getFormattedCountDsc(): ?string
     {
-        return ($this->countDsc ? $this->countDsc : '');
+        return ($this->countDsc ? $this->getSignalsLink($this->countDsc) : '');
     }
 
     /**
@@ -818,7 +839,7 @@ class Listener
      */
     public function getFormattedCountHambcn(): ?string
     {
-        return ($this->countHambcn ? $this->countHambcn : '');
+        return ($this->countHambcn ? $this->getSignalsLink($this->countHambcn) : '');
     }
 
     /**
@@ -826,7 +847,7 @@ class Listener
      */
     public function getFormattedCountLogs(): ?string
     {
-        return ($this->countLogs ? $this->countLogs : '');
+        return ($this->countLogs ? $this->getLogLink($this->countLogs) : '');
     }
 
     /**
@@ -834,7 +855,7 @@ class Listener
      */
     public function getFormattedCountNavtex(): ?string
     {
-        return ($this->countNavtex ? $this->countNavtex : '');
+        return ($this->countNavtex ? $this->getSignalsLink($this->countNavtex) : '');
     }
 
     /**
@@ -842,7 +863,7 @@ class Listener
      */
     public function getFormattedCountNdb(): ?string
     {
-        return ($this->countNdb ? $this->countNdb : '');
+        return ($this->countNdb ? $this->getSignalsLink($this->countNdb) : '');
     }
 
     /**
@@ -850,7 +871,7 @@ class Listener
      */
     public function getFormattedCountOther(): ?string
     {
-        return ($this->countOther ? $this->countOther : '');
+        return ($this->countOther ? $this->getSignalsLink($this->countOther) : '');
     }
 
     /**
@@ -858,7 +879,7 @@ class Listener
      */
     public function getFormattedCountSignals(): ?string
     {
-        return ($this->countSignals ? $this->countSignals : '');
+        return ($this->countSignals ? $this->getSignalsLink($this->countSignals) : '');
     }
 
     /**
@@ -866,7 +887,7 @@ class Listener
      */
     public function getFormattedCountTime(): ?string
     {
-        return ($this->countTime ? $this->countTime : '');
+        return ($this->countTime ? $this->getSignalsLink($this->countTime) : '');
     }
 
     /**
@@ -908,6 +929,17 @@ class Listener
     /**
      * @return null|string
      */
+    public function getFormattedNameLink(): ?string
+    {
+        $popup_url =    "listeners/{$this->id}";
+        $popup_name =   "edit_{$this->id}";
+        $popup_args =   $this->popup['listener'];
+        return "<a href=\"$popup_url\" rel=\"external\" data-popup=\"{$popup_name}|{$popup_args}\">{$this->name}</a>";
+    }
+
+    /**
+     * @return null|string
+     */
     public function getFormattedNdbWeblogLink(): ?string
     {
         if (!$this->countLogs) {
@@ -915,7 +947,7 @@ class Listener
         }
         $popup_url =    "listeners/{$this->id}/ndbweblog";
         $popup_name =   "nwl_{$this->id}";
-        $popup_args =   "status=1,scrollbars=1,resizable=1";
+        $popup_args =   $this->popup['nwl'];
         return "<a href=\"$popup_url\" rel=\"external\" data-popup=\"{$popup_name}|{$popup_args}\">NWL</a>";
     }
 
@@ -947,11 +979,10 @@ class Listener
         if (!$this->website) {
             return '';
         }
-        $popup_url =    $this->website;
         $popup_name =   "www_{$this->id}";
         $popup_args =   "width=640,height=480,status=1,scrollbars=1,resizable=1";
-        $short_url =    preg_replace(['(^https?://)', '(/$)'], '', $popup_url);
+        $short_url =    preg_replace(['(^https?://)', '(/$)'], '', $this->website);
         return
-            "<a href=\"{$popup_url}\" rel=\"external\" data-popup=\"{$popup_name}|{$popup_args}\">{$short_url}</a>";
+            "<a href=\"{$this->website}\" rel=\"external\" data-popup=\"{$popup_name}|{$popup_args}\">{$short_url}</a>";
     }
 }

@@ -16,7 +16,7 @@ class Listeners
             'name' => [
                 'admin'     =>  false,
                 'arg'       =>  '',
-                'field'     =>  'name',
+                'field'     =>  'formattedNameLink',
                 'label'     =>  'Name',
                 'order'     =>  'a',
                 'sort'      =>  'l.name',
