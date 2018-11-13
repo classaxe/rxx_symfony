@@ -17,8 +17,8 @@ class ListenersTest extends Base
         7 =>    "Test 7:\nRequested %s as %s with query matching nothing:\nExpected message '%s', saw '%s'.",
     ];
 
-    const COLS_MIN =    14;     // Only NDBs selected
-    const COLS_MAX =    20;     // All types selected
+    const COLS_MIN =    15;     // Only NDBs selected
+    const COLS_MAX =    21;     // All types selected
     const COLS_ADMIN =  4;      // Additional colunms for admin users
 
     public function testAllSystemsPublic()
@@ -62,7 +62,7 @@ class ListenersTest extends Base
             $this->assertEquals($expected, $actual, $message);
 
             $resultRows =   $this->getCrawler()->filter('table.listener.results tbody')->eq(0);
-            $expected =     100;  // 'GreaterThan' clause is used to test
+            $expected =     10;  // 'GreaterThan' clause is used to test
             $actual =       $resultRows->children()->count();
             $message =      $this->getError(5, [$url, $usertype, $expected, $actual]);
             $this->assertGreaterThan($expected, $actual, $message);
@@ -70,7 +70,7 @@ class ListenersTest extends Base
             $form = $this
                 ->getCrawler()
                 ->filter('button#form_submit')
-                ->form(['form[types]' =>    array_values((new TypeRepository)->getAll())], 'POST');
+                ->form(['form[types]' =>    array_values((new TypeRepository)->getAllChoices())], 'POST');
             $this->client->submit($form);
 
             $headRow =      $this->getCrawler()->filter('table.listener.results thead tr')->eq(0);

@@ -319,7 +319,7 @@ abstract class Base extends WebTestCase
         $initialRedirectStatus = $this->currentRedirectStatus;
         $this->setYesRedirect();
         $admin = $this->getAdminUser();
-        $this->client->request('GET', '/rww/logon');
+        $this->client->request('GET', '/rww/admin/logon');
         $form = $this
             ->getCrawler()
             ->filter('button#form_submit')
@@ -339,7 +339,7 @@ abstract class Base extends WebTestCase
 
     protected function setUserPublic()
     {
-        $this->client->request('GET', '/rww/logoff');
+        $this->client->request('GET', '/rww/admin/logoff');
         $this->currentUserType = 'public';
     }
 

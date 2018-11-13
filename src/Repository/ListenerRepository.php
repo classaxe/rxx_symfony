@@ -66,6 +66,7 @@ class ListenerRepository extends ServiceEntityRepository
                 case "listener_export":
                 case "listener_logs":
                 case "listener_signals":
+                case "listener_stats":
                     if ($logs) {
                         $out[] = str_replace(
                             ['%%logs%%', '%%signals%%'],
