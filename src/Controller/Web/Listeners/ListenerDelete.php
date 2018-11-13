@@ -1,5 +1,5 @@
 <?php
-namespace App\Controller\Web\Listener;
+namespace App\Controller\Web\Listeners;
 
 use App\Controller\Web\Base;
 use App\Repository\ListenerRepository;
@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
  * Class Listeners
  * @package App\Controller\Web
  */
-class Delete extends Base
+class ListenerDelete extends Base
 {
     /**
      * @Route(

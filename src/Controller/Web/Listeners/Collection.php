@@ -1,7 +1,7 @@
 <?php
-namespace App\Controller\Web;
+namespace App\Controller\Web\Listeners;
 
-use App\Form\Listeners as ListenersForm;
+use App\Form\Listeners\Collection as Form;
 use App\Repository\ListenerRepository;
 use App\Utils\Rxx;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
@@ -11,11 +11,12 @@ use Symfony\Component\HttpFoundation\Request;
  * Class Listeners
  * @package App\Controller\Web
  */
-class Listeners extends Base
+class Collection extends Base
 {
     const defaultlimit =     100;
     const maxNoPaging =      100;
-
+    const defaultSorting =  'name';
+    const defaultOrder =    'a';
     /**
      * @Route(
      *     "/{system}/listeners",
@@ -28,24 +29,25 @@ class Listeners extends Base
     public function listenerListController(
         $system,
         Request $request,
-        ListenersForm $form,
+        Form $form,
         ListenerRepository $listenerRepository
     ) {
         $args = [
             'country' =>    '',
             'filter' =>     '',
             'limit' =>      static::defaultlimit,
-            'order' =>      'a',
+            'order' =>      static::defaultOrder,
             'page' =>       0,
             'region' =>     '',
-            'sort' =>       'name',
+            'sort' =>       static::defaultSorting,
             'types' =>      [],
         ];
-
         $options = [
             'limit' =>          static::defaultlimit,
             'maxNoPaging' =>    static::maxNoPaging,
+            'order' =>          static::defaultOrder,
             'page' =>           0,
+            'sort' =>           static::defaultSorting,
             'system' =>         $system,
             'region' =>         (isset($_REQUEST['form']['region']) ? $_REQUEST['form']['region'] : ''),
             'total' =>          $listenerRepository->getFilteredListenersCount($system, $args)
@@ -55,11 +57,6 @@ class Listeners extends Base
         if ($form->isSubmitted() && $form->isValid()) {
             $args = $form->getData();
         }
-        $showingAll = (
-            empty($args['filter']) &&
-            empty($args['country']) &&
-            empty($args['region'])
-        );
         if (empty($args['types'])) {
             $args['types'][] = 'type_NDB';
         }

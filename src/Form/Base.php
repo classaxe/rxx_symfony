@@ -8,14 +8,10 @@
 
 namespace App\Form;
 
-use App\Utils\Rxx;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormBuilderInterface;
 
 /**
@@ -24,12 +20,26 @@ use Symfony\Component\Form\FormBuilderInterface;
  */
 class Base extends AbstractType
 {
+    /**
+     * @var
+     */
     private $options;
 
     /**
      * @param FormBuilderInterface $formBuilder
      * @param array $options
      * @return FormBuilderInterface
+     */
+    public function buildForm(FormBuilderInterface $formBuilder, array $options)
+    {
+        $this->addPaging($formBuilder, $options);
+        $this->addSorting($formBuilder, $options);
+        return $formBuilder->getForm();
+    }
+
+    /**
+     * @param FormBuilderInterface $formBuilder
+     * @param array $options
      */
     public function addPaging(FormBuilderInterface &$formBuilder, array $options)
     {
@@ -72,6 +82,29 @@ class Base extends AbstractType
                     'attr' =>       ['style' => 'display:none'],
                     'data' =>       0,
                     'label' =>      ' ',
+                ]
+            );
+    }
+
+    /**
+     * @param FormBuilderInterface $formBuilder
+     * @param array $options
+     */
+    protected function addSorting(FormBuilderInterface &$formBuilder, array $options)
+    {
+        $formBuilder
+            ->add(
+                'sort',
+                HiddenType::class,
+                [
+                    'data' => $this->options['sort']
+                ]
+            )
+            ->add(
+                'order',
+                HiddenType::class,
+                [
+                    'data' => $this->options['order']
                 ]
             );
     }

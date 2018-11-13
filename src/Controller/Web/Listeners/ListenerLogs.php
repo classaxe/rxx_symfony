@@ -1,7 +1,7 @@
 <?php
-namespace App\Controller\Web\Listener;
+namespace App\Controller\Web\Listeners;
 
-use App\Form\ListenerLogs as ListenerLogsForm;
+use App\Form\Listeners\ListenerLogs as ListenerLogsForm;
 use App\Repository\ListenerRepository;
 use App\Repository\TypeRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -11,11 +11,12 @@ use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
  * Class Listeners
  * @package App\Controller\Web
  */
-class Logs extends Base
+class ListenerLogs extends Base
 {
     const defaultlimit =     20;
     const maxNoPaging =      20;
-
+    const defaultSorting =  'logDate';
+    const defaultOrder =    'a';
     /**
      * @Route(
      *     "/{system}/listeners/{id}/logs",
@@ -40,16 +41,18 @@ class Logs extends Base
         $options = [
             'limit' =>          static::defaultlimit,
             'maxNoPaging' =>    static::maxNoPaging,
+            'order' =>          static::defaultOrder,
             'page' =>           0,
+            'sort' =>           static::defaultSorting,
             'total' =>          $listener->getCountLogs()
         ];
         $form = $form->buildForm($this->createFormBuilder(), $options);
         $form->handleRequest($request);
         $args = [
             'limit' =>          static::defaultlimit,
-            'order' =>          'a',
+            'order' =>          static::defaultOrder,
             'page' =>           0,
-            'sort' =>           'logDate',
+            'sort' =>           static::defaultSorting,
         ];
         if ($form->isSubmitted() && $form->isValid()) {
             $args = $form->getData();

@@ -1,8 +1,8 @@
 <?php
-namespace App\Controller\Web\Listener;
+namespace App\Controller\Web\Listeners;
 
-use App\Controller\Web\Listener\Base;
-use App\Form\Listener\Weather as ListenerWeatherForm;
+use App\Controller\Web\Listeners\Base;
+use App\Form\Listeners\ListenerWeather as ListenerWeatherForm;
 use App\Repository\ListenerRepository;
 use App\Repository\IcaoRepository;
 
@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
  * Class Listeners
  * @package App\Controller\Web\Listener
  */
-class Weather extends Base
+class ListenerWeather extends Base
 {
 
     /**

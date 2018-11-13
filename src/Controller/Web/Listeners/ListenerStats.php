@@ -1,7 +1,7 @@
 <?php
-namespace App\Controller\Web\Listener;
+namespace App\Controller\Web\Listeners;
 
-use App\Controller\Web\Listener\Base;
+use App\Controller\Web\Listeners\Base;
 use App\Repository\ListenerRepository;
 use App\Repository\TypeRepository;
 
@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
  * Class Listeners
  * @package App\Controller\Web\Listener
  */
-class Stats extends Base
+class ListenerStats extends Base
 {
 
     /**

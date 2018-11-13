@@ -1,7 +1,7 @@
 <?php
-namespace App\Controller\Web\Listener;
+namespace App\Controller\Web\Listeners;
 
-use App\Form\ListenerSignals as ListenerSignalsForm;
+use App\Form\Listeners\ListenerSignals as ListenerSignalsForm;
 use App\Repository\ListenerRepository;
 use App\Repository\TypeRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -11,10 +11,12 @@ use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
  * Class Listeners
  * @package App\Controller\Web\Listener
  */
-class Signals extends Base
+class ListenerSignals extends Base
 {
-    const defaultlimit =     20;
-    const maxNoPaging =      20;
+    const defaultlimit =    20;
+    const maxNoPaging =     20;
+    const defaultSorting =  'khz';
+    const defaultOrder =    'a';
 
     /**
      * @Route(
@@ -40,16 +42,18 @@ class Signals extends Base
         $options = [
             'limit' =>          static::defaultlimit,
             'maxNoPaging' =>    static::maxNoPaging,
+            'order' =>          static::defaultOrder,
             'page' =>           0,
+            'sort' =>           static::defaultSorting,
             'total' =>          $listener->getCountSignals()
         ];
         $form = $form->buildForm($this->createFormBuilder(), $options);
         $form->handleRequest($request);
         $args = [
             'limit' =>          static::defaultlimit,
-            'order' =>          'a',
+            'order' =>          static::defaultOrder,
             'page' =>           0,
-            'sort' =>           'khz',
+            'sort' =>           static::defaultSorting,
             'total' =>          $listener->getCountSignals()
         ];
         if ($form->isSubmitted() && $form->isValid()) {

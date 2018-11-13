@@ -1,7 +1,7 @@
 <?php
-namespace App\Controller\Web\Listener\Export;
+namespace App\Controller\Web\Listeners\Export;
 
-use App\Controller\Web\Listener\Base;
+use App\Controller\Web\Listeners\Base;
 use App\Repository\ListenerRepository;
 use App\Repository\TypeRepository;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations

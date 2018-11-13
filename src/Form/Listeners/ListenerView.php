@@ -6,7 +6,7 @@
  * Time: 12:08
  */
 
-namespace App\Form;
+namespace App\Form\Listeners;
 
 use App\Repository\CountryRepository;
 use App\Repository\StateRepository;
@@ -27,7 +27,7 @@ use Symfony\Component\Form\FormBuilderInterface;
  * Class Listeners
  * @package App\Form
  */
-class Listener extends AbstractType
+class ListenerView extends AbstractType
 {
     /**
      * @var CountryRepository

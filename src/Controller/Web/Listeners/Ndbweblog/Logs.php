@@ -1,25 +1,25 @@
 <?php
-namespace App\Controller\Web\Listener\Export;
+namespace App\Controller\Web\Listeners\Ndbweblog;
 
-use App\Controller\Web\Listener\Base;
+use App\Controller\Web\Listeners\Base;
 use App\Repository\ListenerRepository;
 use App\Repository\LogRepository;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 
 /**
  * Class Listeners
- * @package App\Controller\Web\Listener\Export
+ * @package App\Controller\Web\Listener\Ndbweblog
  */
 class Logs extends Base
 {
     /**
      * @Route(
-     *     "/{system}/listeners/{id}/export/logs",
+     *     "/{system}/listeners/{id}/ndbweblog/logs.js",
      *     requirements={
      *        "system": "reu|rna|rww"
      *     },
      *     defaults={"id"=""},
-     *     name="listener_export_logs"
+     *     name="listener_ndbweblog_logs"
      * )
      */
     public function logsController(
@@ -31,17 +31,16 @@ class Logs extends Base
         if (!$listener = $this->getValidReportingListener($id, $listenerRepository)) {
             return $this->redirectToRoute('listeners', ['system' => $system]);
         }
-        $logs = $logRepository->getLogsForListener($id);
         $parameters = [
-            'title' =>              strToUpper($system) . ' log for '.$listener->getName() . " on " . date('Y-m-d'),
-            'subtitle' =>           '(' . count($logs) . ' records sorted by Date and Time)',
+            'title' =>              'NDB Weblog logs for '.$listener->getName(),
             'system' =>             $system,
             'listener' =>           $listener,
-            'logs' =>               $logs
+            'logs' =>               $logRepository->getLogsForListener($id)
         ];
         $parameters = array_merge($parameters, $this->parameters);
-        $response = $this->render('listener/export/logs.txt.twig', $parameters);
-        $response->headers->set('Content-Type', 'text/plain');
+        $response = $this->render('listener/ndbweblog/logs.js.twig', $parameters);
+        $response->headers->set('Content-Type', 'application/javascript');
+        $response->headers->set('Content-Disposition','attachment;filename=logs.js');
         return $response;
     }
 }

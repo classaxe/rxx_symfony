@@ -1,25 +1,25 @@
 <?php
-namespace App\Controller\Web\Listener\Ndbweblog;
+namespace App\Controller\Web\Listeners\Export;
 
-use App\Controller\Web\Listener\Base;
+use App\Controller\Web\Listeners\Base;
 use App\Repository\ListenerRepository;
 use App\Repository\LogRepository;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 
 /**
  * Class Listeners
- * @package App\Controller\Web\Listener\Ndbweblog
+ * @package App\Controller\Web\Listener\Export
  */
 class Logs extends Base
 {
     /**
      * @Route(
-     *     "/{system}/listeners/{id}/ndbweblog/logs.js",
+     *     "/{system}/listeners/{id}/export/logs",
      *     requirements={
      *        "system": "reu|rna|rww"
      *     },
      *     defaults={"id"=""},
-     *     name="listener_ndbweblog_logs"
+     *     name="listener_export_logs"
      * )
      */
     public function logsController(
@@ -31,16 +31,17 @@ class Logs extends Base
         if (!$listener = $this->getValidReportingListener($id, $listenerRepository)) {
             return $this->redirectToRoute('listeners', ['system' => $system]);
         }
+        $logs = $logRepository->getLogsForListener($id);
         $parameters = [
-            'title' =>              'NDB Weblog logs for '.$listener->getName(),
+            'title' =>              strToUpper($system) . ' log for '.$listener->getName() . " on " . date('Y-m-d'),
+            'subtitle' =>           '(' . count($logs) . ' records sorted by Date and Time)',
             'system' =>             $system,
             'listener' =>           $listener,
-            'logs' =>               $logRepository->getLogsForListener($id)
+            'logs' =>               $logs
         ];
         $parameters = array_merge($parameters, $this->parameters);
-        $response = $this->render('listener/ndbweblog/logs.js.twig', $parameters);
-        $response->headers->set('Content-Type', 'application/javascript');
-        $response->headers->set('Content-Disposition','attachment;filename=logs.js');
+        $response = $this->render('listener/export/logs.txt.twig', $parameters);
+        $response->headers->set('Content-Type', 'text/plain');
         return $response;
     }
 }

@@ -6,7 +6,7 @@
  * Time: 12:08
  */
 
-namespace App\Form\Listener;
+namespace App\Form\Listeners;
 
 use App\Repository\IcaoRepository;
 
@@ -24,7 +24,7 @@ use Symfony\Component\Form\FormBuilderInterface;
  * Class Listeners
  * @package App\Form
  */
-class Weather extends AbstractType
+class ListenerWeather extends AbstractType
 {
     /**
      * @var IcaoRepository

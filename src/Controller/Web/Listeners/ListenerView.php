@@ -1,8 +1,8 @@
 <?php
-namespace App\Controller\Web\Listener;
+namespace App\Controller\Web\Listeners;
 
 use App\Entity\Listener as ListenerEntity;
-use App\Form\Listener as ListenerForm;
+use App\Form\Listeners\ListenerView as ListenerViewForm;
 use App\Repository\ListenerRepository;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 use Symfony\Component\HttpFoundation\Request;
@@ -12,7 +12,7 @@ use App\Utils\Rxx;
  * Class Listeners
  * @package App\Controller\Web\Listener
  */
-class View extends Base
+class ListenerView extends Base
 {
 
     /**
@@ -28,7 +28,7 @@ class View extends Base
         $system,
         $id,
         Request $request,
-        ListenerForm $listenerForm,
+        ListenerViewForm $listenerViewForm,
         ListenerRepository $listenerRepository
     ) {
         if ($id !== 'new' && (int) $id) {
@@ -60,7 +60,7 @@ class View extends Base
             'timezone'  =>  $listener ? $listener->getTimezone() : '',
             'website'   =>  $listener ? $listener->getWebsite() : '',
         ];
-        $form = $listenerForm->buildForm(
+        $form = $listenerViewForm->buildForm(
             $this->createFormBuilder(),
             $options
         );
@@ -116,7 +116,7 @@ class View extends Base
 
         $parameters = [
             'id' =>                 $id,
-            'fieldGroups' =>        $listenerForm->getFieldGroups($isAdmin),
+            'fieldGroups' =>        $listenerViewForm->getFieldGroups($isAdmin),
             'form' =>               $form->createView(),
             'mode' =>               ($isAdmin && !$listener ? 'Add Listener' : $listener->getName().' &gt; Profile'),
             'system' =>             $system,

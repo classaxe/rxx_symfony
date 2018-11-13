@@ -1,15 +1,11 @@
 <?php
-namespace App\Controller\Web\Listener;
+namespace App\Controller\Web\Listeners;
 
 use App\Controller\Web\Base as WebBase;
 use App\Repository\ListenerRepository;
 use App\Repository\LogRepository;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 
-/**
- * Class Listeners
- * @package App\Controller\Web\Listener\Ndbweblog
- */
 class Base extends WebBase
 {
     /**

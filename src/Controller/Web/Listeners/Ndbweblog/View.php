@@ -1,7 +1,7 @@
 <?php
-namespace App\Controller\Web\Listener\Ndbweblog;
+namespace App\Controller\Web\Listeners\Ndbweblog;
 
-use App\Controller\Web\Listener\Base;
+use App\Controller\Web\Listeners\Base;
 use App\Repository\ListenerRepository;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 
@@ -9,19 +9,19 @@ use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
  * Class Listeners
  * @package App\Controller\Web\Listener\Ndbweblog
  */
-class Config extends Base
+class View extends Base
 {
     /**
      * @Route(
-     *     "/{system}/listeners/{id}/ndbweblog/config.js",
+     *     "/{system}/listeners/{id}/ndbweblog",
      *     requirements={
      *        "system": "reu|rna|rww"
      *     },
      *     defaults={"id"=""},
-     *     name="listener_ndbweblog_config"
+     *     name="listener_ndbweblog"
      * )
      */
-    public function configController(
+    public function viewController(
         $system,
         $id,
         ListenerRepository $listenerRepository
@@ -30,14 +30,11 @@ class Config extends Base
             return $this->redirectToRoute('listeners', ['system' => $system]);
         }
         $parameters = [
-            'title' => 'NDB Weblog config for ' . $listener->getName(),
-            'system' => $system,
-            'listener' => $listener
+            'id' =>                 $id,
+            'title' =>              'NDB Weblog for '.$listener->getName(),
+            'system' =>             $system,
         ];
         $parameters = array_merge($parameters, $this->parameters);
-        $response = $this->render('listener/ndbweblog/config.js.twig', $parameters);
-        $response->headers->set('Content-Type', 'application/javascript');
-        $response->headers->set('Content-Disposition','attachment;filename=config.js');
-        return $response;
+        return $this->render('listener/ndbweblog/index.html.twig', $parameters);
     }
 }

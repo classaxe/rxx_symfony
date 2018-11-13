@@ -6,13 +6,12 @@
  * Time: 12:08
  */
 
-namespace App\Form;
+namespace App\Form\Listeners;
 
 use App\Form\Base;
 use App\Repository\CountryRepository;
 use App\Repository\RegionRepository;
 use App\Repository\TypeRepository;
-use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -23,7 +22,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
  * Class Listeners
  * @package App\Form
  */
-class Listeners extends Base
+class Collection extends Base
 {
     /**
      * @var CountryRepository
@@ -63,22 +62,9 @@ class Listeners extends Base
         $region =   $options['region'];
 
         $this->addPaging($formBuilder, $options);
+        $this->addSorting($formBuilder, $options);
 
         $formBuilder
-            ->add(
-                'sort',
-                HiddenType::class,
-                [
-                    'data' =>       'name'
-                ]
-            )
-            ->add(
-                'order',
-                HiddenType::class,
-                [
-                    'data' =>       'a'
-                ]
-            )
             ->add(
                 'filter',
                 TextType::class,

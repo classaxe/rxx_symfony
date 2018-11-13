@@ -1,7 +1,7 @@
 <?php
-namespace App\Controller\Web\Listener\Ndbweblog;
+namespace App\Controller\Web\Listeners\Ndbweblog;
 
-use App\Controller\Web\Listener\Base;
+use App\Controller\Web\Listeners\Base;
 use App\Repository\ListenerRepository;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 
