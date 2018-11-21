@@ -38,6 +38,17 @@ class TypeRepository
         return $out;
     }
 
+    public function getSignalTypesSearched(array $types)
+    {
+        $out = [];
+        foreach (static::types as $key=>$type) {
+            if (in_array('type_'.$type['class'], $types)){
+                $out[] = $key;
+            }
+        }
+        return $out;
+    }
+
     public function getMapIconColorForCodes()
     {
         $out = [];

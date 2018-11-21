@@ -1,5 +1,33 @@
 {% extends 'main.html.twig' %}
 
 {% block body %}
-<h1>{{ signal.khz }}-{{  signal.call }}</h1>
+    <div class="main">
+        <h1>{{ mode }}</h1>
+        {% include 'status.html.twig' %}
+        {% if not isAdmin %}{{ text|raw }}{% endif %}
+        {% set form_title='Customise ' ~ system|upper ~ ' Signals List' %}
+        {% set form_class='signal_list' %}
+        <div class="row">
+            <div class="small-12 medium-8 columns">
+                {% include 'forms/signals/form.html.twig' %}
+            </div>
+        </div>
+
+        {% include 'signals/grid.html.twig' %}
+
+        <script>
+            $(document).ready( function() {
+                setPagingActions();
+                setFormTypesStyles();
+                setFormTypesDefault();
+                setFormTypesAllAction();
+                setFormCountryAction();
+                setFormRegionAction();
+                setColumnSortActions();
+                setColumnSortedClass();
+                setExternalLinks();
+                $('#form_paging_status').html('{{ matched }}');
+            });
+        </script>
+    </div>
 {% endblock %}

@@ -103,7 +103,11 @@ class ListenerRepository extends ServiceEntityRepository
 
     public function getFilteredListeners($system, $args)
     {
-        $qb = $this->createQueryBuilder('l');
+        $qb =
+            $this
+                ->createQueryBuilder('l')
+                ->select('l');
+
         if ($this->listenersColumns[$args['sort']]['sort']) {
             $qb
                 ->addSelect(
@@ -118,11 +122,13 @@ class ListenerRepository extends ServiceEntityRepository
                 ->andWhere('(l.name like :filter or l.qth like :filter or l.callsign like :filter)')
                 ->setParameter('filter', '%'.$args['filter'].'%');
         }
+
         if ($args['country']) {
             $qb
                 ->andWhere('(l.itu = :country)')
                 ->setParameter('country', $args['country']);
         }
+
         if (isset($args['region']) && $args['region']) {
             $qb
                 ->andWhere('(l.region = :region)')
@@ -147,6 +153,7 @@ class ListenerRepository extends ServiceEntityRepository
                 );
         }
         $result = $qb->getQuery()->execute();
+
         // Necessary to resolve extra nesting in results caused by extra select to ignore empty fields in sort order
         $out = [];
         foreach ($result as $key => $value) {
@@ -158,9 +165,12 @@ class ListenerRepository extends ServiceEntityRepository
     public function getFilteredListenersCount($system, $args)
     {
         $qb =
-            $this->createQueryBuilder('l')
+            $this
+                ->createQueryBuilder('l')
                 ->select('COUNT(l.id) as count');
+
         $this->addFilterSystem($qb, $system);
+
         if ($args['filter']) {
             $qb
                 ->andWhere('(l.name like :filter or l.qth like :filter or l.callsign like :filter)')
@@ -176,23 +186,24 @@ class ListenerRepository extends ServiceEntityRepository
                 ->andWhere('(l.region = :region)')
                 ->setParameter('region', $args['region']);
         }
-        $result = $qb->getQuery()->execute();
-        return $result[0]['count'];
+        return $qb->getQuery()->getSingleScalarResult();
     }
 
     public function getLatestLoggedListeners($system, $limit = 25)
     {
+        $fields =
+             'l.id,'
+            .'l.name,'
+            .'l.sp,'
+            .'l.itu';
+
         $qb = $this
             ->createQueryBuilder('l')
-            ->select('l.id')
-            ->addSelect('l.name')
-            ->addSelect('l.sp')
-            ->addSelect('l.itu');
+            ->select($fields);
         $this->addFilterSystem($qb, $system);
         $qb
             ->setMaxResults($limit)
             ->orderBy('l.logLatest', 'DESC');
-
         $result = $qb
             ->getQuery()
             ->execute();

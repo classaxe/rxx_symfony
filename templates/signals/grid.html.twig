@@ -1,6 +1,6 @@
-{% if listeners|length > 0 %}
+{% if signals|length > 0 %}
 {% include 'listeners/actions.html.twig' %}
-<table class="listener results">
+<table class="signal results">
     <thead>
         <tr>
 {% for key, column in columns %}
@@ -14,12 +14,12 @@
         </tr>
     </thead>
     <tbody>
-{% for listener in listeners %}
+{% for signal in signals %}
         <tr>
 {% for key, column in columns %}
 {% if ((not column.admin or isAdmin) and (not column.arg or (column.arg and column.arg in args.types))) %}
-            <td{% if key == 'name' %} title="{{ listener.primaryQth ? 'Primary Location' : 'Secondary Location' }}" class="{{ listener.primaryQth ? 'primaryQth' : 'secondaryQth' }}">{% else %}{% if column.td_class %} class="{{ column.td_class }}"{% endif %}>{% endif %}
-{{ attribute(listener, column.field)|raw }}</td>
+            <td{% if key == 'active' %} title="{{ signal.active ? '' : 'Inactive' }}" class="{{ signal.active ? '' : 'inactive' }}">{% else %}{% if column.td_class %} class="{{ column.td_class }}"{% endif %}>{% endif %}
+{{ attribute(signal, column.field)|raw }}</td>
 {% endif %}
 {% endfor %}
         </tr>
@@ -28,5 +28,5 @@
 </table>
 {% include 'listeners/actions.html.twig' %}
 {% else %}
-    <p class="no-results">(No listeners found matching your criteria)</p>
+    <p class="no-results">(No signals found matching your criteria)</p>
 {% endif %}

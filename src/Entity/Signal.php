@@ -22,7 +22,9 @@ use Doctrine\ORM\Mapping as ORM;
  *          @ORM\Index(name="ITU", columns={"ITU"}),
  *          @ORM\Index(name="logs", columns={"logs"}),
  *          @ORM\Index(name="call", columns={"call"}),
+ *          @ORM\Index(name="first_heard", columns={"first_heard"}),
  *          @ORM\Index(name="heard_in_af", columns={"heard_in_af"}),
+ *          @ORM\Index(name="heard_in_an", columns={"heard_in_an"}),
  *          @ORM\Index(name="heard_in_as", columns={"heard_in_as"}),
  *          @ORM\Index(name="heard_in_ca", columns={"heard_in_ca"}),
  *          @ORM\Index(name="heard_in_eu", columns={"heard_in_eu"}),
@@ -30,9 +32,8 @@ use Doctrine\ORM\Mapping as ORM;
  *          @ORM\Index(name="heard_in_na", columns={"heard_in_na"}),
  *          @ORM\Index(name="heard_in_oc", columns={"heard_in_oc"}),
  *          @ORM\Index(name="heard_in_sa", columns={"heard_in_sa"}),
- *          @ORM\Index(name="first_heard", columns={"first_heard"}),
- *          @ORM\Index(name="heard_in_an", columns={"heard_in_an"}),
- *          @ORM\Index(name="heard_in_xx", columns={"heard_in_xx"})
+ *          @ORM\Index(name="heard_in_xx", columns={"heard_in_xx"}),
+ *          @ORM\Index(name="region", columns={"region"})
  *     }
  * )
  * @ORM\Entity
@@ -243,6 +244,13 @@ class Signal
      * @ORM\Column(name="pwr", type="float", precision=10, scale=0, nullable=false)
      */
     private $pwr = '0';
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="region", type="string", length=2, nullable=false)
+     */
+    private $region = '';
 
     /**
      * @var string
@@ -620,6 +628,18 @@ class Signal
         return $this;
     }
 
+    public function getRegion(): ?string
+    {
+        return $this->region;
+    }
+
+    public function setRegion(?string $region): self
+    {
+        $this->region = $region;
+
+        return $this;
+    }
+
     public function getSec(): ?string
     {
         return $this->sec;
@@ -679,4 +699,13 @@ class Signal
 
         return $this;
     }
+
+    /**
+     * @return null|string
+     */
+    public function getFormattedRegion(): ?string
+    {
+        return strtoupper($this->region);
+    }
+
 }

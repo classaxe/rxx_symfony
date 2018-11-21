@@ -176,6 +176,28 @@ pre { border: 1px dashed #ccc; background: #eee; padding: 0.25em 1em !important;
 
 .listener_list #form_submit { margin: 0.5em 220px 0;  }
 
+/* [ Form signal_list ] */
+.signal_list { width: 525px; }
+.signal_list div div { display: inline-block; }
+.signal_list input[type='text'],
+.signal_list select { width: 410px; }
+
+.signal_list #form_prev,
+.signal_list #form_next  {
+    float: left; line-height: 1.75em; margin: 0 0 0 0.5em; padding: 0.25em; width: 3em; text-align: center;
+    font-size: 55% !important; font-weight: bold;
+}
+.signal_list #form_page {
+    width: 8em; float: left; margin: 0 0 0 0.5em;
+}
+.signal_list #form_paging_status {
+    display: inline-block; width: 8em; padding: 0; line-height: 1.25em; margin: 0 0 0 0.5em;
+}
+
+.signal_list #form_submit { margin: 0.5em 220px 0;  }
+
+
+
 /* [ Form listener_edit ] */
 .listener_edit #form label { width: 20%; min-width: 120px; }
 .listener_edit #form input[type='text'],

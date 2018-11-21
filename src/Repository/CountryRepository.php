@@ -26,35 +26,37 @@ class CountryRepository extends ServiceEntityRepository
         $system = false,
         $region = false,
         $havingListeners = false,
+        $havingSignals = false,
         $havingStates = false,
         $itu = false
     ) {
         $qb = $this->createQueryBuilder('c');
 
-        switch ($system) {
-            case self::RECEIVED_IN_EUROPE:
-                $qb
-                    ->where(
-                        $qb->expr()->eq('c.region', ':eu')
-                    )
-                    ->setParameter('eu', 'eu');
-                break;
-            case self::RECIEVED_IN_NORTH_AMERICA:
-                $qb
-                    ->where(
-                        $qb->expr()->orX(
-                            $qb->expr()->in('c.region', ':na_ca'),
-                            $qb->expr()->andX(
-                                $qb->expr()->eq('c.region', ':oc'),
-                                $qb->expr()->eq('c.itu', ':hwa')
+        if (!$havingSignals) {
+            switch ($system) {
+                case self::RECEIVED_IN_EUROPE:
+                    $qb
+                        ->where(
+                            $qb->expr()->eq('c.region', ':eu')
+                        )
+                        ->setParameter('eu', 'eu');
+                    break;
+                case self::RECIEVED_IN_NORTH_AMERICA:
+                    $qb
+                        ->where(
+                            $qb->expr()->orX(
+                                $qb->expr()->in('c.region', ':na_ca'),
+                                $qb->expr()->andX(
+                                    $qb->expr()->eq('c.region', ':oc'),
+                                    $qb->expr()->eq('c.itu', ':hwa')
+                                )
                             )
                         )
-                    )
-                    ->setParameter('na_ca', ['na','ca'])
-                    ->setParameter('oc', 'oc')
-                    ->setParameter('hwa', 'hwa')
-                    ;
+                        ->setParameter('na_ca', ['na', 'ca'])
+                        ->setParameter('oc', 'oc')
+                        ->setParameter('hwa', 'hwa');
                 break;
+            }
         }
 
         if ($itu) {
@@ -85,6 +87,27 @@ class CountryRepository extends ServiceEntityRepository
                 );
         }
 
+        if ($havingSignals) {
+            switch ($system) {
+                case self::RECEIVED_IN_EUROPE:
+                    $extra = ' where s.heardInEu=1';
+                    break;
+                case self::RECIEVED_IN_NORTH_AMERICA:
+                    $extra = ' where (s.heardInNa=1 or s.heardInCa=1)';
+                    break;
+                default:
+                    $extra = '';
+                    break;
+            }
+            $qb
+                ->andWhere(
+                    $qb->expr()->in(
+                        'c.itu',
+                        'SELECT DISTINCT s.itu FROM App\Entity\Signal s'.$extra
+                    )
+                );
+        }
+
         if ($havingStates) {
             $qb
                 ->andWhere(
@@ -100,7 +123,14 @@ class CountryRepository extends ServiceEntityRepository
 
     public function getCountriesAndStates($countryCodes = null)
     {
-        $countries = $this->getMatching(false, false, false, true, $countryCodes);
+        $countries = $this->getMatching(
+            false,
+            false,
+            false,
+            false,
+            true,
+            $countryCodes
+        );
 
         foreach ($countries as &$country) {
             $itu =             $country->getItu();
@@ -115,9 +145,15 @@ class CountryRepository extends ServiceEntityRepository
         $system = false,
         $region = false,
         $havingListeners = false,
+        $havingSignals = false,
         $withAllOption = false
     ) {
-        $countries = $this->getMatching($system, $region, $havingListeners);
+        $countries = $this->getMatching(
+            $system,
+            $region,
+            $havingListeners,
+            $havingSignals
+        );
         if ($withAllOption) {
             $out = ['(All Countries'.($region ? ' in selected region' : '').')' => ''];
         }

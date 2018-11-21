@@ -6,7 +6,7 @@
  * Time: 12:08
  */
 
-namespace App\Form\Listeners;
+namespace App\Form\Signals;
 
 use App\Form\Base;
 use App\Repository\CountryRepository;
@@ -44,11 +44,8 @@ class Collection extends Base
      * @param CountryRepository $country
      * @param RegionRepository $region
      */
-    public function __construct(
-        CountryRepository $country,
-        RegionRepository $region,
-        TypeRepository $type
-    ) {
+    public function __construct(CountryRepository $country, RegionRepository $region, TypeRepository $type)
+    {
         $this->country = $country;
         $this->region = $region;
         $this->type = $type;
@@ -59,10 +56,8 @@ class Collection extends Base
      * @param array $options
      * @return \Symfony\Component\Form\FormInterface|void
      */
-    public function buildForm(
-        FormBuilderInterface $formBuilder,
-        array $options
-    ) {
+    public function buildForm(FormBuilderInterface $formBuilder, array $options)
+    {
         $system =   $options['system'];
         $region =   $options['region'];
 
@@ -70,14 +65,6 @@ class Collection extends Base
         $this->addSorting($formBuilder, $options);
 
         $formBuilder
-            ->add(
-                'filter',
-                TextType::class,
-                [
-                    'label' =>      'Search For',
-                    'required' =>   false
-                ]
-            )
             ->add(
                 'types',
                 ChoiceType::class,
@@ -87,7 +74,7 @@ class Collection extends Base
                         return ['class' => strToLower($value)];
                     },
                     'expanded' =>   true,
-                    'label' =>      'Show Counts',
+                    'label' =>      'Signal Types',
                     'multiple' =>   true,
                 ]
             )
@@ -97,9 +84,9 @@ class Collection extends Base
                 [
                     'choices' => $this->country->getMatchingOptions(
                         $system,
-                        $region,
-                        true,
                         false,
+                        false,
+                        true,
                         true
                     ),
                     'label' => 'Country',
