@@ -48,9 +48,9 @@ module.exports = function(grunt) {
                 banner: '<%= banner %>'
             },
             dist:  {
-                src: ['public/css/*.less'],
-                dest: 'public/css/style.css',
-            }
+                src:  'public/css/style.less',
+                dest: 'public/css/style.css'
+            },
         },
         cssmin: {
             options: {
@@ -86,10 +86,7 @@ module.exports = function(grunt) {
 
 //    grunt.registerTask('test', ['jshint', 'qunit']);
 
-//    grunt.registerTask('default', ['jshint', 'concat', 'uglify']);
-//    grunt.registerTask('default', ['jshint', 'uglify', 'less']);
     grunt.registerTask('css',     ['less', 'cssmin']);
     grunt.registerTask('js',      ['jshint', 'uglify']);
     grunt.registerTask('default', ['jshint', 'uglify', 'less', 'cssmin']);
-
 };

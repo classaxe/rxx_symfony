@@ -108,21 +108,21 @@ class Signals
                 'label'     =>  'GSQ',
                 'order'     =>  'a',
                 'sort'      =>  'l.gsq',
-                'td_class'  =>  'txt_r monspace',
+                'td_class'  =>  'txt_r monospace',
                 'th_class'  =>  '',
                 'tooltip'   =>  'Listener Grid Square',
             ],
-            'admin' => [
-                'admin'     =>  true,
-                'arg'       =>  '',
-                'field'     =>  'formattedDeleteLink',
-                'label'     =>  'Admin',
-                'order'     =>  '',
-                'sort'      =>  '',
-                'td_class'  =>  '',
-                'th_class'  =>  '',
-                'tooltip'   =>  '',
-            ],
+//            'admin' => [
+//                'admin'     =>  true,
+//                'arg'       =>  '',
+//                'field'     =>  'formattedDeleteLink',
+//                'label'     =>  'Admin',
+//                'order'     =>  '',
+//                'sort'      =>  '',
+//                'td_class'  =>  '',
+//                'th_class'  =>  '',
+//                'tooltip'   =>  '',
+//            ],
         ];
     }
 }

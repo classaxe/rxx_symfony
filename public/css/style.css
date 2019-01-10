@@ -1,7 +1,7 @@
 /*!
 * Project:   RXX - NDB Logging Database
 * Homepage:  https://rxx.classaxe.com
-* Date:      2019-01-27
+* Date:      2019-01-10
 * Licence:   LGPL
 * Copyright: 2019 Martin Francis
 */
@@ -177,9 +177,99 @@ body.rww .button .is-active {
   color: #ffff40;
   text-decoration: underline;
 }
+.type_inactive,
+tr.inactive td {
+  background-color: #d0d0d0 !important;
+}
+.type_ndb,
+tr.ndb td {
+  background-color: #ffffff !important;
+}
+.type_dgps,
+tr.dgps td {
+  background-color: #00d8ff !important;
+}
+.type_dsc,
+tr.dsc td {
+  background-color: #ffb000 !important;
+}
+.type_time,
+tr.time td {
+  background-color: #ffe0b0 !important;
+}
+.type_navtex,
+tr.navtex td {
+  background-color: #ffb8d8 !important;
+}
+.type_hambcn,
+tr.hambcn td {
+  background-color: #b8ffc0 !important;
+}
+.type_other,
+tr.other td {
+  background-color: #b8f8ff !important;
+}
+.type_all {
+  background-color: #d03333;
+  color: #ffffff;
+}
+.type_all label {
+  color: #fff;
+  font-style: italic;
+  font-weight: bold !important;
+}
+/* [ General Styles ] */
+.txt_r {
+  text-align: right;
+}
+.monospace {
+  font-family: "Courier New bold", Courier, monospace;
+}
+.clipped {
+  max-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.txt_vertical {
+  vertical-align: bottom;
+  text-align: center;
+}
+.txt_vertical div {
+  -ms-writing-mode: tb-rl;
+  -webkit-writing-mode: vertical-rl;
+  writing-mode: vertical-rl;
+  white-space: nowrap;
+  padding-bottom: 0.5em;
+  display: table;
+  border-spacing: 0;
+}
+#lastError,
+#lastMessage {
+  padding: 0.25em 0.5em;
+  margin: 0.5em 0;
+  display: inline-block;
+}
+#lastError {
+  border: 1px solid #ff0000;
+  background: #ffe0e0;
+  color: #ff0000;
+}
+#lastMessage {
+  border: 1px solid #008000;
+  background: #e0ffe0;
+  color: #008000;
+}
+pre {
+  border: 1px dashed #ccc;
+  background: #eee;
+  padding: 0.25em 1em !important;
+  margin: 0.5em !important;
+  font-size: 8pt !important;
+  display: inline-block;
+}
 /* [ Menu ] */
 body .menu-centered {
-  width: 602px;
+  width: 482px;
   margin: auto;
 }
 body .menu-centered .header h2 {
@@ -187,7 +277,7 @@ body .menu-centered .header h2 {
   margin: 0.25em 0;
 }
 body .menu-centered .system a {
-  width: 200px;
+  width: 160px;
 }
 body .menu-centered .system,
 body .menu-centered .mode {
@@ -226,6 +316,7 @@ body .menu-centered .mode .is-active > a:hover {
 .footer p.preamble {
   margin: 1em 0 0 0;
 }
+/* [ Screen Reader Support ] */
 .sr-only {
   position: absolute;
   width: 1px;
@@ -261,7 +352,6 @@ body .menu-centered .mode .is-active > a:hover {
 }
 .help .links {
   text-align: center;
-  font-size: small;
   margin: 1em 0;
   font-size: 70%;
 }
@@ -317,12 +407,12 @@ body .menu-centered .mode .is-active > a:hover {
   font-size: 80%;
   font-weight: normal;
 }
+.help li:hover {
+  background: #ffff00;
+}
 .help li span.abbr {
   float: right;
   font-weight: bold;
-}
-.help li:hover {
-  background: #ffff00;
 }
 .help .body {
   border: 1px solid #707070;
@@ -344,13 +434,16 @@ body .menu-centered .mode .is-active > a:hover {
   margin: 0.5em 0;
   font-size: 100%;
 }
-.main h1 {
+.main h1,
+.main h2,
+.main h3 {
   margin: 0.125em 0;
+}
+.main h1 {
   font-size: 120%;
   font-weight: bold;
 }
 .main h2 {
-  margin: 0.125em 0;
   font-size: 120%;
   font-weight: normal;
   display: inline-block;
@@ -362,7 +455,6 @@ body .menu-centered .mode .is-active > a:hover {
   margin: 0.5em 1em 0.5em 1em;
 }
 .main h3 {
-  margin: 0.125em 0;
   font-size: 90%;
   display: inline-block;
   float: left;
@@ -377,13 +469,11 @@ body .menu-centered .mode .is-active > a:hover {
 }
 .main .links {
   text-align: center;
-  font-size: small;
   margin: 1em 0;
   font-size: 70%;
 }
 .main .links_left {
   text-align: left;
-  font-size: small;
   margin: 1em 0;
   font-size: 70%;
 }
@@ -400,10 +490,32 @@ body .menu-centered .mode .is-active > a:hover {
   height: 1px;
   overflow: hidden;
 }
+.main .zone ol {
+  background: #ffffff;
+  color: #000;
+  margin: 0;
+}
+.main .zone li {
+  list-style: none;
+  font-size: 80%;
+  font-weight: normal;
+}
+.main .zone li:hover {
+  background: #ffff00;
+}
+.main .zone li span.abbr {
+  float: right;
+  font-weight: bold;
+}
 .main .header {
   background: #707070;
   color: #ffffff;
   padding: 0.2em;
+}
+.main .header:after {
+  content: '';
+  display: table;
+  clear: both;
 }
 .main .header h2 {
   float: left;
@@ -423,31 +535,8 @@ body .menu-centered .mode .is-active > a:hover {
 .main .header .links a:hover {
   text-decoration: underline;
 }
-.main .header:after {
-  content: '';
-  display: table;
-  clear: both;
-}
-.main .zone ol {
-  background: #ffffff;
-  color: #000;
-  margin: 0;
-}
-.main .zone li {
-  list-style: none;
-  font-size: 80%;
-  font-weight: normal;
-}
-.main .zone li span.abbr {
-  float: right;
-  font-weight: bold;
-}
-.main .zone li:hover {
-  background: #ffff00;
-}
 .main .body {
   border: 1px solid #707070;
-  border-style: solid;
   border-top: none;
 }
 .main img.map {
@@ -459,9 +548,6 @@ body .menu-centered .mode .is-active > a:hover {
 .controlPanel {
   display: inline-block;
 }
-.fullwidth .controlPanel {
-  width: 100%;
-}
 .controlPanel .header {
   padding: 0 1em;
   white-space: nowrap;
@@ -472,16 +558,97 @@ body .menu-centered .mode .is-active > a:hover {
   box-shadow: #777 2px 2px 5px;
 }
 .controlPanel .content {
-  background: #ffffff;
   border: 1px solid #cacaca;
   box-shadow: #777 2px 2px 5px;
   margin: 0 0 0.5em 0;
-}
-.controlPanel .content {
   padding: 0.25em;
+}
+.fullwidth .controlPanel {
+  width: 100%;
+}
+#form_limit,
+#form_page {
+  width: 8em;
+  float: left;
+  margin: 0 0.5em 0 0;
+}
+label[for="form_limit"] {
+  float: left;
+  min-width: 4em;
+}
+#form_prev,
+#form_next {
+  float: left;
+  margin: 0 0.5em 0 0;
+  clear: none;
+  font-size: 0.4rem !important;
+  line-height: 0.6em;
+}
+button.tiny {
+  font-size: 0.4rem !important;
+  line-height: 0.6em;
+}
+#form button {
+  margin: 0.25em 50%;
+  padding: 0.25em 1em;
+}
+#form fieldset {
+  margin: 0;
+  padding: 0 0 0.25em 0;
+}
+#form fieldset legend {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  width: 100%;
+  font-size: 100%;
+}
+#form fieldset#group_ {
+  padding: 0;
+  margin: 0;
+  text-align: center;
+}
+#form fieldset#group_ div {
+  display: inline-block;
+}
+#form fieldset#group_ button {
+  margin: 0.25em 0;
+  float: left;
+  clear: none;
+}
+#form #form_prev,
+#form #form_next {
+  float: left;
+  line-height: 1.75em;
+  margin: 0 0 0 0.5em;
+  padding: 0.25em;
+  width: 3em;
+  text-align: center;
+  font-size: 55% !important;
+  font-weight: bold;
+}
+#form #form_page {
+  width: 8em;
+  float: left;
+  margin: 0 0 0 0.5em;
+}
+#form #form_paging_status {
+  display: inline-block;
+  width: 8em;
+  padding: 0;
+  line-height: 1.25em;
+  margin: 0 0 0 0.5em;
+}
+#form #form_submit {
+  margin: 0.5em 220px 0;
+}
+#form #form_types div {
+  padding: 0 0 0 2px;
+  margin: 1px 0 0 0;
 }
 #form div {
   clear: both;
+  /* Hides 'This value is not valid' error with bad country / region combination */
 }
 #form div label {
   float: left;
@@ -490,6 +657,7 @@ body .menu-centered .mode .is-active > a:hover {
   padding: 0 0 0.125em 0;
 }
 #form div select,
+#form div textarea,
 #form div input[type='number'],
 #form div input[type='text'],
 #form div input[type='password'] {
@@ -504,14 +672,14 @@ body .menu-centered .mode .is-active > a:hover {
   -webkit-appearance: menulist;
   -moz-appearance: menulist;
   appearance: menulist;
-  font-size: 80%;
-  padding: 0;
-  height: 1.75em;
-  margin: 0;
 }
 #form div textarea {
-  font-size: 80%;
   margin: 0 0 0.25em 0;
+}
+#form div button {
+  float: left;
+  clear: none !important;
+  width: 6em;
 }
 #form div p {
   margin: 0;
@@ -525,6 +693,7 @@ body .menu-centered .mode .is-active > a:hover {
   clear: none;
   height: 1.5em;
   float: left;
+  display: inline-block;
 }
 #form div div label {
   float: none;
@@ -535,124 +704,31 @@ body .menu-centered .mode .is-active > a:hover {
   padding: 0 0.1em;
   line-height: 1.5em;
 }
-#form ul {
+#form div ul {
   display: none;
 }
-/* Hides 'This value is not valid' error with bad country / region combination */
-#lastError {
-  border: 1px solid #ff0000;
-  background: #ffe0e0;
-  color: #ff0000;
-  padding: 0.25em 0.5em;
-  margin: 0.5em 0;
-  display: inline-block;
-}
-#lastMessage {
-  border: 1px solid #008000;
-  background: #e0ffe0;
-  color: #008000;
-  padding: 0.25em 0.5em;
-  margin: 0.5em 0;
-  display: inline-block;
-}
-#form fieldset {
-  margin: 0;
-  padding: 0 0 0.25em 0;
-}
-#form fieldset legend {
-  margin: 0;
-  padding: 0;
-  text-align: center;
-  xfont-weight: bold;
-  width: 100%;
-  font-size: 100%;
-}
-#form div button {
-  float: left;
-  clear: none !important;
-  width: 6em;
-}
-pre {
-  border: 1px dashed #ccc;
-  background: #eee;
-  padding: 0.25em 1em !important;
-  margin: 0.5em !important;
-  font-size: 8pt !important;
-  display: inline-block;
-}
-/* [ Form listener_list ] */
+/* [ Form Dimensions ] */
 .listener_list {
   width: 525px;
-}
-.listener_list div div {
-  display: inline-block;
 }
 .listener_list input[type='text'],
 .listener_list select {
   width: 410px;
 }
-.listener_list #form_prev,
-.listener_list #form_next {
-  float: left;
-  line-height: 1.75em;
-  margin: 0 0 0 0.5em;
-  padding: 0.25em;
-  width: 3em;
-  text-align: center;
-  font-size: 55% !important;
-  font-weight: bold;
-}
-.listener_list #form_page {
-  width: 8em;
-  float: left;
-  margin: 0 0 0 0.5em;
-}
-.listener_list #form_paging_status {
-  display: inline-block;
-  width: 8em;
-  padding: 0;
-  line-height: 1.25em;
-  margin: 0 0 0 0.5em;
-}
-.listener_list #form_submit {
-  margin: 0.5em 220px 0;
-}
-/* [ Form signal_list ] */
 .signal_list {
   width: 525px;
-}
-.signal_list div div {
-  display: inline-block;
 }
 .signal_list input[type='text'],
 .signal_list select {
   width: 410px;
 }
-.signal_list #form_prev,
-.signal_list #form_next {
-  float: left;
-  line-height: 1.75em;
-  margin: 0 0 0 0.5em;
-  padding: 0.25em;
-  width: 3em;
-  text-align: center;
-  font-size: 55% !important;
-  font-weight: bold;
+/* [ Form logon ] */
+.logon {
+  width: 300px;
 }
-.signal_list #form_page {
-  width: 8em;
-  float: left;
-  margin: 0 0 0 0.5em;
-}
-.signal_list #form_paging_status {
-  display: inline-block;
-  width: 8em;
-  padding: 0;
-  line-height: 1.25em;
-  margin: 0 0 0 0.5em;
-}
-.signal_list #form_submit {
-  margin: 0.5em 220px 0;
+.logon input[type='text'],
+.logon input[type='password'] {
+  width: 185px;
 }
 /* [ Form listener_edit ] */
 .listener_edit #form label {
@@ -678,6 +754,9 @@ pre {
 .listener_weather #form div {
   display: inline-block;
 }
+.listener_weather #form div button {
+  width: 8.5em;
+}
 .listener_weather #form_icao {
   width: 20em;
   font-size: 10pt;
@@ -692,9 +771,6 @@ pre {
   height: 25em;
   font-size: 10pt;
   font-family: 'Courier New', monospace;
-}
-.listener_weather #form div button {
-  width: 8.5em;
 }
 fieldset#group_weather_report_details div * {
   line-height: 1.8em;
@@ -740,175 +816,40 @@ fieldset#group_weather_report_details div label {
   text-align: right;
   line-height: initial;
 }
-/* [ Form logon ] */
-.logon #form input[type='text'],
-.logon #form input[type='password'] {
-  width: 150px;
-}
-label[for="form_limit"] {
-  float: left;
-  min-width: 4em;
-}
-select#form_limit,
-select#form_page {
-  width: 8em;
-  float: left;
-  margin: 0 0.5em 0 0;
-}
-button#form_prev,
-button#form_next {
-  float: left;
-  margin: 0 0.5em 0 0;
-  clear: none;
-  font-size: 0.4rem !important;
-  line-height: 0.6em;
-}
-button.tiny {
-  font-size: 0.4rem !important;
-  line-height: 0.6em;
-}
-#form button {
-  margin: 0.25em 50%;
-  padding: 0.25em 1em;
-}
-#form fieldset#group_ {
-  padding: 0;
-  margin: 0;
-  text-align: center;
-}
-#form fieldset#group_ div {
-  display: inline-block;
-}
-#form fieldset#group_ button {
-  margin: 0.25em 0;
-  float: left;
-  clear: none;
-}
-#form_types div {
-  padding: 0 0 0 2px;
-  margin: 1px 0 0 0;
-}
-.type_inactive,
-tr.inactive td {
-  background-color: #d0d0d0 !important;
-}
-.type_ndb,
-tr.ndb td {
-  background-color: #ffffff !important;
-}
-.type_dgps,
-tr.dgps td {
-  background-color: #00d8ff !important;
-}
-.type_dsc,
-tr.dsc td {
-  background-color: #ffb000 !important;
-}
-.type_time,
-tr.time td {
-  background-color: #ffe0b0 !important;
-}
-.type_navtex,
-tr.navtex td {
-  background-color: #ffb8d8 !important;
-}
-.type_hambcn,
-tr.hambcn td {
-  background-color: #b8ffc0 !important;
-}
-.type_other,
-tr.other td {
-  background-color: #b8f8ff !important;
-}
-.type_all {
-  background-color: #d03333;
-  color: #ffffff;
-}
-.type_all label {
-  color: #fff;
-  font-style: italic;
-  font-weight: bold !important;
-}
 /* [ Grid CSS } */
 .results {
   margin: 0;
   border-collapse: collapse;
 }
-.results,
-.results th,
-.results td {
-  border: 1px solid #808080;
-}
-.results thead {
-  border-color: #808080;
-}
-.results thead tr th {
-  border-color: #808080;
+.results th {
   background: #686868;
   color: #ffffff;
+  border: 1px solid #808080;
   height: 7em !important;
   max-height: 7em !important;
   vertical-align: bottom;
   font-size: 80%;
   padding: 0.25em;
 }
-.results thead tr th.sort {
-  border-color: #808080;
-  background: #686868;
-  color: #ffffff;
-  height: 7em;
+.results th.sort {
   border-bottom: 3px solid #a0a0a0;
-  vertical-align: bottom;
-  font-size: 80%;
-  padding: 0.25em;
 }
-.results thead tr th.sort:hover {
-  border-bottom: 3px solid #FCC247;
+.results th.sort:hover,
+.results th.sorted {
+  border-bottom: 3px solid #FCC247 !important;
   background: #665d4b;
   cursor: pointer;
 }
-.results thead tr th.sorted {
-  border-bottom: 3px solid #FCC247;
-  background: #665d4b;
-  cursor: pointer;
+.results th.sorted {
   color: #ffe4b3;
 }
-.results tbody {
-  border-color: #808080;
-}
-.results tbody tr td {
-  border-color: #808080;
+.results td {
+  border: 1px solid #808080;
   height: 1.25em;
   vertical-align: bottom;
   font-size: 80%;
   padding: 0.125em 0.25em;
-}
-.results .txt_r {
-  text-align: right;
-}
-.results .monspace {
-  font-family: "Courier New bold", Courier, monospace;
-}
-.results .txt_vertical {
-  vertical-align: bottom;
-  text-align: center;
-}
-.results .txt_vertical div {
-  -ms-writing-mode: tb-rl;
-  -webkit-writing-mode: vertical-rl;
-  writing-mode: vertical-rl;
   white-space: nowrap;
-  padding-bottom: 0.5em;
-  display: table;
-  border-spacing: 0;
-}
-.results tr td {
-  white-space: nowrap;
-}
-.results tr td.clipped {
-  max-width: 100px;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 /* [ Listeners Grid ] */
 .results.listener .primaryQth {
@@ -919,13 +860,6 @@ tr.other td {
 }
 .results.listener .secondaryQth a {
   font-weight: normal;
-}
-/* [ Listener Signals Grid ] */
-.results.listener.signals thead tr th {
-  height: auto;
-}
-.results.listener.logs thead tr th {
-  height: auto;
 }
 /* [ Report Actions ] */
 .report_actions {
