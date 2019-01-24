@@ -1,7 +1,8 @@
+
 /* [ Set css styles for signal type checkboxes ] */
 function setFormTypesStyles() {
     $("div#form_types div input").each(function() {
-        $(this).parent().attr('class', $(this).attr('class'))
+        $(this).parent().attr('class', $(this).attr('class'));
     });
 }
 
@@ -45,7 +46,7 @@ function setColumnSortActions() {
             $('#form_sort').val(column);
             $('#form_order').val(dir);
             $('form[name="form"]').submit();
-        })
+        });
     });
 }
 
@@ -97,7 +98,7 @@ function getlimitOptions(max, value)
             (parseInt(value) === values[i] ? " selected=\"selected\"" : "") +
             ">" +
             values[i] + ' results' +
-            "</option>"
+            "</option>";
     }
     out +=
         "<option value=\"-1\"" +
@@ -249,7 +250,7 @@ function setPagingActions() {
 
 var gridColor, gridOpacity, layers = [], map;
 
-layers['grid'] = [];
+layers.grid = [];
 gridColor="#808080";
 gridOpacity=0.5;
 
@@ -259,7 +260,6 @@ function initListenerSignalsMap() {
     //     listener[source, logLatest, lat, lng, name, qth, types]
     //     google.maps
     //     gridColor, gridOpacity, layers, map
-
     TxtOverlay =    initMapsTxtOverlay();
     ShowGrid =      initMapsShowGrid();
 
@@ -270,7 +270,7 @@ function initListenerSignalsMap() {
         zoom: 2
     });
 
-    layers['qth'] = new google.maps.Marker({
+    layers.qth = new google.maps.Marker({
         position: { lat: listener.lat, lng: listener.lng },
         map: map,
         icon: {
@@ -286,8 +286,8 @@ function initListenerSignalsMap() {
             "<p>" + listener.qth + "</p>"
     });
 
-    layers['qth'].addListener('click', function() {
-        qthInfo.open(map, layers['qth']);
+    layers.qth.addListener('click', function() {
+        qthInfo.open(map, layers.qth);
     });
 
     ShowGrid(map, 'gridLabel');
@@ -335,34 +335,38 @@ function initListenerSignalsMap() {
     }
 
     function toggleQth() {
-        if (layers['qth'].getMap() == null) {
-            layers['qth'].setMap(map);
+        if (layers.qth.getMap() == null) {
+            layers.qth.setMap(map);
         } else {
-            layers['qth'].setMap(null);
+            layers.qth.setMap(null);
         }
     }
 
     function toggleGrid() {
         var i;
-        if (layers['grid'][0].getMap() == null) {
-            for(i in layers['grid']) {
-                layers['grid'][i].setMap(map)
+        if (layers.grid[0].getMap() == null) {
+            for(i in layers.grid) {
+                layers.grid[i].setMap(map);
             }
         } else {
-            for(i in layers['grid']) {
-                layers['grid'][i].setMap(null)
+            for(i in layers.grid) {
+                layers.grid[i].setMap(null);
             }
         }
     }
+
     google.maps.event.addDomListener(document.getElementById('layer_grid'), 'click', function(evt) {
         toggleGrid();
     });
+
     google.maps.event.addDomListener(document.getElementById('layer_inactive'), 'click', function(evt) {
         toggleInactive();
     });
+
     google.maps.event.addDomListener(document.getElementById('layer_qth'), 'click', function(evt) {
         toggleQth();
     });
+
     listener.types.forEach(function(type){
         google.maps.event.addDomListener(document.getElementById('layer_' + type), 'click', function (evt) {
             toggleLayer( type );
@@ -420,7 +424,7 @@ function initMapsShowGrid() {
     function showGrid(map, overlayClass) {
         var i, la, lo;
         for (la=0; la<180; la+=10) {
-            layers['grid'].push(
+            layers.grid.push(
                 new google.maps.Polyline({
                     path: [{lat: (la-90), lng: -180}, {lat:(la-90), lng: 0}, {lat: (la-90), lng: 180}],
                     geodesic: false,
@@ -431,7 +435,7 @@ function initMapsShowGrid() {
             );
         }
         for (lo=0; lo<360; lo+=20) {
-            layers['grid'].push(
+            layers.grid.push(
                 new google.maps.Polyline({
                     path: [{lat:85.05, lng: lo}, {lat:-85.05, lng: lo}],
                     geodesic: false,
@@ -443,7 +447,7 @@ function initMapsShowGrid() {
         }
         for (la=10; la<170; la+=10) {
             for (lo = 0; lo < 360; lo += 20) {
-                layers['grid'].push(
+                layers.grid.push(
                     new TxtOverlay(
                         new google.maps.LatLng(la -90 +5,lo -180 + 10),
                         String.fromCharCode((lo/20) +65) + String.fromCharCode((la/10) +65),
@@ -453,8 +457,8 @@ function initMapsShowGrid() {
                 );
             }
         }
-        for (i in layers['grid']) {
-            layers['grid'][i].setMap(map);
+        for (i in layers.grid) {
+            layers.grid[i].setMap(map);
         }
     }
     return showGrid;
