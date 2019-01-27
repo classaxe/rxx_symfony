@@ -1,5 +1,11 @@
 {
     "name": "rxx",
+    "description": "RXX - NDB Logging Database",
+    "author": {
+        "name": "Martin Francis",
+        "email": "<martin@classaxe.com>"
+    },
+    "homepage": "https://rxx.classaxe.com",
     "devDependencies": {
         "@symfony/webpack-encore": "^0.22.4",
         "grunt": "^1.0.3",
@@ -11,7 +17,7 @@
         "grunt-contrib-uglify": "^4.0.0",
         "grunt-contrib-watch": "^1.1.0"
     },
-    "license": "UNLICENSED",
+    "license": "LGPL",
     "private": true,
     "scripts": {
         "dev-server": "encore dev-server",

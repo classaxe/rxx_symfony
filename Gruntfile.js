@@ -2,6 +2,14 @@ module.exports = function(grunt) {
 
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
+        banner:
+            '/*!\n' +
+            '* Project:   <%= pkg.description %>\n' +
+            '* Homepage:  <%= pkg.homepage %>\n' +
+            '* Date:      <%= grunt.template.today("yyyy-mm-dd") %>\n' +
+            '* Licence:   <%= pkg.license %>\n' +
+            '* Copyright: <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>\n' +
+            '*/',
         jshint: {
             files: ['Gruntfile.js', 'public/js/functions.js'],
             options: {
@@ -25,8 +33,7 @@ module.exports = function(grunt) {
         // },
         uglify: {
             options: {
-                banner:
-                    "/*! <%= pkg.name %> <%= grunt.template.today('yyyy-mm-dd') %>  */"
+                banner: '<%= banner %>',
             },
             dist: {
                 src: ['public/js/functions.js'],
@@ -38,8 +45,7 @@ module.exports = function(grunt) {
         },
         less: {
             options: {
-                banner:
-                    "/*! <%= pkg.name %> <%= grunt.template.today('yyyy-mm-dd') %>  */"
+                banner: '<%= banner %>'
             },
             dist:  {
                 src: ['public/css/*.less'],
@@ -48,8 +54,7 @@ module.exports = function(grunt) {
         },
         cssmin: {
             options: {
-                banner:
-                    "/*! <%= pkg.name %> <%= grunt.template.today('yyyy-mm-dd') %>  */"
+                banner: '<%= banner %>'
             },
             dist:  {
                 src: ['public/css/style.css'],

@@ -5,7 +5,7 @@
 @sortedTxt: #ffe4b3;
 
 @reu: {
-    body:           #fffafa;
+    bodyBg:         #fffafa;
     headerBg:       #fff0f0;
     headerBorder:   #d03333;
     headerColor:    #d03333;
@@ -17,7 +17,7 @@
 };
 
 @rna: {
-    body:           #f8f8ff;
+    bodyBg:         #f8f8ff;
     headerBg:       #e6e6ff;
     headerBorder:   #3333ff;
     headerColor:    #3333ff;
@@ -29,7 +29,7 @@
 };
 
 @rww: {
-    body:           #fafffa;
+    bodyBg:         #fafffa;
     headerBg:       #f2fff2;
     headerBorder:   #198019;
     headerColor:    #198019;
@@ -42,7 +42,7 @@
 
 #sysColor(@rmode){
     body.@{rmode} {
-        background: @@rmode[body];
+        background: @@rmode[bodyBg];
         .menu-centered {
             .header {
                 background: @@rmode[headerBg];
