@@ -141,6 +141,7 @@ function setPagingActions() {
     var page =  $('#form_page');
     if (page.length) {
         page[0].outerHTML =
+            "<label class=\"sr-only\" for=\"form_page\">Page Control</label>\n" +
             "<select id=\"form_page\" name=\"form[page\]\" style=\"display:none\">" +
             getPagingOptions(paging.total, limit.val(), paging.page) +
             "</select>";
