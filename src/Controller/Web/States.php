@@ -2,14 +2,14 @@
 namespace App\Controller\Web;
 
 use App\Repository\CountryRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 
 /**
  * Class States
  * @package App\Controller\Web
  */
-class States extends Controller
+class States extends AbstractController
 {
     /**
      * @var CountryRepository

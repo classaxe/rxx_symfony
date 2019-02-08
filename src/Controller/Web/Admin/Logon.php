@@ -89,7 +89,7 @@ class Logon extends Base
                 return false;
             }
         }
-        (new Dotenv())->load($this->get('kernel')->getProjectDir().'/.env');
+        (new Dotenv())->load($this->kernel->getProjectDir().'/.env');
         $this->username = getenv('ADMIN_USER');
         $this->password = getenv('ADMIN_PASS');
         if (!$this->username || !$this->password) {

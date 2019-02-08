@@ -2,8 +2,6 @@
 namespace App\Controller\Web\Listeners;
 
 use App\Controller\Web\Base as WebBase;
-use App\Repository\ListenerRepository;
-use App\Repository\LogRepository;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 
 class Base extends WebBase

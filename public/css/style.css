@@ -1,7 +1,7 @@
 /*!
 * Project:   RXX - NDB Logging Database
 * Homepage:  https://rxx.classaxe.com
-* Date:      2019-01-10
+* Date:      2019-02-04
 * Licence:   LGPL
 * Copyright: 2019 Martin Francis
 */
@@ -816,7 +816,7 @@ fieldset#group_weather_report_details div label {
   text-align: right;
   line-height: initial;
 }
-/* [ Grid CSS } */
+/* [ Grid CSS ] */
 .results {
   margin: 0;
   border-collapse: collapse;

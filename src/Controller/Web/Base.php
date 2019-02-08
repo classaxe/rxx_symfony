@@ -5,14 +5,16 @@ use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\ModeRepository;
 use App\Repository\SystemRepository;
 use App\Utils\Rxx;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpKernel\KernelInterface as Kernel;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 /**
  * Class Base
  * @package App\Controller\Base
  */
-class Base extends Controller
+class Base extends AbstractController
 {
 
     /**
@@ -24,6 +26,11 @@ class Base extends Controller
      * @var ModeRepository
      */
     protected $modeRepository;
+
+    /**
+     * @var Kernel
+     */
+    protected $kernel;
 
     /**
      * @var Rxx
@@ -48,12 +55,14 @@ class Base extends Controller
      * @param SessionInterface $session
      */
     public function __construct(
+        Kernel $kernel,
         ModeRepository $modeRepository,
         Rxx $rxx,
         SystemRepository $systemRepository,
         SessionInterface $session,
         EntityManagerInterface $em
     ) {
+        $this->kernel =             $kernel;
         $this->modeRepository =     $modeRepository;
         $this->rxx =                $rxx;
         $this->systemRepository =   $systemRepository;

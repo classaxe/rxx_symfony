@@ -2,7 +2,6 @@
 namespace App\Controller\Web;
 
 use App\Repository\MapRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 
 /**

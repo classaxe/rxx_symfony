@@ -2,9 +2,9 @@
 namespace App\Controller\Web;
 
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-class DefaultMode extends Controller
+class DefaultMode extends AbstractController
 {
     /**
      * @Route(

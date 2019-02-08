@@ -3,13 +3,13 @@ namespace App\Controller\Web;
 
 use App\Service\GeoService;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * Class DefaultSystem
  * @package App\Controller\Web
  */
-class DefaultSystem extends Controller
+class DefaultSystem extends AbstractController
 {
     /**
      * @var GeoService

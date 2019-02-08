@@ -9,12 +9,12 @@
 namespace App\Controller\Rest;
 
 use Psr\Log\LoggerInterface;
-use FOS\RestBundle\Controller\FOSRestController;
+use FOS\RestBundle\Controller\AbstractFOSRestController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Stopwatch\Stopwatch;
 
 
-class RestBase extends FOSRestController
+class RestBase extends AbstractFOSRestController
 {
     protected $logger;
     private $stopwatch;
