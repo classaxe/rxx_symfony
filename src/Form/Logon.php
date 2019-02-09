@@ -18,7 +18,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
  * Class Logon
  * @package App\Form
  */
-class Logon extends AbstractType
+class Logon extends \App\Controller\Web\Base
 {
     /**
      * @param FormBuilderInterface $formBuilder
@@ -27,19 +27,16 @@ class Logon extends AbstractType
      */
     public function buildForm(FormBuilderInterface $formBuilder, array $options)
     {
-        $system =   $options['system'];
-
         $formBuilder
             ->add(
                 'user',
                 TextType::class,
                 [
                     'attr'          => [
-                        'onchange'      => "try{setCustomValidity('')}catch(e){}",
-                        'oninvalid'     => "setCustomValidity('Please provide a valid Username')",
+                        'onchange'      =>  "try{setCustomValidity('')}catch(e){}",
+                        'oninvalid'     =>  "setCustomValidity('".$this->i18n('Please provide a valid Username')."')",
                     ],
-                    'help'          => '&nbsp;',
-                    'label'         => 'Username',
+                    'label'         => $this->i18n('Username'),
                 ]
             )
             ->add(
@@ -48,9 +45,8 @@ class Logon extends AbstractType
                 [
                     'attr'          => [
                         'onchange'      => "try{setCustomValidity('')}catch(e){}",
-                        'oninvalid'     => "setCustomValidity('Please provide a valid Password')",
+                        'oninvalid'     => "setCustomValidity('".$this->i18n('Please provide a valid Password')."')",
                     ],
-                    'help'          => '&nbsp;',
                     'label'         => 'Password',
                 ]
             )
@@ -61,7 +57,7 @@ class Logon extends AbstractType
                     'attr'          => [
                         'class'         => 'button small'
                     ],
-                    'label'         => 'Logon',
+                    'label'         => $this->i18n('Logon'),
                 ]
             );
 

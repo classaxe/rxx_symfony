@@ -1,16 +1,16 @@
 {% extends 'main.html.twig' %}
+{% set form_title = 'Administrator Logon'|trans %}
 
 {% block body %}
 <div class="main">
-    <h1>{{ mode }}</h1>
-    <div>
-    {{ text|raw }}
-{% include 'status.html.twig' %}
-    </div>
+    <div>{% include 'status.html.twig' %}</div>
+    <h1>{% trans %}Logon{% endtrans %}</h1>
 {% if not isAdmin %}
-    {% set form_title='Administrator Logon' %}
-    {% set form_class='logon' %}
+    <p>{% trans %}You must logon in order to perform administrative functions.{% endtrans %}</p>
     {% include 'forms/form.html.twig' %}
+{% else %}
+    <p id='success'>{% trans %}You are now logged on as an Administrator and may perform administrative functions.{% endtrans %}</p>
+    <p>{% trans %}To log off, select <strong>Log Off</strong> from the main menu.{% endtrans %}</p>
 {% endif %}
 </div>
 

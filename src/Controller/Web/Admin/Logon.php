@@ -56,22 +56,14 @@ class Logon extends Base
         } else {
             $this->session->set('lastError', '');
         }
-        $text = ($this->session->get('isAdmin', 0) ?
-             "<p id='success'>You are now logged on as an Administrator and may perform administrative functions.</p>\n"
-            ."<p>To log off, select <strong>Log Off</strong> from the main menu.</p>\n"
-          :
-            "<p>You must logon in order to perform administrative functions.</p>\n"
-        );
-
         $parameters = [
             'args' =>       $args,
             'form' =>       $form->createView(),
+            'form_class' => 'logon',
             'mode' =>       'Logon',
             'system' =>     $system,
-            'text' =>       $text
         ];
         $parameters = array_merge($parameters, $this->parameters);
-//        return $this->rxx::debug($this->parameters);
         return $this->render('logon/index.html.twig', $parameters);
     }
 

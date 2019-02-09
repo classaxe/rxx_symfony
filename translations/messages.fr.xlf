@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="bBPgzeD" resname="You must logon in order to perform administrative functions.">
+        <source>You must logon in order to perform administrative functions.</source>
+        <target>__You must logon in order to perform administrative functions.</target>
+      </trans-unit>
+      <trans-unit id="Vq6hsgL" resname="You are now logged on as an Administrator and may perform administrative functions.">
+        <source>You are now logged on as an Administrator and may perform administrative functions.</source>
+        <target>__You are now logged on as an Administrator and may perform administrative functions.</target>
+      </trans-unit>
+      <trans-unit id="Wycz4V0" resname="To log off, select &lt;strong&gt;Log Off&lt;/strong&gt; from the main menu.">
+        <source>To log off, select &lt;strong&gt;Log Off&lt;/strong&gt; from the main menu.</source>
+        <target><![CDATA[__To log off, select <strong>Log Off</strong> from the main menu.]]></target>
+      </trans-unit>
+      <trans-unit id="DZo50ZN" resname="(No listeners found matching your criteria)">
+        <source>(No listeners found matching your criteria)</source>
+        <target>(Aucun auditeur correspondant à vos critères n'a été trouvé)</target>
+      </trans-unit>
+      <trans-unit id="MKWJ9eo" resname="Logon">
+        <source>Logon</source>
+        <target>Se connecter</target>
+      </trans-unit>
+      <trans-unit id="IdQ52y8" resname="Administrator Logon">
+        <source>Administrator Logon</source>
+        <target>Connexion administrateur</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

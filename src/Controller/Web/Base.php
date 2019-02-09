@@ -7,8 +7,8 @@ use App\Repository\SystemRepository;
 use App\Utils\Rxx;
 use Symfony\Component\HttpKernel\KernelInterface as Kernel;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Class Base
@@ -48,6 +48,11 @@ class Base extends AbstractController
     protected $systemRepository;
 
     /**
+     * @var TranslatorInterface
+     */
+    protected $translator;
+
+    /**
      * Base constructor.
      * @param ModeRepository $modeRepository
      * @param Rxx $rxx
@@ -60,12 +65,14 @@ class Base extends AbstractController
         Rxx $rxx,
         SystemRepository $systemRepository,
         SessionInterface $session,
-        EntityManagerInterface $em
+        EntityManagerInterface $em,
+        TranslatorInterface $translator
     ) {
         $this->kernel =             $kernel;
         $this->modeRepository =     $modeRepository;
         $this->rxx =                $rxx;
         $this->systemRepository =   $systemRepository;
+        $this->translator =         $translator;
         $this->session =            $session;
         $this->parameters = [
             'isAdmin' =>        $this->session->get('isAdmin', 0),
@@ -133,10 +140,28 @@ class Base extends AbstractController
         }
     }
 
+    /**
+     * @param array $parameters
+     * @return array
+     */
     public function getMergedParameters($parameters = [])
     {
         $this->session->set('lastError', '');
         $this->session->set('lastMessage', '');
         return array_merge($parameters, $this->parameters);
+    }
+
+    /**
+     * @param string      $id         The message id (may also be an object that can be cast to string)
+     * @param array       $parameters An array of parameters for the message
+     * @param string|null $domain     The domain for the message or null to use the default
+     * @param string|null $locale     The locale or null to use the default
+     *
+     * @return string The translated string
+     *
+     * @throws \InvalidArgumentException If the locale contains invalid characters
+     */
+    public function i18n($id, array $parameters = array(), $domain = null, $locale = null) {
+        return $this->translator->trans($id, $parameters, $domain, $locale);
     }
 }
