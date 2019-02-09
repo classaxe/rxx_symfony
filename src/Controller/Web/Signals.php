@@ -9,24 +9,26 @@ class Signals extends Base
 
     /**
      * @Route(
-     *     "/{system}/signals",
+     *     "/{locale}/{system}/signals",
      *     requirements={
+     *        "locale": "de|en|es|fr",
      *        "system": "reu|rna|rww"
      *     },
      *     name="signals"
      * )
      */
-    public function signalsController(
-        $system
-    ) {
+    public function signalsController($locale, $system) {
         $parameters = [
+            'locale' =>     $locale,
             'mode' =>       'Signals',
-            'signal' => $this->getDoctrine()
-                ->getRepository(SignalsEntity::class)
-                ->find(1),
+            'signal' =>
+                $this->getDoctrine()
+                    ->getRepository(SignalsEntity::class)
+                    ->find(1),
             'system' =>     $system
         ];
         $parameters = array_merge($parameters, $this->parameters);
+
         return $this->render('signals/index.html.twig', $parameters);
     }
 }

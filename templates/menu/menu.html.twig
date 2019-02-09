@@ -13,7 +13,7 @@
 {% for key, modeRepo in modes[0] %}
 {% if ((isAdmin and modeRepo.admin) or (not isAdmin and modeRepo.guest))%}
         <li{% if (app.request.get('_route') == key) %} class="is-active"{% endif %}>
-            <a href="{{ url(key, { 'system' : system }) }}">{{ modeRepo['menu'] }}</a>
+            <a href="{{ url(key, { 'locale' : locale, 'system' : system}) }}">{{ modeRepo['menu'] }}</a>
         </li>
 {% endif %}
 {% endfor %}
@@ -23,10 +23,14 @@
 {% for key, modeRepo in modes[1] %}
 {% if ((isAdmin and modeRepo.admin) or (not isAdmin and modeRepo.guest))%}
         <li{% if (app.request.get('_route') == key) %} class="is-active"{% endif %}>
-            <a href="{{ url(key, { 'system' : system }) }}">{{ modeRepo['menu'] }}</a>
+            <a href="{{ url(key, { 'locale' : locale, 'system' : system }) }}">{{ modeRepo['menu'] }}</a>
         </li>
 {% endif %}
 {% endfor %}
     </ul>
 {% endif %}
+    <ul class="lang-menu">
+        <li><a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'locale': 'fr'})) }}">Francais</a></li>
+        <li><a href="{{  path(app.request.get('_route'), app.request.get('_route_params')|merge({'locale': 'en'}))}}">English</a></li>
+    </ul>
 </div>

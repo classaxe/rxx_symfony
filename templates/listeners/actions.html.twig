@@ -1,6 +1,6 @@
 <p class="report_actions">
     <input type="button" class="button small" value="Print..." onclick="window.print()">
     {% if isAdmin %}
-        <input type="button" class="button small" value="Add Listener..." onclick="window.open('{{ path('listener', {'system' : system, 'id' : 'new'})}}','new','{{ listenerPopup }}')">
+        <input type="button" class="button small" value="Add Listener..." onclick="window.open('{{ path('listener', { 'locale' : locale, 'system' : system, 'id' : 'new'})}}','new','{{ listenerPopup }}')">
     {% endif %}
 </p>

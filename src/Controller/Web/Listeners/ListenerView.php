@@ -17,14 +17,16 @@ class ListenerView extends Base
 
     /**
      * @Route(
-     *     "/{system}/listeners/{id}",
+     *     "/{locale}/{system}/listeners/{id}",
      *     requirements={
+     *        "locale": "de|en|es|fr",
      *        "system": "reu|rna|rww"
      *     },
      *     name="listener"
      * )
      */
     public function viewController(
+        $locale,
         $system,
         $id,
         Request $request,
@@ -118,6 +120,7 @@ class ListenerView extends Base
             'id' =>                 $id,
             'fieldGroups' =>        $listenerViewForm->getFieldGroups($isAdmin),
             'form' =>               $form->createView(),
+            'locale' =>             $locale,
             'mode' =>               ($isAdmin && !$listener ? 'Add Listener' : $listener->getName().' &gt; Profile'),
             'system' =>             $system,
             'tabs' =>               $listenerRepository->getTabs($listener),

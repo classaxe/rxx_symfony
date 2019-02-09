@@ -27,20 +27,22 @@ class States extends AbstractController
 
     /**
      * @Route(
-     *     "/{system}/states/{filter}",
+     *     "/{locale}/{system}/states/{filter}",
      *     requirements={
+     *        "locale": "de|en|es|fr",
      *        "system": "reu|rna|rww"
      *     },
      *     defaults={"filter"=""},
      *     name="states"
      * )
      */
-    public function stateLocatorController($system, $filter)
+    public function stateLocatorController($locale, $system, $filter)
     {
         $parameters = [
-            'system' => $system,
-            'mode' => 'State and Province Locator',
-            'countries' => $this->country->getCountriesAndStates($filter)
+            'locale' =>     $locale,
+            'system' =>     $system,
+            'mode' =>       'State and Province Locator',
+            'countries' =>  $this->country->getCountriesAndStates($filter)
         ];
 
         return $this->render('states/index.html.twig', $parameters);

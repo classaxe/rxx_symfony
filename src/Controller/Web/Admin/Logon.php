@@ -19,14 +19,16 @@ class Logon extends Base
 
     /**
      * @Route(
-     *     "/{system}/admin/logon",
+     *     "/{locale}/{system}/admin/logon",
      *     requirements={
+     *        "locale": "de|en|es|fr",
      *        "system": "reu|rna|rww"
      *     },
      *     name="logon"
      * )
      */
     public function logonController(
+        $locale,
         $system,
         Request $request,
         LogonForm $form
@@ -50,7 +52,13 @@ class Logon extends Base
                 if (!$this->session->get('isAdmin', 0)) {
                     $this->session->set('isAdmin', 1);
                     $this->session->set('lastError', '');
-                    return $this->redirectToRoute('logon', ['system' => $system]);
+                    return $this->redirectToRoute(
+                        'logon',
+                        [
+                            'locale' => $locale,
+                            'system' => $system
+                        ]
+                    );
                 }
             }
         } else {
@@ -60,6 +68,7 @@ class Logon extends Base
             'args' =>       $args,
             'form' =>       $form->createView(),
             'form_class' => 'logon',
+            'locale' =>     $locale,
             'mode' =>       'Logon',
             'system' =>     $system,
         ];

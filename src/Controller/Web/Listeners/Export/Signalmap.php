@@ -21,10 +21,30 @@ class Signalmap extends Base
      *        "system": "reu|rna|rww"
      *     },
      *     defaults={"id"=""},
+     *     name="listener_export_signalmap_redirect"
+     * )
+     */
+    public function signalmapredirectController(
+        $system,
+        $id
+    ) {
+        return $this->redirectToRoute('listener_export_signalmap', ['locale' => 'en', 'system' => $system, 'id' => $id]);
+    }
+
+
+    /**
+     * @Route(
+     *     "/{locale}/{system}/listeners/{id}/signalmap",
+     *     requirements={
+     *        "locale": "de|en|es|fr",
+     *        "system": "reu|rna|rww"
+     *     },
+     *     defaults={"id"=""},
      *     name="listener_export_signalmap"
      * )
      */
     public function signalmapController(
+        $locale,
         $system,
         $id,
         ListenerRepository $listenerRepository,
@@ -32,7 +52,7 @@ class Signalmap extends Base
         TypeRepository $typeRepository
     ) {
         if (!$listener = $this->getValidReportingListener($id, $listenerRepository)) {
-            return $this->redirectToRoute('listeners', ['system' => $system]);
+            return $this->redirectToRoute('listeners', ['locale' => $locale, 'system' => $system]);
         }
         $listenerSignalTypes = [];
         foreach ($listenerRepository->getSignalTypesForListener($id) as $type) {
@@ -41,6 +61,7 @@ class Signalmap extends Base
         uasort($listenerSignalTypes, array($typeRepository, 'sortByOrder'));
         $parameters = [
             'id' =>                 $id,
+            'locale' =>             $locale,
             'title' =>              strToUpper($system).' Signals received by '.$listener->getName(),
             'types' =>              $listenerSignalTypes,
             'system' =>             $system,

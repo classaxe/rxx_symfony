@@ -19,14 +19,16 @@ class ListenerWeather extends Base
 
     /**
      * @Route(
-     *     "/{system}/listeners/{id}/weather",
+     *     "/{locale}/{system}/listeners/{id}/weather",
      *     requirements={
+     *        "locale": "de|en|es|fr",
      *        "system": "reu|rna|rww"
      *     },
      *     name="listener_weather"
      * )
      */
     public function weatherController(
+        $locale,
         $system,
         $id,
         Request $request,
@@ -86,6 +88,7 @@ class ListenerWeather extends Base
             'id' =>                 $id,
             'fieldGroups' =>        $listenerWeatherForm->getFieldGroups(),
             'form' =>               $form->createView(),
+            'locale' =>             $locale,
             'mode' =>               $listener->getName().' &gt; Weather',
             'system' =>             $system,
             'tabs' =>               $listenerRepository->getTabs($listener),

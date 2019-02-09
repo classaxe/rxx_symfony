@@ -14,8 +14,9 @@ class Logs extends Base
 {
     /**
      * @Route(
-     *     "/{system}/listeners/{id}/ndbweblog/logs.js",
+     *     "/{locale}/{system}/listeners/{id}/ndbweblog/logs.js",
      *     requirements={
+     *        "locale": "de|en|es|fr",
      *        "system": "reu|rna|rww"
      *     },
      *     defaults={"id"=""},
@@ -23,6 +24,7 @@ class Logs extends Base
      * )
      */
     public function logsController(
+        $locale,
         $system,
         $id,
         ListenerRepository $listenerRepository,
@@ -32,6 +34,7 @@ class Logs extends Base
             return $this->redirectToRoute('listeners', ['system' => $system]);
         }
         $parameters = [
+            'locale' =>             $locale,
             'title' =>              'NDB Weblog logs for '.$listener->getName(),
             'system' =>             $system,
             'listener' =>           $listener,
@@ -41,6 +44,7 @@ class Logs extends Base
         $response = $this->render('listener/ndbweblog/logs.js.twig', $parameters);
         $response->headers->set('Content-Type', 'application/javascript');
         $response->headers->set('Content-Disposition','attachment;filename=logs.js');
+
         return $response;
     }
 }

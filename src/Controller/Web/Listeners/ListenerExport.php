@@ -14,14 +14,16 @@ class ListenerExport extends Base
 
     /**
      * @Route(
-     *     "/{system}/listeners/{id}/export",
+     *     "/{locale}/{system}/listeners/{id}/export",
      *     requirements={
+     *        "locale": "de|en|es|fr",
      *        "system": "reu|rna|rww"
      *     },
      *     name="listener_export"
      * )
      */
     public function exportController(
+        $locale,
         $system,
         $id,
         ListenerRepository $listenerRepository
@@ -35,6 +37,7 @@ class ListenerExport extends Base
 
         $parameters = [
             'id' =>                 $id,
+            'locale' =>             $locale,
             'mode' =>               'Export Loggings for '.$listener->getFormattedNameAndLocation(),
             'logs' =>               $listener->getCountLogs(),
             'signals' =>            $listener->getCountSignals(),

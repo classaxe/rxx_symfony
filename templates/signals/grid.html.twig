@@ -1,5 +1,5 @@
 {% if signals|length > 0 %}
-{% include 'listeners/actions.html.twig' %}
+{% include 'signals/actions.html.twig' %}
 <table class="signal results">
     <thead>
         <tr>
@@ -26,7 +26,7 @@
 {% endfor %}
     </tbody>
 </table>
-{% include 'listeners/actions.html.twig' %}
+{% include 'signals/actions.html.twig' %}
 {% else %}
     <p class="no-results">(No signals found matching your criteria)</p>
 {% endif %}

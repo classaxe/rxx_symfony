@@ -19,14 +19,16 @@ class ListenerLogs extends Base
     const defaultOrder =    'a';
     /**
      * @Route(
-     *     "/{system}/listeners/{id}/logs",
+     *     "/{locale}/{system}/listeners/{id}/logs",
      *     requirements={
+     *        "locale": "de|en|es|fr",
      *        "system": "reu|rna|rww"
      *     },
      *     name="listener_logs"
      * )
      */
     public function logsController(
+        $locale,
         $system,
         $id,
         Request $request,
@@ -62,6 +64,7 @@ class ListenerLogs extends Base
             'id' =>                 $id,
             'columns' =>            $listenerRepository->getLogsColumns(),
             'form' =>               $form->createView(),
+            'locale' =>             $locale,
             'matched' =>            ($options['total'] > $options['maxNoPaging'] ? 'of '.$options['total']. ' log records.' : ''),
             'mode' =>               'Logs for '.$listener->getFormattedNameAndLocation(),
             'logs' =>               $listenerRepository->getLogsForListener($id, $args),

@@ -13,8 +13,9 @@ class Signals extends Base
 {
     /**
      * @Route(
-     *     "/{system}/listeners/{id}/ndbweblog/stations.js",
+     *     "/{locale}/{system}/listeners/{id}/ndbweblog/stations.js",
      *     requirements={
+     *        "locale": "de|en|es|fr",
      *        "system": "reu|rna|rww"
      *     },
      *     defaults={"id"=""},
@@ -22,6 +23,7 @@ class Signals extends Base
      * )
      */
     public function stationsController(
+        $locale,
         $system,
         $id,
         ListenerRepository $listenerRepository
@@ -30,6 +32,7 @@ class Signals extends Base
             return $this->redirectToRoute('listeners', ['system' => $system]);
         }
         $parameters = [
+            'locale' =>             $locale,
             'title' =>              'NDB Weblog stations for '.$listener->getName(),
             'system' =>             $system,
             'listener' =>           $listener,
@@ -39,6 +42,7 @@ class Signals extends Base
         $response =     $this->render('listener/ndbweblog/stations.js.twig', $parameters);
         $response->headers->set('Content-Type', 'application/javascript');
         $response->headers->set('Content-Disposition','attachment;filename=stations.js');
+
         return $response;
     }
 }

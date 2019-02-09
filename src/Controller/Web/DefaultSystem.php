@@ -33,8 +33,11 @@ class DefaultSystem extends AbstractController
      */
     public function defaultSystemController()
     {
-        $parameters = ['system' => $this->geoService->getDefaultSystem()];
+        $parameters = [
+            'locale' => 'fr',
+            'system' => $this->geoService->getDefaultSystem()
+        ];
 
-        return $this->redirectToRoute("system", $parameters);
+        return $this->redirectToRoute('system', $parameters);
     }
 }

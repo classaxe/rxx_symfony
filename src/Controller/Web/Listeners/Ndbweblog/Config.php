@@ -13,8 +13,9 @@ class Config extends Base
 {
     /**
      * @Route(
-     *     "/{system}/listeners/{id}/ndbweblog/config.js",
+     *     "/{locale}/{system}/listeners/{id}/ndbweblog/config.js",
      *     requirements={
+     *        "locale": "de|en|es|fr",
      *        "system": "reu|rna|rww"
      *     },
      *     defaults={"id"=""},
@@ -22,17 +23,19 @@ class Config extends Base
      * )
      */
     public function configController(
+        $locale,
         $system,
         $id,
         ListenerRepository $listenerRepository
     ) {
         if (!$listener = $this->getValidReportingListener($id, $listenerRepository)) {
-            return $this->redirectToRoute('listeners', ['system' => $system]);
+            return $this->redirectToRoute('listeners', ['locale' => $locale, 'system' => $system]);
         }
         $parameters = [
-            'title' => 'NDB Weblog config for ' . $listener->getName(),
-            'system' => $system,
-            'listener' => $listener
+            'locale' =>     $locale,
+            'title' =>      'NDB Weblog config for ' . $listener->getName(),
+            'system' =>     $system,
+            'listener' =>   $listener
         ];
         $parameters = array_merge($parameters, $this->parameters);
         $response = $this->render('listener/ndbweblog/config.js.twig', $parameters);

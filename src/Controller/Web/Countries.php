@@ -28,20 +28,22 @@ class Countries extends AbstractController
 
     /**
      * @Route(
-     *     "/{system}/countries/{filter}",
+     *     "/{locale}/{system}/countries/{filter}",
      *     requirements={
+     *        "locale": "de|en|es|fr",
      *        "system": "reu|rna|rww"
      *     },
      *     defaults={"filter"=""},
      *     name="countries"
      * )
      */
-    public function countryLocatorController($system, $filter)
+    public function countryLocatorController($locale, $system, $filter)
     {
         $parameters = [
-            'system' => $system,
-            'mode' => 'Country Code Locator',
-            'regions' => $this->region->getAllWithCountries($filter)
+            'locale' =>     $locale,
+            'system' =>     $system,
+            'mode' =>       'Country Code Locator',
+            'regions' =>    $this->region->getAllWithCountries($filter)
         ];
 
         return $this->render('countries/index.html.twig', $parameters);

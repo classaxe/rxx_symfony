@@ -20,14 +20,16 @@ class Collection extends Base
     const defaultOrder =    'a';
     /**
      * @Route(
-     *     "/{system}/signals",
+     *     "/{locale}/{system}/signals",
      *     requirements={
+     *        "locale": "de|en|es|fr",
      *        "system": "reu|rna|rww"
      *     },
      *     name="signals"
      * )
      */
     public function signalsListController(
+        $locale,
         $system,
         Request $request,
         Form $form,
@@ -74,6 +76,7 @@ class Collection extends Base
             'matched' =>            ($options['total'] > $options['maxNoPaging'] ? 'of ' : 'all ') . $total . ' signals',
             'mode' =>               'Signals List',
             'listenerPopup' =>      'width=800,height=680,status=1,scrollbars=1,resizable=1',
+            'locale' =>             $locale,
             'system' =>             $system,
             'text' =>
                 "<ul>\n"

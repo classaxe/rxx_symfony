@@ -17,14 +17,16 @@ class ListenerStats extends Base
 
     /**
      * @Route(
-     *     "/{system}/listeners/{id}/stats",
+     *     "/{locale}/{system}/listeners/{id}/stats",
      *     requirements={
+     *        "locale": "de|en|es|fr",
      *        "system": "reu|rna|rww"
      *     },
      *     name="listener_stats"
      * )
      */
     public function statsController(
+        $locale,
         $system,
         $id,
         ListenerRepository $listenerRepository,
@@ -35,6 +37,7 @@ class ListenerStats extends Base
         }
         $parameters = [
             'id' =>                 $id,
+            'locale' =>             $locale,
             'mode' =>               $listener->getName().' &gt; Stats',
             'listener' =>           $listener,
             'system' =>             $system,
@@ -42,6 +45,7 @@ class ListenerStats extends Base
             'typeRepository' =>     $typeRepository
         ];
         $parameters = array_merge($parameters, $this->parameters);
+
         return $this->render('listener/stats.html.twig', $parameters);
     }
 }
