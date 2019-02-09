@@ -19,13 +19,13 @@ class LogonLogoffTest extends Base
         foreach ($this->getSystems() as $system) {
             $this->setNoRedirect();
 
-            $this->client->request('GET', '/' . $system . '/admin/logoff');
+            $this->client->request('GET', '/en/' . $system . '/admin/logoff');
             $expected = 302;
             $actual =   $this->getResponseStatusCode();
             $message =  $this->getError(1, [$system, $expected, $actual]);
             $this->assertEquals($expected, $actual, $message);
 
-            $this->client->request('GET', '/' . $system . '/admin/logon');
+            $this->client->request('GET', '/en/' . $system . '/admin/logon');
             $expected = 200;
             $actual =   $this->getResponseStatusCode();
             $message =  $this->getError(2, [$system, $expected, $actual]);
@@ -45,7 +45,7 @@ class LogonLogoffTest extends Base
             $this->setYesRedirect();
 
             foreach ($this->getAdminUsers() as $user => $data) {
-                $this->client->request('GET', '/' . $system . '/admin/logoff');
+                $this->client->request('GET', '/en/' . $system . '/admin/logoff');
 
                 $form = $this
                     ->getCrawler()

@@ -21,7 +21,7 @@ class DefaultSystemTest extends Base
 
             $this->client->request('GET', '/');
 
-            $expected =     'Redirecting to /'.$profile['system'].'/';
+            $expected =     'Redirecting to /en/'.$profile['system'].'/';
             $actual =       $this->getResponsePageTitle();
             $message =      $this->getError(1, [$expected, $actual]);
             $this->assertEquals($expected, $actual, $message);
@@ -31,7 +31,7 @@ class DefaultSystemTest extends Base
             $message =      $this->getError(2, [$expected, $actual]);
             $this->assertEquals($expected, $actual, $message);
 
-            $expected =     '/'.$profile['system'].'/';
+            $expected =     '/en/'.$profile['system'].'/';
             $actual =       $this->getResponseRedirectLocation();
             $message =      $this->getError(3, [$expected, $actual]);
             $this->assertEquals($expected, $actual, $message);

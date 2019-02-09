@@ -19,7 +19,7 @@ class Collection extends Base
     const defaultOrder =    'a';
     /**
      * @Route(
-     *     "/{locale}/{system}/listeners",
+     *     "/{_locale}/{system}/listeners",
      *     requirements={
      *        "locale": "de|en|es|fr",
      *        "system": "reu|rna|rww"
@@ -28,7 +28,7 @@ class Collection extends Base
      * )
      */
     public function listenerListController(
-        $locale,
+        $_locale,
         $system,
         Request $request,
         Form $form,
@@ -70,7 +70,7 @@ class Collection extends Base
             'columns' =>            $listenerRepository->getColumns(),
             'form' =>               $form->createView(),
             'listeners' =>          $listeners,
-            'locale' =>             $locale,
+            '_locale' =>            $_locale,
             'matched' =>            ($options['total'] > $options['maxNoPaging'] ? 'of ' : 'all ') . $total . ' listeners',
             'mode' =>               'Listeners List',
             'listenerPopup' =>      'width=800,height=680,status=1,scrollbars=1,resizable=1',

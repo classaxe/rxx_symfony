@@ -22,9 +22,9 @@ class DefaultModeTest extends Base
         foreach ($this->getSystems() as $system) {
             $this->setNoRedirect();
 
-            $this->client->request('GET', '/'.$system.'/');
+            $this->client->request('GET', '/en/'.$system.'/');
 
-            $expected =     'Redirecting to /'.$system.'/'.$this->getDefaultMode();
+            $expected =     'Redirecting to /en/'.$system.'/'.$this->getDefaultMode();
             $actual =       $this->getResponsePageTitle();
             $message =      $this->getError(1, [$system, $expected, $actual]);
             $this->assertEquals($expected, $actual, $message);
@@ -34,7 +34,7 @@ class DefaultModeTest extends Base
             $message =      $this->getError(2, [$system, $expected, $actual]);
             $this->assertEquals($expected, $actual, $message);
 
-            $expected =     '/'.$system.'/'.$this->getDefaultMode();
+            $expected =     '/en/'.$system.'/'.$this->getDefaultMode();
             $actual =       $this->getResponseRedirectLocation();
             $message =      $this->getError(3, [$system, $expected, $actual]);
             $this->assertEquals($expected, $actual, $message);

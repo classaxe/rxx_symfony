@@ -12,7 +12,7 @@ class DefaultMode extends AbstractController
 {
     /**
      * @Route(
-     *     "/{locale}/{system}/",
+     *     "/{_locale}/{system}/",
      *     requirements={
      *        "locale": "de|en|es|fr",
      *        "system": "reu|rna|rww"
@@ -22,11 +22,11 @@ class DefaultMode extends AbstractController
      * @param $system
      */
     public function defaultModeController(
-        $locale,
+        $_locale,
         $system
     ) {
         $parameters =[
-            'locale' => $locale,
+            '_locale' => $_locale,
             'system' => $system
         ];
 

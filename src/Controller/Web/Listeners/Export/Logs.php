@@ -14,7 +14,7 @@ class Logs extends Base
 {
     /**
      * @Route(
-     *     "/{locale}/{system}/listeners/{id}/export/logs",
+     *     "/{_locale}/{system}/listeners/{id}/export/logs",
      *     requirements={
      *        "locale": "de|en|es|fr",
      *        "system": "reu|rna|rww"
@@ -24,7 +24,7 @@ class Logs extends Base
      * )
      */
     public function logsController(
-        $locale,
+        $_locale,
         $system,
         $id,
         ListenerRepository $listenerRepository,
@@ -35,7 +35,7 @@ class Logs extends Base
         }
         $logs = $logRepository->getLogsForListener($id);
         $parameters = [
-            'locale' =>             $locale,
+            '_locale' =>            $_locale,
             'title' =>              strToUpper($system) . ' log for '.$listener->getName() . " on " . date('Y-m-d'),
             'subtitle' =>           '(' . count($logs) . ' records sorted by Date and Time)',
             'system' =>             $system,

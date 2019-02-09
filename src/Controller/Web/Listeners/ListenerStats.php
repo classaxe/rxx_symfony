@@ -17,7 +17,7 @@ class ListenerStats extends Base
 
     /**
      * @Route(
-     *     "/{locale}/{system}/listeners/{id}/stats",
+     *     "/{_locale}/{system}/listeners/{id}/stats",
      *     requirements={
      *        "locale": "de|en|es|fr",
      *        "system": "reu|rna|rww"
@@ -26,7 +26,7 @@ class ListenerStats extends Base
      * )
      */
     public function statsController(
-        $locale,
+        $_locale,
         $system,
         $id,
         ListenerRepository $listenerRepository,
@@ -37,7 +37,7 @@ class ListenerStats extends Base
         }
         $parameters = [
             'id' =>                 $id,
-            'locale' =>             $locale,
+            '_locale' =>            $_locale,
             'mode' =>               $listener->getName().' &gt; Stats',
             'listener' =>           $listener,
             'system' =>             $system,

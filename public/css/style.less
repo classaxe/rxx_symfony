@@ -64,15 +64,9 @@
                     color: @@rmode[titleColor];
                 }
             }
-            .system {
-                border: 1px solid @@rmode[menuActiveBg];
-                li:not(:last-child) {
-                    a {
-                        border-right: 1px solid @@rmode[menuActiveBg];
-                    }
-                }
-            }
-            .mode {
+            .system,
+            .mode,
+            .language {
                 border: 1px solid @@rmode[menuActiveBg];
                 li:not(:last-child) {
                     a {
@@ -210,8 +204,15 @@ body {
         }
         .system,
         .mode {
-            background: @white;
             border-top: none !important;
+        }
+        .language {
+            margin: 0.25em 0 0 0 ;
+        }
+        .system,
+        .mode,
+        .language {
+            background: @white;
             a {
                 padding: 0.25em 0.5em;
                 font-size: 80%;
@@ -523,7 +524,7 @@ button.tiny {
 #form {
     button {
         margin: 0.25em 50%;
-        padding: 0.25em 1em;
+        padding: 0.25em 0.5em;
     }
     fieldset {
         margin: 0;
@@ -574,7 +575,7 @@ button.tiny {
         margin: 0 0 0 0.5em;
     }
     #form_submit {
-        margin: 0.5em 220px 0;
+        margin: 0.5em 40% 0;
     }
     #form_types {
         div {
@@ -668,6 +669,10 @@ button.tiny {
     input[type='text'],
     input[type='password'] {
         width: @width[logonForm] - 115;
+    }
+    #form_submit {
+        margin: 0 0;
+        width: 8em;
     }
 }
 

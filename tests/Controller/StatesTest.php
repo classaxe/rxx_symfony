@@ -22,7 +22,7 @@ class StatesTest extends Base
     public function testAllSystems()
     {
         foreach ($this->getSystems() as $system) {
-            $url = '/'.$system.'/states';
+            $url = '/en/'.$system.'/states';
             $this->client->request('GET', $url);
 
             $expected =     strtoupper($system).' > State and Province Locator';
@@ -53,7 +53,7 @@ class StatesTest extends Base
     public function testRwwEachCountryWithStates()
     {
         foreach ($this->getCountriesHavingStates() as $country => $settings) {
-            $url = '/rww/states/'.$country;
+            $url = '/en/rww/states/'.$country;
             $this->client->request('GET', $url);
 
             $expected =     'RWW > State and Province Locator';
@@ -90,7 +90,7 @@ class StatesTest extends Base
     public function testRwwAllCountriesWithStates()
     {
         $allCountries = array_keys($this->getCountriesHavingStates());
-        $url = '/rww/states/'.implode(',', $allCountries);
+        $url = '/en/rww/states/'.implode(',', $allCountries);
         $this->client->request('GET', $url);
 
         $links =        $this->getCrawler()->filter('.quicklinks a');

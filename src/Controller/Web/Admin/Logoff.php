@@ -13,7 +13,7 @@ class Logoff extends Base
 
     /**
      * @Route(
-     *     "/{locale}/{system}/admin/logoff",
+     *     "/{_locale}/{system}/admin/logoff",
      *     requirements={
      *        "locale": "de|en|es|fr",
      *        "system": "reu|rna|rww"
@@ -22,14 +22,14 @@ class Logoff extends Base
      * )
      */
     public function logoffController(
-        $locale,
+        $_locale,
         $system
     ) {
         $this->session->set('isAdmin', 0);
         return $this->redirectToRoute(
             'logon',
             [
-                'locale' => $locale,
+                '_locale' => $_locale,
                 'system' => $system
             ]
         );

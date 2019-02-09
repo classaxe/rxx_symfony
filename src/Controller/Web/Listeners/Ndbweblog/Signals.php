@@ -13,7 +13,7 @@ class Signals extends Base
 {
     /**
      * @Route(
-     *     "/{locale}/{system}/listeners/{id}/ndbweblog/stations.js",
+     *     "/{_locale}/{system}/listeners/{id}/ndbweblog/stations.js",
      *     requirements={
      *        "locale": "de|en|es|fr",
      *        "system": "reu|rna|rww"
@@ -23,7 +23,7 @@ class Signals extends Base
      * )
      */
     public function stationsController(
-        $locale,
+        $_locale,
         $system,
         $id,
         ListenerRepository $listenerRepository
@@ -32,7 +32,7 @@ class Signals extends Base
             return $this->redirectToRoute('listeners', ['system' => $system]);
         }
         $parameters = [
-            'locale' =>             $locale,
+            '_locale' =>            $_locale,
             'title' =>              'NDB Weblog stations for '.$listener->getName(),
             'system' =>             $system,
             'listener' =>           $listener,

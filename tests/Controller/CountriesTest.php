@@ -22,7 +22,7 @@ class CountriesTest extends Base
     public function testAllSystems()
     {
         foreach ($this->getSystems() as $system) {
-            $url = '/'.$system.'/countries';
+            $url = '/en/'.$system.'/countries';
             $this->client->request('GET', $url);
 
             $expected =     strtoupper($system).' > Country Code Locator';
@@ -53,7 +53,7 @@ class CountriesTest extends Base
     public function testRwwEachRegion()
     {
         foreach ($this->getRegions() as $region => $settings) {
-            $url = '/rww/countries/' . $region;
+            $url = '/en/rww/countries/' . $region;
             $this->client->request('GET', $url);
 
             $expected = 'RWW > Country Code Locator';
@@ -90,7 +90,7 @@ class CountriesTest extends Base
     public function testRwwAllRegions()
     {
         $allRegions = array_keys($this->getRegions());
-        $url = '/rww/countries/'.implode(',', $allRegions);
+        $url = '/en/rww/countries/'.implode(',', $allRegions);
         $this->client->request('GET', $url);
 
         $links =        $this->getCrawler()->filter('.quicklinks a');

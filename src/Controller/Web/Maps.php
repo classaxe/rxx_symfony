@@ -12,7 +12,7 @@ class Maps extends Base
 {
     /**
      * @Route(
-     *     "/{locale}/{system}/map/{area}",
+     *     "/{_locale}/{system}/map/{area}",
      *     requirements={
      *        "locale": "de|en|es|fr",
      *        "system": "reu|rna|rww",
@@ -21,10 +21,10 @@ class Maps extends Base
      *     name="map"
      * )
      */
-    public function map($locale, $system, $area, MapRepository $mapRepository)
+    public function map($_locale, $system, $area, MapRepository $mapRepository)
     {
         $parameters = $mapRepository->get($area);
-        $parameters['locale'] = $locale;
+        $parameters['_locale'] = $_locale;
         $parameters['system'] = $system;
 
         return $this->render('maps/map.html.twig', $parameters);
@@ -32,7 +32,7 @@ class Maps extends Base
 
     /**
      * @Route(
-     *     "/{locale}/{system}/maps",
+     *     "/{_locale}/{system}/maps",
      *     requirements={
      *        "locale": "de|en|es|fr",
      *        "system": "reu|rna|rww"
@@ -41,14 +41,14 @@ class Maps extends Base
      * )
      */
     public function mapsController(
-        $locale,
+        $_locale,
         $system,
         MapRepository $mapRepository
     ) {
         $systemMaps =   $mapRepository->getAllForSystem($system);
 
         $parameters = [
-            'locale' =>     $locale,
+            '_locale' =>    $_locale,
             'mode' =>       'Maps',
             'system' =>     $system,
             'title' =>      $systemMaps['title'],

@@ -14,7 +14,7 @@ class Logs extends Base
 {
     /**
      * @Route(
-     *     "/{locale}/{system}/listeners/{id}/ndbweblog/logs.js",
+     *     "/{_locale}/{system}/listeners/{id}/ndbweblog/logs.js",
      *     requirements={
      *        "locale": "de|en|es|fr",
      *        "system": "reu|rna|rww"
@@ -24,7 +24,7 @@ class Logs extends Base
      * )
      */
     public function logsController(
-        $locale,
+        $_locale,
         $system,
         $id,
         ListenerRepository $listenerRepository,
@@ -34,7 +34,7 @@ class Logs extends Base
             return $this->redirectToRoute('listeners', ['system' => $system]);
         }
         $parameters = [
-            'locale' =>             $locale,
+            '_locale' =>            $_locale,
             'title' =>              'NDB Weblog logs for '.$listener->getName(),
             'system' =>             $system,
             'listener' =>           $listener,

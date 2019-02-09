@@ -19,7 +19,7 @@ class MapsTest extends Base
     {
         foreach ($this->getSystems() as $system) {
             $maps =         $this->getMapsForSystem($system);
-            $url = '/'.$system.'/maps';
+            $url = '/en/'.$system.'/maps';
             $this->client->request('GET', $url);
 
             $expected =     strtoupper($system).' > Maps';
@@ -46,7 +46,7 @@ class MapsTest extends Base
         foreach ($this->getSystems() as $system) {
             foreach ($this->getMapsForSystem($system) as $area) {
                 $mapDetails = $this->getMap($area);
-                $url = '/'.$system.'/map/' . $area;
+                $url = '/en/'.$system.'/map/' . $area;
                 $this->client->request('GET', $url);
 
                 $expected = strToUpper($system).' > '.$mapDetails['mode'];

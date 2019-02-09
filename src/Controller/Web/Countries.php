@@ -28,7 +28,7 @@ class Countries extends AbstractController
 
     /**
      * @Route(
-     *     "/{locale}/{system}/countries/{filter}",
+     *     "/{_locale}/{system}/countries/{filter}",
      *     requirements={
      *        "locale": "de|en|es|fr",
      *        "system": "reu|rna|rww"
@@ -37,10 +37,10 @@ class Countries extends AbstractController
      *     name="countries"
      * )
      */
-    public function countryLocatorController($locale, $system, $filter)
+    public function countryLocatorController($_locale, $system, $filter)
     {
         $parameters = [
-            'locale' =>     $locale,
+            '_locale' =>    $_locale,
             'system' =>     $system,
             'mode' =>       'Country Code Locator',
             'regions' =>    $this->region->getAllWithCountries($filter)

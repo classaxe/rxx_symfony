@@ -9,7 +9,7 @@ class Signals extends Base
 
     /**
      * @Route(
-     *     "/{locale}/{system}/signals",
+     *     "/{_locale}/{system}/signals",
      *     requirements={
      *        "locale": "de|en|es|fr",
      *        "system": "reu|rna|rww"
@@ -17,9 +17,9 @@ class Signals extends Base
      *     name="signals"
      * )
      */
-    public function signalsController($locale, $system) {
+    public function signalsController($_locale, $system) {
         $parameters = [
-            'locale' =>     $locale,
+            '_locale' =>    $_locale,
             'mode' =>       'Signals',
             'signal' =>
                 $this->getDoctrine()

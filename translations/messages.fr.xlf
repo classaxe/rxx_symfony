@@ -7,15 +7,15 @@
     <body>
       <trans-unit id="bBPgzeD" resname="You must logon in order to perform administrative functions.">
         <source>You must logon in order to perform administrative functions.</source>
-        <target>__You must logon in order to perform administrative functions.</target>
+        <target>Vous devez vous connecter pour effectuer des tâches administratives.</target>
       </trans-unit>
       <trans-unit id="Vq6hsgL" resname="You are now logged on as an Administrator and may perform administrative functions.">
         <source>You are now logged on as an Administrator and may perform administrative functions.</source>
-        <target>__You are now logged on as an Administrator and may perform administrative functions.</target>
+        <target>Vous êtes maintenant connecté en tant qu'administrateur et pouvez effectuer des tâches administratives.</target>
       </trans-unit>
       <trans-unit id="Wycz4V0" resname="To log off, select &lt;strong&gt;Log Off&lt;/strong&gt; from the main menu.">
         <source>To log off, select &lt;strong&gt;Log Off&lt;/strong&gt; from the main menu.</source>
-        <target><![CDATA[__To log off, select <strong>Log Off</strong> from the main menu.]]></target>
+        <target><![CDATA[Pour vous déconnecter, sélectionnez <strong> Fermer la session </strong> dans le menu principal.]]></target>
       </trans-unit>
       <trans-unit id="DZo50ZN" resname="(No listeners found matching your criteria)">
         <source>(No listeners found matching your criteria)</source>

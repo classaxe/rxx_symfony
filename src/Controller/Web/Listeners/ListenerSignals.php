@@ -20,7 +20,7 @@ class ListenerSignals extends Base
 
     /**
      * @Route(
-     *     "/{locale}/{system}/listeners/{id}/signals",
+     *     "/{_locale}/{system}/listeners/{id}/signals",
      *     requirements={
      *        "locale": "de|en|es|fr",
      *        "system": "reu|rna|rww"
@@ -29,7 +29,7 @@ class ListenerSignals extends Base
      * )
      */
     public function signalsController(
-        $locale,
+        $_locale,
         $system,
         $id,
         Request $request,
@@ -67,7 +67,7 @@ class ListenerSignals extends Base
             'id' =>                 $id,
             'columns' =>            $listenerRepository->getSignalsColumns(),
             'form' =>               $form->createView(),
-            'locale' =>             $locale,
+            '_locale' =>            $_locale,
             'matched' =>            ($options['total'] > $options['maxNoPaging'] ? 'of '.$options['total'].' signals' : ''),
             'mode' =>               'Signals received by '.$listener->getFormattedNameAndLocation(),
             'results' => [

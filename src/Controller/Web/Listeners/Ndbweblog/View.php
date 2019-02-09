@@ -13,7 +13,7 @@ class View extends Base
 {
     /**
      * @Route(
-     *     "/{locale}/{system}/listeners/{id}/ndbweblog",
+     *     "/{_locale}/{system}/listeners/{id}/ndbweblog",
      *     requirements={
      *        "locale": "de|en|es|fr",
      *        "system": "reu|rna|rww"
@@ -23,7 +23,7 @@ class View extends Base
      * )
      */
     public function viewController(
-        $locale,
+        $_locale,
         $system,
         $id,
         ListenerRepository $listenerRepository
@@ -33,7 +33,7 @@ class View extends Base
         }
         $parameters = [
             'id' =>                 $id,
-            'locale' =>             $locale,
+            '_locale' =>            $_locale,
             'title' =>              'NDB Weblog for '.$listener->getName(),
             'system' =>             $system,
         ];

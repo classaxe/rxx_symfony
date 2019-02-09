@@ -22,7 +22,7 @@ class Help extends Base
 
     /**
      * @Route(
-     *     "/{locale}/{system}/help",
+     *     "/{_locale}/{system}/help",
      *     requirements={
      *        "locale": "de|en|es|fr",
      *        "system": "reu|rna|rww"
@@ -31,11 +31,11 @@ class Help extends Base
      * )
      */
     public function helpController(
-        $locale,
+        $_locale,
         $system
     ) {
         $parameters = [
-            'locale' =>     $locale,
+            '_locale' =>    $_locale,
             'mode' =>       'Help',
             'system' =>     $system,
         ];
@@ -46,7 +46,7 @@ class Help extends Base
 
     /**
      * @Route(
-     *     "/{locale}/{system}/help/admin",
+     *     "/{_locale}/{system}/help/admin",
      *     requirements={
      *        "locale": "de|en|es|fr",
      *        "system": "reu|rna|rww"
@@ -55,11 +55,11 @@ class Help extends Base
      * )
      */
     public function helpAdminController(
-        $locale,
+        $_locale,
         $system
     ) {
         $parameters = [
-            'locale' =>     $locale,
+            '_locale' =>    $_locale,
             'mode' =>       'Admin Help',
             'system' =>     $system,
         ];

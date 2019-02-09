@@ -13,7 +13,7 @@ class ListenerDelete extends Base
 {
     /**
      * @Route(
-     *     "/{locale}/{system}/listeners/{id}/delete",
+     *     "/{_locale}/{system}/listeners/{id}/delete",
      *     requirements={
      *        "locale": "de|en|es|fr",
      *        "system": "reu|rna|rww"
@@ -22,33 +22,33 @@ class ListenerDelete extends Base
      * )
      */
     public function deleteController(
-        $locale,
+        $_locale,
         $system,
         $id,
         ListenerRepository $listenerRepository
     ) {
         if (!(int) $id) {
-            return $this->redirectToRoute('listeners', ['locale' => $locale, 'system' => $system]);
+            return $this->redirectToRoute('listeners', ['_locale' => $_locale, 'system' => $system]);
         }
         $listener = $listenerRepository->find((int) $id);
         if (!$listener) {
-            return $this->redirectToRoute('listeners', ['locale' => $locale, 'system' => $system]);
+            return $this->redirectToRoute('listeners', ['_locale' => $_locale, 'system' => $system]);
         }
         if (!$this->parameters['isAdmin']) {
-            return $this->redirectToRoute('listener', ['locale' => $locale, 'system' => $system, 'id' => $id]);
+            return $this->redirectToRoute('listener', ['_locale' => $_locale, 'system' => $system, 'id' => $id]);
         }
         if ($listener->getCountLogs() > 0) {
             $this->session->set(
                 'lastError',
                 "Listener ".$listener->getName()." has ".$listener->getCountLogs()." logs and cannot be deleted"
             );
-            return $this->redirectToRoute('listeners', ['locale' => $locale, 'system' => $system]);
+            return $this->redirectToRoute('listeners', ['_locale' => $_locale, 'system' => $system]);
         }
         $em = $this->getDoctrine()->getManager();
         $em->remove($listener);
         $em->flush();
 
         $this->session->set('lastMessage', "Listener ".$listener->getName()." has been deleted");
-        return $this->redirectToRoute('listeners', ['locale' => $locale, 'system' => $system]);
+        return $this->redirectToRoute('listeners', ['_locale' => $_locale, 'system' => $system]);
     }
 }

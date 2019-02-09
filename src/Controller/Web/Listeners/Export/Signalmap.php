@@ -28,13 +28,13 @@ class Signalmap extends Base
         $system,
         $id
     ) {
-        return $this->redirectToRoute('listener_export_signalmap', ['locale' => 'en', 'system' => $system, 'id' => $id]);
+        return $this->redirectToRoute('listener_export_signalmap', ['_locale' => 'en', 'system' => $system, 'id' => $id]);
     }
 
 
     /**
      * @Route(
-     *     "/{locale}/{system}/listeners/{id}/signalmap",
+     *     "/{_locale}/{system}/listeners/{id}/signalmap",
      *     requirements={
      *        "locale": "de|en|es|fr",
      *        "system": "reu|rna|rww"
@@ -44,7 +44,7 @@ class Signalmap extends Base
      * )
      */
     public function signalmapController(
-        $locale,
+        $_locale,
         $system,
         $id,
         ListenerRepository $listenerRepository,
@@ -52,7 +52,7 @@ class Signalmap extends Base
         TypeRepository $typeRepository
     ) {
         if (!$listener = $this->getValidReportingListener($id, $listenerRepository)) {
-            return $this->redirectToRoute('listeners', ['locale' => $locale, 'system' => $system]);
+            return $this->redirectToRoute('listeners', ['_locale' => $_locale, 'system' => $system]);
         }
         $listenerSignalTypes = [];
         foreach ($listenerRepository->getSignalTypesForListener($id) as $type) {
@@ -61,7 +61,7 @@ class Signalmap extends Base
         uasort($listenerSignalTypes, array($typeRepository, 'sortByOrder'));
         $parameters = [
             'id' =>                 $id,
-            'locale' =>             $locale,
+            '_locale' =>            $_locale,
             'title' =>              strToUpper($system).' Signals received by '.$listener->getName(),
             'types' =>              $listenerSignalTypes,
             'system' =>             $system,

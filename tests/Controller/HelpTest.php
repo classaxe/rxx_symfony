@@ -14,7 +14,7 @@ class HelpTest extends Base
     public function testAllSystems()
     {
         foreach ($this->getSystems() as $system) {
-            $url = '/'.$system.'/help';
+            $url = '/en/'.$system.'/help';
             $this->client->request('GET', $url);
 
             $expected =     strtoupper($system).' > Help';

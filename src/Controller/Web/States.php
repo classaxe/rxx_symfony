@@ -27,7 +27,7 @@ class States extends AbstractController
 
     /**
      * @Route(
-     *     "/{locale}/{system}/states/{filter}",
+     *     "/{_locale}/{system}/states/{filter}",
      *     requirements={
      *        "locale": "de|en|es|fr",
      *        "system": "reu|rna|rww"
@@ -36,10 +36,10 @@ class States extends AbstractController
      *     name="states"
      * )
      */
-    public function stateLocatorController($locale, $system, $filter)
+    public function stateLocatorController($_locale, $system, $filter)
     {
         $parameters = [
-            'locale' =>     $locale,
+            '_locale' =>    $_locale,
             'system' =>     $system,
             'mode' =>       'State and Province Locator',
             'countries' =>  $this->country->getCountriesAndStates($filter)

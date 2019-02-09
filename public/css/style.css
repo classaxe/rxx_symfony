@@ -1,7 +1,7 @@
 /*!
 * Project:   RXX - NDB Logging Database
 * Homepage:  https://rxx.classaxe.com
-* Date:      2019-02-04
+* Date:      2019-02-09
 * Licence:   LGPL
 * Copyright: 2019 Martin Francis
 */
@@ -19,16 +19,14 @@ body.reu .menu-centered .header {
 body.reu .menu-centered .header h2 {
   color: #d03333;
 }
-body.reu .menu-centered .system {
+body.reu .menu-centered .system,
+body.reu .menu-centered .mode,
+body.reu .menu-centered .language {
   border: 1px solid #d03333;
 }
-body.reu .menu-centered .system li:not(:last-child) a {
-  border-right: 1px solid #d03333;
-}
-body.reu .menu-centered .mode {
-  border: 1px solid #d03333;
-}
-body.reu .menu-centered .mode li:not(:last-child) a {
+body.reu .menu-centered .system li:not(:last-child) a,
+body.reu .menu-centered .mode li:not(:last-child) a,
+body.reu .menu-centered .language li:not(:last-child) a {
   border-right: 1px solid #d03333;
 }
 body.reu .menu a {
@@ -75,16 +73,14 @@ body.rna .menu-centered .header {
 body.rna .menu-centered .header h2 {
   color: #3333ff;
 }
-body.rna .menu-centered .system {
+body.rna .menu-centered .system,
+body.rna .menu-centered .mode,
+body.rna .menu-centered .language {
   border: 1px solid #3333ff;
 }
-body.rna .menu-centered .system li:not(:last-child) a {
-  border-right: 1px solid #3333ff;
-}
-body.rna .menu-centered .mode {
-  border: 1px solid #3333ff;
-}
-body.rna .menu-centered .mode li:not(:last-child) a {
+body.rna .menu-centered .system li:not(:last-child) a,
+body.rna .menu-centered .mode li:not(:last-child) a,
+body.rna .menu-centered .language li:not(:last-child) a {
   border-right: 1px solid #3333ff;
 }
 body.rna .menu a {
@@ -131,16 +127,14 @@ body.rww .menu-centered .header {
 body.rww .menu-centered .header h2 {
   color: #198019;
 }
-body.rww .menu-centered .system {
+body.rww .menu-centered .system,
+body.rww .menu-centered .mode,
+body.rww .menu-centered .language {
   border: 1px solid #198019;
 }
-body.rww .menu-centered .system li:not(:last-child) a {
-  border-right: 1px solid #198019;
-}
-body.rww .menu-centered .mode {
-  border: 1px solid #198019;
-}
-body.rww .menu-centered .mode li:not(:last-child) a {
+body.rww .menu-centered .system li:not(:last-child) a,
+body.rww .menu-centered .mode li:not(:last-child) a,
+body.rww .menu-centered .language li:not(:last-child) a {
   border-right: 1px solid #198019;
 }
 body.rww .menu a {
@@ -281,25 +275,36 @@ body .menu-centered .system a {
 }
 body .menu-centered .system,
 body .menu-centered .mode {
-  background: #ffffff;
   border-top: none !important;
 }
+body .menu-centered .language {
+  margin: 0.25em 0 0 0;
+}
+body .menu-centered .system,
+body .menu-centered .mode,
+body .menu-centered .language {
+  background: #ffffff;
+}
 body .menu-centered .system a,
-body .menu-centered .mode a {
+body .menu-centered .mode a,
+body .menu-centered .language a {
   padding: 0.25em 0.5em;
   font-size: 80%;
   text-align: center;
 }
 body .menu-centered .system a:hover,
-body .menu-centered .mode a:hover {
+body .menu-centered .mode a:hover,
+body .menu-centered .language a:hover {
   text-decoration: underline;
 }
 body .menu-centered .system .is-active > a,
-body .menu-centered .mode .is-active > a {
+body .menu-centered .mode .is-active > a,
+body .menu-centered .language .is-active > a {
   font-weight: bold;
 }
 body .menu-centered .system .is-active > a:hover,
-body .menu-centered .mode .is-active > a:hover {
+body .menu-centered .mode .is-active > a:hover,
+body .menu-centered .language .is-active > a:hover {
   text-decoration: none;
 }
 /* [ Footer ] */
@@ -417,7 +422,6 @@ body .menu-centered .mode .is-active > a:hover {
 .help .body {
   border: 1px solid #707070;
   padding: 0.25em;
-  border-style: solid;
   border-top: none;
 }
 .help img.map {
@@ -590,7 +594,7 @@ button.tiny {
 }
 #form button {
   margin: 0.25em 50%;
-  padding: 0.25em 1em;
+  padding: 0.25em 0.5em;
 }
 #form fieldset {
   margin: 0;
@@ -640,7 +644,7 @@ button.tiny {
   margin: 0 0 0 0.5em;
 }
 #form #form_submit {
-  margin: 0.5em 220px 0;
+  margin: 0.5em 40% 0;
 }
 #form #form_types div {
   padding: 0 0 0 2px;
@@ -729,6 +733,10 @@ button.tiny {
 .logon input[type='text'],
 .logon input[type='password'] {
   width: 185px;
+}
+.logon #form_submit {
+  margin: 0 0;
+  width: 8em;
 }
 /* [ Form listener_edit ] */
 .listener_edit #form label {

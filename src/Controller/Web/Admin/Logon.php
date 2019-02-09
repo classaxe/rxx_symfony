@@ -19,7 +19,7 @@ class Logon extends Base
 
     /**
      * @Route(
-     *     "/{locale}/{system}/admin/logon",
+     *     "/{_locale}/{system}/admin/logon",
      *     requirements={
      *        "locale": "de|en|es|fr",
      *        "system": "reu|rna|rww"
@@ -28,7 +28,7 @@ class Logon extends Base
      * )
      */
     public function logonController(
-        $locale,
+        $_locale,
         $system,
         Request $request,
         LogonForm $form
@@ -55,7 +55,7 @@ class Logon extends Base
                     return $this->redirectToRoute(
                         'logon',
                         [
-                            'locale' => $locale,
+                            '_locale' => $_locale,
                             'system' => $system
                         ]
                     );
@@ -68,7 +68,7 @@ class Logon extends Base
             'args' =>       $args,
             'form' =>       $form->createView(),
             'form_class' => 'logon',
-            'locale' =>     $locale,
+            '_locale' =>    $_locale,
             'mode' =>       'Logon',
             'system' =>     $system,
         ];

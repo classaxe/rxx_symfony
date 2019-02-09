@@ -37,7 +37,7 @@ class ListenersTest extends Base
     private function common($usertype = false)
     {
         foreach ($this->getSystems() as $system) {
-            $url = '/' . $system . '/listeners';
+            $url = '/en/' . $system . '/listeners';
             $this->client->request('GET', $url);
             $expected =     200;
             $actual =       $this->getResponseStatusCode();

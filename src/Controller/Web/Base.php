@@ -2,6 +2,7 @@
 namespace App\Controller\Web;
 
 use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\LanguageRepository;
 use App\Repository\ModeRepository;
 use App\Repository\SystemRepository;
 use App\Utils\Rxx;
@@ -66,9 +67,11 @@ class Base extends AbstractController
         SystemRepository $systemRepository,
         SessionInterface $session,
         EntityManagerInterface $em,
-        TranslatorInterface $translator
+        TranslatorInterface $translator,
+        LanguageRepository $languageRepository
     ) {
         $this->kernel =             $kernel;
+        $this->languageRepository = $languageRepository;
         $this->modeRepository =     $modeRepository;
         $this->rxx =                $rxx;
         $this->systemRepository =   $systemRepository;
@@ -78,6 +81,7 @@ class Base extends AbstractController
             'isAdmin' =>        $this->session->get('isAdmin', 0),
             'lastError' =>      $this->session->get('lastError', ''),
             'lastMessage' =>    $this->session->get('lastMessage', ''),
+            'languages' =>      $this->languageRepository->getAll(),
             'modes' =>          $this->modeRepository->getAll(),
             'systems' =>        $this->systemRepository->getAll(),
         ];
@@ -155,13 +159,13 @@ class Base extends AbstractController
      * @param string      $id         The message id (may also be an object that can be cast to string)
      * @param array       $parameters An array of parameters for the message
      * @param string|null $domain     The domain for the message or null to use the default
-     * @param string|null $locale     The locale or null to use the default
+     * @param string|null $_locale     The locale or null to use the default
      *
      * @return string The translated string
      *
      * @throws \InvalidArgumentException If the locale contains invalid characters
      */
-    public function i18n($id, array $parameters = array(), $domain = null, $locale = null) {
-        return $this->translator->trans($id, $parameters, $domain, $locale);
+    public function i18n($id, array $parameters = array(), $domain = null, $_locale = null) {
+        return $this->translator->trans($id, $parameters, $domain, $_locale);
     }
 }

@@ -13,7 +13,7 @@ class Config extends Base
 {
     /**
      * @Route(
-     *     "/{locale}/{system}/listeners/{id}/ndbweblog/config.js",
+     *     "/{_locale}/{system}/listeners/{id}/ndbweblog/config.js",
      *     requirements={
      *        "locale": "de|en|es|fr",
      *        "system": "reu|rna|rww"
@@ -23,16 +23,16 @@ class Config extends Base
      * )
      */
     public function configController(
-        $locale,
+        $_locale,
         $system,
         $id,
         ListenerRepository $listenerRepository
     ) {
         if (!$listener = $this->getValidReportingListener($id, $listenerRepository)) {
-            return $this->redirectToRoute('listeners', ['locale' => $locale, 'system' => $system]);
+            return $this->redirectToRoute('listeners', ['_locale' => $_locale, 'system' => $system]);
         }
         $parameters = [
-            'locale' =>     $locale,
+            '_locale' =>    $_locale,
             'title' =>      'NDB Weblog config for ' . $listener->getName(),
             'system' =>     $system,
             'listener' =>   $listener

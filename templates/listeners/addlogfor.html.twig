@@ -4,7 +4,7 @@
         <div class="small-12 medium-11">
 {% for l in latestListeners %}
             <div class="display-inline text-nowrap">
-                <a href="{{ url('listener', { 'locale' : locale, 'system' : system, 'id': l.id }) }}" rel="external" data-popup="edit_{{ l.id }}|width=640,height=480,status=1,scrollbars=1,resizable=1">{{ l.name|raw }}</a> ({{ l.sp ? l.sp : l.itu }}){% if not loop.last %} &nbsp; | &nbsp; {% endif %}
+                <a href="{{ url('listener', { '_locale' : _locale, 'system' : system, 'id': l.id }) }}" rel="external" data-popup="edit_{{ l.id }}|width=640,height=480,status=1,scrollbars=1,resizable=1">{{ l.name|raw }}</a> ({{ l.sp ? l.sp : l.itu }}){% if not loop.last %} &nbsp; | &nbsp; {% endif %}
 
             </div>
 {% endfor %}
