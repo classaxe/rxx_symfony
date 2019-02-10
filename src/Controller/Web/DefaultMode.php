@@ -14,20 +14,19 @@ class DefaultMode extends AbstractController
      * @Route(
      *     "/{_locale}/{system}/",
      *     requirements={
-     *        "locale": "de|en|es|fr",
+     *        "_locale": "de|en|es|fr",
      *        "system": "reu|rna|rww"
      *     },
-     *     name="system"
+     *     name="mode"
      * )
-     * @param $system
      */
     public function defaultModeController(
         $_locale,
         $system
     ) {
         $parameters =[
-            '_locale' => $_locale,
-            'system' => $system
+            '_locale' =>    $_locale,
+            'system' =>     $system
         ];
 
         return $this->redirectToRoute("signals", $parameters);

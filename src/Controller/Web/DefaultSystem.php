@@ -27,17 +27,20 @@ class DefaultSystem extends AbstractController
 
     /**
      * @Route(
-     *     "/",
-     *     name="home"
+     *     "/{_locale}/",
+     *     requirements={
+     *        "_locale": "de|en|es|fr",
+     *     },
+     *     name="system"
      * )
      */
-    public function defaultSystemController()
+    public function defaultSystemController($_locale)
     {
         $parameters = [
-            '_locale' => 'en',
+            '_locale' => $_locale,
             'system' => $this->geoService->getDefaultSystem()
         ];
 
-        return $this->redirectToRoute('system', $parameters);
+        return $this->redirectToRoute('mode', $parameters);
     }
 }
