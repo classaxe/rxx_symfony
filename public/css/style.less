@@ -1,6 +1,7 @@
 // Width Settings
 @width: {
     menuSysBtn:     160px;
+    menuLangBtn:    70px;
     listenersForm:  525px;
     signalsForm:    525px;
     logonForm:      300px;
@@ -206,9 +207,6 @@ body {
         .mode {
             border-top: none !important;
         }
-        .language {
-            margin: 0.25em 0 0 0 ;
-        }
         .system,
         .mode,
         .language {
@@ -225,6 +223,15 @@ body {
                 font-weight: bold;
                 &:hover {
                     text-decoration: none;
+                }
+            }
+        }
+        .language {
+            margin: 0.5em 0 0 (((3 * @width[menuSysBtn] + 1 + 1) - (4 * @width[menuLangBtn] + 1 + 1))/2);
+            width: 4 * @width[menuLangBtn] + 1 + 1;
+            li {
+                a {
+                    width: @width[menuLangBtn];
                 }
             }
         }
