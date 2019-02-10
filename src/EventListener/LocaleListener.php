@@ -6,27 +6,30 @@ namespace App\EventListener;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Negotiation\LanguageNegotiator;
+use App\Repository\LanguageRepository;
 
 class LocaleListener implements EventSubscriberInterface
 {
     private $defaultLocale;
+    private $locales;
 
-    public function __construct($defaultLocale = 'en')
+    public function __construct(LanguageRepository $languageRepository)
     {
-        $this->defaultLocale = $defaultLocale;
+        $this->locales = $languageRepository->getAllCodes();
+        $this->defaultLocale = $this->locales[0];
     }
 
     public function onKernelRequest(GetResponseEvent $event)
     {
         $request = $event->getRequest();
-        $language = 'en';
+
+        $language = $this->defaultLocale;
         if (null !== $acceptLanguage = $event->getRequest()->headers->get('Accept-Language')) {
             $negotiator = new LanguageNegotiator();
             $best       = $negotiator->getBest(
                 $event->getRequest()->headers->get('Accept-Language'),
-                ['en','de','es','fr']
+                $this->locales
             );
 
             if (null !== $best) {

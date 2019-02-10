@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
  * Class DefaultSystem
  * @package App\Controller\Web
  */
-class Locale extends AbstractController
+class DefaultLocale extends AbstractController
 {
 
     /**

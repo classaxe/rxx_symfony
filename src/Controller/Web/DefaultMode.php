@@ -10,6 +10,28 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
  */
 class DefaultMode extends AbstractController
 {
+    const DEFAULT_MODE = 'signals';
+
+    /**
+     * @Route(
+     *     "/{system}",
+     *     requirements={
+     *        "system": "reu|rna|rww"
+     *     },
+     *     name="_mode"
+     * )
+     */
+    public function _defaultModeController(
+        $system
+    ) {
+        $parameters =[
+            '_locale' =>    $this->get('session')->get('_locale'),
+            'system' =>     $system
+        ];
+
+        return $this->redirectToRoute(static::DEFAULT_MODE, $parameters);
+    }
+
     /**
      * @Route(
      *     "/{_locale}/{system}/",
@@ -29,6 +51,6 @@ class DefaultMode extends AbstractController
             'system' =>     $system
         ];
 
-        return $this->redirectToRoute("signals", $parameters);
+        return $this->redirectToRoute(static::DEFAULT_MODE, $parameters);
     }
 }

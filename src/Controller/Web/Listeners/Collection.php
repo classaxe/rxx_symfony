@@ -17,6 +17,28 @@ class Collection extends Base
     const maxNoPaging =      100;
     const defaultSorting =  'name';
     const defaultOrder =    'a';
+
+    /**
+     * @Route(
+     *     "/{system}/listeners",
+     *     requirements={
+     *        "system": "reu|rna|rww"
+     *     },
+     *     name="_listeners"
+     * )
+     */
+    public function _listenerListController(
+        $system
+    ) {
+        $parameters =[
+            '_locale' =>    $this->get('session')->get('_locale'),
+            'system' =>     $system
+        ];
+
+        return $this->redirectToRoute('listeners', $parameters, 301);
+    }
+
+
     /**
      * @Route(
      *     "/{_locale}/{system}/listeners",

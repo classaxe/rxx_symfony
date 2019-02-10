@@ -18,6 +18,27 @@ class Collection extends Base
     const maxNoPaging =      100;
     const defaultSorting =  'khz';
     const defaultOrder =    'a';
+
+    /**
+     * @Route(
+     *     "/{system}/signals",
+     *     requirements={
+     *        "system": "reu|rna|rww"
+     *     },
+     *     name="_signals"
+     * )
+     */
+    public function _signalsListController(
+        $system
+    ) {
+        $parameters =[
+            '_locale' =>    $this->get('session')->get('_locale'),
+            'system' =>     $system
+        ];
+
+        return $this->redirectToRoute('signals', $parameters, 301);
+    }
+
     /**
      * @Route(
      *     "/{_locale}/{system}/signals",
