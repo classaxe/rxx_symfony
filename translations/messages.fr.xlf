@@ -29,6 +29,70 @@
         <source>Administrator Logon</source>
         <target>Connexion administrateur</target>
       </trans-unit>
+      <trans-unit id="_dpFFlq" resname="Please provide a valid Username">
+        <source>Please provide a valid Username</source>
+        <target>Veuillez fournir un nom d'utilisateur valide</target>
+      </trans-unit>
+      <trans-unit id="JTEOL5V" resname="Please provide a valid Password">
+        <source>Please provide a valid Password</source>
+        <target>Veuillez fournir un mot de passe valide</target>
+      </trans-unit>
+      <trans-unit id="588_9PF" resname="Password">
+        <source>Password</source>
+        <target>Mot de passe</target>
+      </trans-unit>
+      <trans-unit id="47ienTP" resname="Username">
+        <source>Username</source>
+        <target>Nom d'utilisateur</target>
+      </trans-unit>
+      <trans-unit id="MCyK.Og" resname="Signals Received in Europe">
+        <source>Signals Received in Europe</source>
+        <target>Signaux reçus en Europe</target>
+      </trans-unit>
+      <trans-unit id="7aZSX1X" resname="Signals Received in N &amp; C America + Hawaii">
+        <source>Signals Received in N &amp; C America + Hawaii</source>
+        <target><![CDATA[Signaux reçus en Amérique du Nord et à Hawaii]]></target>
+      </trans-unit>
+      <trans-unit id="vIiAo.a" resname="Signals Received Worldwide">
+        <source>Signals Received Worldwide</source>
+        <target>Signaux reçus dans le monde entier</target>
+      </trans-unit>
+      <trans-unit id="HTnmdxc" resname="North America (RNA)">
+        <source>North America (RNA)</source>
+        <target>Amérique du Nord (RNA)</target>
+      </trans-unit>
+      <trans-unit id="Q7IK_Fm" resname="Europe (REU)">
+        <source>Europe (REU)</source>
+        <target>L'Europe (REU)</target>
+      </trans-unit>
+      <trans-unit id=".qHCJb2" resname="Worldwide (RWW)">
+        <source>Worldwide (RWW)</source>
+        <target>À l'échelle mondiale (RWW)</target>
+      </trans-unit>
+      <trans-unit id="iLAcikv" resname="Signals">
+        <source>Signals</source>
+        <target>__Signals</target>
+      </trans-unit>
+      <trans-unit id="EZ5m0Re" resname="Maps">
+        <source>Maps</source>
+        <target>__Maps</target>
+      </trans-unit>
+      <trans-unit id="oWyIukw" resname="Listeners">
+        <source>Listeners</source>
+        <target>__Listeners</target>
+      </trans-unit>
+      <trans-unit id="DhJeucz" resname="Log On">
+        <source>Log On</source>
+        <target>__Log On</target>
+      </trans-unit>
+      <trans-unit id="w5mO02g" resname="Log Off">
+        <source>Log Off</source>
+        <target>__Log Off</target>
+      </trans-unit>
+      <trans-unit id="t5yskm4" resname="Help">
+        <source>Help</source>
+        <target>__Help</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

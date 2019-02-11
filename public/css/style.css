@@ -731,16 +731,19 @@ button.tiny {
   width: 410px;
 }
 /* [ Form logon ] */
-.logon {
+.logon #form {
   width: 300px;
 }
-.logon input[type='text'],
-.logon input[type='password'] {
-  width: 185px;
+.logon #form label {
+  width: 150px !important;
 }
-.logon #form_submit {
-  margin: 0 0;
-  width: 8em;
+.logon #form input[type='text'],
+.logon #form input[type='password'] {
+  width: 140px;
+}
+.logon #form #form_submit {
+  margin: 0 30%;
+  width: 10em;
 }
 /* [ Form listener_edit ] */
 .listener_edit #form label {

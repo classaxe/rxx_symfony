@@ -112,17 +112,17 @@ class Signals
                 'th_class'  =>  '',
                 'tooltip'   =>  'Listener Grid Square',
             ],
-//            'admin' => [
-//                'admin'     =>  true,
-//                'arg'       =>  '',
-//                'field'     =>  'formattedDeleteLink',
-//                'label'     =>  'Admin',
-//                'order'     =>  '',
-//                'sort'      =>  '',
-//                'td_class'  =>  '',
-//                'th_class'  =>  '',
-//                'tooltip'   =>  '',
-//            ],
+            'admin' => [
+                'admin'     =>  true,
+                'arg'       =>  '',
+                'field'     =>  'formattedDeleteLink',
+                'label'     =>  'Admin',
+                'order'     =>  '',
+                'sort'      =>  '',
+                'td_class'  =>  '',
+                'th_class'  =>  '',
+                'tooltip'   =>  '',
+            ],
         ];
     }
 }

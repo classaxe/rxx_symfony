@@ -36,7 +36,7 @@ class Logon extends \App\Controller\Web\Base
                         'onchange'      =>  "try{setCustomValidity('')}catch(e){}",
                         'oninvalid'     =>  "setCustomValidity('".$this->i18n('Please provide a valid Username')."')",
                     ],
-                    'label'         => $this->i18n('Username'),
+                    'label'         => 'Username',
                 ]
             )
             ->add(
@@ -57,7 +57,7 @@ class Logon extends \App\Controller\Web\Base
                     'attr'          => [
                         'class'         => 'button small'
                     ],
-                    'label'         => $this->i18n('Logon'),
+                    'label'         => 'Logon',
                 ]
             );
 

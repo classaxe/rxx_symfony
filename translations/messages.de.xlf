@@ -29,6 +29,70 @@
         <source>(No listeners found matching your criteria)</source>
         <target>(Es wurden keine Zuhörer gefunden, die Ihren Kriterien entsprechen.)</target>
       </trans-unit>
+      <trans-unit id="_dpFFlq" resname="Please provide a valid Username">
+        <source>Please provide a valid Username</source>
+        <target>Bitte geben Sie einen gültigen Benutzernamen an</target>
+      </trans-unit>
+      <trans-unit id="JTEOL5V" resname="Please provide a valid Password">
+        <source>Please provide a valid Password</source>
+        <target>Bitte geben Sie ein gültiges Passwort an</target>
+      </trans-unit>
+      <trans-unit id="588_9PF" resname="Password">
+        <source>Password</source>
+        <target>Passwort</target>
+      </trans-unit>
+      <trans-unit id="47ienTP" resname="Username">
+        <source>Username</source>
+        <target>Nutzername</target>
+      </trans-unit>
+      <trans-unit id="MCyK.Og" resname="Signals Received in Europe">
+        <source>Signals Received in Europe</source>
+        <target>In Europa empfangene Signale</target>
+      </trans-unit>
+      <trans-unit id="7aZSX1X" resname="Signals Received in N &amp; C America + Hawaii">
+        <source>Signals Received in N &amp; C America + Hawaii</source>
+        <target><![CDATA[In N & C America + Hawaii empfangene Signale]]></target>
+      </trans-unit>
+      <trans-unit id="vIiAo.a" resname="Signals Received Worldwide">
+        <source>Signals Received Worldwide</source>
+        <target>Weltweit empfangene Signale</target>
+      </trans-unit>
+      <trans-unit id="HTnmdxc" resname="North America (RNA)">
+        <source>North America (RNA)</source>
+        <target>Nordamerika (RNA)</target>
+      </trans-unit>
+      <trans-unit id="Q7IK_Fm" resname="Europe (REU)">
+        <source>Europe (REU)</source>
+        <target>Europa (REU)</target>
+      </trans-unit>
+      <trans-unit id=".qHCJb2" resname="Worldwide (RWW)">
+        <source>Worldwide (RWW)</source>
+        <target>Weltweit (RWW)</target>
+      </trans-unit>
+      <trans-unit id="iLAcikv" resname="Signals">
+        <source>Signals</source>
+        <target>__Signals</target>
+      </trans-unit>
+      <trans-unit id="EZ5m0Re" resname="Maps">
+        <source>Maps</source>
+        <target>__Maps</target>
+      </trans-unit>
+      <trans-unit id="oWyIukw" resname="Listeners">
+        <source>Listeners</source>
+        <target>__Listeners</target>
+      </trans-unit>
+      <trans-unit id="DhJeucz" resname="Log On">
+        <source>Log On</source>
+        <target>__Log On</target>
+      </trans-unit>
+      <trans-unit id="w5mO02g" resname="Log Off">
+        <source>Log Off</source>
+        <target>__Log Off</target>
+      </trans-unit>
+      <trans-unit id="t5yskm4" resname="Help">
+        <source>Help</source>
+        <target>__Help</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

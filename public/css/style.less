@@ -672,14 +672,22 @@ button.tiny {
 
 /* [ Form logon ] */
 .logon {
-    width: @width[logonForm];
-    input[type='text'],
-    input[type='password'] {
-        width: @width[logonForm] - 115;
-    }
-    #form_submit {
-        margin: 0 0;
-        width: 8em;
+    #form {
+        width: @width[logonForm];
+
+        label {
+            width: 150px !important
+        }
+
+        input[type='text'],
+        input[type='password'] {
+            width: @width[logonForm] - 160px;
+        }
+
+        #form_submit {
+            margin: 0 30%;
+            width: 10em;
+        }
     }
 }
 
