@@ -1,6 +1,6 @@
 {% set minified = (getEnv('APP_ENV') == 'dev' ? '' : '.min') %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ _locale }}">
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}{{ system|upper }} &gt; {{ mode|raw|trans }}{% endblock %}</title>
@@ -11,7 +11,7 @@
     <script src="{{ asset('js/functions' ~ minified ~ '.js') }}"></script>
 </head>
 
-<body class="{{ system|lower }}">
+<body class="{{ system|lower }} locale-{{ _locale }}">
 {% block body_head %}{% endblock %}
 {% block body %}{% endblock %}
 {% block body_footer %}{% endblock %}
