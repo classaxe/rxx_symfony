@@ -703,9 +703,26 @@ class Signal
     /**
      * @return null|string
      */
+    public function getFormattedDeleteLink(): ?string
+    {
+        $url =  "signals/{$this->id}/delete";
+        return "<a href=\"{$url}\" onclick=\"return confirm('Delete this Signal?  Are you sure?');\">Delete</a>";
+    }
+
+    /**
+     * @return null|string
+     */
     public function getFormattedRegion(): ?string
     {
         return strtoupper($this->region);
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getFormattedPwr(): ?string
+    {
+        return $this->pwr ?: '';
     }
 
 }
