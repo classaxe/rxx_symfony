@@ -712,6 +712,37 @@ class Signal
     /**
      * @return null|string
      */
+    public function getFormattedFirstHeard(): ?string
+    {
+        if ($this->firstHeard->format("Y-m-d") < '1900-01-01') {
+            return '';
+        }
+        return $this->firstHeard->format("Y-m-d");
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getFormattedLastHeard(): ?string
+    {
+        if ($this->lastHeard->format("Y-m-d") < '1900-01-01') {
+            return '';
+        }
+        return $this->lastHeard->format("Y-m-d");
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getFormattedLogsLink(): ?string
+    {
+        $url =  "signals/{$this->id}/logs";
+        return "<a href=\"{$url}\">{$this->logs}</a>";
+    }
+
+    /**
+     * @return null|string
+     */
     public function getFormattedRegion(): ?string
     {
         return strtoupper($this->region);
