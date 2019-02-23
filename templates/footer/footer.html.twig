@@ -9,7 +9,9 @@
 {% for person in systems[system][credit] %}
         <strong>
 {% if person.email %}
-    <a href="#" data-contact=" metsyS02%{{ system|upper|reverse }}=tcejbus?{{ person.email|reverse|replace({'@':'#'}) }}:otliam ">{{ person.name }}</a>
+    <a href="#" data-contact="{{
+        ('mailto:' ~ person.email ~ '?subject=' ~ system | upper ~ ' system') | obfuscateEmail
+    }}">{{ person.name }}</a>
 {% else %}
         {{ person.name }}
 {% endif %}
