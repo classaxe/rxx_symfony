@@ -74,8 +74,9 @@ class Collection extends Base
                         return ['class' => strToLower($value)];
                     },
                     'expanded' =>   true,
-                    'label' =>      'Signal Types',
+                    'label' =>      false,
                     'multiple' =>   true,
+                    'attr' =>       [ 'legend' => 'Signal Types' ]
                 ]
             )
             ->add(

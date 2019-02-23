@@ -1,22 +1,22 @@
 
 /* [ Set css styles for signal type checkboxes ] */
 function setFormTypesStyles() {
-    $("div#form_types div input").each(function() {
+    $("fieldset#form_types div input").each(function() {
         $(this).parent().attr('class', $(this).attr('class'));
     });
 }
 
 /* [ Ensure that at least one option is checked for signal type checkboxes ] */
 function setFormTypesDefault() {
-    if ($('div#form_types div :checkbox:checked').length == 0) {
-        $('div#form_types div :checkbox[value=type_NDB]').prop('checked', true);
+    if ($('fieldset#form_types div :checkbox:checked').length == 0) {
+        $('fieldset#form_types div :checkbox[value=type_NDB]').prop('checked', true);
     }
 }
 
 /* [ Enable 'All' checkbox to select / unselect all signal types ] */
 function setFormTypesAllAction() {
-    $('div#form_types div :checkbox[value=type_ALL]').click(function () {
-        $('div#form_types div :checkbox').prop('checked', $(this).prop("checked"));
+    $('fieldset#form_types div :checkbox[value=type_ALL]').click(function () {
+        $('fieldset#form_types div :checkbox').prop('checked', $(this).prop("checked"));
     });
 }
 

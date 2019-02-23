@@ -134,8 +134,15 @@ body { font-family: Arial, Helvetica, sans-serif; }
 .type_hambcn  , tr.hambcn   td { background-color: #b8ffc0 !important; }
 .type_other   , tr.other    td { background-color: #b8f8ff !important; }
 
-.type_all                      { background-color: #d03333; color: #ffffff; }
-.type_all label                { color: #fff; font-style:italic; font-weight: bold !important; }
+.type_all {
+    background-color: #d03333;
+    color: #ffffff;
+    label {
+        color: #fff;
+        font-style:italic;
+        font-weight: bold !important;
+    }
+}
 
 /* [ General Styles ] */
 .txt_r {
@@ -590,13 +597,28 @@ button.tiny {
             margin: 1px 0 0 0;
         }
     }
-    div {
-        clear: both;
-        label {
+    fieldset {
+        legend {
+            line-height: 1.8em;
+            text-align: left;
+            display: block;
+            font-size: 90%;
             float: left;
             width: 100px;
             font-weight: bold;
-            padding: 0 0 0.125em 0;
+            padding: 0;
+        }
+    }
+    div {
+        clear: both;
+        label {
+            line-height: 1.8em;
+            text-align: left;
+            font-size: 90%;
+            float: left;
+            width: 100px;
+            font-weight: bold;
+            padding: 0;
         }
         select,
         textarea,

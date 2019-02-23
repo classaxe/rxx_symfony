@@ -1,29 +1,31 @@
-<div class="footer" id="footer">
-    <p class="preamble">
-        <strong>Your {{ system|upper }} Editors are:</strong>
-    </p>
-{% set credits = ['editors', 'awards', 'authors'] %}
-{% for credit in credits %}
+<footer>
+    <div class="footer" id="footer">
+        <p class="preamble">
+            <strong>Your {{ system|upper }} Editors are:</strong>
+        </p>
+    {% set credits = ['editors', 'awards', 'authors'] %}
+    {% for credit in credits %}
 
-    <p>
-{% for person in systems[system][credit] %}
-        <strong>
-{% if person.email %}
-    <a href="#" data-contact="{{
-        ('mailto:' ~ person.email ~ '?subject=' ~ system | upper ~ ' system') | obfuscateEmail
-    }}">{{ person.name }}</a>
-{% else %}
-        {{ person.name }}
-{% endif %}
-        </strong> {{ person.role }}{% if not loop.last  %}<br />
+        <p>
+    {% for person in systems[system][credit] %}
+            <strong>
+    {% if person.email %}
+        <a href="#" data-contact="{{
+            ('mailto:' ~ person.email ~ '?subject=' ~ system | upper ~ ' system') | obfuscateEmail
+        }}">{{ person.name }}</a>
+    {% else %}
+            {{ person.name }}
+    {% endif %}
+            </strong> {{ person.role }}{% if not loop.last  %}<br />
 
-{% endif %}
-{% endfor %}
+    {% endif %}
+    {% endfor %}
 
-    </p>
-{% endfor %}
-    <p class="copyright"><strong>&copy;{{ "now"|date("Y") }} Martin Francis</strong></p>
-</div>
+        </p>
+    {% endfor %}
+        <p class="copyright"><strong>&copy;{{ "now"|date("Y") }} Martin Francis</strong></p>
+    </div>
+</footer>
 <script>
     setEmailLinks();
 </script>

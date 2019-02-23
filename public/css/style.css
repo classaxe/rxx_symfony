@@ -1,7 +1,7 @@
 /*!
 * Project:   RXX - NDB Logging Database
 * Homepage:  https://rxx.classaxe.com
-* Date:      2019-02-21
+* Date:      2019-02-23
 * Licence:   LGPL
 * Copyright: 2019 Martin Francis
 */
@@ -654,15 +654,28 @@ button.tiny {
   padding: 0 0 0 2px;
   margin: 1px 0 0 0;
 }
+#form fieldset legend {
+  line-height: 1.8em;
+  text-align: left;
+  display: block;
+  font-size: 90%;
+  float: left;
+  width: 100px;
+  font-weight: bold;
+  padding: 0;
+}
 #form div {
   clear: both;
   /* Hides 'This value is not valid' error with bad country / region combination */
 }
 #form div label {
+  line-height: 1.8em;
+  text-align: left;
+  font-size: 90%;
   float: left;
   width: 100px;
   font-weight: bold;
-  padding: 0 0 0.125em 0;
+  padding: 0;
 }
 #form div select,
 #form div textarea,

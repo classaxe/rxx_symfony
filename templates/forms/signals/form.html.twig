@@ -1,17 +1,20 @@
 {# Include our twig widget customisations #}
 {% form_theme form 'forms/custom.html.twig' %}
-    <div class="header">{{ form_title }}</div>
-    <div class="content clearfix">
-{{ form_start(form) }}
-        <div id="form">
-{% include 'forms/paging.html.twig' %}
-            {{ form_row(form.types) }}
-            {{ form_row(form.country) }}
-{% if system == 'rww' %}
-            {{ form_row(form.region) }}
-{% endif %}
-            {{ form_row(form.submit) }}
+<section>
+    <div class="controlPanel {{ form_class }}">
+        <div class="header">{{ form_title }}</div>
+        <div class="content clearfix">
+    {{ form_start(form) }}
+            <div id="form">
+    {% include 'forms/paging.html.twig' %}
+                {{ form_row(form.types) }}
+                {{ form_row(form.country) }}
+    {% if system == 'rww' %}
+                {{ form_row(form.region) }}
+    {% endif %}
+                {{ form_row(form.submit) }}
+            </div>
+    {{ form_end(form, {'render_rest': false}) }}
         </div>
-{{ form_end(form, {'render_rest': false}) }}
     </div>
-</div>
+</section>

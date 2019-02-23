@@ -87,8 +87,9 @@ class Collection extends Base
                         return ['class' => strToLower($value)];
                     },
                     'expanded' =>   true,
-                    'label' =>      'Show Counts',
+                    'label' =>      false,
                     'multiple' =>   true,
+                    'attr' =>       [ 'legend' => 'Show Counts' ],
                 ]
             )
             ->add(
