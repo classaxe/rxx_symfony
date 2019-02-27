@@ -25,49 +25,51 @@ class Info extends Base
         $_locale,
         $system
     ) {
+        $parameters = [
+            '_locale' =>        $_locale,
+            'changelog' =>      "<p>".implode("</p><p></p>", $this->getGitInfo())."</p>",
+            'mode' =>           'System Info',
+            'info' =>           $this->getPhpInfo(),
+            'php_version' =>    phpversion(),
+            'system' =>         $system,
+        ];
+        $parameters = array_merge($parameters, $this->parameters);
+        return $this->render('admin/info/index.html.twig', $parameters);
+    }
 
-        $doc = new \DOMDocument();
-        ob_start();
-        phpinfo();
-        $doc->loadHtml(ob_get_contents());
-        ob_get_clean();
-
-        $info = $this->innerHTML(
-            $doc->getElementsByTagName('div')->item(0)
-        );
-
+    private function getGitInfo()
+    {
         $changelog = explode("\n", `git log master --pretty=format:"%ad %s" --date=short`);
+        $entries = [];
         foreach ($changelog as &$entry) {
             $bits =     explode(' ', $entry);
             $date =     array_shift($bits);
             $version =  trim(array_shift($bits), ':');
             $details =  implode(' ', $bits);
-            $entry =    '<strong>'.$version.'</strong> <em>('.$date.')</em><br />'.$details;
+            $entries[] =    '<strong>'.$version.'</strong> <em>('.$date.')</em><br />'.$details;
         }
-        $changelog = "<p>".implode("</p><p></p>", $changelog)."</p>";
-
-        $parameters = [
-            '_locale' =>        $_locale,
-            'changelog' =>      $changelog,
-            'mode' =>           'System Info',
-            'info' =>           $info,
-            'system' =>         $system,
-        ];
-        $parameters = array_merge($parameters, $this->parameters);
-
-        return $this->render('admin/info/index.html.twig', $parameters);
+        return $entries;
     }
 
-    function innerHTML(\DOMElement $element)
+    private function getPhpInfo()
+    {
+        $doc = new \DOMDocument();
+        ob_start();
+        phpinfo();
+        $doc->loadHtml(ob_get_contents());
+        ob_get_clean();
+        return $this->innerHTML(
+            $doc->getElementsByTagName('div')->item(0)
+        );
+    }
+
+    private function innerHTML(\DOMElement $element)
     {
         $doc = $element->ownerDocument;
-
         $html = '';
-
         foreach ($element->childNodes as $node) {
             $html .= $doc->saveHTML($node);
         }
-
         return $html;
     }
 

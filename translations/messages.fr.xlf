@@ -51,7 +51,7 @@
       </trans-unit>
       <trans-unit id="7aZSX1X" resname="Signals Received in N &amp; C America + Hawaii">
         <source>Signals Received in N &amp; C America + Hawaii</source>
-        <target><![CDATA[Signaux reçus en Amérique du Nord et à Hawaii]]></target>
+        <target>Signaux reçus en Amérique du Nord et à Hawaii</target>
       </trans-unit>
       <trans-unit id="vIiAo.a" resname="Signals Received Worldwide">
         <source>Signals Received Worldwide</source>
@@ -92,6 +92,14 @@
       <trans-unit id="t5yskm4" resname="Help">
         <source>Help</source>
         <target>__Help</target>
+      </trans-unit>
+      <trans-unit id="7vNiW2b" resname="Admin Help">
+        <source>Admin Help</source>
+        <target>__Admin Help</target>
+      </trans-unit>
+      <trans-unit id="xHuxj62" resname="System Info">
+        <source>System Info</source>
+        <target>__System Info</target>
       </trans-unit>
     </body>
   </file>

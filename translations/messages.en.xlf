@@ -93,6 +93,14 @@
         <source>Help</source>
         <target>Help</target>
       </trans-unit>
+      <trans-unit id="7vNiW2b" resname="Admin Help">
+        <source>Admin Help</source>
+        <target>Admin Help</target>
+      </trans-unit>
+      <trans-unit id="xHuxj62" resname="System Info">
+        <source>System Info</source>
+        <target>System Info</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

@@ -19,6 +19,8 @@ class CustomExtensions extends AbstractExtension
     {
         return [
             new TwigFunction('getEnv', [$this, '_functionGetenv']),
+            new TwigFunction('symfonyVersion', [$this, '_functionGetSymfonyVersion'])
+
         ];
     }
 
@@ -39,5 +41,10 @@ class CustomExtensions extends AbstractExtension
     public function _functionGetenv($varname)
     {
         return getenv($varname);
+    }
+
+    public function _functionGetSymfonyVersion()
+    {
+        return \Symfony\Component\HttpKernel\Kernel::VERSION;
     }
 }

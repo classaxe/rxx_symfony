@@ -1,7 +1,7 @@
 /*!
 * Project:   RXX - NDB Logging Database
 * Homepage:  https://rxx.classaxe.com
-* Date:      2019-02-23
+* Date:      2019-02-27
 * Licence:   LGPL
 * Copyright: 2019 Martin Francis
 */
@@ -979,4 +979,62 @@ body.map .gm-style-iw p {
   font-weight: bold;
   font-family: Tahoma, Arial, Helvetica, sans-serif;
   opacity: 0.9;
+}
+#sysinfo {
+  text-align: center;
+}
+#sysinfo table {
+  border-collapse: collapse;
+  border: 0;
+  width: 934px;
+  box-shadow: 1px 2px 3px #ccc;
+  margin: 1em auto;
+  text-align: left;
+}
+#sysinfo table td,
+#sysinfo table th {
+  border: 1px solid #666;
+  font-size: 75%;
+  vertical-align: baseline;
+  padding: 4px 5px;
+}
+#sysinfo table th {
+  text-align: center !important;
+}
+#sysinfo table .p {
+  text-align: left;
+}
+#sysinfo table .e {
+  background-color: #ccf;
+  width: 300px;
+  font-weight: bold;
+}
+#sysinfo table .h {
+  background-color: #99c;
+  font-weight: bold;
+}
+#sysinfo table .v {
+  background-color: #ddd;
+  max-width: 300px;
+  overflow-x: auto;
+  word-wrap: break-word;
+}
+#sysinfo table .v i {
+  color: #999;
+}
+#sysinfo h1 {
+  font-size: 150%;
+}
+#sysinfo h2 {
+  font-size: 125%;
+}
+#sysinfo hr {
+  width: 934px;
+  background-color: #ccc;
+  border: 0;
+  height: 1px;
+}
+#sysinfo img {
+  float: right;
+  border: 0;
 }
