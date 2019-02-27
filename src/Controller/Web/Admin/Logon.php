@@ -73,7 +73,7 @@ class Logon extends Base
             'system' =>     $system,
         ];
         $parameters = array_merge($parameters, $this->parameters);
-        return $this->render('logon/index.html.twig', $parameters);
+        return $this->render('admin/logon/index.html.twig', $parameters);
     }
 
     private function configError()

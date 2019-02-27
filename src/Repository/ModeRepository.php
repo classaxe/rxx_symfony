@@ -44,11 +44,17 @@ class ModeRepository
             ],
         ],
         [
-            'help/admin' =>    [
+            'admin/help' =>    [
                 'admin' =>  true,
                 'guest' =>  false,
                 'menu' =>   'Admin Help',
                 'title' =>  'Admin Help'
+            ],
+            'admin/info' =>    [
+                'admin' =>  true,
+                'guest' =>  false,
+                'menu' =>   'System Info',
+                'title' =>  'System Info'
             ],
         ]
     ];

@@ -60,4 +60,47 @@ class Rxx
         $dateTime->setDate($bits[0], $bits[1], $bits[2]);
         return $dateTime;
     }
+
+    /**
+     * @param $text
+     * @param $places
+     * @return string
+     */
+    public static function pad($text, $places)
+    {
+        return $text
+            . (
+                substr(
+                    str_repeat(' ', 50),
+                    0,
+                    $places - strLen(
+                        preg_replace(
+                            "/&[^;]+;/",
+                            " ",
+                            $text
+                        )
+                    )
+                )
+            );
+    }
+
+    /**
+     * @param $text
+     * @param $places
+     * @return string
+     */
+    public static function lead($text, $places)
+    {
+        return (substr("                                                   ", 0, $places-strLen(preg_replace("/&[^;]+;/", " ", $text))).$text);
+    }
+
+    /**
+     * @param $text
+     * @param $places
+     * @return string
+     */
+    public static function lead_zero($text, $places)
+    {
+        return (substr("0000", 0, $places-strlen($text)).$text);
+    }
 }

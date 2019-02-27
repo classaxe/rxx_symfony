@@ -1,6 +1,7 @@
 <?php
-namespace App\Controller\Web;
+namespace App\Controller\Web\Admin;
 
+use App\Controller\Web\Base;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -9,38 +10,27 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class Help extends Base
 {
-
-    /**
-     * @var string
-     */
-    private $username = '';
-
-    /**
-     * @var string
-     */
-    private $password = '';
-
     /**
      * @Route(
-     *     "/{_locale}/{system}/help",
+     *     "/{_locale}/{system}/admin/help",
      *     requirements={
      *        "locale": "de|en|es|fr",
      *        "system": "reu|rna|rww"
      *     },
-     *     name="help"
+     *     name="admin/help"
      * )
      */
-    public function helpController(
+    public function adminHelpController(
         $_locale,
         $system
     ) {
         $parameters = [
             '_locale' =>    $_locale,
-            'mode' =>       'Help',
+            'mode' =>       'Admin Help',
             'system' =>     $system,
         ];
-
         $parameters = array_merge($parameters, $this->parameters);
+
         return $this->render('help/index.html.twig', $parameters);
     }
 }

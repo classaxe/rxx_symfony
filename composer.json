@@ -2,7 +2,7 @@
     "type": "project",
     "license": "proprietary",
     "require": {
-        "php": "^7.1.3",
+        "php": "^7.2",
         "ext-iconv": "*",
         "beberlei/doctrineextensions": "^1.1",
         "doctrine/doctrine-bundle": "^1.9",
@@ -28,7 +28,7 @@
         "symfony/twig-bundle": "^4.1",
         "symfony/validator": "^4.1",
         "symfony/web-link": "^4.1",
-        "symfony/webpack-encore-pack": "*",
+        "symfony/webpack-encore-pack": ">=3.1.1",
         "symfony/yaml": "^4.1"
     },
     "require-dev": {
