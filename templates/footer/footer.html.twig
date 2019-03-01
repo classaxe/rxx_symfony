@@ -1,7 +1,7 @@
 <footer>
     <div class="footer" id="footer">
         <p class="preamble">
-            <strong>Your {{ system|upper }} Editors are:</strong>
+            <strong>{{ 'Your %s Editors are:' | format(system|upper) | trans }}</strong>
         </p>
     {% set credits = ['editors', 'awards', 'authors'] %}
     {% for credit in credits %}
@@ -16,7 +16,7 @@
     {% else %}
             {{ person.name }}
     {% endif %}
-            </strong> {{ person.role }}{% if not loop.last  %}<br />
+            </strong> {{ person.role | trans }}{% if not loop.last  %}<br />
 
     {% endif %}
     {% endfor %}

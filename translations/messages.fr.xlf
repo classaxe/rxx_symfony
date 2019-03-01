@@ -1365,6 +1365,50 @@
         <source>Territories</source>
         <target>__Territories</target>
       </trans-unit>
+      <trans-unit id="7omZkG3" resname="Your RNA Editors are:">
+        <source>Your RNA Editors are:</source>
+        <target>__Your RNA Editors are:</target>
+      </trans-unit>
+      <trans-unit id="YrzBrHu" resname="Your REU Editors are:">
+        <source>Your REU Editors are:</source>
+        <target>__Your REU Editors are:</target>
+      </trans-unit>
+      <trans-unit id="_9mhQWd" resname="Your RWW Editors are:">
+        <source>Your RWW Editors are:</source>
+        <target>__Your RWW Editors are:</target>
+      </trans-unit>
+      <trans-unit id="tgLSFTs" resname="(for DSC signals)">
+        <source>(for DSC signals)</source>
+        <target>__(for DSC signals)</target>
+      </trans-unit>
+      <trans-unit id="8D1rmah" resname="(for NDBs and Ham Beacons)">
+        <source>(for NDBs and Ham Beacons)</source>
+        <target>__(for NDBs and Ham Beacons)</target>
+      </trans-unit>
+      <trans-unit id="BtpkGvJ" resname="(for DGPS and Navtex signals)">
+        <source>(for DGPS and Navtex signals)</source>
+        <target>__(for DGPS and Navtex signals)</target>
+      </trans-unit>
+      <trans-unit id="TiIzvbx" resname="(Awards Coordinator)">
+        <source>(Awards Coordinator)</source>
+        <target>__(Awards Coordinator)</target>
+      </trans-unit>
+      <trans-unit id="mpAaK7U" resname="(Software Development)">
+        <source>(Software Development)</source>
+        <target>__(Software Development)</target>
+      </trans-unit>
+      <trans-unit id="_qZjoSO" resname="(Initial Concept)">
+        <source>(Initial Concept)</source>
+        <target>__(Initial Concept)</target>
+      </trans-unit>
+      <trans-unit id="xD8d3zX" resname="(for NDBs)">
+        <source>(for NDBs)</source>
+        <target>__(for NDBs)</target>
+      </trans-unit>
+      <trans-unit id="ephcSrL" resname="(for Ham Beacons)">
+        <source>(for Ham Beacons)</source>
+        <target>__(for Ham Beacons)</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
