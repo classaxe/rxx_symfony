@@ -93,9 +93,8 @@ class Collection extends Base
             'form' =>               $form->createView(),
             'listeners' =>          $listeners,
             '_locale' =>            $_locale,
-            'matched' =>            ($options['total'] > $options['maxNoPaging'] ? 'of ' : 'all ') . $total . ' listeners',
+            'options' =>            $options,
             'mode' =>               'Listeners List',
-            'listenerPopup' =>      'width=800,height=680,status=1,scrollbars=1,resizable=1',
             'system' =>             $system,
             'results' => [
                 'limit' =>              isset($args['limit']) ? $args['limit'] : static::defaultlimit,

@@ -1245,18 +1245,6 @@
         <source>Zimbabwe</source>
         <target>__Zimbabwe</target>
       </trans-unit>
-      <trans-unit id="e4aWbv1" resname="Customise RNA Listeners List">
-        <source>Customise RNA Listeners List</source>
-        <target>__Customise RNA Listeners List</target>
-      </trans-unit>
-      <trans-unit id="KZyDiWf" resname="Customise REU Listeners List">
-        <source>Customise REU Listeners List</source>
-        <target>__Customise REU Listeners List</target>
-      </trans-unit>
-      <trans-unit id="tOg1ts_" resname="Customise RWW Listeners List">
-        <source>Customise RWW Listeners List</source>
-        <target>__Customise RWW Listeners List</target>
-      </trans-unit>
       <trans-unit id="LQos5PZ" resname="Maps of Listener Locations">
         <source>Maps of Listener Locations</source>
         <target>__Maps of Listener Locations</target>
@@ -1365,18 +1353,6 @@
         <source>Territories</source>
         <target>__Territories</target>
       </trans-unit>
-      <trans-unit id="7omZkG3" resname="Your RNA Editors are:">
-        <source>Your RNA Editors are:</source>
-        <target>__Your RNA Editors are:</target>
-      </trans-unit>
-      <trans-unit id="YrzBrHu" resname="Your REU Editors are:">
-        <source>Your REU Editors are:</source>
-        <target>__Your REU Editors are:</target>
-      </trans-unit>
-      <trans-unit id="_9mhQWd" resname="Your RWW Editors are:">
-        <source>Your RWW Editors are:</source>
-        <target>__Your RWW Editors are:</target>
-      </trans-unit>
       <trans-unit id="tgLSFTs" resname="(for DSC signals)">
         <source>(for DSC signals)</source>
         <target>__(for DSC signals)</target>
@@ -1408,10 +1384,6 @@
       <trans-unit id="ephcSrL" resname="(for Ham Beacons)">
         <source>(for Ham Beacons)</source>
         <target>__(for Ham Beacons)</target>
-      </trans-unit>
-      <trans-unit id="48cS7co" resname="Customise RNA Signals List">
-        <source>Customise RNA Signals List</source>
-        <target>__Customise RNA Signals List</target>
       </trans-unit>
       <trans-unit id="FrZmjZg" resname="Frequency">
         <source>Frequency</source>
@@ -1512,10 +1484,6 @@
       <trans-unit id="0QFzIVL" resname="Places where this signal has been reported">
         <source>Places where this signal has been reported</source>
         <target>__Places where this signal has been reported</target>
-      </trans-unit>
-      <trans-unit id="NuF8E5E" resname="Heard In&lt;br /&gt;(Daytime receptions are bold)">
-        <source>Heard In&lt;br /&gt;(Daytime receptions are bold)</source>
-        <target><![CDATA[__Heard In<br />(Daytime receptions are bold)]]></target>
       </trans-unit>
       <trans-unit id="lAfD1qg" resname="Number of times this signal has been logged">
         <source>Number of times this signal has been logged</source>
@@ -1644,6 +1612,30 @@
       <trans-unit id="wcIksDz" resname="Admin">
         <source>Admin</source>
         <target>__Admin</target>
+      </trans-unit>
+      <trans-unit id="COJxQGA" resname="Customise %s Listeners List">
+        <source>Customise %s Listeners List</source>
+        <target>__Customise %s Listeners List</target>
+      </trans-unit>
+      <trans-unit id="9tnIPjS" resname="Customise %s Signals List">
+        <source>Customise %s Signals List</source>
+        <target>__Customise %s Signals List</target>
+      </trans-unit>
+      <trans-unit id="fseDXmo" resname="Your %s Editors are:">
+        <source>Your %s Editors are:</source>
+        <target>__Your %s Editors are:</target>
+      </trans-unit>
+      <trans-unit id="388x1Uz" resname="of %s signals">
+        <source>of %s signals</source>
+        <target>__of %s signals</target>
+      </trans-unit>
+      <trans-unit id="WV.7s5b" resname="of %s listeners">
+        <source>of %s listeners</source>
+        <target>__of %s listeners</target>
+      </trans-unit>
+      <trans-unit id="tOS673l" resname="Heard In&lt;br /&gt;(Daytime logs are &lt;em&gt;highlighted&lt;/em&gt;)">
+        <source>Heard In&lt;br /&gt;(Daytime logs are &lt;em&gt;highlighted&lt;/em&gt;)</source>
+        <target><![CDATA[__Heard In<br />(Daytime logs are <em>highlighted</em>)]]></target>
       </trans-unit>
     </body>
   </file>

@@ -1,7 +1,7 @@
 {# Include our twig widget customisations #}
 {% form_theme form 'forms/custom.html.twig' %}
 <div class="controlPanel {{ form_class }}">
-    <div class="header">{{ form_title | trans }}</div>
+    <div class="header">{{ form_title }}</div>
     <div class="content clearfix">
 {{ form_start(form) }}
         <div id="form">

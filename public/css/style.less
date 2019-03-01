@@ -730,14 +730,19 @@ button.tiny {
 }
 
 /* [ Form listener_signals ] */
-.listener_signals .results thead tr th {
-    height: 3em !important;
+.listener_signals,
+.listener_logs {
+    .results {
+        thead {
+            tr {
+                th {
+                    height: 30em !important;
+                }
+            }
+        }
+    }
 }
 
-/* [ Form listener_logs ] */
-.listener_logs .results thead tr th {
-    height: 3em !important;
-}
 
 /* [ Form listener_weather ] */
 .listener_weather {
@@ -818,6 +823,7 @@ fieldset#group_weather_report_details {
 .results {
     margin: 0;
     border-collapse: collapse;
+
     th {
         background: #686868;
         color: #ffffff;
@@ -827,29 +833,41 @@ fieldset#group_weather_report_details {
         vertical-align: bottom;
         font-size: 80%;
         padding: 0.25em;
+
         &.sort {
             border-bottom: 3px solid #a0a0a0;
         }
+
         &.sort:hover,
         &.sorted {
             border-bottom: 3px solid @sortedBorder ~'!important';
             background: @sortedBg;
             cursor: pointer;
         }
+
         &.sorted {
             color: @sortedTxt;
         }
+
+        em {
+            font-style: normal;
+            background: #808000;
+        }
+    }
+
+    td {
+        border: 1px solid #808080;
+        height: 1.25em;
+        vertical-align: top;
+        font-size: 80%;
+        padding: 0.125em 0.25em;
+        em {
+            font-style: normal;
+            background: #ffff00;
+        }
+        // white-space: nowrap;
     }
 }
-.results td {
-    border: 1px solid #808080;
-    height: 1.25em;
-    vertical-align: top;
-    font-size: 80%;
-    padding: 0.125em 0.25em;
-    // white-space: nowrap;
-}
-
 /* [ Listeners Grid ] */
 .results.listener {
     .primaryQth {

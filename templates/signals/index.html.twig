@@ -2,10 +2,9 @@
 
 {% block body %}
     <div class="main">
-        <h1>{{ mode }}</h1>
+        <h1>{{ mode | trans }}</h1>
         {% include 'status.html.twig' %}
-        {% if not isAdmin %}{{ text|raw }}{% endif %}
-        {% set form_title='Customise ' ~ system|upper ~ ' Signals List' %}
+        {% set form_title='Customise %s Signals List' | trans | format(system|upper) %}
         {% set form_class='signal_list' %}
         <div class="row">
             <div class="small-12 medium-8 columns">
@@ -26,7 +25,7 @@
                 setColumnSortActions();
                 setColumnSortedClass();
                 setExternalLinks();
-                $('#form_paging_status').html('{{ matched }}');
+                $('#form_paging_status').html('{{ 'of %s signals' | trans | format(results.total) }}');
             });
         </script>
     </div>

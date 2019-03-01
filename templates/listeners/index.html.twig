@@ -13,7 +13,7 @@
     <li>{{ "This report prints best in Portrait." | trans }}</li>
 </ul>
 {% endif %}
-{% set form_title='Customise ' ~ system|upper ~ ' Listeners List' %}
+{% set form_title='Customise %s Listeners List' | trans | format(system | upper) %}
 {% set form_class='listener_list' %}
 <div class="row">
     <div class="small-12 medium-8 columns">
@@ -37,7 +37,7 @@
         setColumnSortActions();
         setColumnSortedClass();
         setExternalLinks();
-        $('#form_paging_status').html('{{ matched }}');
+        $('#form_paging_status').html('{{ 'of %s listeners' | trans | format(results.total) }}');
     });
 </script>
 </div>

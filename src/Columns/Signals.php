@@ -160,7 +160,7 @@ class Signals
                 'admin'     =>  false,
                 'arg'       =>  '',
                 'field'     =>  'heardInHtml',
-                'label'     =>  'Heard In<br />(Daytime receptions are bold)',
+                'label'     =>  'Heard In<br />(Daytime logs are <em>highlighted</em>)',
                 'order'     =>  'a',
                 'sort'      =>  's.heardIn',
                 'td_class'  =>  '',
