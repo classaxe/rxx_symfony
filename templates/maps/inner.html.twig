@@ -1,18 +1,17 @@
             <div class="header"{% if key is defined %} id="{{ key }}"{% endif %}>
-                <h3>{{ mode }}</h3>
+                <h3>{{ mode | trans }}</h3>
 {%  if (stateBtn is defined or countryBtn is defined or multiple is defined or countryBtn is defined) %}
                 <div class="links">[
 {% if multiple is defined %}
-                    <a href="#top">Top</a> |
-                    <a href="{{ url('system', { '_locale' : _locale, 'system' : system }) }}map/{{ key }}"{% if (popup is defined and popup) %} data-popup="{{ popup }}"{% endif %}>Popup</a>{% if ((stateBtn is defined and stateBtn) or (countryBtn is defined and countryBtn)) %} |{% endif %}
-
+                    <a href="#top">{{ "Top" | trans }}</a> |
+                    <a href="{{ url('system', { '_locale' : _locale, 'system' : system }) }}map/{{ key }}"{% if (popup is defined and popup) %} data-popup="{{ popup }}"{% endif %}>{{ 'Popup' | trans }}</a>{% if ((stateBtn is defined and stateBtn) or (countryBtn is defined and countryBtn)) %}|{% endif %}
 {% endif %}
 {% if (stateBtn is defined and stateBtn) %}
-                    <a href="{{ url('states', { '_locale' : _locale, 'system' : system, 'filter' : stateFilter }) }}" data-type='sp' rel="external">{{ stateBtn }}</a>{% if ((stateBtn is defined and stateBtn) and (countryBtn is defined and countryBtn)) %} |{% endif %}
+                    <a href="{{ url('states', { '_locale' : _locale, 'system' : system, 'filter' : stateFilter }) }}" data-type='sp' rel="external">{{ stateBtn | trans }}</a>{% if ((stateBtn is defined and stateBtn) and (countryBtn is defined and countryBtn)) %} |{% endif %}
 
 {% endif %}
 {% if (countryBtn is defined and countryBtn) %}
-                    <a href="{{ url('countries', { '_locale' : _locale, 'system' : system, 'filter' : countryFilter }) }}" data-type='itu' rel="external">{{ countryBtn }}</a>
+                    <a href="{{ url('countries', { '_locale' : _locale, 'system' : system, 'filter' : countryFilter }) }}" data-type='itu' rel="external">{{ countryBtn | trans }}</a>
 {% endif %}
                 ]</div>
 {% endif %}

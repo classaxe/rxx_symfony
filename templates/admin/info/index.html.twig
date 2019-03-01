@@ -2,23 +2,23 @@
 {# This could use some work #}
 {% block body %}
     <div class="main">
-        <h1>System Info</h1>
+        <h1>{{ mode | trans }}</h1>
     </div>
     <div id='sysinfo'>
         <table border="0" cellpadding="3">
             <tr class='h'>
-                <td colspan='2'><h1 class='p'>RNA / REU / RWW SYSTEM</h1></td>
+                <td colspan='2'><h1 class='p'>{{ 'RNA / REU / RWW SYSTEM' | trans }}</h1></td>
             </tr>
             <tr>
-                <td class="e">PHP Version</td>
+                <td class="e">{{ 'PHP Version' | trans }}</td>
                 <td class="v"><strong>{{ php_version }}</strong></td>
             </tr>
             <tr>
-                <td class="e">Symfony Version</td>
+                <td class="e">{{ 'Symfony Version' | trans }}</td>
                 <td class="v"><strong>{{ symfonyVersion() }}</strong></td>
             </tr>
             <tr>
-                <td class="e">Recent Changes</td>
+                <td class="e">{{ 'Change Log' | trans }}</td>
                 <td class="v"><div style="height:200px; overflow:auto">{{ changelog|raw }}</div></td>
             </tr>
         </table>

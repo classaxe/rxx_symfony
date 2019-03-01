@@ -714,6 +714,9 @@ class Signal
      */
     public function getFormattedFirstHeard(): ?string
     {
+        if (is_null($this->firstHeard)) {
+            return "";
+        }
         if ($this->firstHeard->format("Y-m-d") < '1900-01-01') {
             return '';
         }
@@ -725,6 +728,9 @@ class Signal
      */
     public function getFormattedLastHeard(): ?string
     {
+        if (is_null($this->lastHeard)) {
+            return '';
+        }
         if ($this->lastHeard->format("Y-m-d") < '1900-01-01') {
             return '';
         }

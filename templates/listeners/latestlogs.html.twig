@@ -1,6 +1,6 @@
 {%  if isAdmin %}
     <div class="links_left row">
-        <div class="small-12 medium-1"><strong>Latest Logs:</strong></div>
+        <div class="small-12 medium-1"><strong>{{ "Latest Logs:" | trans }}</strong></div>
         <div class="small-12 medium-11"><strong>{{ latestLogs['date'] }}</strong>
         ({% for listener in latestLogs['listeners'] %}{{ listener.name|raw }}{% if not loop.last %}, {% endif %}{% endfor %})
         </div>

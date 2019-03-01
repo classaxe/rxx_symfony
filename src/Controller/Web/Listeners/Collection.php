@@ -97,13 +97,6 @@ class Collection extends Base
             'mode' =>               'Listeners List',
             'listenerPopup' =>      'width=800,height=680,status=1,scrollbars=1,resizable=1',
             'system' =>             $system,
-            'text' =>
-                "<ul>\n"
-                ."    <li>Log and station counts are updated each time new log data is added - "
-                ."figures are for logs in the system at this time.</li>\n"
-                ."    <li>To see stats for different types of signals, check the boxes shown for 'Types' below.</li>\n"
-                ."    <li>This report prints best in Portrait.</li>\n"
-                ."</ul>\n",
             'results' => [
                 'limit' =>              isset($args['limit']) ? $args['limit'] : static::defaultlimit,
                 'page' =>               isset($args['page']) ? $args['page'] : 0,
