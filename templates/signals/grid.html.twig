@@ -7,8 +7,8 @@
 {% if ((not column.admin or isAdmin) and (not column.arg or (column.arg and column.arg in args.types))) %}
             <th{%  if key and column.order %} id="{{ key }}_{{ column.order }}"{% endif %}
 {% if column.th_class or column.sort%} class="{{ column.th_class }}{% if column.sort %} sort{% endif %}"{% endif %}
-{% if column.tooltip %} title="{{ column.tooltip }}"{% endif %}
->{{ column.label|raw }}</th>
+{% if column.tooltip %} title="{{ column.tooltip | trans }}"{% endif %}
+>{{ column.label | trans | raw }}</th>
 {% endif %}
 {% endfor %}
         </tr>
@@ -18,8 +18,8 @@
         <tr>
 {% for key, column in columns %}
 {% if ((not column.admin or isAdmin) and (not column.arg or (column.arg and column.arg in args.types))) %}
-            <td{% if key == 'active' %} title="{{ signal.active ? '' : 'Inactive' }}" class="{{ signal.active ? '' : 'inactive' }}">{% else %}{% if column.td_class %} class="{{ column.td_class }}"{% endif %}>{% endif %}
-{{ attribute(signal, column.field)|raw }}</td>
+            <td{% if key == 'active' %} title="{{ signal.active ? '' : 'Inactive' | trans }}" class="{{ signal.active ? '' : 'inactive' | trans }}">{% else %}{% if column.td_class %} class="{{ column.td_class }}"{% endif %}>{% endif %}
+{{ attribute(signal, column.field) | raw }}</td>
 {% endif %}
 {% endfor %}
         </tr>
@@ -28,5 +28,5 @@
 </table>
 {% include 'signals/actions.html.twig' %}
 {% else %}
-    <p class="no-results">(No signals found matching your criteria)</p>
+    <p class="no-results">{% trans %}(No signals found matching your criteria){% endtrans %}</p>
 {% endif %}

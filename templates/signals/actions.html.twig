@@ -1,6 +1,6 @@
 <p class="report_actions">
-    <input type="button" class="button small" value="Print..." onclick="window.print()">
+    <input type="button" class="button small" value="{% trans %}Print...{% endtrans %}" onclick="window.print()">
     {% if isAdmin %}
-        <input type="button" class="button small" value="Add Signal..." onclick="alert('soon')" />
+        <input type="button" class="button small" value="{% trans %}Add Signal...{% endtrans %}" onclick="alert('soon')" />
     {% endif %}
 </p>

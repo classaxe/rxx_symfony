@@ -1409,6 +1409,242 @@
         <source>(for Ham Beacons)</source>
         <target>(for Ham Beacons)</target>
       </trans-unit>
+      <trans-unit id="48cS7co" resname="Customise RNA Signals List">
+        <source>Customise RNA Signals List</source>
+        <target>Customise RNA Signals List</target>
+      </trans-unit>
+      <trans-unit id="FrZmjZg" resname="Frequency">
+        <source>Frequency</source>
+        <target>Frequency</target>
+      </trans-unit>
+      <trans-unit id="coDROQD" resname="KHz">
+        <source>KHz</source>
+        <target>KHz</target>
+      </trans-unit>
+      <trans-unit id="wjI4ev7" resname="Callsign or other ID">
+        <source>Callsign or other ID</source>
+        <target>Callsign or other ID</target>
+      </trans-unit>
+      <trans-unit id="OEOXHc." resname="ID">
+        <source>ID</source>
+        <target>ID</target>
+      </trans-unit>
+      <trans-unit id="NJoTVZi" resname="Lower sideband offset">
+        <source>Lower sideband offset</source>
+        <target>Lower sideband offset</target>
+      </trans-unit>
+      <trans-unit id="YyPbSUi" resname="LSB">
+        <source>LSB</source>
+        <target>LSB</target>
+      </trans-unit>
+      <trans-unit id="bmrM_DI" resname="Upper sideband offset">
+        <source>Upper sideband offset</source>
+        <target>Upper sideband offset</target>
+      </trans-unit>
+      <trans-unit id="YfCs.xc" resname="USB">
+        <source>USB</source>
+        <target>USB</target>
+      </trans-unit>
+      <trans-unit id="cZRXDUc" resname="Cycle time in seconds">
+        <source>Cycle time in seconds</source>
+        <target>Cycle time in seconds</target>
+      </trans-unit>
+      <trans-unit id="farMeNH" resname="Sec">
+        <source>Sec</source>
+        <target>Sec</target>
+      </trans-unit>
+      <trans-unit id="LzQ2Zqq" resname="Format">
+        <source>Format</source>
+        <target>Format</target>
+      </trans-unit>
+      <trans-unit id="Rsq73LM" resname="Fmt">
+        <source>Fmt</source>
+        <target>Fmt</target>
+      </trans-unit>
+      <trans-unit id="FbYZdLJ" resname="Location">
+        <source>Location</source>
+        <target>Location</target>
+      </trans-unit>
+      <trans-unit id="4n2UnUc" resname="'Name' and Location">
+        <source>'Name' and Location</source>
+        <target>'Name' and Location</target>
+      </trans-unit>
+      <trans-unit id="1SxGNWy" resname="State / Province / Territory">
+        <source>State / Province / Territory</source>
+        <target>State / Province / Territory</target>
+      </trans-unit>
+      <trans-unit id="CABmKno" resname="S/P">
+        <source>S/P</source>
+        <target>S/P</target>
+      </trans-unit>
+      <trans-unit id="lfwgPK7" resname="ITU">
+        <source>ITU</source>
+        <target>ITU</target>
+      </trans-unit>
+      <trans-unit id="WG719R_" resname="&lt;div&gt;Continent&lt;/div&gt;">
+        <source>&lt;div&gt;Continent&lt;/div&gt;</source>
+        <target><![CDATA[<div>Continent</div>]]></target>
+      </trans-unit>
+      <trans-unit id="aYS6Glz" resname="Listener Grid Square">
+        <source>Listener Grid Square</source>
+        <target>Listener Grid Square</target>
+      </trans-unit>
+      <trans-unit id="0PqtSmJ" resname="GSQ">
+        <source>GSQ</source>
+        <target>GSQ</target>
+      </trans-unit>
+      <trans-unit id="MoYmSxp" resname="Power in Watts">
+        <source>Power in Watts</source>
+        <target>Power in Watts</target>
+      </trans-unit>
+      <trans-unit id="eIplDyQ" resname="Pwr">
+        <source>Pwr</source>
+        <target>Pwr</target>
+      </trans-unit>
+      <trans-unit id="ugK_Eo1" resname="Notes about this signal">
+        <source>Notes about this signal</source>
+        <target>Notes about this signal</target>
+      </trans-unit>
+      <trans-unit id="inUlsUk" resname="Notes">
+        <source>Notes</source>
+        <target>Notes</target>
+      </trans-unit>
+      <trans-unit id="0QFzIVL" resname="Places where this signal has been reported">
+        <source>Places where this signal has been reported</source>
+        <target>Places where this signal has been reported</target>
+      </trans-unit>
+      <trans-unit id="NuF8E5E" resname="Heard In&lt;br /&gt;(Daytime receptions are bold)">
+        <source>Heard In&lt;br /&gt;(Daytime receptions are bold)</source>
+        <target><![CDATA[Heard In<br />(Daytime receptions are bold)]]></target>
+      </trans-unit>
+      <trans-unit id="lAfD1qg" resname="Number of times this signal has been logged">
+        <source>Number of times this signal has been logged</source>
+        <target>Number of times this signal has been logged</target>
+      </trans-unit>
+      <trans-unit id="6iEA3Im" resname="Logs">
+        <source>Logs</source>
+        <target>Logs</target>
+      </trans-unit>
+      <trans-unit id="zv64EYJ" resname="Date on which signal was first logged">
+        <source>Date on which signal was first logged</source>
+        <target>Date on which signal was first logged</target>
+      </trans-unit>
+      <trans-unit id="npbosWm" resname="First Logged">
+        <source>First Logged</source>
+        <target>First Logged</target>
+      </trans-unit>
+      <trans-unit id="zUkWkRy" resname="Date on which signal was last logged">
+        <source>Date on which signal was last logged</source>
+        <target>Date on which signal was last logged</target>
+      </trans-unit>
+      <trans-unit id="PUq17SZ" resname="Last Logged">
+        <source>Last Logged</source>
+        <target>Last Logged</target>
+      </trans-unit>
+      <trans-unit id="rHyUnxI" resname="Inactive">
+        <source>Inactive</source>
+        <target>Inactive</target>
+      </trans-unit>
+      <trans-unit id="0QImGLm" resname="inactive">
+        <source>inactive</source>
+        <target>inactive</target>
+      </trans-unit>
+      <trans-unit id="h4UrBK0" resname="(No signals found matching your criteria)">
+        <source>(No signals found matching your criteria)</source>
+        <target>(No signals found matching your criteria)</target>
+      </trans-unit>
+      <trans-unit id="uE9iGdh" resname="Add Signal...">
+        <source>Add Signal...</source>
+        <target>Add Signal...</target>
+      </trans-unit>
+      <trans-unit id="3NHVIj9" resname="Name">
+        <source>Name</source>
+        <target>Name</target>
+      </trans-unit>
+      <trans-unit id="IeSesrK" resname="Log">
+        <source>Log</source>
+        <target>Log</target>
+      </trans-unit>
+      <trans-unit id="lpzL089" resname="Email">
+        <source>Email</source>
+        <target>Email</target>
+      </trans-unit>
+      <trans-unit id="Ke82zed" resname="Ham Radio Callsign">
+        <source>Ham Radio Callsign</source>
+        <target>Ham Radio Callsign</target>
+      </trans-unit>
+      <trans-unit id="gwqDzSd" resname="Callsign">
+        <source>Callsign</source>
+        <target>Callsign</target>
+      </trans-unit>
+      <trans-unit id="nu3Q3Qi" resname="QTH">
+        <source>QTH</source>
+        <target>QTH</target>
+      </trans-unit>
+      <trans-unit id="EEjhwUW" resname="Timezone (relative to UTC)">
+        <source>Timezone (relative to UTC)</source>
+        <target>Timezone (relative to UTC)</target>
+      </trans-unit>
+      <trans-unit id="ufZpSVL" resname="&lt;div&gt;Timezone&lt;/div&gt;">
+        <source>&lt;div&gt;Timezone&lt;/div&gt;</source>
+        <target><![CDATA[<div>Timezone</div>]]></target>
+      </trans-unit>
+      <trans-unit id="OsSKR.w" resname="Total number of logs for all signals">
+        <source>Total number of logs for all signals</source>
+        <target>Total number of logs for all signals</target>
+      </trans-unit>
+      <trans-unit id="lQnEAiU" resname="&lt;div&gt;Total Logs&lt;/div&gt;">
+        <source>&lt;div&gt;Total Logs&lt;/div&gt;</source>
+        <target><![CDATA[<div>Total Logs</div>]]></target>
+      </trans-unit>
+      <trans-unit id="BvZMDTK" resname="Latest Log">
+        <source>Latest Log</source>
+        <target>Latest Log</target>
+      </trans-unit>
+      <trans-unit id="3n.MOUu" resname="Number of NDBs received">
+        <source>Number of NDBs received</source>
+        <target>Number of NDBs received</target>
+      </trans-unit>
+      <trans-unit id="iTUQGci" resname="&lt;div&gt;NDB&lt;/div&gt;">
+        <source>&lt;div&gt;NDB&lt;/div&gt;</source>
+        <target><![CDATA[<div>NDB</div>]]></target>
+      </trans-unit>
+      <trans-unit id="Pxj75bh" resname="Total number of signals of all types">
+        <source>Total number of signals of all types</source>
+        <target>Total number of signals of all types</target>
+      </trans-unit>
+      <trans-unit id="CQAkKYC" resname="&lt;div&gt;All Signals&lt;/div&gt;">
+        <source>&lt;div&gt;All Signals&lt;/div&gt;</source>
+        <target><![CDATA[<div>All Signals</div>]]></target>
+      </trans-unit>
+      <trans-unit id="yiL2KE1" resname="WWW">
+        <source>WWW</source>
+        <target>WWW</target>
+      </trans-unit>
+      <trans-unit id="eSO.7jh" resname="NDB Weblog for Listener">
+        <source>NDB Weblog for Listener</source>
+        <target>NDB Weblog for Listener</target>
+      </trans-unit>
+      <trans-unit id="6jmqclN" resname="NWL">
+        <source>NWL</source>
+        <target>NWL</target>
+      </trans-unit>
+      <trans-unit id="OmB1R5o" resname="Map showing Signals for Listener">
+        <source>Map showing Signals for Listener</source>
+        <target>Map showing Signals for Listener</target>
+      </trans-unit>
+      <trans-unit id="vhdrABX" resname="Map">
+        <source>Map</source>
+        <target>Map</target>
+      </trans-unit>
+      <trans-unit id="IBpu4TV" resname="&lt;div&gt;Map Pos&lt;/div&gt;">
+        <source>&lt;div&gt;Map Pos&lt;/div&gt;</source>
+        <target><![CDATA[<div>Map Pos</div>]]></target>
+      </trans-unit>
+      <trans-unit id="wcIksDz" resname="Admin">
+        <source>Admin</source>
+        <target>Admin</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

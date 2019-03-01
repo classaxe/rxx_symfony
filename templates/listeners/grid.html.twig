@@ -7,8 +7,8 @@
 {% if ((not column.admin or isAdmin) and (not column.arg or (column.arg and column.arg in args.types))) %}
             <th{%  if key and column.order %} id="{{ key }}_{{ column.order }}"{% endif %}
 {% if column.th_class or column.sort%} class="{{ column.th_class }}{% if column.sort %} sort{% endif %}"{% endif %}
-{% if column.tooltip %} title="{{ column.tooltip }}"{% endif %}
->{{ column.label|raw }}</th>
+{% if column.tooltip %} title="{{ column.tooltip | trans }}"{% endif %}
+>{{ column.label | trans | raw }}</th>
 {% endif %}
 {% endfor %}
         </tr>
@@ -19,7 +19,7 @@
 {% for key, column in columns %}
 {% if ((not column.admin or isAdmin) and (not column.arg or (column.arg and column.arg in args.types))) %}
             <td{% if key == 'name' %} title="{{ listener.primaryQth ? 'Primary Location' | trans : 'Secondary Location' | trans }}" class="{{ listener.primaryQth ? 'primaryQth' : 'secondaryQth' }}">{% else %}{% if column.td_class %} class="{{ column.td_class }}"{% endif %}>{% endif %}
-{{ attribute(listener, column.field)|raw }}</td>
+{{ attribute(listener, column.field) | raw }}</td>
 {% endif %}
 {% endfor %}
         </tr>
