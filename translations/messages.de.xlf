@@ -1633,10 +1633,6 @@
         <source>of %s listeners</source>
         <target>__of %s listeners</target>
       </trans-unit>
-      <trans-unit id="elCtVwW" resname="Heard In&lt;br /&gt;(Daytime &lt;em&gt;highlighted&lt;/em&gt;)">
-        <source>Heard In&lt;br /&gt;(Daytime &lt;em&gt;highlighted&lt;/em&gt;)</source>
-        <target><![CDATA[__Heard In<br />(Daytime <em>highlighted</em>)]]></target>
-      </trans-unit>
       <trans-unit id="Vm1s_R0" resname="Call / ID">
         <source>Call / ID</source>
         <target>__Call / ID</target>
@@ -1708,6 +1704,14 @@
       <trans-unit id="YTYcgbo" resname="Additional NDB Info:">
         <source>Additional NDB Info:</source>
         <target>__Additional NDB Info:</target>
+      </trans-unit>
+      <trans-unit id="y7G1wSS" resname="William Hepburn's HF List">
+        <source>William Hepburn's HF List</source>
+        <target>__William Hepburn's HF List</target>
+      </trans-unit>
+      <trans-unit id="sgGJ9Ii" resname="Heard In&lt;br /&gt;&lt;em&gt;(Daytime Log)&lt;/em&gt;">
+        <source>Heard In&lt;br /&gt;&lt;em&gt;(Daytime Log)&lt;/em&gt;</source>
+        <target><![CDATA[__Heard In<br /><em>(Daytime Log)</em>]]></target>
       </trans-unit>
     </body>
   </file>

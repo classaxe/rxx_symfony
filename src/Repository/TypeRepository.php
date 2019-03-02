@@ -12,17 +12,13 @@ class TypeRepository
             'label' =>  'DGPS',
             'order' =>  0,
             'refs'  =>  [
+                'title' =>  'Additional DGPS Station Info',
                 'links' =>  [
-                    [
-                        'label' =>  'NDB List PDF (by Frequency)',
-                        'url'   =>  'http://www.ndblist.info/dgnavinfo/datamodes/worldDGPSdatabase.pdf'
-                    ],
                     [
                         'label' =>  'USCG DGPS Site List',
                         'url'   =>  'http://www.navcen.uscg.gov/?pageName=dgpsSiteInfo&All'
                     ]
-                ],
-                'title' =>  'Additional DGPS Station Info'
+                ]
             ],
             'title' =>  'DGPS Station'
         ],
@@ -42,23 +38,7 @@ class TypeRepository
             'label' =>  'Ham',
             'order' =>  2,
             'refs'  =>  [
-                'links' =>  [
-                    [
-                        'label' =>  'William Hepburn\'s LF List',
-                        'url'   =>  'http://www.dxinfocentre.com/ndb.htm'
-                    ],
-                ],
-                'title' =>  'Additional Ham Beacon Info:'
-            ],
-            'title' =>  'Amateur Radio Beacon'
-        ],
-        3 => [
-            'bbggrr' => 'd8b8ff',
-            'class' =>  'NAVTEX',
-            'color' =>  'ffb8d8',
-            'label' =>  'Navtex',
-            'order' =>  3,
-            'refs'  =>  [
+                'title' =>  'Additional Ham Beacon Info:',
                 'links' =>  [
                     [
                         'label' =>  'LOWFERS',
@@ -72,8 +52,28 @@ class TypeRepository
                         'label' =>  '50MHz',
                         'url'   =>  'http://www.keele.ac.uk/depts/por/50.htm'
                     ],
+                ]
+            ],
+            'title' =>  'Amateur Radio Beacon'
+        ],
+        3 => [
+            'bbggrr' => 'd8b8ff',
+            'class' =>  'NAVTEX',
+            'color' =>  'ffb8d8',
+            'label' =>  'Navtex',
+            'order' =>  3,
+            'refs'  =>  [
+                'title' =>  'Additional Navtex Station Info:',
+                'links' =>  [
+                    [
+                        'label' =>  'William Hepburn\'s LF List',
+                        'url'   =>  'http://www.dxinfocentre.com/navtex.htm'
+                    ],
+                    [
+                        'label' =>  'William Hepburn\'s HF List',
+                        'url'   =>  'http://www.dxinfocentre.com/maritimesafetyinfo.htm'
+                    ]
                 ],
-                'title' =>  'Additional Navtex Station Info:'
             ],
             'title' =>  'NavTex Station'
         ],
