@@ -12,7 +12,6 @@ class TypeRepository
             'label' =>  'DGPS',
             'order' =>  0,
             'refs'  =>  [
-                'descr' =>  'Please use the following lists as your primary reference source - these lists are very current and should be considered authorative:',
                 'links' =>  [
                     [
                         'label' =>  'NDB List PDF (by Frequency)',
@@ -23,7 +22,7 @@ class TypeRepository
                         'url'   =>  'http://www.navcen.uscg.gov/?pageName=dgpsSiteInfo&All'
                     ]
                 ],
-                'title' =>  'Reporting DGPS Stations'
+                'title' =>  'Additional DGPS Station Info'
             ],
             'title' =>  'DGPS Station'
         ],
@@ -43,14 +42,13 @@ class TypeRepository
             'label' =>  'Ham',
             'order' =>  2,
             'refs'  =>  [
-                'descr' =>  'Please use the following lists as your primary reference source - these lists are very current and should be considered authorative:',
                 'links' =>  [
                     [
                         'label' =>  'William Hepburn\'s LF List',
                         'url'   =>  'http://www.dxinfocentre.com/ndb.htm'
                     ],
                 ],
-                'title' =>  'Reporting Ham Beacons'
+                'title' =>  'Additional Ham Beacon Info:'
             ],
             'title' =>  'Amateur Radio Beacon'
         ],
@@ -61,7 +59,6 @@ class TypeRepository
             'label' =>  'Navtex',
             'order' =>  3,
             'refs'  =>  [
-                'descr' =>  'Please use the following lists as your primary reference source - these lists are very current and should be considered authorative:',
                 'links' =>  [
                     [
                         'label' =>  'LOWFERS',
@@ -76,7 +73,7 @@ class TypeRepository
                         'url'   =>  'http://www.keele.ac.uk/depts/por/50.htm'
                     ],
                 ],
-                'title' =>  'Reporting Navtex Stations'
+                'title' =>  'Additional Navtex Station Info:'
             ],
             'title' =>  'NavTex Station'
         ],
@@ -87,14 +84,13 @@ class TypeRepository
             'label' =>  'NDB',
             'order' =>  4,
             'refs'  =>  [
-                'descr' =>  'Please use the following list as an additional data source - the ship listings from around 404KHz may prove particularly useful:',
                 'links' =>  [
                     [
                         'label' =>  'William Hepburn\'s LF List',
                         'url'   =>  'http://www.dxinfocentre.com/ndb.htm'
                     ]
                 ],
-                'title' =>  'Reporting NDBs'
+                'title' =>  'Additional NDB Info:'
             ],
             'title' =>  'NDB Beacon'
         ],

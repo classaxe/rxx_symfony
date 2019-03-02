@@ -553,19 +553,12 @@ body .menu-centered .language li a {
 .main div.map {
   margin: 0 0 1em 0;
 }
-.main ul.refs {
-  list-style: none;
-  margin-left: 2.5em;
-}
-.main ul.refs > li {
-  margin-bottom: 1em;
+.main ul li {
   line-height: 1.25em;
 }
-.main ul.refs > li:before {
+.main ul li strong {
   display: inline-block;
-  content: "-";
-  width: 1em;
-  margin-left: -1em;
+  width: 16em;
 }
 .controlPanel {
   display: inline-block;

@@ -1657,10 +1657,6 @@
         <source>Signal Types</source>
         <target>__Signal Types</target>
       </trans-unit>
-      <trans-unit id="EdWVnaX" resname="Message ID">
-        <source>Message ID</source>
-        <target>__Message ID</target>
-      </trans-unit>
       <trans-unit id="nTy0oa1" resname="Click on any station ID for details, GSQ for location map, Heard In list for reception map and Logs value to see all logs for the station.">
         <source>Click on any station ID for details, GSQ for location map, Heard In list for reception map and Logs value to see all logs for the station.</source>
         <target>__Click on any station ID for details, GSQ for location map, Heard In list for reception map and Logs value to see all logs for the station.</target>
@@ -1673,13 +1669,9 @@
         <source>This report prints best in Landscape.</source>
         <target>__This report prints best in Landscape.</target>
       </trans-unit>
-      <trans-unit id="q4ljuwu" resname="Reporting DGPS Stations">
-        <source>Reporting DGPS Stations</source>
-        <target>__Reporting DGPS Stations</target>
-      </trans-unit>
-      <trans-unit id="lxwB5WI" resname="Please use the following lists as your primary reference source - these lists are very current and should be considered authorative:">
-        <source>Please use the following lists as your primary reference source - these lists are very current and should be considered authorative:</source>
-        <target>__Please use the following lists as your primary reference source - these lists are very current and should be considered authorative:</target>
+      <trans-unit id="nnVYaFU" resname="Additional DGPS Station Info">
+        <source>Additional DGPS Station Info</source>
+        <target>__Additional DGPS Station Info</target>
       </trans-unit>
       <trans-unit id="YxlI8iR" resname="NDB List PDF (by Frequency)">
         <source>NDB List PDF (by Frequency)</source>
@@ -1689,21 +1681,17 @@
         <source>USCG DGPS Site List</source>
         <target>__USCG DGPS Site List</target>
       </trans-unit>
-      <trans-unit id="ZVuJ20B" resname="Reporting Ham Beacons">
-        <source>Reporting Ham Beacons</source>
-        <target>__Reporting Ham Beacons</target>
+      <trans-unit id="Y1uY73z" resname="Additional Ham Beacon Info:">
+        <source>Additional Ham Beacon Info:</source>
+        <target>__Additional Ham Beacon Info:</target>
       </trans-unit>
       <trans-unit id="Oj7pq.b" resname="William Hepburn's LF List">
         <source>William Hepburn's LF List</source>
         <target>__William Hepburn's LF List</target>
       </trans-unit>
-      <trans-unit id="hrjQcdU" resname="Reporting Navtex Stations">
-        <source>Reporting Navtex Stations</source>
-        <target>__Reporting Navtex Stations</target>
-      </trans-unit>
-      <trans-unit id="XEr5gt6" resname="Please use the following list as an additional data source - the ship listings from around 404KHz may prove particularly useful:">
-        <source>Please use the following list as an additional data source - the ship listings from around 404KHz may prove particularly useful:</source>
-        <target>__Please use the following list as an additional data source - the ship listings from around 404KHz may prove particularly useful:</target>
+      <trans-unit id="7ht8ixe" resname="Additional Navtex Station Info:">
+        <source>Additional Navtex Station Info:</source>
+        <target>__Additional Navtex Station Info:</target>
       </trans-unit>
       <trans-unit id="NIUlfyK" resname="LOWFERS">
         <source>LOWFERS</source>
@@ -1717,9 +1705,9 @@
         <source>50MHz</source>
         <target>__50MHz</target>
       </trans-unit>
-      <trans-unit id="egdzrtN" resname="Reporting NDBs">
-        <source>Reporting NDBs</source>
-        <target>__Reporting NDBs</target>
+      <trans-unit id="YTYcgbo" resname="Additional NDB Info:">
+        <source>Additional NDB Info:</source>
+        <target>__Additional NDB Info:</target>
       </trans-unit>
     </body>
   </file>
