@@ -484,6 +484,21 @@ body {
     div.map {
         margin: 0 0 1em 0;
     }
+    ul.refs {
+        list-style: none;
+        margin-left: 2.5em;
+        > li {
+            margin-bottom: 1em;
+            line-height: 1.25em;
+            &:before {
+                display: inline-block;
+                content: "-";
+                width: 1em;
+                margin-left: -1em;
+            }
+        }
+
+    }
 }
 
 .controlPanel {
@@ -736,7 +751,7 @@ button.tiny {
         thead {
             tr {
                 th {
-                    height: 30em !important;
+                    height: 3em !important;
                 }
             }
         }
@@ -823,7 +838,6 @@ fieldset#group_weather_report_details {
 .results {
     margin: 0;
     border-collapse: collapse;
-
     th {
         background: #686868;
         color: #ffffff;
@@ -892,13 +906,25 @@ fieldset#group_weather_report_details {
     a[href]:after {
         content: none !important;
     }
-    .results { border: 1px solid green; }
-    body { font-size: 85%; width: 95%; }
-    .menu-centered { display: none; }
+    .results {
+        border: 1px solid green;
+    }
+    body {
+        font-size: 85%;
+        width: 95%;
+    }
+    .menu-centered {
+        display: none;
+    }
 }
 
 /* [ Help pages */
-pre.log { background: #ffffff; border: 1px solid #888; padding: 0 5px; display: inline-block; }
+pre.log {
+    background: #ffffff;
+    border: 1px solid #888;
+    padding: 0 5px;
+    display: inline-block;
+}
 
 #tabsPanel {
     padding: 0 0 0 20px;
@@ -966,6 +992,7 @@ body.map {
     font-family: Tahoma, Arial, Helvetica, sans-serif;
     opacity: 0.9;
 }
+
 #sysinfo {
     text-align: center;
     table {

@@ -103,7 +103,8 @@ class Collection extends Base
                 'limit' =>              isset($args['limit']) ? $args['limit'] : static::defaultlimit,
                 'page' =>               isset($args['page']) ? $args['page'] : 0,
                 'total' =>              $total
-            ]
+            ],
+            'typeRepository' =>     $typeRepository
         ];
         return $this->render('signals/index.html.twig', $this->getMergedParameters($parameters));
     }

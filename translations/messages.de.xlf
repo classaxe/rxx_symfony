@@ -1657,6 +1657,70 @@
         <source>Signal Types</source>
         <target>__Signal Types</target>
       </trans-unit>
+      <trans-unit id="EdWVnaX" resname="Message ID">
+        <source>Message ID</source>
+        <target>__Message ID</target>
+      </trans-unit>
+      <trans-unit id="nTy0oa1" resname="Click on any station ID for details, GSQ for location map, Heard In list for reception map and Logs value to see all logs for the station.">
+        <source>Click on any station ID for details, GSQ for location map, Heard In list for reception map and Logs value to see all logs for the station.</source>
+        <target>__Click on any station ID for details, GSQ for location map, Heard In list for reception map and Logs value to see all logs for the station.</target>
+      </trans-unit>
+      <trans-unit id="h4ca4Xr" resname="To list different types of signals, check the boxes shown for 'Types' below. Inactive stations are normally shown at the end of the report.">
+        <source>To list different types of signals, check the boxes shown for 'Types' below. Inactive stations are normally shown at the end of the report.</source>
+        <target>__To list different types of signals, check the boxes shown for 'Types' below. Inactive stations are normally shown at the end of the report.</target>
+      </trans-unit>
+      <trans-unit id="e1opfz2" resname="This report prints best in Landscape.">
+        <source>This report prints best in Landscape.</source>
+        <target>__This report prints best in Landscape.</target>
+      </trans-unit>
+      <trans-unit id="q4ljuwu" resname="Reporting DGPS Stations">
+        <source>Reporting DGPS Stations</source>
+        <target>__Reporting DGPS Stations</target>
+      </trans-unit>
+      <trans-unit id="lxwB5WI" resname="Please use the following lists as your primary reference source - these lists are very current and should be considered authorative:">
+        <source>Please use the following lists as your primary reference source - these lists are very current and should be considered authorative:</source>
+        <target>__Please use the following lists as your primary reference source - these lists are very current and should be considered authorative:</target>
+      </trans-unit>
+      <trans-unit id="YxlI8iR" resname="NDB List PDF (by Frequency)">
+        <source>NDB List PDF (by Frequency)</source>
+        <target>__NDB List PDF (by Frequency)</target>
+      </trans-unit>
+      <trans-unit id="h3.fGHs" resname="USCG DGPS Site List">
+        <source>USCG DGPS Site List</source>
+        <target>__USCG DGPS Site List</target>
+      </trans-unit>
+      <trans-unit id="ZVuJ20B" resname="Reporting Ham Beacons">
+        <source>Reporting Ham Beacons</source>
+        <target>__Reporting Ham Beacons</target>
+      </trans-unit>
+      <trans-unit id="Oj7pq.b" resname="William Hepburn's LF List">
+        <source>William Hepburn's LF List</source>
+        <target>__William Hepburn's LF List</target>
+      </trans-unit>
+      <trans-unit id="hrjQcdU" resname="Reporting Navtex Stations">
+        <source>Reporting Navtex Stations</source>
+        <target>__Reporting Navtex Stations</target>
+      </trans-unit>
+      <trans-unit id="XEr5gt6" resname="Please use the following list as an additional data source - the ship listings from around 404KHz may prove particularly useful:">
+        <source>Please use the following list as an additional data source - the ship listings from around 404KHz may prove particularly useful:</source>
+        <target>__Please use the following list as an additional data source - the ship listings from around 404KHz may prove particularly useful:</target>
+      </trans-unit>
+      <trans-unit id="NIUlfyK" resname="LOWFERS">
+        <source>LOWFERS</source>
+        <target>__LOWFERS</target>
+      </trans-unit>
+      <trans-unit id="Zp9CWdi" resname="HF">
+        <source>HF</source>
+        <target>__HF</target>
+      </trans-unit>
+      <trans-unit id="D.kq1Cp" resname="50MHz">
+        <source>50MHz</source>
+        <target>__50MHz</target>
+      </trans-unit>
+      <trans-unit id="egdzrtN" resname="Reporting NDBs">
+        <source>Reporting NDBs</source>
+        <target>__Reporting NDBs</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

@@ -3,6 +3,26 @@
 {% block body %}
     <div class="main">
         <h1>{{ mode | trans }}</h1>
+        <ul>
+            <li>{% trans %}Click on any station ID for details, GSQ for location map, Heard In list for reception map and Logs value to see all logs for the station.{% endtrans %}</li>
+            <li>{% trans %}To list different types of signals, check the boxes shown for 'Types' below. Inactive stations are normally shown at the end of the report.{% endtrans %}</li>
+            <li>{% trans %}This report prints best in Landscape.{% endtrans %}</li>
+        </ul>
+        <ul class="refs">
+{% for type in typeRepository.getSignalTypesSearched(args.types) %}
+{% set refs = typeRepository.getTypeForCode(type).refs %}
+{% if refs %}
+            <li><strong>{{ refs.title | trans }}</strong><br />
+                    {{ refs.descr | trans }}<br />
+                    [
+{% for link in refs.links %}
+                <a href="{{ link.url }}">{{ link.label | trans }}</a>{% if not loop.last %} | {% endif %}
+{% endfor %}
+                    ]
+            </li>
+{% endif %}
+{% endfor %}
+        </ul>
         {% include 'status.html.twig' %}
         {% set form_title='Customise %s Signals List' | trans | format(system|upper) %}
         {% set form_class='signal_list' %}

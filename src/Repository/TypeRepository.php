@@ -5,13 +5,117 @@ namespace App\Repository;
 class TypeRepository
 {
     const types = [
-        1 =>    ['bbggrr' => 'ffd800',  'order' =>  0,  'class' => 'DGPS',      'color' => '00d8ff',    'label' => 'DGPS',     'title' => 'DGPS Station'],
-        6 =>    ['bbggrr' => '00b0ff',  'order' =>  1,  'class' => 'DSC',       'color' => 'ffb000',    'label' => 'DSC',      'title' => 'DSC Station'],
-        4 =>    ['bbggrr' => 'c0ffb8',  'order' =>  2,  'class' => 'HAMBCN',    'color' => 'b8ffc0',    'label' => 'Ham',      'title' => 'Amateur Radio Beacon'],
-        3 =>    ['bbggrr' => 'd8b8ff',  'order' =>  3,  'class' => 'NAVTEX',    'color' => 'ffb8d8',    'label' => 'Navtex',   'title' => 'NavTex Station'],
-        0 =>    ['bbggrr' => 'ffffff',  'order' =>  4,  'class' => 'NDB',       'color' => 'ffffff',    'label' => 'NDB',      'title' => 'NDB Beacon'],
-        2 =>    ['bbggrr' => 'b0e0ff',  'order' =>  5,  'class' => 'TIME',      'color' => 'ffe0b0',    'label' => 'Time',     'title' => 'Time Signal Station'],
-        5 =>    ['bbggrr' => 'fff8b8',  'order' =>  6,  'class' => 'OTHER',     'color' => 'b8f8ff',    'label' => 'Other',    'title' => 'Other form of transmission'],
+        1 => [
+            'bbggrr' => 'ffd800',
+            'class' =>  'DGPS',
+            'color' =>  '00d8ff',
+            'label' =>  'DGPS',
+            'order' =>  0,
+            'refs'  =>  [
+                'descr' =>  'Please use the following lists as your primary reference source - these lists are very current and should be considered authorative:',
+                'links' =>  [
+                    [
+                        'label' =>  'NDB List PDF (by Frequency)',
+                        'url'   =>  'http://www.ndblist.info/dgnavinfo/datamodes/worldDGPSdatabase.pdf'
+                    ],
+                    [
+                        'label' =>  'USCG DGPS Site List',
+                        'url'   =>  'http://www.navcen.uscg.gov/?pageName=dgpsSiteInfo&All'
+                    ]
+                ],
+                'title' =>  'Reporting DGPS Stations'
+            ],
+            'title' =>  'DGPS Station'
+        ],
+        6 => [
+            'bbggrr' => '00b0ff',
+            'class' =>  'DSC',
+            'color' =>  'ffb000',
+            'label' =>  'DSC',
+            'order' =>  1,
+            'refs'  =>  [],
+            'title' =>  'DSC Station'
+        ],
+        4 => [
+            'bbggrr' => 'c0ffb8',
+            'class' =>  'HAMBCN',
+            'color' =>  'b8ffc0',
+            'label' =>  'Ham',
+            'order' =>  2,
+            'refs'  =>  [
+                'descr' =>  'Please use the following lists as your primary reference source - these lists are very current and should be considered authorative:',
+                'links' =>  [
+                    [
+                        'label' =>  'William Hepburn\'s LF List',
+                        'url'   =>  'http://www.dxinfocentre.com/ndb.htm'
+                    ],
+                ],
+                'title' =>  'Reporting Ham Beacons'
+            ],
+            'title' =>  'Amateur Radio Beacon'
+        ],
+        3 => [
+            'bbggrr' => 'd8b8ff',
+            'class' =>  'NAVTEX',
+            'color' =>  'ffb8d8',
+            'label' =>  'Navtex',
+            'order' =>  3,
+            'refs'  =>  [
+                'descr' =>  'Please use the following lists as your primary reference source - these lists are very current and should be considered authorative:',
+                'links' =>  [
+                    [
+                        'label' =>  'LOWFERS',
+                        'url'   =>  'http://www.lwca.org/sitepage/part15'
+                    ],
+                    [
+                        'label' =>  'HF',
+                        'url'   =>  'http://www.keele.ac.uk/depts/por/28.htm'
+                    ],
+                    [
+                        'label' =>  '50MHz',
+                        'url'   =>  'http://www.keele.ac.uk/depts/por/50.htm'
+                    ],
+                ],
+                'title' =>  'Reporting Navtex Stations'
+            ],
+            'title' =>  'NavTex Station'
+        ],
+        0 => [
+            'bbggrr' => 'ffffff',
+            'class' =>  'NDB',
+            'color' =>  'ffffff',
+            'label' =>  'NDB',
+            'order' =>  4,
+            'refs'  =>  [
+                'descr' =>  'Please use the following list as an additional data source - the ship listings from around 404KHz may prove particularly useful:',
+                'links' =>  [
+                    [
+                        'label' =>  'William Hepburn\'s LF List',
+                        'url'   =>  'http://www.dxinfocentre.com/ndb.htm'
+                    ]
+                ],
+                'title' =>  'Reporting NDBs'
+            ],
+            'title' =>  'NDB Beacon'
+        ],
+        2 => [
+            'bbggrr' => 'b0e0ff',
+            'class' =>  'TIME',
+            'color' =>  'ffe0b0',
+            'label' =>  'Time',
+            'order' =>  5,
+            'refs'  =>  [],
+            'title' =>  'Time Signal Station'
+        ],
+        5 => [
+            'bbggrr' => 'fff8b8',
+            'class' =>  'OTHER',
+            'color' =>  'b8f8ff',
+            'label' =>  'Other',
+            'order' =>  6,
+            'refs'  =>  [],
+            'title' =>  'Other form of transmission'
+        ],
     ];
 
     public function getAll()
@@ -52,7 +156,7 @@ class TypeRepository
     public function getMapIconColorForCodes()
     {
         $out = [];
-        foreach (static::types as $key=>$type) {
+        foreach (static::types as $key => $type) {
             $out[$key] = $type['bbggrr'];
         }
         return $out;
