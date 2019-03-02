@@ -1671,43 +1671,43 @@
       </trans-unit>
       <trans-unit id="nnVYaFU" resname="Additional DGPS Station Info">
         <source>Additional DGPS Station Info</source>
-        <target>__Additional DGPS Station Info</target>
+        <target>Additional DGPS Station Info</target>
       </trans-unit>
       <trans-unit id="YxlI8iR" resname="NDB List PDF (by Frequency)">
         <source>NDB List PDF (by Frequency)</source>
-        <target>__NDB List PDF (by Frequency)</target>
+        <target>NDB List PDF (by Frequency)</target>
       </trans-unit>
       <trans-unit id="h3.fGHs" resname="USCG DGPS Site List">
         <source>USCG DGPS Site List</source>
-        <target>__USCG DGPS Site List</target>
+        <target>USCG DGPS Site List</target>
       </trans-unit>
       <trans-unit id="Y1uY73z" resname="Additional Ham Beacon Info:">
         <source>Additional Ham Beacon Info:</source>
-        <target>__Additional Ham Beacon Info:</target>
+        <target>Additional Ham Beacon Info:</target>
       </trans-unit>
       <trans-unit id="Oj7pq.b" resname="William Hepburn's LF List">
         <source>William Hepburn's LF List</source>
-        <target>__William Hepburn's LF List</target>
+        <target>William Hepburn's LF List</target>
       </trans-unit>
       <trans-unit id="7ht8ixe" resname="Additional Navtex Station Info:">
         <source>Additional Navtex Station Info:</source>
-        <target>__Additional Navtex Station Info:</target>
+        <target>Additional Navtex Station Info:</target>
       </trans-unit>
       <trans-unit id="NIUlfyK" resname="LOWFERS">
         <source>LOWFERS</source>
-        <target>__LOWFERS</target>
+        <target>LOWFERS</target>
       </trans-unit>
       <trans-unit id="Zp9CWdi" resname="HF">
         <source>HF</source>
-        <target>__HF</target>
+        <target>HF</target>
       </trans-unit>
       <trans-unit id="D.kq1Cp" resname="50MHz">
         <source>50MHz</source>
-        <target>__50MHz</target>
+        <target>50MHz</target>
       </trans-unit>
       <trans-unit id="YTYcgbo" resname="Additional NDB Info:">
         <source>Additional NDB Info:</source>
-        <target>__Additional NDB Info:</target>
+        <target>Additional NDB Info:</target>
       </trans-unit>
     </body>
   </file>
