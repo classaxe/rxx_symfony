@@ -40,9 +40,10 @@ class Collection extends Base
     private $type;
 
     /**
-     * Listeners constructor.
+     * Collection constructor.
      * @param CountryRepository $country
      * @param RegionRepository $region
+     * @param TypeRepository $type
      */
     public function __construct(CountryRepository $country, RegionRepository $region, TypeRepository $type)
     {
@@ -80,6 +81,14 @@ class Collection extends Base
                 ]
             )
             ->add(
+                'call',
+                TextType::class,
+                [
+                    'label' =>      'Call / ID',
+                    'required' =>   false
+                ]
+            )
+            ->add(
                 'country',
                 ChoiceType::class,
                 [
@@ -93,7 +102,8 @@ class Collection extends Base
                     'label' => 'Country',
                     'required' => false
                 ]
-            );
+            )
+        ;
 
         if ($system=='rww') {
             $formBuilder

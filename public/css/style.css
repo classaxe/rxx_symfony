@@ -870,7 +870,8 @@ fieldset#group_weather_report_details div label {
 }
 .results th em {
   font-style: normal;
-  background: #808000;
+  background: #ffff00;
+  color: #0000ff;
 }
 .results td {
   border: 1px solid #808080;
@@ -882,6 +883,7 @@ fieldset#group_weather_report_details div label {
 .results td em {
   font-style: normal;
   background: #ffff00;
+  color: #0000ff;
 }
 /* [ Listeners Grid ] */
 .results.listener .primaryQth {

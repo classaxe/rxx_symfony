@@ -22,6 +22,13 @@ class SignalRepository extends ServiceEntityRepository
         $this->signalsColumns = $signalsColumns->getColumns();
     }
 
+    private function addFilterCall(&$qb, $call)
+    {
+        $qb
+            ->andWhere('(s.call LIKE :like_call)')
+            ->setParameter('like_call', '%'.$call.'%');
+    }
+
     private function addFilterSystem(&$qb, $system)
     {
         switch ($system) {
@@ -56,27 +63,41 @@ class SignalRepository extends ServiceEntityRepository
                 ->select('s')
         ;
 
-        if ($this->signalsColumns[$args['sort']]['sort']) {
+        $qb
+            ->addSelect(
+                "(CASE WHEN s.active = 0 THEN 1 ELSE 0 END) AS _active"
+            );
+
+          if ($this->signalsColumns[$args['sort']]['sort']) {
             $qb
                 ->addSelect(
                     "(CASE WHEN (".$this->signalsColumns[$args['sort']]['sort'].")='' THEN 1 ELSE 0 END) AS _blank"
                 );
         }
 
+        if ($args['call'] !== null) {
+            $qb
+                ->addSelect(
+                    "(CASE WHEN s.call = :call THEN 1 ELSE 0 END) AS _call"
+                )
+                ->setParameter('call', $args['call']);
+        }
+
         $this->addFilterSystem($qb, $system);
         $this->addFilterTypes($qb, $args['signalTypes']);
+        $this->addFilterCall($qb, $args['call']);
 
-        if ($args['country']) {
+        if ($args['country'] !== '') {
             $qb
                 ->andWhere('(s.itu = :country)')
                 ->setParameter('country', $args['country']);
         }
 
-//        if (isset($args['region']) && $args['region']) {
-//            $qb
-//                ->andWhere('(s.region = :region)')
-//                ->setParameter('region', $args['region']);
-//        }
+        if (isset($args['region']) && $args['region'] !== '') {
+            $qb
+                ->andWhere('(s.region = :region)')
+                ->setParameter('region', $args['region']);
+        }
 
         if (isset($args['limit']) && (int)$args['limit'] !== -1 && isset($args['page'])) {
             $qb
@@ -84,11 +105,26 @@ class SignalRepository extends ServiceEntityRepository
                 ->setMaxResults($args['limit']);
         }
 
+        if ($args['call'] !== null) {
+            $qb
+                ->addOrderBy(
+                    '_call',
+                    'DESC'
+                );
+
+        }
+
+        $qb
+            ->addOrderBy(
+                '_active',
+                'ASC'
+            );
+
         if ($this->signalsColumns[$args['sort']]['sort']) {
             $qb
-                ->orderBy(
+                ->addOrderBy(
                     '_blank',
-                    'ASC'
+                    'DESC'
                 )
                 ->addOrderBy(
                     ($this->signalsColumns[$args['sort']]['sort']),
@@ -120,6 +156,7 @@ class SignalRepository extends ServiceEntityRepository
 
         $this->addFilterSystem($qb, $system);
         $this->addFilterTypes($qb, $args['signalTypes']);
+        $this->addFilterCall($qb, $args['call']);
 
         if ($args['country']) {
             $qb

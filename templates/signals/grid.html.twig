@@ -15,11 +15,16 @@
     </thead>
     <tbody>
 {% for signal in signals %}
-        <tr>
+        <tr
+            {% if signal.active != '1' %}
+                title="{{ 'Inactive' | trans }}" class="inactive"
+            {% endif %}
+        >
 {% for key, column in columns %}
 {% if ((not column.admin or isAdmin) and (not column.arg or (column.arg and column.arg in args.types))) %}
-            <td{% if key == 'active' %} title="{{ signal.active ? '' : 'Inactive' | trans }}" class="{{ signal.active ? '' : 'inactive' | trans }}">{% else %}{% if column.td_class %} class="{{ column.td_class }}"{% endif %}>{% endif %}
-{{ attribute(signal, column.field) | raw }}</td>
+            <td {% if column.td_class %} class="{{ column.td_class }}"{% endif %}>
+                {{ attribute(signal, column.field) | raw }}
+            </td>
 {% endif %}
 {% endfor %}
         </tr>

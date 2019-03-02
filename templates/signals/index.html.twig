@@ -11,6 +11,13 @@
                 {% include 'forms/signals/form.html.twig' %}
             </div>
         </div>
+        <p><strong>{% trans %}Notes{% endtrans %}</strong></p>
+        <ul>
+            <li>{% trans %}Inactive stations are shown at the bottom of the list.{% endtrans %}</li>
+            {% if (args.call != '') %}
+                <li>{{ "Any exact matches for <strong>%s</strong> will shown at the top of this list, regardless of the station's current operational status." | trans | format(args.call) | raw }}</li>
+            {% endif %}
+        </ul>
 
         {% include 'signals/grid.html.twig' %}
 

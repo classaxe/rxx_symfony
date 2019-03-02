@@ -8,6 +8,7 @@
             <div id="form">
     {% include 'forms/paging.html.twig' %}
                 {{ form_row(form.types) }}
+                {{ form_row(form.call) }}
                 {{ form_row(form.country) }}
     {% if system == 'rww' %}
                 {{ form_row(form.region) }}

@@ -1633,9 +1633,29 @@
         <source>of %s listeners</source>
         <target>of %s listeners</target>
       </trans-unit>
-      <trans-unit id="tOS673l" resname="Heard In&lt;br /&gt;(Daytime logs are &lt;em&gt;highlighted&lt;/em&gt;)">
-        <source>Heard In&lt;br /&gt;(Daytime logs are &lt;em&gt;highlighted&lt;/em&gt;)</source>
-        <target><![CDATA[__Heard In<br />(Daytime logs are <em>highlighted</em>)]]></target>
+      <trans-unit id="elCtVwW" resname="Heard In&lt;br /&gt;(Daytime &lt;em&gt;highlighted&lt;/em&gt;)">
+        <source>Heard In&lt;br /&gt;(Daytime &lt;em&gt;highlighted&lt;/em&gt;)</source>
+        <target><![CDATA[Heard In<br />(Daytime <em>highlighted</em>)]]></target>
+      </trans-unit>
+      <trans-unit id="Vm1s_R0" resname="Call / ID">
+        <source>Call / ID</source>
+        <target>Call / ID</target>
+      </trans-unit>
+      <trans-unit id="qFqOitd" resname="Inactive stations are shown at the bottom of the list.">
+        <source>Inactive stations are shown at the bottom of the list.</source>
+        <target>Inactive stations are shown at the bottom of the list.</target>
+      </trans-unit>
+      <trans-unit id="fLxZY2_" resname="Any exact matches for &lt;strong&gt;%s&lt;/strong&gt; will shown at the top of this list, regardless of the station's current operational status.">
+        <source>Any exact matches for &lt;strong&gt;%s&lt;/strong&gt; will shown at the top of this list, regardless of the station's current operational status.</source>
+        <target><![CDATA[Any exact matches for <strong>%s</strong> will shown at the top of this list, regardless of the station's current operational status.]]></target>
+      </trans-unit>
+      <trans-unit id="WYP2_UK" resname="Show Counts">
+        <source>Show Counts</source>
+        <target>Show Counts</target>
+      </trans-unit>
+      <trans-unit id="v7lt68l" resname="Signal Types">
+        <source>Signal Types</source>
+        <target>Signal Types</target>
       </trans-unit>
     </body>
   </file>

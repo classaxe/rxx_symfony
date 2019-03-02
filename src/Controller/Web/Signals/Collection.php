@@ -62,6 +62,7 @@ class Collection extends Base
             'limit' =>      static::defaultlimit,
             'order' =>      static::defaultOrder,
             'page' =>       0,
+            'call' =>       '',
             'region' =>     '',
             'sort' =>       static::defaultSorting,
             'types' =>      [],
