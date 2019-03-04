@@ -8,11 +8,14 @@
 {% include 'forms/paging.html.twig' %}
             {{ form_row(form.filter) }}
             {{ form_row(form.types) }}
+            {% if system == 'rww' %}
+                {{ form_row(form.region) }}
+            {% endif %}
             {{ form_row(form.country) }}
-{% if system == 'rww' %}
-            {{ form_row(form.region) }}
-{% endif %}
-            {{ form_row(form.submit) }}
+            <fieldset class="actionButtons">
+                {{ form_widget(form.submit) }}
+                {{ form_widget(form.clear) }}
+            </fieldset>
         </div>
 {{ form_end(form, {'render_rest': false}) }}
     </div>

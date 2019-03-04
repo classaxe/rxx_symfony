@@ -556,7 +556,7 @@ body .menu-centered .language li a {
 .main ul li {
   line-height: 1.25em;
 }
-.main ul li strong {
+.main ul.refs li strong {
   display: inline-block;
   width: 16em;
 }
@@ -631,6 +631,14 @@ button.tiny {
   float: left;
   clear: none;
 }
+#form fieldset.actionButtons {
+  clear: both;
+  text-align: center;
+}
+#form fieldset.actionButtons button {
+  margin: 0.5em 0;
+  width: 6em;
+}
 #form #form_prev,
 #form #form_next {
   float: left;
@@ -653,9 +661,6 @@ button.tiny {
   padding: 0;
   line-height: 1.25em;
   margin: 0 0 0 0.5em;
-}
-#form #form_submit {
-  margin: 0.5em 40% 0;
 }
 #form #form_types div {
   padding: 0 0 0 2px;
@@ -890,7 +895,6 @@ fieldset#group_weather_report_details div label {
 .results td em {
   font-style: normal;
   background: #ffff00;
-  color: #0000ff;
 }
 /* [ Listeners Grid ] */
 .results.listener .primaryQth {

@@ -15,6 +15,7 @@ use App\Repository\TypeRepository;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\ResetType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
@@ -128,6 +129,14 @@ class Collection extends Base
                 [
                     'label'         => 'Go',
                     'attr'          => [ 'class' => 'button small']
+                ]
+            )
+            ->add(
+                'clear',
+                ResetType::class,
+                [
+                    'label'         => 'Clear',
+                    'attr'          => [ 'class' => 'button small' ]
                 ]
             );
 

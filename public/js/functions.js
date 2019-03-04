@@ -20,20 +20,62 @@ function setFormTypesAllAction() {
     });
 }
 
-/* [ Enable Country change to resubmit form ] */
-function setFormCountryAction() {
-    $('select#form_country').change(function () {
-        $('#form_submit').click();
-    });
-}
-
 /* [ Enable Region change to resubmit form ] */
-function setFormRegionAction() {
-    $('select#form_region').change(function () {
-        $('#form_submit').click();
-    });
+function setFormRegionAction(enable) {
+    enable = typeof enable !== 'undefined' ? enable : true;
+    if (enable) {
+        $('select#form_region').change(function () {
+            $('#form_submit').click();
+        });
+    } else {
+        $('select#form_region').off('change');
+    }
 }
 
+/* [ Enable Country change to resubmit form ] */
+function setFormCountryAction(enable) {
+    enable = typeof enable !== 'undefined' ? enable : true;
+    if (enable) {
+        $('select#form_country').change(function () {
+            $('#form_submit').click();
+        });
+    } else {
+        $('select#form_country').off('change');
+    }
+}
+
+function setFormResetAction(form) {
+    switch (form) {
+        case 'signals':
+            $('button[type="reset"]').click(function () {
+                $('fieldset#form_types div :checkbox').prop('checked', false);
+                $('fieldset#form_types div :checkbox[value=type_NDB]').prop('checked', true);
+                $('#form_call').val('');
+                setFormRegionAction(false);
+                setFormCountryAction(false);
+                $('select#form_region').prop('selectedIndex', 0);
+                $('select#form_country').prop('selectedIndex', 0);
+                setFormCountryAction(true);
+                setFormRegionAction(true);
+                return false;
+            });
+            break;
+        case 'listeners':
+            $('button[type="reset"]').click(function () {
+                $('fieldset#form_types div :checkbox').prop('checked', false);
+                $('fieldset#form_types div :checkbox[value=type_NDB]').prop('checked', true);
+                $('#form_filter').val('');
+                setFormRegionAction(false);
+                setFormCountryAction(false);
+                $('select#form_region').prop('selectedIndex', 0);
+                $('select#form_country').prop('selectedIndex', 0);
+                setFormCountryAction(true);
+                setFormRegionAction(true);
+                return false;
+            });
+            break;
+    }
+}
 /* [ Enable sort actions for all sortable columns ] */
 function setColumnSortActions() {
     $('table.results thead tr th[id]').each(function() {
@@ -85,7 +127,7 @@ function setEmailLinks() {
     });
 }
 
-function getlimitOptions(max, value)
+function getlimitOptions(max, value, defaultLimit)
 {
     var values = [10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 100000, 20000, 50000, 100000];
     var out = "";
@@ -101,7 +143,7 @@ function getlimitOptions(max, value)
             "</option>";
     }
     out +=
-        "<option value=\"-1\"" +
+        "<option value=\"" + (max > values[0] ? -1 : defaultLimit) + "\"" +
         (parseInt(value) === -1 ? " selected=\"selected\"" : "") +
         ">All results</option>";
     return out;
@@ -133,7 +175,7 @@ function setPagingActions() {
     if (limit.length) {
         limit[0].outerHTML =
             "<select id=\"form_limit\" name=\"form[limit]\" required=\"required\">" +
-            getlimitOptions(paging.total, limit.val()) +
+            getlimitOptions(paging.total, limit.val(), paging.limit) +
             "</select>";
         limit =     $('#form_limit');
     }

@@ -8,6 +8,11 @@
             <li>{% trans %}To list different types of signals, check the boxes shown for 'Types' below. Inactive stations are normally shown at the end of the report.{% endtrans %}</li>
             <li>{% trans %}This report prints best in Landscape.{% endtrans %}</li>
         </ul>
+        {% if (args.call != '') %}
+            <ul>
+                <li>{{ "Any exact matches for <strong>%s</strong> will shown at the top of this list, regardless of the station's current operational status." | trans | format(args.call) | raw }}</li>
+            </ul>
+        {% endif %}
         <ul class="refs">
 {% for type in typeRepository.getSignalTypesSearched(args.types) %}
 {% set refs = typeRepository.getTypeForCode(type).refs %}
@@ -30,13 +35,6 @@
                 {% include 'forms/signals/form.html.twig' %}
             </div>
         </div>
-        <p><strong>{% trans %}Notes{% endtrans %}</strong></p>
-        <ul>
-            <li>{% trans %}Inactive stations are shown at the bottom of the list.{% endtrans %}</li>
-            {% if (args.call != '') %}
-                <li>{{ "Any exact matches for <strong>%s</strong> will shown at the top of this list, regardless of the station's current operational status." | trans | format(args.call) | raw }}</li>
-            {% endif %}
-        </ul>
 
         {% include 'signals/grid.html.twig' %}
 
@@ -48,6 +46,7 @@
                 setFormTypesAllAction();
                 setFormCountryAction();
                 setFormRegionAction();
+                setFormResetAction('signals');
                 setColumnSortActions();
                 setColumnSortedClass();
                 setExternalLinks();

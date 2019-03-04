@@ -1713,6 +1713,14 @@
         <source>Heard In&lt;br /&gt;&lt;em&gt;(Daytime Log)&lt;/em&gt;</source>
         <target><![CDATA[__Heard In<br /><em>(Daytime Log)</em>]]></target>
       </trans-unit>
+      <trans-unit id="g7EsIhb" resname="Clear">
+        <source>Clear</source>
+        <target>__Clear</target>
+      </trans-unit>
+      <trans-unit id="DLbQ6TF" resname="Form Actions">
+        <source>Form Actions</source>
+        <target>__Form Actions</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
