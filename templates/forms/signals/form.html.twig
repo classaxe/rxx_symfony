@@ -8,7 +8,18 @@
             <div id="form">
     {% include 'forms/paging.html.twig' %}
                 {{ form_row(form.types) }}
-                {{ form_row(form.call) }}
+                <div>
+                    {{ form_label(form.call) }}
+                    {{ form_widget(form.call) }}
+                    <fieldset style="display:inline-block; width:auto">
+                        <legend class="sr-only">{% trans %}Frequency Range{% endtrans %}</legend>
+                        {{ form_label(form.khz_1) }}
+                        {{ form_widget(form.khz_1) }}
+                        <span>-</span>
+                        <label for="form_khz_2" class="sr-only">{% trans %}Freq. 2{% endtrans %}</label>
+                        {{ form_widget(form.khz_2) }} <span>kHz</span>
+                    </fieldset>
+                </div>
                 {{ form_row(form.country) }}
     {% if system == 'rww' %}
                 {{ form_row(form.region) }}

@@ -1721,6 +1721,22 @@
         <source>Form Actions</source>
         <target>Form Actions</target>
       </trans-unit>
+      <trans-unit id="GEnlSzj" resname="Frequency Range">
+        <source>Frequency Range</source>
+        <target>Frequency Range</target>
+      </trans-unit>
+      <trans-unit id="LNyaMvK" resname="Freq.">
+        <source>Freq.</source>
+        <target>Freq.</target>
+      </trans-unit>
+      <trans-unit id="r4_rGX4" resname="Paging Controls">
+        <source>Paging Controls</source>
+        <target>Paging Controls</target>
+      </trans-unit>
+      <trans-unit id="dUW.I6L" resname="Freq. 2">
+        <source>Freq. 2</source>
+        <target>Freq. 2</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

@@ -90,6 +90,22 @@ class Collection extends Base
                 ]
             )
             ->add(
+                'khz_1',
+                TextType::class,
+                [
+                    'label' =>      'Freq.',
+                    'required' =>   false
+                ]
+            )
+            ->add(
+                'khz_2',
+                TextType::class,
+                [
+                    'label' =>      false,
+                    'required' =>   false
+                ]
+            )
+            ->add(
                 'country',
                 ChoiceType::class,
                 [

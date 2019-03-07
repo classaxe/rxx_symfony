@@ -3,7 +3,7 @@
 <html lang="{{ _locale }}">
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}{{ system|upper }} &gt; {{ mode|raw|trans }}{% endblock %}</title>
+    <title>{% block title %}{{ system|upper }} &gt; {{ mode|raw }}{% endblock %}</title>
     <link rel="stylesheet prefetch" href="{{ asset('css/foundation.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/style' ~ minified ~ '.css') }}" />
 {% block stylesheets %}{% endblock %}

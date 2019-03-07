@@ -51,6 +51,8 @@ function setFormResetAction(form) {
                 $('fieldset#form_types div :checkbox').prop('checked', false);
                 $('fieldset#form_types div :checkbox[value=type_NDB]').prop('checked', true);
                 $('#form_call').val('');
+                $('#form_khz_1').val('');
+                $('#form_khz_2').val('');
                 setFormRegionAction(false);
                 setFormCountryAction(false);
                 $('select#form_region').prop('selectedIndex', 0);

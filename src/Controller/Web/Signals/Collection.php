@@ -63,6 +63,8 @@ class Collection extends Base
             'order' =>      static::defaultOrder,
             'page' =>       0,
             'call' =>       '',
+            'khz_1' =>      '',
+            'khz_2' =>      '',
             'region' =>     '',
             'sort' =>       static::defaultSorting,
             'types' =>      [],
