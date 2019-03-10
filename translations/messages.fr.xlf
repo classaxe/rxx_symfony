@@ -1737,6 +1737,22 @@
         <source>Freq. 2</source>
         <target>__Freq. 2</target>
       </trans-unit>
+      <trans-unit id="TIkGz3b" resname="Channels">
+        <source>Channels</source>
+        <target>__Channels</target>
+      </trans-unit>
+      <trans-unit id="pSrOQg8" resname="All">
+        <source>All</source>
+        <target>__All</target>
+      </trans-unit>
+      <trans-unit id="9ajk.1n" resname="Only 1 KHz">
+        <source>Only 1 KHz</source>
+        <target>__Only 1 KHz</target>
+      </trans-unit>
+      <trans-unit id="etDZdrR" resname="Not 1 KHz">
+        <source>Not 1 KHz</source>
+        <target>__Not 1 KHz</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

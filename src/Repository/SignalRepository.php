@@ -29,10 +29,25 @@ class SignalRepository extends ServiceEntityRepository
             ->setParameter('like_call', '%'.$call.'%');
     }
 
+    private function addFilterChannels(&$qb, $channels)
+    {
+        switch ($channels) {
+            case 0:
+                return;
+                break;
+            case 1:
+                $qb->andWhere('MOD(s.khz * 1000, 1000) = 0');
+                break;
+            case 2:
+                $qb->andWhere('MOD(s.khz * 1000, 1000) != 0');
+                break;
+        }
+    }
+
     private function addFilterFreq(&$qb, $khz_1, $khz_2)
     {
-        $khz_1 = (int)$khz_1 ? (int)$khz_1 : 0;
-        $khz_2 = (int)$khz_2 ? (int)$khz_2 : 1000000;
+        $khz_1 = (float)$khz_1 ? (float)$khz_1 : 0;
+        $khz_2 = (float)$khz_2 ? (float)$khz_2 : 1000000;
 
         $qb
             ->andWhere('(s.khz BETWEEN :khz1 AND :khz2)')
@@ -97,6 +112,7 @@ class SignalRepository extends ServiceEntityRepository
         $this->addFilterSystem($qb, $system);
         $this->addFilterTypes($qb, $args['signalTypes']);
         $this->addFilterCall($qb, $args['call']);
+        $this->addFilterChannels($qb, $args['channels']);
         $this->addFilterFreq($qb, $args['khz_1'], $args['khz_2']);
 
         if ($args['country'] !== '') {
@@ -169,6 +185,7 @@ class SignalRepository extends ServiceEntityRepository
         $this->addFilterSystem($qb, $system);
         $this->addFilterTypes($qb, $args['signalTypes']);
         $this->addFilterCall($qb, $args['call']);
+        $this->addFilterChannels($qb, $args['channels']);
         $this->addFilterFreq($qb, $args['khz_1'], $args['khz_2']);
 
         if ($args['country']) {

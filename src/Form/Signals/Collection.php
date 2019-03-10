@@ -106,6 +106,19 @@ class Collection extends Base
                 ]
             )
             ->add(
+                'channels',
+                ChoiceType::class,
+                [
+                    'choices' => [
+                        'All' =>        '',
+                        'Only 1 KHz' => '1',
+                        'Not 1 KHz' =>  '2',
+                    ],
+                    'label' => 'Channels',
+                    'required' => false
+                ]
+            )
+            ->add(
                 'country',
                 ChoiceType::class,
                 [

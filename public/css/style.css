@@ -1,7 +1,7 @@
 /*!
 * Project:   RXX - NDB Logging Database
 * Homepage:  https://rxx.classaxe.com
-* Date:      2019-03-07
+* Date:      2019-03-09
 * Licence:   LGPL
 * Copyright: 2019 Martin Francis
 */
@@ -760,9 +760,16 @@ button.tiny {
 }
 .signal_list #form_khz_1,
 .signal_list #form_khz_2 {
-  width: 50px;
+  width: 40px;
+}
+.signal_list #form_channels {
+  width: 95px;
 }
 .signal_list label[for="form_khz_1"] {
+  width: auto !important;
+  margin: 0 0.25em 0 1em;
+}
+.signal_list label[for="form_channels"] {
   width: auto !important;
   margin: 0 0.25em 0 1em;
 }
