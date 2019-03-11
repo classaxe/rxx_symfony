@@ -152,7 +152,7 @@ class SignalRepository extends ServiceEntityRepository
                 );
         }
 
-        if ($args['call'] !== null) {
+        if (isset($args['call']) && $args['call'] !== '') {
             $this
                 ->getQueryBuilder()
                 ->addSelect(
@@ -178,7 +178,7 @@ class SignalRepository extends ServiceEntityRepository
                 ->setMaxResults($args['limit']);
         }
 
-        if ($args['call'] !== null) {
+        if (isset($args['call']) && $args['call'] !== '') {
             $this
                 ->getQueryBuilder()
                 ->addOrderBy(

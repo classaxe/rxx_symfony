@@ -94,6 +94,7 @@ class Collection extends Base
             'listeners' =>          $listeners,
             '_locale' =>            $_locale,
             'options' =>            $options,
+            'listenerPopup' =>      'width=800,height=680,status=1,scrollbars=1,resizable=1',
             'mode' =>               'Listeners List',
             'system' =>             $system,
             'results' => [
