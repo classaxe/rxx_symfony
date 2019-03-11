@@ -58,7 +58,7 @@ class Collection extends Base
         TypeRepository $typeRepository
     ) {
         $args = [
-            'country' =>    '',
+            'countries' =>  '',
             'limit' =>      static::defaultlimit,
             'order' =>      static::defaultOrder,
             'page' =>       0,
@@ -68,6 +68,7 @@ class Collection extends Base
             'khz_2' =>      '',
             'region' =>     '',
             'sort' =>       static::defaultSorting,
+            'states' =>     '',
             'types' =>      [],
             'signalTypes' => [0]
         ];
@@ -77,8 +78,8 @@ class Collection extends Base
             'order' =>          static::defaultOrder,
             'page' =>           0,
             'sort' =>           static::defaultSorting,
-            'system' =>         $system,
             'region' =>         (isset($_REQUEST['form']['region']) ? $_REQUEST['form']['region'] : ''),
+            'system' =>         $system,
             'total' =>          $signalRepository->getFilteredSignalsCount($system, $args)
         ];
         $form = $form->buildForm($this->createFormBuilder(), $options);

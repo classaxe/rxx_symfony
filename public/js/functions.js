@@ -48,16 +48,17 @@ function setFormResetAction(form) {
     switch (form) {
         case 'signals':
             $('button[type="reset"]').click(function () {
-                $('fieldset#form_types div :checkbox').prop('checked', false);
-                $('fieldset#form_types div :checkbox[value=type_NDB]').prop('checked', true);
+                $('#form_types div :checkbox').prop('checked', false);
+                $('#form_types div :checkbox[value=type_NDB]').prop('checked', true);
                 $('#form_call').val('');
                 $('#form_khz_1').val('');
                 $('#form_khz_2').val('');
+                $('#form_channels').prop('selectedIndex', 0);
                 setFormRegionAction(false);
-                setFormCountryAction(false);
-                $('select#form_region').prop('selectedIndex', 0);
-                $('select#form_country').prop('selectedIndex', 0);
-                setFormCountryAction(true);
+                $('#form_states').val('');
+                $('#form_sp_itu_clause').prop('selectedIndex', 0);
+                $('#form_countries').val('');
+                $('#form_region').prop('selectedIndex', 0);
                 setFormRegionAction(true);
                 return false;
             });

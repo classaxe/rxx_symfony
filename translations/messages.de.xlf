@@ -1753,6 +1753,22 @@
         <source>Not 1 KHz</source>
         <target>__Not 1 KHz</target>
       </trans-unit>
+      <trans-unit id="dI9sPH_" resname="Combiner">
+        <source>Combiner</source>
+        <target>__Combiner</target>
+      </trans-unit>
+      <trans-unit id="vZcsxPF" resname="AND">
+        <source>AND</source>
+        <target>__AND</target>
+      </trans-unit>
+      <trans-unit id="gp5bKK8" resname="OR">
+        <source>OR</source>
+        <target>__OR</target>
+      </trans-unit>
+      <trans-unit id="5u5Vfc8" resname="(Used when both State AND Country are given)">
+        <source>(Used when both State AND Country are given)</source>
+        <target>__(Used when both State AND Country are given)</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

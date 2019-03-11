@@ -22,10 +22,15 @@
                     {{ form_label(form.channels) }}
                     {{ form_widget(form.channels) }}
                 </div>
-                {{ form_row(form.country) }}
-    {% if system == 'rww' %}
+                <hr />
+                {{ form_row(form.states) }}
+                <div>
+                    <label for="form_sp_itu_clause"><span class="sr-only">{% trans %}Combiner{% endtrans %}</span>&nbsp;</label>
+                    {{ form_widget(form.sp_itu_clause) }}
+                    <span>{% trans %}(Used when both State AND Country are given){% endtrans %}</span>
+                </div>
+                {{ form_row(form.countries) }}
                 {{ form_row(form.region) }}
-    {% endif %}
                 <fieldset class="actionButtons">
                     <legend class="sr-only">{% trans %}Form Actions{% endtrans %}</legend>
                     {{ form_widget(form.submit) }}

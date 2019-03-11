@@ -119,36 +119,43 @@ class Collection extends Base
                 ]
             )
             ->add(
-                'country',
-                ChoiceType::class,
+                'states',
+                TextType::class,
                 [
-                    'choices' => $this->country->getMatchingOptions(
-                        $system,
-                        false,
-                        false,
-                        true,
-                        true
-                    ),
-                    'label' => 'Country',
+                    'label' => 'States',
                     'required' => false
                 ]
             )
-        ;
-
-        if ($system=='rww') {
-            $formBuilder
-                ->add(
-                    'region',
-                    ChoiceType::class,
-                    [
-                        'choices' => $this->region->getAllOptions(),
-                        'label' => 'Region',
-                        'required' =>   false
-                    ]
-                );
-        }
-
-        $formBuilder
+            ->add(
+                'sp_itu_clause',
+                ChoiceType::class,
+                [
+                    'choices' => [
+                        'AND' => 'AND',
+                        'OR' =>  'OR',
+                    ],
+                    'placeholder' => false,
+                    'label' => 'Combiner',
+                    'required' => false
+                ]
+            )
+            ->add(
+                'countries',
+                TextType::class,
+                [
+                    'label' => 'Countries',
+                    'required' => false
+                ]
+            )
+            ->add(
+                'region',
+                ChoiceType::class,
+                [
+                    'choices' => $this->region->getAllOptions(),
+                    'label' => 'Region',
+                    'required' =>   false
+                ]
+            )
             ->add(
                 'submit',
                 SubmitType::class,
