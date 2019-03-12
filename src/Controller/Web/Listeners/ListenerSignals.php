@@ -20,11 +20,12 @@ class ListenerSignals extends Base
 
     /**
      * @Route(
-     *     "/{_locale}/{system}/listeners/{id}/signals",
+     *     "/{_locale}/{system}/listeners/{id}/signals/{type}",
      *     requirements={
      *        "locale": "de|en|es|fr",
      *        "system": "reu|rna|rww"
      *     },
+     *     defaults={"type"=""},
      *     name="listener_signals"
      * )
      */
@@ -32,6 +33,7 @@ class ListenerSignals extends Base
         $_locale,
         $system,
         $id,
+        $type,
         Request $request,
         ListenerSignalsForm $form,
         ListenerRepository $listenerRepository,
@@ -41,13 +43,17 @@ class ListenerSignals extends Base
             return $this->redirectToRoute('listeners', ['system' => $system]);
         }
 
+        $totalSignals = $listener->getCountSignals();
+        if ($type) {
+
+        }
         $options = [
             'limit' =>          static::defaultlimit,
             'maxNoPaging' =>    static::maxNoPaging,
             'order' =>          static::defaultOrder,
             'page' =>           0,
             'sort' =>           static::defaultSorting,
-            'total' =>          $listener->getCountSignals()
+            'total' =>          $totalSignals
         ];
         $form = $form->buildForm($this->createFormBuilder(), $options);
         $form->handleRequest($request);
@@ -56,11 +62,12 @@ class ListenerSignals extends Base
             'order' =>          static::defaultOrder,
             'page' =>           0,
             'sort' =>           static::defaultSorting,
-            'total' =>          $listener->getCountSignals()
+            'total' =>          $totalSignals,
+            'type' =>           $type
         ];
         if ($form->isSubmitted() && $form->isValid()) {
             $args = $form->getData();
-            $args['total'] = $listener->getCountSignals();
+            $args['total'] = $totalSignals;
         }
         $parameters = [
             'args' =>               $args,

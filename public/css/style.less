@@ -89,6 +89,11 @@
         h2 {
             color: @@rmode[titleColor];
         }
+        fieldset {
+            legend {
+                color: @@rmode[titleColor];
+            }
+        }
         .controlPanel {
             .content {
                 background: @@rmode[panelBg];
@@ -618,18 +623,6 @@ button.tiny {
             margin: 1px 0 0 0;
         }
     }
-    fieldset {
-        legend {
-            line-height: 1.8em;
-            text-align: left;
-            display: block;
-            font-size: 90%;
-            float: left;
-            width: 100px;
-            font-weight: bold;
-            padding: 0;
-        }
-    }
     div {
         clear: both;
         label {
@@ -736,6 +729,20 @@ button.tiny {
         display: inline-block;
         margin: 0 0.25em;
         float: left;
+    }
+}
+
+fieldset#form_types {
+    legend {
+        line-height: 1.8em;
+        text-align: left;
+        display: block;
+        font-size: 90%;
+        float: left;
+        width: 100px;
+        font-weight: bold;
+        padding: 0.25em 0 0 0;
+        color: #000000;
     }
 }
 

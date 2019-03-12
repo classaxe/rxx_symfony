@@ -1,7 +1,7 @@
 /*!
 * Project:   RXX - NDB Logging Database
 * Homepage:  https://rxx.classaxe.com
-* Date:      2019-03-09
+* Date:      2019-03-10
 * Licence:   LGPL
 * Copyright: 2019 Martin Francis
 */
@@ -38,6 +38,9 @@ body.reu .menu .is-active > a {
 }
 body.reu h1,
 body.reu h2 {
+  color: #d03333;
+}
+body.reu fieldset legend {
   color: #d03333;
 }
 body.reu .controlPanel .content {
@@ -94,6 +97,9 @@ body.rna h1,
 body.rna h2 {
   color: #3333ff;
 }
+body.rna fieldset legend {
+  color: #3333ff;
+}
 body.rna .controlPanel .content {
   background: #e6e6ff;
 }
@@ -146,6 +152,9 @@ body.rww .menu .is-active > a {
 }
 body.rww h1,
 body.rww h2 {
+  color: #198019;
+}
+body.rww fieldset legend {
   color: #198019;
 }
 body.rww .controlPanel .content {
@@ -670,16 +679,6 @@ button.tiny {
   padding: 0 0 0 2px;
   margin: 1px 0 0 0;
 }
-#form fieldset legend {
-  line-height: 1.8em;
-  text-align: left;
-  display: block;
-  font-size: 90%;
-  float: left;
-  width: 100px;
-  font-weight: bold;
-  padding: 0;
-}
 #form div {
   clear: both;
   /* Hides 'This value is not valid' error with bad country / region combination */
@@ -784,6 +783,17 @@ button.tiny {
   display: inline-block;
   margin: 0 0.25em;
   float: left;
+}
+fieldset#form_types legend {
+  line-height: 1.8em;
+  text-align: left;
+  display: block;
+  font-size: 90%;
+  float: left;
+  width: 100px;
+  font-weight: bold;
+  padding: 0.25em 0 0 0;
+  color: #000000;
 }
 /* [ Form logon ] */
 .logon #form {
