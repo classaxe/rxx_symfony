@@ -68,6 +68,7 @@ class Collection extends Base
             'khz_2' =>      '',
             'region' =>     '',
             'sort' =>       static::defaultSorting,
+            'sp_itu_clause' => '',
             'states' =>     '',
             'types' =>      [],
             'signalTypes' => [0]

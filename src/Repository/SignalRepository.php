@@ -87,13 +87,30 @@ class SignalRepository extends ServiceEntityRepository
         return $this;
     }
 
-    private function addFilterStates($states)
+    private function addFilterStatesAndCountries($states, $countries, $sp_itu_clause)
     {
+        $clauses = [];
+        if (isset($countries) && $countries !== '') {
+            $countries = explode(" ", str_replace('*', '%', $countries));
+            $clauses[] = "(s.itu LIKE '" . implode($countries, "' OR s.itu LIKE '") . "')";
+        }
         if (isset($states) && $states !== '') {
             $states = explode(" ", str_replace('*', '%', $states));
-            $this
-                ->getQueryBuilder()
-                ->andWhere("s.sp LIKE '" . implode($states, "' OR s.sp LIKE '") . "'");
+            $clauses[] = "(s.sp LIKE '" . implode($states, "' OR s.sp LIKE '") . "')";
+        }
+        switch (count($clauses)) {
+            case 0:
+                break;
+            case 1:
+                $this
+                    ->getQueryBuilder()
+                    ->andWhere($clauses[0]);
+                break;
+            case 2:
+                $this
+                    ->getQueryBuilder()
+                    ->andWhere('(' . $clauses[0] . $sp_itu_clause . $clauses[1] . ')');
+                break;
         }
         return $this;
     }
@@ -167,8 +184,7 @@ class SignalRepository extends ServiceEntityRepository
             ->addFilterCall($args['call'])
             ->addFilterChannels($args['channels'])
             ->addFilterFreq($args['khz_1'], $args['khz_2'])
-            ->addFilterCountries($args['countries'])
-            ->addFilterStates($args['states'])
+            ->addFilterStatesAndCountries($args['states'], $args['countries'], $args['sp_itu_clause'])
             ->addFilterRegion($args['region']);
 
         if (isset($args['limit']) && (int)$args['limit'] !== -1 && isset($args['page'])) {
@@ -236,8 +252,7 @@ class SignalRepository extends ServiceEntityRepository
             ->addFilterCall($args['call'])
             ->addFilterChannels($args['channels'])
             ->addFilterFreq($args['khz_1'], $args['khz_2'])
-            ->addFilterCountries($args['countries'])
-            ->addFilterStates($args['states'])
+            ->addFilterStatesAndCountries($args['states'], $args['countries'], $args['sp_itu_clause'])
             ->addFilterRegion($args['region']);
 
         $result = $this->getQueryBuilder()->getQuery()->execute();
