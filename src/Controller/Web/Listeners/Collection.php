@@ -58,6 +58,10 @@ class Collection extends Base
     ) {
         $args = [
             'country' =>    '',
+            'dx_gsq' =>     '',
+            'dx_min' =>     '',
+            'dx_max' =>     '',
+            'dx_units' =>   'km',
             'filter' =>     '',
             'limit' =>      static::defaultlimit,
             'order' =>      static::defaultOrder,

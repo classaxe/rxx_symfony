@@ -12,6 +12,9 @@ use Symfony\Component\HttpFoundation\Response;
 
 class Rxx
 {
+    const DEG_MI_MULTIPLIER = 69;
+    const DEG_KM_MULTIPLIER = 111.05;
+
     public static function convertGsqToDegrees($GSQ)
     {
         $GSQ =      strToUpper($GSQ);

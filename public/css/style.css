@@ -1,7 +1,7 @@
 /*!
 * Project:   RXX - NDB Logging Database
 * Homepage:  https://rxx.classaxe.com
-* Date:      2019-03-10
+* Date:      2019-03-19
 * Licence:   LGPL
 * Copyright: 2019 Martin Francis
 */
@@ -617,8 +617,8 @@ button.tiny {
   padding: 0.25em 0.5em;
 }
 #form hr {
-  margin: 0.75em 0 0.25em 0;
-  border-bottom: 2px solid #a0a0a0;
+  margin: 1.25em 0 0.5em 0;
+  border-bottom: 1px solid #a0a0a0;
 }
 #form fieldset {
   margin: 0;
@@ -779,21 +779,47 @@ button.tiny {
 .signal_list #form_sp_itu_clause {
   width: 60px;
 }
+.signal_list #form_range_gsq {
+  width: 60px;
+}
+.signal_list #form_range_min,
+.signal_list #form_range_max {
+  width: 50px;
+}
+.signal_list label[for="form_range_min"] {
+  width: auto !important;
+  margin: 0 0.5em 0 30px;
+}
+.signal_list #form_range_units {
+  display: inline-block;
+  width: auto !important;
+  margin: 0 0.5em 0 30px;
+}
 .signal_list span {
   display: inline-block;
   margin: 0 0.25em;
   float: left;
 }
-fieldset#form_types legend {
+fieldset#form_types legend,
+fieldset#form_range_units legend {
   line-height: 1.8em;
-  text-align: left;
   display: block;
   font-size: 90%;
   float: left;
-  width: 100px;
   font-weight: bold;
-  padding: 0.25em 0 0 0;
+  padding: 0 0.5em 0 0;
   color: #000000;
+}
+fieldset#form_types legend {
+  text-align: left;
+  width: 100px;
+}
+fieldset#form_range_units legend {
+  text-align: right;
+  width: 50px;
+}
+fieldset#form_range_units div label {
+  margin: 0 0.25em;
 }
 /* [ Form logon ] */
 .logon #form {

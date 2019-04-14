@@ -1,10 +1,11 @@
 {% if signals|length > 0 %}
+{#<pre>{{ dump(signals[0]) }}</pre>#}
 {% include 'signals/actions.html.twig' %}
 <table class="signal results">
     <thead>
         <tr>
 {% for key, column in columns %}
-{% if ((not column.admin or isAdmin) and (not column.arg or (column.arg and column.arg in args.types))) %}
+    {% if ((not column.admin or isAdmin) and (not column.arg or (column.arg in args|keys and attribute(args, column.arg) != ''))) %}
             <th{%  if key and column.order %} id="{{ key }}_{{ column.order }}"{% endif %}
 {% if column.th_class or column.sort%} class="{{ column.th_class }}{% if column.sort %} sort{% endif %}"{% endif %}
 {% if column.tooltip %} title="{{ column.tooltip | trans }}"{% endif %}
@@ -21,10 +22,11 @@
             title="{{ type.title }}{% if signal.active == '0' %} (inactive){% endif %}"
         >
 {% for key, column in columns %}
-{% if ((not column.admin or isAdmin) and (not column.arg or (column.arg and column.arg in args.types))) %}
+{% if ((not column.admin or isAdmin) and (not column.arg or (column.arg in args|keys and attribute(args, column.arg) != ''))) %}
             <td {% if column.td_class %} class="{{ column.td_class }}"{% endif %}>
                 {{ attribute(signal, column.field) | raw }}
             </td>
+
 {% endif %}
 {% endfor %}
         </tr>

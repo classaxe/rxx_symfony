@@ -1769,6 +1769,34 @@
         <source>(Used when both State AND Country are given)</source>
         <target>(Used when both State AND Country are given)</target>
       </trans-unit>
+      <trans-unit id="DU7W3HR" resname="Grid Squares">
+        <source>Grid Squares</source>
+        <target>Grid Squares</target>
+      </trans-unit>
+      <trans-unit id="kfEgtV9" resname="From GSQ">
+        <source>From GSQ</source>
+        <target>From GSQ</target>
+      </trans-unit>
+      <trans-unit id="SMldNw8" resname="DX">
+        <source>DX</source>
+        <target>DX</target>
+      </trans-unit>
+      <trans-unit id="f8iq2vY" resname="DX Max">
+        <source>DX Max</source>
+        <target>DX Max</target>
+      </trans-unit>
+      <trans-unit id="n7Zmmnf" resname="Units">
+        <source>Units</source>
+        <target>Units</target>
+      </trans-unit>
+      <trans-unit id="HzRQP2W" resname="km">
+        <source>km</source>
+        <target>km</target>
+      </trans-unit>
+      <trans-unit id="L6nrEw6" resname="miles">
+        <source>miles</source>
+        <target>miles</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

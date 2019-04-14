@@ -6,29 +6,41 @@ use App\Columns\Signals as SignalsColumns;
 use App\Entity\Signal;
 use App\Utils\Rxx;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\DBAL\Driver\Connection;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 class SignalRepository extends ServiceEntityRepository
 {
+    private $connection;
+    private $query = [
+        'from' =>   [],
+        'limit' =>  [],
+        'order' =>  [],
+        'param' =>  [],
+        'select' => [],
+        'where' =>  [],
+    ];
+    private $parameters = [];
+    private $sql = '';
     private $queryBuilder;
     private $signalsColumns;
 
     public function __construct(
         RegistryInterface $registry,
+        Connection $connection,
         SignalsColumns $signalsColumns
 
     ) {
         parent::__construct($registry, Signal::class);
+        $this->connection = $connection;
         $this->signalsColumns = $signalsColumns->getColumns();
     }
 
     private function addFilterCall($call)
     {
         if (isset($call) && $call !== '') {
-            $this
-                ->getQueryBuilder()
-                ->andWhere('(s.call LIKE :like_call)')
-                ->setParameter('like_call', '%'.$call.'%');
+            $this->query['where'][] ='(s.call LIKE :like_call)';
+            $this->query['param']['like_call'] = '%'.$call.'%';
         }
         return $this;
     }
@@ -37,26 +49,11 @@ class SignalRepository extends ServiceEntityRepository
     {
         switch ($channels) {
             case 1:
-                $this
-                    ->getQueryBuilder()
-                    ->andWhere('MOD(s.khz * 1000, 1000) = 0');
+                $this->query['where'][] ='MOD(s.khz * 1000, 1000) = 0';
                 break;
             case 2:
-                $this
-                    ->getQueryBuilder()
-                    ->andWhere('MOD(s.khz * 1000, 1000) != 0');
+                $this->query['where'][] ='MOD(s.khz * 1000, 1000) != 0';
                 break;
-        }
-        return $this;
-    }
-
-    private function addFilterCountries($countries)
-    {
-        if (isset($countries) && $countries !== '') {
-            $countries = explode(" ", str_replace('*', '%', $countries));
-            $this
-                ->getQueryBuilder()
-                ->andWhere("s.itu LIKE '" . implode($countries, "' OR s.itu LIKE '") . "'");
         }
         return $this;
     }
@@ -67,11 +64,18 @@ class SignalRepository extends ServiceEntityRepository
         $khz_2 = (float)$khz_2 ? (float)$khz_2 : 1000000;
 
         if ($khz_1 !== 0 || $khz_2 !== 1000000) {
-            $this
-                ->getQueryBuilder()
-                ->andWhere('(s.khz BETWEEN :khz1 AND :khz2)')
-                ->setParameter('khz1', $khz_1)
-                ->setParameter('khz2', $khz_2);
+            $this->query['where'][] ='(s.khz BETWEEN :khz1 AND :khz2)';
+            $this->query['param']['khz1'] = $khz_1;
+            $this->query['param']['khz2'] = $khz_1;
+        }
+        return $this;
+    }
+
+    private function addFilterGsq($gsq)
+    {
+        if (isset($gsq) && $gsq !== '') {
+            $gsq = explode(" ", str_replace('*', '%', $gsq));
+            $this->query['where'][] = "(s.gsq LIKE '" . implode($gsq, "%' OR s.gsq LIKE '") . "%')";
         }
         return $this;
     }
@@ -79,10 +83,8 @@ class SignalRepository extends ServiceEntityRepository
     private function addFilterRegion($region)
     {
         if (isset($region) && $region !== '') {
-            $this
-                ->getQueryBuilder()
-                ->andWhere('(s.region = :region)')
-                ->setParameter('region', $region);
+            $this->query['where'][] = '(s.region = :region)';
+            $this->query['param']['region'] = $region;
         }
         return $this;
     }
@@ -102,14 +104,10 @@ class SignalRepository extends ServiceEntityRepository
             case 0:
                 break;
             case 1:
-                $this
-                    ->getQueryBuilder()
-                    ->andWhere($clauses[0]);
+                $this->query['where'][] = $clauses[0];
                 break;
             case 2:
-                $this
-                    ->getQueryBuilder()
-                    ->andWhere('(' . $clauses[0] . $sp_itu_clause . $clauses[1] . ')');
+                $this->query['where'][] = '(' . $clauses[0] . $sp_itu_clause . $clauses[1] . ')';
                 break;
         }
         return $this;
@@ -119,14 +117,10 @@ class SignalRepository extends ServiceEntityRepository
     {
         switch ($system) {
             case "reu":
-                $this
-                    ->getQueryBuilder()
-                    ->andWhere('(s.heardInEu = 1)');
+                $this->query['where'][] ='(s.heard_in_eu = 1)';
                 break;
             case "rna":
-                $this
-                    ->getQueryBuilder()
-                    ->andWhere('(s.heardInNa = 1) or (s.heardInCa = 1)');
+                $this->query['where'][] ='(s.heard_in_na = 1) or (s.heard_in_ca = 1)';
                 break;
         }
         return $this;
@@ -134,11 +128,163 @@ class SignalRepository extends ServiceEntityRepository
 
     private function addFilterTypes($types)
     {
-        $this
-            ->getQueryBuilder()
-            ->andWhere('(s.type IN(:types))')
-            ->setParameter('types', $types);
+        $this->query['where'][] =
+            "s.type IN("
+            .implode(',', $types)
+            .")";
         return $this;
+    }
+
+    private function addFrom($from) {
+        $this->query['from'][] = $from;
+        return $this;
+    }
+    private function addLimit($args)
+    {
+        if (isset($args['limit']) && (int)$args['limit'] !== -1 && isset($args['page'])) {
+            $limit =    $args['limit'];
+            $offset =   (int)$args['page'] * (int)$args['limit'];
+            $this->query['limit'][] = "{$offset}, {$limit}";
+        }
+        return $this;
+    }
+
+    private function addSelectColumnActive()
+    {
+        $this->query['select'][] =
+            "(CASE WHEN s.active = 0 THEN 1 ELSE 0 END) AS _active";
+        return $this;
+    }
+
+    private function addSelectColumnCurrentNonEmpty($column)
+    {
+        if ($column) {
+            $this->query['select'][] =
+                "(CASE WHEN " . $column . " = '' OR " . $column . " IS NULL THEN 1 ELSE 0 END) AS _nonempty";
+        }
+        return $this;
+    }
+
+    private function addSelectColumnRangeDeg($args) {
+        if (isset($args['range_gsq']) && $args['range_gsq'] !== '' && $lat_lon = Rxx::convertGsqToDegrees($args['range_gsq'])) {
+            $this->query['select'][] =
+                  "CAST(\n"
+                . "  COALESCE(\n"
+                . "    ROUND(\n"
+                . "      DEGREES(\n"
+                . "        ATAN2(\n"
+                . "          (SIN(RADIANS(s.lon) - RADIANS(:lon)) * COS(RADIANS(s.lat))),\n"
+                . "          ((COS(RADIANS(:lat) * SIN(RADIANS(s.lat)))) - SIN(RADIANS(:lat)) * COS(RADIANS(s.lat)) * COS(RADIANS(s.lon) - RADIANS(:lon)))\n"
+                . "        )\n"
+                . "      ) + 360\n"
+                . "    ), ''\n"
+                . "  ) AS UNSIGNED\n"
+                . ") AS range_deg";
+            $this->query['param']['lat'] = $lat_lon['lat'];
+            $this->query['param']['lon'] = $lat_lon['lon'];
+        }
+        return $this;
+    }
+
+    private function addSelectColumnRangeKm($args) {
+        if (isset($args['range_gsq']) && $args['range_gsq'] !== '' && $lat_lon = Rxx::convertGsqToDegrees($args['range_gsq'])) {
+            $this->query['select'][] =
+                  "CAST(\n"
+                . "  COALESCE(\n"
+                . "    ROUND(\n"
+                . "      DEGREES(\n"
+                . "        ACOS(\n"
+                . "          (SIN(RADIANS(:lat)) * SIN(RADIANS(s.lat))) + \n"
+                . "          (COS(RADIANS(:lat)) * COS(RADIANS(s.lat)) * COS(RADIANS(:lon - s.lon)))\n"
+                . "        )\n"
+                . "      ) * ".RXX::DEG_KM_MULTIPLIER.",\n"
+                . "      2\n"
+                . "    ), ''\n"
+                . "  ) AS UNSIGNED\n"
+                . ") AS range_km";
+            $this->query['param']['lat'] = $lat_lon['lat'];
+            $this->query['param']['lon'] = $lat_lon['lon'];
+        }
+        return $this;
+    }
+
+    private function addSelectColumnRangeMiles($args) {
+        if (isset($args['range_gsq']) && $args['range_gsq'] !== '' && $lat_lon = Rxx::convertGsqToDegrees($args['range_gsq'])) {
+            $this->query['select'][] =
+                  "CAST(\n"
+                . "  COALESCE(\n"
+                . "    ROUND(\n"
+                . "      DEGREES(\n"
+                . "        ACOS(\n"
+                . "          (SIN(RADIANS(:lat)) * SIN(RADIANS(s.lat))) + \n"
+                . "          (COS(RADIANS(:lat)) * COS(RADIANS(s.lat)) * COS(RADIANS(:lon - s.lon)))\n"
+                . "        )\n"
+                . "      ) * ".RXX::DEG_MI_MULTIPLIER.",\n"
+                . "      2\n"
+                . "    ), ''\n"
+                . "  ) AS UNSIGNED\n"
+                . ") AS range_mi";
+            $this->query['param']['lat'] = $lat_lon['lat'];
+            $this->query['param']['lon'] = $lat_lon['lon'];
+        }
+        return $this;
+    }
+
+    private function addSelectColumnExactCall($args)
+    {
+        if (isset($args['call']) && $args['call'] !== '') {
+            $this->query['select'][] =
+                "(CASE WHEN s.call = :call THEN 1 ELSE 0 END) AS _call";
+            $this->query['param']['call'] = $args['call'];
+        }
+        return $this;
+    }
+
+    private function addSelectColumnsAllSignal()
+    {
+        $this->query['select'][] = "s.*";
+        return $this;
+    }
+
+    private function addSelectColumnCountSignal()
+    {
+        $this->query['select'][] = "COUNT(*) AS `count`";
+        return $this;
+    }
+
+    private function buildQuery()
+    {
+        $sql =
+            "SELECT\n"
+            . "    "
+            .implode(
+                ",\n    ",
+                $this->query['select']
+            )
+            ."\n"
+            ."FROM\n"
+            ."    "
+            .implode(
+                ",\n    ",
+                $this->query['from']
+            )
+            ."\n"
+            ."WHERE\n"
+            . "    ("
+            .implode(
+                ") AND\n    (",
+                $this->query['where']
+            )
+            .")\n"
+            .($this->query['limit'] ? "LIMIT\n    ".implode("\n    ", $this->query['limit'])."\n" : "");
+
+        $this->query['from'] =      [];
+        $this->query['limit'] =     [];
+        $this->query['order'] =     [];
+        $this->query['select'] =    [];
+        $this->query['where'] =     [];
+
+        return $sql;
     }
 
     public function getColumns()
@@ -146,54 +292,45 @@ class SignalRepository extends ServiceEntityRepository
         return $this->signalsColumns;
     }
 
-    private function getQueryBuilder()
-    {
-        return $this->queryBuilder;
-    }
-
     public function getFilteredSignals($system, $args)
     {
-        $this->setQueryBuilder(
-            $this
-                ->createQueryBuilder('s')
-                ->select('s')
-                ->addSelect(
-                    "(CASE WHEN s.active = 0 THEN 1 ELSE 0 END) AS _active"
-                )
-        );
-        if ($this->signalsColumns[$args['sort']]['sort']) {
-            $this
-                ->getQueryBuilder()
-                ->addSelect(
-                    "(CASE WHEN (".$this->signalsColumns[$args['sort']]['sort'].")='' THEN 1 ELSE 0 END) AS _blank"
-                );
-        }
-
-        if (isset($args['call']) && $args['call'] !== '') {
-            $this
-                ->getQueryBuilder()
-                ->addSelect(
-                    "(CASE WHEN s.call = :call THEN 1 ELSE 0 END) AS _call"
-                )
-                ->setParameter('call', $args['call']);
-        }
 
         $this
+            ->addSelectColumnsAllSignal()
+            ->addSelectColumnActive()
+            ->addSelectColumnExactCall($args)
+            ->addSelectColumnRangeDeg($args)
+            ->addSelectColumnRangeKm($args)
+            ->addSelectColumnRangeMiles($args)
+            ->addSelectColumnCurrentNonEmpty($this->signalsColumns[$args['sort']]['sort'])
+
+            ->addFrom('signals s')
+
             ->addFilterSystem($system)
             ->addFilterTypes($args['signalTypes'])
             ->addFilterCall($args['call'])
             ->addFilterChannels($args['channels'])
             ->addFilterFreq($args['khz_1'], $args['khz_2'])
             ->addFilterStatesAndCountries($args['states'], $args['countries'], $args['sp_itu_clause'])
-            ->addFilterRegion($args['region']);
+            ->addFilterRegion($args['region'])
+            ->addFilterGsq($args['gsq'])
 
-        if (isset($args['limit']) && (int)$args['limit'] !== -1 && isset($args['page'])) {
-            $this
-                ->getQueryBuilder()
-                ->setFirstResult((int)$args['page'] * (int)$args['limit'])
-                ->setMaxResults($args['limit']);
+            ->addLimit($args);
+
+        $sql = $this->buildQuery();
+
+        $stmt = $this->connection->prepare($sql);
+        foreach ($this->query['param'] as $key => $value) {
+            $stmt->bindValue($key, $value);
         }
+        $this->query['param'] = [];
 
+        $stmt->execute();
+        $result = $stmt->fetchAll();
+        return $result;
+//        print "<pre>$query</pre>"; die;
+
+/*
         if (isset($args['call']) && $args['call'] !== '') {
             $this
                 ->getQueryBuilder()
@@ -215,7 +352,7 @@ class SignalRepository extends ServiceEntityRepository
             $this
                 ->getQueryBuilder()
                 ->addOrderBy(
-                    '_blank',
+                    '_nonempty',
                     'DESC'
                 )
                 ->addOrderBy(
@@ -223,18 +360,24 @@ class SignalRepository extends ServiceEntityRepository
                     ($args['order'] == 'd' ? 'DESC' : 'ASC')
                 );
         }
-
+*/
         $result =
             $this
                 ->getQueryBuilder()
                 ->getQuery()
                 ->execute();
-//        print Rxx::y($result);
+//        print Rxx::y($result[0]);
 
         // Necessary to resolve extra nesting in results caused by extra select to ignore empty fields in sort order
         $out = [];
         foreach ($result as $key => $value) {
-            $out[] = $value[0];
+            $signal =   $value[0];
+            $signal
+                ->setRangeKm(isset($value['range_km'])   ? $value['range_km']  : null)
+                ->setRangeMi(isset($value['range_mi'])   ? $value['range_mi']  : null)
+                ->setRangeDeg(isset($value['range_deg']) ? $value['range_deg'] : null);
+
+            $out[] =    $signal;
         }
         return $out;
     }
@@ -242,27 +385,30 @@ class SignalRepository extends ServiceEntityRepository
     public function getFilteredSignalsCount($system, $args)
     {
         $this
-            ->setQueryBuilder(
-                $this
-                    ->createQueryBuilder('s')
-                    ->select('COUNT(s.id) as count')
-            )
+            ->addSelectColumnCountSignal()
+
+            ->addFrom('signals s')
+
             ->addFilterSystem($system)
             ->addFilterTypes($args['signalTypes'])
             ->addFilterCall($args['call'])
             ->addFilterChannels($args['channels'])
             ->addFilterFreq($args['khz_1'], $args['khz_2'])
             ->addFilterStatesAndCountries($args['states'], $args['countries'], $args['sp_itu_clause'])
-            ->addFilterRegion($args['region']);
+            ->addFilterRegion($args['region'])
+            ->addFilterGsq($args['gsq'])
+        ;
 
-        $result = $this->getQueryBuilder()->getQuery()->execute();
+        $sql = $this->buildQuery();
+
+        $stmt = $this->connection->prepare($sql);
+        foreach ($this->query['param'] as $key => $value) {
+            $stmt->bindValue($key, $value);
+        }
+        $this->query['param'] = [];
+        $stmt->execute();
+        $result = $stmt->fetchAll();
         return $result[0]['count'];
-    }
-
-    private function setQueryBuilder($qb)
-    {
-        $this->queryBuilder = $qb;
-        return $this;
     }
 
 }

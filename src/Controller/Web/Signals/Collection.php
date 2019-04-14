@@ -64,6 +64,7 @@ class Collection extends Base
             'page' =>       0,
             'call' =>       '',
             'channels' =>   '',
+            'gsq' =>        '',
             'khz_1' =>      '',
             'khz_2' =>      '',
             'region' =>     '',

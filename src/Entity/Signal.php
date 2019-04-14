@@ -287,6 +287,10 @@ class Signal
      */
     private $usbApprox;
 
+    private $rangeDeg;
+    private $rangeKm;
+    private $rangeMi;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -628,6 +632,42 @@ class Signal
         return $this;
     }
 
+    public function getRangeDeg(): ?float
+    {
+        return $this->rangeDeg;
+    }
+
+    public function setRangeDeg(?float $rangeDeg): self
+    {
+        $this->rangeDeg = $rangeDeg;
+
+        return $this;
+    }
+
+    public function getRangeKm(): ?float
+    {
+        return $this->rangeKm;
+    }
+
+    public function setRangeKm(?float $rangeKm): self
+    {
+        $this->rangeKm = $rangeKm;
+
+        return $this;
+    }
+
+    public function getRangeMi(): ?float
+    {
+        return $this->rangeMi;
+    }
+
+    public function setRangeMi(?float $rangeMi): self
+    {
+        $this->rangeMi = $rangeMi;
+
+        return $this;
+    }
+
     public function getRegion(): ?string
     {
         return $this->region;
@@ -755,11 +795,32 @@ class Signal
     }
 
     /**
-     * @return null|string
+     * @return null|float
      */
     public function getFormattedPwr(): ?string
     {
         return $this->pwr ?: '';
     }
 
+    /**
+     * @return null|float
+     */
+    public function getFormattedRangeKm(): ?string
+    {
+        if (!$this->lat && !$this->lon) {
+            return '';
+        }
+        return $this->rangeKm;
+    }
+
+    /**
+     * @return null|float
+     */
+    public function getFormattedRangeMi(): ?string
+    {
+        if (!$this->lat && !$this->lon) {
+            return '';
+        }
+        return $this->rangeMi;
+    }
 }

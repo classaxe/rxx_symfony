@@ -22,7 +22,8 @@
                     {{ form_label(form.channels) }}
                     {{ form_widget(form.channels) }}
                 </div>
-                <hr />
+                <fieldset style="display:inline-block; width:auto; float: left;">
+                    <legend>{% trans %}Location{% endtrans %}</legend>
                 {{ form_row(form.states) }}
                 <div>
                     <label for="form_sp_itu_clause"><span class="sr-only">{% trans %}Combiner{% endtrans %}</span>&nbsp;</label>
@@ -31,12 +32,23 @@
                 </div>
                 {{ form_row(form.countries) }}
                 {{ form_row(form.region) }}
+                {{ form_row(form.gsq) }}
+                <div>
+                    {{ form_label(form.range_gsq) }}
+                    {{ form_widget(form.range_gsq) }}
+                    {{ form_label(form.range_min) }}
+                    {{ form_widget(form.range_min) }}
+                    <span>-</span>
+                    <label for="form_range_max" class="sr-only">{% trans %}DX Max{% endtrans %}</label>
+                    {{ form_widget(form.range_max) }}
+                    {{ form_widget(form.range_units) }}
+                </div>
+                </fieldset>
                 <fieldset class="actionButtons">
                     <legend class="sr-only">{% trans %}Form Actions{% endtrans %}</legend>
                     {{ form_widget(form.submit) }}
                     {{ form_widget(form.clear) }}
                 </fieldset>
-            </div>
     {{ form_end(form, {'render_rest': false}) }}
         </div>
     </div>

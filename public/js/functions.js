@@ -44,6 +44,30 @@ function setFormCountryAction(enable) {
     }
 }
 
+function setFormRangeUnitsDefault() {
+    if ($('fieldset#form_range_units div :radio:checked').length == 0) {
+        $('fieldset#form_range_units div :radio[value=km]').prop('checked', true);
+    }
+}
+
+function setFormRangeAction() {
+    $('#form_range_gsq').on('keyup', function(e) {
+        var disabled = ($('#form_range_gsq').val().length < 6);
+        $('#form_range_min').attr('disabled', disabled);
+        $('#form_range_max').attr('disabled', disabled);
+    });
+    $('#form_range_min').on('keyup', function(e) {
+        var disabled = ($('#form_range_min').val().length === 0 && $('#form_range_max').val().length === 0);
+        $('#form_range_units').attr('disabled', disabled);
+    });
+    $('#form_dx_max').on('keyup', function(e) {
+        var disabled = ($('#form_range_min').val().length === 0 && $('#form_range_max').val().length === 0);
+        $('#form_range_units').attr('disabled', disabled);
+    });
+    $('#form_range_gsq').trigger('keyup');
+    $('#form_range_min').trigger('keyup');
+
+}
 function setFormResetAction(form) {
     switch (form) {
         case 'signals':

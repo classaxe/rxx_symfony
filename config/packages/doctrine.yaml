@@ -64,7 +64,7 @@ doctrine:
             numeric_functions:
                 acos: DoctrineExtensions\Query\Mysql\Acos
 #                asin: DoctrineExtensions\Query\Mysql\Asin
-#                atan2: DoctrineExtensions\Query\Mysql\Atan2
+                atan2: DoctrineExtensions\Query\Mysql\Atan2
 #                atan: DoctrineExtensions\Query\Mysql\Atan
 #                bit_count: DoctrineExtensions\Query\Mysql\BitCount
 #                bit_xor: DoctrineExtensions\Query\Mysql\BitXor
@@ -89,13 +89,13 @@ doctrine:
 #                tan: DoctrineExtensions\Query\Mysql\Tan
 #                variance: DoctrineExtensions\Query\Mysql\Variance
 
-#            string_functions:
+            string_functions:
 #                aes_decrypt: DoctrineExtensions\Query\Mysql\AesDecrypt
 #                aes_encrypt: DoctrineExtensions\Query\Mysql\AesEncrypt
 #                any_value: DoctrineExtensions\Query\Mysql\AnyValue
 #                ascii: DoctrineExtensions\Query\Mysql\Ascii
 #                binary: DoctrineExtensions\Query\Mysql\Binary
-#                cast: DoctrineExtensions\Query\Mysql\Cast
+                cast: DoctrineExtensions\Query\Mysql\Cast
 #                char_length: DoctrineExtensions\Query\Mysql\CharLength
 #                collate: DoctrineExtensions\Query\Mysql\Collate
 #                concat_ws: DoctrineExtensions\Query\Mysql\ConcatWs

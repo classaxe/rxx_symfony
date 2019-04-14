@@ -15,6 +15,7 @@ use App\Repository\TypeRepository;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\RadioType;
 use Symfony\Component\Form\Extension\Core\Type\ResetType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -130,30 +131,89 @@ class Collection extends Base
                 'sp_itu_clause',
                 ChoiceType::class,
                 [
-                    'choices' => [
-                        'AND' => 'AND',
-                        'OR' =>  'OR',
+                    'choices'       => [
+                        'AND'   => 'AND',
+                        'OR'    =>  'OR',
                     ],
-                    'placeholder' => false,
-                    'label' => 'Combiner',
-                    'required' => false
+                    'placeholder'   => false,
+                    'label'         => 'Combiner',
+                    'required'      => false
                 ]
             )
             ->add(
                 'countries',
                 TextType::class,
                 [
-                    'label' => 'Countries',
-                    'required' => false
+                    'label'         => 'Countries',
+                    'required'      => false
                 ]
             )
             ->add(
                 'region',
                 ChoiceType::class,
                 [
-                    'choices' => $this->region->getAllOptions(),
-                    'label' => 'Region',
-                    'required' =>   false
+                    'choices'       => $this->region->getAllOptions(),
+                    'label'         => 'Region',
+                    'required'      =>   false
+                ]
+            )
+            ->add(
+                'gsq',
+                TextType::class,
+                [
+                    'label'         => 'Grid Squares',
+                    'required'      => false
+                ]
+            )
+            ->add(
+                'range_gsq',
+                TextType::class,
+                [
+                    'label'         => 'From GSQ',
+                    'required'      => false,
+                    'attr'          => [
+                        'maxlength' => 6
+                    ]
+                ]
+            )
+            ->add(
+                'range_min',
+                TextType::class,
+                [
+                    'label'         => 'DX',
+                    'required'      => false,
+                    'attr'          => [
+                        'disabled'  => 'disabled'
+                    ]
+                ]
+            )
+            ->add(
+                'range_max',
+                TextType::class,
+                [
+                    'label'         => false,
+                    'required'      => false,
+                    'attr'          => [
+                        'disabled'  => 'disabled'
+                    ]
+                ]
+            )
+            ->add(
+                'range_units',
+                ChoiceType::class,
+                [
+                    'choices' => [
+                        'km'    => 'km',
+                        'miles' => 'mi'
+                    ],
+                    'expanded'      => true,
+                    'placeholder'   => false,
+                    'required'      => false,
+                    'attr'          => [
+                        'data'      => 'km',
+                        'disabled'  => 'disabled',
+                        'legend'    => 'Units'
+                    ]
                 ]
             )
             ->add(
