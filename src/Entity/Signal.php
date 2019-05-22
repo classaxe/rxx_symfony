@@ -632,42 +632,6 @@ class Signal
         return $this;
     }
 
-    public function getRangeDeg(): ?float
-    {
-        return $this->rangeDeg;
-    }
-
-    public function setRangeDeg(?float $rangeDeg): self
-    {
-        $this->rangeDeg = $rangeDeg;
-
-        return $this;
-    }
-
-    public function getRangeKm(): ?float
-    {
-        return $this->rangeKm;
-    }
-
-    public function setRangeKm(?float $rangeKm): self
-    {
-        $this->rangeKm = $rangeKm;
-
-        return $this;
-    }
-
-    public function getRangeMi(): ?float
-    {
-        return $this->rangeMi;
-    }
-
-    public function setRangeMi(?float $rangeMi): self
-    {
-        $this->rangeMi = $rangeMi;
-
-        return $this;
-    }
-
     public function getRegion(): ?string
     {
         return $this->region;

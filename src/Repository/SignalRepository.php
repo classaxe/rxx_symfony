@@ -135,7 +135,8 @@ class SignalRepository extends ServiceEntityRepository
         return $this;
     }
 
-    private function addFrom($from) {
+    private function addFrom($from)
+    {
         $this->query['from'][] = $from;
         return $this;
     }
@@ -149,6 +150,11 @@ class SignalRepository extends ServiceEntityRepository
         return $this;
     }
 
+    private function addOrder($field, $dir)
+    {
+        $this->query['order'][] = "{$field} {$dir}";
+    }
+
     private function addSelectColumnActive()
     {
         $this->query['select'][] =
@@ -156,11 +162,11 @@ class SignalRepository extends ServiceEntityRepository
         return $this;
     }
 
-    private function addSelectColumnCurrentNonEmpty($column)
+    private function addSelectColumnCurrentEmpty($column)
     {
         if ($column) {
             $this->query['select'][] =
-                "(CASE WHEN " . $column . " = '' OR " . $column . " IS NULL THEN 1 ELSE 0 END) AS _nonempty";
+                "(CASE WHEN " . $column . " = '' OR " . $column . " IS NULL THEN 1 ELSE 0 END) AS _empty";
         }
         return $this;
     }
@@ -276,6 +282,7 @@ class SignalRepository extends ServiceEntityRepository
                 $this->query['where']
             )
             .")\n"
+            .($this->query['order'] ? "LIMIT\n    ".implode("\n    ", $this->query['order'])."\n" : "")
             .($this->query['limit'] ? "LIMIT\n    ".implode("\n    ", $this->query['limit'])."\n" : "");
 
         $this->query['from'] =      [];
@@ -294,6 +301,7 @@ class SignalRepository extends ServiceEntityRepository
 
     public function getFilteredSignals($system, $args)
     {
+//        die($args['sort']);
 
         $this
             ->addSelectColumnsAllSignal()
@@ -302,7 +310,7 @@ class SignalRepository extends ServiceEntityRepository
             ->addSelectColumnRangeDeg($args)
             ->addSelectColumnRangeKm($args)
             ->addSelectColumnRangeMiles($args)
-            ->addSelectColumnCurrentNonEmpty($this->signalsColumns[$args['sort']]['sort'])
+            ->addSelectColumnCurrentEmpty($this->signalsColumns[$args['sort']]['sort'])
 
             ->addFrom('signals s')
 
@@ -327,8 +335,8 @@ class SignalRepository extends ServiceEntityRepository
 
         $stmt->execute();
         $result = $stmt->fetchAll();
+//        print "<pre>$sql</pre>"; die;
         return $result;
-//        print "<pre>$query</pre>"; die;
 
 /*
         if (isset($args['call']) && $args['call'] !== '') {
