@@ -107,8 +107,8 @@ function setFormResetAction(form) {
 function setColumnSortActions() {
     $('table.results thead tr th[id]').each(function() {
         $(this).click(function () {
-            var column = this.id.split('_')[0];
-            var dir = this.id.split('_')[1];
+            var column = this.id.split('|')[0];
+            var dir = this.id.split('|')[1];
             if ($(this).hasClass('sorted')) {
                 dir = ($('#form_order').val()=='a' ? 'd' : 'a');
             }
@@ -129,7 +129,7 @@ function setClippedCellTitles() {
 /* [ Indicate which column is sorted by checking hidden fields on form ] */
 function setColumnSortedClass() {
     $('table.results thead tr th').each(function() {
-        if (this.id.split('_')[0] == $('#form_sort').val()) {
+        if (this.id.split('|')[0] == $('#form_sort').val()) {
             $(this).append($('#form_order').val() == 'd' ? ' &#9662;' : ' &#9652;');
             $(this).addClass('sorted');
         }

@@ -23,9 +23,9 @@ To use in any form, include this code at head of form itself (NOT an included fi
 #}
 {%- block choice_widget_expanded -%}
     <fieldset {{ block('widget_container_attributes') }}>
-        <legend>
-            {{ (attr ? attr.legend : '') | trans }}
-        </legend>
+{% if attr.legend is defined %}
+        <legend>{{ attr.legend | trans }}</legend>
+{% endif %}
         {%- for child in form %}
             <div>
             {{- form_widget(child) -}}

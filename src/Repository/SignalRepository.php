@@ -153,6 +153,37 @@ class SignalRepository extends ServiceEntityRepository
     private function addOrder($field, $dir)
     {
         $this->query['order'][] = "{$field} {$dir}";
+        return $this;
+    }
+
+    private function addOrderPrioritizeActive()
+    {
+        $this->addOrder('_active','ASC');
+        return $this;
+    }
+
+    private function addOrderPrioritizeExactCall($call)
+    {
+        if ($call) {
+            $this->addOrder('_call','DESC');
+        }
+        return $this;
+    }
+
+    private function addOrderSelected($order, $dir)
+    {
+        if ($this->signalsColumns[$order]['sort']) {
+            $this
+                ->addOrder(
+                    '_empty',
+                    'ASC'
+                )
+                ->addOrder(
+                    ($this->signalsColumns[$order]['sort']),
+                    ($dir == 'd' ? 'DESC' : 'ASC')
+                );
+        }
+        return $this;
     }
 
     private function addSelectColumnActive()
@@ -164,28 +195,43 @@ class SignalRepository extends ServiceEntityRepository
 
     private function addSelectColumnCurrentEmpty($column)
     {
-        if ($column) {
+        switch($column) {
+            case "" :
+                break;
+            case "range_deg" :
+            case "range_km" :
+            case "range_mi" :
             $this->query['select'][] =
-                "(CASE WHEN " . $column . " = '' OR " . $column . " IS NULL THEN 1 ELSE 0 END) AS _empty";
+                "(CASE WHEN (s.lat is null or s.lat = 0) AND (s.lon is null or s.lon = 0) THEN 1 ELSE 0 END) AS _empty";
+                break;
+            default:
+                $this->query['select'][] =
+                    "(CASE WHEN " . $column . " = '' OR " . $column . " IS NULL THEN 1 ELSE 0 END) AS _empty";
+                break;
         }
         return $this;
     }
 
     private function addSelectColumnRangeDeg($args) {
-        if (isset($args['range_gsq']) && $args['range_gsq'] !== '' && $lat_lon = Rxx::convertGsqToDegrees($args['range_gsq'])) {
+        if (isset($args['range_gsq']) && $args['range_gsq'] !== '' &&
+            $lat_lon = Rxx::convertGsqToDegrees($args['range_gsq'])
+        ) {
             $this->query['select'][] =
-                  "CAST(\n"
-                . "  COALESCE(\n"
-                . "    ROUND(\n"
-                . "      DEGREES(\n"
-                . "        ATAN2(\n"
-                . "          (SIN(RADIANS(s.lon) - RADIANS(:lon)) * COS(RADIANS(s.lat))),\n"
-                . "          ((COS(RADIANS(:lat) * SIN(RADIANS(s.lat)))) - SIN(RADIANS(:lat)) * COS(RADIANS(s.lat)) * COS(RADIANS(s.lon) - RADIANS(:lon)))\n"
-                . "        )\n"
-                . "      ) + 360\n"
-                . "    ), ''\n"
-                . "  ) AS UNSIGNED\n"
-                . ") AS range_deg";
+                  "  CAST(\n"
+                . "    COALESCE(\n"
+                . "      ROUND(\n"
+                . "        (\n"
+                . "          DEGREES(\n"
+                . "            ATAN2(\n"
+                . "              (SIN(RADIANS(s.lon) - RADIANS(:lon)) * COS(RADIANS(s.lat))),\n"
+                . "              ((COS(RADIANS(:lat)) * SIN(RADIANS(s.lat))) - SIN(RADIANS(:lat)) * COS(RADIANS(s.lat)) * COS(RADIANS(s.lon) - RADIANS(:lon)))\n"
+                . "            )\n"
+                . "          ) + 360\n"
+                . "        ) MOD 360\n"
+                . "      ),\n"
+                . "      ''\n"
+                . "    ) AS UNSIGNED\n"
+                . "  ) AS `range_deg`\n";
             $this->query['param']['lat'] = $lat_lon['lat'];
             $this->query['param']['lon'] = $lat_lon['lon'];
         }
@@ -193,7 +239,9 @@ class SignalRepository extends ServiceEntityRepository
     }
 
     private function addSelectColumnRangeKm($args) {
-        if (isset($args['range_gsq']) && $args['range_gsq'] !== '' && $lat_lon = Rxx::convertGsqToDegrees($args['range_gsq'])) {
+        if (isset($args['range_gsq']) && $args['range_gsq'] !== '' &&
+            $lat_lon = Rxx::convertGsqToDegrees($args['range_gsq'])
+        ) {
             $this->query['select'][] =
                   "CAST(\n"
                 . "  COALESCE(\n"
@@ -282,7 +330,7 @@ class SignalRepository extends ServiceEntityRepository
                 $this->query['where']
             )
             .")\n"
-            .($this->query['order'] ? "LIMIT\n    ".implode("\n    ", $this->query['order'])."\n" : "")
+            .($this->query['order'] ? "ORDER BY\n    ".implode(",\n    ", $this->query['order'])."\n" : "")
             .($this->query['limit'] ? "LIMIT\n    ".implode("\n    ", $this->query['limit'])."\n" : "");
 
         $this->query['from'] =      [];
@@ -301,7 +349,7 @@ class SignalRepository extends ServiceEntityRepository
 
     public function getFilteredSignals($system, $args)
     {
-//        die($args['sort']);
+//        die("<pre>".print_r($args, true)."</pre>");
 
         $this
             ->addSelectColumnsAllSignal()
@@ -323,6 +371,10 @@ class SignalRepository extends ServiceEntityRepository
             ->addFilterRegion($args['region'])
             ->addFilterGsq($args['gsq'])
 
+            ->addOrderPrioritizeExactCall($args['call'])
+            ->addOrderPrioritizeActive()
+            ->addOrderSelected($args['sort'], $args['order'])
+
             ->addLimit($args);
 
         $sql = $this->buildQuery();
@@ -338,37 +390,7 @@ class SignalRepository extends ServiceEntityRepository
 //        print "<pre>$sql</pre>"; die;
         return $result;
 
-/*
-        if (isset($args['call']) && $args['call'] !== '') {
-            $this
-                ->getQueryBuilder()
-                ->addOrderBy(
-                    '_call',
-                    'DESC'
-                );
 
-        }
-
-        $this
-            ->getQueryBuilder()
-            ->addOrderBy(
-                '_active',
-                'ASC'
-            );
-
-        if ($this->signalsColumns[$args['sort']]['sort']) {
-            $this
-                ->getQueryBuilder()
-                ->addOrderBy(
-                    '_nonempty',
-                    'DESC'
-                )
-                ->addOrderBy(
-                    ($this->signalsColumns[$args['sort']]['sort']),
-                    ($args['order'] == 'd' ? 'DESC' : 'ASC')
-                );
-        }
-*/
         $result =
             $this
                 ->getQueryBuilder()
