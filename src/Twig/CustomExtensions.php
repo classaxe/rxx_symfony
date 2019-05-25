@@ -12,6 +12,7 @@ class CustomExtensions extends AbstractExtension
     {
         return [
             new TwigFilter('obfuscateEmail', [$this, '_filterObfuscateEmail']),
+            new TwigFilter('float', function ($val) { return (float)$val; })
         ];
     }
 
@@ -20,7 +21,6 @@ class CustomExtensions extends AbstractExtension
         return [
             new TwigFunction('getEnv', [$this, '_functionGetenv']),
             new TwigFunction('symfonyVersion', [$this, '_functionGetSymfonyVersion'])
-
         ];
     }
 

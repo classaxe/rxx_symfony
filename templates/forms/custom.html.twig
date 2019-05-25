@@ -22,7 +22,7 @@ To use in any form, include this code at head of form itself (NOT an included fi
     Customised to include div around each widget / label pair
 #}
 {%- block choice_widget_expanded -%}
-    <fieldset {{ block('widget_container_attributes') }}>
+    <fieldset{%- if id is not empty %} id="{{ id }}"{% endif -%}{% for attribute, value in attr %}{% if attribute not in ['legend'] %} {{ attribute }}="{{ value }}"{% endif %}{% endfor %}>
 {% if attr.legend is defined %}
         <legend>{{ attr.legend | trans }}</legend>
 {% endif %}

@@ -210,7 +210,6 @@ class Collection extends Base
                     'placeholder'   => false,
                     'required'      => false,
                     'attr'          => [
-                        'data'      => 'km',
                         'disabled'  => 'disabled',
                         'legend'    => 'Units'
                     ]
