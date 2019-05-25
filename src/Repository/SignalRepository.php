@@ -276,6 +276,8 @@ class SignalRepository extends ServiceEntityRepository
                 . "  ) AS `range_deg`\n";
             $this->query['param']['lat'] = $lat_lon['lat'];
             $this->query['param']['lon'] = $lat_lon['lon'];
+        } else {
+            $this->query['select'][] = "NULL AS `range_deg`";
         }
         return $this;
     }
@@ -301,6 +303,8 @@ class SignalRepository extends ServiceEntityRepository
                 . ") AS range_km";
             $this->query['param']['lat'] = $lat_lon['lat'];
             $this->query['param']['lon'] = $lat_lon['lon'];
+        } else {
+            $this->query['select'][] = "NULL AS `range_km`";
         }
         return $this;
     }
@@ -326,6 +330,8 @@ class SignalRepository extends ServiceEntityRepository
                 . ") AS range_mi";
             $this->query['param']['lat'] = $lat_lon['lat'];
             $this->query['param']['lon'] = $lat_lon['lon'];
+        } else {
+            $this->query['select'][] = "NULL AS `range_mi`";
         }
         return $this;
     }

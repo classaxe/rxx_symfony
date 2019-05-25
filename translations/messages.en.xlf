@@ -1797,6 +1797,30 @@
         <source>miles</source>
         <target>miles</target>
       </trans-unit>
+      <trans-unit id="FDiMXsw" resname="Distance in kilometers from GSQ">
+        <source>Distance in kilometers from GSQ</source>
+        <target>Distance in kilometers from GSQ</target>
+      </trans-unit>
+      <trans-unit id="8gh6Xll" resname="KM">
+        <source>KM</source>
+        <target>KM</target>
+      </trans-unit>
+      <trans-unit id="ZGPey_7" resname="Distance in miles from GSQ">
+        <source>Distance in miles from GSQ</source>
+        <target>Distance in miles from GSQ</target>
+      </trans-unit>
+      <trans-unit id="oRYfZEX" resname="Miles">
+        <source>Miles</source>
+        <target>Miles</target>
+      </trans-unit>
+      <trans-unit id="745JrK8" resname="Bearing relative to GSQ">
+        <source>Bearing relative to GSQ</source>
+        <target>Bearing relative to GSQ</target>
+      </trans-unit>
+      <trans-unit id="rgW9_xG" resname="Deg">
+        <source>Deg</source>
+        <target>Deg</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
