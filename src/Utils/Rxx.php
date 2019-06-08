@@ -64,46 +64,34 @@ class Rxx
         return $dateTime;
     }
 
-    /**
-     * @param $text
-     * @param $places
-     * @return string
-     */
-    public static function pad($text, $places)
+    public static function pad_char($text, $char, $places)
     {
-        return $text
-            . (
-                substr(
-                    str_repeat(' ', 50),
+        $text = html_entity_decode($text);
+
+        return
+            (mb_strlen($text) > $places ?
+                substr($text, 0, $places)
+                :
+                $text . substr(
+                    str_repeat($char, $places),
                     0,
-                    $places - strLen(
-                        preg_replace(
-                            "/&[^;]+;/",
-                            " ",
-                            $text
-                        )
-                    )
+                    $places - mb_strlen($text)
                 )
             );
     }
 
-    /**
-     * @param $text
-     * @param $places
-     * @return string
-     */
-    public static function lead($text, $places)
+    public static function pad_dot($text, $places)
     {
-        return (substr("                                                   ", 0, $places-strLen(preg_replace("/&[^;]+;/", " ", $text))).$text);
+        return static::pad_char($text, '.', $places);
     }
 
     /**
      * @param $text
      * @param $places
-     * @return string
+     * @return mixed
      */
-    public static function lead_zero($text, $places)
+    public static function pad_nbsp($text, $places)
     {
-        return (substr("0000", 0, $places-strlen($text)).$text);
+        return static::pad_char($text, ' ', $places);
     }
 }

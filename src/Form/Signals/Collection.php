@@ -10,6 +10,7 @@ namespace App\Form\Signals;
 
 use App\Form\Base;
 use App\Repository\CountryRepository;
+use App\Repository\ListenerRepository;
 use App\Repository\RegionRepository;
 use App\Repository\TypeRepository;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
@@ -32,6 +33,11 @@ class Collection extends Base
     private $country;
 
     /**
+     * @var ListenerRepository
+     */
+    private $listener;
+
+    /**
      * @var RegionRepository
      */
     private $region;
@@ -44,12 +50,14 @@ class Collection extends Base
     /**
      * Collection constructor.
      * @param CountryRepository $country
+     * @package ListenerRepository $listener
      * @param RegionRepository $region
      * @param TypeRepository $type
      */
-    public function __construct(CountryRepository $country, RegionRepository $region, TypeRepository $type)
+    public function __construct(CountryRepository $country, ListenerRepository $listener, RegionRepository $region, TypeRepository $type)
     {
         $this->country = $country;
+        $this->listener = $listener;
         $this->region = $region;
         $this->type = $type;
     }
@@ -213,6 +221,17 @@ class Collection extends Base
                         'disabled'  => 'disabled',
                         'legend'    => 'Units'
                     ]
+                ]
+            )
+            ->add(
+                'listener',
+                ChoiceType::class,
+                [
+                    'choices'       => $this->listener->getAllOptions($system, $region),
+                    'expanded'      => false,
+                    'label'         => 'Listener',
+                    'required'      =>   false,
+                    'attr'          => [ 'class' => 'multiple', 'multiple' => 'multiple']
                 ]
             )
             ->add(

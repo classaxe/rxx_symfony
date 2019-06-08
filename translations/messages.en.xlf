@@ -1821,6 +1821,14 @@
         <source>Deg</source>
         <target>Deg</target>
       </trans-unit>
+      <trans-unit id="8j5LycN" resname="Anyone (or enter values in &quot;Heard here&quot; box)">
+        <source>Anyone (or enter values in "Heard here" box)</source>
+        <target>Anyone (or enter values in "Heard here" box)</target>
+      </trans-unit>
+      <trans-unit id="FpEOEdK" resname="Loggings">
+        <source>Loggings</source>
+        <target>Loggings</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

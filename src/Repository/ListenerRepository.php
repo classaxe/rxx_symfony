@@ -65,6 +65,44 @@ class ListenerRepository extends ServiceEntityRepository
         return $this->listenerSignalsColumns;
     }
 
+    public function getAllOptions(
+        $system = false,
+        $region = false
+    ) {
+        $qb =
+            $this
+                ->createQueryBuilder('l')
+                ->select('l')
+                ->orderBy('l.name', 'ASC');
+        $this->addFilterSystem($qb, $system);
+        if ($region) {
+            $qb
+                ->andWhere('(l.region = :region)')
+                ->setParameter('region', $region);
+        }
+
+        $result = $qb->getQuery()->execute();
+
+        $out = [ 'Anyone (or enter values in "Heard here" box)' => '' ];
+        foreach ($result as $row) {
+            $out[
+                Rxx::pad_dot(
+                    ($row->getPrimaryQth() ? "" : ". ")
+                    . $row->getName()
+                    . ", "
+                    . $row->getQth()
+                    . " "
+                    . $row->getCallsign(),
+                    55
+                )
+                . ($row->getSp() ? " " . $row->getSp() : "...")
+                . " "
+                . $row->getItu()
+            ] = $row->getId();
+        }
+        return $out;
+    }
+
     public function getTabs($listener = false)
     {
         if (!$listener) {
@@ -121,7 +159,7 @@ class ListenerRepository extends ServiceEntityRepository
                 ->createQueryBuilder('l')
                 ->select('l');
 
-        if ($this->listenersColumns[$args['sort']]['sort']) {
+        if (isset($args['sort']) && $this->listenersColumns[$args['sort']]['sort']) {
             $qb
                 ->addSelect(
                     "(CASE WHEN (".$this->listenersColumns[$args['sort']]['sort'].")='' THEN 1 ELSE 0 END) AS _blank"
@@ -130,13 +168,13 @@ class ListenerRepository extends ServiceEntityRepository
 
         $this->addFilterSystem($qb, $system);
 
-        if ($args['filter']) {
+        if (isset($args['filter']) && $args['filter']) {
             $qb
                 ->andWhere('(l.name like :filter or l.qth like :filter or l.callsign like :filter)')
                 ->setParameter('filter', '%'.$args['filter'].'%');
         }
 
-        if ($args['country']) {
+        if (isset($args['country']) && $args['country']) {
             $qb
                 ->andWhere('(l.itu = :country)')
                 ->setParameter('country', $args['country']);
@@ -154,7 +192,7 @@ class ListenerRepository extends ServiceEntityRepository
                 ->setMaxResults($args['limit']);
         }
 
-        if ($this->listenersColumns[$args['sort']]['sort']) {
+        if (isset($args['sort']) && $this->listenersColumns[$args['sort']]['sort']) {
             $qb
                 ->orderBy(
                     '_blank',

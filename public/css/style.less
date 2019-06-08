@@ -3,7 +3,7 @@
     menuSysBtn:     160px;
     menuLangBtn:    70px;
     listenersForm:  525px;
-    signalsForm:    525px;
+    signalsForm:    540px;
     logonForm:      300px;
 }
 
@@ -651,6 +651,11 @@ button.tiny {
             -moz-appearance: menulist;
             appearance: menulist;
         }
+        select.multiple {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+        }
         textarea {
             margin: 0 0 0.25em 0;
         }
@@ -713,6 +718,25 @@ button.tiny {
     }
     #form_channels {
         width: 95px;
+    }
+    #form_listener {
+        overflow: auto;
+        height: 150px;
+        font-family: monospace, monospace;
+        font-size: 8pt;
+        option.all {
+            font-weight: bold;
+            font-style: italic;
+            text-align: center;
+            background: #008000;
+            color: #fff;
+        }
+        option.primaryQth {
+            font-weight: bold;
+        }
+        option.secondaryQth {
+            color: #888;
+        }
     }
     label[for="form_khz_1"] {
         width: auto !important;

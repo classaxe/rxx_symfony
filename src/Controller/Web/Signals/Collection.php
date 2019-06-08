@@ -14,8 +14,8 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class Collection extends Base
 {
-    const defaultlimit =     100;
-    const maxNoPaging =      100;
+    const defaultlimit =     50;
+    const maxNoPaging =      50;
     const defaultSorting =  'khz';
     const defaultOrder =    'a';
 
