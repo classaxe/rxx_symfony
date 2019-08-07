@@ -13,6 +13,7 @@ class SignalRepository extends ServiceEntityRepository
 {
     private $args;
     private $connection;
+    private $debug = false;
     private $query = [
         'from' =>   [],
         'having' => [],
@@ -80,6 +81,14 @@ class SignalRepository extends ServiceEntityRepository
         return $this;
     }
 
+    private function addFilterListeners()
+    {
+        if (isset($this->args['listener'])) {
+            $this->query['where'][] =
+                "`l`.`listenerId` IN (" . implode(',', $this->args['listener']) . ")";
+        }
+        return $this;
+    }
     private function addFilterRange()
     {
         if (isset($this->args['range_gsq']) &&
@@ -175,11 +184,21 @@ class SignalRepository extends ServiceEntityRepository
         return $this;
     }
 
-    private function addFrom($from)
+    private function addFromTables()
     {
-        $this->query['from'][] = $from;
+        if (isset($this->args['listener'])) {
+            $this->query['from'][] =
+                "`signals` `s`\n"
+                . "INNER JOIN `logs` `l` ON\n"
+                . "    `s`.`id` = `l`.`signalID`";
+
+            return $this;
+        }
+
+        $this->query['from'][] =    '`signals` `s`';
         return $this;
     }
+
     private function addLimit($args)
     {
         if (isset($args['limit']) && (int)$args['limit'] !== -1 && isset($args['page'])) {
@@ -348,13 +367,14 @@ class SignalRepository extends ServiceEntityRepository
 
     private function addSelectColumnsAllSignal()
     {
-        $this->query['select'][] = "s.*";
+        $this->query['select'][] = (isset($this->args['listener']) ? "DISTINCT s.*" : "s.*");
         return $this;
     }
 
     private function addSelectColumnCountSignal()
     {
-        $this->query['select'][] = "COUNT(*) AS `count`";
+        $this->query['select'][] =
+            "COUNT(" . (isset($this->args['listener']) ? "DISTINCT s.id" : "*") . ") AS `count`";
         return $this;
     }
 
@@ -402,6 +422,9 @@ class SignalRepository extends ServiceEntityRepository
         $this->query['select'] =    [];
         $this->query['where'] =     [];
 
+        if ($this->debug) {
+            print "<pre>" . print_r($sql, true) . "</pre>";
+        }
         return $sql;
     }
 
@@ -426,17 +449,18 @@ class SignalRepository extends ServiceEntityRepository
             ->addSelectPriotitizeActive()
             ->addSelectPriotitizeExactCall()
 
-            ->addFrom('signals s')
+            ->addFromTables()
 
-            ->addFilterSystem()
-            ->addFilterTypes()
             ->addFilterCall()
             ->addFilterChannels()
             ->addFilterFreq()
-            ->addFilterStatesAndCountries()
-            ->addFilterRegion()
             ->addFilterGsq()
+            ->addFilterListeners()
             ->addFilterRange()
+            ->addFilterRegion()
+            ->addFilterStatesAndCountries()
+            ->addFilterSystem()
+            ->addFilterTypes()
 
             ->addOrderPrioritizeExactCall()
             ->addOrderPrioritizeActive()
@@ -453,30 +477,8 @@ class SignalRepository extends ServiceEntityRepository
         $this->query['param'] = [];
 
         $stmt->execute();
-        $result = $stmt->fetchAll();
-//        print "<pre>$sql</pre>"; die;
-        return $result;
 
-
-        $result =
-            $this
-                ->getQueryBuilder()
-                ->getQuery()
-                ->execute();
-//        print Rxx::y($result[0]);
-
-        // Necessary to resolve extra nesting in results caused by extra select to ignore empty fields in sort order
-        $out = [];
-        foreach ($result as $key => $value) {
-            $signal =   $value[0];
-            $signal
-                ->setRangeKm(isset($value['range_km'])   ? $value['range_km']  : null)
-                ->setRangeMi(isset($value['range_mi'])   ? $value['range_mi']  : null)
-                ->setRangeDeg(isset($value['range_deg']) ? $value['range_deg'] : null);
-
-            $out[] =    $signal;
-        }
-        return $out;
+        return $stmt->fetchAll();
     }
 
     public function getFilteredSignalsCount($system, $args)
@@ -486,17 +488,18 @@ class SignalRepository extends ServiceEntityRepository
 
             ->addSelectColumnCountSignal()
 
-            ->addFrom('signals s')
+            ->addFromTables()
 
-            ->addFilterSystem()
-            ->addFilterTypes()
             ->addFilterCall()
             ->addFilterChannels()
             ->addFilterFreq()
-            ->addFilterStatesAndCountries()
-            ->addFilterRegion()
             ->addFilterGsq()
+            ->addFilterListeners()
             ->addFilterRange()
+            ->addFilterRegion()
+            ->addFilterStatesAndCountries()
+            ->addFilterSystem()
+            ->addFilterTypes()
         ;
 
         $sql = $this->buildQuery();
@@ -507,13 +510,16 @@ class SignalRepository extends ServiceEntityRepository
         }
         $this->query['param'] = [];
         $stmt->execute();
-        $result = $stmt->fetchAll();
-        return $result[0]['count'];
+
+        return $stmt->fetchColumn();
     }
 
     private function setArgs($system, $args)
     {
         $this->system = $system;
+        if (isset($args['listener']) && in_array('', $args['listener'])) {
+            unset($args['listener']);
+        }
         $this->args = $args;
         return $this;
     }

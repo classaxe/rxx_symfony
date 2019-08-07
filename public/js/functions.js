@@ -387,6 +387,7 @@ function setFormResetAction(form) {
                 $('#form_sp_itu_clause').prop('selectedIndex', 0);
                 $('#form_countries').val('');
                 $('#form_region').prop('selectedIndex', 0);
+                $('#form_listener').prop('selectedIndex', 0);
                 setFormRegionAction(true);
                 return false;
             });

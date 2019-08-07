@@ -230,7 +230,8 @@ class Collection extends Base
                     'choices'       => $this->listener->getAllOptions($system, $region),
                     'expanded'      => false,
                     'label'         => 'Listener',
-                    'required'      =>   false,
+                    'multiple'      => true,
+                    'required'      => false,
                     'attr'          => [ 'class' => 'multiple', 'multiple' => 'multiple']
                 ]
             )
