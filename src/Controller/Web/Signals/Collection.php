@@ -82,7 +82,7 @@ class Collection extends Base
             'sort' =>           static::defaultSorting,
             'region' =>         (isset($_REQUEST['form']['region']) ? $_REQUEST['form']['region'] : ''),
             'system' =>         $system,
-            'total' =>          $signalRepository->getFilteredSignalsCount($system, $args)
+            'total' =>          static::maxNoPaging // forces paging - will be made accurate later on
         ];
         $form = $form->buildForm($this->createFormBuilder(), $options);
         $form->handleRequest($request);

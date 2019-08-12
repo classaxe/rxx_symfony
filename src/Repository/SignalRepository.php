@@ -83,9 +83,28 @@ class SignalRepository extends ServiceEntityRepository
 
     private function addFilterListeners()
     {
+        // Special case: selected 'all' listeners, and 'not heard by'
+        if (isset($this->args['listener_invert']) && !isset($this->args['listener'])) {
+            $this->query['where'][] = "0=1";
+            return $this;
+        }
         if (isset($this->args['listener'])) {
-            $this->query['where'][] =
-                "`l`.`listenerId` IN (" . implode(',', $this->args['listener']) . ")";
+            if (isset($this->args['listener_invert'])) {
+                $this->query['where'][] =
+                    "`s`.`id` NOT IN(
+                        SELECT
+                            DISTINCT s2.id
+                        FROM
+                           signals s2
+                        INNER JOIN logs l2 ON
+                           s2.id = l2.signalID
+                        WHERE
+                           `l2`.`listenerID` IN(" . implode(',', $this->args['listener']) . ")
+                    )";
+            } else {
+                $this->query['where'][] =
+                    "`l`.`listenerId` IN (" . implode(',', $this->args['listener']) . ")";
+            }
         }
         return $this;
     }
@@ -517,8 +536,11 @@ class SignalRepository extends ServiceEntityRepository
     private function setArgs($system, $args)
     {
         $this->system = $system;
-        if (isset($args['listener']) && in_array('', $args['listener'])) {
+        if (isset($args['listener']) && (!$args['listener'] || in_array('', $args['listener']))) {
             unset($args['listener']);
+        }
+        if (isset($args['listener_invert']) && $args['listener_invert'] === 0) {
+            unset($args['listener_invert']);
         }
         $this->args = $args;
         return $this;

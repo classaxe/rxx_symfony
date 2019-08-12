@@ -229,10 +229,24 @@ class Collection extends Base
                 [
                     'choices'       => $this->listener->getAllOptions($system, $region),
                     'expanded'      => false,
-                    'label'         => 'Listener',
+                    'label'         => 'Listener(s)',
                     'multiple'      => true,
                     'required'      => false,
                     'attr'          => [ 'class' => 'multiple', 'multiple' => 'multiple']
+                ]
+            )
+            ->add(
+                'listener_invert',
+                ChoiceType::class,
+                [
+                    'choices' => [
+                        'Logged by'     => 0,
+                        'Not logged by' => 1
+                    ],
+                    'expanded'      => true,
+                    'placeholder'   => false,
+                    'required'      => false,
+                    'attr'          => []
                 ]
             )
             ->add(

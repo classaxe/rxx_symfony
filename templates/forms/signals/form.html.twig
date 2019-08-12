@@ -47,7 +47,12 @@
                 <fieldset style="display:inline-block; width:auto; float: left;">
                     <legend>{% trans %}Loggings{% endtrans %}</legend>
                     <div>
-                        {{ form_label(form.listener) }}
+                        <div>
+                            {{ form_label(form.listener) }}
+                            {{ form_widget(form.listener_invert) }}
+                            <div id="listener_selection_help">{% trans %}Use SHIFT or CONTROL to select multiple values{% endtrans %}</div>
+                        </div>
+
                         {{ form_widget(form.listener) }}
                     </div>
                 </fieldset>

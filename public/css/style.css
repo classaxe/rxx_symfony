@@ -1,7 +1,7 @@
 /*!
 * Project:   RXX - NDB Logging Database
 * Homepage:  https://rxx.classaxe.com
-* Date:      2019-08-04
+* Date:      2019-08-11
 * Licence:   LGPL
 * Copyright: 2019 Martin Francis
 */
@@ -688,7 +688,7 @@ button.tiny {
   text-align: left;
   font-size: 90%;
   float: left;
-  width: 100px;
+  width: 115px;
   font-weight: bold;
   padding: 0;
 }
@@ -754,14 +754,14 @@ button.tiny {
 }
 .listener_list input[type='text'],
 .listener_list select {
-  width: 410px;
+  width: 395px;
 }
 .signal_list {
-  width: 540px;
+  width: 560px;
 }
 .signal_list input[type='text'],
 .signal_list select {
-  width: 425px;
+  width: 430px;
 }
 .signal_list #form_call {
   width: 50px;
@@ -775,7 +775,7 @@ button.tiny {
 }
 .signal_list #form_listener {
   overflow: auto;
-  height: 150px;
+  height: 160px;
   font-family: monospace, monospace;
   font-size: 8pt;
 }
@@ -791,6 +791,30 @@ button.tiny {
 }
 .signal_list #form_listener option.secondaryQth {
   color: #888;
+}
+.signal_list label[for="form_listener"] {
+  line-height: 1.8em;
+  text-align: left;
+  font-size: 90% !important;
+  float: left;
+  width: 115px;
+  font-weight: bold !important;
+  padding: 0 !important;
+  margin: 0px !important;
+}
+.signal_list #form_listener_invert {
+  width: 115px;
+  padding: 0 0 0 0.25em !important;
+  height: auto !important;
+}
+.signal_list #form_listener_invert label {
+  padding: 0 0 0 0.25em !important;
+}
+.signal_list #listener_selection_help {
+  width: 100px !important;
+  margin: 0.5em 0 0 1em;
+  font-size: 80% !important;
+  font-style: italic;
 }
 .signal_list label[for="form_khz_1"] {
   width: auto !important;
@@ -836,7 +860,7 @@ fieldset#form_range_units legend {
 }
 fieldset#form_types legend {
   text-align: left;
-  width: 100px;
+  width: 115px;
 }
 fieldset#form_range_units legend {
   text-align: right;

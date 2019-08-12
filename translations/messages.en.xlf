@@ -1829,6 +1829,22 @@
         <source>Loggings</source>
         <target>Loggings</target>
       </trans-unit>
+      <trans-unit id="ux0qTrP" resname="Listener(s)">
+        <source>Listener(s)</source>
+        <target>Listener(s)</target>
+      </trans-unit>
+      <trans-unit id="KrbqWrM" resname="Logged by">
+        <source>Logged by</source>
+        <target>Logged by</target>
+      </trans-unit>
+      <trans-unit id="hKJwzCv" resname="Not logged by">
+        <source>Not logged by</source>
+        <target>Not logged by</target>
+      </trans-unit>
+      <trans-unit id="z_kHmmO" resname="Use SHIFT or CONTROL to select multiple values">
+        <source>Use SHIFT or CONTROL to select multiple values</source>
+        <target>Use SHIFT or CONTROL to select multiple values</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

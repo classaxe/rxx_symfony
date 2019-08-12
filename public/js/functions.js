@@ -360,6 +360,12 @@ function setFormRangeUnitsDefault() {
     }
 }
 
+function setFormListenerInvertDefault() {
+    if ($('fieldset#form_listener_invert div :radio:checked').length == 0) {
+        $('fieldset#form_listener_invert div :radio[value=0]').prop('checked', true);
+    }
+}
+
 /* [ Enable Region change to resubmit form ] */
 function setFormRegionAction(enable) {
     enable = typeof enable !== 'undefined' ? enable : true;

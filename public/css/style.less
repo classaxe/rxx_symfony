@@ -3,10 +3,10 @@
     menuSysBtn:     160px;
     menuLangBtn:    70px;
     listenersForm:  525px;
-    signalsForm:    540px;
+    signalsForm:    560px;
     logonForm:      300px;
+    label:          115px;
 }
-
 // Global Settings
 @white:             #ffffff;
 @sortedBg:          #665d4b;
@@ -630,7 +630,7 @@ button.tiny {
             text-align: left;
             font-size: 90%;
             float: left;
-            width: 100px;
+            width: @width[label];
             font-weight: bold;
             padding: 0;
         }
@@ -699,7 +699,7 @@ button.tiny {
     width: @width[listenersForm];
     input[type='text'],
     select {
-        width: @width[listenersForm] - 115;
+        width: @width[listenersForm] - @width[label] - 15;
     }
 }
 
@@ -707,7 +707,7 @@ button.tiny {
     width: @width[signalsForm];
     input[type='text'],
     select {
-        width: @width[signalsForm] - 115;
+        width: @width[signalsForm] - @width[label] - 15;
     }
     #form_call {
         width:50px;
@@ -721,7 +721,7 @@ button.tiny {
     }
     #form_listener {
         overflow: auto;
-        height: 150px;
+        height: 160px;
         font-family: monospace, monospace;
         font-size: 8pt;
         option.all {
@@ -737,6 +737,30 @@ button.tiny {
         option.secondaryQth {
             color: #888;
         }
+    }
+    label[for="form_listener"] {
+        line-height: 1.8em;
+        text-align: left;
+        font-size: 90% !important;
+        float: left;
+        width: @width[label];
+        font-weight: bold !important;
+        padding: 0 !important;
+        margin: 0px !important;
+    }
+    #form_listener_invert {
+        width: @width[label];
+        padding: 0 0 0 0.25em !important;
+        height: auto !important;
+        label {
+            padding: 0 0 0 0.25em !important;
+        }
+    }
+    #listener_selection_help {
+        width: 100px !important;
+        margin: 0.5em 0 0 1em;
+        font-size: 80% !important;
+        font-style: italic;
     }
     label[for="form_khz_1"] {
         width: auto !important;
@@ -787,7 +811,7 @@ fieldset#form_range_units {
 fieldset#form_types{
     legend {
         text-align: left;
-        width: 100px;
+        width: @width[label];
     }
 }
 fieldset#form_range_units {
