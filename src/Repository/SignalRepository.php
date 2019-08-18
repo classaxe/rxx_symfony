@@ -13,7 +13,7 @@ class SignalRepository extends ServiceEntityRepository
 {
     private $args;
     private $connection;
-    private $debug = true;
+    private $debug = false;
     private $query = [
         'from' =>   [],
         'having' => [],
