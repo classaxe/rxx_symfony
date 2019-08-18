@@ -1,7 +1,7 @@
 /*!
 * Project:   RXX - NDB Logging Database
 * Homepage:  https://rxx.classaxe.com
-* Date:      2019-08-11
+* Date:      2019-08-17
 * Licence:   LGPL
 * Copyright: 2019 Martin Francis
 */
@@ -688,7 +688,7 @@ button.tiny {
   text-align: left;
   font-size: 90%;
   float: left;
-  width: 115px;
+  width: 120px;
   font-weight: bold;
   padding: 0;
 }
@@ -754,14 +754,14 @@ button.tiny {
 }
 .listener_list input[type='text'],
 .listener_list select {
-  width: 395px;
+  width: 390px;
 }
 .signal_list {
   width: 560px;
 }
 .signal_list input[type='text'],
 .signal_list select {
-  width: 430px;
+  width: 425px;
 }
 .signal_list #form_call {
   width: 50px;
@@ -775,6 +775,7 @@ button.tiny {
 }
 .signal_list #form_listener {
   overflow: auto;
+  margin: 0 0 0.25em 0;
   height: 160px;
   font-family: monospace, monospace;
   font-size: 8pt;
@@ -797,13 +798,13 @@ button.tiny {
   text-align: left;
   font-size: 90% !important;
   float: left;
-  width: 115px;
+  width: 120px;
   font-weight: bold !important;
   padding: 0 !important;
   margin: 0px !important;
 }
 .signal_list #form_listener_invert {
-  width: 115px;
+  width: 120px;
   padding: 0 0 0 0.25em !important;
   height: auto !important;
 }
@@ -815,6 +816,30 @@ button.tiny {
   margin: 0.5em 0 0 1em;
   font-size: 80% !important;
   font-style: italic;
+}
+.signal_list #form_heard_in {
+  width: 290px;
+}
+.signal_list #form_heard_in_mod {
+  display: inline-block;
+  float: right;
+  text-align: right !important;
+  width: 130px !important;
+}
+.signal_list #form_heard_in_mod div {
+  padding: 0 0 0 0.5em;
+}
+.signal_list #form_logged_date_1,
+.signal_list #form_logged_date_2,
+.signal_list #form_logged_first_1,
+.signal_list #form_logged_first_2,
+.signal_list #form_logged_last_1,
+.signal_list #form_logged_last_2 {
+  width: 95px;
+  padding: 0 1.75em 0 0.25em !important;
+  background: #ffffff url("/image/calendar.png") no-repeat;
+  background-size: auto 100%;
+  background-position: right;
 }
 .signal_list label[for="form_khz_1"] {
   width: auto !important;
@@ -860,7 +885,7 @@ fieldset#form_range_units legend {
 }
 fieldset#form_types legend {
   text-align: left;
-  width: 115px;
+  width: 120px;
 }
 fieldset#form_range_units legend {
   text-align: right;

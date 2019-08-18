@@ -52,8 +52,21 @@
                             {{ form_widget(form.listener_invert) }}
                             <div id="listener_selection_help">{% trans %}Use SHIFT or CONTROL to select multiple values{% endtrans %}</div>
                         </div>
-
                         {{ form_widget(form.listener) }}
+                    </div>
+                    <div>{{ form_label(form.heard_in) }}{{ form_widget(form.heard_in) }}
+                    {{ form_widget(form.heard_in_mod) }}</div>
+                    <div>
+                        {{  form_label(form.logged_date_1) }}
+                        {{  form_widget(form.logged_date_1) }} <span>-</span> {{  form_widget(form.logged_date_2) }}
+                    </div>
+                    <div>
+                        {{  form_label(form.logged_first_1) }}
+                        {{  form_widget(form.logged_first_1) }} <span>-</span> {{  form_widget(form.logged_first_2) }}
+                    </div>
+                    <div>
+                        {{  form_label(form.logged_last_1) }}
+                        {{  form_widget(form.logged_last_1) }} <span>-</span> {{  form_widget(form.logged_last_2) }}
                     </div>
                 </fieldset>
                 <fieldset class="actionButtons">

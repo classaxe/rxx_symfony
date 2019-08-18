@@ -5,7 +5,7 @@
     listenersForm:  525px;
     signalsForm:    560px;
     logonForm:      300px;
-    label:          115px;
+    label:          120px;
 }
 // Global Settings
 @white:             #ffffff;
@@ -721,6 +721,7 @@ button.tiny {
     }
     #form_listener {
         overflow: auto;
+        margin: 0 0 0.25em 0;
         height: 160px;
         font-family: monospace, monospace;
         font-size: 8pt;
@@ -761,6 +762,30 @@ button.tiny {
         margin: 0.5em 0 0 1em;
         font-size: 80% !important;
         font-style: italic;
+    }
+    #form_heard_in {
+        width: @width[signalsForm] - @width[label] - 150
+    }
+    #form_heard_in_mod {
+        display:inline-block;
+        float: right;
+        text-align: right !important;
+        width:130px !important;
+    }
+    #form_heard_in_mod div {
+        padding: 0 0 0 0.5em;
+    }
+    #form_logged_date_1,
+    #form_logged_date_2,
+    #form_logged_first_1,
+    #form_logged_first_2,
+    #form_logged_last_1,
+    #form_logged_last_2 {
+        width: 95px;
+        padding: 0 1.75em 0 0.25em !important;
+        background: #ffffff url("/image/calendar.png") no-repeat;
+        background-size: auto 100%;
+        background-position: right;
     }
     label[for="form_khz_1"] {
         width: auto !important;

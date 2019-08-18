@@ -366,6 +366,22 @@ function setFormListenerInvertDefault() {
     }
 }
 
+function setFormHeardInModDefault() {
+    if ($('fieldset#form_heard_in_mod div :radio:checked').length == 0) {
+        $('fieldset#form_heard_in_mod div :radio[value="any"]').prop('checked', true);
+    }
+}
+
+function setDatePickers() {
+    $.datepicker.setDefaults({
+        changeMonth: true,
+        changeYear: true,
+        dateFormat: 'yy-mm-dd',
+        yearRange: '1980:+0'
+    });
+    $('.js-datepicker').datepicker({
+    });
+}
 /* [ Enable Region change to resubmit form ] */
 function setFormRegionAction(enable) {
     enable = typeof enable !== 'undefined' ? enable : true;
@@ -382,18 +398,38 @@ function setFormResetAction(form) {
     switch (form) {
         case 'signals':
             $('button[type="reset"]').click(function () {
+                setFormRegionAction(false);
+
                 $('#form_types div :checkbox').prop('checked', false);
                 $('#form_types div :checkbox[value=type_NDB]').prop('checked', true);
                 $('#form_call').val('');
                 $('#form_khz_1').val('');
                 $('#form_khz_2').val('');
                 $('#form_channels').prop('selectedIndex', 0);
-                setFormRegionAction(false);
+
                 $('#form_states').val('');
                 $('#form_sp_itu_clause').prop('selectedIndex', 0);
                 $('#form_countries').val('');
                 $('#form_region').prop('selectedIndex', 0);
+                $('#form_gsq').val('');
+                $('#form_range_gsq').val('');
+                $('#form_range_min').val('');
+                $('#form_range_max').val('');
+                $('#form_range_units_0').prop('checked', 1);
+                $('#form_range_gsq').trigger('keyup');
+                $('#form_range_min').trigger('keyup');
+
                 $('#form_listener').prop('selectedIndex', 0);
+                $('#form_listener_invert_0').prop('checked', 1);
+                $('#form_heard_in').val('');
+                $('#form_heard_in_mod_0').prop('checked', 1);
+                $('#form_logged_date_1').val('');
+                $('#form_logged_date_2').val('');
+                $('#form_logged_first_1').val('');
+                $('#form_logged_first_2').val('');
+                $('#form_logged_last_1').val('');
+                $('#form_logged_last_2').val('');
+
                 setFormRegionAction(true);
                 return false;
             });

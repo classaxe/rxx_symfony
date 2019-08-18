@@ -13,7 +13,7 @@ class SignalRepository extends ServiceEntityRepository
 {
     private $args;
     private $connection;
-    private $debug = false;
+    private $debug = true;
     private $query = [
         'from' =>   [],
         'having' => [],
@@ -76,7 +76,25 @@ class SignalRepository extends ServiceEntityRepository
     {
         if (isset($this->args['gsq']) && $this->args['gsq'] !== '') {
             $gsq = explode(" ", str_replace('*', '%', $this->args['gsq']));
-            $this->query['where'][] = "(s.gsq LIKE '" . implode($gsq, "%' OR s.gsq LIKE '") . "%')";
+            $in = $this->buildInParamsList('gsq', $gsq, '', '%');
+            $this->query['where'][] = "s.gsq LIKE " . implode($in, " OR s.gsq LIKE ");
+        }
+        return $this;
+    }
+
+    private function addFilterHeardIn()
+    {
+        if (isset($this->args['heard_in'])) {
+            $heard_in_arr = explode(' ', $this->args['heard_in']);
+            if (isset($this->args['heard_in_mod']) && $this->args['heard_in_mod'] === 'any') {
+                $in = $this->buildInParamsList('heard_in', $heard_in_arr);
+                $this->query['where'][] =
+                    "l.heard_in IN (" . implode(', ', $in) . ")";
+            } else {
+                $in = $this->buildInParamsList('heard_in', $heard_in_arr, '%', '%');
+                $this->query['where'][] =
+                    "s.heard_in LIKE " . implode(' AND s.heard_in LIKE ', $in);
+            }
         }
         return $this;
     }
@@ -89,25 +107,69 @@ class SignalRepository extends ServiceEntityRepository
             return $this;
         }
         if (isset($this->args['listener'])) {
+            $in = $this->buildInParamsList('heard_by', $this->args['listener']);
             if (isset($this->args['listener_invert'])) {
                 $this->query['where'][] =
-                    "`s`.`id` NOT IN(
-                        SELECT
-                            DISTINCT s2.id
-                        FROM
-                           signals s2
-                        INNER JOIN logs l2 ON
-                           s2.id = l2.signalID
-                        WHERE
-                           `l2`.`listenerID` IN(" . implode(',', $this->args['listener']) . ")
-                    )";
+"s.id NOT IN(
+        SELECT
+           DISTINCT s2.id
+        FROM
+           signals s2
+        INNER JOIN logs l2 ON
+           s2.id = l2.signalID
+        WHERE
+           l2.listenerID IN(" . implode(',', $in) . ")
+    )";
             } else {
                 $this->query['where'][] =
-                    "`l`.`listenerId` IN (" . implode(',', $this->args['listener']) . ")";
+                    "l.listenerId IN (" . implode(',', $in) . ")";
             }
         }
         return $this;
     }
+
+    private function addFilterLoggedDate()
+    {
+        if (isset($this->args['logged_date_1']) || isset($this->args['logged_date_2'])) {
+            $this->query['where'][] = "l.date between :logged_date_1 AND :logged_date_2";
+            $this->query['param']['logged_date_1'] = (isset($this->args['logged_date_1']) ?
+                $this->args['logged_date_1']->format('Y-m-d') : "1900-01-01"
+            );
+            $this->query['param']['logged_date_2'] = (isset($this->args['logged_date_2']) ?
+                $this->args['logged_date_2']->format('Y-m-d') : "2100-01-01"
+            );
+        }
+        return $this;
+    }
+
+    private function addFilterLoggedFirst()
+    {
+        if (isset($this->args['logged_first_1']) || isset($this->args['logged_first_2'])) {
+            $this->query['where'][] = "s.first_heard between :logged_first_1 AND :logged_first_2";
+            $this->query['param']['logged_first_1'] = (isset($this->args['logged_first_1']) ?
+                $this->args['logged_first_1']->format('Y-m-d') : "1900-01-01"
+            );
+            $this->query['param']['logged_first_2'] = (isset($this->args['logged_first_2']) ?
+                $this->args['logged_first_2']->format('Y-m-d') : "2100-01-01"
+            );
+        }
+        return $this;
+    }
+
+    private function addFilterLoggedLast()
+    {
+        if (isset($this->args['logged_last_1']) || isset($this->args['logged_last_2'])) {
+            $this->query['where'][] = "s.last_heard between :logged_last_1 AND :logged_last_2";
+            $this->query['param']['logged_last_1'] = (isset($this->args['logged_last_1']) ?
+                $this->args['logged_last_1']->format('Y-m-d') : "1900-01-01"
+            );
+            $this->query['param']['logged_last_2'] = (isset($this->args['logged_last_2']) ?
+                $this->args['logged_last_2']->format('Y-m-d') : "2100-01-01"
+            );
+        }
+        return $this;
+    }
+
     private function addFilterRange()
     {
         if (isset($this->args['range_gsq']) &&
@@ -124,20 +186,20 @@ class SignalRepository extends ServiceEntityRepository
                     $lat_lon = Rxx::convertGsqToDegrees($this->args['range_gsq'])
                 ) {
                     $this->query['where'][] =
-                        "(CAST(\n"
-                        . "  COALESCE(\n"
-                        . "    ROUND(\n"
-                        . "      DEGREES(\n"
-                        . "        ACOS(\n"
-                        . "          (SIN(RADIANS(:lat)) * SIN(RADIANS(s.lat))) + \n"
-                        . "          (COS(RADIANS(:lat)) * COS(RADIANS(s.lat)) * COS(RADIANS(:lon - s.lon)))\n"
-                        . "        )\n"
-                        . "      ) * ".$mult.",\n"
-                        . "      2\n"
-                        . "    ), ''\n"
-                        . "  ) AS UNSIGNED\n"
-                        . ") BETWEEN :min AND :max AND\n"
-                        . "(s.lat != 0 AND s.lon != 0))";
+                        "s.lat != 0 AND s.lon != 0) AND\n"
+                        . "    (CAST(\n"
+                        . "      COALESCE(\n"
+                        . "        ROUND(\n"
+                        . "          DEGREES(\n"
+                        . "            ACOS(\n"
+                        . "              (SIN(RADIANS(:lat)) * SIN(RADIANS(s.lat))) + \n"
+                        . "                (COS(RADIANS(:lat)) * COS(RADIANS(s.lat)) * COS(RADIANS(:lon - s.lon)))\n"
+                        . "              )\n"
+                        . "            ) * ".$mult.",\n"
+                        . "          2\n"
+                        . "        ), ''\n"
+                        . "      ) AS UNSIGNED\n"
+                        . "    ) BETWEEN :min AND :max";
                     $this->query['param']['lat'] = $lat_lon['lat'];
                     $this->query['param']['lon'] = $lat_lon['lon'];
                     $this->query['param']['min'] = $min;
@@ -162,11 +224,13 @@ class SignalRepository extends ServiceEntityRepository
         $clauses = [];
         if (isset($this->args['countries']) && $this->args['countries'] !== '') {
             $countries = explode(" ", str_replace('*', '%', $this->args['countries']));
-            $clauses[] = "(s.itu LIKE '" . implode($countries, "' OR s.itu LIKE '") . "')";
+            $in = $this->buildInParamsList('countries', $countries);
+            $clauses[] = "(s.itu LIKE " . implode($in, " OR s.itu LIKE ") . ")";
         }
         if (isset($this->args['states']) && $this->args['states'] !== '') {
             $states = explode(" ", str_replace('*', '%', $this->args['states']));
-            $clauses[] = "(s.sp LIKE '" . implode($states, "' OR s.sp LIKE '") . "')";
+            $in = $this->buildInParamsList('states', $states);
+            $clauses[] = "(s.sp LIKE " . implode($in, " OR s.sp LIKE ") . ")";
         }
         switch (count($clauses)) {
             case 0:
@@ -175,7 +239,7 @@ class SignalRepository extends ServiceEntityRepository
                 $this->query['where'][] = $clauses[0];
                 break;
             case 2:
-                $this->query['where'][] = '(' . $clauses[0] . $this->args['sp_itu_clause'] . $clauses[1] . ')';
+                $this->query['where'][] = $clauses[0] . " " . $this->args['sp_itu_clause'] . " " . $clauses[1];
                 break;
         }
         return $this;
@@ -185,10 +249,10 @@ class SignalRepository extends ServiceEntityRepository
     {
         switch ($this->system) {
             case "reu":
-                $this->query['where'][] ='(s.heard_in_eu = 1)';
+                $this->query['where'][] ='s.heard_in_eu = 1';
                 break;
             case "rna":
-                $this->query['where'][] ='(s.heard_in_na = 1) or (s.heard_in_ca = 1)';
+                $this->query['where'][] ='s.heard_in_na = 1 OR s.heard_in_ca = 1';
                 break;
         }
         return $this;
@@ -196,25 +260,31 @@ class SignalRepository extends ServiceEntityRepository
 
     private function addFilterTypes()
     {
-        $this->query['where'][] =
-            "s.type IN("
-            .implode(',', $this->args['signalTypes'])
-            .")";
+        $in = $this->buildInParamsList('types', $this->args['signalTypes'], '', '');
+        $this->query['where'][] = "s.type IN(" . implode(',', $in).")";
         return $this;
     }
 
     private function addFromTables()
     {
-        if (isset($this->args['listener'])) {
+        if (
+            isset($this->args['listener']) ||
+            isset($this->args['heard_in']) ||
+            isset($this->args['logged_date_1']) ||
+            isset($this->args['logged_date_2']) ||
+            isset($this->args['first_logged_1']) ||
+            isset($this->args['first_logged_2']) ||
+            isset($this->args['last_logged_1']) ||
+            isset($this->args['last_logged_2'])
+        ) {
             $this->query['from'][] =
-                "`signals` `s`\n"
-                . "INNER JOIN `logs` `l` ON\n"
-                . "    `s`.`id` = `l`.`signalID`";
+                "signals AS s\n"
+                . "INNER JOIN logs AS l ON\n"
+                . "    s.id = l.signalID";
 
-            return $this;
+        } else {
+            $this->query['from'][] =    'signals AS s';
         }
-
-        $this->query['from'][] =    '`signals` `s`';
         return $this;
     }
 
@@ -297,25 +367,25 @@ class SignalRepository extends ServiceEntityRepository
             $lat_lon = Rxx::convertGsqToDegrees($this->args['range_gsq'])
         ) {
             $this->query['select'][] =
-                  "  CAST(\n"
-                . "    COALESCE(\n"
-                . "      ROUND(\n"
-                . "        (\n"
-                . "          DEGREES(\n"
-                . "            ATAN2(\n"
-                . "              (SIN(RADIANS(s.lon) - RADIANS(:lon)) * COS(RADIANS(s.lat))),\n"
-                . "              ((COS(RADIANS(:lat)) * SIN(RADIANS(s.lat))) - SIN(RADIANS(:lat)) * COS(RADIANS(s.lat)) * COS(RADIANS(s.lon) - RADIANS(:lon)))\n"
-                . "            )\n"
-                . "          ) + 360\n"
-                . "        ) MOD 360\n"
-                . "      ),\n"
-                . "      ''\n"
-                . "    ) AS UNSIGNED\n"
-                . "  ) AS `range_deg`\n";
+                  "CAST(\n"
+                . "      COALESCE(\n"
+                . "         ROUND(\n"
+                . "          (\n"
+                . "            DEGREES(\n"
+                . "              ATAN2(\n"
+                . "                (SIN(RADIANS(s.lon) - RADIANS(:lon)) * COS(RADIANS(s.lat))),\n"
+                . "                ((COS(RADIANS(:lat)) * SIN(RADIANS(s.lat))) - SIN(RADIANS(:lat)) * COS(RADIANS(s.lat)) * COS(RADIANS(s.lon) - RADIANS(:lon)))\n"
+                . "              )\n"
+                . "            ) + 360\n"
+                . "          ) MOD 360\n"
+                . "        ),\n"
+                . "        ''\n"
+                . "       ) AS UNSIGNED\n"
+                . "    ) AS range_deg";
             $this->query['param']['lat'] = $lat_lon['lat'];
             $this->query['param']['lon'] = $lat_lon['lon'];
         } else {
-            $this->query['select'][] = "NULL AS `range_deg`";
+            $this->query['select'][] = "NULL AS range_deg";
         }
         return $this;
     }
@@ -327,22 +397,22 @@ class SignalRepository extends ServiceEntityRepository
         ) {
             $this->query['select'][] =
                   "CAST(\n"
-                . "  COALESCE(\n"
-                . "    ROUND(\n"
-                . "      DEGREES(\n"
-                . "        ACOS(\n"
-                . "          (SIN(RADIANS(:lat)) * SIN(RADIANS(s.lat))) + \n"
-                . "          (COS(RADIANS(:lat)) * COS(RADIANS(s.lat)) * COS(RADIANS(:lon - s.lon)))\n"
-                . "        )\n"
-                . "      ) * ".RXX::DEG_KM_MULTIPLIER.",\n"
-                . "      2\n"
-                . "    ), ''\n"
-                . "  ) AS UNSIGNED\n"
-                . ") AS range_km";
+                . "      COALESCE(\n"
+                . "        ROUND(\n"
+                . "          DEGREES(\n"
+                . "            ACOS(\n"
+                . "              (SIN(RADIANS(:lat)) * SIN(RADIANS(s.lat))) + \n"
+                . "              (COS(RADIANS(:lat)) * COS(RADIANS(s.lat)) * COS(RADIANS(:lon - s.lon)))\n"
+                . "            )\n"
+                . "          ) * ".RXX::DEG_KM_MULTIPLIER.",\n"
+                . "          2\n"
+                . "        ), ''\n"
+                . "      ) AS UNSIGNED\n"
+                . "    ) AS range_km";
             $this->query['param']['lat'] = $lat_lon['lat'];
             $this->query['param']['lon'] = $lat_lon['lon'];
         } else {
-            $this->query['select'][] = "NULL AS `range_km`";
+            $this->query['select'][] = "NULL AS range_km";
         }
         return $this;
     }
@@ -354,22 +424,22 @@ class SignalRepository extends ServiceEntityRepository
         ) {
             $this->query['select'][] =
                   "CAST(\n"
-                . "  COALESCE(\n"
-                . "    ROUND(\n"
-                . "      DEGREES(\n"
-                . "        ACOS(\n"
-                . "          (SIN(RADIANS(:lat)) * SIN(RADIANS(s.lat))) + \n"
-                . "          (COS(RADIANS(:lat)) * COS(RADIANS(s.lat)) * COS(RADIANS(:lon - s.lon)))\n"
-                . "        )\n"
-                . "      ) * ".RXX::DEG_MI_MULTIPLIER.",\n"
-                . "      2\n"
-                . "    ), ''\n"
-                . "  ) AS UNSIGNED\n"
-                . ") AS range_mi";
+                . "      COALESCE(\n"
+                . "        ROUND(\n"
+                . "          DEGREES(\n"
+                . "            ACOS(\n"
+                . "              (SIN(RADIANS(:lat)) * SIN(RADIANS(s.lat))) + \n"
+                . "              (COS(RADIANS(:lat)) * COS(RADIANS(s.lat)) * COS(RADIANS(:lon - s.lon)))\n"
+                . "            )\n"
+                . "          ) * ".RXX::DEG_MI_MULTIPLIER.",\n"
+                . "          2\n"
+                . "        ), ''\n"
+                . "      ) AS UNSIGNED\n"
+                . "    ) AS range_mi";
             $this->query['param']['lat'] = $lat_lon['lat'];
             $this->query['param']['lon'] = $lat_lon['lon'];
         } else {
-            $this->query['select'][] = "NULL AS `range_mi`";
+            $this->query['select'][] = "NULL AS range_mi";
         }
         return $this;
     }
@@ -386,15 +456,41 @@ class SignalRepository extends ServiceEntityRepository
 
     private function addSelectColumnsAllSignal()
     {
-        $this->query['select'][] = (isset($this->args['listener']) ? "DISTINCT s.*" : "s.*");
+        $this->query['select'][] = (
+            isset($this->args['listener']) ||
+            isset($this->args['heard_in']) ||
+            isset($this->args['logged_date_1']) ||
+            isset($this->args['logged_date_2'])
+         ?
+            "DISTINCT s.*" : "s.*"
+        );
         return $this;
     }
 
     private function addSelectColumnCountSignal()
     {
         $this->query['select'][] =
-            "COUNT(" . (isset($this->args['listener']) ? "DISTINCT s.id" : "*") . ") AS `count`";
+            "COUNT(" . (
+                isset($this->args['listener']) ||
+                isset($this->args['heard_in']) ||
+                isset($this->args['logged_date_1']) ||
+                isset($this->args['logged_date_2'])
+            ?
+                "DISTINCT s.id" : "*"
+            )
+            . ") AS count";
         return $this;
+    }
+
+    private function buildInParamsList($key, $values, $prefix = '', $suffix = '')
+    {
+        $in = [];
+        foreach($values as $idx => $value) {
+            $param = $key . '_' . $idx;
+            $in[] = ":" . $param;
+            $this->query['param'][$param] = $prefix . $value . $suffix;
+        }
+        return $in;
     }
 
     private function buildQuery()
@@ -441,10 +537,16 @@ class SignalRepository extends ServiceEntityRepository
         $this->query['select'] =    [];
         $this->query['where'] =     [];
 
-        if ($this->debug) {
-            print "<pre>" . print_r($sql, true) . "</pre>";
-        }
         return $sql;
+    }
+
+    public function debugQuery($sql, $params)
+    {
+        $sql_view = $sql;
+        foreach ($params as $key => $value) {
+            $sql_view = str_replace(':' . $key, "***'" . $value . "'***", $sql_view);
+        }
+        return "<pre>" . $sql_view . "</pre>";
     }
 
     public function getColumns()
@@ -474,7 +576,11 @@ class SignalRepository extends ServiceEntityRepository
             ->addFilterChannels()
             ->addFilterFreq()
             ->addFilterGsq()
+            ->addFilterHeardIn()
             ->addFilterListeners()
+            ->addFilterLoggedDate()
+            ->addFilterLoggedFirst()
+            ->addFilterLoggedLast()
             ->addFilterRange()
             ->addFilterRegion()
             ->addFilterStatesAndCountries()
@@ -490,6 +596,11 @@ class SignalRepository extends ServiceEntityRepository
         $sql = $this->buildQuery();
 
         $stmt = $this->connection->prepare($sql);
+
+        if ($this->debug) {
+            print $this->debugQuery($sql, $this->query['param']);
+        }
+
         foreach ($this->query['param'] as $key => $value) {
             $stmt->bindValue($key, $value);
         }
@@ -513,7 +624,11 @@ class SignalRepository extends ServiceEntityRepository
             ->addFilterChannels()
             ->addFilterFreq()
             ->addFilterGsq()
+            ->addFilterHeardIn()
             ->addFilterListeners()
+            ->addFilterLoggedDate()
+            ->addFilterLoggedFirst()
+            ->addFilterLoggedLast()
             ->addFilterRange()
             ->addFilterRegion()
             ->addFilterStatesAndCountries()
@@ -522,6 +637,10 @@ class SignalRepository extends ServiceEntityRepository
         ;
 
         $sql = $this->buildQuery();
+
+        if ($this->debug) {
+            print $this->debugQuery($sql, $this->query['param']);
+        }
 
         $stmt = $this->connection->prepare($sql);
         foreach ($this->query['param'] as $key => $value) {
@@ -536,6 +655,9 @@ class SignalRepository extends ServiceEntityRepository
     private function setArgs($system, $args)
     {
         $this->system = $system;
+        if (isset($args['heard_in']) && trim($args['heard_in']) === '') {
+            unset($args['heard_in']);
+        }
         if (isset($args['listener']) && (!$args['listener'] || in_array('', $args['listener']))) {
             unset($args['listener']);
         }

@@ -82,7 +82,7 @@ class Collection extends Base
             'sort' =>           static::defaultSorting,
             'region' =>         (isset($_REQUEST['form']['region']) ? $_REQUEST['form']['region'] : ''),
             'system' =>         $system,
-            'total' =>          static::maxNoPaging // forces paging - will be made accurate later on
+            'total' =>          $signalRepository->getFilteredSignalsCount($system, $args) // forces paging - will be made accurate later on
         ];
         $form = $form->buildForm($this->createFormBuilder(), $options);
         $form->handleRequest($request);
@@ -92,9 +92,9 @@ class Collection extends Base
         if (empty($args['types'])) {
             $args['types'][] = 'type_NDB';
         }
-        $args['signalTypes'] = $typeRepository->getSignalTypesSearched($args['types']);
-        $signals =      $signalRepository->getFilteredSignals($system, $args);
-        $total =        $signalRepository->getFilteredSignalsCount($system, $args);
+        $args['signalTypes'] =  $typeRepository->getSignalTypesSearched($args['types']);
+        $signals =              $signalRepository->getFilteredSignals($system, $args);
+        $total =                $signalRepository->getFilteredSignalsCount($system, $args);
 
         $parameters = [
             'args' =>               $args,

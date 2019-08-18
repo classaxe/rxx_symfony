@@ -16,6 +16,7 @@ use App\Repository\TypeRepository;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\RadioType;
 use Symfony\Component\Form\Extension\Core\Type\ResetType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -227,7 +228,7 @@ class Collection extends Base
                 'listener',
                 ChoiceType::class,
                 [
-                    'choices'       => $this->listener->getAllOptions($system, $region),
+                    'choices'       => $this->listener->getAllOptions($system),
                     'expanded'      => false,
                     'label'         => 'Listener(s)',
                     'multiple'      => true,
@@ -247,6 +248,94 @@ class Collection extends Base
                     'placeholder'   => false,
                     'required'      => false,
                     'attr'          => []
+                ]
+            )
+            ->add(
+                'heard_in',
+                TextType::class,
+                [
+                    'label'         => 'Heard here',
+                    'required'      => false
+                ]
+            )
+            ->add(
+                'heard_in_mod',
+                ChoiceType::class,
+                [
+                    'choices' => [
+                        'Any'       => 'any',
+                        'All'       => 'all'
+                    ],
+                    'expanded'      => true,
+                    'placeholder'   => false,
+                    'required'      => false,
+                    'attr'          => []
+                ]
+            )
+            ->add(
+                'logged_date_1',
+                DateType::class,
+                [
+                    'label'         => 'Logged Between',
+                    'widget'        => 'single_text',
+                    'html5'         => false,
+                    'required'      => false,
+                    'attr'          => [ 'class' => 'js-datepicker' ]
+                ]
+            )
+            ->add(
+                'logged_date_2',
+                DateType::class,
+                [
+                    'label'         => '',
+                    'widget'        => 'single_text',
+                    'html5'         => false,
+                    'required'      => false,
+                    'attr'          => [ 'class' => 'js-datepicker' ]
+                ]
+            )
+            ->add(
+                'logged_first_1',
+                DateType::class,
+                [
+                    'label'         => 'First Logged',
+                    'widget'        => 'single_text',
+                    'html5'         => false,
+                    'required'      => false,
+                    'attr'          => [ 'class' => 'js-datepicker' ]
+                ]
+            )
+            ->add(
+                'logged_first_2',
+                DateType::class,
+                [
+                    'label'         => '',
+                    'widget'        => 'single_text',
+                    'html5'         => false,
+                    'required'      => false,
+                    'attr'          => [ 'class' => 'js-datepicker' ]
+                ]
+            )
+            ->add(
+                'logged_last_1',
+                DateType::class,
+                [
+                    'label'         => 'Last Logged',
+                    'widget'        => 'single_text',
+                    'html5'         => false,
+                    'required'      => false,
+                    'attr'          => [ 'class' => 'js-datepicker' ]
+                ]
+            )
+            ->add(
+                'logged_last_2',
+                DateType::class,
+                [
+                    'label'         => '',
+                    'widget'        => 'single_text',
+                    'html5'         => false,
+                    'required'      => false,
+                    'attr'          => [ 'class' => 'js-datepicker' ]
                 ]
             )
             ->add(
