@@ -270,6 +270,7 @@ class Collection extends Base
                     'label'         => 'Listener(s)',
                     'multiple'      => true,
                     'required'      => false,
+                    'choice_translation_domain' => false,
                     'attr'          => [ 'class' => 'multiple', 'multiple' => 'multiple']
                 ]
             )
@@ -291,7 +292,7 @@ class Collection extends Base
                 'heard_in',
                 TextType::class,
                 [
-                    'label'         => 'Heard here',
+                    'label'         => 'Heard Here',
                     'required'      => false
                 ]
             )
