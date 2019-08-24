@@ -119,7 +119,7 @@ class SignalRepository extends ServiceEntityRepository
             $in = $this->buildInParamsList('heard_by', $this->args['listener']);
             if (isset($this->args['listener_invert'])) {
                 $this->query['where'][] =
-"s.id NOT IN(
+                    "s.id NOT IN(
         SELECT
            DISTINCT s2.id
         FROM
@@ -329,18 +329,27 @@ class SignalRepository extends ServiceEntityRepository
         return $this;
     }
 
-    private function addOrderSelected()
+    private function addOrderPrioritizeSelected()
     {
         if ($this->signalsColumns[$this->args['sort']]['sort']) {
-            $this
-                ->addOrder(
-                    '_empty',
-                    'ASC'
-                )
-                ->addOrder(
-                    ($this->signalsColumns[$this->args['sort']]['sort']),
-                    ($this->args['order'] == 'd' ? 'DESC' : 'ASC')
+            $this->addOrder(
+                '_empty',
+                'ASC'
+            );
+            if (in_array($this->args['sort'], ['LSB', 'USB']) &&
+                isset($this->args['offsets']) &&
+                $this->args['offsets'] === '1'
+            ) {
+                $this->addOrder(
+                    ('s.khz ' . ($this->args['sort'] === 'USB' ? '+' : '-') . ' (s.' . $this->args['sort'].'/1000)'),
+                    ($this->args['order'] === 'd' ? 'DESC' : 'ASC')
                 );
+            } else {
+                $this->addOrder(
+                    ($this->signalsColumns[$this->args['sort']]['sort']),
+                    ($this->args['order'] === 'd' ? 'DESC' : 'ASC')
+                );
+            }
         }
         return $this;
     }
@@ -351,7 +360,7 @@ class SignalRepository extends ServiceEntityRepository
             $lat_lon = Rxx::convertGsqToDegrees($this->args['range_gsq'])
         ) {
             $this->query['select'][] =
-                  "CAST(\n"
+                "CAST(\n"
                 . "      COALESCE(\n"
                 . "         ROUND(\n"
                 . "          (\n"
@@ -380,7 +389,7 @@ class SignalRepository extends ServiceEntityRepository
             $lat_lon = Rxx::convertGsqToDegrees($this->args['range_gsq'])
         ) {
             $this->query['select'][] =
-                  "CAST(\n"
+                "CAST(\n"
                 . "      COALESCE(\n"
                 . "        ROUND(\n"
                 . "          DEGREES(\n"
@@ -401,13 +410,26 @@ class SignalRepository extends ServiceEntityRepository
         return $this;
     }
 
-    private function addSelectColumnRangeMiles() {
+    private function addSelectColumnsOffsets()
+    {
+        if (isset($this->args['offsets']) && $this->args['offsets'] === '1') {
+            $this->query['select'][] = "ROUND(s.khz - (s.LSB/1000), 3) as LSB";
+            $this->query['select'][] = "ROUND(s.khz + (s.USB/1000), 3) as USB";
+        } else {
+            $this->query['select'][] = "LSB as LSB";
+            $this->query['select'][] = "USB as USB";
+        }
+        return $this;
+    }
+
+    private function addSelectColumnRangeMiles()
+    {
         if (isset($this->args['range_gsq']) &&
             $this->args['range_gsq'] !== '' &&
             $lat_lon = Rxx::convertGsqToDegrees($this->args['range_gsq'])
         ) {
             $this->query['select'][] =
-                  "CAST(\n"
+                "CAST(\n"
                 . "      COALESCE(\n"
                 . "        ROUND(\n"
                 . "          DEGREES(\n"
@@ -470,11 +492,11 @@ class SignalRepository extends ServiceEntityRepository
     private function addSelectColumnsAllSignal()
     {
         $this->query['select'][] = (
-            isset($this->args['listener']) ||
-            isset($this->args['heard_in']) ||
-            isset($this->args['logged_date_1']) ||
-            isset($this->args['logged_date_2'])
-         ?
+        isset($this->args['listener']) ||
+        isset($this->args['heard_in']) ||
+        isset($this->args['logged_date_1']) ||
+        isset($this->args['logged_date_2'])
+            ?
             "DISTINCT s.*" : "s.*"
         );
         return $this;
@@ -484,11 +506,11 @@ class SignalRepository extends ServiceEntityRepository
     {
         $this->query['select'][] =
             "COUNT(" . (
-                isset($this->args['listener']) ||
-                isset($this->args['heard_in']) ||
-                isset($this->args['logged_date_1']) ||
-                isset($this->args['logged_date_2'])
-            ?
+            isset($this->args['listener']) ||
+            isset($this->args['heard_in']) ||
+            isset($this->args['logged_date_1']) ||
+            isset($this->args['logged_date_2'])
+                ?
                 "DISTINCT s.id" : "*"
             )
             . ") AS count";
@@ -538,7 +560,7 @@ class SignalRepository extends ServiceEntityRepository
                     $this->query['having']
                 )
                 .")\n"
-             : ""
+                : ""
             )
             .($this->query['order'] ? "ORDER BY\n    ".implode(",\n    ", $this->query['order'])."\n" : "")
             .($this->query['limit'] ? "LIMIT\n    ".implode("\n    ", $this->query['limit'])."\n" : "");
@@ -575,6 +597,7 @@ class SignalRepository extends ServiceEntityRepository
             ->setArgs($system, $args)
 
             ->addSelectColumnsAllSignal()
+            ->addSelectColumnsOffsets()
             ->addSelectColumnRangeDeg()
             ->addSelectColumnRangeKm()
             ->addSelectColumnRangeMiles()
@@ -601,9 +624,9 @@ class SignalRepository extends ServiceEntityRepository
             ->addFilterSystem()
             ->addFilterTypes()
 
+            ->addOrderPrioritizeSelected()
             ->addOrderPrioritizeExactCall()
             ->addOrderPrioritizeActive()
-            ->addOrderSelected()
 
             ->addLimit($args);
 
