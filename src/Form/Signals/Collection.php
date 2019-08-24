@@ -129,6 +129,43 @@ class Collection extends Base
                 ]
             )
             ->add(
+                'active',
+                ChoiceType::class,
+                [
+                    'choices' => [
+                        'All' =>        '',
+                        'Active' =>     '1',
+                        'Inactive' =>   '2',
+                    ],
+                    'label' => 'Active Status',
+                    'required' => false
+                ]
+            )
+            ->add(
+                'show',
+                ChoiceType::class,
+                [
+                    'choices' => [
+                        'List' =>   '',
+                        'Map' =>   '1',
+                    ],
+                    'label' => 'Show',
+                    'required' => false
+                ]
+            )
+            ->add(
+                'offsets',
+                ChoiceType::class,
+                [
+                    'choices' => [
+                        'Relative' =>   '',
+                        'Absolute' =>   '1',
+                    ],
+                    'label' => 'Offsets',
+                    'required' => false
+                ]
+            )
+            ->add(
                 'states',
                 TextType::class,
                 [

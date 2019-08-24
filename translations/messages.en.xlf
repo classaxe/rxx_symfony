@@ -1845,6 +1845,38 @@
         <source>Use SHIFT or CONTROL to select multiple values</source>
         <target>Use SHIFT or CONTROL to select multiple values</target>
       </trans-unit>
+      <trans-unit id="OXMkFg6" resname="Specification">
+        <source>Specification</source>
+        <target>Specification</target>
+      </trans-unit>
+      <trans-unit id="gez0MA0" resname="Active Status">
+        <source>Active Status</source>
+        <target>Active Status</target>
+      </trans-unit>
+      <trans-unit id="kjQGlYm" resname="Active">
+        <source>Active</source>
+        <target>Active</target>
+      </trans-unit>
+      <trans-unit id="q8z85gD" resname="Inctive">
+        <source>Inctive</source>
+        <target>Inctive</target>
+      </trans-unit>
+      <trans-unit id="byAvVKe" resname="List">
+        <source>List</source>
+        <target>List</target>
+      </trans-unit>
+      <trans-unit id="iAdjX47" resname="Offsets">
+        <source>Offsets</source>
+        <target>Offsets</target>
+      </trans-unit>
+      <trans-unit id="jpnNmG_" resname="Relative">
+        <source>Relative</source>
+        <target>Relative</target>
+      </trans-unit>
+      <trans-unit id="8ohzj2B" resname="Absolute">
+        <source>Absolute</source>
+        <target>Absolute</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

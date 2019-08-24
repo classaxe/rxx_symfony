@@ -7,21 +7,38 @@
     {{ form_start(form) }}
             <div id="form">
     {% include 'forms/paging.html.twig' %}
-                {{ form_row(form.types) }}
-                <div>
-                    {{ form_label(form.call) }}
-                    {{ form_widget(form.call) }}
-                    <fieldset style="display:inline-block; width:auto; float: left;">
-                        <legend class="sr-only">{% trans %}Frequency Range{% endtrans %}</legend>
-                        {{ form_label(form.khz_1) }}
-                        {{ form_widget(form.khz_1) }}
-                        <span>-</span>
-                        <label for="form_khz_2" class="sr-only">{% trans %}Freq. 2{% endtrans %}</label>
-                        {{ form_widget(form.khz_2) }} <span>kHz</span>
-                    </fieldset>
-                    {{ form_label(form.channels) }}
-                    {{ form_widget(form.channels) }}
-                </div>
+                <fieldset style="display:inline-block; width:auto; float: left;">
+                    <legend>{% trans %}Specification{% endtrans %}</legend>
+                    {{ form_row(form.types) }}
+                    <div style="display:inline-block; width:auto">
+                        {{ form_label(form.call) }}
+                        {{ form_widget(form.call) }}
+                        <fieldset style="display:inline-block; width:auto; float: left;">
+                            <legend class="sr-only">{% trans %}Frequency Range{% endtrans %}</legend>
+                            {{ form_label(form.khz_1) }}
+                            {{ form_widget(form.khz_1) }}
+                            <span>-</span>
+                            <label for="form_khz_2" class="sr-only">{% trans %}Freq. 2{% endtrans %}</label>
+                            {{ form_widget(form.khz_2) }} <span>kHz</span>
+                        </fieldset>
+                    </div>
+                    <div style="display:inline-block; width:auto; float:right">
+                        {{ form_label(form.channels) }}
+                        {{ form_widget(form.channels) }}
+                    </div>
+                    <div style="display:inline-block; width:auto">
+                        {{ form_label(form.active) }}
+                        {{ form_widget(form.active) }}
+                    </div>
+                    <div style="display:inline-block; width:auto">
+                        {{ form_label(form.show) }}
+                        {{ form_widget(form.show) }}
+                    </div>
+                    <div style="display:inline-block; width:auto; float:right">
+                        {{ form_label(form.offsets) }}
+                        {{ form_widget(form.offsets) }}
+                    </div>
+                </fieldset>
                 <fieldset style="display:inline-block; width:auto; float: left;">
                     <legend>{% trans %}Location{% endtrans %}</legend>
                     {{ form_row(form.states) }}

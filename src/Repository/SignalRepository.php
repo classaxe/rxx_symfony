@@ -37,6 +37,15 @@ class SignalRepository extends ServiceEntityRepository
         $this->signalsColumns = $signalsColumns->getColumns();
     }
 
+    private function addFilterActive()
+    {
+        if (isset($this->args['active']) && in_array($this->args['active'], ['1', '2'])) {
+            $this->query['where'][] ='(s.active = :active)';
+            $this->query['param']['active'] = ($this->args['active'] === '2' ? 0 : 1);
+        }
+        return $this;
+    }
+
     private function addFilterCall()
     {
         if (isset($this->args['call']) && $this->args['call'] !== '') {
@@ -306,7 +315,9 @@ class SignalRepository extends ServiceEntityRepository
 
     private function addOrderPrioritizeActive()
     {
-        $this->addOrder('_active','ASC');
+        if (!isset($this->args['active']) || $this->args['active'] === '') {
+            $this->addOrder('_active','ASC');
+        }
         return $this;
     }
 
@@ -330,33 +341,6 @@ class SignalRepository extends ServiceEntityRepository
                     ($this->signalsColumns[$this->args['sort']]['sort']),
                     ($this->args['order'] == 'd' ? 'DESC' : 'ASC')
                 );
-        }
-        return $this;
-    }
-
-    private function addSelectPriotitizeActive()
-    {
-        $this->query['select'][] =
-            "(CASE WHEN s.active = 0 THEN 1 ELSE 0 END) AS _active";
-        return $this;
-    }
-
-    private function addSelectPrioritizeNonEmpty()
-    {
-        $column = $this->signalsColumns[$this->args['sort']]['sort'];
-        switch($column) {
-            case "" :
-                break;
-            case "range_deg" :
-            case "range_km" :
-            case "range_mi" :
-            $this->query['select'][] =
-                "(CASE WHEN (s.lat is null or s.lat = 0) AND (s.lon is null or s.lon = 0) THEN 1 ELSE 0 END) AS _empty";
-                break;
-            default:
-                $this->query['select'][] =
-                    "(CASE WHEN " . $column . " = '' OR " . $column . " IS NULL THEN 1 ELSE 0 END) AS _empty";
-                break;
         }
         return $this;
     }
@@ -444,12 +428,41 @@ class SignalRepository extends ServiceEntityRepository
         return $this;
     }
 
+    private function addSelectPriotitizeActive()
+    {
+        if (!isset($this->args['active']) || $this->args['active'] === '') {
+            $this->query['select'][] =
+                "(CASE WHEN s.active = 0 THEN 1 ELSE 0 END) AS _active";
+        }
+        return $this;
+    }
+
     private function addSelectPriotitizeExactCall()
     {
         if (isset($this->args['call']) && $this->args['call'] !== '') {
             $this->query['select'][] =
                 "(CASE WHEN s.call = :call THEN 1 ELSE 0 END) AS _call";
             $this->query['param']['call'] = $this->args['call'];
+        }
+        return $this;
+    }
+
+    private function addSelectPrioritizeNonEmpty()
+    {
+        $column = $this->signalsColumns[$this->args['sort']]['sort'];
+        switch($column) {
+            case "" :
+                break;
+            case "range_deg" :
+            case "range_km" :
+            case "range_mi" :
+                $this->query['select'][] =
+                    "(CASE WHEN (s.lat is null or s.lat = 0) AND (s.lon is null or s.lon = 0) THEN 1 ELSE 0 END) AS _empty";
+                break;
+            default:
+                $this->query['select'][] =
+                    "(CASE WHEN " . $column . " = '' OR " . $column . " IS NULL THEN 1 ELSE 0 END) AS _empty";
+                break;
         }
         return $this;
     }
@@ -572,6 +585,7 @@ class SignalRepository extends ServiceEntityRepository
 
             ->addFromTables()
 
+            ->addFilterActive()
             ->addFilterCall()
             ->addFilterChannels()
             ->addFilterFreq()
@@ -620,6 +634,7 @@ class SignalRepository extends ServiceEntityRepository
 
             ->addFromTables()
 
+            ->addFilterActive()
             ->addFilterCall()
             ->addFilterChannels()
             ->addFilterFreq()

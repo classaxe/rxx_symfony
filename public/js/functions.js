@@ -406,6 +406,9 @@ function setFormResetAction(form) {
                 $('#form_khz_1').val('');
                 $('#form_khz_2').val('');
                 $('#form_channels').prop('selectedIndex', 0);
+                $('#form_active').prop('selectedIndex', 0);
+                $('#form_show').prop('selectedIndex', 0);
+                $('#form_offsets').prop('selectedIndex', 0);
 
                 $('#form_states').val('');
                 $('#form_sp_itu_clause').prop('selectedIndex', 0);
