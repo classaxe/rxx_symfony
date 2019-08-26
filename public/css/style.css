@@ -294,7 +294,7 @@ body .menu-centered .language {
 body .menu-centered .system a,
 body .menu-centered .mode a,
 body .menu-centered .language a {
-  padding: 0.25em 0.5em;
+  padding: 0.25em 1em;
   font-size: 80%;
   text-align: center;
 }
@@ -314,11 +314,11 @@ body .menu-centered .language .is-active > a:hover {
   text-decoration: none;
 }
 body .menu-centered .language {
-  margin: 0.5em 0 0 145px;
-  width: 282px;
+  margin: 0.5em 0 0 125px;
+  width: 322px;
 }
 body .menu-centered .language li a {
-  width: 70px;
+  width: 80px;
 }
 /* [ Footer ] */
 .footer {
