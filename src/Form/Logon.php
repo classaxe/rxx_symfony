@@ -57,7 +57,7 @@ class Logon extends \App\Controller\Web\Base
                     'attr'          => [
                         'class'         => 'button small'
                     ],
-                    'label'         => 'Logon',
+                    'label'         => 'Log On',
                 ]
             );
 

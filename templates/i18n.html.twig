@@ -1,452 +1,503 @@
-{% trans %}Signals Received in Europe{% endtrans %}
-{% trans %}Signals Received in N & C America + Hawaii{% endtrans %}
-{% trans %}Signals Received Worldwide{% endtrans %}
-{% trans %}North America (RNA){% endtrans %}
-{% trans %}Europe (REU){% endtrans %}
-{% trans %}Worldwide (RWW){% endtrans %}
-{% trans %}Signals{% endtrans %}
-{% trans %}Maps{% endtrans %}
-{% trans %}Listeners{% endtrans %}
-{% trans %}Log On{% endtrans %}
-{% trans %}Log Off{% endtrans %}
-{% trans %}Help{% endtrans %}
-{% trans %}Admin Help{% endtrans %}
-{% trans %}System Info{% endtrans %}
-{% trans %}Listeners List{% endtrans %}
-{% trans %}Customise %s Listeners List{% endtrans %}
-{% trans %}Customise %s Signals List{% endtrans %}
-{% trans %}Show{% endtrans %}
-{% trans %}<{% endtrans %}
-{% trans %}>{% endtrans %}
+{# i18n template as base for translations #}
+{% if 'Menu' %}
+    {% trans %}Signals Received in Europe{% endtrans %}
+    {% trans %}Signals Received in N & C America + Hawaii{% endtrans %}
+    {% trans %}Signals Received Worldwide{% endtrans %}
+    {% trans %}North America (RNA){% endtrans %}
+    {% trans %}Europe (REU){% endtrans %}
+    {% trans %}Worldwide (RWW){% endtrans %}
+    {% trans %}Signals{% endtrans %}
+    {% trans %}Maps{% endtrans %}
+    {% trans %}Listeners{% endtrans %}
+    {% trans %}Log On{% endtrans %}
+    {% trans %}Log Off{% endtrans %}
+    {% trans %}Help{% endtrans %}
+    {% trans %}Admin Help{% endtrans %}
+    {% trans %}System Info{% endtrans %}
+{% endif %}
+{% if 'Footer' %}
+    {% trans %}Your %s Editors are:{% endtrans %}
+    {% trans %}(for DSC signals){% endtrans %}
+    {% trans %}(for NDBs and Ham Beacons){% endtrans %}
+    {% trans %}(for DGPS and Navtex signals){% endtrans %}
+    {% trans %}(Awards Coordinator){% endtrans %}
+    {% trans %}(Software Development){% endtrans %}
+    {% trans %}(Initial Concept){% endtrans %}
+    {% trans %}(for NDBs){% endtrans %}
+    {% trans %}(for Ham Beacons){% endtrans %}
+{% endif %}
+{% if 'Signals List' %}
+    {# Form #}
+        {% trans %}Signals List{% endtrans %}
+        {% trans %}Customise %s Signals List{% endtrans %}
+        {% trans %}Paging Controls{% endtrans %}
+        {% trans %}of %s signals{% endtrans %}
+        {% trans %}Specification{% endtrans %}
+            {% trans %}Signal Types{% endtrans %}
+            {% trans %}Call / ID{% endtrans %}
+            {% trans %}Frequency Range{% endtrans %}
+            {% trans %}Freq.{% endtrans %}
+            {% trans %}Freq. 2{% endtrans %}
+            {% trans %}Active Status{% endtrans %}
+            {% trans %}Active{% endtrans %}
+            {% trans %}Inactive{% endtrans %}
+            {% trans %}Channels{% endtrans %}
+                {% trans %}All{% endtrans %}
+                {% trans %}Only 1 KHz{% endtrans %}
+                {% trans %}Not 1 KHz{% endtrans %}
+            {% trans %}Show{% endtrans %}
+                {% trans %}List{% endtrans %}
+                {% trans %}Map{% endtrans %}
+            {% trans %}Offsets{% endtrans %}
+                {% trans %}Relative{% endtrans %}
+                {% trans %}Absolute{% endtrans %}
+        {% trans %}Location{% endtrans %}
+            {% trans %}Combiner{% endtrans %}
+                {% trans %}AND{% endtrans %}
+                {% trans %}OR{% endtrans %}
+            {% trans %}(Used when both State AND Country are given){% endtrans %}
+            {% trans %}Grid Squares{% endtrans %}
+            {% trans %}From GSQ{% endtrans %}
+            {% trans %}DX{% endtrans %}
+            {% trans %}DX Max{% endtrans %}
+            {% trans %}Units{% endtrans %}
+                {% trans %}km{% endtrans %}
+                {% trans %}miles{% endtrans %}
+        {% trans %}Loggings{% endtrans %}
+            {% trans %}Listener(s){% endtrans %}
+                {% trans %}Anyone (or enter values in "Heard here" box){% endtrans %}
+            {% trans %}Logged by{% endtrans %}
+            {% trans %}Not logged by{% endtrans %}
+            {% trans %}Use SHIFT or CONTROL to select multiple values{% endtrans %}
+        {% trans %}Heard Here{% endtrans %}
+            {% trans %}Any{% endtrans %}
+        {% trans %}Logged Between{% endtrans %}
+        {% trans %}First Logged{% endtrans %}
+        {% trans %}Last Logged{% endtrans %}
 
-{% trans %}Search For{% endtrans %}
-{% trans %}DGPS{% endtrans %}
-{% trans %}DSC{% endtrans %}
-{% trans %}Ham{% endtrans %}
-{% trans %}Navtex{% endtrans %}
-{% trans %}NDB{% endtrans %}
-{% trans %}Time{% endtrans %}
-{% trans %}Other{% endtrans %}
-{% trans %}(All){% endtrans %}
+    {# Report Columns and tooltips #}
+        {% trans %}Frequency{% endtrans %}
+        {% trans %}KHz{% endtrans %}
+        {% trans %}Callsign or other ID{% endtrans %}
+        {% trans %}ID{% endtrans %}
+        {% trans %}Lower sideband offset{% endtrans %}
+        {% trans %}LSB{% endtrans %}
+        {% trans %}Upper sideband offset{% endtrans %}
+        {% trans %}USB{% endtrans %}
+        {% trans %}Cycle time in seconds{% endtrans %}
+        {% trans %}Sec{% endtrans %}
+        {% trans %}Format{% endtrans %}
+        {% trans %}Fmt{% endtrans %}
+        {% trans %}Location{% endtrans %}
+        {% trans %}'Name' and Location{% endtrans %}
+        {% trans %}State / Province / Territory{% endtrans %}
+        {% trans %}S/P{% endtrans %}
+        {% trans %}ITU{% endtrans %}
+        {% trans %}<div>Continent</div>{% endtrans %}
+        {% trans %}Signal Grid Square{% endtrans %}
+        {% trans %}GSQ{% endtrans %}
+        {% trans %}Power in Watts{% endtrans %}
+        {% trans %}Pwr{% endtrans %}
+        {% trans %}Notes about this signal{% endtrans %}
+        {% trans %}Notes{% endtrans %}
+        {% trans %}Places where this signal has been reported{% endtrans %}
+        {% trans %}Heard In<br /><em>(Daytime Log)</em>{% endtrans %}
+        {% trans %}Number of times this signal has been logged{% endtrans %}
+        {% trans %}Logs{% endtrans %}
+        {% trans %}Date on which signal was first logged{% endtrans %}
+        {% trans %}Date on which signal was last logged{% endtrans %}
+        {% trans %}Distance in kilometers from GSQ{% endtrans %}
+        {% trans %}KM{% endtrans %}
+        {% trans %}Distance in miles from GSQ{% endtrans %}
+        {% trans %}Miles{% endtrans %}
+        {% trans %}Bearing relative to GSQ{% endtrans %}
+        {% trans %}Deg{% endtrans %}
 
-{% trans %}Region{% endtrans %}
-{% trans %}(All Regions){% endtrans %}
-{% trans %}Africa{% endtrans %}
-{% trans %}Antarctica{% endtrans %}
-{% trans %}Asia{% endtrans %}
-{% trans %}Carribean{% endtrans %}
-{% trans %}Europe{% endtrans %}
-{% trans %}International Waters{% endtrans %}
-{% trans %}North America{% endtrans %}
-{% trans %}Oceania (Pacific){% endtrans %}
-{% trans %}South America{% endtrans %}
-{% trans %}Unknown{% endtrans %}
-
-{% trans %}Form Actions{% endtrans %}
-{% trans %}Go{% endtrans %}
-{% trans %}Clear{% endtrans %}
-
-{% trans %}Signals List{% endtrans %}
-
-{% trans %}Country{% endtrans %}
-{% trans %}(All Countries){% endtrans %}
-{% trans %}Alaska{% endtrans %}
-{% trans %}Antarctica (Mainland){% endtrans %}
-{% trans %}Antigua & Barbuda{% endtrans %}
-{% trans %}Argentina{% endtrans %}
-{% trans %}Australia{% endtrans %}
-{% trans %}Austria{% endtrans %}
-{% trans %}Azores{% endtrans %}
-{% trans %}Balearic Islands{% endtrans %}
-{% trans %}Barbados{% endtrans %}
-{% trans %}Belgium{% endtrans %}
-{% trans %}Brazil{% endtrans %}
-{% trans %}Burkina Faso{% endtrans %}
-{% trans %}Canada{% endtrans %}
-{% trans %}Canary Islands{% endtrans %}
-{% trans %}Cape Verde{% endtrans %}
-{% trans %}Cayman Islands{% endtrans %}
-{% trans %}Ceuta{% endtrans %}
-{% trans %}China{% endtrans %}
-{% trans %}Croatia{% endtrans %}
-{% trans %}Cuba{% endtrans %}
-{% trans %}Cyprus{% endtrans %}
-{% trans %}Czechia{% endtrans %}
-{% trans %}Denmark{% endtrans %}
-{% trans %}Dominican Republic{% endtrans %}
-{% trans %}Egypt{% endtrans %}
-{% trans %}England{% endtrans %}
-{% trans %}Finland{% endtrans %}
-{% trans %}France{% endtrans %}
-{% trans %}Gambia{% endtrans %}
-{% trans %}Germany{% endtrans %}
-{% trans %}Ghana{% endtrans %}
-{% trans %}Greece{% endtrans %}
-{% trans %}Greenland{% endtrans %}
-{% trans %}Guernsey{% endtrans %}
-{% trans %}Hawaii{% endtrans %}
-{% trans %}Hungary{% endtrans %}
-{% trans %}Iceland{% endtrans %}
-{% trans %}India{% endtrans %}
-{% trans %}Int Waters: Europe{% endtrans %}
-{% trans %}Ireland{% endtrans %}
-{% trans %}Italy{% endtrans %}
-{% trans %}Japan{% endtrans %}
-{% trans %}Korea, South{% endtrans %}
-{% trans %}Latvia{% endtrans %}
-{% trans %}Luxembourg{% endtrans %}
-{% trans %}Malaysia{% endtrans %}
-{% trans %}Mauritania{% endtrans %}
-{% trans %}Montenegro (Yugoslavia){% endtrans %}
-{% trans %}Morocco{% endtrans %}
-{% trans %}Netherlands{% endtrans %}
-{% trans %}New Caledonia{% endtrans %}
-{% trans %}New Zealand{% endtrans %}
-{% trans %}Northern Ireland{% endtrans %}
-{% trans %}Norway{% endtrans %}
-{% trans %}Oman{% endtrans %}
-{% trans %}Poland{% endtrans %}
-{% trans %}Portugal{% endtrans %}
-{% trans %}Qatar{% endtrans %}
-{% trans %}Reunion{% endtrans %}
-{% trans %}Russia (Eastern){% endtrans %}
-{% trans %}Russia (European){% endtrans %}
-{% trans %}Sardinia{% endtrans %}
-{% trans %}Scotland{% endtrans %}
-{% trans %}Senegal{% endtrans %}
-{% trans %}Serbia (Yugoslavia){% endtrans %}
-{% trans %}Shetland Islands{% endtrans %}
-{% trans %}Sicily{% endtrans %}
-{% trans %}Singapore{% endtrans %}
-{% trans %}Slovakia{% endtrans %}
-{% trans %}Slovenia{% endtrans %}
-{% trans %}South Africa{% endtrans %}
-{% trans %}Spain{% endtrans %}
-{% trans %}St Lucia{% endtrans %}
-{% trans %}Svalbard{% endtrans %}
-{% trans %}Sweden{% endtrans %}
-{% trans %}Switzerland{% endtrans %}
-{% trans %}Taiwan{% endtrans %}
-{% trans %}Thailand{% endtrans %}
-{% trans %}Tunisia{% endtrans %}
-{% trans %}Turkey{% endtrans %}
-{% trans %}Ukraine{% endtrans %}
-{% trans %}Uruguay{% endtrans %}
-{% trans %}USA{% endtrans %}
-{% trans %}Wales{% endtrans %}
-{% trans %}Afghanistan{% endtrans %}
-{% trans %}Albania{% endtrans %}
-{% trans %}Algeria{% endtrans %}
-{% trans %}Andorra{% endtrans %}
-{% trans %}Angola{% endtrans %}
-{% trans %}Anguilla{% endtrans %}
-{% trans %}Armenia{% endtrans %}
-{% trans %}Ascension Island{% endtrans %}
-{% trans %}Austral Islands (Iles Tubuai){% endtrans %}
-{% trans %}Azerbaijan{% endtrans %}
-{% trans %}Bahamas{% endtrans %}
-{% trans %}Bahrain{% endtrans %}
-{% trans %}Bear Island (Bjornoya){% endtrans %}
-{% trans %}Belarus{% endtrans %}
-{% trans %}Belize{% endtrans %}
-{% trans %}Bermuda{% endtrans %}
-{% trans %}Bolivia{% endtrans %}
-{% trans %}Bosnia-Hercegovina{% endtrans %}
-{% trans %}Botswana{% endtrans %}
-{% trans %}Brunei{% endtrans %}
-{% trans %}Bulgaria{% endtrans %}
-{% trans %}Cambodia{% endtrans %}
-{% trans %}Chad{% endtrans %}
-{% trans %}Chile{% endtrans %}
-{% trans %}Cocos (Keeling) Islands{% endtrans %}
-{% trans %}Colombia{% endtrans %}
-{% trans %}Cook Islands (Southern){% endtrans %}
-{% trans %}Corsica{% endtrans %}
-{% trans %}Costa Rica{% endtrans %}
-{% trans %}Diego Garcia (Biot){% endtrans %}
-{% trans %}Djibouti{% endtrans %}
-{% trans %}Dominica{% endtrans %}
-{% trans %}Easter Island{% endtrans %}
-{% trans %}Ecuador{% endtrans %}
-{% trans %}El Salvador{% endtrans %}
-{% trans %}Equatorial Guinea{% endtrans %}
-{% trans %}Estonia{% endtrans %}
-{% trans %}Ethiopia{% endtrans %}
-{% trans %}Falkland Islands{% endtrans %}
-{% trans %}Faroe Islands{% endtrans %}
-{% trans %}Fernando de Noronha (BRA){% endtrans %}
-{% trans %}Fiji{% endtrans %}
-{% trans %}French Guyana{% endtrans %}
-{% trans %}Galapagos{% endtrans %}
-{% trans %}Georgia{% endtrans %}
-{% trans %}Gibraltar{% endtrans %}
-{% trans %}Grenada{% endtrans %}
-{% trans %}Guadeloupe{% endtrans %}
-{% trans %}Guam{% endtrans %}
-{% trans %}Guatemala{% endtrans %}
-{% trans %}Guinea{% endtrans %}
-{% trans %}Guyana{% endtrans %}
-{% trans %}Haiti{% endtrans %}
-{% trans %}Honduras{% endtrans %}
-{% trans %}Indonesia{% endtrans %}
-{% trans %}Int Waters: Africa{% endtrans %}
-{% trans %}Int Waters: Asia{% endtrans %}
-{% trans %}Int Waters: C.America / Carribean{% endtrans %}
-{% trans %}Int Waters: N.America{% endtrans %}
-{% trans %}Int Waters: Oceania{% endtrans %}
-{% trans %}Int Waters: S.America{% endtrans %}
-{% trans %}Iran{% endtrans %}
-{% trans %}Iraq{% endtrans %}
-{% trans %}Isle Of Man{% endtrans %}
-{% trans %}Israel{% endtrans %}
-{% trans %}Jamaica{% endtrans %}
-{% trans %}Jan Mayen{% endtrans %}
-{% trans %}Jersey{% endtrans %}
-{% trans %}Johnston Island{% endtrans %}
-{% trans %}Jordan{% endtrans %}
-{% trans %}Kalinigrad{% endtrans %}
-{% trans %}Kazakhstan{% endtrans %}
-{% trans %}Kenya{% endtrans %}
-{% trans %}Kirghizistan{% endtrans %}
-{% trans %}Kiribati{% endtrans %}
-{% trans %}Korea, North{% endtrans %}
-{% trans %}Kuwait{% endtrans %}
-{% trans %}Laos{% endtrans %}
-{% trans %}Lebanon{% endtrans %}
-{% trans %}Libya{% endtrans %}
-{% trans %}Lithuania{% endtrans %}
-{% trans %}Macedonia{% endtrans %}
-{% trans %}Madagascar{% endtrans %}
-{% trans %}Madeira{% endtrans %}
-{% trans %}Malawi{% endtrans %}
-{% trans %}Maldives{% endtrans %}
-{% trans %}Mali{% endtrans %}
-{% trans %}Malta{% endtrans %}
-{% trans %}Marquesas Islands{% endtrans %}
-{% trans %}Marshall Islands{% endtrans %}
-{% trans %}Martinique{% endtrans %}
-{% trans %}Mauritius{% endtrans %}
-{% trans %}Mayotte{% endtrans %}
-{% trans %}Melilla{% endtrans %}
-{% trans %}Mexico{% endtrans %}
-{% trans %}Micronesia{% endtrans %}
-{% trans %}Midway Island{% endtrans %}
-{% trans %}Minami Tori Shima (JPN){% endtrans %}
-{% trans %}Moldova{% endtrans %}
-{% trans %}Monaco{% endtrans %}
-{% trans %}Mongolia{% endtrans %}
-{% trans %}Mozambique{% endtrans %}
-{% trans %}Myanmar{% endtrans %}
-{% trans %}Namibia{% endtrans %}
-{% trans %}Nauru{% endtrans %}
-{% trans %}Netherlands Antilles{% endtrans %}
-{% trans %}Nicaragua{% endtrans %}
-{% trans %}Niger{% endtrans %}
-{% trans %}Nigeria{% endtrans %}
-{% trans %}Niue Island{% endtrans %}
-{% trans %}Norfolk Island{% endtrans %}
-{% trans %}Northern Mariana Islands{% endtrans %}
-{% trans %}Ogasawara (JPN){% endtrans %}
-{% trans %}Orkney Islands{% endtrans %}
-{% trans %}Pakistan{% endtrans %}
-{% trans %}Palau{% endtrans %}
-{% trans %}Panama{% endtrans %}
-{% trans %}Papua New Guinea{% endtrans %}
-{% trans %}Paraguay{% endtrans %}
-{% trans %}Peru{% endtrans %}
-{% trans %}Philippines{% endtrans %}
-{% trans %}Puerto Rico{% endtrans %}
-{% trans %}Romania{% endtrans %}
-{% trans %}Ryukyu Islands (JPN){% endtrans %}
-{% trans %}Samoa, American{% endtrans %}
-{% trans %}Samoa, Western{% endtrans %}
-{% trans %}San Andres & Providencia{% endtrans %}
-{% trans %}Saudi Arabia{% endtrans %}
-{% trans %}Society Islands (Tahiti){% endtrans %}
-{% trans %}Solomon Islands{% endtrans %}
-{% trans %}Somalia{% endtrans %}
-{% trans %}Sri Lanka{% endtrans %}
-{% trans %}St Helena{% endtrans %}
-{% trans %}St Kitts-Nevis{% endtrans %}
-{% trans %}St Pierre Et Miquelon{% endtrans %}
-{% trans %}St Vincent{% endtrans %}
-{% trans %}Sudan{% endtrans %}
-{% trans %}Swaziland{% endtrans %}
-{% trans %}Syria{% endtrans %}
-{% trans %}Tajikistan{% endtrans %}
-{% trans %}Timor{% endtrans %}
-{% trans %}Trinidad & Tobago{% endtrans %}
-{% trans %}Tuamotu Archipelago{% endtrans %}
-{% trans %}Turkmenistan{% endtrans %}
-{% trans %}Turks & Caicos Islands{% endtrans %}
-{% trans %}Tuvalu{% endtrans %}
-{% trans %}Uganda{% endtrans %}
-{% trans %}UNID (Africa?){% endtrans %}
-{% trans %}UNID (Asia?){% endtrans %}
-{% trans %}UNID (C.America / Carribean?){% endtrans %}
-{% trans %}UNID (Europe?){% endtrans %}
-{% trans %}UNID (N.America?){% endtrans %}
-{% trans %}UNID (No idea where){% endtrans %}
-{% trans %}UNID (Oceania?){% endtrans %}
-{% trans %}UNID (S.America?){% endtrans %}
-{% trans %}United Arab Emirates{% endtrans %}
-{% trans %}Uzbekistan{% endtrans %}
-{% trans %}Vanuatu{% endtrans %}
-{% trans %}Venezuela{% endtrans %}
-{% trans %}Vietnam{% endtrans %}
-{% trans %}Virgin Islands (British){% endtrans %}
-{% trans %}Virgin Islands (US){% endtrans %}
-{% trans %}Volcano Islands / Iwo Jima (JPN){% endtrans %}
-{% trans %}Wallis Et Futuna{% endtrans %}
-{% trans %}Zambia{% endtrans %}
-{% trans %}Zimbabwe{% endtrans %}
-
-{% trans %}Maps of Listener Locations{% endtrans %}
-{% trans %}(North America){% endtrans %}
-{% trans %}(Europe){% endtrans %}
-{% trans %}Print...{% endtrans %}
-{% trans %}Primary Location{% endtrans %}
-{% trans %}Secondary Location{% endtrans %}
-{% trans %}Maps for All Listeners{% endtrans %}
-{% trans %}North American NDB List Country Codes{% endtrans %}
-{% trans %}Top{% endtrans %}
-{% trans %}South American NDB List Country Codes{% endtrans %}
-{% trans %}European NDB List Country Codes{% endtrans %}
-{% trans %}Asian NDB List Country Codes{% endtrans %}
-{% trans %}African NDB List approved Country Codes{% endtrans %}
-{% trans %}Australian NDB List Country Codes{% endtrans %}
-{% trans %}Maps for North American Listeners{% endtrans %}
-{% trans %}Beacons in Alaska{% endtrans %}
-{% trans %}Pacific Beacons Map{% endtrans %}
-{% trans %}Japanese NDB List Country Codes{% endtrans %}
-{% trans %}French Polynesian Beacons Map{% endtrans %}
-{% trans %}Maps for European Listeners{% endtrans %}
-{% trans %}Popup{% endtrans %}
-{% trans %}States{% endtrans %}
-{% trans %}Countries{% endtrans %}
-{% trans %}Territories{% endtrans %}
-{% trans %}Your %s Editors are:{% endtrans %}
-{% trans %}(for DSC signals){% endtrans %}
-{% trans %}(for NDBs and Ham Beacons){% endtrans %}
-{% trans %}(for DGPS and Navtex signals){% endtrans %}
-{% trans %}(Awards Coordinator){% endtrans %}
-{% trans %}(Software Development){% endtrans %}
-{% trans %}(Initial Concept){% endtrans %}
-{% trans %}(for NDBs){% endtrans %}
-{% trans %}(for Ham Beacons){% endtrans %}
-{% trans %}Frequency{% endtrans %}
-{% trans %}KHz{% endtrans %}
-{% trans %}Callsign or other ID{% endtrans %}
-{% trans %}ID{% endtrans %}
-{% trans %}Lower sideband offset{% endtrans %}
-{% trans %}LSB{% endtrans %}
-{% trans %}Upper sideband offset{% endtrans %}
-{% trans %}USB{% endtrans %}
-{% trans %}Cycle time in seconds{% endtrans %}
-{% trans %}Sec{% endtrans %}
-{% trans %}Format{% endtrans %}
-{% trans %}Fmt{% endtrans %}
-{% trans %}Location{% endtrans %}
-{% trans %}'Name' and Location{% endtrans %}
-{% trans %}State / Province / Territory{% endtrans %}
-{% trans %}S/P{% endtrans %}
-{% trans %}ITU{% endtrans %}
-{% trans %}<div>Continent</div>{% endtrans %}
-{% trans %}Listener Grid Square{% endtrans %}
-{% trans %}GSQ{% endtrans %}
-{% trans %}Power in Watts{% endtrans %}
-{% trans %}Pwr{% endtrans %}
-{% trans %}Notes about this signal{% endtrans %}
-{% trans %}Notes{% endtrans %}
-{% trans %}Places where this signal has been reported{% endtrans %}
-{% trans %}Heard In<br /><em>(Daytime Log)</em>{% endtrans %}
-{% trans %}Number of times this signal has been logged{% endtrans %}
-{% trans %}Logs{% endtrans %}
-{% trans %}Date on which signal was first logged{% endtrans %}
-{% trans %}First Logged{% endtrans %}
-{% trans %}Date on which signal was last logged{% endtrans %}
-{% trans %}Last Logged{% endtrans %}
-{% trans %}Name{% endtrans %}
-{% trans %}Log{% endtrans %}
-{% trans %}Email{% endtrans %}
-{% trans %}Ham Radio Callsign{% endtrans %}
-{% trans %}Callsign{% endtrans %}
-{% trans %}QTH{% endtrans %}
-{% trans %}Timezone (relative to UTC){% endtrans %}
-{% trans %}<div>Timezone</div>{% endtrans %}
-{% trans %}Total number of logs for all signals{% endtrans %}
-{% trans %}<div>Total Logs</div>{% endtrans %}
-{% trans %}Latest Log{% endtrans %}
-{% trans %}Number of NDBs received{% endtrans %}
-{% trans %}<div>NDB</div>{% endtrans %}
-{% trans %}Total number of signals of all types{% endtrans %}
-{% trans %}<div>All Signals</div>{% endtrans %}
-{% trans %}WWW{% endtrans %}
-{% trans %}NDB Weblog for Listener{% endtrans %}
-{% trans %}NWL{% endtrans %}
-{% trans %}Map showing Signals for Listener{% endtrans %}
-{% trans %}Map{% endtrans %}
-{% trans %}<div>Map Pos</div>{% endtrans %}
-{% trans %}Admin{% endtrans %}
-{% trans %}of %s signals{% endtrans %}
-{% trans %}of %s listeners{% endtrans %}
-{% trans %}Call / ID{% endtrans %}
-{% trans %}Inactive stations are shown at the bottom of the list.{% endtrans %}
-{% trans %}Any exact matches for <strong>%s</strong> will shown at the top of this list, regardless of the station's current operational status.{% endtrans %}
-{% trans %}Show Counts{% endtrans %}
-{% trans %}Signal Types{% endtrans %}
-{% trans %}Additional DGPS Station Info{% endtrans %}
-{% trans %}NDB List PDF (by Frequency){% endtrans %}
-{% trans %}USCG DGPS Site List{% endtrans %}
-{% trans %}Additional Ham Beacon Info:{% endtrans %}
-{% trans %}William Hepburn's LF List{% endtrans %}
-{% trans %}William Hepburn's HF List{% endtrans %}
-{% trans %}Additional Navtex Station Info:{% endtrans %}
-{% trans %}LOWFERS{% endtrans %}
-{% trans %}HF{% endtrans %}
-{% trans %}50MHz{% endtrans %}
-{% trans %}Additional NDB Info:{% endtrans %}
-{% trans %}Paging Controls{% endtrans %}
-{% trans %}Frequency Range{% endtrans %}
-{% trans %}Freq.{% endtrans %}
-{% trans %}Freq. 2{% endtrans %}
-{% trans %}Channels{% endtrans %}
-{% trans %}All{% endtrans %}
-{% trans %}Only 1 KHz{% endtrans %}
-{% trans %}Not 1 KHz{% endtrans %}
-{% trans %}Combiner{% endtrans %}
-{% trans %}AND{% endtrans %}
-{% trans %}OR{% endtrans %}
-{% trans %}(Used when both State AND Country are given){% endtrans %}
-{% trans %}Grid Squares{% endtrans %}
-{% trans %}From GSQ{% endtrans %}
-{% trans %}DX{% endtrans %}
-{% trans %}DX Max{% endtrans %}
-{% trans %}Units{% endtrans %}
-{% trans %}km{% endtrans %}
-{% trans %}miles{% endtrans %}
-{% trans %}Distance in kilometers from GSQ{% endtrans %}
-{% trans %}KM{% endtrans %}
-{% trans %}Distance in miles from GSQ{% endtrans %}
-{% trans %}Miles{% endtrans %}
-{% trans %}Bearing relative to GSQ{% endtrans %}
-{% trans %}Deg{% endtrans %}
-{% trans %}Anyone (or enter values in "Heard here" box){% endtrans %}
-{% trans %}Listener(s){% endtrans %}
-{% trans %}Logged by{% endtrans %}
-{% trans %}Not logged by{% endtrans %}
-{% trans %}Use SHIFT or CONTROL to select multiple values{% endtrans %}
-{% trans %}Heard Here{% endtrans %}
-{% trans %}Any{% endtrans %}
-{% trans %}Logged Between{% endtrans %}
-{% trans %}Specification{% endtrans %}
-{% trans %}Active Status{% endtrans %}
-{% trans %}Active{% endtrans %}
-{% trans %}Inctive{% endtrans %}
-{% trans %}Show{% endtrans %}
-{% trans %}List{% endtrans %}
-{% trans %}Map{% endtrans %}
-{% trans %}Offsets{% endtrans %}
-{% trans %}Relative{% endtrans %}
-{% trans %}Absolute{% endtrans %}
-
+        {% trans %}Inactive stations are shown at the bottom of the list.{% endtrans %}
+        {% trans %}Any exact matches for <strong>%s</strong> will shown at the top of this list, regardless of the station's current operational status.{% endtrans %}
+{% endif %}
+{% if 'Listeners List' %}
+    {# Form #}
+        {% trans %}Listeners List{% endtrans %}
+        {% trans %}Log and station counts are updated each time new log data is added - figures are for logs in the system at this time.{% endtrans %}
+        {% trans %}To see stats for different types of signals, check the boxes shown for 'Types' below.{% endtrans %}
+        {% trans %}This report prints best in Portrait.{% endtrans %}
+        {% trans %}Customise %s Listeners List{% endtrans %}
+        {% trans %}Show{% endtrans %}
+        {% trans %}<{% endtrans %}
+        {% trans %}>{% endtrans %}
+        {% trans %}of %s listeners{% endtrans %}
+        {% trans %}Search For{% endtrans %}
+        {% trans %}Show Counts{% endtrans %}
+        {% trans %}Region{% endtrans %}
+        {% trans %}Country{% endtrans %}
+        {% trans %}Form Actions{% endtrans %}
+        {% trans %}Go{% endtrans %}
+        {% trans %}Clear{% endtrans %}
+    {# Report Columns and tooltips #}
+        {% trans %}Primary Location{% endtrans %}
+        {% trans %}Secondary Location{% endtrans %}
+        {% trans %}Name{% endtrans %}
+        {% trans %}Log{% endtrans %}
+        {% trans %}Email{% endtrans %}
+        {% trans %}Ham Radio Callsign{% endtrans %}
+        {% trans %}Callsign{% endtrans %}
+        {% trans %}QTH{% endtrans %}
+        {% trans %}Listener Grid Square{% endtrans %}
+        {% trans %}Timezone (relative to UTC){% endtrans %}
+        {% trans %}<div>Timezone</div>{% endtrans %}
+        {% trans %}Total number of logs for all signals{% endtrans %}
+        {% trans %}<div>Total Logs</div>{% endtrans %}
+        {% trans %}Latest Log{% endtrans %}
+        {% trans %}Number of NDBs received{% endtrans %}
+        {% trans %}<div>NDB</div>{% endtrans %}
+        {% trans %}Total number of signals of all types{% endtrans %}
+        {% trans %}<div>All Signals</div>{% endtrans %}
+        {% trans %}WWW{% endtrans %}
+        {% trans %}NDB Weblog for Listener{% endtrans %}
+        {% trans %}NWL{% endtrans %}
+        {% trans %}Map showing Signals for Listener{% endtrans %}
+        {% trans %}Map{% endtrans %}
+        {% trans %}<div>Map Pos</div>{% endtrans %}
+        {% trans %}Admin{% endtrans %}
+    {# Info Panel #}
+        {% trans %}Maps of Listener Locations{% endtrans %}
+        {% trans %}(North America){% endtrans %}
+        {% trans %}(Europe){% endtrans %}
+{% endif %}
+{% if 'Log On' %}
+    {% trans %}Administrator Log On{% endtrans %}
+    {% trans %}Log On{% endtrans %}
+    {% trans %}You must Log On in order to perform administrative functions.{% endtrans %}
+    {% trans %}You are now logged on as an Administrator and may perform administrative functions.{% endtrans %}
+    {% trans %}To Log Off, select <strong>Log Off</strong> from the main menu.{% endtrans %}
+    {% trans %}Username{% endtrans %}
+    {% trans %}Password{% endtrans %}
+    {% trans %}Please provide a valid Username{% endtrans %}
+    {% trans %}Please provide a valid Password{% endtrans %}
+{% endif %}
+{% if 'Actions' %}
+    {% trans %}Print...{% endtrans %}
+    {% trans %}All \%s > Excel{% endtrans %}
+        {% trans %}EXPORT ENTIRE %s LISTING TO EXCEL{% endtrans %}
+        {% trans %}This can be a time consuming process - typically a minute or more.{% endtrans %}
+        {% trans %}Signal types, 'offsets' setting and 'active' status will be taken from the options {% endtrans %}
+        {% trans %}you selected in \"Customise Report\" above, other options are ignored.{% endtrans %}
+        {% trans %}Continue?{% endtrans %}
+    {% trans %}All %s > PDF{% endtrans %}
+    {% trans %}All %s > ILG{% endtrans %}
+{% endif %}
+{% if 'Signal Types' %}
+    {% trans %}DGPS{% endtrans %}
+        {% trans %}DGPS Station{% endtrans %}
+            {% trans %}Additional DGPS Station Info{% endtrans %}
+                {% trans %}USCG DGPS Site List{% endtrans %}
+    {% trans %}DSC{% endtrans %}
+        {% trans %}DSC Station{% endtrans %}
+    {% trans %}Ham{% endtrans %}
+        {% trans %}Amateur Radio Beacon{% endtrans %}
+            {% trans %}Additional Ham Beacon Info:{% endtrans %}
+                {% trans %}LOWFERS{% endtrans %}
+                {% trans %}HF{% endtrans %}
+                {% trans %}50MHz{% endtrans %}
+    {% trans %}Navtex{% endtrans %}
+        {% trans %}NavTex Station{% endtrans %}
+            {% trans %}Additional Navtex Station Info:{% endtrans %}
+                {% trans %}William Hepburn's LF List{% endtrans %}
+                {% trans %}William Hepburn's HF List{% endtrans %}
+    {% trans %}NDB{% endtrans %}
+        {% trans %}NDB Beacon{% endtrans %}
+            {% trans %}Additional NDB Info:{% endtrans %}
+                {% trans %}William Hepburn's LF List{% endtrans %}
+    {% trans %}Time{% endtrans %}
+        {% trans %}Time Signal Station{% endtrans %}
+    {% trans %}Other{% endtrans %}
+        {% trans %}Other form of transmission{% endtrans %}
+    {% trans %}(All){% endtrans %}
+{% endif %}
+{% if 'Regions' %}
+    {% trans %}(All Regions){% endtrans %}
+    {% trans %}Africa{% endtrans %}
+    {% trans %}Antarctica{% endtrans %}
+    {% trans %}Asia{% endtrans %}
+    {% trans %}Carribean{% endtrans %}
+    {% trans %}Europe{% endtrans %}
+    {% trans %}International Waters{% endtrans %}
+    {% trans %}North America{% endtrans %}
+    {% trans %}Oceania (Pacific){% endtrans %}
+    {% trans %}South America{% endtrans %}
+    {% trans %}Unknown{% endtrans %}
+{% endif %}
+{% if 'Countries' %}
+    {% trans %}(All Countries){% endtrans %}
+    {% trans %}Alaska{% endtrans %}
+    {% trans %}Antarctica (Mainland){% endtrans %}
+    {% trans %}Antigua & Barbuda{% endtrans %}
+    {% trans %}Argentina{% endtrans %}
+    {% trans %}Australia{% endtrans %}
+    {% trans %}Austria{% endtrans %}
+    {% trans %}Azores{% endtrans %}
+    {% trans %}Balearic Islands{% endtrans %}
+    {% trans %}Barbados{% endtrans %}
+    {% trans %}Belgium{% endtrans %}
+    {% trans %}Brazil{% endtrans %}
+    {% trans %}Burkina Faso{% endtrans %}
+    {% trans %}Canada{% endtrans %}
+    {% trans %}Canary Islands{% endtrans %}
+    {% trans %}Cape Verde{% endtrans %}
+    {% trans %}Cayman Islands{% endtrans %}
+    {% trans %}Ceuta{% endtrans %}
+    {% trans %}China{% endtrans %}
+    {% trans %}Croatia{% endtrans %}
+    {% trans %}Cuba{% endtrans %}
+    {% trans %}Cyprus{% endtrans %}
+    {% trans %}Czechia{% endtrans %}
+    {% trans %}Denmark{% endtrans %}
+    {% trans %}Dominican Republic{% endtrans %}
+    {% trans %}Egypt{% endtrans %}
+    {% trans %}England{% endtrans %}
+    {% trans %}Finland{% endtrans %}
+    {% trans %}France{% endtrans %}
+    {% trans %}Gambia{% endtrans %}
+    {% trans %}Germany{% endtrans %}
+    {% trans %}Ghana{% endtrans %}
+    {% trans %}Greece{% endtrans %}
+    {% trans %}Greenland{% endtrans %}
+    {% trans %}Guernsey{% endtrans %}
+    {% trans %}Hawaii{% endtrans %}
+    {% trans %}Hungary{% endtrans %}
+    {% trans %}Iceland{% endtrans %}
+    {% trans %}India{% endtrans %}
+    {% trans %}Int Waters: Europe{% endtrans %}
+    {% trans %}Ireland{% endtrans %}
+    {% trans %}Italy{% endtrans %}
+    {% trans %}Japan{% endtrans %}
+    {% trans %}Korea, South{% endtrans %}
+    {% trans %}Latvia{% endtrans %}
+    {% trans %}Luxembourg{% endtrans %}
+    {% trans %}Malaysia{% endtrans %}
+    {% trans %}Mauritania{% endtrans %}
+    {% trans %}Montenegro (Yugoslavia){% endtrans %}
+    {% trans %}Morocco{% endtrans %}
+    {% trans %}Netherlands{% endtrans %}
+    {% trans %}New Caledonia{% endtrans %}
+    {% trans %}New Zealand{% endtrans %}
+    {% trans %}Northern Ireland{% endtrans %}
+    {% trans %}Norway{% endtrans %}
+    {% trans %}Oman{% endtrans %}
+    {% trans %}Poland{% endtrans %}
+    {% trans %}Portugal{% endtrans %}
+    {% trans %}Qatar{% endtrans %}
+    {% trans %}Reunion{% endtrans %}
+    {% trans %}Russia (Eastern){% endtrans %}
+    {% trans %}Russia (European){% endtrans %}
+    {% trans %}Sardinia{% endtrans %}
+    {% trans %}Scotland{% endtrans %}
+    {% trans %}Senegal{% endtrans %}
+    {% trans %}Serbia (Yugoslavia){% endtrans %}
+    {% trans %}Shetland Islands{% endtrans %}
+    {% trans %}Sicily{% endtrans %}
+    {% trans %}Singapore{% endtrans %}
+    {% trans %}Slovakia{% endtrans %}
+    {% trans %}Slovenia{% endtrans %}
+    {% trans %}South Africa{% endtrans %}
+    {% trans %}Spain{% endtrans %}
+    {% trans %}St Lucia{% endtrans %}
+    {% trans %}Svalbard{% endtrans %}
+    {% trans %}Sweden{% endtrans %}
+    {% trans %}Switzerland{% endtrans %}
+    {% trans %}Taiwan{% endtrans %}
+    {% trans %}Thailand{% endtrans %}
+    {% trans %}Tunisia{% endtrans %}
+    {% trans %}Turkey{% endtrans %}
+    {% trans %}Ukraine{% endtrans %}
+    {% trans %}Uruguay{% endtrans %}
+    {% trans %}USA{% endtrans %}
+    {% trans %}Wales{% endtrans %}
+    {% trans %}Afghanistan{% endtrans %}
+    {% trans %}Albania{% endtrans %}
+    {% trans %}Algeria{% endtrans %}
+    {% trans %}Andorra{% endtrans %}
+    {% trans %}Angola{% endtrans %}
+    {% trans %}Anguilla{% endtrans %}
+    {% trans %}Armenia{% endtrans %}
+    {% trans %}Ascension Island{% endtrans %}
+    {% trans %}Austral Islands (Iles Tubuai){% endtrans %}
+    {% trans %}Azerbaijan{% endtrans %}
+    {% trans %}Bahamas{% endtrans %}
+    {% trans %}Bahrain{% endtrans %}
+    {% trans %}Bear Island (Bjornoya){% endtrans %}
+    {% trans %}Belarus{% endtrans %}
+    {% trans %}Belize{% endtrans %}
+    {% trans %}Bermuda{% endtrans %}
+    {% trans %}Bolivia{% endtrans %}
+    {% trans %}Bosnia-Hercegovina{% endtrans %}
+    {% trans %}Botswana{% endtrans %}
+    {% trans %}Brunei{% endtrans %}
+    {% trans %}Bulgaria{% endtrans %}
+    {% trans %}Cambodia{% endtrans %}
+    {% trans %}Chad{% endtrans %}
+    {% trans %}Chile{% endtrans %}
+    {% trans %}Cocos (Keeling) Islands{% endtrans %}
+    {% trans %}Colombia{% endtrans %}
+    {% trans %}Cook Islands (Southern){% endtrans %}
+    {% trans %}Corsica{% endtrans %}
+    {% trans %}Costa Rica{% endtrans %}
+    {% trans %}Diego Garcia (Biot){% endtrans %}
+    {% trans %}Djibouti{% endtrans %}
+    {% trans %}Dominica{% endtrans %}
+    {% trans %}Easter Island{% endtrans %}
+    {% trans %}Ecuador{% endtrans %}
+    {% trans %}El Salvador{% endtrans %}
+    {% trans %}Equatorial Guinea{% endtrans %}
+    {% trans %}Estonia{% endtrans %}
+    {% trans %}Ethiopia{% endtrans %}
+    {% trans %}Falkland Islands{% endtrans %}
+    {% trans %}Faroe Islands{% endtrans %}
+    {% trans %}Fernando de Noronha (BRA){% endtrans %}
+    {% trans %}Fiji{% endtrans %}
+    {% trans %}French Guyana{% endtrans %}
+    {% trans %}Galapagos{% endtrans %}
+    {% trans %}Georgia{% endtrans %}
+    {% trans %}Gibraltar{% endtrans %}
+    {% trans %}Grenada{% endtrans %}
+    {% trans %}Guadeloupe{% endtrans %}
+    {% trans %}Guam{% endtrans %}
+    {% trans %}Guatemala{% endtrans %}
+    {% trans %}Guinea{% endtrans %}
+    {% trans %}Guyana{% endtrans %}
+    {% trans %}Haiti{% endtrans %}
+    {% trans %}Honduras{% endtrans %}
+    {% trans %}Indonesia{% endtrans %}
+    {% trans %}Int Waters: Africa{% endtrans %}
+    {% trans %}Int Waters: Asia{% endtrans %}
+    {% trans %}Int Waters: C.America / Carribean{% endtrans %}
+    {% trans %}Int Waters: N.America{% endtrans %}
+    {% trans %}Int Waters: Oceania{% endtrans %}
+    {% trans %}Int Waters: S.America{% endtrans %}
+    {% trans %}Iran{% endtrans %}
+    {% trans %}Iraq{% endtrans %}
+    {% trans %}Isle Of Man{% endtrans %}
+    {% trans %}Israel{% endtrans %}
+    {% trans %}Jamaica{% endtrans %}
+    {% trans %}Jan Mayen{% endtrans %}
+    {% trans %}Jersey{% endtrans %}
+    {% trans %}Johnston Island{% endtrans %}
+    {% trans %}Jordan{% endtrans %}
+    {% trans %}Kalinigrad{% endtrans %}
+    {% trans %}Kazakhstan{% endtrans %}
+    {% trans %}Kenya{% endtrans %}
+    {% trans %}Kirghizistan{% endtrans %}
+    {% trans %}Kiribati{% endtrans %}
+    {% trans %}Korea, North{% endtrans %}
+    {% trans %}Kuwait{% endtrans %}
+    {% trans %}Laos{% endtrans %}
+    {% trans %}Lebanon{% endtrans %}
+    {% trans %}Libya{% endtrans %}
+    {% trans %}Lithuania{% endtrans %}
+    {% trans %}Macedonia{% endtrans %}
+    {% trans %}Madagascar{% endtrans %}
+    {% trans %}Madeira{% endtrans %}
+    {% trans %}Malawi{% endtrans %}
+    {% trans %}Maldives{% endtrans %}
+    {% trans %}Mali{% endtrans %}
+    {% trans %}Malta{% endtrans %}
+    {% trans %}Marquesas Islands{% endtrans %}
+    {% trans %}Marshall Islands{% endtrans %}
+    {% trans %}Martinique{% endtrans %}
+    {% trans %}Mauritius{% endtrans %}
+    {% trans %}Mayotte{% endtrans %}
+    {% trans %}Melilla{% endtrans %}
+    {% trans %}Mexico{% endtrans %}
+    {% trans %}Micronesia{% endtrans %}
+    {% trans %}Midway Island{% endtrans %}
+    {% trans %}Minami Tori Shima (JPN){% endtrans %}
+    {% trans %}Moldova{% endtrans %}
+    {% trans %}Monaco{% endtrans %}
+    {% trans %}Mongolia{% endtrans %}
+    {% trans %}Mozambique{% endtrans %}
+    {% trans %}Myanmar{% endtrans %}
+    {% trans %}Namibia{% endtrans %}
+    {% trans %}Nauru{% endtrans %}
+    {% trans %}Netherlands Antilles{% endtrans %}
+    {% trans %}Nicaragua{% endtrans %}
+    {% trans %}Niger{% endtrans %}
+    {% trans %}Nigeria{% endtrans %}
+    {% trans %}Niue Island{% endtrans %}
+    {% trans %}Norfolk Island{% endtrans %}
+    {% trans %}Northern Mariana Islands{% endtrans %}
+    {% trans %}Ogasawara (JPN){% endtrans %}
+    {% trans %}Orkney Islands{% endtrans %}
+    {% trans %}Pakistan{% endtrans %}
+    {% trans %}Palau{% endtrans %}
+    {% trans %}Panama{% endtrans %}
+    {% trans %}Papua New Guinea{% endtrans %}
+    {% trans %}Paraguay{% endtrans %}
+    {% trans %}Peru{% endtrans %}
+    {% trans %}Philippines{% endtrans %}
+    {% trans %}Puerto Rico{% endtrans %}
+    {% trans %}Romania{% endtrans %}
+    {% trans %}Ryukyu Islands (JPN){% endtrans %}
+    {% trans %}Samoa, American{% endtrans %}
+    {% trans %}Samoa, Western{% endtrans %}
+    {% trans %}San Andres & Providencia{% endtrans %}
+    {% trans %}Saudi Arabia{% endtrans %}
+    {% trans %}Society Islands (Tahiti){% endtrans %}
+    {% trans %}Solomon Islands{% endtrans %}
+    {% trans %}Somalia{% endtrans %}
+    {% trans %}Sri Lanka{% endtrans %}
+    {% trans %}St Helena{% endtrans %}
+    {% trans %}St Kitts-Nevis{% endtrans %}
+    {% trans %}St Pierre Et Miquelon{% endtrans %}
+    {% trans %}St Vincent{% endtrans %}
+    {% trans %}Sudan{% endtrans %}
+    {% trans %}Swaziland{% endtrans %}
+    {% trans %}Syria{% endtrans %}
+    {% trans %}Tajikistan{% endtrans %}
+    {% trans %}Timor{% endtrans %}
+    {% trans %}Trinidad & Tobago{% endtrans %}
+    {% trans %}Tuamotu Archipelago{% endtrans %}
+    {% trans %}Turkmenistan{% endtrans %}
+    {% trans %}Turks & Caicos Islands{% endtrans %}
+    {% trans %}Tuvalu{% endtrans %}
+    {% trans %}Uganda{% endtrans %}
+    {% trans %}UNID (Africa?){% endtrans %}
+    {% trans %}UNID (Asia?){% endtrans %}
+    {% trans %}UNID (C.America / Carribean?){% endtrans %}
+    {% trans %}UNID (Europe?){% endtrans %}
+    {% trans %}UNID (N.America?){% endtrans %}
+    {% trans %}UNID (No idea where){% endtrans %}
+    {% trans %}UNID (Oceania?){% endtrans %}
+    {% trans %}UNID (S.America?){% endtrans %}
+    {% trans %}United Arab Emirates{% endtrans %}
+    {% trans %}Uzbekistan{% endtrans %}
+    {% trans %}Vanuatu{% endtrans %}
+    {% trans %}Venezuela{% endtrans %}
+    {% trans %}Vietnam{% endtrans %}
+    {% trans %}Virgin Islands (British){% endtrans %}
+    {% trans %}Virgin Islands (US){% endtrans %}
+    {% trans %}Volcano Islands / Iwo Jima (JPN){% endtrans %}
+    {% trans %}Wallis Et Futuna{% endtrans %}
+    {% trans %}Zambia{% endtrans %}
+    {% trans %}Zimbabwe{% endtrans %}
+{% endif %}
+{% if 'Maps' %}
+    {% trans %}Top{% endtrans %}
+    {% trans %}Popup{% endtrans %}
+    {% trans %}States{% endtrans %}
+    {% trans %}Countries{% endtrans %}
+    {% trans %}Territories{% endtrans %}
+    {% trans %}Maps for North American Listeners{% endtrans %}
+    {% trans %}Maps for European Listeners{% endtrans %}
+    {% trans %}Maps for All Listeners{% endtrans %}
+    {% trans %}North American NDB List Country Codes{% endtrans %}
+    {% trans %}South American NDB List Country Codes{% endtrans %}
+    {% trans %}European NDB List Country Codes{% endtrans %}
+    {% trans %}Asian NDB List Country Codes{% endtrans %}
+    {% trans %}African NDB List approved Country Codes{% endtrans %}
+    {% trans %}Australian NDB List Country Codes{% endtrans %}
+    {% trans %}Beacons in Alaska{% endtrans %}
+    {% trans %}Pacific Beacons Map{% endtrans %}
+    {% trans %}Japanese NDB List Country Codes{% endtrans %}
+    {% trans %}French Polynesian Beacons Map{% endtrans %}
+{% endif %}

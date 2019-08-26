@@ -39,6 +39,15 @@
         {% include 'signals/grid.html.twig' %}
 
         <script>
+            var system = '{{ system }}';
+            var msg = {};
+            msg.exportSignallistExcel =
+                "{% trans %}EXPORT ENTIRE %s LISTING TO EXCEL{% endtrans %}\n" +
+                "{% trans %}This can be a time consuming process - typically a minute or more.{% endtrans %}\n\n"+
+                "{% trans %}Signal types, 'offsets' setting and 'active' status will be taken from the options {% endtrans %}"+
+                "{% trans %}you selected in \"Customise Report\" above, other options are ignored.{% endtrans %}\n\n"+
+                "{% trans %}Continue?{% endtrans %}";
+
             $(document).ready( function() {
                 setPagingActions();
                 setFormTypesStyles();

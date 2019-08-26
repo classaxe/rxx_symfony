@@ -5,46 +5,6 @@
       <tool tool-id="symfony" tool-name="Symfony"/>
     </header>
     <body>
-      <trans-unit id="IdQ52y8" resname="Administrator Logon">
-        <source>Administrator Logon</source>
-        <target>Administrador de inicio de sesión</target>
-      </trans-unit>
-      <trans-unit id="MKWJ9eo" resname="Logon">
-        <source>Logon</source>
-        <target>Inicio de sesión</target>
-      </trans-unit>
-      <trans-unit id="bBPgzeD" resname="You must logon in order to perform administrative functions.">
-        <source>You must logon in order to perform administrative functions.</source>
-        <target>Debe iniciar sesión para realizar funciones administrativas.</target>
-      </trans-unit>
-      <trans-unit id="Vq6hsgL" resname="You are now logged on as an Administrator and may perform administrative functions.">
-        <source>You are now logged on as an Administrator and may perform administrative functions.</source>
-        <target>Ahora ha iniciado sesión como administrador y puede realizar funciones administrativas.</target>
-      </trans-unit>
-      <trans-unit id="Wycz4V0" resname="To log off, select &lt;strong&gt;Log Off&lt;/strong&gt; from the main menu.">
-        <source>To log off, select &lt;strong&gt;Log Off&lt;/strong&gt; from the main menu.</source>
-        <target><![CDATA[Para cerrar sesión, seleccione <strong> Cerrar sesión </strong> en el menú principal.]]></target>
-      </trans-unit>
-      <trans-unit id="DZo50ZN" resname="(No listeners found matching your criteria)">
-        <source>(No listeners found matching your criteria)</source>
-        <target>(No se encontraron oyentes que coincidan con sus criterios)</target>
-      </trans-unit>
-      <trans-unit id="_dpFFlq" resname="Please provide a valid Username">
-        <source>Please provide a valid Username</source>
-        <target>Por favor proporcione un nombre de usuario válido</target>
-      </trans-unit>
-      <trans-unit id="JTEOL5V" resname="Please provide a valid Password">
-        <source>Please provide a valid Password</source>
-        <target>Por favor, proporcione una contraseña válida</target>
-      </trans-unit>
-      <trans-unit id="588_9PF" resname="Password">
-        <source>Password</source>
-        <target>Contraseña</target>
-      </trans-unit>
-      <trans-unit id="47ienTP" resname="Username">
-        <source>Username</source>
-        <target>Nombre de usuario</target>
-      </trans-unit>
       <trans-unit id="MCyK.Og" resname="Signals Received in Europe">
         <source>Signals Received in Europe</source>
         <target>Señales recibidas en Europa</target>
@@ -71,43 +31,63 @@
       </trans-unit>
       <trans-unit id="iLAcikv" resname="Signals">
         <source>Signals</source>
-        <target>__Signals</target>
+        <target>Señales</target>
       </trans-unit>
       <trans-unit id="EZ5m0Re" resname="Maps">
         <source>Maps</source>
-        <target>__Maps</target>
+        <target>Mapas</target>
       </trans-unit>
       <trans-unit id="oWyIukw" resname="Listeners">
         <source>Listeners</source>
-        <target>__Listeners</target>
+        <target>Oyentes</target>
       </trans-unit>
       <trans-unit id="DhJeucz" resname="Log On">
         <source>Log On</source>
-        <target>__Log On</target>
+        <target>Inicio de sesión</target>
       </trans-unit>
       <trans-unit id="w5mO02g" resname="Log Off">
         <source>Log Off</source>
-        <target>__Log Off</target>
+        <target>Cerrar sesión</target>
       </trans-unit>
       <trans-unit id="t5yskm4" resname="Help">
         <source>Help</source>
-        <target>__Help</target>
+        <target>Ayuda</target>
       </trans-unit>
-      <trans-unit id="7vNiW2b" resname="Admin Help">
-        <source>Admin Help</source>
-        <target>__Admin Help</target>
+      <trans-unit id="9VmtCnZ" resname="Administrator Log On">
+        <source>Administrator Log On</source>
+        <target>Administrador de inicio de sesión</target>
       </trans-unit>
-      <trans-unit id="xHuxj62" resname="System Info">
-        <source>System Info</source>
-        <target>__System Info</target>
+      <trans-unit id="i8lxlVC" resname="You must Log On in order to perform administrative functions.">
+        <source>You must Log On in order to perform administrative functions.</source>
+        <target>Debe iniciar sesión para realizar funciones administrativas.</target>
       </trans-unit>
-      <trans-unit id="Ikt82fv" resname="Listeners List">
-        <source>Listeners List</source>
-        <target>__Listeners List</target>
+      <trans-unit id="Vq6hsgL" resname="You are now logged on as an Administrator and may perform administrative functions.">
+        <source>You are now logged on as an Administrator and may perform administrative functions.</source>
+        <target>Ahora ha iniciado sesión como administrador y puede realizar funciones administrativas.</target>
       </trans-unit>
-      <trans-unit id="DfbxytN" resname="Show">
-        <source>Show</source>
-        <target>__Show</target>
+      <trans-unit id="PFYWyg3" resname="To Log Off, select &lt;strong&gt;Log Off&lt;/strong&gt; from the main menu.">
+        <source>To Log Off, select &lt;strong&gt;Log Off&lt;/strong&gt; from the main menu.</source>
+        <target><![CDATA[Para cerrar sesión, seleccione <strong>Cerrar sesión</strong> en el menú principal.]]></target>
+      </trans-unit>
+      <trans-unit id="47ienTP" resname="Username">
+        <source>Username</source>
+        <target>Nombre de usuario</target>
+      </trans-unit>
+      <trans-unit id="588_9PF" resname="Password">
+        <source>Password</source>
+        <target>Contraseña</target>
+      </trans-unit>
+      <trans-unit id="_dpFFlq" resname="Please provide a valid Username">
+        <source>Please provide a valid Username</source>
+        <target>Por favor proporcione un nombre de usuario válido</target>
+      </trans-unit>
+      <trans-unit id="JTEOL5V" resname="Please provide a valid Password">
+        <source>Please provide a valid Password</source>
+        <target>Por favor, proporcione una contraseña válida</target>
+      </trans-unit>
+      <trans-unit id="DZo50ZN" resname="(No listeners found matching your criteria)">
+        <source>(No listeners found matching your criteria)</source>
+        <target>(No se encontraron oyentes que coincidan con sus criterios)</target>
       </trans-unit>
       <trans-unit id="2r06.3a" resname="&lt;">
         <source>&lt;</source>
@@ -117,45 +97,729 @@
         <source>&gt;</source>
         <target><![CDATA[>]]></target>
       </trans-unit>
+      <trans-unit id="1c389.9" resname="Top">
+        <source>Top</source>
+        <target>__Top</target>
+      </trans-unit>
+      <trans-unit id="TBQokrO" resname="Popup">
+        <source>Popup</source>
+        <target>__Popup</target>
+      </trans-unit>
+      <trans-unit id="7vNiW2b" resname="Admin Help">
+        <source>Admin Help</source>
+        <target>__Admin Help</target>
+      </trans-unit>
+      <trans-unit id="xHuxj62" resname="System Info">
+        <source>System Info</source>
+        <target>__System Info</target>
+      </trans-unit>
+      <trans-unit id="fseDXmo" resname="Your %s Editors are:">
+        <source>Your %s Editors are:</source>
+        <target>__Your %s Editors are:</target>
+      </trans-unit>
+      <trans-unit id="tgLSFTs" resname="(for DSC signals)">
+        <source>(for DSC signals)</source>
+        <target>__(for DSC signals)</target>
+      </trans-unit>
+      <trans-unit id="8D1rmah" resname="(for NDBs and Ham Beacons)">
+        <source>(for NDBs and Ham Beacons)</source>
+        <target>__(for NDBs and Ham Beacons)</target>
+      </trans-unit>
+      <trans-unit id="BtpkGvJ" resname="(for DGPS and Navtex signals)">
+        <source>(for DGPS and Navtex signals)</source>
+        <target>__(for DGPS and Navtex signals)</target>
+      </trans-unit>
+      <trans-unit id="TiIzvbx" resname="(Awards Coordinator)">
+        <source>(Awards Coordinator)</source>
+        <target>__(Awards Coordinator)</target>
+      </trans-unit>
+      <trans-unit id="mpAaK7U" resname="(Software Development)">
+        <source>(Software Development)</source>
+        <target>__(Software Development)</target>
+      </trans-unit>
+      <trans-unit id="_qZjoSO" resname="(Initial Concept)">
+        <source>(Initial Concept)</source>
+        <target>__(Initial Concept)</target>
+      </trans-unit>
+      <trans-unit id="xD8d3zX" resname="(for NDBs)">
+        <source>(for NDBs)</source>
+        <target>__(for NDBs)</target>
+      </trans-unit>
+      <trans-unit id="ephcSrL" resname="(for Ham Beacons)">
+        <source>(for Ham Beacons)</source>
+        <target>__(for Ham Beacons)</target>
+      </trans-unit>
+      <trans-unit id="hkHbAH7" resname="Signals List">
+        <source>Signals List</source>
+        <target>__Signals List</target>
+      </trans-unit>
+      <trans-unit id="9tnIPjS" resname="Customise %s Signals List">
+        <source>Customise %s Signals List</source>
+        <target>__Customise %s Signals List</target>
+      </trans-unit>
+      <trans-unit id="r4_rGX4" resname="Paging Controls">
+        <source>Paging Controls</source>
+        <target>__Paging Controls</target>
+      </trans-unit>
+      <trans-unit id="388x1Uz" resname="of %s signals">
+        <source>of %s signals</source>
+        <target>__of %s signals</target>
+      </trans-unit>
+      <trans-unit id="OXMkFg6" resname="Specification">
+        <source>Specification</source>
+        <target>__Specification</target>
+      </trans-unit>
+      <trans-unit id="v7lt68l" resname="Signal Types">
+        <source>Signal Types</source>
+        <target>__Signal Types</target>
+      </trans-unit>
+      <trans-unit id="Vm1s_R0" resname="Call / ID">
+        <source>Call / ID</source>
+        <target>__Call / ID</target>
+      </trans-unit>
+      <trans-unit id="GEnlSzj" resname="Frequency Range">
+        <source>Frequency Range</source>
+        <target>__Frequency Range</target>
+      </trans-unit>
+      <trans-unit id="LNyaMvK" resname="Freq.">
+        <source>Freq.</source>
+        <target>__Freq.</target>
+      </trans-unit>
+      <trans-unit id="dUW.I6L" resname="Freq. 2">
+        <source>Freq. 2</source>
+        <target>__Freq. 2</target>
+      </trans-unit>
+      <trans-unit id="gez0MA0" resname="Active Status">
+        <source>Active Status</source>
+        <target>__Active Status</target>
+      </trans-unit>
+      <trans-unit id="kjQGlYm" resname="Active">
+        <source>Active</source>
+        <target>__Active</target>
+      </trans-unit>
+      <trans-unit id="rHyUnxI" resname="Inactive">
+        <source>Inactive</source>
+        <target>__Inactive</target>
+      </trans-unit>
+      <trans-unit id="TIkGz3b" resname="Channels">
+        <source>Channels</source>
+        <target>__Channels</target>
+      </trans-unit>
+      <trans-unit id="pSrOQg8" resname="All">
+        <source>All</source>
+        <target>__All</target>
+      </trans-unit>
+      <trans-unit id="9ajk.1n" resname="Only 1 KHz">
+        <source>Only 1 KHz</source>
+        <target>__Only 1 KHz</target>
+      </trans-unit>
+      <trans-unit id="etDZdrR" resname="Not 1 KHz">
+        <source>Not 1 KHz</source>
+        <target>__Not 1 KHz</target>
+      </trans-unit>
+      <trans-unit id="DfbxytN" resname="Show">
+        <source>Show</source>
+        <target>__Show</target>
+      </trans-unit>
+      <trans-unit id="byAvVKe" resname="List">
+        <source>List</source>
+        <target>__List</target>
+      </trans-unit>
+      <trans-unit id="vhdrABX" resname="Map">
+        <source>Map</source>
+        <target>__Map</target>
+      </trans-unit>
+      <trans-unit id="iAdjX47" resname="Offsets">
+        <source>Offsets</source>
+        <target>__Offsets</target>
+      </trans-unit>
+      <trans-unit id="jpnNmG_" resname="Relative">
+        <source>Relative</source>
+        <target>__Relative</target>
+      </trans-unit>
+      <trans-unit id="8ohzj2B" resname="Absolute">
+        <source>Absolute</source>
+        <target>__Absolute</target>
+      </trans-unit>
+      <trans-unit id="FbYZdLJ" resname="Location">
+        <source>Location</source>
+        <target>__Location</target>
+      </trans-unit>
+      <trans-unit id="dI9sPH_" resname="Combiner">
+        <source>Combiner</source>
+        <target>__Combiner</target>
+      </trans-unit>
+      <trans-unit id="vZcsxPF" resname="AND">
+        <source>AND</source>
+        <target>__AND</target>
+      </trans-unit>
+      <trans-unit id="gp5bKK8" resname="OR">
+        <source>OR</source>
+        <target>__OR</target>
+      </trans-unit>
+      <trans-unit id="5u5Vfc8" resname="(Used when both State AND Country are given)">
+        <source>(Used when both State AND Country are given)</source>
+        <target>__(Used when both State AND Country are given)</target>
+      </trans-unit>
+      <trans-unit id="DU7W3HR" resname="Grid Squares">
+        <source>Grid Squares</source>
+        <target>__Grid Squares</target>
+      </trans-unit>
+      <trans-unit id="kfEgtV9" resname="From GSQ">
+        <source>From GSQ</source>
+        <target>__From GSQ</target>
+      </trans-unit>
+      <trans-unit id="SMldNw8" resname="DX">
+        <source>DX</source>
+        <target>__DX</target>
+      </trans-unit>
+      <trans-unit id="f8iq2vY" resname="DX Max">
+        <source>DX Max</source>
+        <target>__DX Max</target>
+      </trans-unit>
+      <trans-unit id="n7Zmmnf" resname="Units">
+        <source>Units</source>
+        <target>__Units</target>
+      </trans-unit>
+      <trans-unit id="HzRQP2W" resname="km">
+        <source>km</source>
+        <target>__km</target>
+      </trans-unit>
+      <trans-unit id="L6nrEw6" resname="miles">
+        <source>miles</source>
+        <target>__miles</target>
+      </trans-unit>
+      <trans-unit id="FpEOEdK" resname="Loggings">
+        <source>Loggings</source>
+        <target>__Loggings</target>
+      </trans-unit>
+      <trans-unit id="ux0qTrP" resname="Listener(s)">
+        <source>Listener(s)</source>
+        <target>__Listener(s)</target>
+      </trans-unit>
+      <trans-unit id="8j5LycN" resname="Anyone (or enter values in &quot;Heard here&quot; box)">
+        <source>Anyone (or enter values in "Heard here" box)</source>
+        <target>__Anyone (or enter values in "Heard here" box)</target>
+      </trans-unit>
+      <trans-unit id="KrbqWrM" resname="Logged by">
+        <source>Logged by</source>
+        <target>__Logged by</target>
+      </trans-unit>
+      <trans-unit id="hKJwzCv" resname="Not logged by">
+        <source>Not logged by</source>
+        <target>__Not logged by</target>
+      </trans-unit>
+      <trans-unit id="z_kHmmO" resname="Use SHIFT or CONTROL to select multiple values">
+        <source>Use SHIFT or CONTROL to select multiple values</source>
+        <target>__Use SHIFT or CONTROL to select multiple values</target>
+      </trans-unit>
+      <trans-unit id="EBWuPyn" resname="Heard Here">
+        <source>Heard Here</source>
+        <target>__Heard Here</target>
+      </trans-unit>
+      <trans-unit id="K1BVl9q" resname="Any">
+        <source>Any</source>
+        <target>__Any</target>
+      </trans-unit>
+      <trans-unit id="Ig248H6" resname="Logged Between">
+        <source>Logged Between</source>
+        <target>__Logged Between</target>
+      </trans-unit>
+      <trans-unit id="npbosWm" resname="First Logged">
+        <source>First Logged</source>
+        <target>__First Logged</target>
+      </trans-unit>
+      <trans-unit id="PUq17SZ" resname="Last Logged">
+        <source>Last Logged</source>
+        <target>__Last Logged</target>
+      </trans-unit>
+      <trans-unit id="FrZmjZg" resname="Frequency">
+        <source>Frequency</source>
+        <target>__Frequency</target>
+      </trans-unit>
+      <trans-unit id="coDROQD" resname="KHz">
+        <source>KHz</source>
+        <target>__KHz</target>
+      </trans-unit>
+      <trans-unit id="wjI4ev7" resname="Callsign or other ID">
+        <source>Callsign or other ID</source>
+        <target>__Callsign or other ID</target>
+      </trans-unit>
+      <trans-unit id="OEOXHc." resname="ID">
+        <source>ID</source>
+        <target>__ID</target>
+      </trans-unit>
+      <trans-unit id="NJoTVZi" resname="Lower sideband offset">
+        <source>Lower sideband offset</source>
+        <target>__Lower sideband offset</target>
+      </trans-unit>
+      <trans-unit id="YyPbSUi" resname="LSB">
+        <source>LSB</source>
+        <target>__LSB</target>
+      </trans-unit>
+      <trans-unit id="bmrM_DI" resname="Upper sideband offset">
+        <source>Upper sideband offset</source>
+        <target>__Upper sideband offset</target>
+      </trans-unit>
+      <trans-unit id="YfCs.xc" resname="USB">
+        <source>USB</source>
+        <target>__USB</target>
+      </trans-unit>
+      <trans-unit id="cZRXDUc" resname="Cycle time in seconds">
+        <source>Cycle time in seconds</source>
+        <target>__Cycle time in seconds</target>
+      </trans-unit>
+      <trans-unit id="farMeNH" resname="Sec">
+        <source>Sec</source>
+        <target>__Sec</target>
+      </trans-unit>
+      <trans-unit id="LzQ2Zqq" resname="Format">
+        <source>Format</source>
+        <target>__Format</target>
+      </trans-unit>
+      <trans-unit id="Rsq73LM" resname="Fmt">
+        <source>Fmt</source>
+        <target>__Fmt</target>
+      </trans-unit>
+      <trans-unit id="4n2UnUc" resname="'Name' and Location">
+        <source>'Name' and Location</source>
+        <target>__'Name' and Location</target>
+      </trans-unit>
+      <trans-unit id="1SxGNWy" resname="State / Province / Territory">
+        <source>State / Province / Territory</source>
+        <target>__State / Province / Territory</target>
+      </trans-unit>
+      <trans-unit id="CABmKno" resname="S/P">
+        <source>S/P</source>
+        <target>__S/P</target>
+      </trans-unit>
+      <trans-unit id="lfwgPK7" resname="ITU">
+        <source>ITU</source>
+        <target>__ITU</target>
+      </trans-unit>
+      <trans-unit id="WG719R_" resname="&lt;div&gt;Continent&lt;/div&gt;">
+        <source>&lt;div&gt;Continent&lt;/div&gt;</source>
+        <target><![CDATA[__<div>Continent</div>]]></target>
+      </trans-unit>
+      <trans-unit id="a6MU0Xu" resname="Signal Grid Square">
+        <source>Signal Grid Square</source>
+        <target>__Signal Grid Square</target>
+      </trans-unit>
+      <trans-unit id="0PqtSmJ" resname="GSQ">
+        <source>GSQ</source>
+        <target>__GSQ</target>
+      </trans-unit>
+      <trans-unit id="MoYmSxp" resname="Power in Watts">
+        <source>Power in Watts</source>
+        <target>__Power in Watts</target>
+      </trans-unit>
+      <trans-unit id="eIplDyQ" resname="Pwr">
+        <source>Pwr</source>
+        <target>__Pwr</target>
+      </trans-unit>
+      <trans-unit id="ugK_Eo1" resname="Notes about this signal">
+        <source>Notes about this signal</source>
+        <target>__Notes about this signal</target>
+      </trans-unit>
+      <trans-unit id="inUlsUk" resname="Notes">
+        <source>Notes</source>
+        <target>__Notes</target>
+      </trans-unit>
+      <trans-unit id="0QFzIVL" resname="Places where this signal has been reported">
+        <source>Places where this signal has been reported</source>
+        <target>__Places where this signal has been reported</target>
+      </trans-unit>
+      <trans-unit id="sgGJ9Ii" resname="Heard In&lt;br /&gt;&lt;em&gt;(Daytime Log)&lt;/em&gt;">
+        <source>Heard In&lt;br /&gt;&lt;em&gt;(Daytime Log)&lt;/em&gt;</source>
+        <target><![CDATA[__Heard In<br /><em>(Daytime Log)</em>]]></target>
+      </trans-unit>
+      <trans-unit id="lAfD1qg" resname="Number of times this signal has been logged">
+        <source>Number of times this signal has been logged</source>
+        <target>__Number of times this signal has been logged</target>
+      </trans-unit>
+      <trans-unit id="6iEA3Im" resname="Logs">
+        <source>Logs</source>
+        <target>__Logs</target>
+      </trans-unit>
+      <trans-unit id="zv64EYJ" resname="Date on which signal was first logged">
+        <source>Date on which signal was first logged</source>
+        <target>__Date on which signal was first logged</target>
+      </trans-unit>
+      <trans-unit id="zUkWkRy" resname="Date on which signal was last logged">
+        <source>Date on which signal was last logged</source>
+        <target>__Date on which signal was last logged</target>
+      </trans-unit>
+      <trans-unit id="FDiMXsw" resname="Distance in kilometers from GSQ">
+        <source>Distance in kilometers from GSQ</source>
+        <target>__Distance in kilometers from GSQ</target>
+      </trans-unit>
+      <trans-unit id="8gh6Xll" resname="KM">
+        <source>KM</source>
+        <target>__KM</target>
+      </trans-unit>
+      <trans-unit id="ZGPey_7" resname="Distance in miles from GSQ">
+        <source>Distance in miles from GSQ</source>
+        <target>__Distance in miles from GSQ</target>
+      </trans-unit>
+      <trans-unit id="oRYfZEX" resname="Miles">
+        <source>Miles</source>
+        <target>__Miles</target>
+      </trans-unit>
+      <trans-unit id="745JrK8" resname="Bearing relative to GSQ">
+        <source>Bearing relative to GSQ</source>
+        <target>__Bearing relative to GSQ</target>
+      </trans-unit>
+      <trans-unit id="rgW9_xG" resname="Deg">
+        <source>Deg</source>
+        <target>__Deg</target>
+      </trans-unit>
+      <trans-unit id="qFqOitd" resname="Inactive stations are shown at the bottom of the list.">
+        <source>Inactive stations are shown at the bottom of the list.</source>
+        <target>__Inactive stations are shown at the bottom of the list.</target>
+      </trans-unit>
+      <trans-unit id="fLxZY2_" resname="Any exact matches for &lt;strong&gt;%s&lt;/strong&gt; will shown at the top of this list, regardless of the station's current operational status.">
+        <source>Any exact matches for &lt;strong&gt;%s&lt;/strong&gt; will shown at the top of this list, regardless of the station's current operational status.</source>
+        <target><![CDATA[__Any exact matches for <strong>%s</strong> will shown at the top of this list, regardless of the station's current operational status.]]></target>
+      </trans-unit>
+      <trans-unit id="Ikt82fv" resname="Listeners List">
+        <source>Listeners List</source>
+        <target>__Listeners List</target>
+      </trans-unit>
+      <trans-unit id="YuUjEFq" resname="Log and station counts are updated each time new log data is added - figures are for logs in the system at this time.">
+        <source>Log and station counts are updated each time new log data is added - figures are for logs in the system at this time.</source>
+        <target>__Log and station counts are updated each time new log data is added - figures are for logs in the system at this time.</target>
+      </trans-unit>
+      <trans-unit id="C9oksw4" resname="To see stats for different types of signals, check the boxes shown for 'Types' below.">
+        <source>To see stats for different types of signals, check the boxes shown for 'Types' below.</source>
+        <target>__To see stats for different types of signals, check the boxes shown for 'Types' below.</target>
+      </trans-unit>
+      <trans-unit id="CCLc.M0" resname="This report prints best in Portrait.">
+        <source>This report prints best in Portrait.</source>
+        <target>__This report prints best in Portrait.</target>
+      </trans-unit>
+      <trans-unit id="COJxQGA" resname="Customise %s Listeners List">
+        <source>Customise %s Listeners List</source>
+        <target>__Customise %s Listeners List</target>
+      </trans-unit>
+      <trans-unit id="WV.7s5b" resname="of %s listeners">
+        <source>of %s listeners</source>
+        <target>__of %s listeners</target>
+      </trans-unit>
       <trans-unit id="XM6zhqd" resname="Search For">
         <source>Search For</source>
         <target>__Search For</target>
+      </trans-unit>
+      <trans-unit id="WYP2_UK" resname="Show Counts">
+        <source>Show Counts</source>
+        <target>__Show Counts</target>
+      </trans-unit>
+      <trans-unit id="06AI7xM" resname="Region">
+        <source>Region</source>
+        <target>__Region</target>
+      </trans-unit>
+      <trans-unit id="cB0CHQj" resname="Country">
+        <source>Country</source>
+        <target>__Country</target>
+      </trans-unit>
+      <trans-unit id="DLbQ6TF" resname="Form Actions">
+        <source>Form Actions</source>
+        <target>__Form Actions</target>
+      </trans-unit>
+      <trans-unit id="bMhRm5F" resname="Go">
+        <source>Go</source>
+        <target>__Go</target>
+      </trans-unit>
+      <trans-unit id="g7EsIhb" resname="Clear">
+        <source>Clear</source>
+        <target>__Clear</target>
+      </trans-unit>
+      <trans-unit id="4T_1cAU" resname="Primary Location">
+        <source>Primary Location</source>
+        <target>__Primary Location</target>
+      </trans-unit>
+      <trans-unit id="84b4IFe" resname="Secondary Location">
+        <source>Secondary Location</source>
+        <target>__Secondary Location</target>
+      </trans-unit>
+      <trans-unit id="3NHVIj9" resname="Name">
+        <source>Name</source>
+        <target>__Name</target>
+      </trans-unit>
+      <trans-unit id="IeSesrK" resname="Log">
+        <source>Log</source>
+        <target>__Log</target>
+      </trans-unit>
+      <trans-unit id="lpzL089" resname="Email">
+        <source>Email</source>
+        <target>__Email</target>
+      </trans-unit>
+      <trans-unit id="Ke82zed" resname="Ham Radio Callsign">
+        <source>Ham Radio Callsign</source>
+        <target>__Ham Radio Callsign</target>
+      </trans-unit>
+      <trans-unit id="gwqDzSd" resname="Callsign">
+        <source>Callsign</source>
+        <target>__Callsign</target>
+      </trans-unit>
+      <trans-unit id="nu3Q3Qi" resname="QTH">
+        <source>QTH</source>
+        <target>__QTH</target>
+      </trans-unit>
+      <trans-unit id="aYS6Glz" resname="Listener Grid Square">
+        <source>Listener Grid Square</source>
+        <target>__Listener Grid Square</target>
+      </trans-unit>
+      <trans-unit id="EEjhwUW" resname="Timezone (relative to UTC)">
+        <source>Timezone (relative to UTC)</source>
+        <target>__Timezone (relative to UTC)</target>
+      </trans-unit>
+      <trans-unit id="ufZpSVL" resname="&lt;div&gt;Timezone&lt;/div&gt;">
+        <source>&lt;div&gt;Timezone&lt;/div&gt;</source>
+        <target><![CDATA[__<div>Timezone</div>]]></target>
+      </trans-unit>
+      <trans-unit id="OsSKR.w" resname="Total number of logs for all signals">
+        <source>Total number of logs for all signals</source>
+        <target>__Total number of logs for all signals</target>
+      </trans-unit>
+      <trans-unit id="lQnEAiU" resname="&lt;div&gt;Total Logs&lt;/div&gt;">
+        <source>&lt;div&gt;Total Logs&lt;/div&gt;</source>
+        <target><![CDATA[__<div>Total Logs</div>]]></target>
+      </trans-unit>
+      <trans-unit id="BvZMDTK" resname="Latest Log">
+        <source>Latest Log</source>
+        <target>__Latest Log</target>
+      </trans-unit>
+      <trans-unit id="3n.MOUu" resname="Number of NDBs received">
+        <source>Number of NDBs received</source>
+        <target>__Number of NDBs received</target>
+      </trans-unit>
+      <trans-unit id="iTUQGci" resname="&lt;div&gt;NDB&lt;/div&gt;">
+        <source>&lt;div&gt;NDB&lt;/div&gt;</source>
+        <target><![CDATA[__<div>NDB</div>]]></target>
+      </trans-unit>
+      <trans-unit id="Pxj75bh" resname="Total number of signals of all types">
+        <source>Total number of signals of all types</source>
+        <target>__Total number of signals of all types</target>
+      </trans-unit>
+      <trans-unit id="CQAkKYC" resname="&lt;div&gt;All Signals&lt;/div&gt;">
+        <source>&lt;div&gt;All Signals&lt;/div&gt;</source>
+        <target><![CDATA[__<div>All Signals</div>]]></target>
+      </trans-unit>
+      <trans-unit id="yiL2KE1" resname="WWW">
+        <source>WWW</source>
+        <target>__WWW</target>
+      </trans-unit>
+      <trans-unit id="eSO.7jh" resname="NDB Weblog for Listener">
+        <source>NDB Weblog for Listener</source>
+        <target>__NDB Weblog for Listener</target>
+      </trans-unit>
+      <trans-unit id="6jmqclN" resname="NWL">
+        <source>NWL</source>
+        <target>__NWL</target>
+      </trans-unit>
+      <trans-unit id="OmB1R5o" resname="Map showing Signals for Listener">
+        <source>Map showing Signals for Listener</source>
+        <target>__Map showing Signals for Listener</target>
+      </trans-unit>
+      <trans-unit id="IBpu4TV" resname="&lt;div&gt;Map Pos&lt;/div&gt;">
+        <source>&lt;div&gt;Map Pos&lt;/div&gt;</source>
+        <target><![CDATA[__<div>Map Pos</div>]]></target>
+      </trans-unit>
+      <trans-unit id="wcIksDz" resname="Admin">
+        <source>Admin</source>
+        <target>__Admin</target>
+      </trans-unit>
+      <trans-unit id="LQos5PZ" resname="Maps of Listener Locations">
+        <source>Maps of Listener Locations</source>
+        <target>__Maps of Listener Locations</target>
+      </trans-unit>
+      <trans-unit id="pq9xBwc" resname="(North America)">
+        <source>(North America)</source>
+        <target>__(North America)</target>
+      </trans-unit>
+      <trans-unit id="vkh2gtg" resname="(Europe)">
+        <source>(Europe)</source>
+        <target>__(Europe)</target>
+      </trans-unit>
+      <trans-unit id="xSSPtpR" resname="Print...">
+        <source>Print...</source>
+        <target>__Print...</target>
+      </trans-unit>
+      <trans-unit id="wd8wUKM" resname="All \%s &gt; Excel">
+        <source>All \%s &gt; Excel</source>
+        <target><![CDATA[__All \%s > Excel]]></target>
+      </trans-unit>
+      <trans-unit id="WI6qnsd" resname="EXPORT ENTIRE %s LISTING TO EXCEL">
+        <source>EXPORT ENTIRE %s LISTING TO EXCEL</source>
+        <target>__EXPORT ENTIRE %s LISTING TO EXCEL</target>
+      </trans-unit>
+      <trans-unit id="ezttny4" resname="This can be a time consuming process - typically a minute or more.">
+        <source>This can be a time consuming process - typically a minute or more.</source>
+        <target>__This can be a time consuming process - typically a minute or more.</target>
+      </trans-unit>
+      <trans-unit id="40ADSvs" resname="Signal types, 'offsets' setting and 'active' status will be taken from the options">
+        <source>Signal types, 'offsets' setting and 'active' status will be taken from the options</source>
+        <target>__Signal types, 'offsets' setting and 'active' status will be taken from the options</target>
+      </trans-unit>
+      <trans-unit id="oSksXQ6" resname="you selected in \&quot;Customise Report\&quot; above, other options are ignored.">
+        <source>you selected in \"Customise Report\" above, other options are ignored.</source>
+        <target>__you selected in \"Customise Report\" above, other options are ignored.</target>
+      </trans-unit>
+      <trans-unit id="XCG_Wsk" resname="Continue?">
+        <source>Continue?</source>
+        <target>__Continue?</target>
+      </trans-unit>
+      <trans-unit id="57njlHL" resname="All %s &gt; PDF">
+        <source>All %s &gt; PDF</source>
+        <target><![CDATA[__All %s > PDF]]></target>
+      </trans-unit>
+      <trans-unit id="MEtopLt" resname="All %s &gt; ILG">
+        <source>All %s &gt; ILG</source>
+        <target><![CDATA[__All %s > ILG]]></target>
       </trans-unit>
       <trans-unit id=".hLVvOy" resname="DGPS">
         <source>DGPS</source>
         <target>__DGPS</target>
       </trans-unit>
+      <trans-unit id="WSIubVU" resname="DGPS Station">
+        <source>DGPS Station</source>
+        <target>__DGPS Station</target>
+      </trans-unit>
+      <trans-unit id="nnVYaFU" resname="Additional DGPS Station Info">
+        <source>Additional DGPS Station Info</source>
+        <target>__Additional DGPS Station Info</target>
+      </trans-unit>
+      <trans-unit id="h3.fGHs" resname="USCG DGPS Site List">
+        <source>USCG DGPS Site List</source>
+        <target>__USCG DGPS Site List</target>
+      </trans-unit>
       <trans-unit id="eyE330h" resname="DSC">
         <source>DSC</source>
         <target>__DSC</target>
+      </trans-unit>
+      <trans-unit id="goRsF.E" resname="DSC Station">
+        <source>DSC Station</source>
+        <target>__DSC Station</target>
       </trans-unit>
       <trans-unit id="iH_vRXr" resname="Ham">
         <source>Ham</source>
         <target>__Ham</target>
       </trans-unit>
+      <trans-unit id="eoqWxvF" resname="Amateur Radio Beacon">
+        <source>Amateur Radio Beacon</source>
+        <target>__Amateur Radio Beacon</target>
+      </trans-unit>
+      <trans-unit id="Y1uY73z" resname="Additional Ham Beacon Info:">
+        <source>Additional Ham Beacon Info:</source>
+        <target>__Additional Ham Beacon Info:</target>
+      </trans-unit>
+      <trans-unit id="NIUlfyK" resname="LOWFERS">
+        <source>LOWFERS</source>
+        <target>__LOWFERS</target>
+      </trans-unit>
+      <trans-unit id="Zp9CWdi" resname="HF">
+        <source>HF</source>
+        <target>__HF</target>
+      </trans-unit>
+      <trans-unit id="D.kq1Cp" resname="50MHz">
+        <source>50MHz</source>
+        <target>__50MHz</target>
+      </trans-unit>
       <trans-unit id="QGS50Ow" resname="Navtex">
         <source>Navtex</source>
         <target>__Navtex</target>
+      </trans-unit>
+      <trans-unit id="mCwKhYL" resname="NavTex Station">
+        <source>NavTex Station</source>
+        <target>__NavTex Station</target>
+      </trans-unit>
+      <trans-unit id="7ht8ixe" resname="Additional Navtex Station Info:">
+        <source>Additional Navtex Station Info:</source>
+        <target>__Additional Navtex Station Info:</target>
+      </trans-unit>
+      <trans-unit id="Oj7pq.b" resname="William Hepburn's LF List">
+        <source>William Hepburn's LF List</source>
+        <target>__William Hepburn's LF List</target>
+      </trans-unit>
+      <trans-unit id="y7G1wSS" resname="William Hepburn's HF List">
+        <source>William Hepburn's HF List</source>
+        <target>__William Hepburn's HF List</target>
       </trans-unit>
       <trans-unit id="nSU_35c" resname="NDB">
         <source>NDB</source>
         <target>__NDB</target>
       </trans-unit>
+      <trans-unit id="LYL0TZX" resname="NDB Beacon">
+        <source>NDB Beacon</source>
+        <target>__NDB Beacon</target>
+      </trans-unit>
+      <trans-unit id="YTYcgbo" resname="Additional NDB Info:">
+        <source>Additional NDB Info:</source>
+        <target>__Additional NDB Info:</target>
+      </trans-unit>
       <trans-unit id="M7k0ds9" resname="Time">
         <source>Time</source>
         <target>__Time</target>
+      </trans-unit>
+      <trans-unit id="5p1CXn0" resname="Time Signal Station">
+        <source>Time Signal Station</source>
+        <target>__Time Signal Station</target>
       </trans-unit>
       <trans-unit id="_X6doOO" resname="Other">
         <source>Other</source>
         <target>__Other</target>
       </trans-unit>
+      <trans-unit id="D65aQPI" resname="Other form of transmission">
+        <source>Other form of transmission</source>
+        <target>__Other form of transmission</target>
+      </trans-unit>
       <trans-unit id="_hLw3Iz" resname="(All)">
         <source>(All)</source>
         <target>__(All)</target>
       </trans-unit>
-      <trans-unit id="cB0CHQj" resname="Country">
-        <source>Country</source>
-        <target>__Country</target>
+      <trans-unit id="7XstMiW" resname="(All Regions)">
+        <source>(All Regions)</source>
+        <target>__(All Regions)</target>
+      </trans-unit>
+      <trans-unit id="xKNxrNf" resname="Africa">
+        <source>Africa</source>
+        <target>__Africa</target>
+      </trans-unit>
+      <trans-unit id="xD8z8Fe" resname="Antarctica">
+        <source>Antarctica</source>
+        <target>__Antarctica</target>
+      </trans-unit>
+      <trans-unit id="esAuwch" resname="Asia">
+        <source>Asia</source>
+        <target>__Asia</target>
+      </trans-unit>
+      <trans-unit id="1WYNuqE" resname="Carribean">
+        <source>Carribean</source>
+        <target>__Carribean</target>
+      </trans-unit>
+      <trans-unit id="5ZX0Xcb" resname="Europe">
+        <source>Europe</source>
+        <target>__Europe</target>
+      </trans-unit>
+      <trans-unit id="F3j63Ot" resname="International Waters">
+        <source>International Waters</source>
+        <target>__International Waters</target>
+      </trans-unit>
+      <trans-unit id="ZL4Ihbw" resname="North America">
+        <source>North America</source>
+        <target>__North America</target>
+      </trans-unit>
+      <trans-unit id="6jxPfnn" resname="Oceania (Pacific)">
+        <source>Oceania (Pacific)</source>
+        <target>__Oceania (Pacific)</target>
+      </trans-unit>
+      <trans-unit id=".1iLQQF" resname="South America">
+        <source>South America</source>
+        <target>__South America</target>
+      </trans-unit>
+      <trans-unit id="t2TNwOq" resname="Unknown">
+        <source>Unknown</source>
+        <target>__Unknown</target>
       </trans-unit>
       <trans-unit id="QFB9iY_" resname="(All Countries)">
         <source>(All Countries)</source>
@@ -496,90 +1160,6 @@
       <trans-unit id="DPOHi5T" resname="Wales">
         <source>Wales</source>
         <target>__Wales</target>
-      </trans-unit>
-      <trans-unit id="06AI7xM" resname="Region">
-        <source>Region</source>
-        <target>__Region</target>
-      </trans-unit>
-      <trans-unit id="7XstMiW" resname="(All Regions)">
-        <source>(All Regions)</source>
-        <target>__(All Regions)</target>
-      </trans-unit>
-      <trans-unit id="xKNxrNf" resname="Africa">
-        <source>Africa</source>
-        <target>__Africa</target>
-      </trans-unit>
-      <trans-unit id="xD8z8Fe" resname="Antarctica">
-        <source>Antarctica</source>
-        <target>__Antarctica</target>
-      </trans-unit>
-      <trans-unit id="esAuwch" resname="Asia">
-        <source>Asia</source>
-        <target>__Asia</target>
-      </trans-unit>
-      <trans-unit id="1WYNuqE" resname="Carribean">
-        <source>Carribean</source>
-        <target>__Carribean</target>
-      </trans-unit>
-      <trans-unit id="5ZX0Xcb" resname="Europe">
-        <source>Europe</source>
-        <target>__Europe</target>
-      </trans-unit>
-      <trans-unit id="F3j63Ot" resname="International Waters">
-        <source>International Waters</source>
-        <target>__International Waters</target>
-      </trans-unit>
-      <trans-unit id="ZL4Ihbw" resname="North America">
-        <source>North America</source>
-        <target>__North America</target>
-      </trans-unit>
-      <trans-unit id="6jxPfnn" resname="Oceania (Pacific)">
-        <source>Oceania (Pacific)</source>
-        <target>__Oceania (Pacific)</target>
-      </trans-unit>
-      <trans-unit id=".1iLQQF" resname="South America">
-        <source>South America</source>
-        <target>__South America</target>
-      </trans-unit>
-      <trans-unit id="t2TNwOq" resname="Unknown">
-        <source>Unknown</source>
-        <target>__Unknown</target>
-      </trans-unit>
-      <trans-unit id="bMhRm5F" resname="Go">
-        <source>Go</source>
-        <target>__Go</target>
-      </trans-unit>
-      <trans-unit id="2eanxYJ" resname="RNA / REU / RWW SYSTEM">
-        <source>RNA / REU / RWW SYSTEM</source>
-        <target>__RNA / REU / RWW SYSTEM</target>
-      </trans-unit>
-      <trans-unit id="tYuQTSd" resname="PHP Version">
-        <source>PHP Version</source>
-        <target>__PHP Version</target>
-      </trans-unit>
-      <trans-unit id="2zYmM6O" resname="Symfony Version">
-        <source>Symfony Version</source>
-        <target>__Symfony Version</target>
-      </trans-unit>
-      <trans-unit id="b9VTEy5" resname="Change Log">
-        <source>Change Log</source>
-        <target>__Change Log</target>
-      </trans-unit>
-      <trans-unit id="YuUjEFq" resname="Log and station counts are updated each time new log data is added - figures are for logs in the system at this time.">
-        <source>Log and station counts are updated each time new log data is added - figures are for logs in the system at this time.</source>
-        <target>__Log and station counts are updated each time new log data is added - figures are for logs in the system at this time.</target>
-      </trans-unit>
-      <trans-unit id="C9oksw4" resname="To see stats for different types of signals, check the boxes shown for 'Types' below.">
-        <source>To see stats for different types of signals, check the boxes shown for 'Types' below.</source>
-        <target>__To see stats for different types of signals, check the boxes shown for 'Types' below.</target>
-      </trans-unit>
-      <trans-unit id="CCLc.M0" resname="This report prints best in Portrait.">
-        <source>This report prints best in Portrait.</source>
-        <target>__This report prints best in Portrait.</target>
-      </trans-unit>
-      <trans-unit id="hkHbAH7" resname="Signals List">
-        <source>Signals List</source>
-        <target>__Signals List</target>
       </trans-unit>
       <trans-unit id="Xb3fkR_" resname="Afghanistan">
         <source>Afghanistan</source>
@@ -1245,45 +1825,25 @@
         <source>Zimbabwe</source>
         <target>__Zimbabwe</target>
       </trans-unit>
-      <trans-unit id="LQos5PZ" resname="Maps of Listener Locations">
-        <source>Maps of Listener Locations</source>
-        <target>__Maps of Listener Locations</target>
+      <trans-unit id="L26drsj" resname="States">
+        <source>States</source>
+        <target>__States</target>
       </trans-unit>
-      <trans-unit id="pq9xBwc" resname="(North America)">
-        <source>(North America)</source>
-        <target>__(North America)</target>
+      <trans-unit id="j69_x6s" resname="Countries">
+        <source>Countries</source>
+        <target>__Countries</target>
       </trans-unit>
-      <trans-unit id="vkh2gtg" resname="(Europe)">
-        <source>(Europe)</source>
-        <target>__(Europe)</target>
+      <trans-unit id="zq3Sr0d" resname="Territories">
+        <source>Territories</source>
+        <target>__Territories</target>
       </trans-unit>
-      <trans-unit id="xSSPtpR" resname="Print...">
-        <source>Print...</source>
-        <target>__Print...</target>
+      <trans-unit id="bmSgOPU" resname="Maps for North American Listeners">
+        <source>Maps for North American Listeners</source>
+        <target>__Maps for North American Listeners</target>
       </trans-unit>
-      <trans-unit id="4T_1cAU" resname="Primary Location">
-        <source>Primary Location</source>
-        <target>__Primary Location</target>
-      </trans-unit>
-      <trans-unit id="84b4IFe" resname="Secondary Location">
-        <source>Secondary Location</source>
-        <target>__Secondary Location</target>
-      </trans-unit>
-      <trans-unit id="2arJ9ul" resname="Add Log for:">
-        <source>Add Log for:</source>
-        <target>__Add Log for:</target>
-      </trans-unit>
-      <trans-unit id="ll2kuux" resname="Latest Logs:">
-        <source>Latest Logs:</source>
-        <target>__Latest Logs:</target>
-      </trans-unit>
-      <trans-unit id="dQ.b2vQ" resname="Add Listener...">
-        <source>Add Listener...</source>
-        <target>__Add Listener...</target>
-      </trans-unit>
-      <trans-unit id="1c389.9" resname="Top">
-        <source>Top</source>
-        <target>__Top</target>
+      <trans-unit id="_R9l.9R" resname="Maps for European Listeners">
+        <source>Maps for European Listeners</source>
+        <target>__Maps for European Listeners</target>
       </trans-unit>
       <trans-unit id="4tgtpdz" resname="Maps for All Listeners">
         <source>Maps for All Listeners</source>
@@ -1313,10 +1873,6 @@
         <source>Australian NDB List Country Codes</source>
         <target>__Australian NDB List Country Codes</target>
       </trans-unit>
-      <trans-unit id="bmSgOPU" resname="Maps for North American Listeners">
-        <source>Maps for North American Listeners</source>
-        <target>__Maps for North American Listeners</target>
-      </trans-unit>
       <trans-unit id="wOo0o7Y" resname="Beacons in Alaska">
         <source>Beacons in Alaska</source>
         <target>__Beacons in Alaska</target>
@@ -1333,325 +1889,13 @@
         <source>French Polynesian Beacons Map</source>
         <target>__French Polynesian Beacons Map</target>
       </trans-unit>
-      <trans-unit id="_R9l.9R" resname="Maps for European Listeners">
-        <source>Maps for European Listeners</source>
-        <target>__Maps for European Listeners</target>
-      </trans-unit>
-      <trans-unit id="TBQokrO" resname="Popup">
-        <source>Popup</source>
-        <target>__Popup</target>
-      </trans-unit>
-      <trans-unit id="L26drsj" resname="States">
-        <source>States</source>
-        <target>__States</target>
-      </trans-unit>
-      <trans-unit id="j69_x6s" resname="Countries">
-        <source>Countries</source>
-        <target>__Countries</target>
-      </trans-unit>
-      <trans-unit id="zq3Sr0d" resname="Territories">
-        <source>Territories</source>
-        <target>__Territories</target>
-      </trans-unit>
-      <trans-unit id="tgLSFTs" resname="(for DSC signals)">
-        <source>(for DSC signals)</source>
-        <target>__(for DSC signals)</target>
-      </trans-unit>
-      <trans-unit id="8D1rmah" resname="(for NDBs and Ham Beacons)">
-        <source>(for NDBs and Ham Beacons)</source>
-        <target>__(for NDBs and Ham Beacons)</target>
-      </trans-unit>
-      <trans-unit id="BtpkGvJ" resname="(for DGPS and Navtex signals)">
-        <source>(for DGPS and Navtex signals)</source>
-        <target>__(for DGPS and Navtex signals)</target>
-      </trans-unit>
-      <trans-unit id="TiIzvbx" resname="(Awards Coordinator)">
-        <source>(Awards Coordinator)</source>
-        <target>__(Awards Coordinator)</target>
-      </trans-unit>
-      <trans-unit id="mpAaK7U" resname="(Software Development)">
-        <source>(Software Development)</source>
-        <target>__(Software Development)</target>
-      </trans-unit>
-      <trans-unit id="_qZjoSO" resname="(Initial Concept)">
-        <source>(Initial Concept)</source>
-        <target>__(Initial Concept)</target>
-      </trans-unit>
-      <trans-unit id="xD8d3zX" resname="(for NDBs)">
-        <source>(for NDBs)</source>
-        <target>__(for NDBs)</target>
-      </trans-unit>
-      <trans-unit id="ephcSrL" resname="(for Ham Beacons)">
-        <source>(for Ham Beacons)</source>
-        <target>__(for Ham Beacons)</target>
-      </trans-unit>
-      <trans-unit id="FrZmjZg" resname="Frequency">
-        <source>Frequency</source>
-        <target>__Frequency</target>
-      </trans-unit>
-      <trans-unit id="coDROQD" resname="KHz">
-        <source>KHz</source>
-        <target>__KHz</target>
-      </trans-unit>
-      <trans-unit id="wjI4ev7" resname="Callsign or other ID">
-        <source>Callsign or other ID</source>
-        <target>__Callsign or other ID</target>
-      </trans-unit>
-      <trans-unit id="OEOXHc." resname="ID">
-        <source>ID</source>
-        <target>__ID</target>
-      </trans-unit>
-      <trans-unit id="NJoTVZi" resname="Lower sideband offset">
-        <source>Lower sideband offset</source>
-        <target>__Lower sideband offset</target>
-      </trans-unit>
-      <trans-unit id="YyPbSUi" resname="LSB">
-        <source>LSB</source>
-        <target>__LSB</target>
-      </trans-unit>
-      <trans-unit id="bmrM_DI" resname="Upper sideband offset">
-        <source>Upper sideband offset</source>
-        <target>__Upper sideband offset</target>
-      </trans-unit>
-      <trans-unit id="YfCs.xc" resname="USB">
-        <source>USB</source>
-        <target>__USB</target>
-      </trans-unit>
-      <trans-unit id="cZRXDUc" resname="Cycle time in seconds">
-        <source>Cycle time in seconds</source>
-        <target>__Cycle time in seconds</target>
-      </trans-unit>
-      <trans-unit id="farMeNH" resname="Sec">
-        <source>Sec</source>
-        <target>__Sec</target>
-      </trans-unit>
-      <trans-unit id="LzQ2Zqq" resname="Format">
-        <source>Format</source>
-        <target>__Format</target>
-      </trans-unit>
-      <trans-unit id="Rsq73LM" resname="Fmt">
-        <source>Fmt</source>
-        <target>__Fmt</target>
-      </trans-unit>
-      <trans-unit id="FbYZdLJ" resname="Location">
-        <source>Location</source>
-        <target>__Location</target>
-      </trans-unit>
-      <trans-unit id="4n2UnUc" resname="'Name' and Location">
-        <source>'Name' and Location</source>
-        <target>__'Name' and Location</target>
-      </trans-unit>
-      <trans-unit id="1SxGNWy" resname="State / Province / Territory">
-        <source>State / Province / Territory</source>
-        <target>__State / Province / Territory</target>
-      </trans-unit>
-      <trans-unit id="CABmKno" resname="S/P">
-        <source>S/P</source>
-        <target>__S/P</target>
-      </trans-unit>
-      <trans-unit id="lfwgPK7" resname="ITU">
-        <source>ITU</source>
-        <target>__ITU</target>
-      </trans-unit>
-      <trans-unit id="WG719R_" resname="&lt;div&gt;Continent&lt;/div&gt;">
-        <source>&lt;div&gt;Continent&lt;/div&gt;</source>
-        <target><![CDATA[__<div>Continent</div>]]></target>
-      </trans-unit>
-      <trans-unit id="aYS6Glz" resname="Listener Grid Square">
-        <source>Listener Grid Square</source>
-        <target>__Listener Grid Square</target>
-      </trans-unit>
-      <trans-unit id="0PqtSmJ" resname="GSQ">
-        <source>GSQ</source>
-        <target>__GSQ</target>
-      </trans-unit>
-      <trans-unit id="MoYmSxp" resname="Power in Watts">
-        <source>Power in Watts</source>
-        <target>__Power in Watts</target>
-      </trans-unit>
-      <trans-unit id="eIplDyQ" resname="Pwr">
-        <source>Pwr</source>
-        <target>__Pwr</target>
-      </trans-unit>
-      <trans-unit id="ugK_Eo1" resname="Notes about this signal">
-        <source>Notes about this signal</source>
-        <target>__Notes about this signal</target>
-      </trans-unit>
-      <trans-unit id="inUlsUk" resname="Notes">
-        <source>Notes</source>
-        <target>__Notes</target>
-      </trans-unit>
-      <trans-unit id="0QFzIVL" resname="Places where this signal has been reported">
-        <source>Places where this signal has been reported</source>
-        <target>__Places where this signal has been reported</target>
-      </trans-unit>
-      <trans-unit id="lAfD1qg" resname="Number of times this signal has been logged">
-        <source>Number of times this signal has been logged</source>
-        <target>__Number of times this signal has been logged</target>
-      </trans-unit>
-      <trans-unit id="6iEA3Im" resname="Logs">
-        <source>Logs</source>
-        <target>__Logs</target>
-      </trans-unit>
-      <trans-unit id="zv64EYJ" resname="Date on which signal was first logged">
-        <source>Date on which signal was first logged</source>
-        <target>__Date on which signal was first logged</target>
-      </trans-unit>
-      <trans-unit id="npbosWm" resname="First Logged">
-        <source>First Logged</source>
-        <target>__First Logged</target>
-      </trans-unit>
-      <trans-unit id="zUkWkRy" resname="Date on which signal was last logged">
-        <source>Date on which signal was last logged</source>
-        <target>__Date on which signal was last logged</target>
-      </trans-unit>
-      <trans-unit id="PUq17SZ" resname="Last Logged">
-        <source>Last Logged</source>
-        <target>__Last Logged</target>
-      </trans-unit>
-      <trans-unit id="rHyUnxI" resname="Inactive">
-        <source>Inactive</source>
-        <target>__Inactive</target>
-      </trans-unit>
-      <trans-unit id="0QImGLm" resname="inactive">
-        <source>inactive</source>
-        <target>__inactive</target>
+      <trans-unit id="W.cwNi1" resname="(inactive)">
+        <source>(inactive)</source>
+        <target>__(inactive)</target>
       </trans-unit>
       <trans-unit id="h4UrBK0" resname="(No signals found matching your criteria)">
         <source>(No signals found matching your criteria)</source>
         <target>__(No signals found matching your criteria)</target>
-      </trans-unit>
-      <trans-unit id="uE9iGdh" resname="Add Signal...">
-        <source>Add Signal...</source>
-        <target>__Add Signal...</target>
-      </trans-unit>
-      <trans-unit id="3NHVIj9" resname="Name">
-        <source>Name</source>
-        <target>__Name</target>
-      </trans-unit>
-      <trans-unit id="IeSesrK" resname="Log">
-        <source>Log</source>
-        <target>__Log</target>
-      </trans-unit>
-      <trans-unit id="lpzL089" resname="Email">
-        <source>Email</source>
-        <target>__Email</target>
-      </trans-unit>
-      <trans-unit id="Ke82zed" resname="Ham Radio Callsign">
-        <source>Ham Radio Callsign</source>
-        <target>__Ham Radio Callsign</target>
-      </trans-unit>
-      <trans-unit id="gwqDzSd" resname="Callsign">
-        <source>Callsign</source>
-        <target>__Callsign</target>
-      </trans-unit>
-      <trans-unit id="nu3Q3Qi" resname="QTH">
-        <source>QTH</source>
-        <target>__QTH</target>
-      </trans-unit>
-      <trans-unit id="EEjhwUW" resname="Timezone (relative to UTC)">
-        <source>Timezone (relative to UTC)</source>
-        <target>__Timezone (relative to UTC)</target>
-      </trans-unit>
-      <trans-unit id="ufZpSVL" resname="&lt;div&gt;Timezone&lt;/div&gt;">
-        <source>&lt;div&gt;Timezone&lt;/div&gt;</source>
-        <target><![CDATA[__<div>Timezone</div>]]></target>
-      </trans-unit>
-      <trans-unit id="OsSKR.w" resname="Total number of logs for all signals">
-        <source>Total number of logs for all signals</source>
-        <target>__Total number of logs for all signals</target>
-      </trans-unit>
-      <trans-unit id="lQnEAiU" resname="&lt;div&gt;Total Logs&lt;/div&gt;">
-        <source>&lt;div&gt;Total Logs&lt;/div&gt;</source>
-        <target><![CDATA[__<div>Total Logs</div>]]></target>
-      </trans-unit>
-      <trans-unit id="BvZMDTK" resname="Latest Log">
-        <source>Latest Log</source>
-        <target>__Latest Log</target>
-      </trans-unit>
-      <trans-unit id="3n.MOUu" resname="Number of NDBs received">
-        <source>Number of NDBs received</source>
-        <target>__Number of NDBs received</target>
-      </trans-unit>
-      <trans-unit id="iTUQGci" resname="&lt;div&gt;NDB&lt;/div&gt;">
-        <source>&lt;div&gt;NDB&lt;/div&gt;</source>
-        <target><![CDATA[__<div>NDB</div>]]></target>
-      </trans-unit>
-      <trans-unit id="Pxj75bh" resname="Total number of signals of all types">
-        <source>Total number of signals of all types</source>
-        <target>__Total number of signals of all types</target>
-      </trans-unit>
-      <trans-unit id="CQAkKYC" resname="&lt;div&gt;All Signals&lt;/div&gt;">
-        <source>&lt;div&gt;All Signals&lt;/div&gt;</source>
-        <target><![CDATA[__<div>All Signals</div>]]></target>
-      </trans-unit>
-      <trans-unit id="yiL2KE1" resname="WWW">
-        <source>WWW</source>
-        <target>__WWW</target>
-      </trans-unit>
-      <trans-unit id="eSO.7jh" resname="NDB Weblog for Listener">
-        <source>NDB Weblog for Listener</source>
-        <target>__NDB Weblog for Listener</target>
-      </trans-unit>
-      <trans-unit id="6jmqclN" resname="NWL">
-        <source>NWL</source>
-        <target>__NWL</target>
-      </trans-unit>
-      <trans-unit id="OmB1R5o" resname="Map showing Signals for Listener">
-        <source>Map showing Signals for Listener</source>
-        <target>__Map showing Signals for Listener</target>
-      </trans-unit>
-      <trans-unit id="vhdrABX" resname="Map">
-        <source>Map</source>
-        <target>__Map</target>
-      </trans-unit>
-      <trans-unit id="IBpu4TV" resname="&lt;div&gt;Map Pos&lt;/div&gt;">
-        <source>&lt;div&gt;Map Pos&lt;/div&gt;</source>
-        <target><![CDATA[__<div>Map Pos</div>]]></target>
-      </trans-unit>
-      <trans-unit id="wcIksDz" resname="Admin">
-        <source>Admin</source>
-        <target>__Admin</target>
-      </trans-unit>
-      <trans-unit id="COJxQGA" resname="Customise %s Listeners List">
-        <source>Customise %s Listeners List</source>
-        <target>__Customise %s Listeners List</target>
-      </trans-unit>
-      <trans-unit id="9tnIPjS" resname="Customise %s Signals List">
-        <source>Customise %s Signals List</source>
-        <target>__Customise %s Signals List</target>
-      </trans-unit>
-      <trans-unit id="fseDXmo" resname="Your %s Editors are:">
-        <source>Your %s Editors are:</source>
-        <target>__Your %s Editors are:</target>
-      </trans-unit>
-      <trans-unit id="388x1Uz" resname="of %s signals">
-        <source>of %s signals</source>
-        <target>__of %s signals</target>
-      </trans-unit>
-      <trans-unit id="WV.7s5b" resname="of %s listeners">
-        <source>of %s listeners</source>
-        <target>__of %s listeners</target>
-      </trans-unit>
-      <trans-unit id="Vm1s_R0" resname="Call / ID">
-        <source>Call / ID</source>
-        <target>__Call / ID</target>
-      </trans-unit>
-      <trans-unit id="qFqOitd" resname="Inactive stations are shown at the bottom of the list.">
-        <source>Inactive stations are shown at the bottom of the list.</source>
-        <target>__Inactive stations are shown at the bottom of the list.</target>
-      </trans-unit>
-      <trans-unit id="fLxZY2_" resname="Any exact matches for &lt;strong&gt;%s&lt;/strong&gt; will shown at the top of this list, regardless of the station's current operational status.">
-        <source>Any exact matches for &lt;strong&gt;%s&lt;/strong&gt; will shown at the top of this list, regardless of the station's current operational status.</source>
-        <target><![CDATA[__Any exact matches for <strong>%s</strong> will shown at the top of this list, regardless of the station's current operational status.]]></target>
-      </trans-unit>
-      <trans-unit id="WYP2_UK" resname="Show Counts">
-        <source>Show Counts</source>
-        <target>__Show Counts</target>
-      </trans-unit>
-      <trans-unit id="v7lt68l" resname="Signal Types">
-        <source>Signal Types</source>
-        <target>__Signal Types</target>
       </trans-unit>
       <trans-unit id="nTy0oa1" resname="Click on any station ID for details, GSQ for location map, Heard In list for reception map and Logs value to see all logs for the station.">
         <source>Click on any station ID for details, GSQ for location map, Heard In list for reception map and Logs value to see all logs for the station.</source>
@@ -1665,229 +1909,41 @@
         <source>This report prints best in Landscape.</source>
         <target>__This report prints best in Landscape.</target>
       </trans-unit>
-      <trans-unit id="nnVYaFU" resname="Additional DGPS Station Info">
-        <source>Additional DGPS Station Info</source>
-        <target>__Additional DGPS Station Info</target>
+      <trans-unit id="uE9iGdh" resname="Add Signal...">
+        <source>Add Signal...</source>
+        <target>__Add Signal...</target>
       </trans-unit>
-      <trans-unit id="YxlI8iR" resname="NDB List PDF (by Frequency)">
-        <source>NDB List PDF (by Frequency)</source>
-        <target>__NDB List PDF (by Frequency)</target>
+      <trans-unit id="62kIIHs" resname="All %s &gt; Excel">
+        <source>All %s &gt; Excel</source>
+        <target><![CDATA[__All %s > Excel]]></target>
       </trans-unit>
-      <trans-unit id="h3.fGHs" resname="USCG DGPS Site List">
-        <source>USCG DGPS Site List</source>
-        <target>__USCG DGPS Site List</target>
+      <trans-unit id="2eanxYJ" resname="RNA / REU / RWW SYSTEM">
+        <source>RNA / REU / RWW SYSTEM</source>
+        <target>__RNA / REU / RWW SYSTEM</target>
       </trans-unit>
-      <trans-unit id="Y1uY73z" resname="Additional Ham Beacon Info:">
-        <source>Additional Ham Beacon Info:</source>
-        <target>__Additional Ham Beacon Info:</target>
+      <trans-unit id="tYuQTSd" resname="PHP Version">
+        <source>PHP Version</source>
+        <target>__PHP Version</target>
       </trans-unit>
-      <trans-unit id="Oj7pq.b" resname="William Hepburn's LF List">
-        <source>William Hepburn's LF List</source>
-        <target>__William Hepburn's LF List</target>
+      <trans-unit id="2zYmM6O" resname="Symfony Version">
+        <source>Symfony Version</source>
+        <target>__Symfony Version</target>
       </trans-unit>
-      <trans-unit id="7ht8ixe" resname="Additional Navtex Station Info:">
-        <source>Additional Navtex Station Info:</source>
-        <target>__Additional Navtex Station Info:</target>
+      <trans-unit id="b9VTEy5" resname="Change Log">
+        <source>Change Log</source>
+        <target>__Change Log</target>
       </trans-unit>
-      <trans-unit id="NIUlfyK" resname="LOWFERS">
-        <source>LOWFERS</source>
-        <target>__LOWFERS</target>
+      <trans-unit id="2arJ9ul" resname="Add Log for:">
+        <source>Add Log for:</source>
+        <target>__Add Log for:</target>
       </trans-unit>
-      <trans-unit id="Zp9CWdi" resname="HF">
-        <source>HF</source>
-        <target>__HF</target>
+      <trans-unit id="ll2kuux" resname="Latest Logs:">
+        <source>Latest Logs:</source>
+        <target>__Latest Logs:</target>
       </trans-unit>
-      <trans-unit id="D.kq1Cp" resname="50MHz">
-        <source>50MHz</source>
-        <target>__50MHz</target>
-      </trans-unit>
-      <trans-unit id="YTYcgbo" resname="Additional NDB Info:">
-        <source>Additional NDB Info:</source>
-        <target>__Additional NDB Info:</target>
-      </trans-unit>
-      <trans-unit id="y7G1wSS" resname="William Hepburn's HF List">
-        <source>William Hepburn's HF List</source>
-        <target>__William Hepburn's HF List</target>
-      </trans-unit>
-      <trans-unit id="sgGJ9Ii" resname="Heard In&lt;br /&gt;&lt;em&gt;(Daytime Log)&lt;/em&gt;">
-        <source>Heard In&lt;br /&gt;&lt;em&gt;(Daytime Log)&lt;/em&gt;</source>
-        <target><![CDATA[__Heard In<br /><em>(Daytime Log)</em>]]></target>
-      </trans-unit>
-      <trans-unit id="g7EsIhb" resname="Clear">
-        <source>Clear</source>
-        <target>__Clear</target>
-      </trans-unit>
-      <trans-unit id="DLbQ6TF" resname="Form Actions">
-        <source>Form Actions</source>
-        <target>__Form Actions</target>
-      </trans-unit>
-      <trans-unit id="GEnlSzj" resname="Frequency Range">
-        <source>Frequency Range</source>
-        <target>__Frequency Range</target>
-      </trans-unit>
-      <trans-unit id="LNyaMvK" resname="Freq.">
-        <source>Freq.</source>
-        <target>__Freq.</target>
-      </trans-unit>
-      <trans-unit id="r4_rGX4" resname="Paging Controls">
-        <source>Paging Controls</source>
-        <target>__Paging Controls</target>
-      </trans-unit>
-      <trans-unit id="dUW.I6L" resname="Freq. 2">
-        <source>Freq. 2</source>
-        <target>__Freq. 2</target>
-      </trans-unit>
-      <trans-unit id="TIkGz3b" resname="Channels">
-        <source>Channels</source>
-        <target>__Channels</target>
-      </trans-unit>
-      <trans-unit id="pSrOQg8" resname="All">
-        <source>All</source>
-        <target>__All</target>
-      </trans-unit>
-      <trans-unit id="9ajk.1n" resname="Only 1 KHz">
-        <source>Only 1 KHz</source>
-        <target>__Only 1 KHz</target>
-      </trans-unit>
-      <trans-unit id="etDZdrR" resname="Not 1 KHz">
-        <source>Not 1 KHz</source>
-        <target>__Not 1 KHz</target>
-      </trans-unit>
-      <trans-unit id="dI9sPH_" resname="Combiner">
-        <source>Combiner</source>
-        <target>__Combiner</target>
-      </trans-unit>
-      <trans-unit id="vZcsxPF" resname="AND">
-        <source>AND</source>
-        <target>__AND</target>
-      </trans-unit>
-      <trans-unit id="gp5bKK8" resname="OR">
-        <source>OR</source>
-        <target>__OR</target>
-      </trans-unit>
-      <trans-unit id="5u5Vfc8" resname="(Used when both State AND Country are given)">
-        <source>(Used when both State AND Country are given)</source>
-        <target>__(Used when both State AND Country are given)</target>
-      </trans-unit>
-      <trans-unit id="DU7W3HR" resname="Grid Squares">
-        <source>Grid Squares</source>
-        <target>__Grid Squares</target>
-      </trans-unit>
-      <trans-unit id="kfEgtV9" resname="From GSQ">
-        <source>From GSQ</source>
-        <target>__From GSQ</target>
-      </trans-unit>
-      <trans-unit id="SMldNw8" resname="DX">
-        <source>DX</source>
-        <target>__DX</target>
-      </trans-unit>
-      <trans-unit id="f8iq2vY" resname="DX Max">
-        <source>DX Max</source>
-        <target>__DX Max</target>
-      </trans-unit>
-      <trans-unit id="n7Zmmnf" resname="Units">
-        <source>Units</source>
-        <target>__Units</target>
-      </trans-unit>
-      <trans-unit id="HzRQP2W" resname="km">
-        <source>km</source>
-        <target>__km</target>
-      </trans-unit>
-      <trans-unit id="L6nrEw6" resname="miles">
-        <source>miles</source>
-        <target>__miles</target>
-      </trans-unit>
-      <trans-unit id="FDiMXsw" resname="Distance in kilometers from GSQ">
-        <source>Distance in kilometers from GSQ</source>
-        <target>__Distance in kilometers from GSQ</target>
-      </trans-unit>
-      <trans-unit id="8gh6Xll" resname="KM">
-        <source>KM</source>
-        <target>__KM</target>
-      </trans-unit>
-      <trans-unit id="ZGPey_7" resname="Distance in miles from GSQ">
-        <source>Distance in miles from GSQ</source>
-        <target>__Distance in miles from GSQ</target>
-      </trans-unit>
-      <trans-unit id="oRYfZEX" resname="Miles">
-        <source>Miles</source>
-        <target>__Miles</target>
-      </trans-unit>
-      <trans-unit id="745JrK8" resname="Bearing relative to GSQ">
-        <source>Bearing relative to GSQ</source>
-        <target>__Bearing relative to GSQ</target>
-      </trans-unit>
-      <trans-unit id="rgW9_xG" resname="Deg">
-        <source>Deg</source>
-        <target>__Deg</target>
-      </trans-unit>
-      <trans-unit id="8j5LycN" resname="Anyone (or enter values in &quot;Heard here&quot; box)">
-        <source>Anyone (or enter values in "Heard here" box)</source>
-        <target>__Anyone (or enter values in "Heard here" box)</target>
-      </trans-unit>
-      <trans-unit id="FpEOEdK" resname="Loggings">
-        <source>Loggings</source>
-        <target>__Loggings</target>
-      </trans-unit>
-      <trans-unit id="ux0qTrP" resname="Listener(s)">
-        <source>Listener(s)</source>
-        <target>__Listener(s)</target>
-      </trans-unit>
-      <trans-unit id="KrbqWrM" resname="Logged by">
-        <source>Logged by</source>
-        <target>__Logged by</target>
-      </trans-unit>
-      <trans-unit id="hKJwzCv" resname="Not logged by">
-        <source>Not logged by</source>
-        <target>__Not logged by</target>
-      </trans-unit>
-      <trans-unit id="z_kHmmO" resname="Use SHIFT or CONTROL to select multiple values">
-        <source>Use SHIFT or CONTROL to select multiple values</source>
-        <target>__Use SHIFT or CONTROL to select multiple values</target>
-      </trans-unit>
-      <trans-unit id="OXMkFg6" resname="Specification">
-        <source>Specification</source>
-        <target>__Specification</target>
-      </trans-unit>
-      <trans-unit id="gez0MA0" resname="Active Status">
-        <source>Active Status</source>
-        <target>__Active Status</target>
-      </trans-unit>
-      <trans-unit id="kjQGlYm" resname="Active">
-        <source>Active</source>
-        <target>__Active</target>
-      </trans-unit>
-      <trans-unit id="q8z85gD" resname="Inctive">
-        <source>Inctive</source>
-        <target>__Inctive</target>
-      </trans-unit>
-      <trans-unit id="byAvVKe" resname="List">
-        <source>List</source>
-        <target>__List</target>
-      </trans-unit>
-      <trans-unit id="iAdjX47" resname="Offsets">
-        <source>Offsets</source>
-        <target>__Offsets</target>
-      </trans-unit>
-      <trans-unit id="jpnNmG_" resname="Relative">
-        <source>Relative</source>
-        <target>__Relative</target>
-      </trans-unit>
-      <trans-unit id="8ohzj2B" resname="Absolute">
-        <source>Absolute</source>
-        <target>__Absolute</target>
-      </trans-unit>
-      <trans-unit id="EBWuPyn" resname="Heard Here">
-        <source>Heard Here</source>
-        <target>__Heard Here</target>
-      </trans-unit>
-      <trans-unit id="K1BVl9q" resname="Any">
-        <source>Any</source>
-        <target>__Any</target>
-      </trans-unit>
-      <trans-unit id="Ig248H6" resname="Logged Between">
-        <source>Logged Between</source>
-        <target>__Logged Between</target>
+      <trans-unit id="dQ.b2vQ" resname="Add Listener...">
+        <source>Add Listener...</source>
+        <target>__Add Listener...</target>
       </trans-unit>
     </body>
   </file>

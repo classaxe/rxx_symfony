@@ -133,7 +133,7 @@ class Signals
                 'sort'      =>  's.GSQ',
                 'td_class'  =>  'txt_r monospace',
                 'th_class'  =>  '',
-                'tooltip'   =>  'Listener Grid Square',
+                'tooltip'   =>  'Signal Grid Square',
             ],
             'pwr' => [
                 'admin'     =>  false,

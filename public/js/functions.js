@@ -20,6 +20,12 @@ function getlimitOptions(max, value, defaultLimit)
     return out;
 }
 
+function exportSignallistExcel() {
+    if (!confirm(msg.exportSignallistExcel.replace('%s', system.toUpperCase()))) {
+        return;
+    }
+    alert('OK');
+}
 function getMetar(decoded) {
     window.open('https://www.aviationweather.gov/metar/data' +
         '?ids='+$('#form_icao').val() +
