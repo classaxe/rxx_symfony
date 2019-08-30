@@ -416,8 +416,8 @@ class SignalRepository extends ServiceEntityRepository
             $this->query['select'][] = "ROUND(s.khz - (s.LSB/1000), 3) as LSB";
             $this->query['select'][] = "ROUND(s.khz + (s.USB/1000), 3) as USB";
         } else {
-            $this->query['select'][] = "LSB as LSB";
-            $this->query['select'][] = "USB as USB";
+            $this->query['select'][] = "s.LSB as LSB";
+            $this->query['select'][] = "s.USB as USB";
         }
         return $this;
     }

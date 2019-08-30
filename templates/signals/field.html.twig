@@ -1,0 +1,13 @@
+{% if ((not column.admin or isAdmin) and (not column.arg or (column.arg in args|keys and attribute(args, column.arg) != ''))) %}
+{% set value = attribute(signal, column.field) %}
+{% if (column.highlight and args[column.highlight] != '') %}
+    {% for repl in args[column.highlight] | split(' ') %}
+    {% set value = value | replace({ (repl) : '<em>'~repl~'</em>'}) %}
+    {% endfor %}
+{% else %}{%
+    set value = attribute(signal, column.field)
+%}{% endif %}
+<td {% if column.td_class %} class="{{ column.td_class }}"{% endif %}>
+    {% if column.float is defined %}{{ value | float }}{% else %}{{ value | raw }}{% endif %}
+</td>
+{% endif %}

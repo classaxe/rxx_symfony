@@ -22,12 +22,7 @@
             title="{{ type.title|trans }}{% if signal.active == '0' %} {% trans %}(inactive){% endtrans %}{% endif %}"
         >
 {% for key, column in columns %}
-{% if ((not column.admin or isAdmin) and (not column.arg or (column.arg in args|keys and attribute(args, column.arg) != ''))) %}
-            <td {% if column.td_class %} class="{{ column.td_class }}"{% endif %}>
-                {% if column.float is defined %}{{ attribute(signal, column.field) | float }}{% else %}{{ attribute(signal, column.field) | raw }}{% endif %}
-            </td>
-
-{% endif %}
+   {% include 'signals/field.html.twig' %}
 {% endfor %}
         </tr>
 {% endfor %}

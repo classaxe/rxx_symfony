@@ -1945,6 +1945,14 @@
         <source>Add Listener...</source>
         <target>Add Listener...</target>
       </trans-unit>
+      <trans-unit id="pM5LMsS" resname="Heard In&lt;br /&gt;&lt;b&gt;(Daytime Log)&lt;/b&gt;">
+        <source>Heard In&lt;br /&gt;&lt;b&gt;(Daytime Log)&lt;/b&gt;</source>
+        <target><![CDATA[Heard In<br /><b>(Daytime Log)</b>]]></target>
+      </trans-unit>
+      <trans-unit id="2YKqX9J" resname="&lt;div&gt;Region&lt;/div&gt;">
+        <source>&lt;div&gt;Region&lt;/div&gt;</source>
+        <target><![CDATA[<div>Region</div>]]></target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

@@ -1024,10 +1024,11 @@ fieldset#group_weather_report_details {
             color: @sortedTxt;
         }
 
-        em {
-            font-style: normal;
+        b {
             background: #ffff00;
             color: #0000ff;
+            border: 1px solid #b0b000;
+            border-radius: 2px;
         }
     }
 
@@ -1037,11 +1038,24 @@ fieldset#group_weather_report_details {
         vertical-align: top;
         font-size: 80%;
         padding: 0.125em 0.25em;
+        &.caps {
+            text-transform: uppercase;
+        }
         em {
             font-style: normal;
-            background: #ffff00;
+            font-weight: bold;
+            background: #e0ffe0;
+            color: #008000;
+            padding: 0 1px;
+            border: 1px solid #80b080;
+            border-radius: 2px;
         }
-        // white-space: nowrap;
+        b {
+            background: #ffff00;
+            padding: 0 1px;
+            border: 1px solid #b0b000;
+            border-radius: 2px;
+        }
     }
 }
 /* [ Listeners Grid ] */
