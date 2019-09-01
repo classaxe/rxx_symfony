@@ -11,20 +11,31 @@ class CustomExtensions extends AbstractExtension
     public function getFilters()
     {
         return [
-            new TwigFilter('obfuscateEmail', [$this, '_filterObfuscateEmail']),
-            new TwigFilter('float', function ($val) { return (float)$val; })
+            new TwigFilter('float', function ($val) { return (float)$val; }),
+            new TwigFilter('ireplace', [$this, '_ireplace']),
+            new TwigFilter('obfuscateEmail', [$this, '_obfuscateEmail'])
         ];
     }
 
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('getEnv', [$this, '_functionGetenv']),
-            new TwigFunction('symfonyVersion', [$this, '_functionGetSymfonyVersion'])
+            new TwigFunction('getEnv', [$this, '_getenv']),
+            new TwigFunction('symfonyVersion', [$this, '_symfonyVersion'])
         ];
     }
 
-    public function _filterObfuscateEmail($string)
+    public function _getenv($varname)
+    {
+        return getenv($varname);
+    }
+
+    public function _ireplace($input, array $replace)
+    {
+        return str_ireplace(array_keys($replace), array_values($replace), $input);
+    }
+
+    public function _obfuscateEmail($string)
     {
         return
             ' '
@@ -38,12 +49,7 @@ class CustomExtensions extends AbstractExtension
             . ' ';
     }
 
-    public function _functionGetenv($varname)
-    {
-        return getenv($varname);
-    }
-
-    public function _functionGetSymfonyVersion()
+    public function _symfonyVersion()
     {
         return \Symfony\Component\HttpKernel\Kernel::VERSION;
     }

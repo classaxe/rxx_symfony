@@ -4,6 +4,7 @@
     menuLangBtn:    80px;
     listenersForm:  560px;
     signalsForm:    560px;
+    stats:          180px;
     logonForm:      300px;
     label:          120px;
 }
@@ -54,9 +55,15 @@
     };
 }
 
+// Colours
 #sysColor(@rmode) {
     body.@{rmode} {
         background: @@rmode[bodyBg];
+        table.stats {
+            tr {
+                background: @@rmode[panelBg] !important;
+            }
+        }
         .menu-centered {
             .header {
                 background: @@rmode[panelBg];
@@ -122,8 +129,6 @@
     }
 }
 
-body { font-family: Arial, Helvetica, sans-serif; }
-
 /* [ System Colours ] */
 #brands;
 #sysColor(reu);
@@ -150,6 +155,8 @@ body { font-family: Arial, Helvetica, sans-serif; }
 }
 
 /* [ General Styles ] */
+body { font-family: Arial, Helvetica, sans-serif; }
+
 .txt_r {
     text-align: right;
 }
@@ -274,6 +281,63 @@ body {
     clip: rect(0,0,0,0);
     border: 0;
 }
+
+@media screen and (max-width: @width[signalsForm] + 60 + @width[stats]) {
+    div.c_1 {
+    }
+    div.c_2 {
+        section {
+            float: left;
+            margin: 0.5em 1em 0.5em 0;
+            &:last-child {
+                margin-right: 0;
+            }
+            .stats {
+                width: (@width[signalsForm] / 2) - 20;
+            }
+        }
+    }
+}
+
+@media screen and (min-width: @width[signalsForm] + 60 + @width[stats]) {
+    div.c_1 {
+        float: left;
+    }
+    div.c_2 {
+        float: right;
+        section {
+            margin-bottom: 1em;
+            .stats {
+                width: @width[stats];
+            }
+        }
+    }
+}
+
+table.stats {
+    width: @width[stats];
+    thead,
+    tbody,
+    tfoot {
+        border: 0;
+    }
+    tr {
+        th {
+            text-align: left;
+            padding: 0;
+        }
+        td {
+            text-align: right;
+            padding: 0;
+        }
+    }
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+    border-collapse: collapse;
+    padding: 0;
+}
+
 
 /* [ Help dialogs ] */
 .help {
@@ -507,7 +571,7 @@ body {
 .controlPanel {
     display: inline-block;
     .header {
-        padding: 0 1em;
+        padding: 0.25em;
         white-space: nowrap;
         text-align: center;
         border-radius: 1em 1em 0 0;
@@ -1046,13 +1110,13 @@ fieldset#group_weather_report_details {
             font-weight: bold;
             background: #e0ffe0;
             color: #008000;
-            padding: 0 1px;
+            padding: 0;
             border: 1px solid #80b080;
             border-radius: 2px;
         }
         b {
             background: #ffff00;
-            padding: 0 1px;
+            padding: 1px;
             border: 1px solid #b0b000;
             border-radius: 2px;
         }

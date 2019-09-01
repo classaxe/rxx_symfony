@@ -5,12 +5,12 @@
 * Licence:   LGPL
 * Copyright: 2019 Martin Francis
 */
-body {
-  font-family: Arial, Helvetica, sans-serif;
-}
 /* [ System Colours ] */
 body.reu {
   background: #fffafa;
+}
+body.reu table.stats tr {
+  background: #fff0f0;
 }
 body.reu .menu-centered .header {
   background: #fff0f0;
@@ -69,6 +69,9 @@ body.reu .button .is-active {
 body.rna {
   background: #f8f8ff;
 }
+body.rna table.stats tr {
+  background: #e6e6ff;
+}
 body.rna .menu-centered .header {
   background: #e6e6ff;
   border: 3px solid #3333ff;
@@ -125,6 +128,9 @@ body.rna .button .is-active {
 }
 body.rww {
   background: #fafffa;
+}
+body.rww table.stats tr {
+  background: #f2fff2;
 }
 body.rww .menu-centered .header {
   background: #f2fff2;
@@ -222,6 +228,9 @@ tr.other td {
   font-weight: bold !important;
 }
 /* [ General Styles ] */
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
 .txt_r {
   text-align: right;
 }
@@ -344,6 +353,53 @@ body .menu-centered .language li a {
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
   border: 0;
+}
+@media screen and (max-width: 800px) {
+  div.c_2 section {
+    float: left;
+    margin: 0.5em 1em 0.5em 0;
+  }
+  div.c_2 section:last-child {
+    margin-right: 0;
+  }
+  div.c_2 section .stats {
+    width: 260px;
+  }
+}
+@media screen and (min-width: 800px) {
+  div.c_1 {
+    float: left;
+  }
+  div.c_2 {
+    float: right;
+  }
+  div.c_2 section {
+    margin-bottom: 1em;
+  }
+  div.c_2 section .stats {
+    width: 180px;
+  }
+}
+table.stats {
+  width: 180px;
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  border-collapse: collapse;
+  padding: 0;
+}
+table.stats thead,
+table.stats tbody,
+table.stats tfoot {
+  border: 0;
+}
+table.stats tr th {
+  text-align: left;
+  padding: 0;
+}
+table.stats tr td {
+  text-align: right;
+  padding: 0;
 }
 /* [ Help dialogs ] */
 .help {
@@ -573,7 +629,7 @@ body .menu-centered .language li a {
   display: inline-block;
 }
 .controlPanel .header {
-  padding: 0 1em;
+  padding: 0.25em;
   white-space: nowrap;
   text-align: center;
   border-radius: 1em 1em 0 0;
@@ -1057,13 +1113,13 @@ fieldset#group_weather_report_details div label {
   font-weight: bold;
   background: #e0ffe0;
   color: #008000;
-  padding: 0 1px;
+  padding: 0;
   border: 1px solid #80b080;
   border-radius: 2px;
 }
 .results td b {
   background: #ffff00;
-  padding: 0 1px;
+  padding: 1px;
   border: 1px solid #b0b000;
   border-radius: 2px;
 }

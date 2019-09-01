@@ -1953,6 +1953,102 @@
         <source>&lt;div&gt;Region&lt;/div&gt;</source>
         <target><![CDATA[<div>Region</div>]]></target>
       </trans-unit>
+      <trans-unit id="EdWVnaX" resname="Message ID">
+        <source>Message ID</source>
+        <target>Message ID</target>
+      </trans-unit>
+      <trans-unit id="AvkQwQL" resname="RNA Only">
+        <source>RNA Only</source>
+        <target>RNA Only</target>
+      </trans-unit>
+      <trans-unit id="XrZ8DE7" resname="REU Only">
+        <source>REU Only</source>
+        <target>REU Only</target>
+      </trans-unit>
+      <trans-unit id="DOrVPO2" resname="RNA + REU">
+        <source>RNA + REU</source>
+        <target>RNA + REU</target>
+      </trans-unit>
+      <trans-unit id="3gCfAf9" resname="RWW">
+        <source>RWW</source>
+        <target>RWW</target>
+      </trans-unit>
+      <trans-unit id="Kmc.Uhg" resname="RNA Listeners">
+        <source>RNA Listeners</source>
+        <target>RNA Listeners</target>
+      </trans-unit>
+      <trans-unit id="1Z4cpBm" resname="REU Listeners">
+        <source>REU Listeners</source>
+        <target>REU Listeners</target>
+      </trans-unit>
+      <trans-unit id="MY..eJt" resname="RWW Listeners">
+        <source>RWW Listeners</source>
+        <target>RWW Listeners</target>
+      </trans-unit>
+      <trans-unit id="lcYRcDG" resname="Locations">
+        <source>Locations</source>
+        <target>Locations</target>
+      </trans-unit>
+      <trans-unit id="xTx6Owr" resname="First log">
+        <source>First log</source>
+        <target>First log</target>
+      </trans-unit>
+      <trans-unit id="C8R60M2" resname="Last log">
+        <source>Last log</source>
+        <target>Last log</target>
+      </trans-unit>
+      <trans-unit id="F_9gYd6" resname="Unlogged">
+        <source>Unlogged</source>
+        <target>Unlogged</target>
+      </trans-unit>
+      <trans-unit id="2PdGb4I" resname="%s Listeners">
+        <source>%s Listeners</source>
+        <target>%s Listeners</target>
+      </trans-unit>
+      <trans-unit id="EtrlQWv" resname="%s Listeners in Africa">
+        <source>%s Listeners in Africa</source>
+        <target>%s Listeners in Africa</target>
+      </trans-unit>
+      <trans-unit id="vj7y0TM" resname="%s Listeners&lt;br /&gt;in Africa">
+        <source>%s Listeners&lt;br /&gt;in Africa</source>
+        <target><![CDATA[%s Listeners<br />in Africa]]></target>
+      </trans-unit>
+      <trans-unit id="nOFVDqN" resname="%s Listeners&lt;br /&gt;in Antarctica">
+        <source>%s Listeners&lt;br /&gt;in Antarctica</source>
+        <target><![CDATA[%s Listeners<br />in Antarctica]]></target>
+      </trans-unit>
+      <trans-unit id="vtR6j1F" resname="%s Listeners&lt;br /&gt;in Asia">
+        <source>%s Listeners&lt;br /&gt;in Asia</source>
+        <target><![CDATA[%s Listeners<br />in Asia]]></target>
+      </trans-unit>
+      <trans-unit id="PVn8_Ri" resname="%s Listeners&lt;br /&gt;in Carribean">
+        <source>%s Listeners&lt;br /&gt;in Carribean</source>
+        <target><![CDATA[%s Listeners<br />in Carribean]]></target>
+      </trans-unit>
+      <trans-unit id="pv6I71j" resname="%s Listeners&lt;br /&gt;in Europe">
+        <source>%s Listeners&lt;br /&gt;in Europe</source>
+        <target><![CDATA[%s Listeners<br />in Europe]]></target>
+      </trans-unit>
+      <trans-unit id="EMifZTw" resname="%s Listeners&lt;br /&gt;in International Waters">
+        <source>%s Listeners&lt;br /&gt;in International Waters</source>
+        <target><![CDATA[%s Listeners<br />in International Waters]]></target>
+      </trans-unit>
+      <trans-unit id="sL3nfgl" resname="%s Listeners&lt;br /&gt;in North America">
+        <source>%s Listeners&lt;br /&gt;in North America</source>
+        <target><![CDATA[%s Listeners<br />in North America]]></target>
+      </trans-unit>
+      <trans-unit id="jojil_9" resname="%s Listeners&lt;br /&gt;in Oceania (Pacific)">
+        <source>%s Listeners&lt;br /&gt;in Oceania (Pacific)</source>
+        <target><![CDATA[%s Listeners<br />in Oceania (Pacific)]]></target>
+      </trans-unit>
+      <trans-unit id=".mhMbVt" resname="%s Listeners&lt;br /&gt;in South America">
+        <source>%s Listeners&lt;br /&gt;in South America</source>
+        <target><![CDATA[%s Listeners<br />in South America]]></target>
+      </trans-unit>
+      <trans-unit id="zs6tjyt" resname="%s Listeners&lt;br /&gt;in Unknown">
+        <source>%s Listeners&lt;br /&gt;in Unknown</source>
+        <target><![CDATA[%s Listeners<br />in Unknown]]></target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

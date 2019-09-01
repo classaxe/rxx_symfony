@@ -1,8 +1,8 @@
 {% if ((not column.admin or isAdmin) and (not column.arg or (column.arg in args|keys and attribute(args, column.arg) != ''))) %}
 {% set value = attribute(signal, column.field) %}
-{% if (column.highlight and args[column.highlight] != '') %}
+{% if (column.highlight and args[column.highlight] is not empty) %}
     {% for repl in args[column.highlight] | split(' ') %}
-    {% set value = value | replace({ (repl) : '<em>'~repl~'</em>'}) %}
+    {% set value = value | ireplace({ (repl) : '<em>' ~ repl|upper ~ '</em>' }) %}
     {% endfor %}
 {% else %}{%
     set value = attribute(signal, column.field)

@@ -263,6 +263,9 @@ class SignalRepository extends ServiceEntityRepository
             case "rna":
                 $this->query['where'][] ='s.heard_in_na = 1 OR s.heard_in_ca = 1';
                 break;
+            case "rww":
+                $this->query['where'][] = "s.logs > 0";
+                break;
         }
         return $this;
     }
@@ -687,6 +690,116 @@ class SignalRepository extends ServiceEntityRepository
         $this->query['param'] = [];
         $stmt->execute();
 
+        return $stmt->fetchColumn();
+    }
+
+    public function getStats($isAdmin)
+    {
+        $stats = [
+            [ 'RNA Only' =>     number_format($this->getCountSignalsRNAOnly()) ],
+            [ 'REU Only' =>     number_format($this->getCountSignalsREUOnly()) ],
+            [ 'RNA + REU' =>    number_format($this->getCountSignalsRNAAndREU()) ],
+            [ 'RWW' =>          number_format($this->getCountSignalsRWW()) ]
+        ];
+        if ($isAdmin) {
+            $stats[] =[ 'Unlogged' => $this->getCountSignalsUnlogged() ];
+        }
+        return [ 'Signals' => $stats ];
+    }
+
+    private function getCountSignalsREUOnly()
+    {
+        $sql =
+            "SELECT\n"
+            ."    COUNT(*)\n"
+            ."FROM\n"
+            ."    `signals`\n"
+            ."WHERE (\n"
+            ."    `heard_in_af`=0 AND\n"
+            ."    `heard_in_as`=0 AND\n"
+            ."    `heard_in_ca`=0 AND\n"
+            ."    `heard_in_eu`=1 AND\n"
+            ."    `heard_in_iw`=0 AND\n"
+            ."    `heard_in_na`=0 AND\n"
+            ."    `heard_in_oc`=0 AND\n"
+            ."    `heard_in_sa`=0\n"
+            .")";
+        $stmt = $this->connection->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchColumn();
+    }
+
+    private function getCountSignalsRNAOnly()
+    {
+        $sql =
+            "SELECT\n"
+            ."    COUNT(*)\n"
+            ."FROM\n"
+            ."    `signals`\n"
+            ."WHERE (\n"
+            ."    `heard_in_af`=0 AND\n"
+            ."    `heard_in_as`=0 AND\n"
+            ."    `heard_in_ca`=0 AND\n"
+            ."    `heard_in_eu`=0 AND\n"
+            ."    `heard_in_iw`=0 AND\n"
+            ."    `heard_in_na`=1 AND\n"
+            ."    `heard_in_oc`=0 AND\n"
+            ."    `heard_in_sa`=0\n"
+            .")";
+        $stmt = $this->connection->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchColumn();
+    }
+
+    private function getCountSignalsRNAAndREU()
+    {
+        $sql =
+            "SELECT\n"
+            ."    COUNT(*)\n"
+            ."FROM\n"
+            ."    `signals`\n"
+            ."WHERE (\n"
+            ."    `heard_in_eu`=1 AND\n"
+            ."    `heard_in_na`=1\n"
+            .")";
+        $stmt = $this->connection->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchColumn();
+    }
+
+    private function getCountSignalsRWW()
+    {
+        $sql =
+            "SELECT\n"
+            ."    COUNT(*)\n"
+            ."FROM\n"
+            ."    `signals`\n"
+            ."WHERE\n"
+            ."    `logs` > 0";
+        $stmt = $this->connection->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchColumn();
+    }
+
+    private function getCountSignalsUnlogged()
+    {
+        $sql =
+            "SELECT\n"
+            ."    COUNT(*)\n"
+            ."FROM\n"
+            ."    `signals`\n"
+            ."WHERE (\n"
+            ."    `heard_in_af`=0 AND\n"
+            ."    `heard_in_as`=0 AND\n"
+            ."    `heard_in_ca`=0 AND\n"
+            ."    `heard_in_eu`=0 AND\n"
+            ."    `heard_in_iw`=0 AND\n"
+            ."    `heard_in_na`=0 AND\n"
+            ."    `heard_in_oc`=0 AND\n"
+            ."    `heard_in_sa`=0\n"
+            .")";
+        $stmt = $this->connection->prepare($sql);
+        $stmt->execute();
         return $stmt->fetchColumn();
     }
 

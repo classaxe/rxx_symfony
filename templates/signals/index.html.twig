@@ -30,9 +30,12 @@
         {% include 'status.html.twig' %}
         {% set form_title='Customise %s Signals List' | trans | format(system|upper) %}
         {% set form_class='signal_list' %}
-        <div class="row">
-            <div class="small-12 medium-8 columns">
+        <div class="clearfix">
+            <div class="c_1">
                 {% include 'forms/signals/form.html.twig' %}
+            </div>
+            <div class="c_2">
+                {% include 'signals/stats.html.twig' %}
             </div>
         </div>
 
@@ -65,7 +68,7 @@
                 setColumnSortActions();
                 setColumnSortedClass();
                 setExternalLinks();
-                $('#form_paging_status').html('{{ 'of %s signals' | trans | format(results.total) }}');
+                $('#form_paging_status').html('{{ 'of %s signals' | trans | format(results.total | number_format(0, '', ','))  }}');
             });
         </script>
     </div>

@@ -2,6 +2,8 @@
 namespace App\Controller\Web\Signals;
 
 use App\Form\Signals\Collection as Form;
+use App\Repository\ListenerRepository;
+use App\Repository\RegionRepository;
 use App\Repository\SignalRepository;
 use App\Repository\TypeRepository;
 use App\Utils\Rxx;
@@ -54,6 +56,8 @@ class Collection extends Base
         $system,
         Request $request,
         Form $form,
+        ListenerRepository $listenerRepository,
+        RegionRepository $regionRepository,
         SignalRepository $signalRepository,
         TypeRepository $typeRepository
     ) {
@@ -65,6 +69,7 @@ class Collection extends Base
             'call' =>       '',
             'channels' =>   '',
             'gsq' =>        '',
+            'heard_in' =>   '',
             'khz_1' =>      '',
             'khz_2' =>      '',
             'region' =>     '',
@@ -104,6 +109,10 @@ class Collection extends Base
             'options' =>            $options,
             'mode' =>               'Signals List',
             '_locale' =>            $_locale,
+            'region' =>             ($args['region'] ?  $regionRepository->get($args['region'])->getName() : ""),
+            'statsBlocks' =>
+                $signalRepository->getStats($this->isAdmin()) +
+                $listenerRepository->getStats($options['system'], $options['region']),
             'system' =>             $system,
             'results' => [
                 'limit' =>              isset($args['limit']) ? $args['limit'] : static::defaultlimit,

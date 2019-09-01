@@ -4,8 +4,6 @@ namespace App\Repository;
 
 use App\Entity\Region;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use App\Repository\CountryRepository;
-use App\Repository\StateRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 class RegionRepository extends ServiceEntityRepository

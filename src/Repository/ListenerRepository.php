@@ -7,11 +7,14 @@ use App\Columns\ListenerSignals as ListenerSignalsColumns;
 use App\Entity\Listener;
 use App\Utils\Rxx;
 use App\Columns\Listeners as ListenersColumns;
+use Doctrine\DBAL\Driver\Connection;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 class ListenerRepository extends ServiceEntityRepository
 {
+    private $connection;
+
     private $tabs = [
         ['listener', 'Profile'],
         ['listener_signals', 'Signals (%%signals%%)'],
@@ -32,17 +35,24 @@ class ListenerRepository extends ServiceEntityRepository
     private $listenersColumns;
     private $listenerLogsColumns;
     private $listenerSignalsColumns;
+    private $logRepository;
 
     public function __construct(
+        Connection $connection,
+        RegionRepository $regionRepository,
         RegistryInterface $registry,
         ListenersColumns $listenersColumns,
         ListenerLogsColumns $listenerLogsColumns,
-        ListenerSignalsColumns $listenerSignalsColumns
+        ListenerSignalsColumns $listenerSignalsColumns,
+        LogRepository $logRepository
     ) {
         parent::__construct($registry, Listener::class);
+        $this->connection = $connection;
         $this->listenersColumns = $listenersColumns->getColumns();
         $this->listenerLogsColumns = $listenerLogsColumns->getColumns();
         $this->listenerSignalsColumns = $listenerSignalsColumns->getColumns();
+        $this->logRepository = $logRepository;
+        $this->regionRepository = $regionRepository;
     }
 
     public function getColumns()
@@ -58,6 +68,19 @@ class ListenerRepository extends ServiceEntityRepository
     public static function getPopupArgs($which)
     {
         return static::popup[$which];
+    }
+
+    public function getStats($system, $region)
+    {
+        $dates = $this->logRepository->getFirstAndLastLog($system, $region);
+        $stats = [
+            [ 'Locations' =>    number_format($this->getFilteredListenersCount($system, [ 'region' => $region ]))],
+            [ 'Loggings' =>     number_format($this->logRepository->getFilteredLogsCount($system, $region)) ],
+            [ 'First log' =>    date('j M Y', strtotime($dates['first'])) ],
+            [ 'Last log' =>     date('j M Y', strtotime($dates['last' ])) ]
+        ];
+
+        return [ '%s Listeners' . ($region ? "<br />in " . $this->regionRepository->get($region)->getName() : "") => $stats];
     }
 
     public function getSignalsColumns()
@@ -154,16 +177,14 @@ class ListenerRepository extends ServiceEntityRepository
 
     public function getFilteredListeners($system, $args)
     {
-        $qb =
-            $this
-                ->createQueryBuilder('l')
-                ->select('l');
+        $qb = $this
+            ->createQueryBuilder('l')
+            ->select('l');
 
         if (isset($args['sort']) && $this->listenersColumns[$args['sort']]['sort']) {
-            $qb
-                ->addSelect(
-                    "(CASE WHEN (".$this->listenersColumns[$args['sort']]['sort'].")='' THEN 1 ELSE 0 END) AS _blank"
-                );
+            $qb->addSelect(
+                "(CASE WHEN (".$this->listenersColumns[$args['sort']]['sort'].") = '' THEN 1 ELSE 0 END) AS _blank"
+            );
         }
 
         $this->addFilterSystem($qb, $system);
@@ -215,24 +236,23 @@ class ListenerRepository extends ServiceEntityRepository
 
     public function getFilteredListenersCount($system, $args)
     {
-        $qb =
-            $this
-                ->createQueryBuilder('l')
-                ->select('COUNT(l.id) as count');
+        $qb = $this
+            ->createQueryBuilder('l')
+            ->select('COUNT(l.id) as count');
 
         $this->addFilterSystem($qb, $system);
 
-        if ($args['filter']) {
+        if (!empty($args['filter'])) {
             $qb
                 ->andWhere('(l.name like :filter or l.qth like :filter or l.callsign like :filter)')
                 ->setParameter('filter', '%'.$args['filter'].'%');
         }
-        if ($args['country']) {
+        if (!empty($args['country'])) {
             $qb
                 ->andWhere('(l.itu = :country)')
                 ->setParameter('country', $args['country']);
         }
-        if (isset($args['region']) && $args['region']) {
+        if (!empty($args['region'])) {
             $qb
                 ->andWhere('(l.region = :region)')
                 ->setParameter('region', $args['region']);

@@ -13,6 +13,54 @@ class LogRepository extends ServiceEntityRepository
         parent::__construct($registry, Log::class);
     }
 
+    public function getFilteredLogsCount($system, $region = '')
+    {
+        $qb = $this
+            ->createQueryBuilder('l')
+            ->select('COUNT(l.id) as count');
+
+        $this->addFilterSystem($qb, $system);
+
+        if ($region) {
+            $qb
+                ->andWhere('(l.region = :region)')
+                ->setParameter('region', $region);
+        }
+        return $qb->getQuery()->getSingleScalarResult();
+    }
+
+    public function getFirstAndLastLog($system, $region = '')
+    {
+        $qb = $this
+            ->createQueryBuilder('l')
+            ->select('MIN(l.date) AS first, MAX(l.date) AS last');
+
+        $this->addFilterSystem($qb, $system);
+
+        if ($region) {
+            $qb
+                ->andWhere('(l.region = :region)')
+                ->setParameter('region', $region);
+        }
+        return $qb->getQuery()->getArrayResult()[0];
+    }
+
+    private function addFilterSystem(&$qb, $system)
+    {
+        switch ($system) {
+            case "reu":
+                $qb
+                    ->andWhere('(l.region = :eu)')
+                    ->setParameter('eu', 'eu');
+                break;
+            case "rna":
+                $qb
+                    ->andWhere('(l.region = :na)')
+                    ->setParameter('na', 'na');
+                break;
+        }
+    }
+
     public function getLogsForListener($listenerID)
     {
         $qb = $this

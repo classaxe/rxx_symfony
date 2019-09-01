@@ -144,6 +144,10 @@ class Base extends AbstractController
         }
     }
 
+    public function isAdmin()
+    {
+        return $this->parameters['isAdmin'];
+    }
     /**
      * @param array $parameters
      * @return array
