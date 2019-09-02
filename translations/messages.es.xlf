@@ -333,6 +333,86 @@
         <source>Last Logged</source>
         <target>__Last Logged</target>
       </trans-unit>
+      <trans-unit id="EdWVnaX" resname="Message ID">
+        <source>Message ID</source>
+        <target>__Message ID</target>
+      </trans-unit>
+      <trans-unit id="AvkQwQL" resname="RNA Only">
+        <source>RNA Only</source>
+        <target>__RNA Only</target>
+      </trans-unit>
+      <trans-unit id="XrZ8DE7" resname="REU Only">
+        <source>REU Only</source>
+        <target>__REU Only</target>
+      </trans-unit>
+      <trans-unit id="DOrVPO2" resname="RNA + REU">
+        <source>RNA + REU</source>
+        <target>__RNA + REU</target>
+      </trans-unit>
+      <trans-unit id="3gCfAf9" resname="RWW">
+        <source>RWW</source>
+        <target>__RWW</target>
+      </trans-unit>
+      <trans-unit id="F_9gYd6" resname="Unlogged">
+        <source>Unlogged</source>
+        <target>__Unlogged</target>
+      </trans-unit>
+      <trans-unit id="EtrlQWv" resname="%s Listeners in Africa">
+        <source>%s Listeners in Africa</source>
+        <target>__%s Listeners in Africa</target>
+      </trans-unit>
+      <trans-unit id="vj7y0TM" resname="%s Listeners&lt;br /&gt;in Africa">
+        <source>%s Listeners&lt;br /&gt;in Africa</source>
+        <target><![CDATA[__%s Listeners<br />in Africa]]></target>
+      </trans-unit>
+      <trans-unit id="nOFVDqN" resname="%s Listeners&lt;br /&gt;in Antarctica">
+        <source>%s Listeners&lt;br /&gt;in Antarctica</source>
+        <target><![CDATA[__%s Listeners<br />in Antarctica]]></target>
+      </trans-unit>
+      <trans-unit id="vtR6j1F" resname="%s Listeners&lt;br /&gt;in Asia">
+        <source>%s Listeners&lt;br /&gt;in Asia</source>
+        <target><![CDATA[__%s Listeners<br />in Asia]]></target>
+      </trans-unit>
+      <trans-unit id="PVn8_Ri" resname="%s Listeners&lt;br /&gt;in Carribean">
+        <source>%s Listeners&lt;br /&gt;in Carribean</source>
+        <target><![CDATA[__%s Listeners<br />in Carribean]]></target>
+      </trans-unit>
+      <trans-unit id="pv6I71j" resname="%s Listeners&lt;br /&gt;in Europe">
+        <source>%s Listeners&lt;br /&gt;in Europe</source>
+        <target><![CDATA[__%s Listeners<br />in Europe]]></target>
+      </trans-unit>
+      <trans-unit id="EMifZTw" resname="%s Listeners&lt;br /&gt;in International Waters">
+        <source>%s Listeners&lt;br /&gt;in International Waters</source>
+        <target><![CDATA[__%s Listeners<br />in International Waters]]></target>
+      </trans-unit>
+      <trans-unit id="sL3nfgl" resname="%s Listeners&lt;br /&gt;in North America">
+        <source>%s Listeners&lt;br /&gt;in North America</source>
+        <target><![CDATA[__%s Listeners<br />in North America]]></target>
+      </trans-unit>
+      <trans-unit id="jojil_9" resname="%s Listeners&lt;br /&gt;in Oceania (Pacific)">
+        <source>%s Listeners&lt;br /&gt;in Oceania (Pacific)</source>
+        <target><![CDATA[__%s Listeners<br />in Oceania (Pacific)]]></target>
+      </trans-unit>
+      <trans-unit id=".mhMbVt" resname="%s Listeners&lt;br /&gt;in South America">
+        <source>%s Listeners&lt;br /&gt;in South America</source>
+        <target><![CDATA[__%s Listeners<br />in South America]]></target>
+      </trans-unit>
+      <trans-unit id="zs6tjyt" resname="%s Listeners&lt;br /&gt;in Unknown">
+        <source>%s Listeners&lt;br /&gt;in Unknown</source>
+        <target><![CDATA[__%s Listeners<br />in Unknown]]></target>
+      </trans-unit>
+      <trans-unit id="lcYRcDG" resname="Locations">
+        <source>Locations</source>
+        <target>__Locations</target>
+      </trans-unit>
+      <trans-unit id="xTx6Owr" resname="First log">
+        <source>First log</source>
+        <target>__First log</target>
+      </trans-unit>
+      <trans-unit id="C8R60M2" resname="Last log">
+        <source>Last log</source>
+        <target>__Last log</target>
+      </trans-unit>
       <trans-unit id="FrZmjZg" resname="Frequency">
         <source>Frequency</source>
         <target>__Frequency</target>
@@ -397,9 +477,9 @@
         <source>ITU</source>
         <target>__ITU</target>
       </trans-unit>
-      <trans-unit id="WG719R_" resname="&lt;div&gt;Continent&lt;/div&gt;">
-        <source>&lt;div&gt;Continent&lt;/div&gt;</source>
-        <target><![CDATA[__<div>Continent</div>]]></target>
+      <trans-unit id="2YKqX9J" resname="&lt;div&gt;Region&lt;/div&gt;">
+        <source>&lt;div&gt;Region&lt;/div&gt;</source>
+        <target><![CDATA[__<div>Region</div>]]></target>
       </trans-unit>
       <trans-unit id="a6MU0Xu" resname="Signal Grid Square">
         <source>Signal Grid Square</source>
@@ -429,9 +509,9 @@
         <source>Places where this signal has been reported</source>
         <target>__Places where this signal has been reported</target>
       </trans-unit>
-      <trans-unit id="sgGJ9Ii" resname="Heard In&lt;br /&gt;&lt;em&gt;(Daytime Log)&lt;/em&gt;">
-        <source>Heard In&lt;br /&gt;&lt;em&gt;(Daytime Log)&lt;/em&gt;</source>
-        <target><![CDATA[__Heard In<br /><em>(Daytime Log)</em>]]></target>
+      <trans-unit id="pM5LMsS" resname="Heard In&lt;br /&gt;&lt;b&gt;(Daytime Log)&lt;/b&gt;">
+        <source>Heard In&lt;br /&gt;&lt;b&gt;(Daytime Log)&lt;/b&gt;</source>
+        <target><![CDATA[__Heard In<br /><b>(Daytime Log)</b>]]></target>
       </trans-unit>
       <trans-unit id="lAfD1qg" resname="Number of times this signal has been logged">
         <source>Number of times this signal has been logged</source>
@@ -645,37 +725,41 @@
         <source>Print...</source>
         <target>__Print...</target>
       </trans-unit>
-      <trans-unit id="wd8wUKM" resname="All \%s &gt; Excel">
-        <source>All \%s &gt; Excel</source>
-        <target><![CDATA[__All \%s > Excel]]></target>
+      <trans-unit id="FL7.P0x" resname="All %s &gt; %s">
+        <source>All %s &gt; %s</source>
+        <target><![CDATA[__All %s > %s]]></target>
       </trans-unit>
-      <trans-unit id="WI6qnsd" resname="EXPORT ENTIRE %s LISTING TO EXCEL">
-        <source>EXPORT ENTIRE %s LISTING TO EXCEL</source>
-        <target>__EXPORT ENTIRE %s LISTING TO EXCEL</target>
+      <trans-unit id="k.5.Y6q" resname="Export entire :system listing to :format?">
+        <source>Export entire :system listing to :format?</source>
+        <target>__Export entire :system listing to :format?</target>
+      </trans-unit>
+      <trans-unit id="SNU2NVU" resname="Excel">
+        <source>Excel</source>
+        <target>__Excel</target>
+      </trans-unit>
+      <trans-unit id="5H6K82X" resname="ILGRadio Database Format">
+        <source>ILGRadio Database Format</source>
+        <target>__ILGRadio Database Format</target>
+      </trans-unit>
+      <trans-unit id="DL6zmy." resname="PDF Document">
+        <source>PDF Document</source>
+        <target>__PDF Document</target>
       </trans-unit>
       <trans-unit id="ezttny4" resname="This can be a time consuming process - typically a minute or more.">
         <source>This can be a time consuming process - typically a minute or more.</source>
         <target>__This can be a time consuming process - typically a minute or more.</target>
       </trans-unit>
-      <trans-unit id="40ADSvs" resname="Signal types, 'offsets' setting and 'active' status will be taken from the options">
-        <source>Signal types, 'offsets' setting and 'active' status will be taken from the options</source>
-        <target>__Signal types, 'offsets' setting and 'active' status will be taken from the options</target>
+      <trans-unit id="QTqF9_X" resname="All options you selected in 'Customise Report' above will be ignored.">
+        <source>All options you selected in 'Customise Report' above will be ignored.</source>
+        <target>__All options you selected in 'Customise Report' above will be ignored.</target>
       </trans-unit>
-      <trans-unit id="oSksXQ6" resname="you selected in \&quot;Customise Report\&quot; above, other options are ignored.">
-        <source>you selected in \"Customise Report\" above, other options are ignored.</source>
-        <target>__you selected in \"Customise Report\" above, other options are ignored.</target>
+      <trans-unit id="R._E8IO" resname="Signal types, 'offsets' setting and 'active' status will be taken from the options you selected in 'Customise Report' above, other options will be ignored.">
+        <source>Signal types, 'offsets' setting and 'active' status will be taken from the options you selected in 'Customise Report' above, other options will be ignored.</source>
+        <target>__Signal types, 'offsets' setting and 'active' status will be taken from the options you selected in 'Customise Report' above, other options will be ignored.</target>
       </trans-unit>
       <trans-unit id="XCG_Wsk" resname="Continue?">
         <source>Continue?</source>
         <target>__Continue?</target>
-      </trans-unit>
-      <trans-unit id="57njlHL" resname="All %s &gt; PDF">
-        <source>All %s &gt; PDF</source>
-        <target><![CDATA[__All %s > PDF]]></target>
-      </trans-unit>
-      <trans-unit id="MEtopLt" resname="All %s &gt; ILG">
-        <source>All %s &gt; ILG</source>
-        <target><![CDATA[__All %s > ILG]]></target>
       </trans-unit>
       <trans-unit id=".hLVvOy" resname="DGPS">
         <source>DGPS</source>
@@ -1913,10 +1997,6 @@
         <source>Add Signal...</source>
         <target>__Add Signal...</target>
       </trans-unit>
-      <trans-unit id="62kIIHs" resname="All %s &gt; Excel">
-        <source>All %s &gt; Excel</source>
-        <target><![CDATA[__All %s > Excel]]></target>
-      </trans-unit>
       <trans-unit id="2eanxYJ" resname="RNA / REU / RWW SYSTEM">
         <source>RNA / REU / RWW SYSTEM</source>
         <target>__RNA / REU / RWW SYSTEM</target>
@@ -1945,109 +2025,9 @@
         <source>Add Listener...</source>
         <target>__Add Listener...</target>
       </trans-unit>
-      <trans-unit id="pM5LMsS" resname="Heard In&lt;br /&gt;&lt;b&gt;(Daytime Log)&lt;/b&gt;">
-        <source>Heard In&lt;br /&gt;&lt;b&gt;(Daytime Log)&lt;/b&gt;</source>
-        <target><![CDATA[__Heard In<br /><b>(Daytime Log)</b>]]></target>
-      </trans-unit>
-      <trans-unit id="2YKqX9J" resname="&lt;div&gt;Region&lt;/div&gt;">
-        <source>&lt;div&gt;Region&lt;/div&gt;</source>
-        <target><![CDATA[__<div>Region</div>]]></target>
-      </trans-unit>
-      <trans-unit id="EdWVnaX" resname="Message ID">
-        <source>Message ID</source>
-        <target>__Message ID</target>
-      </trans-unit>
-      <trans-unit id="AvkQwQL" resname="RNA Only">
-        <source>RNA Only</source>
-        <target>__RNA Only</target>
-      </trans-unit>
-      <trans-unit id="XrZ8DE7" resname="REU Only">
-        <source>REU Only</source>
-        <target>__REU Only</target>
-      </trans-unit>
-      <trans-unit id="DOrVPO2" resname="RNA + REU">
-        <source>RNA + REU</source>
-        <target>__RNA + REU</target>
-      </trans-unit>
-      <trans-unit id="3gCfAf9" resname="RWW">
-        <source>RWW</source>
-        <target>__RWW</target>
-      </trans-unit>
-      <trans-unit id="Kmc.Uhg" resname="RNA Listeners">
-        <source>RNA Listeners</source>
-        <target>__RNA Listeners</target>
-      </trans-unit>
-      <trans-unit id="1Z4cpBm" resname="REU Listeners">
-        <source>REU Listeners</source>
-        <target>__REU Listeners</target>
-      </trans-unit>
-      <trans-unit id="MY..eJt" resname="RWW Listeners">
-        <source>RWW Listeners</source>
-        <target>__RWW Listeners</target>
-      </trans-unit>
-      <trans-unit id="lcYRcDG" resname="Locations">
-        <source>Locations</source>
-        <target>__Locations</target>
-      </trans-unit>
-      <trans-unit id="xTx6Owr" resname="First log">
-        <source>First log</source>
-        <target>__First log</target>
-      </trans-unit>
-      <trans-unit id="C8R60M2" resname="Last log">
-        <source>Last log</source>
-        <target>__Last log</target>
-      </trans-unit>
-      <trans-unit id="F_9gYd6" resname="Unlogged">
-        <source>Unlogged</source>
-        <target>__Unlogged</target>
-      </trans-unit>
       <trans-unit id="2PdGb4I" resname="%s Listeners">
         <source>%s Listeners</source>
         <target>__%s Listeners</target>
-      </trans-unit>
-      <trans-unit id="EtrlQWv" resname="%s Listeners in Africa">
-        <source>%s Listeners in Africa</source>
-        <target>__%s Listeners in Africa</target>
-      </trans-unit>
-      <trans-unit id="vj7y0TM" resname="%s Listeners&lt;br /&gt;in Africa">
-        <source>%s Listeners&lt;br /&gt;in Africa</source>
-        <target><![CDATA[__%s Listeners<br />in Africa]]></target>
-      </trans-unit>
-      <trans-unit id="nOFVDqN" resname="%s Listeners&lt;br /&gt;in Antarctica">
-        <source>%s Listeners&lt;br /&gt;in Antarctica</source>
-        <target><![CDATA[__%s Listeners<br />in Antarctica]]></target>
-      </trans-unit>
-      <trans-unit id="vtR6j1F" resname="%s Listeners&lt;br /&gt;in Asia">
-        <source>%s Listeners&lt;br /&gt;in Asia</source>
-        <target><![CDATA[__%s Listeners<br />in Asia]]></target>
-      </trans-unit>
-      <trans-unit id="PVn8_Ri" resname="%s Listeners&lt;br /&gt;in Carribean">
-        <source>%s Listeners&lt;br /&gt;in Carribean</source>
-        <target><![CDATA[__%s Listeners<br />in Carribean]]></target>
-      </trans-unit>
-      <trans-unit id="pv6I71j" resname="%s Listeners&lt;br /&gt;in Europe">
-        <source>%s Listeners&lt;br /&gt;in Europe</source>
-        <target><![CDATA[__%s Listeners<br />in Europe]]></target>
-      </trans-unit>
-      <trans-unit id="EMifZTw" resname="%s Listeners&lt;br /&gt;in International Waters">
-        <source>%s Listeners&lt;br /&gt;in International Waters</source>
-        <target><![CDATA[__%s Listeners<br />in International Waters]]></target>
-      </trans-unit>
-      <trans-unit id="sL3nfgl" resname="%s Listeners&lt;br /&gt;in North America">
-        <source>%s Listeners&lt;br /&gt;in North America</source>
-        <target><![CDATA[__%s Listeners<br />in North America]]></target>
-      </trans-unit>
-      <trans-unit id="jojil_9" resname="%s Listeners&lt;br /&gt;in Oceania (Pacific)">
-        <source>%s Listeners&lt;br /&gt;in Oceania (Pacific)</source>
-        <target><![CDATA[__%s Listeners<br />in Oceania (Pacific)]]></target>
-      </trans-unit>
-      <trans-unit id=".mhMbVt" resname="%s Listeners&lt;br /&gt;in South America">
-        <source>%s Listeners&lt;br /&gt;in South America</source>
-        <target><![CDATA[__%s Listeners<br />in South America]]></target>
-      </trans-unit>
-      <trans-unit id="zs6tjyt" resname="%s Listeners&lt;br /&gt;in Unknown">
-        <source>%s Listeners&lt;br /&gt;in Unknown</source>
-        <target><![CDATA[__%s Listeners<br />in Unknown]]></target>
       </trans-unit>
     </body>
   </file>

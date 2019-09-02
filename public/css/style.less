@@ -120,7 +120,7 @@
                 background: @@rmode[btnHover];
                 color: @@rmode[btnActiveColor];
             }
-            .is-active {
+            &.is-active {
                 background: @@rmode[btnActive];
                 color: @@rmode[btnActiveColor];
                 text-decoration: underline;
@@ -565,6 +565,12 @@ table.stats {
                 width: 16em;
             }
         }
+    }
+    .signals_container {
+        border: 1px solid #888;
+        border-radius: 5px;
+        padding: 0.25em;
+        background-color: #fff;
     }
 }
 
@@ -1172,7 +1178,7 @@ pre.log {
         padding: 0.5em 1em 0.5em 1em;
         border-bottom: none;
         &.is-active {
-            font-weight: bold;
+            color: yellow !important;
         }
     }
 }

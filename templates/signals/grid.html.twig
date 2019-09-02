@@ -1,6 +1,5 @@
 {% if signals|length > 0 %}
 {#<pre>{{ dump(signals[0]) }}</pre>#}
-{% include 'signals/actions.html.twig' %}
 <table class="signal results">
     <thead>
         <tr>
@@ -28,7 +27,6 @@
 {% endfor %}
     </tbody>
 </table>
-{% include 'signals/actions.html.twig' %}
 {% else %}
     <p class="no-results">{% trans %}(No signals found matching your criteria){% endtrans %}</p>
 {% endif %}

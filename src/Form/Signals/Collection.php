@@ -146,9 +146,10 @@ class Collection extends Base
                 ChoiceType::class,
                 [
                     'choices' => [
-                        'List' =>   '',
-                        'Map' =>   '1',
+                        'List' =>  'list',
+                        'Map' =>   'map',
                     ],
+                    'placeholder' => false,
                     'label' => 'Show',
                     'required' => false
                 ]

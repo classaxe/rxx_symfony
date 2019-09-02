@@ -1,0 +1,10 @@
+<ul>
+    <li>{% trans %}Click on any station ID for details, GSQ for location map, Heard In list for reception map and Logs value to see all logs for the station.{% endtrans %}</li>
+    <li>{% trans %}To list different types of signals, check the boxes shown for 'Types' below. Inactive stations are normally shown at the end of the report.{% endtrans %}</li>
+    <li>{% trans %}This report prints best in Landscape.{% endtrans %}</li>
+</ul>
+{% if (args.call != '') %}
+    <ul>
+        <li>{{ "Any exact matches for <strong>%s</strong> will shown at the top of this list, regardless of the station's current operational status." | trans | format(args.call) | raw }}</li>
+    </ul>
+{% endif %}

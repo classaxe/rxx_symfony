@@ -3,30 +3,8 @@
 {% block body %}
     <div class="main">
         <h1>{{ mode | trans }}</h1>
-        <ul>
-            <li>{% trans %}Click on any station ID for details, GSQ for location map, Heard In list for reception map and Logs value to see all logs for the station.{% endtrans %}</li>
-            <li>{% trans %}To list different types of signals, check the boxes shown for 'Types' below. Inactive stations are normally shown at the end of the report.{% endtrans %}</li>
-            <li>{% trans %}This report prints best in Landscape.{% endtrans %}</li>
-        </ul>
-        {% if (args.call != '') %}
-            <ul>
-                <li>{{ "Any exact matches for <strong>%s</strong> will shown at the top of this list, regardless of the station's current operational status." | trans | format(args.call) | raw }}</li>
-            </ul>
-        {% endif %}
-        <ul class="refs">
-{% for type in typeRepository.getSignalTypesSearched(args.types) %}
-{% set refs = typeRepository.getTypeForCode(type).refs %}
-{% if refs %}
-            <li><strong>{{ refs.title | trans }}</strong>
-                    [
-{% for link in refs.links %}
-                <a href="{{ link.url }}">{{ link.label | trans }}</a>{% if not loop.last %} | {% endif %}
-{% endfor %}
-                    ]
-            </li>
-{% endif %}
-{% endfor %}
-        </ul>
+        {% include 'signals/tips.html.twig' %}
+        {% include 'signals/refs.html.twig' %}
         {% include 'status.html.twig' %}
         {% set form_title='Customise %s Signals List' | trans | format(system|upper) %}
         {% set form_class='signal_list' %}
@@ -39,37 +17,12 @@
             </div>
         </div>
 
-        {% include 'signals/grid.html.twig' %}
-
-        <script>
-            var system = '{{ system }}';
-            var msg = {};
-            msg.exportSignallistExcel =
-                "{% trans %}EXPORT ENTIRE %s LISTING TO EXCEL{% endtrans %}\n" +
-                "{% trans %}This can be a time consuming process - typically a minute or more.{% endtrans %}\n\n"+
-                "{% trans %}Signal types, 'offsets' setting and 'active' status will be taken from the options {% endtrans %}"+
-                "{% trans %}you selected in \"Customise Report\" above, other options are ignored.{% endtrans %}\n\n"+
-                "{% trans %}Continue?{% endtrans %}";
-
-            $(document).ready( function() {
-                setPagingActions();
-                setFormTypesStyles();
-                setFormTypesDefault();
-                setFormTypesAllAction();
-                setFormCountryAction();
-                setFormRegionAction();
-                setFormRangeAction();
-                setFormRangeUnitsDefault();
-                setFormListenerInvertDefault();
-                setFormHeardInModDefault();
-                setDatePickers();
-                setFormListenerOptionsStyle();
-                setFormResetAction('signals');
-                setColumnSortActions();
-                setColumnSortedClass();
-                setExternalLinks();
-                $('#form_paging_status').html('{{ 'of %s signals' | trans | format(results.total | number_format(0, '', ','))  }}');
-            });
-        </script>
-    </div>
+        {% include 'signals/tabs.html.twig' %}
+        <div class="signals_container">
+            {% if args['show'] == 'list' %}{% include 'signals/grid.html.twig' %}{% endif %}
+            {% if args['show'] == 'map' %}{% include 'signals/map.html.twig' %}{% endif %}
+        </div>
+        {% include 'signals/actions.html.twig' %}
+     </div>
+    {% include 'signals/js.html.twig' %}
 {% endblock %}

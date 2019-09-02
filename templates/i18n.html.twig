@@ -81,21 +81,22 @@
         {% trans %}RNA + REU{% endtrans %}
         {% trans %}RWW{% endtrans %}
         {% trans %}Unlogged{% endtrans %}
-        {% trans %}%s Listeners in Africa{% endtrans %}
-    {% trans %}%s Listeners<br />in Africa{% endtrans %}
-    {% trans %}%s Listeners<br />in Antarctica{% endtrans %}
-    {% trans %}%s Listeners<br />in Asia{% endtrans %}
-    {% trans %}%s Listeners<br />in Carribean{% endtrans %}
-    {% trans %}%s Listeners<br />in Europe{% endtrans %}
-    {% trans %}%s Listeners<br />in International Waters{% endtrans %}
-    {% trans %}%s Listeners<br />in North America{% endtrans %}
-    {% trans %}%s Listeners<br />in Oceania (Pacific){% endtrans %}
-    {% trans %}%s Listeners<br />in South America{% endtrans %}
-    {% trans %}%s Listeners<br />in Unknown{% endtrans %}
-
+    {# Possible heading for Listeners Panel #}
+        {% trans %}%s Listeners{% endtrans %}
+        {% trans %}%s Listeners<br />in Africa{% endtrans %}
+        {% trans %}%s Listeners<br />in Antarctica{% endtrans %}
+        {% trans %}%s Listeners<br />in Asia{% endtrans %}
+        {% trans %}%s Listeners<br />in Carribean{% endtrans %}
+        {% trans %}%s Listeners<br />in Europe{% endtrans %}
+        {% trans %}%s Listeners<br />in International Waters{% endtrans %}
+        {% trans %}%s Listeners<br />in North America{% endtrans %}
+        {% trans %}%s Listeners<br />in Oceania (Pacific){% endtrans %}
+        {% trans %}%s Listeners<br />in South America{% endtrans %}
     {% trans %}Locations{% endtrans %}
-        {% trans %}First log{% endtrans %}
-        {% trans %}Last log{% endtrans %}
+    {% trans %}Loggings{% endtrans %}
+    {% trans %}First log{% endtrans %}
+    {% trans %}Last log{% endtrans %}
+
     {# Report Columns and tooltips #}
         {% trans %}Frequency{% endtrans %}
         {% trans %}KHz{% endtrans %}
@@ -199,14 +200,15 @@
 {% endif %}
 {% if 'Actions' %}
     {% trans %}Print...{% endtrans %}
-    {% trans %}All \%s > Excel{% endtrans %}
-        {% trans %}EXPORT ENTIRE %s LISTING TO EXCEL{% endtrans %}
+    {% trans %}All %s > %s{% endtrans %}
+        {% trans %}Export entire :system listing to :format?{% endtrans %}
+            {% trans %}Excel{% endtrans %}
+            {% trans %}ILGRadio Database Format{% endtrans %}
+            {% trans %}PDF Document{% endtrans %}
         {% trans %}This can be a time consuming process - typically a minute or more.{% endtrans %}
-        {% trans %}Signal types, 'offsets' setting and 'active' status will be taken from the options {% endtrans %}
-        {% trans %}you selected in \"Customise Report\" above, other options are ignored.{% endtrans %}
+        {% trans %}All options you selected in 'Customise Report' above will be ignored.{% endtrans %}
+        {% trans %}Signal types, 'offsets' setting and 'active' status will be taken from the options you selected in 'Customise Report' above, other options will be ignored.{% endtrans %}
         {% trans %}Continue?{% endtrans %}
-    {% trans %}All %s > PDF{% endtrans %}
-    {% trans %}All %s > ILG{% endtrans %}
 {% endif %}
 {% if 'Signal Types' %}
     {% trans %}DGPS{% endtrans %}

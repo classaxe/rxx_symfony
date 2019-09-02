@@ -1,6 +1,10 @@
-<p class="report_actions">
-    <input type="button" class="button small" value="{{ 'Print...' | trans }}" onclick="window.print()">
+{% if (listeners|length > 0 or isAdmin) %}
+    <p class="report_actions">
+    {% if (listeners|length > 0) %}
+        <input type="button" class="button small" value="{{ 'Print...' | trans }}" onclick="window.print()">
+    {% endif %}
     {% if isAdmin %}
         <input type="button" class="button small" value="{{ 'Add Listener...' | trans }}" onclick="window.open('{{ path('listener', { '_locale' : _locale, 'system' : system, 'id' : 'new'})}}','new','{{ listenerPopup }}')">
     {% endif %}
-</p>
+    </p>
+{% endif %}

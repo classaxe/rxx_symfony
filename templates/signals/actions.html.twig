@@ -1,9 +1,13 @@
+{% if (signals|length > 0 or isAdmin) %}
 <p class="report_actions">
+{% if signals|length > 0 %}
     <input type="button" class="button small" value="{% trans %}Print...{% endtrans %}" onclick="window.print()" />
-    {% if isAdmin %}
-        <input type="button" class="button small" value="{% trans %}Add Signal...{% endtrans %}" onclick="alert('soon')" />
-    {% endif %}
-    <input type="button" class="button small" value="{{ 'All %s > Excel' |trans|format(system|upper)}}" onclick="exportSignallistExcel()"/>
-    <input type="button" class="button small" value="{{ 'All %s > PDF' |trans|format(system|upper)}}" />
-    <input type="button" class="button small" value="{{ 'All %s > ILG' |trans|format(system|upper)}}" />
+    <input type="button" class="button small" value="{{ 'All %s > %s' |trans|format(system|upper, 'Excel')}}" onclick="exportSignallistExcel()" />
+    <input type="button" class="button small" value="{{ 'All %s > %s'   |trans|format(system|upper, 'PDF')}}" onclick="exportSignallistPDF()" />
+    <input type="button" class="button small" value="{{ 'All %s > %s'   |trans|format(system|upper, 'ILG')}}" onclick="exportSignallistILG()" />
+{% endif %}
+{% if isAdmin %}
+    <input type="button" class="button small" value="{% trans %}Add Signal...{% endtrans %}" onclick="alert('soon')" />
+{% endif %}
 </p>
+{% endif %}

@@ -1,5 +1,4 @@
 {% if listeners|length > 0 %}
-{% include 'listeners/actions.html.twig' %}
 <table class="listener results">
     <thead>
         <tr>
@@ -26,7 +25,6 @@
 {% endfor %}
     </tbody>
 </table>
-{% include 'listeners/actions.html.twig' %}
 {% else %}
     <p class="no-results">{% trans %}(No listeners found matching your criteria){% endtrans %}</p>
 {% endif %}

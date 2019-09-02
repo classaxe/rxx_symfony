@@ -1,3 +1,20 @@
+function changeShowMode(mode) {
+    switch (mode) {
+        case 'list':
+            if ($('#form_show').prop('selectedIndex') !== 0) {
+                $('#form_show').prop('selectedIndex', 0);
+                $('#form_submit').click();
+            }
+            break;
+        case 'map':
+            if ($('#form_show').prop('selectedIndex') !== 1) {
+                $('#form_show').prop('selectedIndex', 1);
+                $('#form_submit').click();
+            }
+            break;
+    }
+}
+
 function getlimitOptions(max, value, defaultLimit)
 {
     var values = [10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 100000, 20000, 50000, 100000];
@@ -21,11 +38,40 @@ function getlimitOptions(max, value, defaultLimit)
 }
 
 function exportSignallistExcel() {
-    if (!confirm(msg.exportSignallistExcel.replace('%s', system.toUpperCase()))) {
+    if (!confirm(
+            (msg.export + "\n\n" + msg.time + "\n\n" + msg.options + "\n\n" + msg.continue)
+            . replace('\:system', system.toUpperCase())
+            . replace('\:format', msg.excel)
+        )
+    ) {
         return;
     }
     alert('OK');
 }
+
+function exportSignallistILG() {
+    if (!confirm(
+        (msg.export + "\n\n" + msg.nooptions + "\n\n" + msg.continue)
+            . replace('\:system', system.toUpperCase())
+            . replace('\:format', msg.ilg)
+    )
+    ) {
+        return;
+    }
+    alert('OK');
+}
+function exportSignallistPDF() {
+    if (!confirm(
+        (msg.export + "\n\n" + msg.time + "\n\n" + msg.options + "\n\n" + msg.continue)
+            . replace('\:system', system.toUpperCase())
+            . replace('\:format', msg.pdf)
+    )
+    ) {
+        return;
+    }
+    alert('OK');
+}
+
 function getMetar(decoded) {
     window.open('https://www.aviationweather.gov/metar/data' +
         '?ids='+$('#form_icao').val() +
@@ -456,6 +502,17 @@ function setFormResetAction(form) {
                 setFormRegionAction(true);
                 return false;
             });
+            break;
+    }
+}
+
+function setFormShowMode() {
+    switch($('#form_show').prop('selectedIndex')) {
+        case 0:
+            $("#show_list").addClass('is-active');
+            break;
+        case 1:
+            $("#show_map").addClass('is-active');
             break;
     }
 }

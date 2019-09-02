@@ -1,7 +1,7 @@
 /*!
 * Project:   RXX - NDB Logging Database
 * Homepage:  https://rxx.classaxe.com
-* Date:      2019-08-30
+* Date:      2019-08-31
 * Licence:   LGPL
 * Copyright: 2019 Martin Francis
 */
@@ -61,7 +61,7 @@ body.reu .button:hover {
   background: #cc2929;
   color: #ffff40;
 }
-body.reu .button .is-active {
+body.reu .button.is-active {
   background: #e63030;
   color: #ffff40;
   text-decoration: underline;
@@ -121,7 +121,7 @@ body.rna .button:hover {
   background: #5252cc;
   color: #ffff40;
 }
-body.rna .button .is-active {
+body.rna .button.is-active {
   background: #4545e6;
   color: #ffff40;
   text-decoration: underline;
@@ -181,7 +181,7 @@ body.rww .button:hover {
   background: #40a040;
   color: #ffff40;
 }
-body.rww .button .is-active {
+body.rww .button.is-active {
   background: #208020;
   color: #ffff40;
   text-decoration: underline;
@@ -624,6 +624,12 @@ table.stats tr td {
 .main ul.refs li strong {
   display: inline-block;
   width: 16em;
+}
+.main .signals_container {
+  border: 1px solid #888;
+  border-radius: 5px;
+  padding: 0.25em;
+  background-color: #fff;
 }
 .controlPanel {
   display: inline-block;
@@ -1176,7 +1182,7 @@ pre.log {
   border-bottom: none;
 }
 #tabsPanel .button.is-active {
-  font-weight: bold;
+  color: yellow !important;
 }
 /* [ Google Map Pages ] */
 html,

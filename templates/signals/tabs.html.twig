@@ -1,0 +1,5 @@
+<div id="tabsPanel">
+    {% for tab in tabs %}
+        <a class="button" id="show_{{ tab[0] }}" onclick="changeShowMode('{{ tab[0] }}')">{{ tab[1] }}</a>
+    {% endfor %}
+</div>
