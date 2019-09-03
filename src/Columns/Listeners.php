@@ -94,7 +94,7 @@ class Listeners
                 'admin'     =>  false,
                 'arg'       =>  '',
                 'field'     =>  'formattedRegion',
-                'label'     =>  '<div>Continent</div>',
+                'label'     =>  '<div>Region</div>',
                 'order'     =>  'a',
                 'sort'      =>  'l.region',
                 'td_class'  =>  '',

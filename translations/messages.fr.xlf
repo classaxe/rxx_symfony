@@ -2029,6 +2029,10 @@
         <source>%s Listeners</source>
         <target>__%s Listeners</target>
       </trans-unit>
+      <trans-unit id="x3sDGOf" resname="Signals Map">
+        <source>Signals Map</source>
+        <target>__Signals Map</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

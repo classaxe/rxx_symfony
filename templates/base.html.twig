@@ -8,6 +8,10 @@
     <link rel="stylesheet prefetch" href="{{ asset('css/jquery-ui.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/style' ~ minified ~ '.css') }}" />
 {% block stylesheets %}{% endblock %}
+    <script>
+        var base_image = "{{ asset('image') }}";
+        var base_js = "{{ asset('js') }}";
+    </script>
     <script src="{{ asset('js/jquery-3.4.1.min.js') }}"></script>
     <script src="{{ asset('js/jquery-ui.min.js') }}"></script>
     <script src="{{ asset('js/functions' ~ minified ~ '.js') }}"></script>

@@ -1,1 +1,38 @@
-<p>Coming soon...</p>
+<script type="text/javascript" src="//maps.googleapis.com/maps/api/js?key=AIzaSyCmvsfY0bgnVB-gl_nMHGQ71rp1WTz9tGM"></script>
+<script type="text/javascript" src="{{ asset('js/markerclusterer.js') }}"></script>
+<script type="text/javascript">
+//<!--
+google.maps.event.addDomListener(window, 'load', signal.init);
+var signals = [
+{% for row in signals %}{% if row['lat'] or row['lon'] %}
+{% set type = typeRepository.TypeForCode(row.type) %}
+    {
+        'id' : {{ row.ID }},
+        'khz' : {{ row.khz }},
+        'call' : '{{ row.call }}',
+        'className' : '{{ row.active == '0' ? 'inactive' : type.class|lower }}',
+        'type' : '{{ type.title|trans }}{% if row.active == 0 %} {% trans %}(inactive){% endtrans %}{% endif %}',
+        'pwr' : '{{ row.pwr }}',
+        'qth' : '{{ row.QTH }}',
+        'itu' : '{{ row.ITU }}',
+        'sp' : '{{ row.SP }}',
+        'lat' : {{ row.lat }},
+        'lon' : {{ row.lon }},
+        'gsq' : '{{ row.GSQ }}',
+        'lsb' : '{{ row.LSB_approx }}{{ args['offsets'] == '' ? row.LSB : row.khz-(row.LSB/1000) | number_format(3,'.') }}',
+        'usb' : '{{ row.USB_approx }}{{ args['offsets'] == '' ? row.USB : row.khz+(row.USB/1000) | number_format(3,'.') }}',
+        'sec' : '{{ row.sec }}',
+        'fmt' : '{{ row.format }}',
+        'heard' : '{{ row.last_heard != '0000-00-00' ? row.last_heard : '' }}',
+        'heard_in' : '{{ row.heard_in }}'
+    },
+{% endif %}{% endfor %}
+];
+// -->
+</script>
+<div id="panel">
+    <div id="markerlist"></div>
+</div>
+<div id="map-container">
+    <div id="map"></div>
+</div>

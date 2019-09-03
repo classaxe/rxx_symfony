@@ -73,7 +73,7 @@ class Collection extends Base
             'khz_1' =>      '',
             'khz_2' =>      '',
             'region' =>     '',
-            'show' =>       '',
+            'show' =>       'list',
             'sort' =>       static::defaultSorting,
             'sp_itu_clause' => '',
             'states' =>     '',
@@ -111,6 +111,11 @@ class Collection extends Base
             'mode' =>               'Signals List',
             '_locale' =>            $_locale,
             'region' =>             ($args['region'] ?  $regionRepository->get($args['region'])->getName() : ""),
+            'results' => [
+                'limit' =>              isset($args['limit']) ? $args['limit'] : static::defaultlimit,
+                'page' =>               isset($args['page']) ? $args['page'] : 0,
+                'total' =>              $total
+            ],
             'statsBlocks' =>
                 $signalRepository->getStats($this->isAdmin()) +
                 $listenerRepository->getStats($options['system'], $options['region']),
@@ -118,11 +123,6 @@ class Collection extends Base
             'tabs' =>               [
                 ['list', 'Listing'],
                 ['map', 'Map']
-            ],
-            'results' => [
-                'limit' =>              isset($args['limit']) ? $args['limit'] : static::defaultlimit,
-                'page' =>               isset($args['page']) ? $args['page'] : 0,
-                'total' =>              $total
             ],
             'typeRepository' =>     $typeRepository
         ];
