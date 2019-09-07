@@ -529,6 +529,7 @@ function setFormPersonaliseAction() {
         var lbl = $('#form_personalise option:selected').text();
         var gsq = (lbl.split('|').length === 2 ? lbl.split('|')[1] : '').trim();
         $('#form_range_gsq').val(gsq);
+        $('#form_range_gsq').trigger('keyup');
     });
 }
 
