@@ -12,5 +12,5 @@ if (!isset($_SERVER['APP_ENV'])) {
             .' as a Composer dependency to load variables from a .env file.'
         );
     }
-    (new Dotenv())->load(__DIR__ . '/../.env');
+    (new Dotenv(true))->load(__DIR__ . '/../.env');
 }
