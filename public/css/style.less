@@ -2,8 +2,8 @@
 @width: {
     menuSysBtn:     190px;
     menuLangBtn:    80px;
-    listenersForm:  560px;
-    signalsForm:    560px;
+    listenersForm:  570px;
+    signalsForm:    570px;
     stats:          180px;
     logonForm:      300px;
     label:          120px;
@@ -775,9 +775,46 @@ button.tiny {
 
 .signal_list {
     width: @width[signalsForm];
+    fieldset.section {
+        display:inline-block;
+        width: @width[signalsForm] - 10;
+        float: left;
+    }
     input[type='text'],
     select {
         width: @width[signalsForm] - @width[label] - 15;
+    }
+    #form_sortby {
+        width: @width[signalsForm] - @width[label] - 15 - 150;
+    }
+    #form_za {
+        float: left;
+        margin: 0.25em 0.5em;
+        line-height: 1.5em;
+    }
+    label[for="form_za"] {
+        width: 40px !important;
+        text-align: right !important;
+        float: left;
+    }
+    label[for="form_show"] {
+        width: auto !important;
+        margin: 0 0.25em 0 30px;
+    }
+    #form_show {
+        width: 85px;
+        float: right;
+    }
+    label[for="form_offsets"] {
+        width: auto !important;
+        margin: 0 0.5em;
+    }
+  #form_customise {
+    width: @width[signalsForm] - @width[label] - 15 - 150;
+  }
+    #form_offsets {
+        width: 85px;
+        float: right;
     }
     #form_call {
         width:50px;
@@ -792,18 +829,10 @@ button.tiny {
     #form_active {
         width: 95px;
     }
-    #form_show {
-        width: 75px;
-    }
-    #form_offsets {
-        width: 95px;
-    }
+    #form_customise,
     #form_listener {
         overflow: auto;
         margin: 0 0 0.25em 0;
-        height: 160px;
-        font-family: monospace, monospace;
-        font-size: 8pt;
         option.all {
             font-weight: bold;
             font-style: italic;
@@ -817,6 +846,11 @@ button.tiny {
         option.secondaryQth {
             color: #888;
         }
+    }
+    #form_listener {
+      font-family: monospace, monospace;
+      font-size: 8pt;
+        height: 160px;
     }
     label[for="form_listener"] {
         line-height: 1.8em;
@@ -871,14 +905,6 @@ button.tiny {
         margin: 0 0.25em 0 1em;
     }
     label[for="form_channels"] {
-        width: auto !important;
-        margin: 0 0.25em 0 1em;
-    }
-    label[for="form_show"] {
-        width: auto !important;
-        margin: 0 0.25em 0 30px;
-    }
-    label[for="form_offsets"] {
         width: auto !important;
         margin: 0 0.25em 0 1em;
     }

@@ -13,6 +13,7 @@ use App\Repository\CountryRepository;
 use App\Repository\ListenerRepository;
 use App\Repository\RegionRepository;
 use App\Repository\TypeRepository;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -55,8 +56,12 @@ class Collection extends Base
      * @param RegionRepository $region
      * @param TypeRepository $type
      */
-    public function __construct(CountryRepository $country, ListenerRepository $listener, RegionRepository $region, TypeRepository $type)
-    {
+    public function __construct(
+        CountryRepository $country,
+        ListenerRepository $listener,
+        RegionRepository $region,
+        TypeRepository $type
+    ) {
         $this->country = $country;
         $this->listener = $listener;
         $this->region = $region;
@@ -77,6 +82,24 @@ class Collection extends Base
         $this->addSorting($formBuilder, $options);
 
         $formBuilder
+            ->add(
+                'sortby',
+                ChoiceType::class,
+                [
+                    'choices'       => [],
+                    'label'         => 'Sort By',
+                    'required'      =>   false
+                ]
+            )
+            ->add(
+                'za',
+                CheckboxType::class,
+                [
+                    'label' =>      'Z-A',
+                    'required' =>   false,
+                    'value' =>      1
+                ]
+            )
             ->add(
                 'types',
                 ChoiceType::class,
@@ -146,12 +169,29 @@ class Collection extends Base
                 ChoiceType::class,
                 [
                     'choices' => [
-                        'List' =>  'list',
-                        'Map' =>   'map',
+                        'Show List' =>  'list',
+                        'Show Map' =>   'map',
+                        'SeekList' =>   'seeklist',
                     ],
                     'placeholder' => false,
                     'label' => 'Show',
                     'required' => false
+                ]
+            )
+            ->add(
+                'customise',
+                ChoiceType::class,
+                [
+                    'choices'       => $this->listener->getAllOptions(
+                        $system,
+                        null,
+                        ' ',
+                        true
+                    ),
+                    'expanded'      => false,
+                    'label'         => 'Customise for',
+                    'required'      => false,
+                    'choice_translation_domain' => false
                 ]
             )
             ->add(
@@ -266,7 +306,12 @@ class Collection extends Base
                 'listener',
                 ChoiceType::class,
                 [
-                    'choices'       => $this->listener->getAllOptions($system),
+                    'choices'       => $this->listener->getAllOptions(
+                        $system,
+                        null,
+                        'Anyone (or enter values in "Heard here" box)',
+                        false
+                    ),
                     'expanded'      => false,
                     'label'         => 'Listener(s)',
                     'multiple'      => true,

@@ -68,6 +68,7 @@ class Collection extends Base
             'page' =>       0,
             'call' =>       '',
             'channels' =>   '',
+            'customise' =>  '',
             'gsq' =>        '',
             'heard_in' =>   '',
             'khz_1' =>      '',
@@ -110,7 +111,6 @@ class Collection extends Base
             'options' =>            $options,
             'mode' =>               'Signals List',
             '_locale' =>            $_locale,
-            'region' =>             ($args['region'] ?  $regionRepository->get($args['region'])->getName() : ""),
             'results' => [
                 'limit' =>              isset($args['limit']) ? $args['limit'] : static::defaultlimit,
                 'page' =>               isset($args['page']) ? $args['page'] : 0,
@@ -120,12 +120,16 @@ class Collection extends Base
                 $signalRepository->getStats($this->isAdmin()) +
                 $listenerRepository->getStats($options['system'], $options['region']),
             'system' =>             $system,
+            'sortbyOptions' =>      $signalRepository->getColumns(),
             'tabs' =>               [
                 ['list', 'Listing'],
                 ['map', 'Map']
             ],
             'typeRepository' =>     $typeRepository
         ];
+        foreach ($signalRepository->getColumns() as $key => $value) {
+
+        }
         return $this->render('signals/index.html.twig', $this->getMergedParameters($parameters));
     }
 }

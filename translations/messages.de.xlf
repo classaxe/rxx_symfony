@@ -2033,6 +2033,42 @@
         <source>Signals Map</source>
         <target>__Signals Map</target>
       </trans-unit>
+      <trans-unit id="bSInVV." resname="Sort By">
+        <source>Sort By</source>
+        <target>__Sort By</target>
+      </trans-unit>
+      <trans-unit id="4NnTK9r" resname="Z-A">
+        <source>Z-A</source>
+        <target>__Z-A</target>
+      </trans-unit>
+      <trans-unit id="w2kkC0n" resname="Show List">
+        <source>Show List</source>
+        <target>__Show List</target>
+      </trans-unit>
+      <trans-unit id="tygaHJi" resname="Show Map">
+        <source>Show Map</source>
+        <target>__Show Map</target>
+      </trans-unit>
+      <trans-unit id="4M5Z.5o" resname="SeekList">
+        <source>SeekList</source>
+        <target>__SeekList</target>
+      </trans-unit>
+      <trans-unit id="AKSD_3a" resname="Customise for">
+        <source>Customise for</source>
+        <target>__Customise for</target>
+      </trans-unit>
+      <trans-unit id="8EcO0.K" resname="Nominal Carrier">
+        <source>Nominal Carrier</source>
+        <target>__Nominal Carrier</target>
+      </trans-unit>
+      <trans-unit id="pXirc_e" resname="Places signal has been reported">
+        <source>Places signal has been reported</source>
+        <target>__Places signal has been reported</target>
+      </trans-unit>
+      <trans-unit id="5l58MbK" resname="Number of times logged">
+        <source>Number of times logged</source>
+        <target>__Number of times logged</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

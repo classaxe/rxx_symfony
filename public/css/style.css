@@ -1,7 +1,7 @@
 /*!
 * Project:   RXX - NDB Logging Database
 * Homepage:  https://rxx.classaxe.com
-* Date:      2019-08-31
+* Date:      2019-09-07
 * Licence:   LGPL
 * Copyright: 2019 Martin Francis
 */
@@ -354,7 +354,7 @@ body .menu-centered .language li a {
   clip: rect(0, 0, 0, 0);
   border: 0;
 }
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 810px) {
   div.c_2 section {
     float: left;
     margin: 0.5em 1em 0.5em 0;
@@ -363,10 +363,10 @@ body .menu-centered .language li a {
     margin-right: 0;
   }
   div.c_2 section .stats {
-    width: 260px;
+    width: 265px;
   }
 }
-@media screen and (min-width: 800px) {
+@media screen and (min-width: 810px) {
   div.c_1 {
     float: left;
   }
@@ -812,18 +812,55 @@ button.tiny {
 }
 /* [ Form Dimensions ] */
 .listener_list {
-  width: 560px;
+  width: 570px;
 }
 .listener_list input[type='text'],
 .listener_list select {
-  width: 425px;
+  width: 435px;
 }
 .signal_list {
+  width: 570px;
+}
+.signal_list fieldset.section {
+  display: inline-block;
   width: 560px;
+  float: left;
 }
 .signal_list input[type='text'],
 .signal_list select {
-  width: 425px;
+  width: 435px;
+}
+.signal_list #form_sortby {
+  width: 285px;
+}
+.signal_list #form_za {
+  float: left;
+  margin: 0.25em 0.5em;
+  line-height: 1.5em;
+}
+.signal_list label[for="form_za"] {
+  width: 40px !important;
+  text-align: right !important;
+  float: left;
+}
+.signal_list label[for="form_show"] {
+  width: auto !important;
+  margin: 0 0.25em 0 30px;
+}
+.signal_list #form_show {
+  width: 85px;
+  float: right;
+}
+.signal_list label[for="form_offsets"] {
+  width: auto !important;
+  margin: 0 0.5em;
+}
+.signal_list #form_customise {
+  width: 285px;
+}
+.signal_list #form_offsets {
+  width: 85px;
+  float: right;
 }
 .signal_list #form_call {
   width: 50px;
@@ -838,19 +875,12 @@ button.tiny {
 .signal_list #form_active {
   width: 95px;
 }
-.signal_list #form_show {
-  width: 75px;
-}
-.signal_list #form_offsets {
-  width: 95px;
-}
+.signal_list #form_customise,
 .signal_list #form_listener {
   overflow: auto;
   margin: 0 0 0.25em 0;
-  height: 160px;
-  font-family: monospace, monospace;
-  font-size: 8pt;
 }
+.signal_list #form_customise option.all,
 .signal_list #form_listener option.all {
   font-weight: bold;
   font-style: italic;
@@ -858,11 +888,18 @@ button.tiny {
   background: #008000;
   color: #fff;
 }
+.signal_list #form_customise option.primaryQth,
 .signal_list #form_listener option.primaryQth {
   font-weight: bold;
 }
+.signal_list #form_customise option.secondaryQth,
 .signal_list #form_listener option.secondaryQth {
   color: #888;
+}
+.signal_list #form_listener {
+  font-family: monospace, monospace;
+  font-size: 8pt;
+  height: 160px;
 }
 .signal_list label[for="form_listener"] {
   line-height: 1.8em;
@@ -889,7 +926,7 @@ button.tiny {
   font-style: italic;
 }
 .signal_list #form_heard_in {
-  width: 290px;
+  width: 300px;
 }
 .signal_list #form_heard_in_mod {
   display: inline-block;
@@ -917,14 +954,6 @@ button.tiny {
   margin: 0 0.25em 0 1em;
 }
 .signal_list label[for="form_channels"] {
-  width: auto !important;
-  margin: 0 0.25em 0 1em;
-}
-.signal_list label[for="form_show"] {
-  width: auto !important;
-  margin: 0 0.25em 0 30px;
-}
-.signal_list label[for="form_offsets"] {
   width: auto !important;
   margin: 0 0.25em 0 1em;
 }

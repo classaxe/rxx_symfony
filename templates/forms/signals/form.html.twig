@@ -6,8 +6,21 @@
         <div class="content clearfix">
     {{ form_start(form) }}
             <div id="form">
-    {% include 'forms/paging.html.twig' %}
-                <fieldset style="display:inline-block; width:auto; float: left;">
+                <fieldset class="section">
+{% include 'forms/paging.html.twig' %}
+                    <div style="display:inline-block;">
+                        {% include 'forms/signals/sortby.html.twig' %}
+                    </div>
+                    <div style="display:inline-block; clear: none; float:right;">
+                        {{ form_widget(form.show) }}
+                    </div>
+                    {{ form_row(form.customise) }}
+                    <div style="display:inline-block; clear: none; float:right;">
+                        {{ form_label(form.offsets) }}
+                        {{ form_widget(form.offsets) }}
+                    </div>
+                </fieldset>
+                <fieldset class="section">
                     <legend>{% trans %}Specification{% endtrans %}</legend>
                     {{ form_row(form.types) }}
                     <div style="display:inline-block; width:auto">
@@ -30,16 +43,8 @@
                         {{ form_label(form.active) }}
                         {{ form_widget(form.active) }}
                     </div>
-                    <div style="display:inline-block; width:auto">
-                        {{ form_label(form.show) }}
-                        {{ form_widget(form.show) }}
-                    </div>
-                    <div style="display:inline-block; width:auto; float:right">
-                        {{ form_label(form.offsets) }}
-                        {{ form_widget(form.offsets) }}
-                    </div>
                 </fieldset>
-                <fieldset style="display:inline-block; width:auto; float: left;">
+                <fieldset class="section">
                     <legend>{% trans %}Location{% endtrans %}</legend>
                     {{ form_row(form.states) }}
                     <div>
@@ -61,7 +66,7 @@
                         {{ form_widget(form.range_units) }}
                     </div>
                 </fieldset>
-                <fieldset style="display:inline-block; width:auto; float: left;">
+                <fieldset class="section">
                     <legend>{% trans %}Loggings{% endtrans %}</legend>
                     <div>
                         <div>

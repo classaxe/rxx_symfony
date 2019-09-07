@@ -90,7 +90,9 @@ class ListenerRepository extends ServiceEntityRepository
 
     public function getAllOptions(
         $system = false,
-        $region = false
+        $region = false,
+        $placeholder = false,
+        $simple = false
     ) {
         $qb =
             $this
@@ -106,22 +108,37 @@ class ListenerRepository extends ServiceEntityRepository
 
         $result = $qb->getQuery()->execute();
 
-        $out = [ 'Anyone (or enter values in "Heard here" box)' => '' ];
+        if ($placeholder) {
+            $out = [ $placeholder => '' ];
+        }
         foreach ($result as $row) {
-            $out[
-                Rxx::pad_dot(
-                    ($row->getPrimaryQth() ? "" : ". ")
-                    . $row->getName()
-                    . ", "
-                    . $row->getQth()
+            if ($simple) {
+                if ($row->getPrimaryQth()) {
+                    $out[
+                        $row->getName()
+                        . ", "
+                        . $row->getQth()
+                        . ($row->getSp() ? " " . $row->getSp() : "")
+                        . " "
+                        . $row->getItu()
+                    ] = $row->getId();
+                }
+            } else {
+                $out[
+                    Rxx::pad_dot(
+                        ($row->getPrimaryQth() ? "" : ". ")
+                        . $row->getName()
+                        . ", "
+                        . $row->getQth()
+                        . " "
+                        . $row->getCallsign(),
+                        55
+                    )
+                    . ($row->getSp() ? " " . $row->getSp() : "...")
                     . " "
-                    . $row->getCallsign(),
-                    55
-                )
-                . ($row->getSp() ? " " . $row->getSp() : "...")
-                . " "
-                . $row->getItu()
-            ] = $row->getId();
+                    . $row->getItu()
+                ] = $row->getId();
+            }
         }
         return $out;
     }

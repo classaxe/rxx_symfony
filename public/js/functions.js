@@ -412,6 +412,23 @@ function setFormRangeUnitsDefault() {
     }
 }
 
+function setFormSortbyAction() {
+    $('select#form_sortby').change(function () {
+        var val = $("#form_sortby option:selected").val();
+        $('#form_sort').val(val.split('|')[0]);
+        $('#form_order').val(val.split('|')[1]);
+        $('#form_za').prop('checked', val.split('|')[1] === 'd');
+        $('#form_submit').click();
+    });
+}
+
+function setFormSortZaAction() {
+    $('input#form_za').change(function () {
+        $('#form_order').val($('input#form_za').prop('checked') ? 'd' : 'a');
+        $('#form_submit').click();
+    });
+}
+
 function setFormListenerInvertDefault() {
     if ($('fieldset#form_listener_invert div :radio:checked').length == 0) {
         $('fieldset#form_listener_invert div :radio[value=0]').prop('checked', true);
@@ -460,6 +477,7 @@ function setFormResetAction(form) {
                 $('#form_channels').prop('selectedIndex', 0);
                 $('#form_active').prop('selectedIndex', 0);
                 $('#form_show').prop('selectedIndex', 0);
+                $('#form_customise').prop('selectedIndex', 0);
                 $('#form_offsets').prop('selectedIndex', 0);
 
                 $('#form_states').val('');
