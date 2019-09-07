@@ -363,6 +363,8 @@ class SignalRepository extends ServiceEntityRepository
             $this->query['select'][] =
                 'IF (s.ID IN(SELECT l.signalID from logs l where l.listenerID = :personalise), 1, 0) AS personalise';
             $this->query['param']['personalise'] = $this->args['personalise'];
+        } else {
+            $this->query['select'][] = "0 as personalise";
         }
         return $this;
     }

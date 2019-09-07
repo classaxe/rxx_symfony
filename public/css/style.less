@@ -1361,12 +1361,21 @@ body.map {
     width: 100%;
     height: 650px;
 }
-#panel #markerlist {
+#panel {
+  #markerlist {
     height: 620px;
     margin: 10px 5px 0 10px;
     overflow: auto;
-}
-#panel .title {
+    .logged {
+      a {
+        b {
+          background: #e0ffe0;
+          border: 1px solid #80c080;
+        }
+      }
+    }
+  }
+  .title {
     border-bottom: 1px solid #e0ecff;
     white-space: nowrap;
     overflow: hidden;
@@ -1377,44 +1386,47 @@ body.map {
     color: #000;
     font-weight: normal;
     text-decoration: none;
-}
-#panel .title b {
-    width: 100px; float: left;
+    &:visited {
+      color: #000;
+    }
+    &:hover {
+      background: #ffffa0 !important;
+    }
+    b {
+      width: 100px;
+      padding: 0 0.5em;
+      margin: 0 0.5em;
+      float: left;
+    }
+  }
 }
 
-#panel .title:visited {
-    color: #000;
-}
-#panel .title:hover {
-    background: #e0ecff;
-}
 .info .head {
-    padding: 0 2em;
+  padding: 0 2em;
 }
 .map_info {
-    h2 {
-        margin: 0; float: left;
+  h2 {
+    margin: 0; float: left;
+  }
+  h3 {
+    margin: 0;
+    font-size: 14pt;
+    display: block;
+    clear-after: both;
+  }
+  .info-body {
+    th {
+      vertical-align: top;
+      padding: 3px;
+      font-size: 10pt;
+      text-align: left;
+      width: 6em;
     }
-    h3 {
-        margin: 0;
-        font-size: 14pt;
-        display: block;
-        clear-after: both;
+    td {
+      vertical-align: top;
+      padding: 3px;
+      font-size: 10pt;
+      width: 16em;
     }
-    .info-body {
-        th {
-            vertical-align: top;
-            padding: 3px;
-            font-size: 10pt;
-            text-align: left;
-            width: 6em;
-        }
-        td {
-            vertical-align: top;
-            padding: 3px;
-            font-size: 10pt;
-            width: 16em;
-        }
-    }
-
+  }
 }

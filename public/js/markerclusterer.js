@@ -59,13 +59,19 @@ signal.showMarkers = function() {
     panel.innerHTML = '';
 
     for (i = 0; i < signals.length; i++) {
-        s = signal.items[i]
-        titleText = '<b>' + s.khz+' '+s.call + '</b> ' + s.qth + (s.sp ? ', ' + s.sp : '') + ', ' + s.itu;
+        s = signal.items[i];
+        titleText =
+            '<b>' + (typeof s.logged !== 'undefined' ? (s.logged ? '&#9745;' : '&#9744;') + ' ' : '') + s.khz+' '+s.call + '</b> ' +
+            s.qth + (s.sp ? ', ' + s.sp : '') + ', ' + s.itu;
         item = document.createElement('DIV');
         title = document.createElement('A');
         title.href = '#';
         title.className = 'title type_' + s.className;
         title.innerHTML = titleText;
+        if (typeof s.logged !== 'undefined' && s.logged) {
+            item.className = 'logged'
+            item.title = 'Received'
+        }
         item.appendChild(title);
         panel.appendChild(item);
         latLng = new google.maps.LatLng(s.lat, s.lon);
@@ -114,6 +120,7 @@ signal.markerClickFunction = function(s, latlng) {
             '<div class="map_info">' +
             '  <h3><a href="./rna/signal_info/' + s.id + '" target="_blank">' + title + '</a></h3>' +
             '  <table class="info-body">' +
+            (typeof s.logged !== 'undefined' ? '    <tr><th>Received</th><td><b>' + (s.logged ? 'Yes' : 'No') + '</b></td></tr>' : '') +
             '    <tr><th>ID</th><td>'+s.call + '</td></tr>' +
             '    <tr><th>KHz</th><td>'+s.khz + '</td></tr>' +
             '    <tr><th>Type</th><td>'+s.type + '</td></tr>' +

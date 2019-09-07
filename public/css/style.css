@@ -1356,6 +1356,10 @@ body.map .gm-style-iw p {
   margin: 10px 5px 0 10px;
   overflow: auto;
 }
+#panel #markerlist .logged a b {
+  background: #e0ffe0;
+  border: 1px solid #80c080;
+}
 #panel .title {
   border-bottom: 1px solid #e0ecff;
   white-space: nowrap;
@@ -1368,15 +1372,17 @@ body.map .gm-style-iw p {
   font-weight: normal;
   text-decoration: none;
 }
-#panel .title b {
-  width: 100px;
-  float: left;
-}
 #panel .title:visited {
   color: #000;
 }
 #panel .title:hover {
-  background: #e0ecff;
+  background: #ffffa0 !important;
+}
+#panel .title b {
+  width: 100px;
+  padding: 0 0.5em;
+  margin: 0 0.5em;
+  float: left;
 }
 .info .head {
   padding: 0 2em;
