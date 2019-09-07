@@ -357,6 +357,14 @@ class SignalRepository extends ServiceEntityRepository
         return $this;
     }
 
+    private function addSelectColumnCustomise()
+    {
+        if (isset($this->args['customise']) && $this->args['customise'] !== '') {
+            $this->query['select'][] = 'IF (s.ID IN(select l.signalID from logs l where l.listenerID =' .$this->args['customise'].'), 1 , 0) AS customise' ;
+        }
+        return $this;
+    }
+
     private function addSelectColumnRangeDeg()
     {
         if (isset($this->args['range_gsq']) && $this->args['range_gsq'] !== '' &&
@@ -413,18 +421,6 @@ class SignalRepository extends ServiceEntityRepository
         return $this;
     }
 
-    private function addSelectColumnsOffsets()
-    {
-        if (isset($this->args['offsets']) && $this->args['offsets'] === '1') {
-            $this->query['select'][] = "ROUND(s.khz - (s.LSB/1000), 3) as LSB";
-            $this->query['select'][] = "ROUND(s.khz + (s.USB/1000), 3) as USB";
-        } else {
-            $this->query['select'][] = "s.LSB as LSB";
-            $this->query['select'][] = "s.USB as USB";
-        }
-        return $this;
-    }
-
     private function addSelectColumnRangeMiles()
     {
         if (isset($this->args['range_gsq']) &&
@@ -449,6 +445,18 @@ class SignalRepository extends ServiceEntityRepository
             $this->query['param']['lon'] = $lat_lon['lon'];
         } else {
             $this->query['select'][] = "NULL AS range_mi";
+        }
+        return $this;
+    }
+
+    private function addSelectColumnsOffsets()
+    {
+        if (isset($this->args['offsets']) && $this->args['offsets'] === '1') {
+            $this->query['select'][] = "ROUND(s.khz - (s.LSB/1000), 3) as LSB";
+            $this->query['select'][] = "ROUND(s.khz + (s.USB/1000), 3) as USB";
+        } else {
+            $this->query['select'][] = "s.LSB as LSB";
+            $this->query['select'][] = "s.USB as USB";
         }
         return $this;
     }
@@ -600,6 +608,7 @@ class SignalRepository extends ServiceEntityRepository
             ->setArgs($system, $args)
 
             ->addSelectColumnsAllSignal()
+            ->addSelectColumnCustomise()
             ->addSelectColumnsOffsets()
             ->addSelectColumnRangeDeg()
             ->addSelectColumnRangeKm()

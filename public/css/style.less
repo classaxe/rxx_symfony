@@ -809,9 +809,9 @@ button.tiny {
         width: auto !important;
         margin: 0 0.5em;
     }
-  #form_customise {
-    width: @width[signalsForm] - @width[label] - 15 - 150;
-  }
+    #form_customise {
+        width: @width[signalsForm] - @width[label] - 15 - 150;
+    }
     #form_offsets {
         width: 85px;
         float: right;
@@ -1095,10 +1095,22 @@ fieldset#group_weather_report_details {
 .results {
     margin: 0;
     border-collapse: collapse;
+    thead {
+        th {
+            background: #686868;
+            color: #ffffff;
+            border: 1px solid #808080;
+        }
+    }
+    tbody {
+        th {
+            vertical-align: top;
+            background: #95de95;
+            color: #008000;
+            border: 1px solid #808080;
+        }
+    }
     th {
-        background: #686868;
-        color: #ffffff;
-        border: 1px solid #808080;
         height: 7em ~'!important';
         max-height: 7em ~'!important';
         vertical-align: bottom;
@@ -1108,7 +1120,10 @@ fieldset#group_weather_report_details {
         &.sort {
             border-bottom: 3px solid #a0a0a0;
         }
-
+        &.nosort {
+            background: #008000;
+            border-bottom: 3px solid #006000;
+        }
         &.sort:hover,
         &.sorted {
             border-bottom: 3px solid @sortedBorder ~'!important';

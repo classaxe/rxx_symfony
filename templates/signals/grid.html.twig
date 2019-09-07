@@ -3,6 +3,7 @@
 <table class="signal results">
     <thead>
         <tr>
+            {% if args.customise %}<th class="txt_vertical nosort"><div>{% trans %}Logged{% endtrans %}</div></th>{% endif %}
 {% for key, column in columns %}
     {% if ((not column.admin or isAdmin) and (not column.arg or (column.arg in args|keys and attribute(args, column.arg) != ''))) %}
             <th{%  if key and column.order %} id="{{ key }}|{{ column.order }}"{% endif %}
@@ -20,6 +21,7 @@
             class="{% if signal.active == '0' %}inactive {% endif %}type_{{ type.class|lower }}"
             title="{{ type.title|trans }}{% if signal.active == '0' %} {% trans %}(inactive){% endtrans %}{% endif %}"
         >
+{% if args.customise %}<th>{{ signal.customise ? '&#x2714;' : '' }}</th>{% endif %}
 {% for key, column in columns %}
    {% include 'signals/field.html.twig' %}
 {% endfor %}

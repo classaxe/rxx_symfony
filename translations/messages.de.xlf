@@ -2069,6 +2069,10 @@
         <source>Number of times logged</source>
         <target>__Number of times logged</target>
       </trans-unit>
+      <trans-unit id="P7sDm7m" resname="Logged">
+        <source>Logged</source>
+        <target>__Logged</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

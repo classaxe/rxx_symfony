@@ -127,9 +127,6 @@ class Collection extends Base
             ],
             'typeRepository' =>     $typeRepository
         ];
-        foreach ($signalRepository->getColumns() as $key => $value) {
-
-        }
         return $this->render('signals/index.html.twig', $this->getMergedParameters($parameters));
     }
 }
