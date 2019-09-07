@@ -477,7 +477,7 @@ function setFormResetAction(form) {
                 $('#form_channels').prop('selectedIndex', 0);
                 $('#form_active').prop('selectedIndex', 0);
                 $('#form_show').prop('selectedIndex', 0);
-                $('#form_customise').prop('selectedIndex', 0);
+                $('#form_personalise').prop('selectedIndex', 0);
                 $('#form_offsets').prop('selectedIndex', 0);
 
                 $('#form_states').val('');
@@ -524,7 +524,15 @@ function setFormResetAction(form) {
     }
 }
 
-function setFormShowMode() {
+function setFormPersonaliseAction() {
+    $('#form_personalise').change(function() {
+        var lbl = $('#form_personalise option:selected').text();
+        var gsq = (lbl.split('|').length === 2 ? lbl.split('|')[1] : '').trim();
+        $('#form_range_gsq').val(gsq);
+    });
+}
+
+function setFormShowModeAction() {
     switch($('#form_show').prop('selectedIndex')) {
         case 0:
             $("#show_list").addClass('is-active');

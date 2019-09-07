@@ -357,10 +357,12 @@ class SignalRepository extends ServiceEntityRepository
         return $this;
     }
 
-    private function addSelectColumnCustomise()
+    private function addSelectColumnPersonalise()
     {
-        if (isset($this->args['customise']) && $this->args['customise'] !== '') {
-            $this->query['select'][] = 'IF (s.ID IN(select l.signalID from logs l where l.listenerID =' .$this->args['customise'].'), 1 , 0) AS customise' ;
+        if (isset($this->args['personalise']) && $this->args['personalise'] !== '') {
+            $this->query['select'][] =
+                'IF (s.ID IN(SELECT l.signalID from logs l where l.listenerID = :personalise), 1, 0) AS personalise';
+            $this->query['param']['personalise'] = $this->args['personalise'];
         }
         return $this;
     }
@@ -608,7 +610,7 @@ class SignalRepository extends ServiceEntityRepository
             ->setArgs($system, $args)
 
             ->addSelectColumnsAllSignal()
-            ->addSelectColumnCustomise()
+            ->addSelectColumnPersonalise()
             ->addSelectColumnsOffsets()
             ->addSelectColumnRangeDeg()
             ->addSelectColumnRangeKm()

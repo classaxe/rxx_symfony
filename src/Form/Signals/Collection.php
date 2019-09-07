@@ -179,7 +179,7 @@ class Collection extends Base
                 ]
             )
             ->add(
-                'customise',
+                'personalise',
                 ChoiceType::class,
                 [
                     'choices'       => $this->listener->getAllOptions(
@@ -189,7 +189,7 @@ class Collection extends Base
                         true
                     ),
                     'expanded'      => false,
-                    'label'         => 'Customise for',
+                    'label'         => 'Personalise for',
                     'required'      => false,
                     'choice_translation_domain' => false
                 ]

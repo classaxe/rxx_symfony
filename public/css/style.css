@@ -855,7 +855,7 @@ button.tiny {
   width: auto !important;
   margin: 0 0.5em;
 }
-.signal_list #form_customise {
+.signal_list #form_personalise {
   width: 285px;
 }
 .signal_list #form_offsets {
@@ -875,12 +875,12 @@ button.tiny {
 .signal_list #form_active {
   width: 95px;
 }
-.signal_list #form_customise,
+.signal_list #form_personalise,
 .signal_list #form_listener {
   overflow: auto;
   margin: 0 0 0.25em 0;
 }
-.signal_list #form_customise option.all,
+.signal_list #form_personalise option.all,
 .signal_list #form_listener option.all {
   font-weight: bold;
   font-style: italic;
@@ -888,11 +888,11 @@ button.tiny {
   background: #008000;
   color: #fff;
 }
-.signal_list #form_customise option.primaryQth,
+.signal_list #form_personalise option.primaryQth,
 .signal_list #form_listener option.primaryQth {
   font-weight: bold;
 }
-.signal_list #form_customise option.secondaryQth,
+.signal_list #form_personalise option.secondaryQth,
 .signal_list #form_listener option.secondaryQth {
   color: #888;
 }
@@ -1144,6 +1144,13 @@ fieldset#group_weather_report_details div label {
   color: #0000ff;
   border: 1px solid #b0b000;
   border-radius: 2px;
+}
+.results tr.logged td {
+  background: #e8ffe8;
+  color: #008000 !important;
+}
+.results tr.inactive.logged td {
+  background: #a0d0a0 !important;
 }
 .results td {
   border: 1px solid #808080;

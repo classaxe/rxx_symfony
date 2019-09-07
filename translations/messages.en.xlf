@@ -2073,6 +2073,26 @@
         <source>Logged</source>
         <target>Logged</target>
       </trans-unit>
+      <trans-unit id="2wAoFlP" resname="Personalise for">
+        <source>Personalise for</source>
+        <target>Personalise for</target>
+      </trans-unit>
+      <trans-unit id="8iHj.mY" resname="Logged by Personalised Listener">
+        <source>Logged by Personalised Listener</source>
+        <target>Logged by Personalised Listener</target>
+      </trans-unit>
+      <trans-unit id="WIA4rWp" resname="Signal Details">
+        <source>Signal Details</source>
+        <target>Signal Details</target>
+      </trans-unit>
+      <trans-unit id="W1om173" resname="Kilometers from GSQ">
+        <source>Kilometers from GSQ</source>
+        <target>Kilometers from GSQ</target>
+      </trans-unit>
+      <trans-unit id="SI33SqE" resname="Miles from GSQ">
+        <source>Miles from GSQ</source>
+        <target>Miles from GSQ</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

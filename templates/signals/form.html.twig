@@ -8,20 +8,30 @@
             <div id="form">
                 <fieldset class="section">
 {% include 'forms/paging.html.twig' %}
-                    <div style="display:inline-block;">
-                        {% include 'forms/signals/sortby.html.twig' %}
-                    </div>
-                    <div style="display:inline-block; clear: none; float:right;">
-                        {{ form_widget(form.show) }}
-                    </div>
-                    {{ form_row(form.customise) }}
+                    {{ form_row(form.personalise) }}
                     <div style="display:inline-block; clear: none; float:right;">
                         {{ form_label(form.offsets) }}
                         {{ form_widget(form.offsets) }}
                     </div>
+                    <div>
+                        {{ form_label(form.range_gsq) }}
+                        {{ form_widget(form.range_gsq) }}
+                        {{ form_label(form.range_min) }}
+                        {{ form_widget(form.range_min) }}
+                        <span>-</span>
+                        <label for="form_range_max" class="sr-only">{% trans %}DX Max{% endtrans %}</label>
+                        {{ form_widget(form.range_max) }}
+                        {{ form_widget(form.range_units) }}
+                    </div>
+                    <div style="display:inline-block;">
+                        {% include 'signals/formSortby.html.twig' %}
+                    </div>
+                    <div style="display:inline-block; clear: none; float:right;">
+                        {{ form_widget(form.show) }}
+                    </div>
                 </fieldset>
                 <fieldset class="section">
-                    <legend>{% trans %}Specification{% endtrans %}</legend>
+                    <legend>{% trans %}Signal Details{% endtrans %}</legend>
                     {{ form_row(form.types) }}
                     <div style="display:inline-block; width:auto">
                         {{ form_label(form.call) }}
@@ -39,13 +49,6 @@
                         {{ form_label(form.channels) }}
                         {{ form_widget(form.channels) }}
                     </div>
-                    <div style="display:inline-block; width:auto">
-                        {{ form_label(form.active) }}
-                        {{ form_widget(form.active) }}
-                    </div>
-                </fieldset>
-                <fieldset class="section">
-                    <legend>{% trans %}Location{% endtrans %}</legend>
                     {{ form_row(form.states) }}
                     <div>
                         <label for="form_sp_itu_clause"><span class="sr-only">{% trans %}Combiner{% endtrans %}</span>&nbsp;</label>
@@ -55,16 +58,7 @@
                     {{ form_row(form.countries) }}
                     {{ form_row(form.region) }}
                     {{ form_row(form.gsq) }}
-                    <div>
-                        {{ form_label(form.range_gsq) }}
-                        {{ form_widget(form.range_gsq) }}
-                        {{ form_label(form.range_min) }}
-                        {{ form_widget(form.range_min) }}
-                        <span>-</span>
-                        <label for="form_range_max" class="sr-only">{% trans %}DX Max{% endtrans %}</label>
-                        {{ form_widget(form.range_max) }}
-                        {{ form_widget(form.range_units) }}
-                    </div>
+                    {{ form_row(form.active) }}
                 </fieldset>
                 <fieldset class="section">
                     <legend>{% trans %}Loggings{% endtrans %}</legend>

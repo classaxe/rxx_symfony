@@ -809,7 +809,7 @@ button.tiny {
         width: auto !important;
         margin: 0 0.5em;
     }
-    #form_customise {
+    #form_personalise {
         width: @width[signalsForm] - @width[label] - 15 - 150;
     }
     #form_offsets {
@@ -829,7 +829,7 @@ button.tiny {
     #form_active {
         width: 95px;
     }
-    #form_customise,
+    #form_personalise,
     #form_listener {
         overflow: auto;
         margin: 0 0 0.25em 0;
@@ -1143,6 +1143,17 @@ fieldset#group_weather_report_details {
         }
     }
 
+    tr.logged {
+        td {
+            background: #e8ffe8;
+            color: #008000 !important;
+        }
+    }
+    tr.inactive.logged {
+        td {
+            background: #a0d0a0 !important;
+        }
+    }
     td {
         border: 1px solid #808080;
         height: 1.25em;

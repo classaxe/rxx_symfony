@@ -68,7 +68,7 @@ class Collection extends Base
             'page' =>       0,
             'call' =>       '',
             'channels' =>   '',
-            'customise' =>  '',
+            'personalise' =>'',
             'gsq' =>        '',
             'heard_in' =>   '',
             'khz_1' =>      '',

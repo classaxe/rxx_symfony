@@ -98,7 +98,9 @@ class ListenerRepository extends ServiceEntityRepository
             $this
                 ->createQueryBuilder('l')
                 ->select('l')
-                ->orderBy('l.name', 'ASC');
+                ->addOrderBy('l.name', 'ASC')
+                ->addOrderBy('l.primaryQth', 'DESC')
+        ;
         $this->addFilterSystem($qb, $system);
         if ($region) {
             $qb
@@ -113,16 +115,17 @@ class ListenerRepository extends ServiceEntityRepository
         }
         foreach ($result as $row) {
             if ($simple) {
-                if ($row->getPrimaryQth()) {
-                    $out[
-                        $row->getName()
-                        . ", "
-                        . $row->getQth()
-                        . ($row->getSp() ? " " . $row->getSp() : "")
-                        . " "
-                        . $row->getItu()
-                    ] = $row->getId();
-                }
+                $out[
+                    ($row->getPrimaryQth() ? '*' : '---')
+                    . " "
+                    . $row->getName()
+                    . ", "
+                    . $row->getQth()
+                    . ($row->getSp() ? " " . $row->getSp() : "")
+                    . " "
+                    . $row->getItu()
+                    . ($row->getGsq() ? ' | ' . $row->getGsq() : '')
+                ] = $row->getId();
             } else {
                 $out[
                     Rxx::pad_dot(
@@ -230,9 +233,14 @@ class ListenerRepository extends ServiceEntityRepository
                 ->setMaxResults($args['limit']);
         }
 
+        $qb
+            ->addOrderBy(
+                'l.primaryQth',
+                'DESC'
+            );
         if (isset($args['sort']) && $this->listenersColumns[$args['sort']]['sort']) {
             $qb
-                ->orderBy(
+                ->addOrderBy(
                     '_blank',
                     'ASC'
                 )
