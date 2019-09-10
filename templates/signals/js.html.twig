@@ -8,34 +8,9 @@
         'pdf'      : "{% trans %}PDF Document{% endtrans %}",
         'time'     : "{% trans %}This can be a time consuming process - typically a minute or more.{% endtrans %}",
         'nooptions': "{% trans %}All options you selected in 'Customise Report' above will be ignored.{% endtrans %}",
-        'options'  : "{% trans %}Signal types, 'offsets' setting and 'active' status will be taken from the options you selected in 'Customise Report' above, other options will be ignored.{% endtrans %}"
+        'options'  : "{% trans %}Signal types, 'offsets' setting and 'active' status will be taken from the options you selected in 'Customise Report' above, other options will be ignored.{% endtrans %}",
+        'paging'   : "{% trans %}of %s signals{% endtrans %}"
     };
 
-    $(document).ready( function() {
-        setPagingActions();
-
-        setFormPersonaliseAction();
-        setFormRangeAction();
-        setFormRangeUnitsDefault();
-        setFormSortbyAction();
-        setFormSortZaAction();
-        setFormShowModeAction();
-
-        setFormTypesStyles();
-        setFormTypesDefault();
-        setFormTypesAllAction();
-        setFormCountryAction();
-        setFormRegionAction();
-
-        setFormListenerInvertDefault();
-        setFormHeardInModDefault();
-        setFormListenerOptionsStyle();
-        setDatePickers();
-
-        setFormResetAction('signals');
-        setColumnSortActions();
-        setColumnSortedClass();
-        setExternalLinks();
-        $('#form_paging_status').html('{{ 'of %s signals' | trans | format(results.total | number_format(0, '', ','))  }}');
-    });
+    initSignalsForm(msg.paging, {{ results.total }});
 </script>

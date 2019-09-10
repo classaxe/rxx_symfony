@@ -1,40 +1,6 @@
 function changeShowMode(mode) {
-    switch (mode) {
-        case 'list':
-            if ($('#form_show').prop('selectedIndex') !== 0) {
-                $('#form_show').prop('selectedIndex', 0);
-                $('#form_submit').click();
-            }
-            break;
-        case 'map':
-            if ($('#form_show').prop('selectedIndex') !== 1) {
-                $('#form_show').prop('selectedIndex', 1);
-                $('#form_submit').click();
-            }
-            break;
-    }
-}
-
-function getlimitOptions(max, value, defaultLimit)
-{
-    var values = [10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 100000, 20000, 50000, 100000];
-    var out = "";
-    for (var i in values) {
-        if (values[i] > max) {
-            continue;
-        }
-        out +=
-            "<option value=\"" + values[i] + "\"" +
-            (parseInt(value) === values[i] ? " selected=\"selected\"" : "") +
-            ">" +
-            values[i] + ' results' +
-            "</option>";
-    }
-    out +=
-        "<option value=\"" + (max > values[0] ? -1 : defaultLimit) + "\"" +
-        (parseInt(value) === -1 ? " selected=\"selected\"" : "") +
-        ">All results</option>";
-    return out;
+    $('#form_show option[value=' + mode +']').attr('selected','selected');
+    $('#form_submit').click();
 }
 
 function exportSignallistExcel() {
@@ -70,6 +36,27 @@ function exportSignallistPDF() {
         return;
     }
     alert('OK');
+}
+
+function getLimitOptions(max, value, defaultLimit) {
+    var values = [10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 100000, 20000, 50000, 100000];
+    var out = "";
+    for (var i in values) {
+        if (values[i] > max) {
+            continue;
+        }
+        out +=
+            "<option value=\"" + values[i] + "\"" +
+            (parseInt(value) === values[i] ? " selected=\"selected\"" : "") +
+            ">" +
+            values[i] + ' results' +
+            "</option>";
+    }
+    out +=
+        "<option value=\"" + (max > values[0] ? -1 : defaultLimit) + "\"" +
+        (parseInt(value) === -1 ? " selected=\"selected\"" : "") +
+        ">All results</option>";
+    return out;
 }
 
 function getMetar(decoded) {
@@ -223,6 +210,7 @@ function initListenerSignalsMap() {
 
 function initMapsShowGrid() {
     function showGrid(map, overlayClass) {
+        console.log('showGrid called');
         var i, la, lo;
         for (la=0; la<180; la+=10) {
             layers.grid.push(
@@ -311,6 +299,37 @@ function initMapsTxtOverlay() {
     return TxtOverlay;
 }
 
+function initSignalsForm(pagingMsg, resultsCount) {
+    $(document).ready( function() {
+        setFormPagingActions();
+
+        setFormPersonaliseAction();
+        setFormRangeAction();
+        setFormRangeUnitsDefault();
+        setFormSortbyAction();
+        setFormSortZaAction();
+        setFormShowModeAction();
+
+        setFormTypesStyles();
+        setFormTypesDefault();
+        setFormTypesAllAction();
+        setFormCountryAction();
+        setFormRegionAction();
+
+        setFormListenerInvertDefault();
+        setFormHeardInModDefault();
+        setFormListenerOptionsStyle();
+        setFormDatePickers();
+
+        setFormResetAction('signals');
+        setColumnSortActions();
+        setColumnSortedClass();
+        setExternalLinks();
+
+        setFormPagingStatus(pagingMsg, resultsCount);
+    });
+}
+
 /* [ Add title for td cells having class 'clipped' ] */
 function setClippedCellTitles() {
     $('td.clipped').each(function() {
@@ -374,6 +393,29 @@ function setFormCountryAction(enable) {
     }
 }
 
+function setFormDatePickers() {
+    $.datepicker.setDefaults({
+        changeMonth: true,
+        changeYear: true,
+        dateFormat: 'yy-mm-dd',
+        yearRange: '1980:+0'
+    });
+    $('.js-datepicker').datepicker({
+    });
+}
+
+function setFormHeardInModDefault() {
+    if ($('fieldset#form_heard_in_mod div :radio:checked').length == 0) {
+        $('fieldset#form_heard_in_mod div :radio[value="any"]').prop('checked', true);
+    }
+}
+
+function setFormListenerInvertDefault() {
+    if ($('fieldset#form_listener_invert div :radio:checked').length == 0) {
+        $('fieldset#form_listener_invert div :radio[value=0]').prop('checked', true);
+    }
+}
+
 function setFormListenerOptionsStyle() {
     var listener = $('#form_listener');
     listener.children().each(function() {
@@ -388,184 +430,7 @@ function setFormListenerOptionsStyle() {
     });
 }
 
-function setFormRangeAction() {
-    $('#form_range_gsq').on('keyup', function(e) {
-        var disabled = ($('#form_range_gsq').val().length < 6);
-        $('#form_range_min').attr('disabled', disabled);
-        $('#form_range_max').attr('disabled', disabled);
-    });
-    $('#form_range_min').on('keyup', function(e) {
-        var disabled = ($('#form_range_min').val().length === 0 && $('#form_range_max').val().length === 0);
-        $('#form_range_units').attr('disabled', disabled);
-    });
-    $('#form_dx_max').on('keyup', function(e) {
-        var disabled = ($('#form_range_min').val().length === 0 && $('#form_range_max').val().length === 0);
-        $('#form_range_units').attr('disabled', disabled);
-    });
-    $('#form_range_gsq').trigger('keyup');
-    $('#form_range_min').trigger('keyup');
-}
-
-function setFormRangeUnitsDefault() {
-    if ($('fieldset#form_range_units div :radio:checked').length == 0) {
-        $('fieldset#form_range_units div :radio[value=km]').prop('checked', true);
-    }
-}
-
-function setFormSortbyAction() {
-    $('select#form_sortby').change(function () {
-        var val = $("#form_sortby option:selected").val();
-        $('#form_sort').val(val.split('|')[0]);
-        $('#form_order').val(val.split('|')[1]);
-        $('#form_za').prop('checked', val.split('|')[1] === 'd');
-        $('#form_submit').click();
-    });
-}
-
-function setFormSortZaAction() {
-    $('input#form_za').change(function () {
-        $('#form_order').val($('input#form_za').prop('checked') ? 'd' : 'a');
-        $('#form_submit').click();
-    });
-}
-
-function setFormListenerInvertDefault() {
-    if ($('fieldset#form_listener_invert div :radio:checked').length == 0) {
-        $('fieldset#form_listener_invert div :radio[value=0]').prop('checked', true);
-    }
-}
-
-function setFormHeardInModDefault() {
-    if ($('fieldset#form_heard_in_mod div :radio:checked').length == 0) {
-        $('fieldset#form_heard_in_mod div :radio[value="any"]').prop('checked', true);
-    }
-}
-
-function setDatePickers() {
-    $.datepicker.setDefaults({
-        changeMonth: true,
-        changeYear: true,
-        dateFormat: 'yy-mm-dd',
-        yearRange: '1980:+0'
-    });
-    $('.js-datepicker').datepicker({
-    });
-}
-/* [ Enable Region change to resubmit form ] */
-function setFormRegionAction(enable) {
-    enable = typeof enable !== 'undefined' ? enable : true;
-    if (enable) {
-        $('select#form_region').change(function () {
-            $('#form_submit').click();
-        });
-    } else {
-        $('select#form_region').off('change');
-    }
-}
-
-function setFormResetAction(form) {
-    switch (form) {
-        case 'signals':
-            $('button[type="reset"]').click(function () {
-                setFormRegionAction(false);
-
-                $('#form_types div :checkbox').prop('checked', false);
-                $('#form_types div :checkbox[value=type_NDB]').prop('checked', true);
-                $('#form_call').val('');
-                $('#form_khz_1').val('');
-                $('#form_khz_2').val('');
-                $('#form_channels').prop('selectedIndex', 0);
-                $('#form_active').prop('selectedIndex', 0);
-                $('#form_show').prop('selectedIndex', 0);
-                $('#form_personalise').prop('selectedIndex', 0);
-                $('#form_offsets').prop('selectedIndex', 0);
-
-                $('#form_states').val('');
-                $('#form_sp_itu_clause').prop('selectedIndex', 0);
-                $('#form_countries').val('');
-                $('#form_region').prop('selectedIndex', 0);
-                $('#form_gsq').val('');
-                $('#form_range_gsq').val('');
-                $('#form_range_min').val('');
-                $('#form_range_max').val('');
-                $('#form_range_units_0').prop('checked', 1);
-                $('#form_range_gsq').trigger('keyup');
-                $('#form_range_min').trigger('keyup');
-
-                $('#form_listener').prop('selectedIndex', 0);
-                $('#form_listener_invert_0').prop('checked', 1);
-                $('#form_heard_in').val('');
-                $('#form_heard_in_mod_0').prop('checked', 1);
-                $('#form_logged_date_1').val('');
-                $('#form_logged_date_2').val('');
-                $('#form_logged_first_1').val('');
-                $('#form_logged_first_2').val('');
-                $('#form_logged_last_1').val('');
-                $('#form_logged_last_2').val('');
-
-                setFormRegionAction(true);
-                return false;
-            });
-            break;
-        case 'listeners':
-            $('button[type="reset"]').click(function () {
-                $('fieldset#form_types div :checkbox').prop('checked', false);
-                $('fieldset#form_types div :checkbox[value=type_NDB]').prop('checked', true);
-                $('#form_filter').val('');
-                setFormRegionAction(false);
-                setFormCountryAction(false);
-                $('select#form_region').prop('selectedIndex', 0);
-                $('select#form_country').prop('selectedIndex', 0);
-                setFormCountryAction(true);
-                setFormRegionAction(true);
-                return false;
-            });
-            break;
-    }
-}
-
-function setFormPersonaliseAction() {
-    $('#form_personalise').change(function() {
-        var lbl = $('#form_personalise option:selected').text();
-        var gsq = (lbl.split('|').length === 2 ? lbl.split('|')[1] : '').trim();
-        $('#form_range_gsq').val(gsq);
-        $('#form_range_gsq').trigger('keyup');
-    });
-}
-
-function setFormShowModeAction() {
-    switch($('#form_show').prop('selectedIndex')) {
-        case 0:
-            $("#show_list").addClass('is-active');
-            break;
-        case 1:
-            $("#show_map").addClass('is-active');
-            break;
-    }
-}
-
-/* [ Set css styles for signal type checkboxes ] */
-function setFormTypesStyles() {
-    $("fieldset#form_types div input").each(function() {
-        $(this).parent().attr('class', $(this).attr('class'));
-    });
-}
-
-/* [ Ensure that at least one option is checked for signal type checkboxes ] */
-function setFormTypesDefault() {
-    if ($('fieldset#form_types div :checkbox:checked').length == 0) {
-        $('fieldset#form_types div :checkbox[value=type_NDB]').prop('checked', true);
-    }
-}
-
-/* [ Enable 'All' checkbox to select / unselect all signal types ] */
-function setFormTypesAllAction() {
-    $('fieldset#form_types div :checkbox[value=type_ALL]').click(function () {
-        $('fieldset#form_types div :checkbox').prop('checked', $(this).prop("checked"));
-    });
-}
-
-function setPagingActions() {
+function setFormPagingActions() {
     var filter =    $('#form_filter');
     var prev =      $('#form_prev');
     var next =      $('#form_next');
@@ -573,7 +438,7 @@ function setPagingActions() {
     if (limit.length) {
         limit[0].outerHTML =
             "<select id=\"form_limit\" name=\"form[limit]\" required=\"required\">" +
-            getlimitOptions(paging.total, limit.val(), paging.limit) +
+            getLimitOptions(paging.total, limit.val(), paging.limit) +
             "</select>";
         limit =     $('#form_limit');
     }
@@ -687,6 +552,273 @@ function setPagingActions() {
             form.submit();
         }
     );
+}
+
+function setFormPagingStatus(string, value) {
+    $('#form_paging_status').html(
+        string.replace('%s', value.toLocaleString())
+    );
+}
+
+function setFormPersonaliseAction() {
+    $('#form_personalise').change(function() {
+        var lbl = $('#form_personalise option:selected').text();
+        var gsq = (lbl.split('|').length === 2 ? lbl.split('|')[1] : '').trim();
+        $('#form_range_gsq').val(gsq);
+        $('#form_range_gsq').trigger('keyup');
+    });
+}
+
+function setFormRangeAction() {
+    $('#form_range_gsq').on('keyup', function(e) {
+        var disabled = ($('#form_range_gsq').val().length < 6);
+        $('#form_range_min').attr('disabled', disabled);
+        $('#form_range_max').attr('disabled', disabled);
+    });
+    $('#form_range_min').on('keyup', function(e) {
+        var disabled = ($('#form_range_min').val().length === 0 && $('#form_range_max').val().length === 0);
+        $('#form_range_units').attr('disabled', disabled);
+    });
+    $('#form_dx_max').on('keyup', function(e) {
+        var disabled = ($('#form_range_min').val().length === 0 && $('#form_range_max').val().length === 0);
+        $('#form_range_units').attr('disabled', disabled);
+    });
+    $('#form_range_gsq').trigger('keyup');
+    $('#form_range_min').trigger('keyup');
+}
+
+function setFormRangeUnitsDefault() {
+    if ($('fieldset#form_range_units div :radio:checked').length == 0) {
+        $('fieldset#form_range_units div :radio[value=km]').prop('checked', true);
+    }
+}
+
+/* [ Enable Region change to resubmit form ] */
+function setFormRegionAction(enable) {
+    enable = typeof enable !== 'undefined' ? enable : true;
+    if (enable) {
+        $('select#form_region').change(function () {
+            $('#form_submit').click();
+        });
+    } else {
+        $('select#form_region').off('change');
+    }
+}
+
+function setFormResetAction(form) {
+    switch (form) {
+        case 'signals':
+            $('button[type="reset"]').click(function () {
+                setFormRegionAction(false);
+
+                $('#form_types div :checkbox').prop('checked', false);
+                $('#form_types div :checkbox[value=type_NDB]').prop('checked', true);
+                $('#form_call').val('');
+                $('#form_khz_1').val('');
+                $('#form_khz_2').val('');
+                $('#form_channels').prop('selectedIndex', 0);
+                $('#form_active').prop('selectedIndex', 0);
+                $('#form_show').prop('selectedIndex', 0);
+                $('#form_personalise').prop('selectedIndex', 0);
+                $('#form_offsets').prop('selectedIndex', 0);
+
+                $('#form_states').val('');
+                $('#form_sp_itu_clause').prop('selectedIndex', 0);
+                $('#form_countries').val('');
+                $('#form_region').prop('selectedIndex', 0);
+                $('#form_gsq').val('');
+                $('#form_range_gsq').val('');
+                $('#form_range_min').val('');
+                $('#form_range_max').val('');
+                $('#form_range_units_0').prop('checked', 1);
+                $('#form_range_gsq').trigger('keyup');
+                $('#form_range_min').trigger('keyup');
+
+                $('#form_listener').prop('selectedIndex', 0);
+                $('#form_listener_invert_0').prop('checked', 1);
+                $('#form_heard_in').val('');
+                $('#form_heard_in_mod_0').prop('checked', 1);
+                $('#form_logged_date_1').val('');
+                $('#form_logged_date_2').val('');
+                $('#form_logged_first_1').val('');
+                $('#form_logged_first_2').val('');
+                $('#form_logged_last_1').val('');
+                $('#form_logged_last_2').val('');
+
+                setFormRegionAction(true);
+                return false;
+            });
+            break;
+        case 'listeners':
+            $('button[type="reset"]').click(function () {
+                $('fieldset#form_types div :checkbox').prop('checked', false);
+                $('fieldset#form_types div :checkbox[value=type_NDB]').prop('checked', true);
+                $('#form_filter').val('');
+                setFormRegionAction(false);
+                setFormCountryAction(false);
+                $('select#form_region').prop('selectedIndex', 0);
+                $('select#form_country').prop('selectedIndex', 0);
+                setFormCountryAction(true);
+                setFormRegionAction(true);
+                return false;
+            });
+            break;
+    }
+}
+
+function setFormShowModeAction() {
+    var mode  = $('#form_show option:selected').val();
+    $("#show_" + mode).addClass('is-active');
+}
+
+function setFormSortbyAction() {
+    $('select#form_sortby').change(function () {
+        var val = $("#form_sortby option:selected").val();
+        $('#form_sort').val(val.split('|')[0]);
+        $('#form_order').val(val.split('|')[1]);
+        $('#form_za').prop('checked', val.split('|')[1] === 'd');
+        $('#form_submit').click();
+    });
+}
+
+function setFormSortZaAction() {
+    $('input#form_za').change(function () {
+        $('#form_order').val($('input#form_za').prop('checked') ? 'd' : 'a');
+        $('#form_submit').click();
+    });
+}
+
+/* [ Set css styles for signal type checkboxes ] */
+function setFormTypesStyles() {
+    $("fieldset#form_types div input").each(function() {
+        $(this).parent().attr('class', $(this).attr('class'));
+    });
+}
+
+/* [ Ensure that at least one option is checked for signal type checkboxes ] */
+function setFormTypesDefault() {
+    if ($('fieldset#form_types div :checkbox:checked').length == 0) {
+        $('fieldset#form_types div :checkbox[value=type_NDB]').prop('checked', true);
+    }
+}
+
+/* [ Enable 'All' checkbox to select / unselect all signal types ] */
+function setFormTypesAllAction() {
+    $('fieldset#form_types div :checkbox[value=type_ALL]').click(function () {
+        $('fieldset#form_types div :checkbox').prop('checked', $(this).prop("checked"));
+    });
+}
+
+var signalsMap = {
+    map: null,
+    icons: {},
+    infoWindow: null,
+    items: [],
+    options: {},
+
+    init: function() {
+        signalsMap.items = signals;
+        var icons = [ 'dgps', 'dsc', 'hambcn', 'navtex', 'ndb', 'time', 'other', 'inactive' ];
+        for (var i in icons) {
+            signalsMap.icons[icons[i]] = new google.maps.MarkerImage(
+                base_image + '/pins/' + icons[i] + '.png',
+                new google.maps.Size(12, 20)
+            );
+        }
+        signalsMap.options = {
+            'zoom': 2,
+            'center': new google.maps.LatLng(20, 0),
+            'mapTypeId': google.maps.MapTypeId.ROADMAP
+        };
+        signalsMap.map = new google.maps.Map(document.getElementById('map'), signalsMap.options);
+        signalsMap.infoWindow = new google.maps.InfoWindow();
+        signalsMap.showMarkers();
+    },
+
+    markerClickFunction: function(s, latlng) {
+        return function(e) {
+            e.cancelBubble = true;
+            e.returnValue = false;
+            if (e.stopPropagation) {
+                e.stopPropagation();
+                e.preventDefault();
+            }
+            var title = s.khz+' '+s.call+' ';
+            var url =   s.id;
+            var fileurl = s.file;
+
+            var infoHtml =
+                '<div class="map_info">' +
+                '  <h3><a href="./rna/signal_info/' + s.id + '" target="_blank">' + title + '</a></h3>' +
+                '  <table class="info-body">' +
+                (typeof s.logged !== 'undefined' ? '    <tr><th>Received</th><td><b>' + (s.logged ? 'Yes' : 'No') + '</b></td></tr>' : '') +
+                '    <tr><th>ID</th><td>'+s.call + '</td></tr>' +
+                '    <tr><th>KHz</th><td>'+s.khz + '</td></tr>' +
+                '    <tr><th>Type</th><td>'+s.type + '</td></tr>' +
+                (s.pwr!='0' ? '    <tr><th>Power</th><td>'+s.pwr + 'W</td></tr>' : '') +
+                '    <tr><th>\'Name\' / QTH</th><td>'+s.qth + (s.sp ? ', ' + s.sp : '') + ', ' + s.itu + '</td></tr>' +
+                (s.gsq ? '    <tr><th>GSQ</th><td><a href="." onclick="popup_map('+s.id+','+s.lat+','+s.lon+');return false;" title="Show map (accuracy limited to nearest Grid Square)">'+s.gsq+'</a></td></tr>' : '') +
+                '    <tr><th>Lat / Lon</th><td>' + s.lat + ', ' + s.lon + '</td></tr>' +
+                (s.usb || s.lsb ? '    <tr><th>Sidebands</th><td>' + (s.lsb ? 'LSB: ' + s.lsb : '') + (s.usb ? (s.lsb ? ', ' : '') + ' USB: ' + s.usb : '') + '</td></tr>' : '') +
+                (s.sec || s.fmt ? '    <tr><th>Secs / Format</th><td>' + (s.sec ? s.sec + ' sec' : '') + (s.sec && s.fmt ? ', ' : '') + s.fmt + '</td></tr>' : '') +
+                '    <tr><th>Last Logged</th><td>' + s.heard + '</td></tr>' +
+                '    <tr><th>Heard In</th><td>' + s.heard_in + '</td></tr>' +
+                '  </table>' +
+                '</div>';
+            signalsMap.infoWindow.setContent(infoHtml);
+            signalsMap.infoWindow.setPosition(latlng);
+            signalsMap.infoWindow.open(signalsMap.map);
+        };
+    },
+
+    showMarkers: function() {
+        var fn, i, imageUrl, item, latLng, marker, markerImage, panel, s, title, titleText;
+        signalsMap.markers = [];
+        panel = document.getElementById('markerlist');
+        panel.innerHTML = '';
+
+        for (i = 0; i < signalsMap.items.length; i++) {
+            s = signalsMap.items[i];
+            titleText =
+                '<b>' + (typeof s.logged !== 'undefined' ? (s.logged ? '&#9745;' : '&#9744;') + ' ' : '') + s.khz+' '+s.call + '</b> ' +
+                s.qth + (s.sp ? ', ' + s.sp : '') + ', ' + s.itu;
+            item = document.createElement('DIV');
+            title = document.createElement('A');
+            title.href = '#';
+            title.className = 'title type_' + s.className;
+            title.innerHTML = titleText;
+            if (typeof s.logged !== 'undefined' && s.logged) {
+                item.className = 'logged';
+                item.title = 'Received';
+            }
+            item.appendChild(title);
+            panel.appendChild(item);
+            latLng = new google.maps.LatLng(s.lat, s.lon);
+            marker = new google.maps.Marker({
+                'title' :  strip_tags(s.khz + ' ' + s.call),
+                'position': latLng,
+                'icon': signalsMap.icons[s.className]
+            });
+            fn = signalsMap.markerClickFunction(s, latLng);
+            google.maps.event.addListener(marker, 'click', fn);
+            google.maps.event.addDomListener(title, 'click', fn);
+            marker.setMap(signalsMap.map);
+        }
+    }
+};
+
+function strip_tags(input, allowed) {
+    var tags = /<\/?([a-z][a-z0-9]*)\b[^>]*>/gi;
+    var commentsAndPhpTags = /<!--[\s\S]*?-->|<\?(?:php)?[\s\S]*?\?>/gi;
+    allowed = (((allowed || '') + '')
+        .toLowerCase()
+        .match(/<[a-z][a-z0-9]*>/g) || [])
+        .join('');
+    return input.replace(commentsAndPhpTags, '')
+        .replace(tags, function($0, $1) {
+                return allowed.indexOf('<' + $1.toLowerCase() + '>') > -1 ? $0 : '';
+            }
+        );
 }
 
 var gridColor, gridOpacity, layers = [], map;
