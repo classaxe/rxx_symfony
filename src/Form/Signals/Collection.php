@@ -11,6 +11,7 @@ namespace App\Form\Signals;
 use App\Form\Base;
 use App\Repository\CountryRepository;
 use App\Repository\ListenerRepository;
+use App\Repository\PaperRepository;
 use App\Repository\RegionRepository;
 use App\Repository\TypeRepository;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -40,6 +41,11 @@ class Collection extends Base
     private $listener;
 
     /**
+     * @var PaperRepository
+     */
+    private $paper;
+
+    /**
      * @var RegionRepository
      */
     private $region;
@@ -52,18 +58,22 @@ class Collection extends Base
     /**
      * Collection constructor.
      * @param CountryRepository $country
-     * @package ListenerRepository $listener
+     * @param ListenerRepository $listener
+     * @param PaperRepository $paperRepository
      * @param RegionRepository $region
      * @param TypeRepository $type
+     * @package ListenerRepository $listener
      */
     public function __construct(
         CountryRepository $country,
         ListenerRepository $listener,
+        PaperRepository $paper,
         RegionRepository $region,
         TypeRepository $type
     ) {
         $this->country = $country;
         $this->listener = $listener;
+        $this->paper = $paper;
         $this->region = $region;
         $this->type = $type;
     }
@@ -83,12 +93,36 @@ class Collection extends Base
 
         $formBuilder
             ->add(
+                'show',
+                ChoiceType::class,
+                [
+                    'choices' => [
+                        'Show List' =>      'list',
+                        'Show Map' =>       'map',
+                        'Show SeekList' =>  'seeklist',
+                    ],
+                    'placeholder' =>    false,
+                    'label' =>          'Display Mode',
+                    'required' =>       false
+                ]
+            )
+            ->add(
+                'paper',
+                ChoiceType::class,
+                [
+                    'choices' =>        $this->paper->getAllChoices(),
+                    'placeholder' =>    false,
+                    'label' =>          'Paper Size',
+                    'required' =>       false
+                ]
+            )
+            ->add(
                 'sortby',
                 ChoiceType::class,
                 [
-                    'choices'       => [],
-                    'label'         => 'Sort By',
-                    'required'      =>   false
+                    'choices' =>    [],
+                    'label'  =>     'Sort By',
+                    'required' =>   false
                 ]
             )
             ->add(
@@ -161,20 +195,6 @@ class Collection extends Base
                         'Inactive' =>   '2',
                     ],
                     'label' => 'Active Status',
-                    'required' => false
-                ]
-            )
-            ->add(
-                'show',
-                ChoiceType::class,
-                [
-                    'choices' => [
-                        'Show List' =>  'list',
-                        'Show Map' =>   'map',
-                        'SeekList' =>   'seeklist',
-                    ],
-                    'placeholder' => false,
-                    'label' => 'Show',
                     'required' => false
                 ]
             )

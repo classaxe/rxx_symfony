@@ -8,6 +8,11 @@
             <div id="form">
                 <fieldset class="section">
 {% include 'forms/paging.html.twig' %}
+                    {{ form_row(form.show) }}
+                    <div style="display:inline-block; clear: none; float:right;">
+                        {{ form_label(form.paper) }}
+                        {{ form_widget(form.paper) }}
+                    </div>
                     {{ form_row(form.personalise) }}
                     <div style="display:inline-block; clear: none; float:right;">
                         {{ form_label(form.offsets) }}
@@ -25,9 +30,6 @@
                     </div>
                     <div style="display:inline-block;">
                         {% include 'signals/formSortby.html.twig' %}
-                    </div>
-                    <div style="display:inline-block; clear: none; float:right;">
-                        {{ form_widget(form.show) }}
                     </div>
                 </fieldset>
                 <fieldset class="section">

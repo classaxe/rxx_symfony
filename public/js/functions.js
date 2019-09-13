@@ -668,11 +668,23 @@ function setFormResetAction(form) {
 
 function setFormShowModeAction() {
     var mode  = $('#form_show option:selected').val();
-    $("#show_" + mode).addClass('is-active');
+    $('#show_' + mode).addClass('is-active');
+    $('#form_show')
+        .change(function() {
+            if ($('#form_show option:selected').val() === 'seeklist') {
+                $('#form_paper').show();
+                $('label[for="form_paper"]').show();
+            } else {
+                $('#form_paper').hide();
+                $('label[for="form_paper"]').hide();
+            }
+        })
+        .trigger('change');
+
 }
 
 function setFormSortbyAction() {
-    $('select#form_sortby').change(function () {
+    $('select#form_sortby').change(function() {
         var val = $("#form_sortby option:selected").val();
         $('#form_sort').val(val.split('|')[0]);
         $('#form_order').val(val.split('|')[1]);

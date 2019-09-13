@@ -654,7 +654,7 @@ table.stats tr td {
 }
 #form_limit,
 #form_page {
-  width: 8em;
+  width: 9em;
   float: left;
   margin: 0 0.5em 0 0;
 }
@@ -726,7 +726,6 @@ button.tiny {
   font-weight: bold;
 }
 #form #form_page {
-  width: 8em;
   float: left;
   margin: 0 0 0 0.5em;
 }
@@ -831,7 +830,7 @@ button.tiny {
   width: 435px;
 }
 .signal_list #form_sortby {
-  width: 285px;
+  width: 335px;
 }
 .signal_list #form_za {
   float: left;
@@ -843,20 +842,23 @@ button.tiny {
   text-align: right !important;
   float: left;
 }
-.signal_list label[for="form_show"] {
-  width: auto !important;
-  margin: 0 0.25em 0 30px;
-}
 .signal_list #form_show {
-  width: 85px;
+  width: 9em;
+}
+.signal_list label[for="form_paper"] {
+  width: auto !important;
+  margin: 0 0.5em;
+}
+.signal_list #form_paper {
+  width: 230px;
   float: right;
+}
+.signal_list #form_personalise {
+  width: 285px;
 }
 .signal_list label[for="form_offsets"] {
   width: auto !important;
   margin: 0 0.5em;
-}
-.signal_list #form_personalise {
-  width: 285px;
 }
 .signal_list #form_offsets {
   width: 85px;
