@@ -113,7 +113,8 @@ class Collection extends Base
                     'choices' =>        $this->paper->getAllChoices(),
                     'placeholder' =>    false,
                     'label' =>          'Paper Size',
-                    'required' =>       false
+                    'required' =>       false,
+                    'data' =>           ($system === 'rna' ? 'ltr_l' : 'a4_l')
                 ]
             )
             ->add(

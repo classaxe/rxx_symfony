@@ -282,9 +282,13 @@ body {
     border: 0;
 }
 
-@media screen and (max-width: @width[signalsForm] + 60 + @width[stats]) {
-    div.c_1 {
-    }
+/* Signals Responsive Layout */
+div.c_1 {
+    float: left;
+    margin-right: 10px;
+}
+
+@media all and (max-width: @width[signalsForm] + 60 + @width[stats]) {
     div.c_2 {
         section {
             float: left;
@@ -299,10 +303,7 @@ body {
     }
 }
 
-@media screen and (min-width: @width[signalsForm] + 60 + @width[stats]) {
-    div.c_1 {
-        float: left;
-    }
+@media all and (min-width: @width[signalsForm] + 60 + @width[stats] + 1) {
     div.c_2 {
         float: right;
         section {
@@ -571,6 +572,7 @@ table.stats {
         border-radius: 5px;
         padding: 0.25em;
         background-color: #fff;
+        page-break-before: always;
     }
 }
 

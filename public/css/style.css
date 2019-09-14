@@ -1,7 +1,7 @@
 /*!
 * Project:   RXX - NDB Logging Database
 * Homepage:  https://rxx.classaxe.com
-* Date:      2019-09-08
+* Date:      2019-09-13
 * Licence:   LGPL
 * Copyright: 2019 Martin Francis
 */
@@ -354,7 +354,12 @@ body .menu-centered .language li a {
   clip: rect(0, 0, 0, 0);
   border: 0;
 }
-@media screen and (max-width: 810px) {
+/* Signals Responsive Layout */
+div.c_1 {
+  float: left;
+  margin-right: 10px;
+}
+@media all and (max-width: 810px) {
   div.c_2 section {
     float: left;
     margin: 0.5em 1em 0.5em 0;
@@ -366,10 +371,7 @@ body .menu-centered .language li a {
     width: 265px;
   }
 }
-@media screen and (min-width: 810px) {
-  div.c_1 {
-    float: left;
-  }
+@media all and (min-width: 811px) {
   div.c_2 {
     float: right;
   }
@@ -630,6 +632,7 @@ table.stats tr td {
   border-radius: 5px;
   padding: 0.25em;
   background-color: #fff;
+  page-break-before: always;
 }
 .controlPanel {
   display: inline-block;

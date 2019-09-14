@@ -15,7 +15,7 @@ class Base extends WebBase
     protected function getValidSignal($id, $signalRepository)
     {
         if (!(int) $id) {
-            $this->session->set('lastError', "Signal cannot be found.");
+            $this-> session->set('lastError', "Signal cannot be found.");
             return false;
         }
         if (!$signal = $signalRepository->find((int) $id)) {

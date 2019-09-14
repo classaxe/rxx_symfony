@@ -34,14 +34,11 @@ class GeoService
         $this->visitor = $visitor;
     }
 
-    /**
-     * @return string - reu|rna|rww - depending on where visitor's IP address originates
-     */
-    public function getDefaultSystem()
+    public function getContinent()
     {
         $ip = $this->visitor->getIpAddress();
         if (!$ip) {
-            return "rna";
+            return 'NA';
         }
         try {
             $reader = new Reader($this->dbPath);
@@ -59,20 +56,28 @@ class GeoService
                 ."sudo chown $uName:$gName ".dirname($this->dbPath).";\n"
                 ."{$binPath}console geoip2:update</pre>"
             );
-            return "rna";
         }
         try {
             $record = $reader->city($ip);
-            switch ($record->continent->code) {
-                case 'NA':
-                    return 'rna';
-                case 'EU':
-                    return 'reu';
-                default:
-                    return 'rww';
-            }
+            return $record->continent->code;
         } catch (AddressNotFoundException $e) {
-            return 'rna';
+            return 'NA';
+        }
+    }
+
+    /**
+     * @return string - reu|rna|rww - depending on where visitor's IP address originates
+     */
+    public function getDefaultSystem()
+    {
+        $continent = $this->getContinent();
+        switch ($continent) {
+            case 'NA':
+                return 'rna';
+            case 'EU':
+                return 'reu';
+            default:
+                return 'rww';
         }
     }
 }
