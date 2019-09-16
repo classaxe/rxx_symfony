@@ -1,7 +1,7 @@
 /*!
 * Project:   RXX - NDB Logging Database
 * Homepage:  https://rxx.classaxe.com
-* Date:      2019-09-13
+* Date:      2019-09-14
 * Licence:   LGPL
 * Copyright: 2019 Martin Francis
 */
@@ -312,15 +312,26 @@ body .menu-centered .mode a:hover,
 body .menu-centered .language a:hover {
   text-decoration: underline;
 }
+@media print {
+  body .menu-centered .system a,
+  body .menu-centered .mode a,
+  body .menu-centered .language a {
+    color: #a0a0a0;
+  }
+}
 body .menu-centered .system .is-active > a,
 body .menu-centered .mode .is-active > a,
 body .menu-centered .language .is-active > a {
-  font-weight: bold;
+  font-weight: 900;
+  color: #ffff00;
+  text-decoration: underline;
 }
-body .menu-centered .system .is-active > a:hover,
-body .menu-centered .mode .is-active > a:hover,
-body .menu-centered .language .is-active > a:hover {
-  text-decoration: none;
+@media print {
+  body .menu-centered .system .is-active > a,
+  body .menu-centered .mode .is-active > a,
+  body .menu-centered .language .is-active > a {
+    border-width: 2px 1px;
+  }
 }
 body .menu-centered .language {
   margin: 0.5em 0 0 125px;
@@ -1213,9 +1224,6 @@ fieldset#group_weather_report_details div label {
   body {
     font-size: 85%;
     width: 95%;
-  }
-  .menu-centered {
-    display: none;
   }
 }
 /* [ Help pages */

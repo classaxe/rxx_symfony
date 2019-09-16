@@ -45,4 +45,12 @@ class PaperRepository
         }
         return $out;
     }
+
+    public function getSpecifications($key)
+    {
+        if (isset(static::types[$key])) {
+            return static::types[$key];
+        }
+        return false;
+    }
 }

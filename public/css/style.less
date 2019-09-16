@@ -237,11 +237,16 @@ body {
                 &:hover {
                     text-decoration: underline;
                 }
+                @media print {
+                    color: #a0a0a0;
+                }
             }
             .is-active > a {
-                font-weight: bold;
-                &:hover {
-                    text-decoration: none;
+                font-weight: 900;
+                color: #ffff00;
+                text-decoration: underline;
+                @media print {
+                    border-width: 2px 1px;
                 }
             }
         }
@@ -1212,9 +1217,6 @@ fieldset#group_weather_report_details {
     body {
         font-size: 85%;
         width: 95%;
-    }
-    .menu-centered {
-        display: none;
     }
 }
 

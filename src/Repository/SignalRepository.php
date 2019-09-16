@@ -506,29 +506,39 @@ class SignalRepository extends ServiceEntityRepository
 
     private function addSelectColumnsAllSignal()
     {
-        $this->query['select'][] = (
-        isset($this->args['listener']) ||
-        isset($this->args['heard_in']) ||
-        isset($this->args['logged_date_1']) ||
-        isset($this->args['logged_date_2'])
-            ?
-            "DISTINCT s.*" : "s.*"
+        $distinct = (
+            isset($this->args['listener']) ||
+            isset($this->args['heard_in']) ||
+            isset($this->args['logged_date_1']) ||
+            isset($this->args['logged_date_2'])
         );
+        $this->query['select'][] = ($distinct ? 'DISTINCT ' : '') . 's.*';
+        return $this;
+    }
+
+    private function addSelectColumnsAllSignalSeeklist()
+    {
+        $distinct = (
+            isset($this->args['listener']) ||
+            isset($this->args['heard_in']) ||
+            isset($this->args['logged_date_1']) ||
+            isset($this->args['logged_date_2'])
+        );
+        $this->query['select'][] =
+            ($distinct ? 'DISTINCT ' : '')
+            . "s.id, s.call, s.khz, s.type, s.active, s.sp, s.itu";
         return $this;
     }
 
     private function addSelectColumnCountSignal()
     {
-        $this->query['select'][] =
-            "COUNT(" . (
+        $distinct = (
             isset($this->args['listener']) ||
             isset($this->args['heard_in']) ||
             isset($this->args['logged_date_1']) ||
             isset($this->args['logged_date_2'])
-                ?
-                "DISTINCT s.id" : "*"
-            )
-            . ") AS count";
+        );
+        $this->query['select'][] = "COUNT(" . ($distinct ? "DISTINCT s.id" : "*"). ") AS count";
         return $this;
     }
 
@@ -611,19 +621,6 @@ class SignalRepository extends ServiceEntityRepository
         $this
             ->setArgs($system, $args)
 
-            ->addSelectColumnsAllSignal()
-            ->addSelectColumnPersonalise()
-            ->addSelectColumnsOffsets()
-            ->addSelectColumnRangeDeg()
-            ->addSelectColumnRangeKm()
-            ->addSelectColumnRangeMiles()
-
-            ->addSelectPrioritizeNonEmpty()
-            ->addSelectPriotitizeActive()
-            ->addSelectPriotitizeExactCall()
-
-            ->addFromTables()
-
             ->addFilterActive()
             ->addFilterCall()
             ->addFilterChannels()
@@ -640,11 +637,32 @@ class SignalRepository extends ServiceEntityRepository
             ->addFilterSystem()
             ->addFilterTypes()
 
-            ->addOrderPrioritizeSelected()
-            ->addOrderPrioritizeExactCall()
-            ->addOrderPrioritizeActive()
+            ->addFromTables()
 
             ->addLimit($args);
+        ;
+        switch ($this->args['show']) {
+            case 'seeklist':
+                $this
+                    ->addSelectColumnsAllSignalSeeklist();
+                break;
+            default:
+                $this
+                    ->addSelectColumnsAllSignal()
+                    ->addSelectColumnPersonalise()
+                    ->addSelectColumnsOffsets()
+                    ->addSelectColumnRangeDeg()
+                    ->addSelectColumnRangeKm()
+                    ->addSelectColumnRangeMiles()
+                    ->addSelectPrioritizeNonEmpty()
+                    ->addSelectPriotitizeActive()
+                    ->addSelectPriotitizeExactCall()
+
+                    ->addOrderPrioritizeSelected()
+                    ->addOrderPrioritizeExactCall()
+                    ->addOrderPrioritizeActive();
+                break;
+        }
 
         $sql = $this->buildQuery();
 

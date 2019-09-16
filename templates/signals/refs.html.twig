@@ -1,4 +1,4 @@
-<ul class="refs">
+<ul class="refs hide-for-print">
     {% for type in typeRepository.getSignalTypesSearched(args.types) %}
         {% set refs = typeRepository.getTypeForCode(type).refs %}
         {% if refs %}

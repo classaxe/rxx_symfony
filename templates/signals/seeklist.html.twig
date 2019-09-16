@@ -1,0 +1,13 @@
+{% if (paper) %}
+<table border="1" cellpadding="0" cellspacing="2">
+    <tr>
+        {% for i in range(1, paper.cols) %}
+            <td style="width: {{ (100/paper.cols) }}%">
+            {% for signal in signals %}
+                {{ i }}
+            {% endfor %}
+            </td>
+        {% endfor %}
+    </tr>
+</table>
+{% endif %}

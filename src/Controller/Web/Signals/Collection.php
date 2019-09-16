@@ -65,6 +65,7 @@ class Collection extends Base
         $system,
         Request $request,
         Form $form,
+        PaperRepository $paper,
         ListenerRepository $listenerRepository,
         SignalRepository $signalRepository,
         TypeRepository $typeRepository
@@ -121,6 +122,7 @@ class Collection extends Base
             'options' =>            $options,
             'mode' =>               'Signals',
             '_locale' =>            $_locale,
+            'paper' =>              isset($args['paper']) ? $paper->getSpecifications($args['paper']) : false,
             'results' => [
                 'limit' =>              isset($args['limit']) ? $args['limit'] : static::defaultlimit,
                 'page' =>               isset($args['page']) ? $args['page'] : 0,
