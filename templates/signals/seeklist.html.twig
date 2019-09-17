@@ -1,9 +1,17 @@
 {% if (paper) %}
-<table border="1" cellpadding="0" cellspacing="2">
+{% set page, itu, sp = 1, '', '' %}
+<table class="seeklist">
     <tr>
         {% for i in range(1, paper.cols) %}
             <td style="width: {{ (100/paper.cols) }}%">
             {% for signal in signals %}
+                {% if itu != signal.itu or sp != signal.sp %}
+                {% set itu, sp = signal.itu, signal.sp %}
+                <div class="clearfix">
+                    <div class='float-left'><b>{{signal.itu}} {{ signal.sp }}</b></div>
+                    <div class='float-right'>(x)</div>
+                </div>
+                {% endif %}
                 {{ i }}
             {% endfor %}
             </td>

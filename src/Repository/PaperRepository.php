@@ -8,32 +8,32 @@ class PaperRepository
         'a4' => [
             'cols' => 4,
             'lbl' => 'A4 (Portrait) - 21.6cm x 27.9cm',
-            'len' => 755
+            'rows' => 54
         ],
         'a4_l' => [
-            'cols' => 7,
+            'cols' => 6,
             'lbl' => 'A4 (Landscape) - 27.9cm x 21.6cm',
-            'len' => 470
+            'rows' => 34
         ],
         'lgl' => [
-            'cols' => 5,
+            'cols' => 4,
             'lbl' => 'Legal (Portrait) - 8.5" x 14"',
-            'len' => 906
+            'rows' => 66
         ],
         'lgl_l' => [
-            'cols' => 9,
+            'cols' => 7,
             'lbl' => 'Legal (Landscape) - 14" x 8.5"',
-            'len' => 490
+            'rows' => 36
         ],
         'ltr' => [
-            'cols' => 5,
+            'cols' => 4,
             'lbl' => 'Letter (Portrait) - 8.5" x 11"',
-            'len' => 710
+            'rows' => 51
         ],
         'ltr_l' => [
             'cols' => 6,
             'lbl' => 'Letter (Landscape) - 11" x 8.5"',
-            'len' => 490
+            'rows' => 36
         ]
     ];
 

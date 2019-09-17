@@ -2093,6 +2093,50 @@
         <source>Miles from GSQ</source>
         <target>__Miles from GSQ</target>
       </trans-unit>
+      <trans-unit id="rEPk5F5" resname="Paper Size">
+        <source>Paper Size</source>
+        <target>__Paper Size</target>
+      </trans-unit>
+      <trans-unit id="JnloOrP" resname="A4 (Portrait) - 21.6cm x 27.9cm">
+        <source>A4 (Portrait) - 21.6cm x 27.9cm</source>
+        <target>__A4 (Portrait) - 21.6cm x 27.9cm</target>
+      </trans-unit>
+      <trans-unit id="8qKd5m3" resname="A4 (Landscape) - 27.9cm x 21.6cm">
+        <source>A4 (Landscape) - 27.9cm x 21.6cm</source>
+        <target>__A4 (Landscape) - 27.9cm x 21.6cm</target>
+      </trans-unit>
+      <trans-unit id="ieoMxy7" resname="Legal (Portrait) - 8.5&quot; x 14&quot;">
+        <source>Legal (Portrait) - 8.5" x 14"</source>
+        <target>__Legal (Portrait) - 8.5" x 14"</target>
+      </trans-unit>
+      <trans-unit id="e08khCg" resname="Legal (Landscape) - 14&quot; x 8.5&quot;">
+        <source>Legal (Landscape) - 14" x 8.5"</source>
+        <target>__Legal (Landscape) - 14" x 8.5"</target>
+      </trans-unit>
+      <trans-unit id="k7XpiG2" resname="Letter (Portrait) - 8.5&quot; x 11&quot;">
+        <source>Letter (Portrait) - 8.5" x 11"</source>
+        <target>__Letter (Portrait) - 8.5" x 11"</target>
+      </trans-unit>
+      <trans-unit id="WghhOJx" resname="Letter (Landscape) - 11&quot; x 8.5&quot;">
+        <source>Letter (Landscape) - 11" x 8.5"</source>
+        <target>__Letter (Landscape) - 11" x 8.5"</target>
+      </trans-unit>
+      <trans-unit id="jOMYuru" resname="Display Mode">
+        <source>Display Mode</source>
+        <target>__Display Mode</target>
+      </trans-unit>
+      <trans-unit id="j9rMhNH" resname="Show SeekList">
+        <source>Show SeekList</source>
+        <target>__Show SeekList</target>
+      </trans-unit>
+      <trans-unit id="KwY2w.u" resname="(None specified)">
+        <source>(None specified)</source>
+        <target>__(None specified)</target>
+      </trans-unit>
+      <trans-unit id="uMcbize" resname="Continent or Zone">
+        <source>Continent or Zone</source>
+        <target>__Continent or Zone</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

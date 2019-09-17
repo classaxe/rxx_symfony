@@ -23,6 +23,7 @@ use Symfony\Component\Form\Extension\Core\Type\RadioType;
 use Symfony\Component\Form\Extension\Core\Type\ResetType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Class Listeners
@@ -51,6 +52,11 @@ class Collection extends Base
     private $region;
 
     /**
+     * @var TranslatorInterface
+     */
+    private $translator;
+
+    /**
      * @var TypeRepository
      */
     private $type;
@@ -69,12 +75,14 @@ class Collection extends Base
         ListenerRepository $listener,
         PaperRepository $paper,
         RegionRepository $region,
+        TranslatorInterface $translator,
         TypeRepository $type
     ) {
         $this->country = $country;
         $this->listener = $listener;
         $this->paper = $paper;
         $this->region = $region;
+        $this->translator = $translator;
         $this->type = $type;
     }
 
@@ -206,7 +214,7 @@ class Collection extends Base
                     'choices'       => $this->listener->getAllOptions(
                         $system,
                         null,
-                        ' ',
+                        $this->translator->trans('(None specified)'),
                         true
                     ),
                     'expanded'      => false,
@@ -338,7 +346,7 @@ class Collection extends Base
                     'multiple'      => true,
                     'required'      => false,
                     'choice_translation_domain' => false,
-                    'attr'          => [ 'class' => 'multiple', 'multiple' => 'multiple']
+                    'attr'          => [ 'class' => 'multiple' ]
                 ]
             )
             ->add(

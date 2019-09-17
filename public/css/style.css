@@ -414,6 +414,13 @@ table.stats tr td {
   text-align: right;
   padding: 0;
 }
+table.seeklist {
+  border-collapse: collapse;
+  border: 1px solid #000000;
+}
+table.seeklist td {
+  border: 1px solid #000000;
+}
 /* [ Help dialogs ] */
 .help {
   border: 2px solid #888;

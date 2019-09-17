@@ -316,6 +316,16 @@ class SignalRepository extends ServiceEntityRepository
         return $this;
     }
 
+    private function addOrderForSeeklist()
+    {
+        $this
+            ->addOrder('s.itu','ASC')
+            ->addOrder('s.sp', 'ASC')
+            ->addOrder('s.khz', 'ASC')
+            ->addOrder('s.call', 'ASC');
+        return $this;
+    }
+
     private function addOrderPrioritizeActive()
     {
         if (!isset($this->args['active']) || $this->args['active'] === '') {
@@ -637,14 +647,13 @@ class SignalRepository extends ServiceEntityRepository
             ->addFilterSystem()
             ->addFilterTypes()
 
-            ->addFromTables()
+            ->addFromTables();
 
-            ->addLimit($args);
-        ;
         switch ($this->args['show']) {
             case 'seeklist':
                 $this
-                    ->addSelectColumnsAllSignalSeeklist();
+                    ->addSelectColumnsAllSignalSeeklist()
+                    ->addOrderForSeeklist();
                 break;
             default:
                 $this
@@ -660,7 +669,9 @@ class SignalRepository extends ServiceEntityRepository
 
                     ->addOrderPrioritizeSelected()
                     ->addOrderPrioritizeExactCall()
-                    ->addOrderPrioritizeActive();
+                    ->addOrderPrioritizeActive()
+
+                    ->addLimit($args);
                 break;
         }
 
