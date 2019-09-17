@@ -653,6 +653,7 @@ class SignalRepository extends ServiceEntityRepository
             case 'seeklist':
                 $this
                     ->addSelectColumnsAllSignalSeeklist()
+                    ->addSelectColumnPersonalise()
                     ->addOrderForSeeklist();
                 break;
             default:

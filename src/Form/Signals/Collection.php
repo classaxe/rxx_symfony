@@ -99,6 +99,8 @@ class Collection extends Base
         $this->addPaging($formBuilder, $options);
         $this->addSorting($formBuilder, $options);
 
+        $i18n = $this->translator;
+
         $formBuilder
             ->add(
                 'show',
@@ -214,7 +216,7 @@ class Collection extends Base
                     'choices'       => $this->listener->getAllOptions(
                         $system,
                         null,
-                        $this->translator->trans('(None specified)'),
+                        $i18n->trans('(None specified)'),
                         true
                     ),
                     'expanded'      => false,
@@ -338,7 +340,7 @@ class Collection extends Base
                     'choices'       => $this->listener->getAllOptions(
                         $system,
                         null,
-                        'Anyone (or enter values in "Heard here" box)',
+                        $i18n->trans('Anyone (or enter values in "Heard here" box)'),
                         false
                     ),
                     'expanded'      => false,

@@ -113,12 +113,24 @@ class Collection extends Base
         $args['signalTypes'] =  $typeRepository->getSignalTypesSearched($args['types']);
         $signals =              $signalRepository->getFilteredSignals($system, $args);
         $total =                $signalRepository->getFilteredSignalsCount($system, $args);
+        $itu_sp =               [];
+        if ($args['show'] === 'seeklist') {
+            foreach ($signals as $s) {
+                $key = $s['itu'].'_'.$s['sp'];
+                if (!isset($itu_sp[$key])) {
+                    $itu_sp[$key] = [ 'total' => 0, 'heard' => 0 ];
+                }
+                $itu_sp[$key]['total']++;
+                $itu_sp[$key]['heard'] += $s['personalise'] ? 1 : 0;
+            }
+        }
 
         $parameters = [
             'args' =>               $args,
             'columns' =>            $signalRepository->getColumns(),
             'form' =>               $form->createView(),
             'signals' =>            $signals,
+            'itu_sp' =>             $itu_sp,
             'options' =>            $options,
             'mode' =>               'Signals',
             '_locale' =>            $_locale,

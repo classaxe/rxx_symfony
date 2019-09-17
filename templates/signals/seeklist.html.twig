@@ -6,13 +6,14 @@
             <td style="width: {{ (100/paper.cols) }}%">
             {% for signal in signals %}
                 {% if itu != signal.itu or sp != signal.sp %}
-                {% set itu, sp = signal.itu, signal.sp %}
+                {% set itu, sp, key = signal.itu, signal.sp , signal.itu ~ '_' ~ signal.sp %}
+                {% set stats = attribute(itu_sp, key) %}
                 <div class="clearfix">
-                    <div class='float-left'><b>{{signal.itu}} {{ signal.sp }}</b></div>
-                    <div class='float-right'>(x)</div>
+                    <div class='float-left'><b>{{ itu }} {{ sp }}</b></div>
+                    <div class='float-right'>({% if (args.personalise) %}{{ stats.heard }} of {% endif %}{{ stats.total  }})</div>
                 </div>
                 {% endif %}
-                {{ i }}
+                {{ signal.personalise }}
             {% endfor %}
             </td>
         {% endfor %}
