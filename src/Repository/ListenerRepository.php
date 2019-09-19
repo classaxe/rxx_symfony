@@ -60,6 +60,20 @@ class ListenerRepository extends ServiceEntityRepository
         return $this->listenersColumns;
     }
 
+    public function getDescription($id)
+    {
+        $l = $this->find($id);
+        if (!$l instanceof Listener) {
+            return false;
+        }
+        return
+            $l->getName()
+            . ($l->getQth() ? ', ' . $l->getQth() : '')
+            . ($l->getSp() ? ' ' . $l->getSp() : '')
+            . ($l->getItu() ? ' ' . $l->getItu() : '')
+            . ($l->getGsq() ? ' | ' . $l->getGsq() : '');
+    }
+
     public function getLogsColumns()
     {
         return $this->listenerLogsColumns;

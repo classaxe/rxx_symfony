@@ -418,8 +418,30 @@ table.seeklist {
   border-collapse: collapse;
   border: 1px solid #000000;
 }
-table.seeklist td {
+table.seeklist thead tr.sl_1 td {
+  background-color: #777 !important;
+}
+table.seeklist thead tr.sl_1 td div {
+  color: #ffffff !important;
+}
+table.seeklist thead tr.sl_1 td h2,
+table.seeklist thead tr.sl_1 td h3,
+table.seeklist thead tr.sl_1 td h4 {
+  color: #ffffff;
+  font-weight: bold;
+  margin: 0;
+  font-size: 100%;
+}
+table.seeklist thead td {
   border: 1px solid #000000;
+  margin: 0;
+  padding: 0 0.25em;
+}
+table.seeklist tbody td {
+  border: 1px solid #000000;
+}
+table.seeklist tbody td .head {
+  padding: 0 0.25em !important;
 }
 /* [ Help dialogs ] */
 .help {
@@ -651,6 +673,18 @@ table.seeklist td {
   padding: 0.25em;
   background-color: #fff;
   page-break-before: always;
+}
+.main .signals_container h2 {
+  font-weight: bold;
+  display: inline-block;
+  margin: 0 0.25em;
+  float: none;
+}
+.main .signals_container h3 {
+  font-weight: bold;
+  display: inline-block;
+  margin: 0 0.25em;
+  float: none;
 }
 .controlPanel {
   display: inline-block;

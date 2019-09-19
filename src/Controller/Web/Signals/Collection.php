@@ -135,6 +135,7 @@ class Collection extends Base
             'mode' =>               'Signals',
             '_locale' =>            $_locale,
             'paper' =>              isset($args['paper']) ? $paper->getSpecifications($args['paper']) : false,
+            'personalised' =>       isset($args['personalise']) ? $listenerRepository->getDescription($args['personalise']) : false,
             'results' => [
                 'limit' =>              isset($args['limit']) ? $args['limit'] : static::defaultlimit,
                 'page' =>               isset($args['page']) ? $args['page'] : 0,

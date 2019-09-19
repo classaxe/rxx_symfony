@@ -1,6 +1,11 @@
 {% if signals|length > 0 %}
 {#<pre>{{ dump(signals[0]) }}</pre>#}
-<table class="signal results">
+    <div class="row">
+        <div class="small-6 text-left"><h2>{{ system|upper }} {% trans %}Signals Map{% endtrans %}</h2></div>
+        <div class="small-6 text-right">{% if personalised %}<h3>{{ 'Personalised for %s'|trans|format(personalised) }}</h3>{% endif %}</div>
+    </div>
+
+    <table class="signal results">
     <thead>
         <tr>
             {% if args.personalise %}<th class="txt_vertical nosort"><div>{% trans %}Logged{% endtrans %}</div></th>{% endif %}

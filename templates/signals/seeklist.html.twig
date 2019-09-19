@@ -1,22 +1,41 @@
-{% if (paper) %}
 {% set page, itu, sp = 1, '', '' %}
 <table class="seeklist">
-    <tr>
-        {% for i in range(1, paper.cols) %}
-            <td style="width: {{ (100/paper.cols) }}%">
-            {% for signal in signals %}
-                {% if itu != signal.itu or sp != signal.sp %}
-                {% set itu, sp, key = signal.itu, signal.sp , signal.itu ~ '_' ~ signal.sp %}
-                {% set stats = attribute(itu_sp, key) %}
-                <div class="clearfix">
-                    <div class='float-left'><b>{{ itu }} {{ sp }}</b></div>
-                    <div class='float-right'>({% if (args.personalise) %}{{ stats.heard }} of {% endif %}{{ stats.total  }})</div>
+    <thead>
+        <tr class="sl_1">
+            <td colspan="{{ paper.cols }}">
+                <div class="row">
+                    <h2 class="small-{{ personalised ? 3 : 6 }} text-left">{{ '%s Seeklist'|trans|format(system|upper) }}</h2>
+                    {% if personalised %}<h3 class="small-6 text-center">{{ 'Personalised for %s'|trans|format(personalised) }}</h3>{% endif %}
+                    <h4 class="small-{{ personalised ? 3 : 6 }} text-right">{{ 'Page %s'|trans|format(page) }}</h4>
                 </div>
-                {% endif %}
-                {{ signal.personalise }}
-            {% endfor %}
             </td>
-        {% endfor %}
-    </tr>
+        </tr>
+        <tr class="sl_2">
+            <td colspan="{{ paper.cols }}" class="head">
+                <div class="row">
+                    <div class="small-6 text-left">{% trans %}Signals including <i>Inactive</i> stations{% endtrans %}</div>
+                    <div class="small-6 text-right">{{ 'Updated %s'|trans|format('Feb 2, 2019') }}</div>
+                </div>
+            </td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            {% for i in range(1, paper.cols) %}
+                <td style="width: {{ (100/paper.cols) }}%">
+                {% for signal in signals %}
+                    {% if itu != signal.itu or sp != signal.sp %}
+                    {% set itu, sp, key = signal.itu, signal.sp , signal.itu ~ '_' ~ signal.sp %}
+                    {% set stats = attribute(itu_sp, key) %}
+                    <div class="clearfix">
+                        <div class='float-left'><b>{{ itu }} {{ sp }}</b></div>
+                        <div class='float-right'>({% if (args.personalise) %}{{ stats.heard }} of {% endif %}{{ stats.total  }})</div>
+                    </div>
+                    {% endif %}
+                    {{ signal.personalise }}
+                {% endfor %}
+                </td>
+            {% endfor %}
+        </tr>
+    </tbody>
 </table>
-{% endif %}
