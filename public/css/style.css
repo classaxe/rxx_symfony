@@ -1,7 +1,7 @@
 /*!
 * Project:   RXX - NDB Logging Database
 * Homepage:  https://rxx.classaxe.com
-* Date:      2019-09-14
+* Date:      2019-09-15
 * Licence:   LGPL
 * Copyright: 2019 Martin Francis
 */
@@ -427,7 +427,7 @@ table.seeklist thead tr.sl_1 td div {
 table.seeklist thead tr.sl_1 td h2,
 table.seeklist thead tr.sl_1 td h3,
 table.seeklist thead tr.sl_1 td h4 {
-  color: #ffffff;
+  color: #ffffff !important;
   font-weight: bold;
   margin: 0;
   font-size: 100%;
@@ -442,6 +442,30 @@ table.seeklist tbody td {
 }
 table.seeklist tbody td .head {
   padding: 0 0.25em !important;
+}
+table.seeklist tbody td div.sl_h span,
+table.seeklist tbody td div.sl_d span {
+  font-family: "Courier New bold", Courier, monospace;
+  white-space: nowrap;
+  display: inline-block;
+  width: 3em;
+  float: left;
+}
+table.seeklist tbody td div.sl_h em,
+table.seeklist tbody td div.sl_d em {
+  display: inline-block;
+  float: right;
+}
+table.seeklist tbody td div.sl_d + div.sl_h {
+  margin-top: 1.15em;
+}
+table.seeklist tbody td div.sl_d {
+  margin-left: 0.5em;
+  line-height: 1.15em;
+}
+table.seeklist tbody td div.sl_d em {
+  font-family: "Courier New bold", Courier, monospace;
+  font-style: normal;
 }
 /* [ Help dialogs ] */
 .help {
@@ -676,13 +700,13 @@ table.seeklist tbody td .head {
 }
 .main .signals_container h2 {
   font-weight: bold;
-  display: inline-block;
+  display: block;
   margin: 0 0.25em;
   float: none;
 }
 .main .signals_container h3 {
   font-weight: bold;
-  display: inline-block;
+  display: block;
   margin: 0 0.25em;
   float: none;
 }
@@ -1203,7 +1227,7 @@ fieldset#group_weather_report_details div label {
   border-radius: 2px;
 }
 .results tr.logged td {
-  background: #e8ffe8;
+  background: #e8ffe8 !important;
   color: #008000 !important;
 }
 .results tr.inactive.logged td {
@@ -1411,8 +1435,8 @@ body.map .gm-style-iw p {
   overflow: auto;
 }
 #panel #markerlist .logged a b {
-  background: #e0ffe0;
-  border: 1px solid #80c080;
+  background: #e0ffe0 !important;
+  border: 1px solid #80c080 !important;
 }
 #panel .title {
   border-bottom: 1px solid #e0ecff;

@@ -355,7 +355,7 @@ table.seeklist {
                     color: #ffffff !important;
                 }
                 h2, h3, h4 {
-                    color: #ffffff;
+                    color: #ffffff !important;
                     font-weight: bold;
                     margin: 0;
                     font-size: 100%;
@@ -378,6 +378,31 @@ table.seeklist {
             border: 1px solid #000000;
             .head {
                 padding: 0 0.25em !important;
+            }
+            div.sl_h,
+            div.sl_d {
+                span {
+                    font-family: "Courier New bold", Courier, monospace;
+                    white-space: nowrap;
+                    display: inline-block;
+                    width: 3em;
+                    float: left;
+                }
+                em {
+                    display: inline-block;
+                    float: right;
+                }
+            }
+            div.sl_d + div.sl_h {
+                margin-top: 1.15em;
+            }
+            div.sl_d {
+                margin-left: 0.5em;
+                line-height: 1.15em;
+                em {
+                    font-family: "Courier New bold", Courier, monospace;
+                    font-style: normal;
+                }
             }
         }
     }
@@ -1204,7 +1229,7 @@ fieldset#group_weather_report_details {
 
     tr.logged {
         td {
-            background: #e8ffe8;
+            background: #e8ffe8 !important;
             color: #008000 !important;
         }
     }
@@ -1425,8 +1450,8 @@ body.map {
     .logged {
       a {
         b {
-          background: #e0ffe0;
-          border: 1px solid #80c080;
+          background: #e0ffe0 !important;
+          border: 1px solid #80c080 !important;
         }
       }
     }

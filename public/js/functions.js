@@ -130,7 +130,8 @@ function initListenerSignalsMap() {
     for (type in listener.types) {
         signalType = listener.types[type];
         layers[signalType + '_0'] = new google.maps.KmlLayer({
-            url: listener.source + '/' + signalType + '/0?v=a' + listener.logLatest,
+            url: listener.source + '/' + signalType + '/0?v=a' +
+                listener.logLatest + '_' + new Date().toJSON().substring(0,10),
             preserveViewport: true,
             map: map
         });

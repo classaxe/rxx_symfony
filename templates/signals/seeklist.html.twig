@@ -13,7 +13,18 @@
         <tr class="sl_2">
             <td colspan="{{ paper.cols }}" class="head">
                 <div class="row">
-                    <div class="small-6 text-left">{% trans %}Signals including <i>Inactive</i> stations{% endtrans %}</div>
+                    <div class="small-6 text-left">
+                        {% if page == 1 %}
+                            {% trans %}Signals including <i>Inactive</i> stations{% endtrans %}
+                            {% if personalised %}
+                                {{ '(%s of %s)' | trans | format(attribute(itu_sp, 'all').heard, attribute(itu_sp, 'all').total) }}
+                            {% else %}
+                                {{ '(total: %s)' | trans | format(attribute(itu_sp, 'all').total) }}
+                            {% endif %}
+                        {% else %}
+                            {% trans %}Signals Seeklist (continued){% endtrans %}
+                        {% endif %}
+                    </div>
                     <div class="small-6 text-right">{{ 'Updated %s'|trans|format('Feb 2, 2019') }}</div>
                 </div>
             </td>
@@ -22,17 +33,22 @@
     <tbody>
         <tr>
             {% for i in range(1, paper.cols) %}
-                <td style="width: {{ (100/paper.cols) }}%">
+                <td style="width: {{ (100/paper.cols)|round(2) }}%">
                 {% for signal in signals %}
                     {% if itu != signal.itu or sp != signal.sp %}
                     {% set itu, sp, key = signal.itu, signal.sp , signal.itu ~ '_' ~ signal.sp %}
                     {% set stats = attribute(itu_sp, key) %}
-                    <div class="clearfix">
-                        <div class='float-left'><b>{{ itu }} {{ sp }}</b></div>
-                        <div class='float-right'>({% if (args.personalise) %}{{ stats.heard }} of {% endif %}{{ stats.total  }})</div>
+                    <div class="clearfix sl_h">
+                        <span><b>{{ itu }} {{ sp }}</b></span>
+                        <em>({% if (args.personalise) %}{{ stats.heard }} of {% endif %}{{ stats.total  }})</em>
                     </div>
+
                     {% endif %}
-                    {{ signal.personalise }}
+                    <div class="clearfix sl_d">
+                        <span>{{ signal.khz | round(3) }}</span>
+                        <span>{{ signal.call}}</span>
+                        <em>[{{ signal.personalise ? 'X' : ' ' }}]</em>
+                    </div>
                 {% endfor %}
                 </td>
             {% endfor %}

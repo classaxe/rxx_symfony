@@ -2157,6 +2157,18 @@
         <source>Updated %s</source>
         <target>__Updated %s</target>
       </trans-unit>
+      <trans-unit id="OkxRm7y" resname="(%s of %s)">
+        <source>(%s of %s)</source>
+        <target>__(%s of %s)</target>
+      </trans-unit>
+      <trans-unit id="M1MzS7l" resname="(total: %s)">
+        <source>(total: %s)</source>
+        <target>__(total: %s)</target>
+      </trans-unit>
+      <trans-unit id="DviaeMh" resname="Signals Seeklist (continued)">
+        <source>Signals Seeklist (continued)</source>
+        <target>__Signals Seeklist (continued)</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
