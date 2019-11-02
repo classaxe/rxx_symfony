@@ -4,10 +4,8 @@ namespace App\Controller\Web\Signals;
 use App\Form\Signals\Collection as Form;
 use App\Repository\ListenerRepository;
 use App\Repository\PaperRepository;
-use App\Repository\RegionRepository;
 use App\Repository\SignalRepository;
 use App\Repository\TypeRepository;
-use App\Utils\Rxx;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 use Symfony\Component\HttpFoundation\Request;
 
@@ -111,38 +109,33 @@ class Collection extends Base
             $args['types'][] = 'type_NDB';
         }
         $args['signalTypes'] =  $typeRepository->getSignalTypesSearched($args['types']);
+        $paper =                isset($args['paper']) ? $paper->getSpecifications($args['paper']) : false;
         $signals =              $signalRepository->getFilteredSignals($system, $args);
         $total =                $signalRepository->getFilteredSignalsCount($system, $args);
-        $itu_sp =               [ 'all' => ['total' => 0, 'heard' => 0 ] ];
+        $seeklistStats =        [];
+        $seeklistColumns =      [];
         if ($args['show'] === 'seeklist') {
-            foreach ($signals as $s) {
-                $key = $s['itu'].'_'.$s['sp'];
-                if (!isset($itu_sp[$key])) {
-                    $itu_sp[$key] = [ 'total' => 0, 'heard' => 0 ];
-                }
-                $itu_sp[$key]['total']++;
-                $itu_sp['all']['total']++;
-                $itu_sp[$key]['heard'] += $s['personalise'] ? 1 : 0;
-                $itu_sp['all']['heard'] += $s['personalise'] ? 1 : 0;
-            }
+            $seeklistStats =    SignalRepository::getSeeklistStats($signals);
+            $seeklistColumns =  SignalRepository::getSeeklistColumns($signals, $paper);
         }
 
         $parameters = [
+            '_locale' =>            $_locale,
             'args' =>               $args,
             'columns' =>            $signalRepository->getColumns(),
             'form' =>               $form->createView(),
-            'signals' =>            $signals,
-            'itu_sp' =>             $itu_sp,
             'options' =>            $options,
             'mode' =>               'Signals',
-            '_locale' =>            $_locale,
-            'paper' =>              isset($args['paper']) ? $paper->getSpecifications($args['paper']) : false,
+            'paper' =>              $paper,
             'personalised' =>       isset($args['personalise']) ? $listenerRepository->getDescription($args['personalise']) : false,
             'results' => [
                 'limit' =>              isset($args['limit']) ? $args['limit'] : static::defaultlimit,
                 'page' =>               isset($args['page']) ? $args['page'] : 0,
                 'total' =>              $total
             ],
+            'seeklistColumns' =>    $seeklistColumns,
+            'seeklistStats' =>      $seeklistStats,
+            'signals' =>            $signals,
             'statsBlocks' =>
                 $signalRepository->getStats($this->isAdmin()) +
                 $listenerRepository->getStats($options['system'], $options['region']),

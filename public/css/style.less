@@ -345,6 +345,8 @@ table.stats {
 }
 
 table.seeklist {
+    page-break-inside: avoid;
+    page-break-before: auto;
     border-collapse: collapse;
     border: 1px solid #000000;
     thead {
@@ -364,7 +366,10 @@ table.seeklist {
         }
         tr.sl_2 {
             td {
-
+                i {
+                    background-color: #e0e0e0 !important;
+                    padding: 0 0.125em;
+                }
             }
         }
         td {
@@ -385,7 +390,7 @@ table.seeklist {
                     font-family: "Courier New bold", Courier, monospace;
                     white-space: nowrap;
                     display: inline-block;
-                    width: 3em;
+                    width: 5em;
                     float: left;
                 }
                 em {
@@ -401,7 +406,12 @@ table.seeklist {
                 line-height: 1.15em;
                 em {
                     font-family: "Courier New bold", Courier, monospace;
+                    font-weight: bold;
                     font-style: normal;
+                }
+                &.inactive {
+                    font-style: italic !important;
+                    background-color: #e0e0e0 !important;
                 }
             }
         }
@@ -636,9 +646,11 @@ table.seeklist {
         }
     }
     .signals_container {
-        border: 1px solid #888;
-        border-radius: 5px;
-        padding: 0.25em;
+        @media screen {
+            border: 1px solid #888;
+            border-radius: 5px;
+            padding: 0.25em;
+        }
         background-color: #fff;
         page-break-before: always;
         h2 {
@@ -944,7 +956,7 @@ button.tiny {
         width: @width[label];
         font-weight: bold !important;
         padding: 0 !important;
-        margin: 0px !important;
+        margin: 0 !important;
     }
     #form_listener_invert {
         width: @width[label];
@@ -1429,7 +1441,7 @@ body.map {
 }
 
 #panel {
-    font-family: Arial;
+    font-family: Arial, sans-serif;
     font-size: 10px;
     float: left;
     width: 340px;

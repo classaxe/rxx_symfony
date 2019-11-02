@@ -28,7 +28,7 @@ class PaperRepository
         'ltr' => [
             'cols' => 4,
             'lbl' => 'Letter (Portrait) - 8.5" x 11"',
-            'rows' => 51
+            'rows' => 62
         ],
         'ltr_l' => [
             'cols' => 6,

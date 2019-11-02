@@ -5,6 +5,7 @@ var signals = [
 {% set type = typeRepository.TypeForCode(row.type) %}
     {
 {% if args.personalise %}        'logged' : {{ row.personalise }},{% endif %}
+        'active' : {{ row.active }},
         'id' : {{ row.ID }},
         'khz' : {{ row.khz }},
         'call' : '{{ row.call }}',
@@ -12,6 +13,7 @@ var signals = [
         'type' : '{{ type.title|trans }}{% if row.active == 0 %} {% trans %}(inactive){% endtrans %}{% endif %}',
         'pwr' : '{{ row.pwr }}',
         'qth' : '{{ row.QTH }}',
+        'icon' : '{{ type.class|lower }}',
         'itu' : '{{ row.ITU }}',
         'sp' : '{{ row.SP }}',
         'lat' : {{ row.lat }},

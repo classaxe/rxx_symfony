@@ -750,6 +750,50 @@ class SignalRepository extends ServiceEntityRepository
         return [ 'Signals' => $stats ];
     }
 
+    public static function getSeeklistColumns($signals, $paper)
+    {
+        $col = 0;
+        $col_length = 0;
+        $old_place = false;
+
+        $columns = [];
+        foreach ($signals as $s) {
+            $place = $s['itu'] . '_' . $s['sp'];
+            if ($place !== $old_place) {
+                $col_length += 2;
+                $old_place = $place;
+            }
+            if ($col_length > $paper['rows']) {
+                $col_length = 0;
+                $col++;
+            }
+            if (!isset($columns[$col])) {
+                $columns[$col] = [];
+            }
+            $columns[$col][] = $s;
+            $col_length ++;
+        }
+        return $columns;
+    }
+
+    public static function getSeeklistStats($signals)
+    {
+        $itu_sp = [ 'all' => ['total' => 0, 'heard' => 0 ] ];
+
+        foreach ($signals as $s) {
+            $place = $s['itu'] . '_' . $s['sp'];
+            if (!isset($itu_sp[$place])) {
+                $itu_sp[$place] = [ 'total' => 0, 'heard' => 0 ];
+            }
+            $itu_sp[$place]['total']++;
+            $itu_sp['all']['total']++;
+            $itu_sp[$place]['heard'] += $s['personalise'] ? 1 : 0;
+            $itu_sp['all']['heard'] += $s['personalise'] ? 1 : 0;
+        }
+
+        return $itu_sp;
+    }
+
     private function getCountSignalsREUOnly()
     {
         $sql =

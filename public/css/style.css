@@ -1,7 +1,7 @@
 /*!
 * Project:   RXX - NDB Logging Database
 * Homepage:  https://rxx.classaxe.com
-* Date:      2019-09-15
+* Date:      2019-11-02
 * Licence:   LGPL
 * Copyright: 2019 Martin Francis
 */
@@ -415,6 +415,8 @@ table.stats tr td {
   padding: 0;
 }
 table.seeklist {
+  page-break-inside: avoid;
+  page-break-before: auto;
   border-collapse: collapse;
   border: 1px solid #000000;
 }
@@ -432,6 +434,10 @@ table.seeklist thead tr.sl_1 td h4 {
   margin: 0;
   font-size: 100%;
 }
+table.seeklist thead tr.sl_2 td i {
+  background-color: #e0e0e0 !important;
+  padding: 0 0.125em;
+}
 table.seeklist thead td {
   border: 1px solid #000000;
   margin: 0;
@@ -448,7 +454,7 @@ table.seeklist tbody td div.sl_d span {
   font-family: "Courier New bold", Courier, monospace;
   white-space: nowrap;
   display: inline-block;
-  width: 3em;
+  width: 5em;
   float: left;
 }
 table.seeklist tbody td div.sl_h em,
@@ -465,7 +471,12 @@ table.seeklist tbody td div.sl_d {
 }
 table.seeklist tbody td div.sl_d em {
   font-family: "Courier New bold", Courier, monospace;
+  font-weight: bold;
   font-style: normal;
+}
+table.seeklist tbody td div.sl_d.inactive {
+  font-style: italic !important;
+  background-color: #e0e0e0 !important;
 }
 /* [ Help dialogs ] */
 .help {
@@ -692,11 +703,15 @@ table.seeklist tbody td div.sl_d em {
   width: 16em;
 }
 .main .signals_container {
-  border: 1px solid #888;
-  border-radius: 5px;
-  padding: 0.25em;
   background-color: #fff;
   page-break-before: always;
+}
+@media screen {
+  .main .signals_container {
+    border: 1px solid #888;
+    border-radius: 5px;
+    padding: 0.25em;
+  }
 }
 .main .signals_container h2 {
   font-weight: bold;
@@ -990,7 +1005,7 @@ button.tiny {
   width: 120px;
   font-weight: bold !important;
   padding: 0 !important;
-  margin: 0px !important;
+  margin: 0 !important;
 }
 .signal_list #form_listener_invert {
   width: 120px;
@@ -1416,7 +1431,7 @@ body.map .gm-style-iw p {
   border: 0;
 }
 #panel {
-  font-family: Arial;
+  font-family: Arial, sans-serif;
   font-size: 10px;
   float: left;
   width: 340px;

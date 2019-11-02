@@ -190,20 +190,20 @@ function initListenerSignalsMap() {
         }
     }
 
-    google.maps.event.addDomListener(document.getElementById('layer_grid'), 'click', function(evt) {
+    google.maps.event.addDomListener(document.getElementById('layer_grid'), 'click', function() {
         toggleGrid();
     });
 
-    google.maps.event.addDomListener(document.getElementById('layer_inactive'), 'click', function(evt) {
+    google.maps.event.addDomListener(document.getElementById('layer_inactive'), 'click', function() {
         toggleInactive();
     });
 
-    google.maps.event.addDomListener(document.getElementById('layer_qth'), 'click', function(evt) {
+    google.maps.event.addDomListener(document.getElementById('layer_qth'), 'click', function() {
         toggleQth();
     });
 
     listener.types.forEach(function(type){
-        google.maps.event.addDomListener(document.getElementById('layer_' + type), 'click', function (evt) {
+        google.maps.event.addDomListener(document.getElementById('layer_' + type), 'click', function () {
             toggleLayer( type );
         });
     });
@@ -345,7 +345,7 @@ function setColumnSortActions() {
             var column = this.id.split('|')[0];
             var dir = this.id.split('|')[1];
             if ($(this).hasClass('sorted')) {
-                dir = ($('#form_order').val()=='a' ? 'd' : 'a');
+                dir = ($('#form_order').val() === 'a' ? 'd' : 'a');
             }
             $('#form_sort').val(column);
             $('#form_order').val(dir);
@@ -357,8 +357,8 @@ function setColumnSortActions() {
 /* [ Indicate which column is sorted by checking hidden fields on form ] */
 function setColumnSortedClass() {
     $('table.results thead tr th').each(function() {
-        if (this.id.split('|')[0] == $('#form_sort').val()) {
-            $(this).append($('#form_order').val() == 'd' ? ' &#9662;' : ' &#9652;');
+        if (this.id.split('|')[0] === $('#form_sort').val()) {
+            $(this).append($('#form_order').val() === 'd' ? ' &#9662;' : ' &#9652;');
             $(this).addClass('sorted');
         }
     });
@@ -406,13 +406,13 @@ function setFormDatePickers() {
 }
 
 function setFormHeardInModDefault() {
-    if ($('fieldset#form_heard_in_mod div :radio:checked').length == 0) {
+    if ($('fieldset#form_heard_in_mod div :radio:checked').length === 0) {
         $('fieldset#form_heard_in_mod div :radio[value="any"]').prop('checked', true);
     }
 }
 
 function setFormListenerInvertDefault() {
-    if ($('fieldset#form_listener_invert div :radio:checked').length == 0) {
+    if ($('fieldset#form_listener_invert div :radio:checked').length === 0) {
         $('fieldset#form_listener_invert div :radio[value=0]').prop('checked', true);
     }
 }
@@ -530,7 +530,6 @@ function setFormPagingActions() {
     page.change(
         function() {
             var form =      $('form[name="form"]');
-            var page =      $('#form_page');
             var prev =      $('#form_prev');
             var next =      $('#form_next');
             prev.prop('disabled', 'disabled');
@@ -571,16 +570,16 @@ function setFormPersonaliseAction() {
 }
 
 function setFormRangeAction() {
-    $('#form_range_gsq').on('keyup', function(e) {
+    $('#form_range_gsq').on('keyup', function() {
         var disabled = ($('#form_range_gsq').val().length < 6);
         $('#form_range_min').attr('disabled', disabled);
         $('#form_range_max').attr('disabled', disabled);
     });
-    $('#form_range_min').on('keyup', function(e) {
+    $('#form_range_min').on('keyup', function() {
         var disabled = ($('#form_range_min').val().length === 0 && $('#form_range_max').val().length === 0);
         $('#form_range_units').attr('disabled', disabled);
     });
-    $('#form_dx_max').on('keyup', function(e) {
+    $('#form_dx_max').on('keyup', function() {
         var disabled = ($('#form_range_min').val().length === 0 && $('#form_range_max').val().length === 0);
         $('#form_range_units').attr('disabled', disabled);
     });
@@ -589,7 +588,7 @@ function setFormRangeAction() {
 }
 
 function setFormRangeUnitsDefault() {
-    if ($('fieldset#form_range_units div :radio:checked').length == 0) {
+    if ($('fieldset#form_range_units div :radio:checked').length === 0) {
         $('fieldset#form_range_units div :radio[value=km]').prop('checked', true);
     }
 }
@@ -710,7 +709,7 @@ function setFormTypesStyles() {
 
 /* [ Ensure that at least one option is checked for signal type checkboxes ] */
 function setFormTypesDefault() {
-    if ($('fieldset#form_types div :checkbox:checked').length == 0) {
+    if ($('fieldset#form_types div :checkbox:checked').length === 0) {
         $('fieldset#form_types div :checkbox[value=type_NDB]').prop('checked', true);
     }
 }
@@ -731,12 +730,14 @@ var signalsMap = {
 
     init: function() {
         signalsMap.items = signals;
-        var icons = [ 'dgps', 'dsc', 'hambcn', 'navtex', 'ndb', 'time', 'other', 'inactive' ];
+        var icons = [ 'dgps', 'dsc', 'hambcn', 'navtex', 'ndb', 'time', 'other' ];
+        var states = [ 0, 1 ];
         for (var i in icons) {
-            signalsMap.icons[icons[i]] = new google.maps.MarkerImage(
-                base_image + '/pins/' + icons[i] + '.png',
-                new google.maps.Size(12, 20)
-            );
+            for (var j in states) {
+                var pin = base_image + '/pins/' + icons[i] + '_' + states[j] + '.png';
+                signalsMap.icons[icons[i] + '_' + states[j]] =
+                    new google.maps.MarkerImage(pin, new google.maps.Size(12, 20));
+            }
         }
         signalsMap.options = {
             'zoom': 2,
@@ -757,9 +758,6 @@ var signalsMap = {
                 e.preventDefault();
             }
             var title = s.khz+' '+s.call+' ';
-            var url =   s.id;
-            var fileurl = s.file;
-
             var infoHtml =
                 '<div class="map_info">' +
                 '  <h3><a href="./rna/signal_info/' + s.id + '" target="_blank">' + title + '</a></h3>' +
@@ -768,7 +766,7 @@ var signalsMap = {
                 '    <tr><th>ID</th><td>'+s.call + '</td></tr>' +
                 '    <tr><th>KHz</th><td>'+s.khz + '</td></tr>' +
                 '    <tr><th>Type</th><td>'+s.type + '</td></tr>' +
-                (s.pwr!='0' ? '    <tr><th>Power</th><td>'+s.pwr + 'W</td></tr>' : '') +
+                (s.pwr !== '0' ? '    <tr><th>Power</th><td>'+s.pwr + 'W</td></tr>' : '') +
                 '    <tr><th>\'Name\' / QTH</th><td>'+s.qth + (s.sp ? ', ' + s.sp : '') + ', ' + s.itu + '</td></tr>' +
                 (s.gsq ? '    <tr><th>GSQ</th><td><a href="." onclick="popup_map('+s.id+','+s.lat+','+s.lon+');return false;" title="Show map (accuracy limited to nearest Grid Square)">'+s.gsq+'</a></td></tr>' : '') +
                 '    <tr><th>Lat / Lon</th><td>' + s.lat + ', ' + s.lon + '</td></tr>' +
@@ -785,7 +783,7 @@ var signalsMap = {
     },
 
     showMarkers: function() {
-        var fn, i, imageUrl, item, latLng, marker, markerImage, panel, s, title, titleText;
+        var fn, i, item, latLng, marker, panel, s, title, titleText;
         signalsMap.markers = [];
         panel = document.getElementById('markerlist');
         panel.innerHTML = '';
@@ -810,7 +808,7 @@ var signalsMap = {
             marker = new google.maps.Marker({
                 'title' :  strip_tags(s.khz + ' ' + s.call),
                 'position': latLng,
-                'icon': signalsMap.icons[s.className]
+                'icon': signalsMap.icons[s.icon + '_' + (s.active ? 1 : 0)]
             });
             fn = signalsMap.markerClickFunction(s, latLng);
             google.maps.event.addListener(marker, 'click', fn);

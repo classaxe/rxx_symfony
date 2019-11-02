@@ -2169,6 +2169,26 @@
         <source>Signals Seeklist (continued)</source>
         <target>__Signals Seeklist (continued)</target>
       </trans-unit>
+      <trans-unit id="iHXQHtm" resname="Page %s of %s">
+        <source>Page %s of %s</source>
+        <target>__Page %s of %s</target>
+      </trans-unit>
+      <trans-unit id="4YhR0_4" resname="For %s">
+        <source>For %s</source>
+        <target>__For %s</target>
+      </trans-unit>
+      <trans-unit id="Rlk21sa" resname="(received %s of %s)">
+        <source>(received %s of %s)</source>
+        <target>__(received %s of %s)</target>
+      </trans-unit>
+      <trans-unit id="WLwCnnc" resname="Active Signals">
+        <source>Active Signals</source>
+        <target>__Active Signals</target>
+      </trans-unit>
+      <trans-unit id="EvVNc4R" resname="&lt;i&gt;Inactive&lt;/i&gt; signals">
+        <source>&lt;i&gt;Inactive&lt;/i&gt; signals</source>
+        <target><![CDATA[__<i>Inactive</i> signals]]></target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
