@@ -63,7 +63,7 @@ class Collection extends Base
         $system,
         Request $request,
         Form $form,
-        PaperRepository $paper,
+        PaperRepository $paperRepository,
         ListenerRepository $listenerRepository,
         SignalRepository $signalRepository,
         TypeRepository $typeRepository
@@ -109,7 +109,7 @@ class Collection extends Base
             $args['types'][] = 'type_NDB';
         }
         $args['signalTypes'] =  $typeRepository->getSignalTypesSearched($args['types']);
-        $paper =                isset($args['paper']) ? $paper->getSpecifications($args['paper']) : false;
+        $paper =                isset($args['paper']) ? $paperRepository->getSpecifications($args['paper']) : false;
         $signals =              $signalRepository->getFilteredSignals($system, $args);
         $total =                $signalRepository->getFilteredSignalsCount($system, $args);
         $seeklistStats =        [];
@@ -127,6 +127,7 @@ class Collection extends Base
             'options' =>            $options,
             'mode' =>               'Signals',
             'paper' =>              $paper,
+            'paperChoices' =>       $paperRepository->getAllChoices(),
             'personalised' =>       isset($args['personalise']) ? $listenerRepository->getDescription($args['personalise']) : false,
             'results' => [
                 'limit' =>              isset($args['limit']) ? $args['limit'] : static::defaultlimit,

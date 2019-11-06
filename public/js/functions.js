@@ -680,6 +680,11 @@ function setFormShowModeAction() {
             }
         })
         .trigger('change');
+    $('#seeklist_paper')
+        .change(function() {
+            $('#form_paper').val($('#seeklist_paper option:selected').val());
+            $('#form_submit').click();
+        });
 
 }
 

@@ -1,7 +1,7 @@
 /*!
 * Project:   RXX - NDB Logging Database
 * Homepage:  https://rxx.classaxe.com
-* Date:      2019-11-02
+* Date:      2019-11-06
 * Licence:   LGPL
 * Copyright: 2019 Martin Francis
 */
@@ -413,6 +413,14 @@ table.stats tr th {
 table.stats tr td {
   text-align: right;
   padding: 0;
+}
+label[for="seeklist_paper"] {
+  font-weight: bold;
+  display: inline-block;
+  margin-right: 1em;
+}
+select#seeklist_paper {
+  width: 300px;
 }
 table.seeklist {
   page-break-inside: avoid;

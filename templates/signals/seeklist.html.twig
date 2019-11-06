@@ -41,6 +41,16 @@
                             {{ 'Updated %s'|trans|format(statsBlocks['%s Listeners'][3]['Last log']) }}
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="small-12 text-left">
+                            <label for="seeklist_paper">{% trans%}Paper Size{% endtrans %}</label>
+                            <select style="width: 300px" id="seeklist_paper">
+                                {% for lbl, key in paperChoices %}
+                                    <option value="{{ key }}"{% if key == args['paper'] %} selected="selected"{% endif %}>{{ lbl }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
                 </td>
             </tr>
         </thead>
