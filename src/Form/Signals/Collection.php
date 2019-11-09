@@ -19,7 +19,6 @@ use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\RadioType;
 use Symfony\Component\Form\Extension\Core\Type\ResetType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -94,8 +93,6 @@ class Collection extends Base
     public function buildForm(FormBuilderInterface $formBuilder, array $options)
     {
         $system =   $options['system'];
-        $region =   $options['region'];
-
         $this->addPaging($formBuilder, $options);
         $this->addSorting($formBuilder, $options);
 
@@ -104,27 +101,13 @@ class Collection extends Base
         $formBuilder
             ->add(
                 'show',
-                ChoiceType::class,
-                [
-                    'choices' => [
-                        'Show List' =>      'list',
-                        'Show Map' =>       'map',
-                        'Show SeekList' =>  'seeklist',
-                    ],
-                    'placeholder' =>    false,
-                    'label' =>          'Display Mode',
-                    'required' =>       false
-                ]
+                HiddenType::class
             )
             ->add(
                 'paper',
-                ChoiceType::class,
+                HiddenType::class,
                 [
-                    'choices' =>        $this->paper->getAllChoices(),
-                    'placeholder' =>    false,
-                    'label' =>          'Paper Size',
-                    'required' =>       false,
-                    'data' =>           ($system === 'rna' ? 'ltr_l' : 'a4_l')
+                    'data' => 'ltr'
                 ]
             )
             ->add(

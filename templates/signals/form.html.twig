@@ -6,13 +6,10 @@
         <div class="content clearfix">
     {{ form_start(form) }}
             <div id="form">
+                {{ form_widget(form.paper) }}
+                {{ form_widget(form.show) }}
                 <fieldset class="section">
 {% include 'forms/paging.html.twig' %}
-                    {{ form_row(form.show) }}
-                    <div style="display:inline-block; clear: none; float:right;">
-                        {{ form_label(form.paper) }}
-                        {{ form_widget(form.paper) }}
-                    </div>
                     {{ form_row(form.personalise) }}
                     <div style="display:inline-block; clear: none; float:right;">
                         {{ form_label(form.offsets) }}

@@ -1,7 +1,7 @@
 /*!
 * Project:   RXX - NDB Logging Database
 * Homepage:  https://rxx.classaxe.com
-* Date:      2019-11-06
+* Date:      2019-11-09
 * Licence:   LGPL
 * Copyright: 2019 Martin Francis
 */
@@ -1049,7 +1049,7 @@ button.tiny {
 .signal_list #form_logged_last_2 {
   width: 95px;
   padding: 0 1.75em 0 0.25em !important;
-  background: #ffffff url("/image/calendar.png") no-repeat;
+  background: #ffffff url("../image/calendar.png") no-repeat;
   background-size: auto 100%;
   background-position: right;
 }

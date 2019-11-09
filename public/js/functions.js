@@ -1,5 +1,5 @@
 function changeShowMode(mode) {
-    $('#form_show option[value=' + mode +']').attr('selected','selected');
+    $('#form_show').val(mode);
     $('#form_submit').click();
 }
 
@@ -667,25 +667,13 @@ function setFormResetAction(form) {
 }
 
 function setFormShowModeAction() {
-    var mode  = $('#form_show option:selected').val();
+    var mode  = $('#form_show').val();
     $('#show_' + mode).addClass('is-active');
-    $('#form_show')
-        .change(function() {
-            if ($('#form_show option:selected').val() === 'seeklist') {
-                $('#form_paper').show();
-                $('label[for="form_paper"]').show();
-            } else {
-                $('#form_paper').hide();
-                $('label[for="form_paper"]').hide();
-            }
-        })
-        .trigger('change');
     $('#seeklist_paper')
         .change(function() {
             $('#form_paper').val($('#seeklist_paper option:selected').val());
             $('#form_submit').click();
         });
-
 }
 
 function setFormSortbyAction() {
