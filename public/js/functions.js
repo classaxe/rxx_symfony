@@ -667,7 +667,7 @@ function setFormResetAction(form) {
 }
 
 function setFormShowModeAction() {
-    var mode  = $('#form_show').val();
+    var mode  = $('#form_show').val() || 'list';
     $('#show_' + mode).addClass('is-active');
     $('#seeklist_paper')
         .change(function() {
