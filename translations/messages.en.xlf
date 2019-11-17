@@ -2189,6 +2189,10 @@
         <source>&lt;i&gt;Inactive&lt;/i&gt; signals</source>
         <target><![CDATA[<i>Inactive</i> signals]]></target>
       </trans-unit>
+      <trans-unit id="G_2QgEw" resname="Customise">
+        <source>Customise</source>
+        <target>Customise</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

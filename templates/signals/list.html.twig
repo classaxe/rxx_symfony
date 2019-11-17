@@ -1,10 +1,10 @@
-{% if signals|length > 0 %}
 {#<pre>{{ dump(signals[0]) }}</pre>#}
     <div class="row">
         <div class="small-6 text-left"><h2>{{ system|upper }} {% trans %}Signals List{% endtrans %}</h2></div>
         <div class="small-6 text-right">{% if personalised %}<h3>{{ 'Personalised for %s'|trans|format(personalised) }}</h3>{% endif %}</div>
     </div>
 
+{% if signals|length > 0 %}
     <table class="signal results">
     <thead>
         <tr>

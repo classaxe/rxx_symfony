@@ -10,6 +10,9 @@
                 {{ form_widget(form.show) }}
                 <fieldset class="section">
 {% include 'forms/paging.html.twig' %}
+                </fieldset>
+                <fieldset class="section">
+                    <legend class="line">{% trans %}Customise{% endtrans %}</legend>
                     {{ form_row(form.personalise) }}
                     <div style="display:inline-block; clear: none; float:right;">
                         {{ form_label(form.offsets) }}
@@ -30,7 +33,7 @@
                     </div>
                 </fieldset>
                 <fieldset class="section">
-                    <legend>{% trans %}Signal Details{% endtrans %}</legend>
+                    <legend class="line">{% trans %}Signal Details{% endtrans %}</legend>
                     {{ form_row(form.types) }}
                     <div style="display:inline-block; width:auto">
                         {{ form_label(form.call) }}
@@ -60,7 +63,7 @@
                     {{ form_row(form.active) }}
                 </fieldset>
                 <fieldset class="section">
-                    <legend>{% trans %}Loggings{% endtrans %}</legend>
+                    <legend class="line">{% trans %}Loggings{% endtrans %}</legend>
                     <div>
                         <div>
                             {{ form_label(form.listener) }}
@@ -70,7 +73,7 @@
                         {{ form_widget(form.listener) }}
                     </div>
                     <div>{{ form_label(form.heard_in) }}{{ form_widget(form.heard_in) }}
-                    {{ form_widget(form.heard_in_mod) }}</div>
+                        {{ form_widget(form.heard_in_mod) }}</div>
                     <div>
                         {{  form_label(form.logged_date_1) }}
                         {{  form_widget(form.logged_date_1) }} <span>-</span> {{  form_widget(form.logged_date_2) }}

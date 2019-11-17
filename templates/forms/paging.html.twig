@@ -4,7 +4,7 @@
         {{ form_widget(form.sort) }}
         {{ form_widget(form.order) }}
         {{ form_widget(form._token) }}
-{% if form.limit is defined %}
+{% if form.prev is defined %}
         {{ form_label(form.limit) }}
         <div>
             {{ form_widget(form.limit) }}
@@ -13,6 +13,9 @@
             {{ form_widget(form.page) }}
             <span id="form_paging_status"></span>
         </div>
+{% else  %}
+    {{ form_widget(form.limit) }}
+    {{ form_widget(form.page) }}
 {% endif %}
     </fieldset>
 </div>

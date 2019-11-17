@@ -618,7 +618,6 @@ function setFormResetAction(form) {
                 $('#form_khz_2').val('');
                 $('#form_channels').prop('selectedIndex', 0);
                 $('#form_active').prop('selectedIndex', 0);
-                $('#form_show').prop('selectedIndex', 0);
                 $('#form_personalise').prop('selectedIndex', 0);
                 $('#form_offsets').prop('selectedIndex', 0);
 
@@ -634,7 +633,7 @@ function setFormResetAction(form) {
                 $('#form_range_gsq').trigger('keyup');
                 $('#form_range_min').trigger('keyup');
 
-                $('#form_listener').prop('selectedIndex', 0);
+                $('#form_listener').val([]);
                 $('#form_listener_invert_0').prop('checked', 1);
                 $('#form_heard_in').val('');
                 $('#form_heard_in_mod_0').prop('checked', 1);
@@ -667,8 +666,6 @@ function setFormResetAction(form) {
 }
 
 function setFormShowModeAction() {
-    var mode  = $('#form_show').val() || 'list';
-    $('#show_' + mode).addClass('is-active');
     $('#seeklist_paper')
         .change(function() {
             $('#form_paper').val($('#seeklist_paper option:selected').val());
@@ -779,6 +776,9 @@ var signalsMap = {
         var fn, i, item, latLng, marker, panel, s, title, titleText;
         signalsMap.markers = [];
         panel = document.getElementById('markerlist');
+        if (signalsMap.items.length === 0) {
+            return;
+        }
         panel.innerHTML = '';
 
         for (i = 0; i < signalsMap.items.length; i++) {

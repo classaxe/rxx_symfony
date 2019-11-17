@@ -36,7 +36,9 @@ var signals = [
     <div class="small-6 text-right">{% if personalised %}<h3>{{ 'Personalised for %s'|trans|format(personalised) }}</h3>{% endif %}</div>
 </div>
 <div id="panel">
-    <div id="markerlist"></div>
+    <div id="markerlist">
+        <p class="no-results">{% trans %}(No signals found matching your criteria){% endtrans %}</p>
+    </div>
 </div>
 <div id="map-container">
     <div id="map"></div>

@@ -653,6 +653,10 @@ table.seeklist {
         }
     }
     .signals_container {
+        p.no-results {
+            margin: 0;
+            font-size: 12pt;
+        }
         @media screen {
             border: 1px solid #888;
             border-radius: 5px;
@@ -727,7 +731,7 @@ button.tiny {
 #form {
     button {
         margin: 0.25em 50%;
-        padding: 0.25em 0.5em;
+        padding: 0;
     }
     hr {
         margin: 1.25em 0 0.5em 0;
@@ -742,6 +746,10 @@ button.tiny {
             text-align: center;
             width: 100%;
             font-size: 100%;
+            &.line {
+                border-top: 1px solid #ccc;
+                padding: 0.25em 0 0 0;
+            }
         }
         &#group_ {
             padding: 0;
@@ -1462,43 +1470,43 @@ body.map {
     height: 650px;
 }
 #panel {
-  #markerlist {
-    height: 620px;
-    margin: 10px 5px 0 10px;
-    overflow: auto;
-    .logged {
-      a {
-        b {
-          background: #e0ffe0 !important;
-          border: 1px solid #80c080 !important;
+    #markerlist {
+        height: 620px;
+        margin: 10px 5px 0 10px;
+        overflow: auto;
+        .logged {
+            a {
+                b {
+                    background: #e0ffe0 !important;
+                    border: 1px solid #80c080 !important;
+                }
+            }
         }
-      }
     }
-  }
-  .title {
-    border-bottom: 1px solid #e0ecff;
-    white-space: nowrap;
-    overflow: hidden;
-    width: 310px;
-    cursor: pointer;
-    padding: 2px 0;
-    display: block;
-    color: #000;
-    font-weight: normal;
-    text-decoration: none;
-    &:visited {
-      color: #000;
+    .title {
+        border-bottom: 1px solid #e0ecff;
+        white-space: nowrap;
+        overflow: hidden;
+        width: 310px;
+        cursor: pointer;
+        padding: 2px 0;
+        display: block;
+        color: #000;
+        font-weight: normal;
+        text-decoration: none;
+        &:visited {
+            color: #000;
+        }
+        &:hover {
+            background: #ffffa0 !important;
+        }
+        b {
+            width: 100px;
+            padding: 0 0.5em;
+            margin: 0 0.5em;
+            float: left;
+        }
     }
-    &:hover {
-      background: #ffffa0 !important;
-    }
-    b {
-      width: 100px;
-      padding: 0 0.5em;
-      margin: 0 0.5em;
-      float: left;
-    }
-  }
 }
 
 .info .head {
