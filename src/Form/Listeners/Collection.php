@@ -30,6 +30,7 @@ class Collection extends Base
      */
     private $country;
 
+    private $options;
     /**
      * @var RegionRepository
      */
@@ -64,6 +65,7 @@ class Collection extends Base
         FormBuilderInterface $formBuilder,
         array $options
     ) {
+        $this->options = $options;
         $system =   $options['system'];
         $region =   $options['region'];
 

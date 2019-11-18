@@ -2,16 +2,18 @@
 namespace App\Controller\Web\Listeners;
 
 use App\Controller\Web\Base as WebBase;
+use App\Entity\Listener;
+use App\Repository\ListenerRepository;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 
 class Base extends WebBase
 {
     /**
      * @param $id
-     * @param $listenerRepository
-     * @return bool
+     * @param ListenerRepository $listenerRepository
+     * @return object|bool
      */
-    protected function getValidListener($id, $listenerRepository)
+    protected function getValidListener($id, ListenerRepository $listenerRepository)
     {
         if (!(int) $id) {
             $this->session->set('lastError', "Listener cannot be found.");
@@ -27,7 +29,7 @@ class Base extends WebBase
     /**
      * @param $id
      * @param $listenerRepository
-     * @return bool
+     * @return Listener|bool
      */
     protected function getValidReportingListener($id, $listenerRepository)
     {

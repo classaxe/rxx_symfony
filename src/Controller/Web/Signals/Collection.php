@@ -6,6 +6,7 @@ use App\Repository\ListenerRepository;
 use App\Repository\PaperRepository;
 use App\Repository\SignalRepository;
 use App\Repository\TypeRepository;
+use DateTime;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 use Symfony\Component\HttpFoundation\Request;
 
@@ -16,7 +17,6 @@ use Symfony\Component\HttpFoundation\Request;
 class Collection extends Base
 {
     const defaultlimit =     50;
-    const maxNoPaging =      50;
     const defaultSorting =  'khz';
     const defaultOrder =    'a';
 
@@ -69,38 +69,56 @@ class Collection extends Base
         TypeRepository $typeRepository
     ) {
         $args = [
-            'countries' =>  '',
-            'limit' =>      static::defaultlimit,
-            'order' =>      static::defaultOrder,
-            'page' =>       0,
-            'call' =>       '',
-            'channels' =>   '',
-            'personalise' =>'',
-            'gsq' =>        '',
-            'heard_in' =>   '',
-            'khz_1' =>      '',
-            'khz_2' =>      '',
-            'paper' =>      '',
-            'region' =>     '',
-            'show' =>       'list',
-            'sort' =>       static::defaultSorting,
-            'sp_itu_clause' => '',
-            'states' =>     '',
-            'types' =>      [],
-            'signalTypes' => [0]
-        ];
-        $options = [
+            'active' =>         0,
+            'call' =>           '',
+            'channels' =>       '',
+            'countries' =>      '',
+            'gsq' =>            '',
+            'heard_in' =>       '',
+            'heard_in_mod' =>   '',
+            'khz_1' =>          '',
+            'khz_2' =>          '',
             'limit' =>          static::defaultlimit,
-            'maxNoPaging' =>    static::maxNoPaging,
+            'listener' =>       [],
+            'listener_invert' => '',
+            'logged_date_1' =>  '',
+            'logged_date_2' =>  '',
+            'logged_first_1' => '',
+            'logged_first_2' => '',
+            'logged_last_1' =>  '',
+            'logged_last_2' =>  '',
+            'offsets' =>        '',
             'order' =>          static::defaultOrder,
-            'paper' =>          'ltr',
             'page' =>           0,
+            'paper' =>          'a4',
+            'personalise' =>    '',
+            'range_gsq' =>      '',
+            'range_min' =>      '',
+            'range_max' =>      '',
+            'range_units' =>    '',
+            'region' =>         $_REQUEST['form']['region'] ?? '',
+            'show' =>           'list',
             'sort' =>           static::defaultSorting,
-            'region' =>         (isset($_REQUEST['form']['region']) ? $_REQUEST['form']['region'] : ''),
+            'sp_itu_clause' =>  '',
+            'states' =>         '',
             'system' =>         $system,
-            'total' =>          $signalRepository->getFilteredSignalsCount($system, $args) // forces paging - will be made accurate later on
+            'types' =>          ['type_NDB'],
+            'signalTypes' =>    [0],
+            'url' =>            $request->attributes->get('_route')
         ];
-        $form = $form->buildForm($this->createFormBuilder(), $options);
+
+        $args['total'] =        $signalRepository->getFilteredSignalsCount($system, $args); // forces paging - will be made accurate later on
+
+        foreach (array_keys($args) as $key) {
+            if ($request->query->get($key)) {
+                $args[$key] = $request->query->get($key);
+            }
+        }
+        foreach (['logged_date_1', 'logged_date_2', 'logged_first_1', 'logged_first_2', 'logged_last_1', 'logged_last_2'] as $arg) {
+            $args[$arg] = ($args[$arg] ? new DateTime($args[$arg]) : null);
+        }
+
+        $form = $form->buildForm($this->createFormBuilder(), $args);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $args = $form->getData();
@@ -124,7 +142,6 @@ class Collection extends Base
             'args' =>               $args,
             'columns' =>            $signalRepository->getColumns(),
             'form' =>               $form->createView(),
-            'options' =>            $options,
             'mode' =>               'Signals',
             'paper' =>              $paper,
             'paperChoices' =>       $paperRepository->getAllChoices(),
@@ -139,7 +156,7 @@ class Collection extends Base
             'signals' =>            $signals,
             'statsBlocks' =>
                 $signalRepository->getStats($this->isAdmin()) +
-                $listenerRepository->getStats($options['system'], $options['region']),
+                $listenerRepository->getStats($system, $args['region']),
             'system' =>             $system,
             'sortbyOptions' =>      $signalRepository->getColumns(),
             'tabs' => [

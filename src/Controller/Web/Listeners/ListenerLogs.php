@@ -14,9 +14,9 @@ use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 class ListenerLogs extends Base
 {
     const defaultlimit =     20;
-    const maxNoPaging =      20;
     const defaultSorting =  'logDate';
     const defaultOrder =    'a';
+
     /**
      * @Route(
      *     "/{_locale}/{system}/listeners/{id}/logs",
@@ -26,6 +26,14 @@ class ListenerLogs extends Base
      *     },
      *     name="listener_logs"
      * )
+     * @param $_locale
+     * @param $system
+     * @param $id
+     * @param Request $request
+     * @param ListenerLogsForm $form
+     * @param ListenerRepository $listenerRepository
+     * @param TypeRepository $typeRepository
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function logsController(
         $_locale,
@@ -42,7 +50,6 @@ class ListenerLogs extends Base
 
         $options = [
             'limit' =>          static::defaultlimit,
-            'maxNoPaging' =>    static::maxNoPaging,
             'order' =>          static::defaultOrder,
             'page' =>           0,
             'sort' =>           static::defaultSorting,
@@ -65,7 +72,7 @@ class ListenerLogs extends Base
             'columns' =>            $listenerRepository->getLogsColumns(),
             'form' =>               $form->createView(),
             '_locale' =>            $_locale,
-            'matched' =>            ($options['total'] > $options['maxNoPaging'] ? 'of '.$options['total']. ' log records.' : ''),
+            'matched' =>            'of '.$options['total']. ' log records.',
             'mode' =>               'Logs for '.$listener->getFormattedNameAndLocation(),
             'logs' =>               $listenerRepository->getLogsForListener($id, $args),
             'results' => [

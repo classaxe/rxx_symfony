@@ -21,11 +21,6 @@ use Symfony\Component\Form\FormBuilderInterface;
 class Base extends AbstractType
 {
     /**
-     * @var
-     */
-    private $options;
-
-    /**
      * @param FormBuilderInterface $formBuilder
      * @param array $options
      * @return FormBuilderInterface
@@ -39,24 +34,26 @@ class Base extends AbstractType
 
     /**
      * @param FormBuilderInterface $formBuilder
-     * @param array $options
      */
     public function addPaging(FormBuilderInterface &$formBuilder, array $options)
     {
-        $this->options = $options;
-
-        if ($this->options['total'] < $this->options['maxNoPaging']) {
-            return $formBuilder;
-        }
-
         $formBuilder
             ->add(
                 'limit',
                 TextType::class,
                 [
                     'attr' =>       ['style' => 'display:none'],
-                    'data' =>       $this->options['limit'],
+                    'data' =>       $options['limit'],
                     'label' =>      'Show',
+                ]
+            )
+            ->add(
+                'page',
+                TextType::class,
+                [
+                    'attr' =>       ['style' => 'display:none'],
+                    'data' =>       $options['page'],
+                    'label' =>      ' ',
                 ]
             )
             ->add(
@@ -74,21 +71,11 @@ class Base extends AbstractType
                     'attr' =>       ['class' => 'button tiny', 'style' => 'display:none'],
                     'label' =>      '>',
                 ]
-            )
-            ->add(
-                'page',
-                TextType::class,
-                [
-                    'attr' =>       ['style' => 'display:none'],
-                    'data' =>       0,
-                    'label' =>      ' ',
-                ]
             );
     }
 
     /**
      * @param FormBuilderInterface $formBuilder
-     * @param array $options
      */
     protected function addSorting(FormBuilderInterface &$formBuilder, array $options)
     {
@@ -97,14 +84,14 @@ class Base extends AbstractType
                 'sort',
                 HiddenType::class,
                 [
-                    'data' => $this->options['sort']
+                    'data' => $options['sort']
                 ]
             )
             ->add(
                 'order',
                 HiddenType::class,
                 [
-                    'data' => $this->options['order']
+                    'data' => $options['order']
                 ]
             );
     }

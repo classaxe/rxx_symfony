@@ -39,7 +39,7 @@ class SignalRepository extends ServiceEntityRepository
 
     private function addFilterActive()
     {
-        if (isset($this->args['active']) && in_array($this->args['active'], ['1', '2'])) {
+        if (in_array($this->args['active'], ['1', '2'])) {
             $this->query['where'][] ='(s.active = :active)';
             $this->query['param']['active'] = ($this->args['active'] === '2' ? 0 : 1);
         }
@@ -48,8 +48,8 @@ class SignalRepository extends ServiceEntityRepository
 
     private function addFilterCall()
     {
-        if (isset($this->args['call']) && $this->args['call'] !== '') {
-            $this->query['where'][] ='(s.call LIKE :like_call)';
+        if ($this->args['call']) {
+            $this->query['where'][] ='s.call LIKE :like_call';
             $this->query['param']['like_call'] = '%' . $this->args['call'] . '%';
         }
         return $this;
@@ -83,7 +83,7 @@ class SignalRepository extends ServiceEntityRepository
 
     private function addFilterGsq()
     {
-        if (isset($this->args['gsq']) && $this->args['gsq'] !== '') {
+        if ($this->args['gsq']) {
             $gsq = explode(" ", str_replace('*', '%', $this->args['gsq']));
             $in = $this->buildInParamsList('gsq', $gsq, '', '%');
             $this->query['where'][] = "s.gsq LIKE " . implode($in, " OR s.gsq LIKE ");
@@ -93,9 +93,9 @@ class SignalRepository extends ServiceEntityRepository
 
     private function addFilterHeardIn()
     {
-        if (isset($this->args['heard_in'])) {
+        if ($this->args['heard_in']) {
             $heard_in_arr = explode(' ', $this->args['heard_in']);
-            if (isset($this->args['heard_in_mod']) && $this->args['heard_in_mod'] === 'any') {
+            if ($this->args['heard_in_mod'] === 'any') {
                 $in = $this->buildInParamsList('heard_in', $heard_in_arr);
                 $this->query['where'][] =
                     "l.heard_in IN (" . implode(', ', $in) . ")";
@@ -111,13 +111,13 @@ class SignalRepository extends ServiceEntityRepository
     private function addFilterListeners()
     {
         // Special case: selected 'all' listeners, and 'not heard by'
-        if (isset($this->args['listener_invert']) && !isset($this->args['listener'])) {
-            $this->query['where'][] = "0=1";
+        if ($this->args['listener_invert'] && !$this->args['listener']) {
+            $this->query['where'][] = "0 = 1 /* Showing 'All Listeners' but NOT logged by */";
             return $this;
         }
-        if (isset($this->args['listener'])) {
+        if ($this->args['listener'] && !in_array('', $this->args['listener'])) {
             $in = $this->buildInParamsList('heard_by', $this->args['listener']);
-            if (isset($this->args['listener_invert'])) {
+            if ($this->args['listener_invert']) {
                 $this->query['where'][] =
                     "s.id NOT IN(
         SELECT
@@ -139,13 +139,15 @@ class SignalRepository extends ServiceEntityRepository
 
     private function addFilterLoggedDate()
     {
-        if (isset($this->args['logged_date_1']) || isset($this->args['logged_date_2'])) {
-            $this->query['where'][] = "l.date between :logged_date_1 AND :logged_date_2";
-            $this->query['param']['logged_date_1'] = (isset($this->args['logged_date_1']) ?
-                $this->args['logged_date_1']->format('Y-m-d') : "1900-01-01"
+        if ($this->args['logged_date_1'] || $this->args['logged_date_2']) {
+            $this->query['where'][] =
+                "(SELECT COUNT(id) FROM logs l WHERE l.signalID = s.ID AND l.date BETWEEN :logged_date_1 AND :logged_date_2) > 0";
+                //"l.date between :logged_date_1 AND :logged_date_2";
+            $this->query['param']['logged_date_1'] = (
+                $this->args['logged_date_1'] ? $this->args['logged_date_1']->format('Y-m-d') : "1900-01-01"
             );
-            $this->query['param']['logged_date_2'] = (isset($this->args['logged_date_2']) ?
-                $this->args['logged_date_2']->format('Y-m-d') : "2100-01-01"
+            $this->query['param']['logged_date_2'] = (
+                $this->args['logged_date_2'] ? $this->args['logged_date_2']->format('Y-m-d') : "2100-01-01"
             );
         }
         return $this;
@@ -153,13 +155,13 @@ class SignalRepository extends ServiceEntityRepository
 
     private function addFilterLoggedFirst()
     {
-        if (isset($this->args['logged_first_1']) || isset($this->args['logged_first_2'])) {
+        if ($this->args['logged_first_1'] || $this->args['logged_first_2']) {
             $this->query['where'][] = "s.first_heard between :logged_first_1 AND :logged_first_2";
-            $this->query['param']['logged_first_1'] = (isset($this->args['logged_first_1']) ?
-                $this->args['logged_first_1']->format('Y-m-d') : "1900-01-01"
+            $this->query['param']['logged_first_1'] = (
+                $this->args['logged_first_1'] ? $this->args['logged_first_1']->format('Y-m-d') : "1900-01-01"
             );
-            $this->query['param']['logged_first_2'] = (isset($this->args['logged_first_2']) ?
-                $this->args['logged_first_2']->format('Y-m-d') : "2100-01-01"
+            $this->query['param']['logged_first_2'] = (
+                $this->args['logged_first_2'] ? $this->args['logged_first_2']->format('Y-m-d') : "2100-01-01"
             );
         }
         return $this;
@@ -167,13 +169,13 @@ class SignalRepository extends ServiceEntityRepository
 
     private function addFilterLoggedLast()
     {
-        if (isset($this->args['logged_last_1']) || isset($this->args['logged_last_2'])) {
+        if ($this->args['logged_last_1'] || $this->args['logged_last_2']) {
             $this->query['where'][] = "s.last_heard between :logged_last_1 AND :logged_last_2";
-            $this->query['param']['logged_last_1'] = (isset($this->args['logged_last_1']) ?
-                $this->args['logged_last_1']->format('Y-m-d') : "1900-01-01"
+            $this->query['param']['logged_last_1'] = (
+                $this->args['logged_last_1'] ? $this->args['logged_last_1']->format('Y-m-d') : "1900-01-01"
             );
-            $this->query['param']['logged_last_2'] = (isset($this->args['logged_last_2']) ?
-                $this->args['logged_last_2']->format('Y-m-d') : "2100-01-01"
+            $this->query['param']['logged_last_2'] = (
+                $this->args['logged_last_2'] ? $this->args['logged_last_2']->format('Y-m-d') : "2100-01-01"
             );
         }
         return $this;
@@ -181,17 +183,13 @@ class SignalRepository extends ServiceEntityRepository
 
     private function addFilterRange()
     {
-        if (isset($this->args['range_gsq']) &&
-            $this->args['range_gsq'] !== '' &&
-            $lat_lon = Rxx::convertGsqToDegrees($this->args['range_gsq'])
-        ) {
+        if ($this->args['range_gsq'] !== '' && $lat_lon = Rxx::convertGsqToDegrees($this->args['range_gsq'])) {
             $min = (float)$this->args['range_min'] ? (float)$this->args['range_min'] : 0;
             $max = (float)$this->args['range_max'] ? (float)$this->args['range_max'] : 1000000;
             $mult = $this->args['range_units'] ==='km' ? RXX::DEG_KM_MULTIPLIER : RXX::DEG_MI_MULTIPLIER;
 
             if ($min !== 0 || $max !== 1000000) {
-                if (isset($this->args['range_gsq']) &&
-                    $this->args['range_gsq'] !== '' &&
+                if ($this->args['range_gsq'] !== '' &&
                     $lat_lon = Rxx::convertGsqToDegrees($this->args['range_gsq'])
                 ) {
                     $this->query['where'][] =
@@ -221,7 +219,7 @@ class SignalRepository extends ServiceEntityRepository
 
     private function addFilterRegion()
     {
-        if (isset($this->args['region']) && $this->args['region'] !== '') {
+        if ($this->args['region'] !== '') {
             $this->query['where'][] = '(s.region = :region)';
             $this->query['param']['region'] = $this->args['region'];
         }
@@ -231,12 +229,12 @@ class SignalRepository extends ServiceEntityRepository
     private function addFilterStatesAndCountries()
     {
         $clauses = [];
-        if (isset($this->args['countries']) && $this->args['countries'] !== '') {
+        if ($this->args['countries']) {
             $countries = explode(" ", str_replace('*', '%', $this->args['countries']));
             $in = $this->buildInParamsList('countries', $countries);
             $clauses[] = "(s.itu LIKE " . implode($in, " OR s.itu LIKE ") . ")";
         }
-        if (isset($this->args['states']) && $this->args['states'] !== '') {
+        if ($this->args['states']) {
             $states = explode(" ", str_replace('*', '%', $this->args['states']));
             $in = $this->buildInParamsList('states', $states);
             $clauses[] = "(s.sp LIKE " . implode($in, " OR s.sp LIKE ") . ")";
@@ -280,14 +278,14 @@ class SignalRepository extends ServiceEntityRepository
     private function addFromTables()
     {
         if (
-            isset($this->args['listener']) ||
-            isset($this->args['heard_in']) ||
-            isset($this->args['logged_date_1']) ||
-            isset($this->args['logged_date_2']) ||
-            isset($this->args['first_logged_1']) ||
-            isset($this->args['first_logged_2']) ||
-            isset($this->args['last_logged_1']) ||
-            isset($this->args['last_logged_2'])
+            ($this->args['listener']) ||
+            ($this->args['heard_in']) ||
+            ($this->args['logged_date_1']) ||
+            ($this->args['logged_date_2']) ||
+            ($this->args['logged_first_1']) ||
+            ($this->args['logged_first_2']) ||
+            ($this->args['logged_last_1']) ||
+            ($this->args['logged_last_2'])
         ) {
             $this->query['from'][] =
                 "signals AS s\n"
@@ -302,7 +300,7 @@ class SignalRepository extends ServiceEntityRepository
 
     private function addLimit($args)
     {
-        if (isset($args['limit']) && (int)$args['limit'] !== -1 && isset($args['page'])) {
+        if ((int)$args['limit'] !== -1) {
             $limit =    $args['limit'];
             $offset =   (int)$args['page'] * (int)$args['limit'];
             $this->query['limit'][] = "{$offset}, {$limit}";
@@ -328,7 +326,7 @@ class SignalRepository extends ServiceEntityRepository
 
     private function addOrderPrioritizeActive()
     {
-        if (!isset($this->args['active']) || $this->args['active'] === '') {
+        if ($this->args['active'] === '') {
             $this->addOrder('_active','ASC');
         }
         return $this;
@@ -349,10 +347,7 @@ class SignalRepository extends ServiceEntityRepository
                 '_empty',
                 'ASC'
             );
-            if (in_array($this->args['sort'], ['LSB', 'USB']) &&
-                isset($this->args['offsets']) &&
-                $this->args['offsets'] === '1'
-            ) {
+            if (in_array($this->args['sort'], ['LSB', 'USB']) && $this->args['offsets'] === '1') {
                 $this->addOrder(
                     ('s.khz ' . ($this->args['sort'] === 'USB' ? '+' : '-') . ' (s.' . $this->args['sort'].'/1000)'),
                     ($this->args['order'] === 'd' ? 'DESC' : 'ASC')
@@ -369,7 +364,7 @@ class SignalRepository extends ServiceEntityRepository
 
     private function addSelectColumnPersonalise()
     {
-        if (isset($this->args['personalise']) && $this->args['personalise'] !== '') {
+        if ($this->args['personalise'] !== '') {
             $this->query['select'][] =
                 'IF (s.ID IN(SELECT l.signalID from logs l where l.listenerID = :personalise), 1, 0) AS personalise';
             $this->query['param']['personalise'] = $this->args['personalise'];
@@ -381,9 +376,7 @@ class SignalRepository extends ServiceEntityRepository
 
     private function addSelectColumnRangeDeg()
     {
-        if (isset($this->args['range_gsq']) && $this->args['range_gsq'] !== '' &&
-            $lat_lon = Rxx::convertGsqToDegrees($this->args['range_gsq'])
-        ) {
+        if ($this->args['range_gsq'] !== '' && $lat_lon = Rxx::convertGsqToDegrees($this->args['range_gsq'])) {
             $this->query['select'][] =
                 "CAST(\n"
                 . "      COALESCE(\n"
@@ -409,10 +402,7 @@ class SignalRepository extends ServiceEntityRepository
     }
 
     private function addSelectColumnRangeKm() {
-        if (isset($this->args['range_gsq']) &&
-            $this->args['range_gsq'] !== '' &&
-            $lat_lon = Rxx::convertGsqToDegrees($this->args['range_gsq'])
-        ) {
+        if ($this->args['range_gsq'] !== '' && $lat_lon = Rxx::convertGsqToDegrees($this->args['range_gsq'])) {
             $this->query['select'][] =
                 "CAST(\n"
                 . "      COALESCE(\n"
@@ -437,10 +427,7 @@ class SignalRepository extends ServiceEntityRepository
 
     private function addSelectColumnRangeMiles()
     {
-        if (isset($this->args['range_gsq']) &&
-            $this->args['range_gsq'] !== '' &&
-            $lat_lon = Rxx::convertGsqToDegrees($this->args['range_gsq'])
-        ) {
+        if ($this->args['range_gsq'] !== '' && $lat_lon = Rxx::convertGsqToDegrees($this->args['range_gsq'])) {
             $this->query['select'][] =
                 "CAST(\n"
                 . "      COALESCE(\n"
@@ -465,7 +452,7 @@ class SignalRepository extends ServiceEntityRepository
 
     private function addSelectColumnsOffsets()
     {
-        if (isset($this->args['offsets']) && $this->args['offsets'] === '1') {
+        if ($this->args['offsets'] === '1') {
             $this->query['select'][] = "ROUND(s.khz - (s.LSB/1000), 3) as LSB";
             $this->query['select'][] = "ROUND(s.khz + (s.USB/1000), 3) as USB";
         } else {
@@ -477,7 +464,7 @@ class SignalRepository extends ServiceEntityRepository
 
     private function addSelectPriotitizeActive()
     {
-        if (!isset($this->args['active']) || $this->args['active'] === '') {
+        if (!$this->args['active']) {
             $this->query['select'][] =
                 "(CASE WHEN s.active = 0 THEN 1 ELSE 0 END) AS _active";
         }
@@ -486,7 +473,7 @@ class SignalRepository extends ServiceEntityRepository
 
     private function addSelectPriotitizeExactCall()
     {
-        if (isset($this->args['call']) && $this->args['call'] !== '') {
+        if ($this->args['call']) {
             $this->query['select'][] =
                 "(CASE WHEN s.call = :call THEN 1 ELSE 0 END) AS _call";
             $this->query['param']['call'] = $this->args['call'];
@@ -517,10 +504,10 @@ class SignalRepository extends ServiceEntityRepository
     private function addSelectColumnsAllSignal()
     {
         $distinct = (
-            isset($this->args['listener']) ||
-            isset($this->args['heard_in']) ||
-            isset($this->args['logged_date_1']) ||
-            isset($this->args['logged_date_2'])
+            ($this->args['listener']) ||
+            ($this->args['heard_in']) ||
+            ($this->args['logged_date_1']) ||
+            ($this->args['logged_date_2'])
         );
         $this->query['select'][] = ($distinct ? 'DISTINCT ' : '') . 's.*';
         return $this;
@@ -529,10 +516,10 @@ class SignalRepository extends ServiceEntityRepository
     private function addSelectColumnsAllSignalSeeklist()
     {
         $distinct = (
-            isset($this->args['listener']) ||
-            isset($this->args['heard_in']) ||
-            isset($this->args['logged_date_1']) ||
-            isset($this->args['logged_date_2'])
+            ($this->args['listener']) ||
+            ($this->args['heard_in']) ||
+            ($this->args['logged_date_1']) ||
+            ($this->args['logged_date_2'])
         );
         $this->query['select'][] =
             ($distinct ? 'DISTINCT ' : '')
@@ -543,10 +530,10 @@ class SignalRepository extends ServiceEntityRepository
     private function addSelectColumnCountSignal()
     {
         $distinct = (
-            isset($this->args['listener']) ||
-            isset($this->args['heard_in']) ||
-            isset($this->args['logged_date_1']) ||
-            isset($this->args['logged_date_2'])
+            ($this->args['listener']) ||
+            ($this->args['heard_in']) ||
+            ($this->args['logged_date_1']) ||
+            ($this->args['logged_date_2'])
         );
         $this->query['select'][] = "COUNT(" . ($distinct ? "DISTINCT s.id" : "*"). ") AS count";
         return $this;
@@ -614,7 +601,7 @@ class SignalRepository extends ServiceEntityRepository
     {
         $sql_view = $sql;
         foreach ($params as $key => $value) {
-            $sql_view = str_replace(':' . $key, "***'" . $value . "'***", $sql_view);
+            $sql_view = str_replace(':' . $key, "/***/'" . $value . "'/***/", $sql_view);
         }
         return "<pre>" . $sql_view . "</pre>";
     }
@@ -626,7 +613,7 @@ class SignalRepository extends ServiceEntityRepository
 
     public function getFilteredSignals($system, $args)
     {
-//        die("<pre>".print_r($args, true)."</pre>");
+//        print("<pre>".print_r($args, true)."</pre>");
         $this->args = $args;
         $this
             ->setArgs($system, $args)
@@ -668,9 +655,9 @@ class SignalRepository extends ServiceEntityRepository
                     ->addSelectPriotitizeActive()
                     ->addSelectPriotitizeExactCall()
 
-                    ->addOrderPrioritizeSelected()
                     ->addOrderPrioritizeExactCall()
                     ->addOrderPrioritizeActive()
+                    ->addOrderPrioritizeSelected()
 
                     ->addLimit($args);
                 break;
@@ -896,15 +883,15 @@ class SignalRepository extends ServiceEntityRepository
     private function setArgs($system, $args)
     {
         $this->system = $system;
-        if (isset($args['heard_in']) && trim($args['heard_in']) === '') {
-            unset($args['heard_in']);
-        }
-        if (isset($args['listener']) && (!$args['listener'] || in_array('', $args['listener']))) {
-            unset($args['listener']);
-        }
-        if (isset($args['listener_invert']) && $args['listener_invert'] === 0) {
-            unset($args['listener_invert']);
-        }
+//        if (trim($args['heard_in']) === '') {
+//            unset($args['heard_in']);
+//        }
+//        if ((!$args['listener'] || in_array('', $args['listener']))) {
+//            unset($args['listener']);
+//        }
+//        if ($args['listener_invert'] === 0) {
+//            unset($args['listener_invert']);
+//        }
         $this->args = $args;
         return $this;
     }

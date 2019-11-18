@@ -14,7 +14,6 @@ use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 class ListenerSignals extends Base
 {
     const defaultlimit =    20;
-    const maxNoPaging =     20;
     const defaultSorting =  'khz';
     const defaultOrder =    'a';
 
@@ -44,12 +43,8 @@ class ListenerSignals extends Base
         }
 
         $totalSignals = $listener->getCountSignals();
-        if ($type) {
-
-        }
         $options = [
             'limit' =>          static::defaultlimit,
-            'maxNoPaging' =>    static::maxNoPaging,
             'order' =>          static::defaultOrder,
             'page' =>           0,
             'sort' =>           static::defaultSorting,
@@ -75,7 +70,7 @@ class ListenerSignals extends Base
             'columns' =>            $listenerRepository->getSignalsColumns(),
             'form' =>               $form->createView(),
             '_locale' =>            $_locale,
-            'matched' =>            ($options['total'] > $options['maxNoPaging'] ? 'of '.$options['total'].' signals' : ''),
+            'matched' =>            'of '.$options['total'].' signals',
             'mode' =>               'Signals received by '.$listener->getFormattedNameAndLocation(),
             'results' => [
                 'limit' =>              isset($args['limit']) ? $args['limit'] : static::defaultlimit,

@@ -3,7 +3,6 @@ namespace App\Controller\Web\Listeners;
 
 use App\Form\Listeners\Collection as Form;
 use App\Repository\ListenerRepository;
-use App\Utils\Rxx;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 use Symfony\Component\HttpFoundation\Request;
 
@@ -14,7 +13,6 @@ use Symfony\Component\HttpFoundation\Request;
 class Collection extends Base
 {
     const defaultlimit =     100;
-    const maxNoPaging =      100;
     const defaultSorting =  'name';
     const defaultOrder =    'a';
 
@@ -66,21 +64,12 @@ class Collection extends Base
             'limit' =>      static::defaultlimit,
             'order' =>      static::defaultOrder,
             'page' =>       0,
-            'region' =>     '',
+            'region' =>     $_REQUEST['form']['region'] ?? '',
             'sort' =>       static::defaultSorting,
+            'system' =>     $system,
             'types' =>      [],
         ];
-        $options = [
-            'limit' =>          static::defaultlimit,
-            'maxNoPaging' =>    static::maxNoPaging,
-            'order' =>          static::defaultOrder,
-            'page' =>           0,
-            'sort' =>           static::defaultSorting,
-            'system' =>         $system,
-            'region' =>         (isset($_REQUEST['form']['region']) ? $_REQUEST['form']['region'] : ''),
-            'total' =>          $listenerRepository->getFilteredListenersCount($system, $args)
-        ];
-        $form = $form->buildForm($this->createFormBuilder(), $options);
+        $form = $form->buildForm($this->createFormBuilder(), $args);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $args = $form->getData();
@@ -97,7 +86,6 @@ class Collection extends Base
             'form' =>               $form->createView(),
             'listeners' =>          $listeners,
             '_locale' =>            $_locale,
-            'options' =>            $options,
             'listenerPopup' =>      ListenerRepository::getPopupArgs('listener'),
             'mode' =>               'Listeners List',
             'system' =>             $system,

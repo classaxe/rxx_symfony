@@ -99,357 +99,342 @@ class Collection extends Base
         $i18n = $this->translator;
 
         $formBuilder
+            ->setAction($options['url'])
             ->add(
                 'show',
-                HiddenType::class
+                HiddenType::class,
+                [
+                    'data' =>           $options['show']
+                ]
             )
             ->add(
                 'paper',
                 HiddenType::class,
                 [
-                    'data' => 'ltr'
+                    'data' =>           $options['paper']
                 ]
             )
             ->add(
                 'sortby',
                 ChoiceType::class,
                 [
-                    'choices' =>    [],
-                    'label'  =>     'Sort By',
-                    'required' =>   false
+                    'choices' =>        [],
+                    'label'  =>         'Sort By',
+                    'required' =>       false
                 ]
             )
             ->add(
                 'za',
                 CheckboxType::class,
                 [
-                    'label' =>      'Z-A',
-                    'required' =>   false,
-                    'value' =>      1
+                    'label' =>          'Z-A',
+                    'required' =>       false,
+                    'value' =>          1
                 ]
             )
             ->add(
                 'types',
                 ChoiceType::class,
                 [
-                    'choices' =>    $this->type->getAllChoices(),
-                    'choice_attr' => function ($choiceValue, $key, $value) {
-                        return ['class' => strToLower($value)];
-                    },
-                    'expanded' =>   true,
-                    'label' =>      false,
-                    'multiple' =>   true,
-                    'attr' =>       [ 'legend' => 'Signal Types' ]
+                    'attr' =>           [ 'legend' => 'Signal Types' ],
+                    'choices' =>        $this->type->getAllChoices(),
+                    'choice_attr' =>    function ($choiceValue, $key, $value) { return ['class' => strToLower($value)]; },
+                    'data' =>           $options['types'],
+                    'expanded' =>       true,
+                    'label' =>          false,
+                    'multiple' =>       true
                 ]
             )
             ->add(
                 'call',
                 TextType::class,
                 [
-                    'label' =>      'Call / ID',
-                    'required' =>   false
+                    'data' =>           $options['call'],
+                    'label' =>          'Call / ID',
+                    'required' =>       false
                 ]
             )
             ->add(
                 'khz_1',
                 TextType::class,
                 [
-                    'label' =>      'Freq.',
-                    'required' =>   false
+                    'data' =>           $options['khz_1'],
+                    'label' =>          'Freq.',
+                    'required' =>       false
                 ]
             )
             ->add(
                 'khz_2',
                 TextType::class,
                 [
-                    'label' =>      false,
-                    'required' =>   false
+                    'data' =>           $options['khz_2'],
+                    'label' =>          false,
+                    'required' =>       false
                 ]
             )
             ->add(
                 'channels',
                 ChoiceType::class,
                 [
-                    'choices' => [
-                        'All' =>        '',
-                        'Only 1 KHz' => '1',
-                        'Not 1 KHz' =>  '2',
-                    ],
-                    'label' => 'Channels',
-                    'required' => false
+                    'choices' =>        [ 'All' => '', 'Only 1 KHz' => '1', 'Not 1 KHz' =>  '2' ],
+                    'data' =>           $options['channels'],
+                    'label' =>          'Channels',
+                    'required' =>       false
                 ]
             )
             ->add(
                 'active',
                 ChoiceType::class,
                 [
-                    'choices' => [
-                        'All' =>        '',
-                        'Active' =>     '1',
-                        'Inactive' =>   '2',
-                    ],
-                    'label' => 'Active Status',
-                    'required' => false
+                    'choices' =>        [ 'All' => '', 'Active' => '1', 'Inactive' =>   '2' ],
+                    'data' =>           $options['active'],
+                    'label' =>          'Active Status',
+                    'required' =>       false
                 ]
             )
             ->add(
                 'personalise',
                 ChoiceType::class,
                 [
-                    'choices'       => $this->listener->getAllOptions(
-                        $system,
-                        null,
-                        $i18n->trans('(None specified)'),
-                        true
-                    ),
-                    'expanded'      => false,
-                    'label'         => 'Personalise for',
-                    'required'      => false,
-                    'choice_translation_domain' => false
+                    'choices' =>        $this->listener->getAllOptions($system,null, $i18n->trans('(None specified)'), true),
+                    'choice_translation_domain' => false,
+                    'data' =>           $options['personalise'],
+                    'expanded' =>       false,
+                    'label' =>          'Personalise for',
+                    'required' =>       false
                 ]
             )
             ->add(
                 'offsets',
                 ChoiceType::class,
                 [
-                    'choices' => [
-                        'Relative' =>   '',
-                        'Absolute' =>   '1',
-                    ],
-                    'label' => 'Offsets',
-                    'required' => false
+                    'choices' =>        [ 'Relative' => '', 'Absolute' =>   '1' ],
+                    'data' =>           $options['offsets'],
+                    'label' =>          'Offsets',
+                    'required' =>       false
                 ]
             )
             ->add(
                 'states',
                 TextType::class,
                 [
-                    'label' => 'States',
-                    'required' => false
+                    'data' =>           $options['states'],
+                    'label' =>          'States',
+                    'required' =>       false
                 ]
             )
             ->add(
                 'sp_itu_clause',
                 ChoiceType::class,
                 [
-                    'choices'       => [
-                        'AND'   => 'AND',
-                        'OR'    =>  'OR',
-                    ],
-                    'placeholder'   => false,
-                    'label'         => 'Combiner',
-                    'required'      => false
+                    'choices' =>        [ 'AND' => 'AND', 'OR' => 'OR' ],
+                    'data' =>           $options['sp_itu_clause'],
+                    'label' =>          'Combiner',
+                    'placeholder' =>    false,
+                    'required' =>       false
                 ]
             )
             ->add(
                 'countries',
                 TextType::class,
                 [
-                    'label'         => 'Countries',
-                    'required'      => false
+                    'data' =>           $options['countries'],
+                    'label' =>          'Countries',
+                    'required' =>       false
                 ]
             )
             ->add(
                 'region',
                 ChoiceType::class,
                 [
-                    'choices'       => $this->region->getAllOptions(),
-                    'label'         => 'Region',
-                    'required'      =>   false
+                    'choices' =>        $this->region->getAllOptions(),
+                    'data' =>           $options['region'],
+                    'label' =>          'Region',
+                    'required' =>       false
                 ]
             )
             ->add(
                 'gsq',
                 TextType::class,
                 [
-                    'label'         => 'Grid Squares',
-                    'required'      => false
+                    'data' =>           $options['gsq'],
+                    'label' =>          'Grid Squares',
+                    'required' =>       false
                 ]
             )
             ->add(
                 'range_gsq',
                 TextType::class,
                 [
-                    'label'         => 'From GSQ',
-                    'required'      => false,
-                    'attr'          => [
-                        'maxlength' => 6
-                    ]
+                    'attr' =>           [ 'maxlength' => 6 ],
+                    'data' =>           $options['range_gsq'],
+                    'label' =>          'From GSQ',
+                    'required' =>       false
                 ]
             )
             ->add(
                 'range_min',
                 TextType::class,
                 [
-                    'label'         => 'DX',
-                    'required'      => false,
-                    'attr'          => [
-                        'disabled'  => 'disabled'
-                    ]
+                    'attr' =>           [ 'disabled' => 'disabled' ],
+                    'data' =>           $options['range_min'],
+                    'label' =>          'DX',
+                    'required' =>       false
                 ]
             )
             ->add(
                 'range_max',
                 TextType::class,
                 [
-                    'label'         => false,
-                    'required'      => false,
-                    'attr'          => [
-                        'disabled'  => 'disabled'
-                    ]
+                    'attr' =>           [ 'disabled' => 'disabled' ],
+                    'data' =>           $options['range_max'],
+                    'label' =>          false,
+                    'required' =>       false,
                 ]
             )
             ->add(
                 'range_units',
                 ChoiceType::class,
                 [
-                    'choices' => [
-                        'km'    => 'km',
-                        'miles' => 'mi'
-                    ],
-                    'expanded'      => true,
-                    'placeholder'   => false,
-                    'required'      => false,
-                    'attr'          => [
-                        'disabled'  => 'disabled',
-                        'legend'    => 'Units'
-                    ]
+                    'attr' =>           [ 'disabled' => 'disabled', 'legend' => 'Units' ],
+                    'choices' =>        [ 'km' => 'km', 'miles' => 'mi' ],
+                    'data' =>           $options['range_units'],
+                    'expanded' =>       true,
+                    'placeholder' =>    false,
+                    'required' =>       false
                 ]
             )
             ->add(
                 'listener',
                 ChoiceType::class,
                 [
-                    'choices'       => $this->listener->getAllOptions(
-                        $system,
-                        null,
-                        $i18n->trans('Anyone (or enter values in "Heard here" box)'),
-                        false
-                    ),
-                    'expanded'      => false,
-                    'label'         => 'Listener(s)',
-                    'multiple'      => true,
-                    'required'      => false,
+                    'attr' =>           [ 'class' => 'multiple' ],
+                    'choices' =>        $this->listener->getAllOptions( $system, null, $i18n->trans('Anyone (or enter values in "Heard here" box)'), false ),
                     'choice_translation_domain' => false,
-                    'attr'          => [ 'class' => 'multiple' ]
+                    'data' =>           $options['listener'],
+                    'expanded' =>       false,
+                    'label' =>          'Listener(s)',
+                    'multiple' =>       true,
+                    'required' =>       false,
                 ]
             )
             ->add(
                 'listener_invert',
                 ChoiceType::class,
                 [
-                    'choices' => [
-                        'Logged by'     => 0,
-                        'Not logged by' => 1
-                    ],
-                    'expanded'      => true,
-                    'placeholder'   => false,
-                    'required'      => false,
-                    'attr'          => []
+                    'choices' =>        [ 'Logged by' => 0, 'Not logged by' => 1 ],
+                    'data' =>           $options['listener_invert'],
+                    'expanded' =>       true,
+                    'placeholder' =>    false,
+                    'required' =>       false
                 ]
             )
             ->add(
                 'heard_in',
                 TextType::class,
                 [
-                    'label'         => 'Heard Here',
-                    'required'      => false
+                    'data' =>           $options['heard_in'],
+                    'label' =>          'Heard Here',
+                    'required' =>       false
                 ]
             )
             ->add(
                 'heard_in_mod',
                 ChoiceType::class,
                 [
-                    'choices' => [
-                        'Any'       => 'any',
-                        'All'       => 'all'
-                    ],
-                    'expanded'      => true,
-                    'placeholder'   => false,
-                    'required'      => false,
-                    'attr'          => []
+                    'choices' =>        [ 'Any' => 'any', 'All' => 'all' ],
+                    'data' =>           $options['heard_in_mod'],
+                    'expanded' =>       true,
+                    'placeholder' =>    false,
+                    'required' =>       false,
                 ]
             )
             ->add(
                 'logged_date_1',
                 DateType::class,
                 [
-                    'label'         => 'Logged Between',
-                    'widget'        => 'single_text',
-                    'html5'         => false,
-                    'required'      => false,
-                    'attr'          => [ 'class' => 'js-datepicker' ]
+                    'attr' =>           [ 'class' => 'js-datepicker' ],
+                    'data' =>           $options['logged_date_1'],
+                    'html5' =>          false,
+                    'label' =>          'Logged Between',
+                    'required' =>       false,
+                    'widget' =>         'single_text'
                 ]
             )
             ->add(
                 'logged_date_2',
                 DateType::class,
                 [
-                    'label'         => '',
-                    'widget'        => 'single_text',
-                    'html5'         => false,
-                    'required'      => false,
-                    'attr'          => [ 'class' => 'js-datepicker' ]
+                    'attr' =>           [ 'class' => 'js-datepicker' ],
+                    'data' =>           $options['logged_date_2'],
+                    'html5' =>          false,
+                    'label' =>          '',
+                    'required' =>       false,
+                    'widget' =>         'single_text',
                 ]
             )
             ->add(
                 'logged_first_1',
                 DateType::class,
                 [
-                    'label'         => 'First Logged',
-                    'widget'        => 'single_text',
-                    'html5'         => false,
-                    'required'      => false,
-                    'attr'          => [ 'class' => 'js-datepicker' ]
+                    'attr' =>           [ 'class' => 'js-datepicker' ],
+                    'data' =>           $options['logged_first_1'],
+                    'html5' =>          false,
+                    'label' =>          'First Logged',
+                    'required' =>       false,
+                    'widget' =>         'single_text',
                 ]
             )
             ->add(
                 'logged_first_2',
                 DateType::class,
                 [
-                    'label'         => '',
-                    'widget'        => 'single_text',
-                    'html5'         => false,
-                    'required'      => false,
-                    'attr'          => [ 'class' => 'js-datepicker' ]
+                    'attr' =>           [ 'class' => 'js-datepicker' ],
+                    'data' =>           $options['logged_first_2'],
+                    'html5' =>          false,
+                    'label' =>          '',
+                    'required' =>       false,
+                    'widget' =>         'single_text',
                 ]
             )
             ->add(
                 'logged_last_1',
                 DateType::class,
                 [
-                    'label'         => 'Last Logged',
-                    'widget'        => 'single_text',
-                    'html5'         => false,
-                    'required'      => false,
-                    'attr'          => [ 'class' => 'js-datepicker' ]
+                    'attr' =>           [ 'class' => 'js-datepicker' ],
+                    'data' =>           $options['logged_last_1'],
+                    'html5' =>          false,
+                    'label' =>          'Last Logged',
+                    'required' =>       false,
+                    'widget' =>         'single_text',
                 ]
             )
             ->add(
                 'logged_last_2',
                 DateType::class,
                 [
-                    'label'         => '',
-                    'widget'        => 'single_text',
-                    'html5'         => false,
-                    'required'      => false,
-                    'attr'          => [ 'class' => 'js-datepicker' ]
+                    'attr' =>           [ 'class' => 'js-datepicker' ],
+                    'data' =>           $options['logged_last_2'],
+                    'html5' =>          false,
+                    'label' =>          '',
+                    'required' =>       false,
+                    'widget' =>         'single_text',
                 ]
             )
             ->add(
                 'submit',
                 SubmitType::class,
                 [
-                    'label'         => 'Go',
-                    'attr'          => [ 'class' => 'button small' ]
+                    'attr' =>           [ 'class' => 'button small' ],
+                    'label' =>          'Go'
                 ]
             )
             ->add(
                 'clear',
                 ResetType::class,
                 [
-                    'label'         => 'Clear',
-                    'attr'          => [ 'class' => 'button small' ]
+                    'attr' =>           [ 'class' => 'button small' ],
+                    'label' =>          'Clear'
                 ]
             );
 
