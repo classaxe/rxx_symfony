@@ -19,7 +19,7 @@
 
         {% include 'signals/tabs.html.twig' %}
         <div class="signals_container">
-            {% if args['show'] == 'list' %}{% include 'signals/list.html.twig' %}{% endif %}
+            {% if args['show'] in ['', 'list'] %}{% include 'signals/list.html.twig' %}{% endif %}
             {% if args['show'] == 'map' %}{% include 'signals/map.html.twig' %}{% endif %}
             {% if args['show'] == 'seeklist' %}{% include 'signals/seeklist.html.twig' %}{% endif %}
         </div>

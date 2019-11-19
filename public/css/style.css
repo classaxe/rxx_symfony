@@ -1329,16 +1329,16 @@ pre.log {
   padding: 0 5px;
   display: inline-block;
 }
-#tabsPanel {
+#tabs {
   padding: 0 0 0 20px;
 }
-#tabsPanel .button {
+#tabs .button {
   margin: 0;
   border-radius: 5px 5px 0 0;
   padding: 0.5em 1em 0.5em 1em;
   border-bottom: none;
 }
-#tabsPanel .button.is-active {
+#tabs .button.is-active {
   color: yellow !important;
 }
 /* [ Google Map Pages ] */

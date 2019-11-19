@@ -1,4 +1,4 @@
-<div id="tabsPanel">
+<div id="tabs">
 {% for tab in tabs %}
     <a class="button small{% if app.request.get('_route') == tab[0] %} is-active{% endif %}"
        href="{{ path(tab[0], { '_locale' : _locale, 'system' : system, 'id' : id}) }}">{{ tab[1] }}</a>

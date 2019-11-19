@@ -328,9 +328,17 @@ function initSignalsForm(pagingMsg, resultsCount) {
         setExternalLinks();
 
         setFormPagingStatus(pagingMsg, resultsCount);
+        scrollToResults();
     });
 }
 
+function scrollToResults() {
+    if ($('#form_show').val() !== '') {
+        $([document.documentElement, document.body]).animate({
+            scrollTop: $("#tabs").offset().top - 20
+        }, 500);
+    }
+}
 /* [ Add title for td cells having class 'clipped' ] */
 function setClippedCellTitles() {
     $('td.clipped').each(function() {

@@ -98,7 +98,7 @@ class Collection extends Base
             'range_max' =>      '',
             'range_units' =>    '',
             'region' =>         $_REQUEST['form']['region'] ?? '',
-            'show' =>           'list',
+            'show' =>           '',
             'sort' =>           static::defaultSorting,
             'sp_itu_clause' =>  '',
             'states' =>         '',
