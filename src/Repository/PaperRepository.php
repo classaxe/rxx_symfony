@@ -46,6 +46,18 @@ class PaperRepository
         return $out;
     }
 
+    public static function getDefaultForSystem($system)
+    {
+        switch ($system) {
+            case 'reu':
+                return 'a4';
+            case 'rna':
+            case 'rww':
+            default:
+                return 'ltr';
+        }
+    }
+
     public function getSpecifications($key)
     {
         if (isset(static::types[$key])) {

@@ -57,6 +57,7 @@ class Collection extends Base
      * @param SignalRepository $signalRepository
      * @param TypeRepository $typeRepository
      * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \Exception
      */
     public function signalsListController(
         $_locale,
@@ -90,7 +91,7 @@ class Collection extends Base
             'offsets' =>        '',
             'order' =>          static::defaultOrder,
             'page' =>           0,
-            'paper' =>          'a4',
+            'paper' =>          $paperRepository::getDefaultForSystem($system),
             'personalise' =>    '',
             'range_gsq' =>      '',
             'range_min' =>      '',
@@ -115,7 +116,7 @@ class Collection extends Base
             }
         }
         foreach (['logged_date_1', 'logged_date_2', 'logged_first_1', 'logged_first_2', 'logged_last_1', 'logged_last_2'] as $arg) {
-            $args[$arg] = ($args[$arg] ? new DateTime($args[$arg]) : null);
+            $args[$arg] = $args[$arg] ? new DateTime($args[$arg]) : null;
         }
 
         $form = $form->buildForm($this->createFormBuilder(), $args);
