@@ -9,11 +9,11 @@
             {% if ((stateBtn is defined and stateBtn) or (countryBtn is defined and countryBtn)) %}|{% endif %}
         {% endif %}
         {% if (stateBtn is defined and stateBtn) %}
-            <a href="{{ url('states', { '_locale' : _locale, 'system' : system, 'filter' : stateFilter }) }}" data-type="sp" rel="external">{{ stateBtn | trans }}</a>
+            <a href="{{ url('states', { '_locale' : _locale, 'system' : system, 'filter' : stateFilter }) }}" data-type="sp" data-popup="{{ popups.sp }}">{{ stateBtn | trans }}</a>
             {% if ((stateBtn is defined and stateBtn) and (countryBtn is defined and countryBtn)) %}|{% endif %}
         {% endif %}
         {% if (countryBtn is defined and countryBtn) %}
-            <a href="{{ url('countries', { '_locale' : _locale, 'system' : system, 'filter' : countryFilter }) }}" data-type="itu" rel="external">{{ countryBtn | trans }}</a>
+            <a href="{{ url('countries', { '_locale' : _locale, 'system' : system, 'filter' : countryFilter }) }}" data-type="itu" data-popup="{{ popups.itu }}">{{ countryBtn | trans }}</a>
         {% endif %}
         ]</div>
     {% endif %}
