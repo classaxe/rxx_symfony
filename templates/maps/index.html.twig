@@ -3,29 +3,27 @@
 {% block body %}
 <div class="main">
     <h1>{{ title | trans }}</h1>
-{% if zones|length > 1 %}
-
-    <div class="links quicklinks">[
-{% for key, zone in zones %}
-        <a href="#{{ key }}">{{ zone.shortName }}</a>{%  if not loop.last %} |{%  endif %}
-
-{% endfor %}
-    ]</div>
-{% endif %}
+    {% if zones|length > 1 %}
+        <div class="links quicklinks">[
+        {% for key, m in zones %}
+            <a href="#{{ key }}">{{ m.shortName }}</a>{%  if not loop.last %} |{%  endif %}
+        {% endfor %}
+        ]</div>
+    {% endif %}
     <div class="main">
-{% for key, zone in zones %}
-{% set mode = zone.mode %}
-{% set map = zone.map %}
-{% set popup = zone.popup %}
-{% set multiple = true %}
-{% if zone.countryBtn is defined %}{% set countryBtn = zone.countryBtn %}{% else %}{% set countryBtn = '' %}{% endif %}
-{% if zone.countryFilter is defined %}{% set countryFilter = zone.countryFilter %}{% else %}{% set countryFilter = '' %}{% endif %}
-{% if zone.stateBtn is defined %}{% set stateBtn = zone.stateBtn %}{% else %}{% set stateBtn = '' %}{% endif %}
-{% if zone.stateFilter is defined %}{% set stateFilter = zone.stateFilter %}{% else %}{% set stateFilter = '' %}{% endif %}
+    {% for key, m in zones %}
+        {% set mode = m.mode %}
+        {% set map = m.map %}
+        {% set popup = m.popup %}
+        {% set showTopAndPopup = true %}
+        {% set countryBtn = (m.countryBtn is defined ? m.countryBtn : false) %}
+        {% set countryFilter = (m.countryFilter is defined ? m.countryFilter : false) %}
+        {% set stateBtn = (m.stateBtn is defined ? m.stateBtn : false) %}
+        {% set stateFilter = (m.stateFilter is defined ? m.stateFilter : false) %}
         <div class="map">
-{% include 'maps/inner.html.twig' %}
+            {% include 'maps/inner.html.twig' %}
         </div>
-{% endfor %}
+    {% endfor %}
     </div>
 </div>
 <script>

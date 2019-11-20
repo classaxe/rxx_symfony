@@ -20,6 +20,11 @@ class Maps extends Base
      *     },
      *     name="map"
      * )
+     * @param $_locale
+     * @param $system
+     * @param $area
+     * @param MapRepository $mapRepository
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function map($_locale, $system, $area, MapRepository $mapRepository)
     {
@@ -39,20 +44,21 @@ class Maps extends Base
      *     },
      *     name="maps"
      * )
+     * @param $_locale
+     * @param $system
+     * @param MapRepository $mapRepository
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function mapsController(
-        $_locale,
-        $system,
-        MapRepository $mapRepository
-    ) {
-        $systemMaps =   $mapRepository->getAllForSystem($system);
+    public function mapsController($_locale, $system, MapRepository $mapRepository)
+    {
+        $maps =   $mapRepository->getAllForSystem($system);
 
         $parameters = [
             '_locale' =>    $_locale,
             'mode' =>       'Maps',
             'system' =>     $system,
-            'title' =>      $systemMaps['title'],
-            'zones' =>      $systemMaps['maps'],
+            'title' =>      $maps['title'],
+            'zones' =>      $maps['maps'],
         ];
         $parameters = array_merge($parameters, $this->parameters);
 
