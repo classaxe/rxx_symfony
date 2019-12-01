@@ -162,7 +162,7 @@ class ListenerRepository extends ServiceEntityRepository
 
     public function getTabs($listener = false)
     {
-        if (!$listener) {
+        if (!$listener->getId()) {
             return [];
         }
         $logs =     $listener->getCountLogs();

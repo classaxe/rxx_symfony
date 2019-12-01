@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 use App\Repository\ListenerRepository;
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -540,18 +541,18 @@ class Listener
     }
 
     /**
-     * @return \DateTimeInterface|null
+     * @return DateTimeInterface|null
      */
-    public function getLogLatest(): ?\DateTimeInterface
+    public function getLogLatest(): ?DateTimeInterface
     {
         return $this->logLatest;
     }
 
     /**
-     * @param \DateTimeInterface $logLatest
+     * @param DateTimeInterface $logLatest
      * @return Listener
      */
-    public function setLogLatest(\DateTimeInterface $logLatest): self
+    public function setLogLatest(DateTimeInterface $logLatest): self
     {
         $this->logLatest = $logLatest;
 
@@ -925,7 +926,7 @@ class Listener
     public function getFormattedNameLink(): ?string
     {
         $popup_url =    "listeners/{$this->id}";
-        $popup_name =   "edit_{$this->id}";
+        $popup_name =   "listener_{$this->id}";
         $popup_args =   ListenerRepository::getPopupArgs('listener');
         return "<a href=\"$popup_url\" rel=\"external\" data-popup=\"{$popup_name}|{$popup_args}\">{$this->name}</a>";
     }

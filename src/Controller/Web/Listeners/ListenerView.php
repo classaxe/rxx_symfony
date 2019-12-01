@@ -33,12 +33,15 @@ class ListenerView extends Base
         ListenerViewForm $listenerViewForm,
         ListenerRepository $listenerRepository
     ) {
-        if ($id !== 'new' && (int) $id) {
+        if ($id === 'new') {
+            $id = false;
+        }
+        if ((int) $id) {
             if (!$listener = $this->getValidListener($id, $listenerRepository)) {
                 return $this->redirectToRoute('listeners', ['system' => $system]);
             }
         } else {
-            $listener = false;
+            $listener = new ListenerEntity();
         }
         $isAdmin = $this->parameters['isAdmin'];
         if (!$listener && !$isAdmin) {
@@ -46,21 +49,21 @@ class ListenerView extends Base
         }
         $options = [
             'isAdmin'   =>  $isAdmin,
-            'id'        =>  $listener ? $id : '',
-            'callsign'  =>  $listener ? $listener->getCallsign() : '',
-            'email'     =>  $listener ? $listener->getEmail() : '',
-            'equipment' =>  $listener ? $listener->getEquipment() : '',
-            'gsq'       =>  $listener ? $listener->getGsq() : '',
-            'itu'       =>  $listener ? $listener->getItu() : '',
-            'mapX'      =>  $listener ? $listener->getMapX() : '',
-            'mapY'      =>  $listener ? $listener->getMapY() : '',
-            'name'      =>  $listener ? $listener->getName() : '',
-            'notes'     =>  $listener ? $listener->getNotes() : '',
-            'primary'   =>  $listener ? $listener->getPrimaryQth() : '',
-            'qth'       =>  $listener ? $listener->getQth() : '',
-            'sp'        =>  $listener ? $listener->getSp() : '',
-            'timezone'  =>  $listener ? $listener->getTimezone() : '',
-            'website'   =>  $listener ? $listener->getWebsite() : '',
+            'id'        =>  $listener->getId(),
+            'callsign'  =>  $listener->getCallsign(),
+            'email'     =>  $listener->getEmail(),
+            'equipment' =>  $listener->getEquipment(),
+            'gsq'       =>  $listener->getGsq(),
+            'itu'       =>  $listener->getItu(),
+            'mapX'      =>  $listener->getMapX(),
+            'mapY'      =>  $listener->getMapY(),
+            'name'      =>  $listener->getName(),
+            'notes'     =>  $listener->getNotes(),
+            'primary'   =>  $listener->getPrimaryQth(),
+            'qth'       =>  $listener->getQth(),
+            'sp'        =>  $listener->getSp(),
+            'timezone'  =>  $listener->getTimezone(),
+            'website'   =>  $listener->getWebsite(),
         ];
         $form = $listenerViewForm->buildForm(
             $this->createFormBuilder(),
@@ -121,7 +124,7 @@ class ListenerView extends Base
             'fieldGroups' =>        $listenerViewForm->getFieldGroups($isAdmin),
             'form' =>               $form->createView(),
             '_locale' =>            $_locale,
-            'mode' =>               ($isAdmin && !$listener ? 'Add Listener' : $listener->getName().' &gt; Profile'),
+            'mode' =>               ($isAdmin && !$id ? 'Add Listener' : $listener->getName().' &gt; Profile'),
             'system' =>             $system,
             'tabs' =>               $listenerRepository->getTabs($listener),
         ];
