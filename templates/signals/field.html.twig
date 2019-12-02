@@ -4,10 +4,15 @@
     {% for repl in args[column.highlight] | split(' ') %}
     {% set value = value | ireplace({ (repl) : '<em>' ~ repl|upper ~ '</em>' }) %}
     {% endfor %}
-{% else %}{%
-    set value = attribute(signal, column.field)
-%}{% endif %}
+{% endif %}
 <td {% if column.td_class %} class="{{ column.td_class }}"{% endif %}>
-    {% if column.float is defined %}{{ value | float }}{% else %}{{ value | raw }}{% endif %}
+    {% if column.field == 'call' %}
+        <a href="{{ url('signal', { 'system' : system, 'id' : signal.ID }) }}"
+           rel="external" data-popup="signal_{{ signal.ID }}|width=800,height=680,status=1,scrollbars=1,resizable=1\">
+            {{ signal.call }}
+        </a>
+    {% else %}
+        {% if column.float is defined %}{{ value | float }}{% else %}{{ value | raw }}{% endif %}
+    {% endif %}
 </td>
 {% endif %}

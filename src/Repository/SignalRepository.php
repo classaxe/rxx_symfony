@@ -26,6 +26,17 @@ class SignalRepository extends ServiceEntityRepository
     private $signalsColumns;
     private $system;
 
+    private $tabs = [
+        ['signal', 'Profile'],
+//        ['signal_listeners', 'Listeners (%%listeners%%)'],
+//        ['signal_logs', 'Logs (%%logs%%)'],
+//        ['signal_weather', 'Weather'],
+    ];
+
+    const popup = [
+        'signal'  => "width=800,height=680,status=1,scrollbars=1,resizable=1",
+    ];
+
     public function __construct(
         RegistryInterface $registry,
         Connection $connection,
@@ -880,6 +891,11 @@ class SignalRepository extends ServiceEntityRepository
         return $stmt->fetchColumn();
     }
 
+    public static function getPopupArgs($which)
+    {
+        return static::popup[$which];
+    }
+
     private function setArgs($system, $args)
     {
         $this->system = $system;
@@ -894,5 +910,35 @@ class SignalRepository extends ServiceEntityRepository
 //        }
         $this->args = $args;
         return $this;
+    }
+
+    public function getTabs($signal = false)
+    {
+        if (!$signal || $signal->getId()) {
+            return [];
+        }
+        $logs =     123;//$signal->getCountLogs();
+        $signals =  55;//$signal->getCountSignals();
+        $out = [];
+        foreach ($this->tabs as $idx => $data) {
+            $route = $data[0];
+            switch ($route) {
+                case "listener_logs":
+                case "listener_signals":
+                case "listener_stats":
+                    if ($logs) {
+                        $out[] = str_replace(
+                            ['%%logs%%', '%%signals%%'],
+                            [$logs, $signals],
+                            $data
+                        );
+                    }
+                    break;
+                default:
+                    $out[] = $data;
+                    break;
+            }
+        }
+        return $out;
     }
 }

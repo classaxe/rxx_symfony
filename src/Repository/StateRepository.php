@@ -19,8 +19,7 @@ class StateRepository extends ServiceEntityRepository
     public function getMatchingOptions($itu = false)
     {
         $states = $this->getStates($itu);
-        $out = [];
-//        print "<pre>".print_r($states, true)."</pre>";
+        $out = [ '' => '' ];
         foreach ($states as $row) {
             $out[$row->getName()] = $row->getSp();
         }

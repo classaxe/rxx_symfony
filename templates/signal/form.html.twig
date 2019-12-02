@@ -1,0 +1,20 @@
+    <div class="controlPanel {{ form_class }}">
+        <div class="header">{{ mode|raw }}</div>
+        <div class="content">
+        {{ form_start(form) }}
+            <div id="form">
+                {{ form_row(form.id)  }}
+{% for group, fields in fieldGroups %}
+                <fieldset id="group_{{ group|lower|replace({' ' : '_'}) }}">
+                    <legend>{{ group }}</legend>
+{% for field in fields %}
+{%  if field %}
+                    {{ form_row(attribute(form, field))  }}
+{% endif %}
+{% endfor %}
+                </fieldset>
+{% endfor %}
+            </div>
+        {{ form_end(form, {'render_rest': false}) }}
+        </div>
+    </div>
