@@ -44,7 +44,7 @@ class ListenerView extends Base
             $listener = new ListenerEntity();
         }
         $isAdmin = $this->parameters['isAdmin'];
-        if (!$listener && !$isAdmin) {
+        if (!$id && !$isAdmin) {
             return $this->redirectToRoute('listeners', ['system' => $system]);
         }
         $options = [

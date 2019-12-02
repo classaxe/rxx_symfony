@@ -5,6 +5,14 @@
       <tool tool-id="symfony" tool-name="Symfony"/>
     </header>
     <body>
+      <trans-unit id="2r06.3a" resname="&lt;">
+        <source>&lt;</source>
+        <target><![CDATA[<]]></target>
+      </trans-unit>
+      <trans-unit id="YrZ_H2h" resname="&gt;">
+        <source>&gt;</source>
+        <target><![CDATA[>]]></target>
+      </trans-unit>
       <trans-unit id="MCyK.Og" resname="Signals Received in Europe">
         <source>Signals Received in Europe</source>
         <target>Señales recibidas en Europa</target>
@@ -53,6 +61,14 @@
         <source>Help</source>
         <target>Ayuda</target>
       </trans-unit>
+      <trans-unit id="7vNiW2b" resname="Admin Help">
+        <source>Admin Help</source>
+        <target>Ayuda de administrador</target>
+      </trans-unit>
+      <trans-unit id="xHuxj62" resname="System Info">
+        <source>System Info</source>
+        <target>Información del sistema</target>
+      </trans-unit>
       <trans-unit id="9VmtCnZ" resname="Administrator Log On">
         <source>Administrator Log On</source>
         <target>Administrador de inicio de sesión</target>
@@ -85,18 +101,6 @@
         <source>Please provide a valid Password</source>
         <target>Por favor, proporcione una contraseña válida</target>
       </trans-unit>
-      <trans-unit id="DZo50ZN" resname="(No listeners found matching your criteria)">
-        <source>(No listeners found matching your criteria)</source>
-        <target>(No se encontraron oyentes que coincidan con sus criterios)</target>
-      </trans-unit>
-      <trans-unit id="2r06.3a" resname="&lt;">
-        <source>&lt;</source>
-        <target><![CDATA[<]]></target>
-      </trans-unit>
-      <trans-unit id="YrZ_H2h" resname="&gt;">
-        <source>&gt;</source>
-        <target><![CDATA[>]]></target>
-      </trans-unit>
       <trans-unit id="1c389.9" resname="Top">
         <source>Top</source>
         <target>__Top</target>
@@ -104,14 +108,6 @@
       <trans-unit id="TBQokrO" resname="Popup">
         <source>Popup</source>
         <target>__Popup</target>
-      </trans-unit>
-      <trans-unit id="7vNiW2b" resname="Admin Help">
-        <source>Admin Help</source>
-        <target>__Admin Help</target>
-      </trans-unit>
-      <trans-unit id="xHuxj62" resname="System Info">
-        <source>System Info</source>
-        <target>__System Info</target>
       </trans-unit>
       <trans-unit id="fseDXmo" resname="Your %s Editors are:">
         <source>Your %s Editors are:</source>
@@ -149,6 +145,1598 @@
         <source>(for Ham Beacons)</source>
         <target>__(for Ham Beacons)</target>
       </trans-unit>
+      <trans-unit id="7XstMiW" resname="(All Regions)">
+        <source>(All Regions)</source>
+        <target>__(All Regions)</target>
+      </trans-unit>
+      <trans-unit id="xKNxrNf" resname="Africa">
+        <source>Africa</source>
+        <target>__Africa</target>
+      </trans-unit>
+      <trans-unit id="xD8z8Fe" resname="Antarctica">
+        <source>Antarctica</source>
+        <target>__Antarctica</target>
+      </trans-unit>
+      <trans-unit id="esAuwch" resname="Asia">
+        <source>Asia</source>
+        <target>__Asia</target>
+      </trans-unit>
+      <trans-unit id="1WYNuqE" resname="Carribean">
+        <source>Carribean</source>
+        <target>__Carribean</target>
+      </trans-unit>
+      <trans-unit id="5ZX0Xcb" resname="Europe">
+        <source>Europe</source>
+        <target>__Europe</target>
+      </trans-unit>
+      <trans-unit id="F3j63Ot" resname="International Waters">
+        <source>International Waters</source>
+        <target>__International Waters</target>
+      </trans-unit>
+      <trans-unit id="ZL4Ihbw" resname="North America">
+        <source>North America</source>
+        <target>__North America</target>
+      </trans-unit>
+      <trans-unit id="6jxPfnn" resname="Oceania (Pacific)">
+        <source>Oceania (Pacific)</source>
+        <target>__Oceania (Pacific)</target>
+      </trans-unit>
+      <trans-unit id=".1iLQQF" resname="South America">
+        <source>South America</source>
+        <target>__South America</target>
+      </trans-unit>
+      <trans-unit id="t2TNwOq" resname="Unknown">
+        <source>Unknown</source>
+        <target>__Unknown</target>
+      </trans-unit>
+      <trans-unit id="Xb3fkR_" resname="Afghanistan">
+        <source>Afghanistan</source>
+        <target>__Afghanistan</target>
+      </trans-unit>
+      <trans-unit id="wXrBEyM" resname="Alaska">
+        <source>Alaska</source>
+        <target>__Alaska</target>
+      </trans-unit>
+      <trans-unit id="GvALh0." resname="Albania">
+        <source>Albania</source>
+        <target>__Albania</target>
+      </trans-unit>
+      <trans-unit id="MOIwIpd" resname="Algeria">
+        <source>Algeria</source>
+        <target>__Algeria</target>
+      </trans-unit>
+      <trans-unit id="moMDb6T" resname="Andaman &amp; Nicobar Islands">
+        <source>Andaman &amp; Nicobar Islands</source>
+        <target><![CDATA[__Andaman & Nicobar Islands]]></target>
+      </trans-unit>
+      <trans-unit id="PjQL5N4" resname="Andorra">
+        <source>Andorra</source>
+        <target>__Andorra</target>
+      </trans-unit>
+      <trans-unit id="IrllMoF" resname="Angola">
+        <source>Angola</source>
+        <target>__Angola</target>
+      </trans-unit>
+      <trans-unit id="pKDH57d" resname="Anguilla">
+        <source>Anguilla</source>
+        <target>__Anguilla</target>
+      </trans-unit>
+      <trans-unit id="BXT0leM" resname="Antarctica (Mainland)">
+        <source>Antarctica (Mainland)</source>
+        <target>__Antarctica (Mainland)</target>
+      </trans-unit>
+      <trans-unit id="NV.ht9f" resname="Antigua &amp; Barbuda">
+        <source>Antigua &amp; Barbuda</source>
+        <target><![CDATA[__Antigua & Barbuda]]></target>
+      </trans-unit>
+      <trans-unit id="6guTfqM" resname="Argentina">
+        <source>Argentina</source>
+        <target>__Argentina</target>
+      </trans-unit>
+      <trans-unit id="LdxWNP9" resname="Armenia">
+        <source>Armenia</source>
+        <target>__Armenia</target>
+      </trans-unit>
+      <trans-unit id="tWYlXrB" resname="Aruba">
+        <source>Aruba</source>
+        <target>__Aruba</target>
+      </trans-unit>
+      <trans-unit id="WxVbBWR" resname="Ascension Island">
+        <source>Ascension Island</source>
+        <target>__Ascension Island</target>
+      </trans-unit>
+      <trans-unit id="ayZSBgH" resname="Austral Islands (Iles Tubuai)">
+        <source>Austral Islands (Iles Tubuai)</source>
+        <target>__Austral Islands (Iles Tubuai)</target>
+      </trans-unit>
+      <trans-unit id="we9AzgS" resname="Australia">
+        <source>Australia</source>
+        <target>__Australia</target>
+      </trans-unit>
+      <trans-unit id="ycqwI43" resname="Austria">
+        <source>Austria</source>
+        <target>__Austria</target>
+      </trans-unit>
+      <trans-unit id="76kVCv3" resname="Azerbaijan">
+        <source>Azerbaijan</source>
+        <target>__Azerbaijan</target>
+      </trans-unit>
+      <trans-unit id="_e4k_6e" resname="Azores">
+        <source>Azores</source>
+        <target>__Azores</target>
+      </trans-unit>
+      <trans-unit id="WPkaKu." resname="Bahamas">
+        <source>Bahamas</source>
+        <target>__Bahamas</target>
+      </trans-unit>
+      <trans-unit id="lLKFm5E" resname="Bahrain">
+        <source>Bahrain</source>
+        <target>__Bahrain</target>
+      </trans-unit>
+      <trans-unit id="YfQyBIc" resname="Balearic Islands">
+        <source>Balearic Islands</source>
+        <target>__Balearic Islands</target>
+      </trans-unit>
+      <trans-unit id="Lx1H62e" resname="Bangladesh">
+        <source>Bangladesh</source>
+        <target>__Bangladesh</target>
+      </trans-unit>
+      <trans-unit id="jo366bd" resname="Barbados">
+        <source>Barbados</source>
+        <target>__Barbados</target>
+      </trans-unit>
+      <trans-unit id="1zdnPOq" resname="Bear Island (Bjornoya)">
+        <source>Bear Island (Bjornoya)</source>
+        <target>__Bear Island (Bjornoya)</target>
+      </trans-unit>
+      <trans-unit id="S_8W3xd" resname="Belarus">
+        <source>Belarus</source>
+        <target>__Belarus</target>
+      </trans-unit>
+      <trans-unit id="NIhB71P" resname="Belgium">
+        <source>Belgium</source>
+        <target>__Belgium</target>
+      </trans-unit>
+      <trans-unit id="cdyB8Tw" resname="Belize">
+        <source>Belize</source>
+        <target>__Belize</target>
+      </trans-unit>
+      <trans-unit id="adCnuEz" resname="Benin">
+        <source>Benin</source>
+        <target>__Benin</target>
+      </trans-unit>
+      <trans-unit id="ecif1Ff" resname="Bermuda">
+        <source>Bermuda</source>
+        <target>__Bermuda</target>
+      </trans-unit>
+      <trans-unit id="2IniFyo" resname="Bhutan">
+        <source>Bhutan</source>
+        <target>__Bhutan</target>
+      </trans-unit>
+      <trans-unit id="liHAc2R" resname="Bolivia">
+        <source>Bolivia</source>
+        <target>__Bolivia</target>
+      </trans-unit>
+      <trans-unit id="A6RGDIe" resname="Bosnia-Hercegovina">
+        <source>Bosnia-Hercegovina</source>
+        <target>__Bosnia-Hercegovina</target>
+      </trans-unit>
+      <trans-unit id="FnL2DDq" resname="Botswana">
+        <source>Botswana</source>
+        <target>__Botswana</target>
+      </trans-unit>
+      <trans-unit id="B.YrAhd" resname="Brazil">
+        <source>Brazil</source>
+        <target>__Brazil</target>
+      </trans-unit>
+      <trans-unit id="mev32RI" resname="Brunei">
+        <source>Brunei</source>
+        <target>__Brunei</target>
+      </trans-unit>
+      <trans-unit id="Zrhr8PB" resname="Bulgaria">
+        <source>Bulgaria</source>
+        <target>__Bulgaria</target>
+      </trans-unit>
+      <trans-unit id="pWQ3GsD" resname="Burkina Faso">
+        <source>Burkina Faso</source>
+        <target>__Burkina Faso</target>
+      </trans-unit>
+      <trans-unit id="yDW9HEV" resname="Burundi">
+        <source>Burundi</source>
+        <target>__Burundi</target>
+      </trans-unit>
+      <trans-unit id="0UVA1G6" resname="Cabinda">
+        <source>Cabinda</source>
+        <target>__Cabinda</target>
+      </trans-unit>
+      <trans-unit id="DCywGi2" resname="Cambodia">
+        <source>Cambodia</source>
+        <target>__Cambodia</target>
+      </trans-unit>
+      <trans-unit id="CFgH8i9" resname="Cameroon">
+        <source>Cameroon</source>
+        <target>__Cameroon</target>
+      </trans-unit>
+      <trans-unit id="vlXvP0x" resname="Canada">
+        <source>Canada</source>
+        <target>__Canada</target>
+      </trans-unit>
+      <trans-unit id="oD7ztj1" resname="Canary Islands">
+        <source>Canary Islands</source>
+        <target>__Canary Islands</target>
+      </trans-unit>
+      <trans-unit id="n6by2qV" resname="Cape Verde">
+        <source>Cape Verde</source>
+        <target>__Cape Verde</target>
+      </trans-unit>
+      <trans-unit id="g.KzM2R" resname="Cayman Islands">
+        <source>Cayman Islands</source>
+        <target>__Cayman Islands</target>
+      </trans-unit>
+      <trans-unit id="5QnNpMR" resname="Central African Republic">
+        <source>Central African Republic</source>
+        <target>__Central African Republic</target>
+      </trans-unit>
+      <trans-unit id="GUUHuJh" resname="Ceuta">
+        <source>Ceuta</source>
+        <target>__Ceuta</target>
+      </trans-unit>
+      <trans-unit id="QlblEvz" resname="Chad">
+        <source>Chad</source>
+        <target>__Chad</target>
+      </trans-unit>
+      <trans-unit id="9Sc_I21" resname="Chile">
+        <source>Chile</source>
+        <target>__Chile</target>
+      </trans-unit>
+      <trans-unit id="EENoKQM" resname="China">
+        <source>China</source>
+        <target>__China</target>
+      </trans-unit>
+      <trans-unit id="ENAlwgO" resname="Christmas Island">
+        <source>Christmas Island</source>
+        <target>__Christmas Island</target>
+      </trans-unit>
+      <trans-unit id="ObY97po" resname="Clipperton">
+        <source>Clipperton</source>
+        <target>__Clipperton</target>
+      </trans-unit>
+      <trans-unit id="uOVuQa0" resname="Cocos (Keeling) Islands">
+        <source>Cocos (Keeling) Islands</source>
+        <target>__Cocos (Keeling) Islands</target>
+      </trans-unit>
+      <trans-unit id="a2Fa2xM" resname="Colombia">
+        <source>Colombia</source>
+        <target>__Colombia</target>
+      </trans-unit>
+      <trans-unit id="6BT9tF." resname="Comoros">
+        <source>Comoros</source>
+        <target>__Comoros</target>
+      </trans-unit>
+      <trans-unit id="EPJLijY" resname="Congo-Brazzaville">
+        <source>Congo-Brazzaville</source>
+        <target>__Congo-Brazzaville</target>
+      </trans-unit>
+      <trans-unit id="Cf_WfMY" resname="Congo-Kinshasa">
+        <source>Congo-Kinshasa</source>
+        <target>__Congo-Kinshasa</target>
+      </trans-unit>
+      <trans-unit id="DWgLC0b" resname="Cook Islands (Northern)">
+        <source>Cook Islands (Northern)</source>
+        <target>__Cook Islands (Northern)</target>
+      </trans-unit>
+      <trans-unit id="Wv1cD89" resname="Cook Islands (Southern)">
+        <source>Cook Islands (Southern)</source>
+        <target>__Cook Islands (Southern)</target>
+      </trans-unit>
+      <trans-unit id="jzu1Hra" resname="Corsica">
+        <source>Corsica</source>
+        <target>__Corsica</target>
+      </trans-unit>
+      <trans-unit id="4mdC183" resname="Costa Rica">
+        <source>Costa Rica</source>
+        <target>__Costa Rica</target>
+      </trans-unit>
+      <trans-unit id="cyjT_Cm" resname="Croatia">
+        <source>Croatia</source>
+        <target>__Croatia</target>
+      </trans-unit>
+      <trans-unit id="DQtOQQI" resname="Cuba">
+        <source>Cuba</source>
+        <target>__Cuba</target>
+      </trans-unit>
+      <trans-unit id="XxFixX7" resname="Cyprus">
+        <source>Cyprus</source>
+        <target>__Cyprus</target>
+      </trans-unit>
+      <trans-unit id="7PqWfpA" resname="Czechia">
+        <source>Czechia</source>
+        <target>__Czechia</target>
+      </trans-unit>
+      <trans-unit id="xScJdXd" resname="Denmark">
+        <source>Denmark</source>
+        <target>__Denmark</target>
+      </trans-unit>
+      <trans-unit id="jXhav7U" resname="Desventurados">
+        <source>Desventurados</source>
+        <target>__Desventurados</target>
+      </trans-unit>
+      <trans-unit id=".vGuLfe" resname="Diego Garcia (Biot)">
+        <source>Diego Garcia (Biot)</source>
+        <target>__Diego Garcia (Biot)</target>
+      </trans-unit>
+      <trans-unit id="RnilezC" resname="Djibouti">
+        <source>Djibouti</source>
+        <target>__Djibouti</target>
+      </trans-unit>
+      <trans-unit id="vip.VoT" resname="Dominica">
+        <source>Dominica</source>
+        <target>__Dominica</target>
+      </trans-unit>
+      <trans-unit id="geiEyy6" resname="Dominican Republic">
+        <source>Dominican Republic</source>
+        <target>__Dominican Republic</target>
+      </trans-unit>
+      <trans-unit id="gqzZM9m" resname="Easter Island">
+        <source>Easter Island</source>
+        <target>__Easter Island</target>
+      </trans-unit>
+      <trans-unit id="LKJsYP4" resname="Ecuador">
+        <source>Ecuador</source>
+        <target>__Ecuador</target>
+      </trans-unit>
+      <trans-unit id="VXwVmdm" resname="Egypt">
+        <source>Egypt</source>
+        <target>__Egypt</target>
+      </trans-unit>
+      <trans-unit id="xAjSbB7" resname="El Salvador">
+        <source>El Salvador</source>
+        <target>__El Salvador</target>
+      </trans-unit>
+      <trans-unit id="wOqWCwZ" resname="England">
+        <source>England</source>
+        <target>__England</target>
+      </trans-unit>
+      <trans-unit id="iZRoeEO" resname="Equatorial Guinea">
+        <source>Equatorial Guinea</source>
+        <target>__Equatorial Guinea</target>
+      </trans-unit>
+      <trans-unit id="AbxACTk" resname="Eritrea">
+        <source>Eritrea</source>
+        <target>__Eritrea</target>
+      </trans-unit>
+      <trans-unit id="EK66aX9" resname="Estonia">
+        <source>Estonia</source>
+        <target>__Estonia</target>
+      </trans-unit>
+      <trans-unit id="fZSXfgM" resname="Ethiopia">
+        <source>Ethiopia</source>
+        <target>__Ethiopia</target>
+      </trans-unit>
+      <trans-unit id="9ymHWG0" resname="Europa Island">
+        <source>Europa Island</source>
+        <target>__Europa Island</target>
+      </trans-unit>
+      <trans-unit id="w4fi1Q." resname="Falkland Islands">
+        <source>Falkland Islands</source>
+        <target>__Falkland Islands</target>
+      </trans-unit>
+      <trans-unit id="dzyk1hg" resname="Faroe Islands">
+        <source>Faroe Islands</source>
+        <target>__Faroe Islands</target>
+      </trans-unit>
+      <trans-unit id="9oIV.7L" resname="Fernando de Noronha (BRA)">
+        <source>Fernando de Noronha (BRA)</source>
+        <target>__Fernando de Noronha (BRA)</target>
+      </trans-unit>
+      <trans-unit id="Z5wC3NK" resname="Fiji">
+        <source>Fiji</source>
+        <target>__Fiji</target>
+      </trans-unit>
+      <trans-unit id="rtj1Map" resname="Finland">
+        <source>Finland</source>
+        <target>__Finland</target>
+      </trans-unit>
+      <trans-unit id="ehyk73U" resname="France">
+        <source>France</source>
+        <target>__France</target>
+      </trans-unit>
+      <trans-unit id="q0lf_bW" resname="French Guyana">
+        <source>French Guyana</source>
+        <target>__French Guyana</target>
+      </trans-unit>
+      <trans-unit id="fiIqeOd" resname="Gabon">
+        <source>Gabon</source>
+        <target>__Gabon</target>
+      </trans-unit>
+      <trans-unit id="2dBUyWw" resname="Galapagos">
+        <source>Galapagos</source>
+        <target>__Galapagos</target>
+      </trans-unit>
+      <trans-unit id="xuaBsZa" resname="Gambia">
+        <source>Gambia</source>
+        <target>__Gambia</target>
+      </trans-unit>
+      <trans-unit id="RpFJIXn" resname="Georgia">
+        <source>Georgia</source>
+        <target>__Georgia</target>
+      </trans-unit>
+      <trans-unit id="gNtMzco" resname="Germany">
+        <source>Germany</source>
+        <target>__Germany</target>
+      </trans-unit>
+      <trans-unit id="WDIBwe_" resname="Ghana">
+        <source>Ghana</source>
+        <target>__Ghana</target>
+      </trans-unit>
+      <trans-unit id="CXztWC8" resname="Gibraltar">
+        <source>Gibraltar</source>
+        <target>__Gibraltar</target>
+      </trans-unit>
+      <trans-unit id="QKcf_NF" resname="Glorieuse Island">
+        <source>Glorieuse Island</source>
+        <target>__Glorieuse Island</target>
+      </trans-unit>
+      <trans-unit id="nJOtQ5N" resname="Greece">
+        <source>Greece</source>
+        <target>__Greece</target>
+      </trans-unit>
+      <trans-unit id="SOEClq4" resname="Greenland">
+        <source>Greenland</source>
+        <target>__Greenland</target>
+      </trans-unit>
+      <trans-unit id="BZOqDI7" resname="Grenada">
+        <source>Grenada</source>
+        <target>__Grenada</target>
+      </trans-unit>
+      <trans-unit id="NcnePGO" resname="Guadeloupe">
+        <source>Guadeloupe</source>
+        <target>__Guadeloupe</target>
+      </trans-unit>
+      <trans-unit id="XEsyHst" resname="Guam">
+        <source>Guam</source>
+        <target>__Guam</target>
+      </trans-unit>
+      <trans-unit id="RaFaJHD" resname="Guatemala">
+        <source>Guatemala</source>
+        <target>__Guatemala</target>
+      </trans-unit>
+      <trans-unit id="ucSMsf6" resname="Guernsey">
+        <source>Guernsey</source>
+        <target>__Guernsey</target>
+      </trans-unit>
+      <trans-unit id="3Vkdd_p" resname="Guinea">
+        <source>Guinea</source>
+        <target>__Guinea</target>
+      </trans-unit>
+      <trans-unit id="dej0Yvn" resname="Guinea-Bissau">
+        <source>Guinea-Bissau</source>
+        <target>__Guinea-Bissau</target>
+      </trans-unit>
+      <trans-unit id="6jv8Jvp" resname="Guyana">
+        <source>Guyana</source>
+        <target>__Guyana</target>
+      </trans-unit>
+      <trans-unit id="0JC4fko" resname="Haiti">
+        <source>Haiti</source>
+        <target>__Haiti</target>
+      </trans-unit>
+      <trans-unit id="EkQtrih" resname="Hawaii">
+        <source>Hawaii</source>
+        <target>__Hawaii</target>
+      </trans-unit>
+      <trans-unit id="t5tfl7x" resname="Honduras">
+        <source>Honduras</source>
+        <target>__Honduras</target>
+      </trans-unit>
+      <trans-unit id="bowjqLt" resname="Howland &amp; Baker Islands">
+        <source>Howland &amp; Baker Islands</source>
+        <target><![CDATA[__Howland & Baker Islands]]></target>
+      </trans-unit>
+      <trans-unit id="UEvjCE9" resname="Hungary">
+        <source>Hungary</source>
+        <target>__Hungary</target>
+      </trans-unit>
+      <trans-unit id="WV1tkUl" resname="Iceland">
+        <source>Iceland</source>
+        <target>__Iceland</target>
+      </trans-unit>
+      <trans-unit id="q9FJIUU" resname="India">
+        <source>India</source>
+        <target>__India</target>
+      </trans-unit>
+      <trans-unit id="28dKNtj" resname="Indonesia">
+        <source>Indonesia</source>
+        <target>__Indonesia</target>
+      </trans-unit>
+      <trans-unit id="SJY_Fv8" resname="Int Waters: Africa">
+        <source>Int Waters: Africa</source>
+        <target>__Int Waters: Africa</target>
+      </trans-unit>
+      <trans-unit id="3rX3Djg" resname="Int Waters: Asia">
+        <source>Int Waters: Asia</source>
+        <target>__Int Waters: Asia</target>
+      </trans-unit>
+      <trans-unit id="xWxYKr7" resname="Int Waters: C.America / Carribean">
+        <source>Int Waters: C.America / Carribean</source>
+        <target>__Int Waters: C.America / Carribean</target>
+      </trans-unit>
+      <trans-unit id="u8rZ1T7" resname="Int Waters: Europe">
+        <source>Int Waters: Europe</source>
+        <target>__Int Waters: Europe</target>
+      </trans-unit>
+      <trans-unit id="N2yPWH6" resname="Int Waters: N.America">
+        <source>Int Waters: N.America</source>
+        <target>__Int Waters: N.America</target>
+      </trans-unit>
+      <trans-unit id="hOpyybT" resname="Int Waters: Oceania">
+        <source>Int Waters: Oceania</source>
+        <target>__Int Waters: Oceania</target>
+      </trans-unit>
+      <trans-unit id="HAbCLfe" resname="Int Waters: S.America">
+        <source>Int Waters: S.America</source>
+        <target>__Int Waters: S.America</target>
+      </trans-unit>
+      <trans-unit id="GNThcHZ" resname="Iran">
+        <source>Iran</source>
+        <target>__Iran</target>
+      </trans-unit>
+      <trans-unit id="3lAI0ZS" resname="Iraq">
+        <source>Iraq</source>
+        <target>__Iraq</target>
+      </trans-unit>
+      <trans-unit id="Ar8d_po" resname="Ireland">
+        <source>Ireland</source>
+        <target>__Ireland</target>
+      </trans-unit>
+      <trans-unit id="au.7qIP" resname="Isle Of Man">
+        <source>Isle Of Man</source>
+        <target>__Isle Of Man</target>
+      </trans-unit>
+      <trans-unit id="NVKsDAM" resname="Israel">
+        <source>Israel</source>
+        <target>__Israel</target>
+      </trans-unit>
+      <trans-unit id="Wpz2csi" resname="Italy">
+        <source>Italy</source>
+        <target>__Italy</target>
+      </trans-unit>
+      <trans-unit id="2bZ9vfv" resname="Ivory Coast">
+        <source>Ivory Coast</source>
+        <target>__Ivory Coast</target>
+      </trans-unit>
+      <trans-unit id="QsKYuhf" resname="Jamaica">
+        <source>Jamaica</source>
+        <target>__Jamaica</target>
+      </trans-unit>
+      <trans-unit id="SymuHYr" resname="Jan Mayen">
+        <source>Jan Mayen</source>
+        <target>__Jan Mayen</target>
+      </trans-unit>
+      <trans-unit id="ZHKUODs" resname="Japan">
+        <source>Japan</source>
+        <target>__Japan</target>
+      </trans-unit>
+      <trans-unit id="YYn3iYv" resname="Jarvis">
+        <source>Jarvis</source>
+        <target>__Jarvis</target>
+      </trans-unit>
+      <trans-unit id="dkqMBK1" resname="Jersey">
+        <source>Jersey</source>
+        <target>__Jersey</target>
+      </trans-unit>
+      <trans-unit id="tIwjDni" resname="Johnston Island">
+        <source>Johnston Island</source>
+        <target>__Johnston Island</target>
+      </trans-unit>
+      <trans-unit id="6L.h7Wk" resname="Jordan">
+        <source>Jordan</source>
+        <target>__Jordan</target>
+      </trans-unit>
+      <trans-unit id="Kz3Mgiv" resname="Juan De Nova Island">
+        <source>Juan De Nova Island</source>
+        <target>__Juan De Nova Island</target>
+      </trans-unit>
+      <trans-unit id="QyRj0fP" resname="Juan Fernandez &amp; Isla Rob">
+        <source>Juan Fernandez &amp; Isla Rob</source>
+        <target><![CDATA[__Juan Fernandez & Isla Rob]]></target>
+      </trans-unit>
+      <trans-unit id="kiS1F0g" resname="Kalinigrad">
+        <source>Kalinigrad</source>
+        <target>__Kalinigrad</target>
+      </trans-unit>
+      <trans-unit id="dcArjS_" resname="Kazakhstan">
+        <source>Kazakhstan</source>
+        <target>__Kazakhstan</target>
+      </trans-unit>
+      <trans-unit id="dOGJHcY" resname="Kenya">
+        <source>Kenya</source>
+        <target>__Kenya</target>
+      </trans-unit>
+      <trans-unit id="GfeScwm" resname="Kirghizistan">
+        <source>Kirghizistan</source>
+        <target>__Kirghizistan</target>
+      </trans-unit>
+      <trans-unit id="gZEjFGw" resname="Kiribati">
+        <source>Kiribati</source>
+        <target>__Kiribati</target>
+      </trans-unit>
+      <trans-unit id="ZGmSMVE" resname="Korea, North">
+        <source>Korea, North</source>
+        <target>__Korea, North</target>
+      </trans-unit>
+      <trans-unit id="r_S8qzE" resname="Korea, South">
+        <source>Korea, South</source>
+        <target>__Korea, South</target>
+      </trans-unit>
+      <trans-unit id="EMPC4u3" resname="Kuwait">
+        <source>Kuwait</source>
+        <target>__Kuwait</target>
+      </trans-unit>
+      <trans-unit id="mOGPRmh" resname="Laos">
+        <source>Laos</source>
+        <target>__Laos</target>
+      </trans-unit>
+      <trans-unit id="mIyBYLd" resname="Latvia">
+        <source>Latvia</source>
+        <target>__Latvia</target>
+      </trans-unit>
+      <trans-unit id="403WFrl" resname="Lebanon">
+        <source>Lebanon</source>
+        <target>__Lebanon</target>
+      </trans-unit>
+      <trans-unit id="XC5HRcY" resname="Lesotho">
+        <source>Lesotho</source>
+        <target>__Lesotho</target>
+      </trans-unit>
+      <trans-unit id="ydJgTdU" resname="Liberia">
+        <source>Liberia</source>
+        <target>__Liberia</target>
+      </trans-unit>
+      <trans-unit id="KqL871D" resname="Libya">
+        <source>Libya</source>
+        <target>__Libya</target>
+      </trans-unit>
+      <trans-unit id="b.CAwHi" resname="Liechtenstein">
+        <source>Liechtenstein</source>
+        <target>__Liechtenstein</target>
+      </trans-unit>
+      <trans-unit id="TIhdL6L" resname="Line Islands (North)">
+        <source>Line Islands (North)</source>
+        <target>__Line Islands (North)</target>
+      </trans-unit>
+      <trans-unit id="1GIGDvR" resname="Line Islands (South)">
+        <source>Line Islands (South)</source>
+        <target>__Line Islands (South)</target>
+      </trans-unit>
+      <trans-unit id="XIOmMbz" resname="Lithuania">
+        <source>Lithuania</source>
+        <target>__Lithuania</target>
+      </trans-unit>
+      <trans-unit id="6GzFGL0" resname="Lord Howe Island">
+        <source>Lord Howe Island</source>
+        <target>__Lord Howe Island</target>
+      </trans-unit>
+      <trans-unit id="7XbxkWI" resname="Luxembourg">
+        <source>Luxembourg</source>
+        <target>__Luxembourg</target>
+      </trans-unit>
+      <trans-unit id="eHMogwn" resname="Macedonia">
+        <source>Macedonia</source>
+        <target>__Macedonia</target>
+      </trans-unit>
+      <trans-unit id="1oBEZMX" resname="Madagascar">
+        <source>Madagascar</source>
+        <target>__Madagascar</target>
+      </trans-unit>
+      <trans-unit id="LF0Poco" resname="Madeira">
+        <source>Madeira</source>
+        <target>__Madeira</target>
+      </trans-unit>
+      <trans-unit id="YRAlzd4" resname="Malawi">
+        <source>Malawi</source>
+        <target>__Malawi</target>
+      </trans-unit>
+      <trans-unit id="CEUEFls" resname="Malaysia">
+        <source>Malaysia</source>
+        <target>__Malaysia</target>
+      </trans-unit>
+      <trans-unit id="j7VEcaS" resname="Maldives">
+        <source>Maldives</source>
+        <target>__Maldives</target>
+      </trans-unit>
+      <trans-unit id="7lchpaY" resname="Mali">
+        <source>Mali</source>
+        <target>__Mali</target>
+      </trans-unit>
+      <trans-unit id="cenrEHV" resname="Malta">
+        <source>Malta</source>
+        <target>__Malta</target>
+      </trans-unit>
+      <trans-unit id="XihquEn" resname="Marquesas Islands">
+        <source>Marquesas Islands</source>
+        <target>__Marquesas Islands</target>
+      </trans-unit>
+      <trans-unit id=".jPJJc4" resname="Marshall Islands">
+        <source>Marshall Islands</source>
+        <target>__Marshall Islands</target>
+      </trans-unit>
+      <trans-unit id="xlkG3Hz" resname="Martinique">
+        <source>Martinique</source>
+        <target>__Martinique</target>
+      </trans-unit>
+      <trans-unit id="v7DI029" resname="Mauritania">
+        <source>Mauritania</source>
+        <target>__Mauritania</target>
+      </trans-unit>
+      <trans-unit id="qoBX7LQ" resname="Mauritius">
+        <source>Mauritius</source>
+        <target>__Mauritius</target>
+      </trans-unit>
+      <trans-unit id="0ItKDw3" resname="Mayotte">
+        <source>Mayotte</source>
+        <target>__Mayotte</target>
+      </trans-unit>
+      <trans-unit id="KYhoafA" resname="Melilla">
+        <source>Melilla</source>
+        <target>__Melilla</target>
+      </trans-unit>
+      <trans-unit id="p9NVsmv" resname="Mexico">
+        <source>Mexico</source>
+        <target>__Mexico</target>
+      </trans-unit>
+      <trans-unit id="1wg1tWR" resname="Micronesia">
+        <source>Micronesia</source>
+        <target>__Micronesia</target>
+      </trans-unit>
+      <trans-unit id="kRYJCZk" resname="Midway Island">
+        <source>Midway Island</source>
+        <target>__Midway Island</target>
+      </trans-unit>
+      <trans-unit id="eReNla5" resname="Minami Tori Shima (JPN)">
+        <source>Minami Tori Shima (JPN)</source>
+        <target>__Minami Tori Shima (JPN)</target>
+      </trans-unit>
+      <trans-unit id="FK1jocY" resname="Moldova">
+        <source>Moldova</source>
+        <target>__Moldova</target>
+      </trans-unit>
+      <trans-unit id="k1AYzEF" resname="Monaco">
+        <source>Monaco</source>
+        <target>__Monaco</target>
+      </trans-unit>
+      <trans-unit id="mafAZac" resname="Mongolia">
+        <source>Mongolia</source>
+        <target>__Mongolia</target>
+      </trans-unit>
+      <trans-unit id="DxPh1er" resname="Montenegro (Yugoslavia)">
+        <source>Montenegro (Yugoslavia)</source>
+        <target>__Montenegro (Yugoslavia)</target>
+      </trans-unit>
+      <trans-unit id="EnvP6XZ" resname="Montserrat">
+        <source>Montserrat</source>
+        <target>__Montserrat</target>
+      </trans-unit>
+      <trans-unit id="tnX131." resname="Morocco">
+        <source>Morocco</source>
+        <target>__Morocco</target>
+      </trans-unit>
+      <trans-unit id="yQVIJvc" resname="Mozambique">
+        <source>Mozambique</source>
+        <target>__Mozambique</target>
+      </trans-unit>
+      <trans-unit id="uiA5pM9" resname="Myanmar">
+        <source>Myanmar</source>
+        <target>__Myanmar</target>
+      </trans-unit>
+      <trans-unit id="Yd_cPgR" resname="Nakhichevan (Azerbaijan)">
+        <source>Nakhichevan (Azerbaijan)</source>
+        <target>__Nakhichevan (Azerbaijan)</target>
+      </trans-unit>
+      <trans-unit id="6lvTmEj" resname="Namibia">
+        <source>Namibia</source>
+        <target>__Namibia</target>
+      </trans-unit>
+      <trans-unit id="V_kAiF1" resname="Nauru">
+        <source>Nauru</source>
+        <target>__Nauru</target>
+      </trans-unit>
+      <trans-unit id="4VoYqty" resname="Nepal">
+        <source>Nepal</source>
+        <target>__Nepal</target>
+      </trans-unit>
+      <trans-unit id="OjhsE9K" resname="Netherlands">
+        <source>Netherlands</source>
+        <target>__Netherlands</target>
+      </trans-unit>
+      <trans-unit id="sPbuQCR" resname="Netherlands Antilles">
+        <source>Netherlands Antilles</source>
+        <target>__Netherlands Antilles</target>
+      </trans-unit>
+      <trans-unit id="vmABH1Y" resname="New Caledonia">
+        <source>New Caledonia</source>
+        <target>__New Caledonia</target>
+      </trans-unit>
+      <trans-unit id="KJjhbU5" resname="New Zealand">
+        <source>New Zealand</source>
+        <target>__New Zealand</target>
+      </trans-unit>
+      <trans-unit id="lOa9V0t" resname="Nicaragua">
+        <source>Nicaragua</source>
+        <target>__Nicaragua</target>
+      </trans-unit>
+      <trans-unit id="LL68VB_" resname="Niger">
+        <source>Niger</source>
+        <target>__Niger</target>
+      </trans-unit>
+      <trans-unit id="BJUqD5h" resname="Nigeria">
+        <source>Nigeria</source>
+        <target>__Nigeria</target>
+      </trans-unit>
+      <trans-unit id="hJgAzq9" resname="Niue Island">
+        <source>Niue Island</source>
+        <target>__Niue Island</target>
+      </trans-unit>
+      <trans-unit id="TQ37h38" resname="Norfolk Island">
+        <source>Norfolk Island</source>
+        <target>__Norfolk Island</target>
+      </trans-unit>
+      <trans-unit id="MEp_oQD" resname="Northern Ireland">
+        <source>Northern Ireland</source>
+        <target>__Northern Ireland</target>
+      </trans-unit>
+      <trans-unit id="ZlRdNbP" resname="Northern Mariana Islands">
+        <source>Northern Mariana Islands</source>
+        <target>__Northern Mariana Islands</target>
+      </trans-unit>
+      <trans-unit id="vqVKNJe" resname="Norway">
+        <source>Norway</source>
+        <target>__Norway</target>
+      </trans-unit>
+      <trans-unit id="r6G8dww" resname="Ogasawara (JPN)">
+        <source>Ogasawara (JPN)</source>
+        <target>__Ogasawara (JPN)</target>
+      </trans-unit>
+      <trans-unit id="_jNKF4s" resname="Okino Tori Shima (JPN)">
+        <source>Okino Tori Shima (JPN)</source>
+        <target>__Okino Tori Shima (JPN)</target>
+      </trans-unit>
+      <trans-unit id="w85L_I2" resname="Oman">
+        <source>Oman</source>
+        <target>__Oman</target>
+      </trans-unit>
+      <trans-unit id="8bk_kcn" resname="Orkney Islands">
+        <source>Orkney Islands</source>
+        <target>__Orkney Islands</target>
+      </trans-unit>
+      <trans-unit id="4lZzEux" resname="Pakistan">
+        <source>Pakistan</source>
+        <target>__Pakistan</target>
+      </trans-unit>
+      <trans-unit id="f6ZHc9z" resname="Palau">
+        <source>Palau</source>
+        <target>__Palau</target>
+      </trans-unit>
+      <trans-unit id="4wUQcQL" resname="Palmyra">
+        <source>Palmyra</source>
+        <target>__Palmyra</target>
+      </trans-unit>
+      <trans-unit id="w2aPWBK" resname="Panama">
+        <source>Panama</source>
+        <target>__Panama</target>
+      </trans-unit>
+      <trans-unit id="xldCzrK" resname="Papua New Guinea">
+        <source>Papua New Guinea</source>
+        <target>__Papua New Guinea</target>
+      </trans-unit>
+      <trans-unit id="f7TReex" resname="Paraguay">
+        <source>Paraguay</source>
+        <target>__Paraguay</target>
+      </trans-unit>
+      <trans-unit id="UIcxo8X" resname="Peru">
+        <source>Peru</source>
+        <target>__Peru</target>
+      </trans-unit>
+      <trans-unit id="w3gshtg" resname="Philippines">
+        <source>Philippines</source>
+        <target>__Philippines</target>
+      </trans-unit>
+      <trans-unit id="CqUD.jd" resname="Phoenix Islands">
+        <source>Phoenix Islands</source>
+        <target>__Phoenix Islands</target>
+      </trans-unit>
+      <trans-unit id="sRIFnmI" resname="Pitcairn Island">
+        <source>Pitcairn Island</source>
+        <target>__Pitcairn Island</target>
+      </trans-unit>
+      <trans-unit id="f2lkmtc" resname="Poland">
+        <source>Poland</source>
+        <target>__Poland</target>
+      </trans-unit>
+      <trans-unit id="TH3iw9p" resname="Portugal">
+        <source>Portugal</source>
+        <target>__Portugal</target>
+      </trans-unit>
+      <trans-unit id="2apD6tX" resname="Puerto Rico">
+        <source>Puerto Rico</source>
+        <target>__Puerto Rico</target>
+      </trans-unit>
+      <trans-unit id="VczFAU8" resname="Qatar">
+        <source>Qatar</source>
+        <target>__Qatar</target>
+      </trans-unit>
+      <trans-unit id="xP_0V3l" resname="Reunion">
+        <source>Reunion</source>
+        <target>__Reunion</target>
+      </trans-unit>
+      <trans-unit id="6iNybdD" resname="Romania">
+        <source>Romania</source>
+        <target>__Romania</target>
+      </trans-unit>
+      <trans-unit id="lP5dK1Q" resname="Russia (Eastern)">
+        <source>Russia (Eastern)</source>
+        <target>__Russia (Eastern)</target>
+      </trans-unit>
+      <trans-unit id="ZIvbuGW" resname="Russia (European)">
+        <source>Russia (European)</source>
+        <target>__Russia (European)</target>
+      </trans-unit>
+      <trans-unit id="Esj49JE" resname="Rwanda">
+        <source>Rwanda</source>
+        <target>__Rwanda</target>
+      </trans-unit>
+      <trans-unit id="R5b_suQ" resname="Ryukyu Islands (JPN)">
+        <source>Ryukyu Islands (JPN)</source>
+        <target>__Ryukyu Islands (JPN)</target>
+      </trans-unit>
+      <trans-unit id="JPiQ002" resname="Saints Peter and Paul Rocks (BRA)">
+        <source>Saints Peter and Paul Rocks (BRA)</source>
+        <target>__Saints Peter and Paul Rocks (BRA)</target>
+      </trans-unit>
+      <trans-unit id="25HuTtd" resname="Samoa, American">
+        <source>Samoa, American</source>
+        <target>__Samoa, American</target>
+      </trans-unit>
+      <trans-unit id="2tPIZDX" resname="Samoa, Western">
+        <source>Samoa, Western</source>
+        <target>__Samoa, Western</target>
+      </trans-unit>
+      <trans-unit id="3H3ft_4" resname="San Andres &amp; Providencia">
+        <source>San Andres &amp; Providencia</source>
+        <target><![CDATA[__San Andres & Providencia]]></target>
+      </trans-unit>
+      <trans-unit id="IwRQokm" resname="San Marino">
+        <source>San Marino</source>
+        <target>__San Marino</target>
+      </trans-unit>
+      <trans-unit id="Ef1865l" resname="Sao Tome E Principe">
+        <source>Sao Tome E Principe</source>
+        <target>__Sao Tome E Principe</target>
+      </trans-unit>
+      <trans-unit id="Q.SpuI8" resname="Sardinia">
+        <source>Sardinia</source>
+        <target>__Sardinia</target>
+      </trans-unit>
+      <trans-unit id="7ZrRNhH" resname="Saudi Arabia">
+        <source>Saudi Arabia</source>
+        <target>__Saudi Arabia</target>
+      </trans-unit>
+      <trans-unit id="okZnDb9" resname="Scotland">
+        <source>Scotland</source>
+        <target>__Scotland</target>
+      </trans-unit>
+      <trans-unit id="Nk5fZSX" resname="Senegal">
+        <source>Senegal</source>
+        <target>__Senegal</target>
+      </trans-unit>
+      <trans-unit id="LY2GXHe" resname="Serbia (Yugoslavia)">
+        <source>Serbia (Yugoslavia)</source>
+        <target>__Serbia (Yugoslavia)</target>
+      </trans-unit>
+      <trans-unit id="0dYzIIU" resname="Seychelles">
+        <source>Seychelles</source>
+        <target>__Seychelles</target>
+      </trans-unit>
+      <trans-unit id="RuAIzlm" resname="Shetland Islands">
+        <source>Shetland Islands</source>
+        <target>__Shetland Islands</target>
+      </trans-unit>
+      <trans-unit id="vlmwWer" resname="Sicily">
+        <source>Sicily</source>
+        <target>__Sicily</target>
+      </trans-unit>
+      <trans-unit id="9AW5jV." resname="Sierra Leone">
+        <source>Sierra Leone</source>
+        <target>__Sierra Leone</target>
+      </trans-unit>
+      <trans-unit id="yW3YHbG" resname="Singapore">
+        <source>Singapore</source>
+        <target>__Singapore</target>
+      </trans-unit>
+      <trans-unit id="ouozhOA" resname="Slovakia">
+        <source>Slovakia</source>
+        <target>__Slovakia</target>
+      </trans-unit>
+      <trans-unit id="VgWef7T" resname="Slovenia">
+        <source>Slovenia</source>
+        <target>__Slovenia</target>
+      </trans-unit>
+      <trans-unit id="pcSJIYQ" resname="Society Islands (Tahiti)">
+        <source>Society Islands (Tahiti)</source>
+        <target>__Society Islands (Tahiti)</target>
+      </trans-unit>
+      <trans-unit id="z.TFjeC" resname="Solomon Islands">
+        <source>Solomon Islands</source>
+        <target>__Solomon Islands</target>
+      </trans-unit>
+      <trans-unit id="vQXTJNi" resname="Somalia">
+        <source>Somalia</source>
+        <target>__Somalia</target>
+      </trans-unit>
+      <trans-unit id="PgSdeNl" resname="South Africa">
+        <source>South Africa</source>
+        <target>__South Africa</target>
+      </trans-unit>
+      <trans-unit id="7BUXYrV" resname="South Georgia (UK)">
+        <source>South Georgia (UK)</source>
+        <target>__South Georgia (UK)</target>
+      </trans-unit>
+      <trans-unit id="S5hRow0" resname="South Orkney Is. (UK)">
+        <source>South Orkney Is. (UK)</source>
+        <target>__South Orkney Is. (UK)</target>
+      </trans-unit>
+      <trans-unit id="iax1qgr" resname="South Sandwich Is. (UK)">
+        <source>South Sandwich Is. (UK)</source>
+        <target>__South Sandwich Is. (UK)</target>
+      </trans-unit>
+      <trans-unit id="ueBis4i" resname="South Shetland Is. (UK)">
+        <source>South Shetland Is. (UK)</source>
+        <target>__South Shetland Is. (UK)</target>
+      </trans-unit>
+      <trans-unit id="jvQeb0s" resname="Spain">
+        <source>Spain</source>
+        <target>__Spain</target>
+      </trans-unit>
+      <trans-unit id="r9OKDRZ" resname="Spratley Islands">
+        <source>Spratley Islands</source>
+        <target>__Spratley Islands</target>
+      </trans-unit>
+      <trans-unit id="B.jRFEo" resname="Sri Lanka">
+        <source>Sri Lanka</source>
+        <target>__Sri Lanka</target>
+      </trans-unit>
+      <trans-unit id="3kdvZbP" resname="St Barthelemy">
+        <source>St Barthelemy</source>
+        <target>__St Barthelemy</target>
+      </trans-unit>
+      <trans-unit id="xQCWdvc" resname="St Helena">
+        <source>St Helena</source>
+        <target>__St Helena</target>
+      </trans-unit>
+      <trans-unit id="zfLAG_U" resname="St Kitts-Nevis">
+        <source>St Kitts-Nevis</source>
+        <target>__St Kitts-Nevis</target>
+      </trans-unit>
+      <trans-unit id="NnoL.fQ" resname="St Lucia">
+        <source>St Lucia</source>
+        <target>__St Lucia</target>
+      </trans-unit>
+      <trans-unit id="a8.lFKR" resname="St Pierre Et Miquelon">
+        <source>St Pierre Et Miquelon</source>
+        <target>__St Pierre Et Miquelon</target>
+      </trans-unit>
+      <trans-unit id="DPWEqao" resname="St Vincent">
+        <source>St Vincent</source>
+        <target>__St Vincent</target>
+      </trans-unit>
+      <trans-unit id="7WjU3vG" resname="Sudan">
+        <source>Sudan</source>
+        <target>__Sudan</target>
+      </trans-unit>
+      <trans-unit id="scuOrFs" resname="Suriname">
+        <source>Suriname</source>
+        <target>__Suriname</target>
+      </trans-unit>
+      <trans-unit id="Vw1Thiv" resname="Svalbard">
+        <source>Svalbard</source>
+        <target>__Svalbard</target>
+      </trans-unit>
+      <trans-unit id="BS.9ZVN" resname="Swan Island (Islas Del Cisne)">
+        <source>Swan Island (Islas Del Cisne)</source>
+        <target>__Swan Island (Islas Del Cisne)</target>
+      </trans-unit>
+      <trans-unit id="GIEFWE_" resname="Swaziland">
+        <source>Swaziland</source>
+        <target>__Swaziland</target>
+      </trans-unit>
+      <trans-unit id="hTY3E2V" resname="Sweden">
+        <source>Sweden</source>
+        <target>__Sweden</target>
+      </trans-unit>
+      <trans-unit id="InVYMZb" resname="Switzerland">
+        <source>Switzerland</source>
+        <target>__Switzerland</target>
+      </trans-unit>
+      <trans-unit id="z2rCm_H" resname="Syria">
+        <source>Syria</source>
+        <target>__Syria</target>
+      </trans-unit>
+      <trans-unit id="3XavGW4" resname="Taiwan">
+        <source>Taiwan</source>
+        <target>__Taiwan</target>
+      </trans-unit>
+      <trans-unit id="BmsCEwt" resname="Tajikistan">
+        <source>Tajikistan</source>
+        <target>__Tajikistan</target>
+      </trans-unit>
+      <trans-unit id="lVVmT89" resname="Tanzania">
+        <source>Tanzania</source>
+        <target>__Tanzania</target>
+      </trans-unit>
+      <trans-unit id="bknmUIG" resname="Thailand">
+        <source>Thailand</source>
+        <target>__Thailand</target>
+      </trans-unit>
+      <trans-unit id="WI1Wsyo" resname="Timor">
+        <source>Timor</source>
+        <target>__Timor</target>
+      </trans-unit>
+      <trans-unit id="QIA0PuD" resname="Togo">
+        <source>Togo</source>
+        <target>__Togo</target>
+      </trans-unit>
+      <trans-unit id="OfwVA6d" resname="Tokelau">
+        <source>Tokelau</source>
+        <target>__Tokelau</target>
+      </trans-unit>
+      <trans-unit id="MQvDJQl" resname="Tonga">
+        <source>Tonga</source>
+        <target>__Tonga</target>
+      </trans-unit>
+      <trans-unit id="cT6pvXA" resname="Trinadade Martin Vas Is. (BRA)">
+        <source>Trinadade Martin Vas Is. (BRA)</source>
+        <target>__Trinadade Martin Vas Is. (BRA)</target>
+      </trans-unit>
+      <trans-unit id="FxTCMdv" resname="Trinidad &amp; Tobago">
+        <source>Trinidad &amp; Tobago</source>
+        <target><![CDATA[__Trinidad & Tobago]]></target>
+      </trans-unit>
+      <trans-unit id="OGTcsP6" resname="Tristan Da Cunha">
+        <source>Tristan Da Cunha</source>
+        <target>__Tristan Da Cunha</target>
+      </trans-unit>
+      <trans-unit id="q7k.Da9" resname="Tromelin Island">
+        <source>Tromelin Island</source>
+        <target>__Tromelin Island</target>
+      </trans-unit>
+      <trans-unit id="LBfUlFH" resname="Tuamotu Archipelago">
+        <source>Tuamotu Archipelago</source>
+        <target>__Tuamotu Archipelago</target>
+      </trans-unit>
+      <trans-unit id="RgloKi8" resname="Tunisia">
+        <source>Tunisia</source>
+        <target>__Tunisia</target>
+      </trans-unit>
+      <trans-unit id="B8Z9du_" resname="Turkey">
+        <source>Turkey</source>
+        <target>__Turkey</target>
+      </trans-unit>
+      <trans-unit id="s9.IUF1" resname="Turkmenistan">
+        <source>Turkmenistan</source>
+        <target>__Turkmenistan</target>
+      </trans-unit>
+      <trans-unit id="WT1bbGc" resname="Turks &amp; Caicos Islands">
+        <source>Turks &amp; Caicos Islands</source>
+        <target><![CDATA[__Turks & Caicos Islands]]></target>
+      </trans-unit>
+      <trans-unit id="MLH.mu7" resname="Tuvalu">
+        <source>Tuvalu</source>
+        <target>__Tuvalu</target>
+      </trans-unit>
+      <trans-unit id="iT1ThWO" resname="Uganda">
+        <source>Uganda</source>
+        <target>__Uganda</target>
+      </trans-unit>
+      <trans-unit id="WA7txmn" resname="Ukraine">
+        <source>Ukraine</source>
+        <target>__Ukraine</target>
+      </trans-unit>
+      <trans-unit id="vedtTmw" resname="UNID (Africa?)">
+        <source>UNID (Africa?)</source>
+        <target>__UNID (Africa?)</target>
+      </trans-unit>
+      <trans-unit id="On4n4Y9" resname="UNID (Asia?)">
+        <source>UNID (Asia?)</source>
+        <target>__UNID (Asia?)</target>
+      </trans-unit>
+      <trans-unit id="OqrotIl" resname="UNID (C.America / Carribean?)">
+        <source>UNID (C.America / Carribean?)</source>
+        <target>__UNID (C.America / Carribean?)</target>
+      </trans-unit>
+      <trans-unit id="TsnKwNQ" resname="UNID (Europe?)">
+        <source>UNID (Europe?)</source>
+        <target>__UNID (Europe?)</target>
+      </trans-unit>
+      <trans-unit id="H63T0YG" resname="UNID (N.America?)">
+        <source>UNID (N.America?)</source>
+        <target>__UNID (N.America?)</target>
+      </trans-unit>
+      <trans-unit id="xjIlkH3" resname="UNID (No idea where)">
+        <source>UNID (No idea where)</source>
+        <target>__UNID (No idea where)</target>
+      </trans-unit>
+      <trans-unit id="KMOispN" resname="UNID (Oceania?)">
+        <source>UNID (Oceania?)</source>
+        <target>__UNID (Oceania?)</target>
+      </trans-unit>
+      <trans-unit id="YlfT459" resname="UNID (S.America?)">
+        <source>UNID (S.America?)</source>
+        <target>__UNID (S.America?)</target>
+      </trans-unit>
+      <trans-unit id="3WSRPIu" resname="United Arab Emirates">
+        <source>United Arab Emirates</source>
+        <target>__United Arab Emirates</target>
+      </trans-unit>
+      <trans-unit id=".iQD8l6" resname="Uruguay">
+        <source>Uruguay</source>
+        <target>__Uruguay</target>
+      </trans-unit>
+      <trans-unit id="qlqzWpF" resname="USA">
+        <source>USA</source>
+        <target>__USA</target>
+      </trans-unit>
+      <trans-unit id="S8Lxwjs" resname="Uzbekistan">
+        <source>Uzbekistan</source>
+        <target>__Uzbekistan</target>
+      </trans-unit>
+      <trans-unit id="xbKm3p1" resname="Vanuatu">
+        <source>Vanuatu</source>
+        <target>__Vanuatu</target>
+      </trans-unit>
+      <trans-unit id="OMv7qbI" resname="Vatican State">
+        <source>Vatican State</source>
+        <target>__Vatican State</target>
+      </trans-unit>
+      <trans-unit id="Ag5Di6." resname="Venezuela">
+        <source>Venezuela</source>
+        <target>__Venezuela</target>
+      </trans-unit>
+      <trans-unit id="Ll6BBmo" resname="Vietnam">
+        <source>Vietnam</source>
+        <target>__Vietnam</target>
+      </trans-unit>
+      <trans-unit id="lpWzZ0i" resname="Virgin Islands (British)">
+        <source>Virgin Islands (British)</source>
+        <target>__Virgin Islands (British)</target>
+      </trans-unit>
+      <trans-unit id="jOc1Mfq" resname="Virgin Islands (US)">
+        <source>Virgin Islands (US)</source>
+        <target>__Virgin Islands (US)</target>
+      </trans-unit>
+      <trans-unit id="Goc6NJm" resname="Volcano Islands / Iwo Jima (JPN)">
+        <source>Volcano Islands / Iwo Jima (JPN)</source>
+        <target>__Volcano Islands / Iwo Jima (JPN)</target>
+      </trans-unit>
+      <trans-unit id="sb8Niqk" resname="Wake Island">
+        <source>Wake Island</source>
+        <target>__Wake Island</target>
+      </trans-unit>
+      <trans-unit id="DPOHi5T" resname="Wales">
+        <source>Wales</source>
+        <target>__Wales</target>
+      </trans-unit>
+      <trans-unit id="Mfio5E2" resname="Wallis Et Futuna">
+        <source>Wallis Et Futuna</source>
+        <target>__Wallis Et Futuna</target>
+      </trans-unit>
+      <trans-unit id="Nww4hXK" resname="West Bank and Gaza Strip">
+        <source>West Bank and Gaza Strip</source>
+        <target>__West Bank and Gaza Strip</target>
+      </trans-unit>
+      <trans-unit id="iblOUj_" resname="Western Sahara">
+        <source>Western Sahara</source>
+        <target>__Western Sahara</target>
+      </trans-unit>
+      <trans-unit id="IcGQOvJ" resname="Yemen">
+        <source>Yemen</source>
+        <target>__Yemen</target>
+      </trans-unit>
+      <trans-unit id="tfkiGuB" resname="Zambia">
+        <source>Zambia</source>
+        <target>__Zambia</target>
+      </trans-unit>
+      <trans-unit id="xyGZqFt" resname="Zimbabwe">
+        <source>Zimbabwe</source>
+        <target>__Zimbabwe</target>
+      </trans-unit>
+      <trans-unit id="mCrKK5y" resname="Alberta">
+        <source>Alberta</source>
+        <target>__Alberta</target>
+      </trans-unit>
+      <trans-unit id="5N0MFSK" resname="Alaska (Co=ALS)">
+        <source>Alaska (Co=ALS)</source>
+        <target>__Alaska (Co=ALS)</target>
+      </trans-unit>
+      <trans-unit id="FmLAJfS" resname="Alabama">
+        <source>Alabama</source>
+        <target>__Alabama</target>
+      </trans-unit>
+      <trans-unit id="2lLP6u." resname="Arkansas">
+        <source>Arkansas</source>
+        <target>__Arkansas</target>
+      </trans-unit>
+      <trans-unit id="Al6fHdY" resname="Australian Capital Territory">
+        <source>Australian Capital Territory</source>
+        <target>__Australian Capital Territory</target>
+      </trans-unit>
+      <trans-unit id="8idANrU" resname="Arizona">
+        <source>Arizona</source>
+        <target>__Arizona</target>
+      </trans-unit>
+      <trans-unit id="qCJN1GK" resname="British Columbia">
+        <source>British Columbia</source>
+        <target>__British Columbia</target>
+      </trans-unit>
+      <trans-unit id="ytBTXez" resname="California">
+        <source>California</source>
+        <target>__California</target>
+      </trans-unit>
+      <trans-unit id="SuYr9Og" resname="Colorado">
+        <source>Colorado</source>
+        <target>__Colorado</target>
+      </trans-unit>
+      <trans-unit id="RctrQya" resname="Connecticut">
+        <source>Connecticut</source>
+        <target>__Connecticut</target>
+      </trans-unit>
+      <trans-unit id="eNUfBKE" resname="Washington D.C.">
+        <source>Washington D.C.</source>
+        <target>__Washington D.C.</target>
+      </trans-unit>
+      <trans-unit id="vzKcCuw" resname="Delaware">
+        <source>Delaware</source>
+        <target>__Delaware</target>
+      </trans-unit>
+      <trans-unit id="jp4mwu_" resname="Florida">
+        <source>Florida</source>
+        <target>__Florida</target>
+      </trans-unit>
+      <trans-unit id="zltst76" resname="Hawaii (Co=HWA)">
+        <source>Hawaii (Co=HWA)</source>
+        <target>__Hawaii (Co=HWA)</target>
+      </trans-unit>
+      <trans-unit id="cisp8oJ" resname="Iowa">
+        <source>Iowa</source>
+        <target>__Iowa</target>
+      </trans-unit>
+      <trans-unit id="NSDN0_g" resname="Idaho">
+        <source>Idaho</source>
+        <target>__Idaho</target>
+      </trans-unit>
+      <trans-unit id="Oc8FCvV" resname="Illinois">
+        <source>Illinois</source>
+        <target>__Illinois</target>
+      </trans-unit>
+      <trans-unit id="KXUOL9z" resname="Indiana">
+        <source>Indiana</source>
+        <target>__Indiana</target>
+      </trans-unit>
+      <trans-unit id="efbQcyo" resname="Kansas">
+        <source>Kansas</source>
+        <target>__Kansas</target>
+      </trans-unit>
+      <trans-unit id="mbt6xrE" resname="Kentucky">
+        <source>Kentucky</source>
+        <target>__Kentucky</target>
+      </trans-unit>
+      <trans-unit id="CqUFLRA" resname="Louisiana">
+        <source>Louisiana</source>
+        <target>__Louisiana</target>
+      </trans-unit>
+      <trans-unit id="kp4JGe8" resname="Massachusetts">
+        <source>Massachusetts</source>
+        <target>__Massachusetts</target>
+      </trans-unit>
+      <trans-unit id="clZMWpX" resname="Manitoba">
+        <source>Manitoba</source>
+        <target>__Manitoba</target>
+      </trans-unit>
+      <trans-unit id="DNdtsJz" resname="Maryland">
+        <source>Maryland</source>
+        <target>__Maryland</target>
+      </trans-unit>
+      <trans-unit id="rn3vxdw" resname="Maine">
+        <source>Maine</source>
+        <target>__Maine</target>
+      </trans-unit>
+      <trans-unit id="JjJaVG_" resname="Michigan">
+        <source>Michigan</source>
+        <target>__Michigan</target>
+      </trans-unit>
+      <trans-unit id="YYCgrxn" resname="Minnesota">
+        <source>Minnesota</source>
+        <target>__Minnesota</target>
+      </trans-unit>
+      <trans-unit id="QlfsqKh" resname="Missouri">
+        <source>Missouri</source>
+        <target>__Missouri</target>
+      </trans-unit>
+      <trans-unit id="hYTsux6" resname="Mississippi">
+        <source>Mississippi</source>
+        <target>__Mississippi</target>
+      </trans-unit>
+      <trans-unit id="MLNerPw" resname="Montana">
+        <source>Montana</source>
+        <target>__Montana</target>
+      </trans-unit>
+      <trans-unit id="OGIhInP" resname="New Brunswick">
+        <source>New Brunswick</source>
+        <target>__New Brunswick</target>
+      </trans-unit>
+      <trans-unit id="gxi79qI" resname="North Carolina">
+        <source>North Carolina</source>
+        <target>__North Carolina</target>
+      </trans-unit>
+      <trans-unit id="9pUqkAq" resname="North Dakota">
+        <source>North Dakota</source>
+        <target>__North Dakota</target>
+      </trans-unit>
+      <trans-unit id="D50nsFR" resname="Nebraska">
+        <source>Nebraska</source>
+        <target>__Nebraska</target>
+      </trans-unit>
+      <trans-unit id="1W94Dkp" resname="New Hampshire">
+        <source>New Hampshire</source>
+        <target>__New Hampshire</target>
+      </trans-unit>
+      <trans-unit id="1nP9Y9Q" resname="New Jersey">
+        <source>New Jersey</source>
+        <target>__New Jersey</target>
+      </trans-unit>
+      <trans-unit id="l3TfXF." resname="Newfd. &amp; Lab.">
+        <source>Newfd. &amp; Lab.</source>
+        <target><![CDATA[__Newfd. & Lab.]]></target>
+      </trans-unit>
+      <trans-unit id="7OXFt3q" resname="New Mexico">
+        <source>New Mexico</source>
+        <target>__New Mexico</target>
+      </trans-unit>
+      <trans-unit id="LrBak8H" resname="Northern Territory">
+        <source>Northern Territory</source>
+        <target>__Northern Territory</target>
+      </trans-unit>
+      <trans-unit id="pp4RJ_o" resname="Nova Scotia">
+        <source>Nova Scotia</source>
+        <target>__Nova Scotia</target>
+      </trans-unit>
+      <trans-unit id="0xZQQiR" resname="Northwest Territories">
+        <source>Northwest Territories</source>
+        <target>__Northwest Territories</target>
+      </trans-unit>
+      <trans-unit id="p8MfX3i" resname="Nunavut">
+        <source>Nunavut</source>
+        <target>__Nunavut</target>
+      </trans-unit>
+      <trans-unit id="SFyydDE" resname="Nevada">
+        <source>Nevada</source>
+        <target>__Nevada</target>
+      </trans-unit>
+      <trans-unit id="OAiOfzr" resname="New South Wales">
+        <source>New South Wales</source>
+        <target>__New South Wales</target>
+      </trans-unit>
+      <trans-unit id="gV7Kl3x" resname="New York">
+        <source>New York</source>
+        <target>__New York</target>
+      </trans-unit>
+      <trans-unit id="Q4p9WQT" resname="Ohio">
+        <source>Ohio</source>
+        <target>__Ohio</target>
+      </trans-unit>
+      <trans-unit id="ycfFFIj" resname="Oklahoma">
+        <source>Oklahoma</source>
+        <target>__Oklahoma</target>
+      </trans-unit>
+      <trans-unit id="7tvm2Ww" resname="Ontario">
+        <source>Ontario</source>
+        <target>__Ontario</target>
+      </trans-unit>
+      <trans-unit id="mMtv4M6" resname="Oregon">
+        <source>Oregon</source>
+        <target>__Oregon</target>
+      </trans-unit>
+      <trans-unit id="gI7VETc" resname="Pennsylvania">
+        <source>Pennsylvania</source>
+        <target>__Pennsylvania</target>
+      </trans-unit>
+      <trans-unit id="n3lOhu6" resname="P.E.I.">
+        <source>P.E.I.</source>
+        <target>__P.E.I.</target>
+      </trans-unit>
+      <trans-unit id="x0J5rgW" resname="Puerto Rica (Co=PTR)">
+        <source>Puerto Rica (Co=PTR)</source>
+        <target>__Puerto Rica (Co=PTR)</target>
+      </trans-unit>
+      <trans-unit id="XjvRr_L" resname="Quebec">
+        <source>Quebec</source>
+        <target>__Quebec</target>
+      </trans-unit>
+      <trans-unit id="vu4nEvE" resname="Queensland">
+        <source>Queensland</source>
+        <target>__Queensland</target>
+      </trans-unit>
+      <trans-unit id="vtHfXih" resname="Rhode Island">
+        <source>Rhode Island</source>
+        <target>__Rhode Island</target>
+      </trans-unit>
+      <trans-unit id="uJoszTK" resname="South Australia">
+        <source>South Australia</source>
+        <target>__South Australia</target>
+      </trans-unit>
+      <trans-unit id="VhwCpul" resname="South Carolina">
+        <source>South Carolina</source>
+        <target>__South Carolina</target>
+      </trans-unit>
+      <trans-unit id="ofj7M91" resname="South Dakota">
+        <source>South Dakota</source>
+        <target>__South Dakota</target>
+      </trans-unit>
+      <trans-unit id="V4haUpb" resname="Saskatchewan">
+        <source>Saskatchewan</source>
+        <target>__Saskatchewan</target>
+      </trans-unit>
+      <trans-unit id="_QkmhLf" resname="Tasmania">
+        <source>Tasmania</source>
+        <target>__Tasmania</target>
+      </trans-unit>
+      <trans-unit id="D1CGYLJ" resname="Tennessee">
+        <source>Tennessee</source>
+        <target>__Tennessee</target>
+      </trans-unit>
+      <trans-unit id="S5XOYnI" resname="Texas">
+        <source>Texas</source>
+        <target>__Texas</target>
+      </trans-unit>
+      <trans-unit id="grzhC1_" resname="Utah">
+        <source>Utah</source>
+        <target>__Utah</target>
+      </trans-unit>
+      <trans-unit id="DuAztff" resname="Virginia">
+        <source>Virginia</source>
+        <target>__Virginia</target>
+      </trans-unit>
+      <trans-unit id="x6EemlX" resname="Victoria">
+        <source>Victoria</source>
+        <target>__Victoria</target>
+      </trans-unit>
+      <trans-unit id="b.yzrtq" resname="Vermont">
+        <source>Vermont</source>
+        <target>__Vermont</target>
+      </trans-unit>
+      <trans-unit id="a5Ax3wW" resname="Washington">
+        <source>Washington</source>
+        <target>__Washington</target>
+      </trans-unit>
+      <trans-unit id="rCBICsJ" resname="Western Australia">
+        <source>Western Australia</source>
+        <target>__Western Australia</target>
+      </trans-unit>
+      <trans-unit id="nJlQyFo" resname="Wisconsin">
+        <source>Wisconsin</source>
+        <target>__Wisconsin</target>
+      </trans-unit>
+      <trans-unit id="5Zrt6Cs" resname="West Virginia">
+        <source>West Virginia</source>
+        <target>__West Virginia</target>
+      </trans-unit>
+      <trans-unit id="3UT0lvr" resname="Wyoming">
+        <source>Wyoming</source>
+        <target>__Wyoming</target>
+      </trans-unit>
+      <trans-unit id="syIf_cQ" resname="Yukon Territories">
+        <source>Yukon Territories</source>
+        <target>__Yukon Territories</target>
+      </trans-unit>
       <trans-unit id="hkHbAH7" resname="Signals List">
         <source>Signals List</source>
         <target>__Signals List</target>
@@ -165,69 +1753,17 @@
         <source>of %s signals</source>
         <target>__of %s signals</target>
       </trans-unit>
-      <trans-unit id="OXMkFg6" resname="Specification">
-        <source>Specification</source>
-        <target>__Specification</target>
+      <trans-unit id="G_2QgEw" resname="Customise">
+        <source>Customise</source>
+        <target>__Customise</target>
       </trans-unit>
-      <trans-unit id="v7lt68l" resname="Signal Types">
-        <source>Signal Types</source>
-        <target>__Signal Types</target>
+      <trans-unit id="2wAoFlP" resname="Personalise for">
+        <source>Personalise for</source>
+        <target>__Personalise for</target>
       </trans-unit>
-      <trans-unit id="Vm1s_R0" resname="Call / ID">
-        <source>Call / ID</source>
-        <target>__Call / ID</target>
-      </trans-unit>
-      <trans-unit id="GEnlSzj" resname="Frequency Range">
-        <source>Frequency Range</source>
-        <target>__Frequency Range</target>
-      </trans-unit>
-      <trans-unit id="LNyaMvK" resname="Freq.">
-        <source>Freq.</source>
-        <target>__Freq.</target>
-      </trans-unit>
-      <trans-unit id="dUW.I6L" resname="Freq. 2">
-        <source>Freq. 2</source>
-        <target>__Freq. 2</target>
-      </trans-unit>
-      <trans-unit id="gez0MA0" resname="Active Status">
-        <source>Active Status</source>
-        <target>__Active Status</target>
-      </trans-unit>
-      <trans-unit id="kjQGlYm" resname="Active">
-        <source>Active</source>
-        <target>__Active</target>
-      </trans-unit>
-      <trans-unit id="rHyUnxI" resname="Inactive">
-        <source>Inactive</source>
-        <target>__Inactive</target>
-      </trans-unit>
-      <trans-unit id="TIkGz3b" resname="Channels">
-        <source>Channels</source>
-        <target>__Channels</target>
-      </trans-unit>
-      <trans-unit id="pSrOQg8" resname="All">
-        <source>All</source>
-        <target>__All</target>
-      </trans-unit>
-      <trans-unit id="9ajk.1n" resname="Only 1 KHz">
-        <source>Only 1 KHz</source>
-        <target>__Only 1 KHz</target>
-      </trans-unit>
-      <trans-unit id="etDZdrR" resname="Not 1 KHz">
-        <source>Not 1 KHz</source>
-        <target>__Not 1 KHz</target>
-      </trans-unit>
-      <trans-unit id="DfbxytN" resname="Show">
-        <source>Show</source>
-        <target>__Show</target>
-      </trans-unit>
-      <trans-unit id="byAvVKe" resname="List">
-        <source>List</source>
-        <target>__List</target>
-      </trans-unit>
-      <trans-unit id="vhdrABX" resname="Map">
-        <source>Map</source>
-        <target>__Map</target>
+      <trans-unit id="KwY2w.u" resname="(None specified)">
+        <source>(None specified)</source>
+        <target>__(None specified)</target>
       </trans-unit>
       <trans-unit id="iAdjX47" resname="Offsets">
         <source>Offsets</source>
@@ -240,30 +1776,6 @@
       <trans-unit id="8ohzj2B" resname="Absolute">
         <source>Absolute</source>
         <target>__Absolute</target>
-      </trans-unit>
-      <trans-unit id="FbYZdLJ" resname="Location">
-        <source>Location</source>
-        <target>__Location</target>
-      </trans-unit>
-      <trans-unit id="dI9sPH_" resname="Combiner">
-        <source>Combiner</source>
-        <target>__Combiner</target>
-      </trans-unit>
-      <trans-unit id="vZcsxPF" resname="AND">
-        <source>AND</source>
-        <target>__AND</target>
-      </trans-unit>
-      <trans-unit id="gp5bKK8" resname="OR">
-        <source>OR</source>
-        <target>__OR</target>
-      </trans-unit>
-      <trans-unit id="5u5Vfc8" resname="(Used when both State AND Country are given)">
-        <source>(Used when both State AND Country are given)</source>
-        <target>__(Used when both State AND Country are given)</target>
-      </trans-unit>
-      <trans-unit id="DU7W3HR" resname="Grid Squares">
-        <source>Grid Squares</source>
-        <target>__Grid Squares</target>
       </trans-unit>
       <trans-unit id="kfEgtV9" resname="From GSQ">
         <source>From GSQ</source>
@@ -288,6 +1800,130 @@
       <trans-unit id="L6nrEw6" resname="miles">
         <source>miles</source>
         <target>__miles</target>
+      </trans-unit>
+      <trans-unit id="bSInVV." resname="Sort By">
+        <source>Sort By</source>
+        <target>__Sort By</target>
+      </trans-unit>
+      <trans-unit id="4NnTK9r" resname="Z-A">
+        <source>Z-A</source>
+        <target>__Z-A</target>
+      </trans-unit>
+      <trans-unit id="WIA4rWp" resname="Signal Details">
+        <source>Signal Details</source>
+        <target>__Signal Details</target>
+      </trans-unit>
+      <trans-unit id="v7lt68l" resname="Signal Types">
+        <source>Signal Types</source>
+        <target>__Signal Types</target>
+      </trans-unit>
+      <trans-unit id="Vm1s_R0" resname="Call / ID">
+        <source>Call / ID</source>
+        <target>__Call / ID</target>
+      </trans-unit>
+      <trans-unit id="GEnlSzj" resname="Frequency Range">
+        <source>Frequency Range</source>
+        <target>__Frequency Range</target>
+      </trans-unit>
+      <trans-unit id="LNyaMvK" resname="Freq.">
+        <source>Freq.</source>
+        <target>__Freq.</target>
+      </trans-unit>
+      <trans-unit id="dUW.I6L" resname="Freq. 2">
+        <source>Freq. 2</source>
+        <target>__Freq. 2</target>
+      </trans-unit>
+      <trans-unit id="TIkGz3b" resname="Channels">
+        <source>Channels</source>
+        <target>__Channels</target>
+      </trans-unit>
+      <trans-unit id="pSrOQg8" resname="All">
+        <source>All</source>
+        <target>__All</target>
+      </trans-unit>
+      <trans-unit id="9ajk.1n" resname="Only 1 KHz">
+        <source>Only 1 KHz</source>
+        <target>__Only 1 KHz</target>
+      </trans-unit>
+      <trans-unit id="etDZdrR" resname="Not 1 KHz">
+        <source>Not 1 KHz</source>
+        <target>__Not 1 KHz</target>
+      </trans-unit>
+      <trans-unit id="gez0MA0" resname="Active Status">
+        <source>Active Status</source>
+        <target>__Active Status</target>
+      </trans-unit>
+      <trans-unit id="kjQGlYm" resname="Active">
+        <source>Active</source>
+        <target>__Active</target>
+      </trans-unit>
+      <trans-unit id="rHyUnxI" resname="Inactive">
+        <source>Inactive</source>
+        <target>__Inactive</target>
+      </trans-unit>
+      <trans-unit id="rEPk5F5" resname="Paper Size">
+        <source>Paper Size</source>
+        <target>__Paper Size</target>
+      </trans-unit>
+      <trans-unit id="JnloOrP" resname="A4 (Portrait) - 21.6cm x 27.9cm">
+        <source>A4 (Portrait) - 21.6cm x 27.9cm</source>
+        <target>__A4 (Portrait) - 21.6cm x 27.9cm</target>
+      </trans-unit>
+      <trans-unit id="8qKd5m3" resname="A4 (Landscape) - 27.9cm x 21.6cm">
+        <source>A4 (Landscape) - 27.9cm x 21.6cm</source>
+        <target>__A4 (Landscape) - 27.9cm x 21.6cm</target>
+      </trans-unit>
+      <trans-unit id="ieoMxy7" resname="Legal (Portrait) - 8.5&quot; x 14&quot;">
+        <source>Legal (Portrait) - 8.5" x 14"</source>
+        <target>__Legal (Portrait) - 8.5" x 14"</target>
+      </trans-unit>
+      <trans-unit id="e08khCg" resname="Legal (Landscape) - 14&quot; x 8.5&quot;">
+        <source>Legal (Landscape) - 14" x 8.5"</source>
+        <target>__Legal (Landscape) - 14" x 8.5"</target>
+      </trans-unit>
+      <trans-unit id="k7XpiG2" resname="Letter (Portrait) - 8.5&quot; x 11&quot;">
+        <source>Letter (Portrait) - 8.5" x 11"</source>
+        <target>__Letter (Portrait) - 8.5" x 11"</target>
+      </trans-unit>
+      <trans-unit id="WghhOJx" resname="Letter (Landscape) - 11&quot; x 8.5&quot;">
+        <source>Letter (Landscape) - 11" x 8.5"</source>
+        <target>__Letter (Landscape) - 11" x 8.5"</target>
+      </trans-unit>
+      <trans-unit id="8EcO0.K" resname="Nominal Carrier">
+        <source>Nominal Carrier</source>
+        <target>__Nominal Carrier</target>
+      </trans-unit>
+      <trans-unit id="pXirc_e" resname="Places signal has been reported">
+        <source>Places signal has been reported</source>
+        <target>__Places signal has been reported</target>
+      </trans-unit>
+      <trans-unit id="5l58MbK" resname="Number of times logged">
+        <source>Number of times logged</source>
+        <target>__Number of times logged</target>
+      </trans-unit>
+      <trans-unit id="FbYZdLJ" resname="Location">
+        <source>Location</source>
+        <target>__Location</target>
+      </trans-unit>
+      <trans-unit id="dI9sPH_" resname="Combiner">
+        <source>Combiner</source>
+        <target>__Combiner</target>
+      </trans-unit>
+      <trans-unit id="vZcsxPF" resname="AND">
+        <source>AND</source>
+        <target>__AND</target>
+      </trans-unit>
+      <trans-unit id="gp5bKK8" resname="OR">
+        <source>OR</source>
+        <target>__OR</target>
+      </trans-unit>
+      <trans-unit id="5u5Vfc8" resname="(Used when both State AND Country are given)">
+        <source>(Used when both State AND Country are given)</source>
+        <target>__(Used when both State AND Country are given)</target>
+      </trans-unit>
+      <trans-unit id="DU7W3HR" resname="Grid Squares">
+        <source>Grid Squares</source>
+        <target>__Grid Squares</target>
       </trans-unit>
       <trans-unit id="FpEOEdK" resname="Loggings">
         <source>Loggings</source>
@@ -357,9 +1993,9 @@
         <source>Unlogged</source>
         <target>__Unlogged</target>
       </trans-unit>
-      <trans-unit id="EtrlQWv" resname="%s Listeners in Africa">
-        <source>%s Listeners in Africa</source>
-        <target>__%s Listeners in Africa</target>
+      <trans-unit id="2PdGb4I" resname="%s Listeners">
+        <source>%s Listeners</source>
+        <target>__%s Listeners</target>
       </trans-unit>
       <trans-unit id="vj7y0TM" resname="%s Listeners&lt;br /&gt;in Africa">
         <source>%s Listeners&lt;br /&gt;in Africa</source>
@@ -397,10 +2033,6 @@
         <source>%s Listeners&lt;br /&gt;in South America</source>
         <target><![CDATA[__%s Listeners<br />in South America]]></target>
       </trans-unit>
-      <trans-unit id="zs6tjyt" resname="%s Listeners&lt;br /&gt;in Unknown">
-        <source>%s Listeners&lt;br /&gt;in Unknown</source>
-        <target><![CDATA[__%s Listeners<br />in Unknown]]></target>
-      </trans-unit>
       <trans-unit id="lcYRcDG" resname="Locations">
         <source>Locations</source>
         <target>__Locations</target>
@@ -412,6 +2044,10 @@
       <trans-unit id="C8R60M2" resname="Last log">
         <source>Last log</source>
         <target>__Last log</target>
+      </trans-unit>
+      <trans-unit id="P7sDm7m" resname="Logged">
+        <source>Logged</source>
+        <target>__Logged</target>
       </trans-unit>
       <trans-unit id="FrZmjZg" resname="Frequency">
         <source>Frequency</source>
@@ -481,6 +2117,10 @@
         <source>&lt;div&gt;Region&lt;/div&gt;</source>
         <target><![CDATA[__<div>Region</div>]]></target>
       </trans-unit>
+      <trans-unit id="uMcbize" resname="Continent or Zone">
+        <source>Continent or Zone</source>
+        <target>__Continent or Zone</target>
+      </trans-unit>
       <trans-unit id="a6MU0Xu" resname="Signal Grid Square">
         <source>Signal Grid Square</source>
         <target>__Signal Grid Square</target>
@@ -505,45 +2145,29 @@
         <source>Notes</source>
         <target>__Notes</target>
       </trans-unit>
-      <trans-unit id="0QFzIVL" resname="Places where this signal has been reported">
-        <source>Places where this signal has been reported</source>
-        <target>__Places where this signal has been reported</target>
-      </trans-unit>
       <trans-unit id="pM5LMsS" resname="Heard In&lt;br /&gt;&lt;b&gt;(Daytime Log)&lt;/b&gt;">
         <source>Heard In&lt;br /&gt;&lt;b&gt;(Daytime Log)&lt;/b&gt;</source>
         <target><![CDATA[__Heard In<br /><b>(Daytime Log)</b>]]></target>
-      </trans-unit>
-      <trans-unit id="lAfD1qg" resname="Number of times this signal has been logged">
-        <source>Number of times this signal has been logged</source>
-        <target>__Number of times this signal has been logged</target>
       </trans-unit>
       <trans-unit id="6iEA3Im" resname="Logs">
         <source>Logs</source>
         <target>__Logs</target>
       </trans-unit>
-      <trans-unit id="zv64EYJ" resname="Date on which signal was first logged">
-        <source>Date on which signal was first logged</source>
-        <target>__Date on which signal was first logged</target>
-      </trans-unit>
-      <trans-unit id="zUkWkRy" resname="Date on which signal was last logged">
-        <source>Date on which signal was last logged</source>
-        <target>__Date on which signal was last logged</target>
-      </trans-unit>
-      <trans-unit id="FDiMXsw" resname="Distance in kilometers from GSQ">
-        <source>Distance in kilometers from GSQ</source>
-        <target>__Distance in kilometers from GSQ</target>
-      </trans-unit>
       <trans-unit id="8gh6Xll" resname="KM">
         <source>KM</source>
         <target>__KM</target>
       </trans-unit>
-      <trans-unit id="ZGPey_7" resname="Distance in miles from GSQ">
-        <source>Distance in miles from GSQ</source>
-        <target>__Distance in miles from GSQ</target>
+      <trans-unit id="W1om173" resname="Kilometers from GSQ">
+        <source>Kilometers from GSQ</source>
+        <target>__Kilometers from GSQ</target>
       </trans-unit>
       <trans-unit id="oRYfZEX" resname="Miles">
         <source>Miles</source>
         <target>__Miles</target>
+      </trans-unit>
+      <trans-unit id="SI33SqE" resname="Miles from GSQ">
+        <source>Miles from GSQ</source>
+        <target>__Miles from GSQ</target>
       </trans-unit>
       <trans-unit id="745JrK8" resname="Bearing relative to GSQ">
         <source>Bearing relative to GSQ</source>
@@ -560,6 +2184,38 @@
       <trans-unit id="fLxZY2_" resname="Any exact matches for &lt;strong&gt;%s&lt;/strong&gt; will shown at the top of this list, regardless of the station's current operational status.">
         <source>Any exact matches for &lt;strong&gt;%s&lt;/strong&gt; will shown at the top of this list, regardless of the station's current operational status.</source>
         <target><![CDATA[__Any exact matches for <strong>%s</strong> will shown at the top of this list, regardless of the station's current operational status.]]></target>
+      </trans-unit>
+      <trans-unit id="x3sDGOf" resname="Signals Map">
+        <source>Signals Map</source>
+        <target>__Signals Map</target>
+      </trans-unit>
+      <trans-unit id="w33i5Qp" resname="%s Seeklist">
+        <source>%s Seeklist</source>
+        <target>__%s Seeklist</target>
+      </trans-unit>
+      <trans-unit id="iHXQHtm" resname="Page %s of %s">
+        <source>Page %s of %s</source>
+        <target>__Page %s of %s</target>
+      </trans-unit>
+      <trans-unit id="07WVGNc" resname="Signals including &lt;i&gt;Inactive&lt;/i&gt; stations">
+        <source>Signals including &lt;i&gt;Inactive&lt;/i&gt; stations</source>
+        <target><![CDATA[__Signals including <i>Inactive</i> stations]]></target>
+      </trans-unit>
+      <trans-unit id="4YhR0_4" resname="For %s">
+        <source>For %s</source>
+        <target>__For %s</target>
+      </trans-unit>
+      <trans-unit id="Rh6JnW9" resname="Updated %s">
+        <source>Updated %s</source>
+        <target>__Updated %s</target>
+      </trans-unit>
+      <trans-unit id="Rlk21sa" resname="(received %s of %s)">
+        <source>(received %s of %s)</source>
+        <target>__(received %s of %s)</target>
+      </trans-unit>
+      <trans-unit id="M1MzS7l" resname="(total: %s)">
+        <source>(total: %s)</source>
+        <target>__(total: %s)</target>
       </trans-unit>
       <trans-unit id="Ikt82fv" resname="Listeners List">
         <source>Listeners List</source>
@@ -580,6 +2236,10 @@
       <trans-unit id="COJxQGA" resname="Customise %s Listeners List">
         <source>Customise %s Listeners List</source>
         <target>__Customise %s Listeners List</target>
+      </trans-unit>
+      <trans-unit id="DfbxytN" resname="Show">
+        <source>Show</source>
+        <target>__Show</target>
       </trans-unit>
       <trans-unit id="WV.7s5b" resname="of %s listeners">
         <source>of %s listeners</source>
@@ -700,6 +2360,10 @@
       <trans-unit id="OmB1R5o" resname="Map showing Signals for Listener">
         <source>Map showing Signals for Listener</source>
         <target>__Map showing Signals for Listener</target>
+      </trans-unit>
+      <trans-unit id="vhdrABX" resname="Map">
+        <source>Map</source>
+        <target>__Map</target>
       </trans-unit>
       <trans-unit id="IBpu4TV" resname="&lt;div&gt;Map Pos&lt;/div&gt;">
         <source>&lt;div&gt;Map Pos&lt;/div&gt;</source>
@@ -861,1054 +2525,6 @@
         <source>(All)</source>
         <target>__(All)</target>
       </trans-unit>
-      <trans-unit id="7XstMiW" resname="(All Regions)">
-        <source>(All Regions)</source>
-        <target>__(All Regions)</target>
-      </trans-unit>
-      <trans-unit id="xKNxrNf" resname="Africa">
-        <source>Africa</source>
-        <target>__Africa</target>
-      </trans-unit>
-      <trans-unit id="xD8z8Fe" resname="Antarctica">
-        <source>Antarctica</source>
-        <target>__Antarctica</target>
-      </trans-unit>
-      <trans-unit id="esAuwch" resname="Asia">
-        <source>Asia</source>
-        <target>__Asia</target>
-      </trans-unit>
-      <trans-unit id="1WYNuqE" resname="Carribean">
-        <source>Carribean</source>
-        <target>__Carribean</target>
-      </trans-unit>
-      <trans-unit id="5ZX0Xcb" resname="Europe">
-        <source>Europe</source>
-        <target>__Europe</target>
-      </trans-unit>
-      <trans-unit id="F3j63Ot" resname="International Waters">
-        <source>International Waters</source>
-        <target>__International Waters</target>
-      </trans-unit>
-      <trans-unit id="ZL4Ihbw" resname="North America">
-        <source>North America</source>
-        <target>__North America</target>
-      </trans-unit>
-      <trans-unit id="6jxPfnn" resname="Oceania (Pacific)">
-        <source>Oceania (Pacific)</source>
-        <target>__Oceania (Pacific)</target>
-      </trans-unit>
-      <trans-unit id=".1iLQQF" resname="South America">
-        <source>South America</source>
-        <target>__South America</target>
-      </trans-unit>
-      <trans-unit id="t2TNwOq" resname="Unknown">
-        <source>Unknown</source>
-        <target>__Unknown</target>
-      </trans-unit>
-      <trans-unit id="QFB9iY_" resname="(All Countries)">
-        <source>(All Countries)</source>
-        <target>__(All Countries)</target>
-      </trans-unit>
-      <trans-unit id="wXrBEyM" resname="Alaska">
-        <source>Alaska</source>
-        <target>__Alaska</target>
-      </trans-unit>
-      <trans-unit id="BXT0leM" resname="Antarctica (Mainland)">
-        <source>Antarctica (Mainland)</source>
-        <target>__Antarctica (Mainland)</target>
-      </trans-unit>
-      <trans-unit id="NV.ht9f" resname="Antigua &amp; Barbuda">
-        <source>Antigua &amp; Barbuda</source>
-        <target><![CDATA[__Antigua & Barbuda]]></target>
-      </trans-unit>
-      <trans-unit id="6guTfqM" resname="Argentina">
-        <source>Argentina</source>
-        <target>__Argentina</target>
-      </trans-unit>
-      <trans-unit id="we9AzgS" resname="Australia">
-        <source>Australia</source>
-        <target>__Australia</target>
-      </trans-unit>
-      <trans-unit id="ycqwI43" resname="Austria">
-        <source>Austria</source>
-        <target>__Austria</target>
-      </trans-unit>
-      <trans-unit id="_e4k_6e" resname="Azores">
-        <source>Azores</source>
-        <target>__Azores</target>
-      </trans-unit>
-      <trans-unit id="YfQyBIc" resname="Balearic Islands">
-        <source>Balearic Islands</source>
-        <target>__Balearic Islands</target>
-      </trans-unit>
-      <trans-unit id="jo366bd" resname="Barbados">
-        <source>Barbados</source>
-        <target>__Barbados</target>
-      </trans-unit>
-      <trans-unit id="NIhB71P" resname="Belgium">
-        <source>Belgium</source>
-        <target>__Belgium</target>
-      </trans-unit>
-      <trans-unit id="B.YrAhd" resname="Brazil">
-        <source>Brazil</source>
-        <target>__Brazil</target>
-      </trans-unit>
-      <trans-unit id="pWQ3GsD" resname="Burkina Faso">
-        <source>Burkina Faso</source>
-        <target>__Burkina Faso</target>
-      </trans-unit>
-      <trans-unit id="vlXvP0x" resname="Canada">
-        <source>Canada</source>
-        <target>__Canada</target>
-      </trans-unit>
-      <trans-unit id="oD7ztj1" resname="Canary Islands">
-        <source>Canary Islands</source>
-        <target>__Canary Islands</target>
-      </trans-unit>
-      <trans-unit id="n6by2qV" resname="Cape Verde">
-        <source>Cape Verde</source>
-        <target>__Cape Verde</target>
-      </trans-unit>
-      <trans-unit id="g.KzM2R" resname="Cayman Islands">
-        <source>Cayman Islands</source>
-        <target>__Cayman Islands</target>
-      </trans-unit>
-      <trans-unit id="GUUHuJh" resname="Ceuta">
-        <source>Ceuta</source>
-        <target>__Ceuta</target>
-      </trans-unit>
-      <trans-unit id="EENoKQM" resname="China">
-        <source>China</source>
-        <target>__China</target>
-      </trans-unit>
-      <trans-unit id="cyjT_Cm" resname="Croatia">
-        <source>Croatia</source>
-        <target>__Croatia</target>
-      </trans-unit>
-      <trans-unit id="DQtOQQI" resname="Cuba">
-        <source>Cuba</source>
-        <target>__Cuba</target>
-      </trans-unit>
-      <trans-unit id="XxFixX7" resname="Cyprus">
-        <source>Cyprus</source>
-        <target>__Cyprus</target>
-      </trans-unit>
-      <trans-unit id="7PqWfpA" resname="Czechia">
-        <source>Czechia</source>
-        <target>__Czechia</target>
-      </trans-unit>
-      <trans-unit id="xScJdXd" resname="Denmark">
-        <source>Denmark</source>
-        <target>__Denmark</target>
-      </trans-unit>
-      <trans-unit id="geiEyy6" resname="Dominican Republic">
-        <source>Dominican Republic</source>
-        <target>__Dominican Republic</target>
-      </trans-unit>
-      <trans-unit id="VXwVmdm" resname="Egypt">
-        <source>Egypt</source>
-        <target>__Egypt</target>
-      </trans-unit>
-      <trans-unit id="wOqWCwZ" resname="England">
-        <source>England</source>
-        <target>__England</target>
-      </trans-unit>
-      <trans-unit id="rtj1Map" resname="Finland">
-        <source>Finland</source>
-        <target>__Finland</target>
-      </trans-unit>
-      <trans-unit id="ehyk73U" resname="France">
-        <source>France</source>
-        <target>__France</target>
-      </trans-unit>
-      <trans-unit id="xuaBsZa" resname="Gambia">
-        <source>Gambia</source>
-        <target>__Gambia</target>
-      </trans-unit>
-      <trans-unit id="gNtMzco" resname="Germany">
-        <source>Germany</source>
-        <target>__Germany</target>
-      </trans-unit>
-      <trans-unit id="WDIBwe_" resname="Ghana">
-        <source>Ghana</source>
-        <target>__Ghana</target>
-      </trans-unit>
-      <trans-unit id="nJOtQ5N" resname="Greece">
-        <source>Greece</source>
-        <target>__Greece</target>
-      </trans-unit>
-      <trans-unit id="SOEClq4" resname="Greenland">
-        <source>Greenland</source>
-        <target>__Greenland</target>
-      </trans-unit>
-      <trans-unit id="ucSMsf6" resname="Guernsey">
-        <source>Guernsey</source>
-        <target>__Guernsey</target>
-      </trans-unit>
-      <trans-unit id="EkQtrih" resname="Hawaii">
-        <source>Hawaii</source>
-        <target>__Hawaii</target>
-      </trans-unit>
-      <trans-unit id="UEvjCE9" resname="Hungary">
-        <source>Hungary</source>
-        <target>__Hungary</target>
-      </trans-unit>
-      <trans-unit id="WV1tkUl" resname="Iceland">
-        <source>Iceland</source>
-        <target>__Iceland</target>
-      </trans-unit>
-      <trans-unit id="q9FJIUU" resname="India">
-        <source>India</source>
-        <target>__India</target>
-      </trans-unit>
-      <trans-unit id="u8rZ1T7" resname="Int Waters: Europe">
-        <source>Int Waters: Europe</source>
-        <target>__Int Waters: Europe</target>
-      </trans-unit>
-      <trans-unit id="Ar8d_po" resname="Ireland">
-        <source>Ireland</source>
-        <target>__Ireland</target>
-      </trans-unit>
-      <trans-unit id="Wpz2csi" resname="Italy">
-        <source>Italy</source>
-        <target>__Italy</target>
-      </trans-unit>
-      <trans-unit id="ZHKUODs" resname="Japan">
-        <source>Japan</source>
-        <target>__Japan</target>
-      </trans-unit>
-      <trans-unit id="r_S8qzE" resname="Korea, South">
-        <source>Korea, South</source>
-        <target>__Korea, South</target>
-      </trans-unit>
-      <trans-unit id="mIyBYLd" resname="Latvia">
-        <source>Latvia</source>
-        <target>__Latvia</target>
-      </trans-unit>
-      <trans-unit id="7XbxkWI" resname="Luxembourg">
-        <source>Luxembourg</source>
-        <target>__Luxembourg</target>
-      </trans-unit>
-      <trans-unit id="CEUEFls" resname="Malaysia">
-        <source>Malaysia</source>
-        <target>__Malaysia</target>
-      </trans-unit>
-      <trans-unit id="v7DI029" resname="Mauritania">
-        <source>Mauritania</source>
-        <target>__Mauritania</target>
-      </trans-unit>
-      <trans-unit id="DxPh1er" resname="Montenegro (Yugoslavia)">
-        <source>Montenegro (Yugoslavia)</source>
-        <target>__Montenegro (Yugoslavia)</target>
-      </trans-unit>
-      <trans-unit id="tnX131." resname="Morocco">
-        <source>Morocco</source>
-        <target>__Morocco</target>
-      </trans-unit>
-      <trans-unit id="OjhsE9K" resname="Netherlands">
-        <source>Netherlands</source>
-        <target>__Netherlands</target>
-      </trans-unit>
-      <trans-unit id="vmABH1Y" resname="New Caledonia">
-        <source>New Caledonia</source>
-        <target>__New Caledonia</target>
-      </trans-unit>
-      <trans-unit id="KJjhbU5" resname="New Zealand">
-        <source>New Zealand</source>
-        <target>__New Zealand</target>
-      </trans-unit>
-      <trans-unit id="MEp_oQD" resname="Northern Ireland">
-        <source>Northern Ireland</source>
-        <target>__Northern Ireland</target>
-      </trans-unit>
-      <trans-unit id="vqVKNJe" resname="Norway">
-        <source>Norway</source>
-        <target>__Norway</target>
-      </trans-unit>
-      <trans-unit id="w85L_I2" resname="Oman">
-        <source>Oman</source>
-        <target>__Oman</target>
-      </trans-unit>
-      <trans-unit id="f2lkmtc" resname="Poland">
-        <source>Poland</source>
-        <target>__Poland</target>
-      </trans-unit>
-      <trans-unit id="TH3iw9p" resname="Portugal">
-        <source>Portugal</source>
-        <target>__Portugal</target>
-      </trans-unit>
-      <trans-unit id="VczFAU8" resname="Qatar">
-        <source>Qatar</source>
-        <target>__Qatar</target>
-      </trans-unit>
-      <trans-unit id="xP_0V3l" resname="Reunion">
-        <source>Reunion</source>
-        <target>__Reunion</target>
-      </trans-unit>
-      <trans-unit id="lP5dK1Q" resname="Russia (Eastern)">
-        <source>Russia (Eastern)</source>
-        <target>__Russia (Eastern)</target>
-      </trans-unit>
-      <trans-unit id="ZIvbuGW" resname="Russia (European)">
-        <source>Russia (European)</source>
-        <target>__Russia (European)</target>
-      </trans-unit>
-      <trans-unit id="Q.SpuI8" resname="Sardinia">
-        <source>Sardinia</source>
-        <target>__Sardinia</target>
-      </trans-unit>
-      <trans-unit id="okZnDb9" resname="Scotland">
-        <source>Scotland</source>
-        <target>__Scotland</target>
-      </trans-unit>
-      <trans-unit id="Nk5fZSX" resname="Senegal">
-        <source>Senegal</source>
-        <target>__Senegal</target>
-      </trans-unit>
-      <trans-unit id="LY2GXHe" resname="Serbia (Yugoslavia)">
-        <source>Serbia (Yugoslavia)</source>
-        <target>__Serbia (Yugoslavia)</target>
-      </trans-unit>
-      <trans-unit id="RuAIzlm" resname="Shetland Islands">
-        <source>Shetland Islands</source>
-        <target>__Shetland Islands</target>
-      </trans-unit>
-      <trans-unit id="vlmwWer" resname="Sicily">
-        <source>Sicily</source>
-        <target>__Sicily</target>
-      </trans-unit>
-      <trans-unit id="yW3YHbG" resname="Singapore">
-        <source>Singapore</source>
-        <target>__Singapore</target>
-      </trans-unit>
-      <trans-unit id="ouozhOA" resname="Slovakia">
-        <source>Slovakia</source>
-        <target>__Slovakia</target>
-      </trans-unit>
-      <trans-unit id="VgWef7T" resname="Slovenia">
-        <source>Slovenia</source>
-        <target>__Slovenia</target>
-      </trans-unit>
-      <trans-unit id="PgSdeNl" resname="South Africa">
-        <source>South Africa</source>
-        <target>__South Africa</target>
-      </trans-unit>
-      <trans-unit id="jvQeb0s" resname="Spain">
-        <source>Spain</source>
-        <target>__Spain</target>
-      </trans-unit>
-      <trans-unit id="NnoL.fQ" resname="St Lucia">
-        <source>St Lucia</source>
-        <target>__St Lucia</target>
-      </trans-unit>
-      <trans-unit id="Vw1Thiv" resname="Svalbard">
-        <source>Svalbard</source>
-        <target>__Svalbard</target>
-      </trans-unit>
-      <trans-unit id="hTY3E2V" resname="Sweden">
-        <source>Sweden</source>
-        <target>__Sweden</target>
-      </trans-unit>
-      <trans-unit id="InVYMZb" resname="Switzerland">
-        <source>Switzerland</source>
-        <target>__Switzerland</target>
-      </trans-unit>
-      <trans-unit id="3XavGW4" resname="Taiwan">
-        <source>Taiwan</source>
-        <target>__Taiwan</target>
-      </trans-unit>
-      <trans-unit id="bknmUIG" resname="Thailand">
-        <source>Thailand</source>
-        <target>__Thailand</target>
-      </trans-unit>
-      <trans-unit id="RgloKi8" resname="Tunisia">
-        <source>Tunisia</source>
-        <target>__Tunisia</target>
-      </trans-unit>
-      <trans-unit id="B8Z9du_" resname="Turkey">
-        <source>Turkey</source>
-        <target>__Turkey</target>
-      </trans-unit>
-      <trans-unit id="WA7txmn" resname="Ukraine">
-        <source>Ukraine</source>
-        <target>__Ukraine</target>
-      </trans-unit>
-      <trans-unit id=".iQD8l6" resname="Uruguay">
-        <source>Uruguay</source>
-        <target>__Uruguay</target>
-      </trans-unit>
-      <trans-unit id="qlqzWpF" resname="USA">
-        <source>USA</source>
-        <target>__USA</target>
-      </trans-unit>
-      <trans-unit id="DPOHi5T" resname="Wales">
-        <source>Wales</source>
-        <target>__Wales</target>
-      </trans-unit>
-      <trans-unit id="Xb3fkR_" resname="Afghanistan">
-        <source>Afghanistan</source>
-        <target>__Afghanistan</target>
-      </trans-unit>
-      <trans-unit id="GvALh0." resname="Albania">
-        <source>Albania</source>
-        <target>__Albania</target>
-      </trans-unit>
-      <trans-unit id="MOIwIpd" resname="Algeria">
-        <source>Algeria</source>
-        <target>__Algeria</target>
-      </trans-unit>
-      <trans-unit id="PjQL5N4" resname="Andorra">
-        <source>Andorra</source>
-        <target>__Andorra</target>
-      </trans-unit>
-      <trans-unit id="IrllMoF" resname="Angola">
-        <source>Angola</source>
-        <target>__Angola</target>
-      </trans-unit>
-      <trans-unit id="pKDH57d" resname="Anguilla">
-        <source>Anguilla</source>
-        <target>__Anguilla</target>
-      </trans-unit>
-      <trans-unit id="LdxWNP9" resname="Armenia">
-        <source>Armenia</source>
-        <target>__Armenia</target>
-      </trans-unit>
-      <trans-unit id="WxVbBWR" resname="Ascension Island">
-        <source>Ascension Island</source>
-        <target>__Ascension Island</target>
-      </trans-unit>
-      <trans-unit id="ayZSBgH" resname="Austral Islands (Iles Tubuai)">
-        <source>Austral Islands (Iles Tubuai)</source>
-        <target>__Austral Islands (Iles Tubuai)</target>
-      </trans-unit>
-      <trans-unit id="76kVCv3" resname="Azerbaijan">
-        <source>Azerbaijan</source>
-        <target>__Azerbaijan</target>
-      </trans-unit>
-      <trans-unit id="WPkaKu." resname="Bahamas">
-        <source>Bahamas</source>
-        <target>__Bahamas</target>
-      </trans-unit>
-      <trans-unit id="lLKFm5E" resname="Bahrain">
-        <source>Bahrain</source>
-        <target>__Bahrain</target>
-      </trans-unit>
-      <trans-unit id="1zdnPOq" resname="Bear Island (Bjornoya)">
-        <source>Bear Island (Bjornoya)</source>
-        <target>__Bear Island (Bjornoya)</target>
-      </trans-unit>
-      <trans-unit id="S_8W3xd" resname="Belarus">
-        <source>Belarus</source>
-        <target>__Belarus</target>
-      </trans-unit>
-      <trans-unit id="cdyB8Tw" resname="Belize">
-        <source>Belize</source>
-        <target>__Belize</target>
-      </trans-unit>
-      <trans-unit id="ecif1Ff" resname="Bermuda">
-        <source>Bermuda</source>
-        <target>__Bermuda</target>
-      </trans-unit>
-      <trans-unit id="liHAc2R" resname="Bolivia">
-        <source>Bolivia</source>
-        <target>__Bolivia</target>
-      </trans-unit>
-      <trans-unit id="A6RGDIe" resname="Bosnia-Hercegovina">
-        <source>Bosnia-Hercegovina</source>
-        <target>__Bosnia-Hercegovina</target>
-      </trans-unit>
-      <trans-unit id="FnL2DDq" resname="Botswana">
-        <source>Botswana</source>
-        <target>__Botswana</target>
-      </trans-unit>
-      <trans-unit id="mev32RI" resname="Brunei">
-        <source>Brunei</source>
-        <target>__Brunei</target>
-      </trans-unit>
-      <trans-unit id="Zrhr8PB" resname="Bulgaria">
-        <source>Bulgaria</source>
-        <target>__Bulgaria</target>
-      </trans-unit>
-      <trans-unit id="DCywGi2" resname="Cambodia">
-        <source>Cambodia</source>
-        <target>__Cambodia</target>
-      </trans-unit>
-      <trans-unit id="QlblEvz" resname="Chad">
-        <source>Chad</source>
-        <target>__Chad</target>
-      </trans-unit>
-      <trans-unit id="9Sc_I21" resname="Chile">
-        <source>Chile</source>
-        <target>__Chile</target>
-      </trans-unit>
-      <trans-unit id="uOVuQa0" resname="Cocos (Keeling) Islands">
-        <source>Cocos (Keeling) Islands</source>
-        <target>__Cocos (Keeling) Islands</target>
-      </trans-unit>
-      <trans-unit id="a2Fa2xM" resname="Colombia">
-        <source>Colombia</source>
-        <target>__Colombia</target>
-      </trans-unit>
-      <trans-unit id="Wv1cD89" resname="Cook Islands (Southern)">
-        <source>Cook Islands (Southern)</source>
-        <target>__Cook Islands (Southern)</target>
-      </trans-unit>
-      <trans-unit id="jzu1Hra" resname="Corsica">
-        <source>Corsica</source>
-        <target>__Corsica</target>
-      </trans-unit>
-      <trans-unit id="4mdC183" resname="Costa Rica">
-        <source>Costa Rica</source>
-        <target>__Costa Rica</target>
-      </trans-unit>
-      <trans-unit id=".vGuLfe" resname="Diego Garcia (Biot)">
-        <source>Diego Garcia (Biot)</source>
-        <target>__Diego Garcia (Biot)</target>
-      </trans-unit>
-      <trans-unit id="RnilezC" resname="Djibouti">
-        <source>Djibouti</source>
-        <target>__Djibouti</target>
-      </trans-unit>
-      <trans-unit id="vip.VoT" resname="Dominica">
-        <source>Dominica</source>
-        <target>__Dominica</target>
-      </trans-unit>
-      <trans-unit id="gqzZM9m" resname="Easter Island">
-        <source>Easter Island</source>
-        <target>__Easter Island</target>
-      </trans-unit>
-      <trans-unit id="LKJsYP4" resname="Ecuador">
-        <source>Ecuador</source>
-        <target>__Ecuador</target>
-      </trans-unit>
-      <trans-unit id="xAjSbB7" resname="El Salvador">
-        <source>El Salvador</source>
-        <target>__El Salvador</target>
-      </trans-unit>
-      <trans-unit id="iZRoeEO" resname="Equatorial Guinea">
-        <source>Equatorial Guinea</source>
-        <target>__Equatorial Guinea</target>
-      </trans-unit>
-      <trans-unit id="EK66aX9" resname="Estonia">
-        <source>Estonia</source>
-        <target>__Estonia</target>
-      </trans-unit>
-      <trans-unit id="fZSXfgM" resname="Ethiopia">
-        <source>Ethiopia</source>
-        <target>__Ethiopia</target>
-      </trans-unit>
-      <trans-unit id="w4fi1Q." resname="Falkland Islands">
-        <source>Falkland Islands</source>
-        <target>__Falkland Islands</target>
-      </trans-unit>
-      <trans-unit id="dzyk1hg" resname="Faroe Islands">
-        <source>Faroe Islands</source>
-        <target>__Faroe Islands</target>
-      </trans-unit>
-      <trans-unit id="9oIV.7L" resname="Fernando de Noronha (BRA)">
-        <source>Fernando de Noronha (BRA)</source>
-        <target>__Fernando de Noronha (BRA)</target>
-      </trans-unit>
-      <trans-unit id="Z5wC3NK" resname="Fiji">
-        <source>Fiji</source>
-        <target>__Fiji</target>
-      </trans-unit>
-      <trans-unit id="q0lf_bW" resname="French Guyana">
-        <source>French Guyana</source>
-        <target>__French Guyana</target>
-      </trans-unit>
-      <trans-unit id="2dBUyWw" resname="Galapagos">
-        <source>Galapagos</source>
-        <target>__Galapagos</target>
-      </trans-unit>
-      <trans-unit id="RpFJIXn" resname="Georgia">
-        <source>Georgia</source>
-        <target>__Georgia</target>
-      </trans-unit>
-      <trans-unit id="CXztWC8" resname="Gibraltar">
-        <source>Gibraltar</source>
-        <target>__Gibraltar</target>
-      </trans-unit>
-      <trans-unit id="BZOqDI7" resname="Grenada">
-        <source>Grenada</source>
-        <target>__Grenada</target>
-      </trans-unit>
-      <trans-unit id="NcnePGO" resname="Guadeloupe">
-        <source>Guadeloupe</source>
-        <target>__Guadeloupe</target>
-      </trans-unit>
-      <trans-unit id="XEsyHst" resname="Guam">
-        <source>Guam</source>
-        <target>__Guam</target>
-      </trans-unit>
-      <trans-unit id="RaFaJHD" resname="Guatemala">
-        <source>Guatemala</source>
-        <target>__Guatemala</target>
-      </trans-unit>
-      <trans-unit id="3Vkdd_p" resname="Guinea">
-        <source>Guinea</source>
-        <target>__Guinea</target>
-      </trans-unit>
-      <trans-unit id="6jv8Jvp" resname="Guyana">
-        <source>Guyana</source>
-        <target>__Guyana</target>
-      </trans-unit>
-      <trans-unit id="0JC4fko" resname="Haiti">
-        <source>Haiti</source>
-        <target>__Haiti</target>
-      </trans-unit>
-      <trans-unit id="t5tfl7x" resname="Honduras">
-        <source>Honduras</source>
-        <target>__Honduras</target>
-      </trans-unit>
-      <trans-unit id="28dKNtj" resname="Indonesia">
-        <source>Indonesia</source>
-        <target>__Indonesia</target>
-      </trans-unit>
-      <trans-unit id="SJY_Fv8" resname="Int Waters: Africa">
-        <source>Int Waters: Africa</source>
-        <target>__Int Waters: Africa</target>
-      </trans-unit>
-      <trans-unit id="3rX3Djg" resname="Int Waters: Asia">
-        <source>Int Waters: Asia</source>
-        <target>__Int Waters: Asia</target>
-      </trans-unit>
-      <trans-unit id="xWxYKr7" resname="Int Waters: C.America / Carribean">
-        <source>Int Waters: C.America / Carribean</source>
-        <target>__Int Waters: C.America / Carribean</target>
-      </trans-unit>
-      <trans-unit id="N2yPWH6" resname="Int Waters: N.America">
-        <source>Int Waters: N.America</source>
-        <target>__Int Waters: N.America</target>
-      </trans-unit>
-      <trans-unit id="hOpyybT" resname="Int Waters: Oceania">
-        <source>Int Waters: Oceania</source>
-        <target>__Int Waters: Oceania</target>
-      </trans-unit>
-      <trans-unit id="HAbCLfe" resname="Int Waters: S.America">
-        <source>Int Waters: S.America</source>
-        <target>__Int Waters: S.America</target>
-      </trans-unit>
-      <trans-unit id="GNThcHZ" resname="Iran">
-        <source>Iran</source>
-        <target>__Iran</target>
-      </trans-unit>
-      <trans-unit id="3lAI0ZS" resname="Iraq">
-        <source>Iraq</source>
-        <target>__Iraq</target>
-      </trans-unit>
-      <trans-unit id="au.7qIP" resname="Isle Of Man">
-        <source>Isle Of Man</source>
-        <target>__Isle Of Man</target>
-      </trans-unit>
-      <trans-unit id="NVKsDAM" resname="Israel">
-        <source>Israel</source>
-        <target>__Israel</target>
-      </trans-unit>
-      <trans-unit id="QsKYuhf" resname="Jamaica">
-        <source>Jamaica</source>
-        <target>__Jamaica</target>
-      </trans-unit>
-      <trans-unit id="SymuHYr" resname="Jan Mayen">
-        <source>Jan Mayen</source>
-        <target>__Jan Mayen</target>
-      </trans-unit>
-      <trans-unit id="dkqMBK1" resname="Jersey">
-        <source>Jersey</source>
-        <target>__Jersey</target>
-      </trans-unit>
-      <trans-unit id="tIwjDni" resname="Johnston Island">
-        <source>Johnston Island</source>
-        <target>__Johnston Island</target>
-      </trans-unit>
-      <trans-unit id="6L.h7Wk" resname="Jordan">
-        <source>Jordan</source>
-        <target>__Jordan</target>
-      </trans-unit>
-      <trans-unit id="kiS1F0g" resname="Kalinigrad">
-        <source>Kalinigrad</source>
-        <target>__Kalinigrad</target>
-      </trans-unit>
-      <trans-unit id="dcArjS_" resname="Kazakhstan">
-        <source>Kazakhstan</source>
-        <target>__Kazakhstan</target>
-      </trans-unit>
-      <trans-unit id="dOGJHcY" resname="Kenya">
-        <source>Kenya</source>
-        <target>__Kenya</target>
-      </trans-unit>
-      <trans-unit id="GfeScwm" resname="Kirghizistan">
-        <source>Kirghizistan</source>
-        <target>__Kirghizistan</target>
-      </trans-unit>
-      <trans-unit id="gZEjFGw" resname="Kiribati">
-        <source>Kiribati</source>
-        <target>__Kiribati</target>
-      </trans-unit>
-      <trans-unit id="ZGmSMVE" resname="Korea, North">
-        <source>Korea, North</source>
-        <target>__Korea, North</target>
-      </trans-unit>
-      <trans-unit id="EMPC4u3" resname="Kuwait">
-        <source>Kuwait</source>
-        <target>__Kuwait</target>
-      </trans-unit>
-      <trans-unit id="mOGPRmh" resname="Laos">
-        <source>Laos</source>
-        <target>__Laos</target>
-      </trans-unit>
-      <trans-unit id="403WFrl" resname="Lebanon">
-        <source>Lebanon</source>
-        <target>__Lebanon</target>
-      </trans-unit>
-      <trans-unit id="KqL871D" resname="Libya">
-        <source>Libya</source>
-        <target>__Libya</target>
-      </trans-unit>
-      <trans-unit id="XIOmMbz" resname="Lithuania">
-        <source>Lithuania</source>
-        <target>__Lithuania</target>
-      </trans-unit>
-      <trans-unit id="eHMogwn" resname="Macedonia">
-        <source>Macedonia</source>
-        <target>__Macedonia</target>
-      </trans-unit>
-      <trans-unit id="1oBEZMX" resname="Madagascar">
-        <source>Madagascar</source>
-        <target>__Madagascar</target>
-      </trans-unit>
-      <trans-unit id="LF0Poco" resname="Madeira">
-        <source>Madeira</source>
-        <target>__Madeira</target>
-      </trans-unit>
-      <trans-unit id="YRAlzd4" resname="Malawi">
-        <source>Malawi</source>
-        <target>__Malawi</target>
-      </trans-unit>
-      <trans-unit id="j7VEcaS" resname="Maldives">
-        <source>Maldives</source>
-        <target>__Maldives</target>
-      </trans-unit>
-      <trans-unit id="7lchpaY" resname="Mali">
-        <source>Mali</source>
-        <target>__Mali</target>
-      </trans-unit>
-      <trans-unit id="cenrEHV" resname="Malta">
-        <source>Malta</source>
-        <target>__Malta</target>
-      </trans-unit>
-      <trans-unit id="XihquEn" resname="Marquesas Islands">
-        <source>Marquesas Islands</source>
-        <target>__Marquesas Islands</target>
-      </trans-unit>
-      <trans-unit id=".jPJJc4" resname="Marshall Islands">
-        <source>Marshall Islands</source>
-        <target>__Marshall Islands</target>
-      </trans-unit>
-      <trans-unit id="xlkG3Hz" resname="Martinique">
-        <source>Martinique</source>
-        <target>__Martinique</target>
-      </trans-unit>
-      <trans-unit id="qoBX7LQ" resname="Mauritius">
-        <source>Mauritius</source>
-        <target>__Mauritius</target>
-      </trans-unit>
-      <trans-unit id="0ItKDw3" resname="Mayotte">
-        <source>Mayotte</source>
-        <target>__Mayotte</target>
-      </trans-unit>
-      <trans-unit id="KYhoafA" resname="Melilla">
-        <source>Melilla</source>
-        <target>__Melilla</target>
-      </trans-unit>
-      <trans-unit id="p9NVsmv" resname="Mexico">
-        <source>Mexico</source>
-        <target>__Mexico</target>
-      </trans-unit>
-      <trans-unit id="1wg1tWR" resname="Micronesia">
-        <source>Micronesia</source>
-        <target>__Micronesia</target>
-      </trans-unit>
-      <trans-unit id="kRYJCZk" resname="Midway Island">
-        <source>Midway Island</source>
-        <target>__Midway Island</target>
-      </trans-unit>
-      <trans-unit id="eReNla5" resname="Minami Tori Shima (JPN)">
-        <source>Minami Tori Shima (JPN)</source>
-        <target>__Minami Tori Shima (JPN)</target>
-      </trans-unit>
-      <trans-unit id="FK1jocY" resname="Moldova">
-        <source>Moldova</source>
-        <target>__Moldova</target>
-      </trans-unit>
-      <trans-unit id="k1AYzEF" resname="Monaco">
-        <source>Monaco</source>
-        <target>__Monaco</target>
-      </trans-unit>
-      <trans-unit id="mafAZac" resname="Mongolia">
-        <source>Mongolia</source>
-        <target>__Mongolia</target>
-      </trans-unit>
-      <trans-unit id="yQVIJvc" resname="Mozambique">
-        <source>Mozambique</source>
-        <target>__Mozambique</target>
-      </trans-unit>
-      <trans-unit id="uiA5pM9" resname="Myanmar">
-        <source>Myanmar</source>
-        <target>__Myanmar</target>
-      </trans-unit>
-      <trans-unit id="6lvTmEj" resname="Namibia">
-        <source>Namibia</source>
-        <target>__Namibia</target>
-      </trans-unit>
-      <trans-unit id="V_kAiF1" resname="Nauru">
-        <source>Nauru</source>
-        <target>__Nauru</target>
-      </trans-unit>
-      <trans-unit id="sPbuQCR" resname="Netherlands Antilles">
-        <source>Netherlands Antilles</source>
-        <target>__Netherlands Antilles</target>
-      </trans-unit>
-      <trans-unit id="lOa9V0t" resname="Nicaragua">
-        <source>Nicaragua</source>
-        <target>__Nicaragua</target>
-      </trans-unit>
-      <trans-unit id="LL68VB_" resname="Niger">
-        <source>Niger</source>
-        <target>__Niger</target>
-      </trans-unit>
-      <trans-unit id="BJUqD5h" resname="Nigeria">
-        <source>Nigeria</source>
-        <target>__Nigeria</target>
-      </trans-unit>
-      <trans-unit id="hJgAzq9" resname="Niue Island">
-        <source>Niue Island</source>
-        <target>__Niue Island</target>
-      </trans-unit>
-      <trans-unit id="TQ37h38" resname="Norfolk Island">
-        <source>Norfolk Island</source>
-        <target>__Norfolk Island</target>
-      </trans-unit>
-      <trans-unit id="ZlRdNbP" resname="Northern Mariana Islands">
-        <source>Northern Mariana Islands</source>
-        <target>__Northern Mariana Islands</target>
-      </trans-unit>
-      <trans-unit id="r6G8dww" resname="Ogasawara (JPN)">
-        <source>Ogasawara (JPN)</source>
-        <target>__Ogasawara (JPN)</target>
-      </trans-unit>
-      <trans-unit id="8bk_kcn" resname="Orkney Islands">
-        <source>Orkney Islands</source>
-        <target>__Orkney Islands</target>
-      </trans-unit>
-      <trans-unit id="4lZzEux" resname="Pakistan">
-        <source>Pakistan</source>
-        <target>__Pakistan</target>
-      </trans-unit>
-      <trans-unit id="f6ZHc9z" resname="Palau">
-        <source>Palau</source>
-        <target>__Palau</target>
-      </trans-unit>
-      <trans-unit id="w2aPWBK" resname="Panama">
-        <source>Panama</source>
-        <target>__Panama</target>
-      </trans-unit>
-      <trans-unit id="xldCzrK" resname="Papua New Guinea">
-        <source>Papua New Guinea</source>
-        <target>__Papua New Guinea</target>
-      </trans-unit>
-      <trans-unit id="f7TReex" resname="Paraguay">
-        <source>Paraguay</source>
-        <target>__Paraguay</target>
-      </trans-unit>
-      <trans-unit id="UIcxo8X" resname="Peru">
-        <source>Peru</source>
-        <target>__Peru</target>
-      </trans-unit>
-      <trans-unit id="w3gshtg" resname="Philippines">
-        <source>Philippines</source>
-        <target>__Philippines</target>
-      </trans-unit>
-      <trans-unit id="2apD6tX" resname="Puerto Rico">
-        <source>Puerto Rico</source>
-        <target>__Puerto Rico</target>
-      </trans-unit>
-      <trans-unit id="6iNybdD" resname="Romania">
-        <source>Romania</source>
-        <target>__Romania</target>
-      </trans-unit>
-      <trans-unit id="R5b_suQ" resname="Ryukyu Islands (JPN)">
-        <source>Ryukyu Islands (JPN)</source>
-        <target>__Ryukyu Islands (JPN)</target>
-      </trans-unit>
-      <trans-unit id="25HuTtd" resname="Samoa, American">
-        <source>Samoa, American</source>
-        <target>__Samoa, American</target>
-      </trans-unit>
-      <trans-unit id="2tPIZDX" resname="Samoa, Western">
-        <source>Samoa, Western</source>
-        <target>__Samoa, Western</target>
-      </trans-unit>
-      <trans-unit id="3H3ft_4" resname="San Andres &amp; Providencia">
-        <source>San Andres &amp; Providencia</source>
-        <target><![CDATA[__San Andres & Providencia]]></target>
-      </trans-unit>
-      <trans-unit id="7ZrRNhH" resname="Saudi Arabia">
-        <source>Saudi Arabia</source>
-        <target>__Saudi Arabia</target>
-      </trans-unit>
-      <trans-unit id="pcSJIYQ" resname="Society Islands (Tahiti)">
-        <source>Society Islands (Tahiti)</source>
-        <target>__Society Islands (Tahiti)</target>
-      </trans-unit>
-      <trans-unit id="z.TFjeC" resname="Solomon Islands">
-        <source>Solomon Islands</source>
-        <target>__Solomon Islands</target>
-      </trans-unit>
-      <trans-unit id="vQXTJNi" resname="Somalia">
-        <source>Somalia</source>
-        <target>__Somalia</target>
-      </trans-unit>
-      <trans-unit id="B.jRFEo" resname="Sri Lanka">
-        <source>Sri Lanka</source>
-        <target>__Sri Lanka</target>
-      </trans-unit>
-      <trans-unit id="xQCWdvc" resname="St Helena">
-        <source>St Helena</source>
-        <target>__St Helena</target>
-      </trans-unit>
-      <trans-unit id="zfLAG_U" resname="St Kitts-Nevis">
-        <source>St Kitts-Nevis</source>
-        <target>__St Kitts-Nevis</target>
-      </trans-unit>
-      <trans-unit id="a8.lFKR" resname="St Pierre Et Miquelon">
-        <source>St Pierre Et Miquelon</source>
-        <target>__St Pierre Et Miquelon</target>
-      </trans-unit>
-      <trans-unit id="DPWEqao" resname="St Vincent">
-        <source>St Vincent</source>
-        <target>__St Vincent</target>
-      </trans-unit>
-      <trans-unit id="7WjU3vG" resname="Sudan">
-        <source>Sudan</source>
-        <target>__Sudan</target>
-      </trans-unit>
-      <trans-unit id="GIEFWE_" resname="Swaziland">
-        <source>Swaziland</source>
-        <target>__Swaziland</target>
-      </trans-unit>
-      <trans-unit id="z2rCm_H" resname="Syria">
-        <source>Syria</source>
-        <target>__Syria</target>
-      </trans-unit>
-      <trans-unit id="BmsCEwt" resname="Tajikistan">
-        <source>Tajikistan</source>
-        <target>__Tajikistan</target>
-      </trans-unit>
-      <trans-unit id="WI1Wsyo" resname="Timor">
-        <source>Timor</source>
-        <target>__Timor</target>
-      </trans-unit>
-      <trans-unit id="FxTCMdv" resname="Trinidad &amp; Tobago">
-        <source>Trinidad &amp; Tobago</source>
-        <target><![CDATA[__Trinidad & Tobago]]></target>
-      </trans-unit>
-      <trans-unit id="LBfUlFH" resname="Tuamotu Archipelago">
-        <source>Tuamotu Archipelago</source>
-        <target>__Tuamotu Archipelago</target>
-      </trans-unit>
-      <trans-unit id="s9.IUF1" resname="Turkmenistan">
-        <source>Turkmenistan</source>
-        <target>__Turkmenistan</target>
-      </trans-unit>
-      <trans-unit id="WT1bbGc" resname="Turks &amp; Caicos Islands">
-        <source>Turks &amp; Caicos Islands</source>
-        <target><![CDATA[__Turks & Caicos Islands]]></target>
-      </trans-unit>
-      <trans-unit id="MLH.mu7" resname="Tuvalu">
-        <source>Tuvalu</source>
-        <target>__Tuvalu</target>
-      </trans-unit>
-      <trans-unit id="iT1ThWO" resname="Uganda">
-        <source>Uganda</source>
-        <target>__Uganda</target>
-      </trans-unit>
-      <trans-unit id="vedtTmw" resname="UNID (Africa?)">
-        <source>UNID (Africa?)</source>
-        <target>__UNID (Africa?)</target>
-      </trans-unit>
-      <trans-unit id="On4n4Y9" resname="UNID (Asia?)">
-        <source>UNID (Asia?)</source>
-        <target>__UNID (Asia?)</target>
-      </trans-unit>
-      <trans-unit id="OqrotIl" resname="UNID (C.America / Carribean?)">
-        <source>UNID (C.America / Carribean?)</source>
-        <target>__UNID (C.America / Carribean?)</target>
-      </trans-unit>
-      <trans-unit id="TsnKwNQ" resname="UNID (Europe?)">
-        <source>UNID (Europe?)</source>
-        <target>__UNID (Europe?)</target>
-      </trans-unit>
-      <trans-unit id="H63T0YG" resname="UNID (N.America?)">
-        <source>UNID (N.America?)</source>
-        <target>__UNID (N.America?)</target>
-      </trans-unit>
-      <trans-unit id="xjIlkH3" resname="UNID (No idea where)">
-        <source>UNID (No idea where)</source>
-        <target>__UNID (No idea where)</target>
-      </trans-unit>
-      <trans-unit id="KMOispN" resname="UNID (Oceania?)">
-        <source>UNID (Oceania?)</source>
-        <target>__UNID (Oceania?)</target>
-      </trans-unit>
-      <trans-unit id="YlfT459" resname="UNID (S.America?)">
-        <source>UNID (S.America?)</source>
-        <target>__UNID (S.America?)</target>
-      </trans-unit>
-      <trans-unit id="3WSRPIu" resname="United Arab Emirates">
-        <source>United Arab Emirates</source>
-        <target>__United Arab Emirates</target>
-      </trans-unit>
-      <trans-unit id="S8Lxwjs" resname="Uzbekistan">
-        <source>Uzbekistan</source>
-        <target>__Uzbekistan</target>
-      </trans-unit>
-      <trans-unit id="xbKm3p1" resname="Vanuatu">
-        <source>Vanuatu</source>
-        <target>__Vanuatu</target>
-      </trans-unit>
-      <trans-unit id="Ag5Di6." resname="Venezuela">
-        <source>Venezuela</source>
-        <target>__Venezuela</target>
-      </trans-unit>
-      <trans-unit id="Ll6BBmo" resname="Vietnam">
-        <source>Vietnam</source>
-        <target>__Vietnam</target>
-      </trans-unit>
-      <trans-unit id="lpWzZ0i" resname="Virgin Islands (British)">
-        <source>Virgin Islands (British)</source>
-        <target>__Virgin Islands (British)</target>
-      </trans-unit>
-      <trans-unit id="jOc1Mfq" resname="Virgin Islands (US)">
-        <source>Virgin Islands (US)</source>
-        <target>__Virgin Islands (US)</target>
-      </trans-unit>
-      <trans-unit id="Goc6NJm" resname="Volcano Islands / Iwo Jima (JPN)">
-        <source>Volcano Islands / Iwo Jima (JPN)</source>
-        <target>__Volcano Islands / Iwo Jima (JPN)</target>
-      </trans-unit>
-      <trans-unit id="Mfio5E2" resname="Wallis Et Futuna">
-        <source>Wallis Et Futuna</source>
-        <target>__Wallis Et Futuna</target>
-      </trans-unit>
-      <trans-unit id="tfkiGuB" resname="Zambia">
-        <source>Zambia</source>
-        <target>__Zambia</target>
-      </trans-unit>
-      <trans-unit id="xyGZqFt" resname="Zimbabwe">
-        <source>Zimbabwe</source>
-        <target>__Zimbabwe</target>
-      </trans-unit>
       <trans-unit id="L26drsj" resname="States">
         <source>States</source>
         <target>__States</target>
@@ -1973,9 +2589,113 @@
         <source>French Polynesian Beacons Map</source>
         <target>__French Polynesian Beacons Map</target>
       </trans-unit>
-      <trans-unit id="W.cwNi1" resname="(inactive)">
-        <source>(inactive)</source>
-        <target>__(inactive)</target>
+      <trans-unit id="PoSvYTN" resname="Contact Details">
+        <source>Contact Details</source>
+        <target>__Contact Details</target>
+      </trans-unit>
+      <trans-unit id="WMX8jEb" resname="Receiving Station Details">
+        <source>Receiving Station Details</source>
+        <target>__Receiving Station Details</target>
+      </trans-unit>
+      <trans-unit id="Cb8l7zC" resname="Email Address">
+        <source>Email Address</source>
+        <target>__Email Address</target>
+      </trans-unit>
+      <trans-unit id="taIprIv" resname="Website">
+        <source>Website</source>
+        <target>__Website</target>
+      </trans-unit>
+      <trans-unit id="uvOCwlY" resname="Town / City">
+        <source>Town / City</source>
+        <target>__Town / City</target>
+      </trans-unit>
+      <trans-unit id="3LSajpY" resname="State / Prov">
+        <source>State / Prov</source>
+        <target>__State / Prov</target>
+      </trans-unit>
+      <trans-unit id="9FTl7RF" resname="Grid Square">
+        <source>Grid Square</source>
+        <target>__Grid Square</target>
+      </trans-unit>
+      <trans-unit id="TTHbfOG" resname="Map X">
+        <source>Map X</source>
+        <target>__Map X</target>
+      </trans-unit>
+      <trans-unit id="WalySf1" resname="Map Y">
+        <source>Map Y</source>
+        <target>__Map Y</target>
+      </trans-unit>
+      <trans-unit id="haOas0X" resname="Yes">
+        <source>Yes</source>
+        <target>__Yes</target>
+      </trans-unit>
+      <trans-unit id="HqRCoTS" resname="No">
+        <source>No</source>
+        <target>__No</target>
+      </trans-unit>
+      <trans-unit id="TOyh1Sz" resname="Timezone">
+        <source>Timezone</source>
+        <target>__Timezone</target>
+      </trans-unit>
+      <trans-unit id="fyRlrHz" resname="Equipment">
+        <source>Equipment</source>
+        <target>__Equipment</target>
+      </trans-unit>
+      <trans-unit id="fZ63rLE" resname="Close">
+        <source>Close</source>
+        <target>__Close</target>
+      </trans-unit>
+      <trans-unit id="FQn1YfJ" resname="Save">
+        <source>Save</source>
+        <target>__Save</target>
+      </trans-unit>
+      <trans-unit id="mX4ZgCJ" resname="Icao">
+        <source>Icao</source>
+        <target>__Icao</target>
+      </trans-unit>
+      <trans-unit id="IehJKTi" resname="Hours">
+        <source>Hours</source>
+        <target>__Hours</target>
+      </trans-unit>
+      <trans-unit id="MbZfo9M" resname="QNH">
+        <source>QNH</source>
+        <target>__QNH</target>
+      </trans-unit>
+      <trans-unit id="SRja4KA" resname="Metar - Raw">
+        <source>Metar - Raw</source>
+        <target>__Metar - Raw</target>
+      </trans-unit>
+      <trans-unit id="zaUefab" resname="Metar - Decoded">
+        <source>Metar - Decoded</source>
+        <target>__Metar - Decoded</target>
+      </trans-unit>
+      <trans-unit id="JhEjfrz" resname="Signal Statistics">
+        <source>Signal Statistics</source>
+        <target>__Signal Statistics</target>
+      </trans-unit>
+      <trans-unit id="RdmujcP" resname="Total Signals">
+        <source>Total Signals</source>
+        <target>__Total Signals</target>
+      </trans-unit>
+      <trans-unit id=".ZlPtLW" resname="Log Statistics">
+        <source>Log Statistics</source>
+        <target>__Log Statistics</target>
+      </trans-unit>
+      <trans-unit id="_GsHfzT" resname="Total Logs">
+        <source>Total Logs</source>
+        <target>__Total Logs</target>
+      </trans-unit>
+      <trans-unit id="WLwCnnc" resname="Active Signals">
+        <source>Active Signals</source>
+        <target>__Active Signals</target>
+      </trans-unit>
+      <trans-unit id="EvVNc4R" resname="&lt;i&gt;Inactive&lt;/i&gt; signals">
+        <source>&lt;i&gt;Inactive&lt;/i&gt; signals</source>
+        <target><![CDATA[__<i>Inactive</i> signals]]></target>
+      </trans-unit>
+      <trans-unit id="DviaeMh" resname="Signals Seeklist (continued)">
+        <source>Signals Seeklist (continued)</source>
+        <target>__Signals Seeklist (continued)</target>
       </trans-unit>
       <trans-unit id="h4UrBK0" resname="(No signals found matching your criteria)">
         <source>(No signals found matching your criteria)</source>
@@ -1992,6 +2712,18 @@
       <trans-unit id="e1opfz2" resname="This report prints best in Landscape.">
         <source>This report prints best in Landscape.</source>
         <target>__This report prints best in Landscape.</target>
+      </trans-unit>
+      <trans-unit id="rSFrEP4" resname="Personalised for %s">
+        <source>Personalised for %s</source>
+        <target>__Personalised for %s</target>
+      </trans-unit>
+      <trans-unit id="W.cwNi1" resname="(inactive)">
+        <source>(inactive)</source>
+        <target>__(inactive)</target>
+      </trans-unit>
+      <trans-unit id="8iHj.mY" resname="Logged by Personalised Listener">
+        <source>Logged by Personalised Listener</source>
+        <target>__Logged by Personalised Listener</target>
       </trans-unit>
       <trans-unit id="uE9iGdh" resname="Add Signal...">
         <source>Add Signal...</source>
@@ -2013,6 +2745,10 @@
         <source>Change Log</source>
         <target>__Change Log</target>
       </trans-unit>
+      <trans-unit id="DZo50ZN" resname="(No listeners found matching your criteria)">
+        <source>(No listeners found matching your criteria)</source>
+        <target>__(No listeners found matching your criteria)</target>
+      </trans-unit>
       <trans-unit id="2arJ9ul" resname="Add Log for:">
         <source>Add Log for:</source>
         <target>__Add Log for:</target>
@@ -2024,174 +2760,6 @@
       <trans-unit id="dQ.b2vQ" resname="Add Listener...">
         <source>Add Listener...</source>
         <target>__Add Listener...</target>
-      </trans-unit>
-      <trans-unit id="2PdGb4I" resname="%s Listeners">
-        <source>%s Listeners</source>
-        <target>__%s Listeners</target>
-      </trans-unit>
-      <trans-unit id="x3sDGOf" resname="Signals Map">
-        <source>Signals Map</source>
-        <target>__Signals Map</target>
-      </trans-unit>
-      <trans-unit id="bSInVV." resname="Sort By">
-        <source>Sort By</source>
-        <target>__Sort By</target>
-      </trans-unit>
-      <trans-unit id="4NnTK9r" resname="Z-A">
-        <source>Z-A</source>
-        <target>__Z-A</target>
-      </trans-unit>
-      <trans-unit id="w2kkC0n" resname="Show List">
-        <source>Show List</source>
-        <target>__Show List</target>
-      </trans-unit>
-      <trans-unit id="tygaHJi" resname="Show Map">
-        <source>Show Map</source>
-        <target>__Show Map</target>
-      </trans-unit>
-      <trans-unit id="4M5Z.5o" resname="SeekList">
-        <source>SeekList</source>
-        <target>__SeekList</target>
-      </trans-unit>
-      <trans-unit id="AKSD_3a" resname="Customise for">
-        <source>Customise for</source>
-        <target>__Customise for</target>
-      </trans-unit>
-      <trans-unit id="8EcO0.K" resname="Nominal Carrier">
-        <source>Nominal Carrier</source>
-        <target>__Nominal Carrier</target>
-      </trans-unit>
-      <trans-unit id="pXirc_e" resname="Places signal has been reported">
-        <source>Places signal has been reported</source>
-        <target>__Places signal has been reported</target>
-      </trans-unit>
-      <trans-unit id="5l58MbK" resname="Number of times logged">
-        <source>Number of times logged</source>
-        <target>__Number of times logged</target>
-      </trans-unit>
-      <trans-unit id="P7sDm7m" resname="Logged">
-        <source>Logged</source>
-        <target>__Logged</target>
-      </trans-unit>
-      <trans-unit id="2wAoFlP" resname="Personalise for">
-        <source>Personalise for</source>
-        <target>__Personalise for</target>
-      </trans-unit>
-      <trans-unit id="8iHj.mY" resname="Logged by Personalised Listener">
-        <source>Logged by Personalised Listener</source>
-        <target>__Logged by Personalised Listener</target>
-      </trans-unit>
-      <trans-unit id="WIA4rWp" resname="Signal Details">
-        <source>Signal Details</source>
-        <target>__Signal Details</target>
-      </trans-unit>
-      <trans-unit id="W1om173" resname="Kilometers from GSQ">
-        <source>Kilometers from GSQ</source>
-        <target>__Kilometers from GSQ</target>
-      </trans-unit>
-      <trans-unit id="SI33SqE" resname="Miles from GSQ">
-        <source>Miles from GSQ</source>
-        <target>__Miles from GSQ</target>
-      </trans-unit>
-      <trans-unit id="rEPk5F5" resname="Paper Size">
-        <source>Paper Size</source>
-        <target>__Paper Size</target>
-      </trans-unit>
-      <trans-unit id="JnloOrP" resname="A4 (Portrait) - 21.6cm x 27.9cm">
-        <source>A4 (Portrait) - 21.6cm x 27.9cm</source>
-        <target>__A4 (Portrait) - 21.6cm x 27.9cm</target>
-      </trans-unit>
-      <trans-unit id="8qKd5m3" resname="A4 (Landscape) - 27.9cm x 21.6cm">
-        <source>A4 (Landscape) - 27.9cm x 21.6cm</source>
-        <target>__A4 (Landscape) - 27.9cm x 21.6cm</target>
-      </trans-unit>
-      <trans-unit id="ieoMxy7" resname="Legal (Portrait) - 8.5&quot; x 14&quot;">
-        <source>Legal (Portrait) - 8.5" x 14"</source>
-        <target>__Legal (Portrait) - 8.5" x 14"</target>
-      </trans-unit>
-      <trans-unit id="e08khCg" resname="Legal (Landscape) - 14&quot; x 8.5&quot;">
-        <source>Legal (Landscape) - 14" x 8.5"</source>
-        <target>__Legal (Landscape) - 14" x 8.5"</target>
-      </trans-unit>
-      <trans-unit id="k7XpiG2" resname="Letter (Portrait) - 8.5&quot; x 11&quot;">
-        <source>Letter (Portrait) - 8.5" x 11"</source>
-        <target>__Letter (Portrait) - 8.5" x 11"</target>
-      </trans-unit>
-      <trans-unit id="WghhOJx" resname="Letter (Landscape) - 11&quot; x 8.5&quot;">
-        <source>Letter (Landscape) - 11" x 8.5"</source>
-        <target>__Letter (Landscape) - 11" x 8.5"</target>
-      </trans-unit>
-      <trans-unit id="jOMYuru" resname="Display Mode">
-        <source>Display Mode</source>
-        <target>__Display Mode</target>
-      </trans-unit>
-      <trans-unit id="j9rMhNH" resname="Show SeekList">
-        <source>Show SeekList</source>
-        <target>__Show SeekList</target>
-      </trans-unit>
-      <trans-unit id="KwY2w.u" resname="(None specified)">
-        <source>(None specified)</source>
-        <target>__(None specified)</target>
-      </trans-unit>
-      <trans-unit id="uMcbize" resname="Continent or Zone">
-        <source>Continent or Zone</source>
-        <target>__Continent or Zone</target>
-      </trans-unit>
-      <trans-unit id="w33i5Qp" resname="%s Seeklist">
-        <source>%s Seeklist</source>
-        <target>__%s Seeklist</target>
-      </trans-unit>
-      <trans-unit id="w1UCAXl" resname="Page %s">
-        <source>Page %s</source>
-        <target>__Page %s</target>
-      </trans-unit>
-      <trans-unit id="07WVGNc" resname="Signals including &lt;i&gt;Inactive&lt;/i&gt; stations">
-        <source>Signals including &lt;i&gt;Inactive&lt;/i&gt; stations</source>
-        <target><![CDATA[__Signals including <i>Inactive</i> stations]]></target>
-      </trans-unit>
-      <trans-unit id="rSFrEP4" resname="Personalised for %s">
-        <source>Personalised for %s</source>
-        <target>__Personalised for %s</target>
-      </trans-unit>
-      <trans-unit id="Rh6JnW9" resname="Updated %s">
-        <source>Updated %s</source>
-        <target>__Updated %s</target>
-      </trans-unit>
-      <trans-unit id="OkxRm7y" resname="(%s of %s)">
-        <source>(%s of %s)</source>
-        <target>__(%s of %s)</target>
-      </trans-unit>
-      <trans-unit id="M1MzS7l" resname="(total: %s)">
-        <source>(total: %s)</source>
-        <target>__(total: %s)</target>
-      </trans-unit>
-      <trans-unit id="DviaeMh" resname="Signals Seeklist (continued)">
-        <source>Signals Seeklist (continued)</source>
-        <target>__Signals Seeklist (continued)</target>
-      </trans-unit>
-      <trans-unit id="iHXQHtm" resname="Page %s of %s">
-        <source>Page %s of %s</source>
-        <target>__Page %s of %s</target>
-      </trans-unit>
-      <trans-unit id="4YhR0_4" resname="For %s">
-        <source>For %s</source>
-        <target>__For %s</target>
-      </trans-unit>
-      <trans-unit id="Rlk21sa" resname="(received %s of %s)">
-        <source>(received %s of %s)</source>
-        <target>__(received %s of %s)</target>
-      </trans-unit>
-      <trans-unit id="WLwCnnc" resname="Active Signals">
-        <source>Active Signals</source>
-        <target>__Active Signals</target>
-      </trans-unit>
-      <trans-unit id="EvVNc4R" resname="&lt;i&gt;Inactive&lt;/i&gt; signals">
-        <source>&lt;i&gt;Inactive&lt;/i&gt; signals</source>
-        <target><![CDATA[__<i>Inactive</i> signals]]></target>
-      </trans-unit>
-      <trans-unit id="G_2QgEw" resname="Customise">
-        <source>Customise</source>
-        <target>__Customise</target>
       </trans-unit>
     </body>
   </file>

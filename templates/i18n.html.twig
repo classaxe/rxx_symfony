@@ -1,4 +1,6 @@
 {# i18n template as base for translations #}
+{% trans %}<{% endtrans %}
+{% trans %}>{% endtrans %}
 {% if 'Menu' %}
     {% trans %}Signals Received in Europe{% endtrans %}
     {% trans %}Signals Received in N & C America + Hawaii{% endtrans %}
@@ -15,6 +17,17 @@
     {% trans %}Admin Help{% endtrans %}
     {% trans %}System Info{% endtrans %}
 {% endif %}
+{% if 'Log On' %}
+    {% trans %}Administrator Log On{% endtrans %}
+    {% trans %}Log On{% endtrans %}
+    {% trans %}You must Log On in order to perform administrative functions.{% endtrans %}
+    {% trans %}You are now logged on as an Administrator and may perform administrative functions.{% endtrans %}
+    {% trans %}To Log Off, select <strong>Log Off</strong> from the main menu.{% endtrans %}
+    {% trans %}Username{% endtrans %}
+    {% trans %}Password{% endtrans %}
+    {% trans %}Please provide a valid Username{% endtrans %}
+    {% trans %}Please provide a valid Password{% endtrans %}
+{% endif %}
 {% if 'Footer' %}
     {% trans %}Your %s Editors are:{% endtrans %}
     {% trans %}(for DSC signals){% endtrans %}
@@ -26,6 +39,412 @@
     {% trans %}(for NDBs){% endtrans %}
     {% trans %}(for Ham Beacons){% endtrans %}
 {% endif %}
+{% if 'Regions' %}
+    {% trans %}(All Regions){% endtrans %}
+    {% trans %}Africa{% endtrans %}
+    {% trans %}Antarctica{% endtrans %}
+    {% trans %}Asia{% endtrans %}
+    {% trans %}Carribean{% endtrans %}
+    {% trans %}Europe{% endtrans %}
+    {% trans %}International Waters{% endtrans %}
+    {% trans %}North America{% endtrans %}
+    {% trans %}Oceania (Pacific){% endtrans %}
+    {% trans %}South America{% endtrans %}
+    {% trans %}Unknown{% endtrans %}
+{% endif %}
+{% if 'Countries' %}
+    {% trans %}Afghanistan{% endtrans %}
+    {% trans %}Alaska{% endtrans %}
+    {% trans %}Albania{% endtrans %}
+    {% trans %}Algeria{% endtrans %}
+    {% trans %}Andaman & Nicobar Islands{% endtrans %}
+    {% trans %}Andorra{% endtrans %}
+    {% trans %}Angola{% endtrans %}
+    {% trans %}Anguilla{% endtrans %}
+    {% trans %}Antarctica (Mainland){% endtrans %}
+    {% trans %}Antigua & Barbuda{% endtrans %}
+    {% trans %}Argentina{% endtrans %}
+    {% trans %}Armenia{% endtrans %}
+    {% trans %}Aruba{% endtrans %}
+    {% trans %}Ascension Island{% endtrans %}
+    {% trans %}Austral Islands (Iles Tubuai){% endtrans %}
+    {% trans %}Australia{% endtrans %}
+    {% trans %}Austria{% endtrans %}
+    {% trans %}Azerbaijan{% endtrans %}
+    {% trans %}Azores{% endtrans %}
+    {% trans %}Bahamas{% endtrans %}
+    {% trans %}Bahrain{% endtrans %}
+    {% trans %}Balearic Islands{% endtrans %}
+    {% trans %}Bangladesh{% endtrans %}
+    {% trans %}Barbados{% endtrans %}
+    {% trans %}Bear Island (Bjornoya){% endtrans %}
+    {% trans %}Belarus{% endtrans %}
+    {% trans %}Belgium{% endtrans %}
+    {% trans %}Belize{% endtrans %}
+    {% trans %}Benin{% endtrans %}
+    {% trans %}Bermuda{% endtrans %}
+    {% trans %}Bhutan{% endtrans %}
+    {% trans %}Bolivia{% endtrans %}
+    {% trans %}Bosnia-Hercegovina{% endtrans %}
+    {% trans %}Botswana{% endtrans %}
+    {% trans %}Brazil{% endtrans %}
+    {% trans %}Brunei{% endtrans %}
+    {% trans %}Bulgaria{% endtrans %}
+    {% trans %}Burkina Faso{% endtrans %}
+    {% trans %}Burundi{% endtrans %}
+    {% trans %}Cabinda{% endtrans %}
+    {% trans %}Cambodia{% endtrans %}
+    {% trans %}Cameroon{% endtrans %}
+    {% trans %}Canada{% endtrans %}
+    {% trans %}Canary Islands{% endtrans %}
+    {% trans %}Cape Verde{% endtrans %}
+    {% trans %}Cayman Islands{% endtrans %}
+    {% trans %}Central African Republic{% endtrans %}
+    {% trans %}Ceuta{% endtrans %}
+    {% trans %}Chad{% endtrans %}
+    {% trans %}Chile{% endtrans %}
+    {% trans %}China{% endtrans %}
+    {% trans %}Christmas Island{% endtrans %}
+    {% trans %}Clipperton{% endtrans %}
+    {% trans %}Cocos (Keeling) Islands{% endtrans %}
+    {% trans %}Colombia{% endtrans %}
+    {% trans %}Comoros{% endtrans %}
+    {% trans %}Congo-Brazzaville{% endtrans %}
+    {% trans %}Congo-Kinshasa{% endtrans %}
+    {% trans %}Cook Islands (Northern){% endtrans %}
+    {% trans %}Cook Islands (Southern){% endtrans %}
+    {% trans %}Corsica{% endtrans %}
+    {% trans %}Costa Rica{% endtrans %}
+    {% trans %}Croatia{% endtrans %}
+    {% trans %}Cuba{% endtrans %}
+    {% trans %}Cyprus{% endtrans %}
+    {% trans %}Czechia{% endtrans %}
+    {% trans %}Denmark{% endtrans %}
+    {% trans %}Desventurados{% endtrans %}
+    {% trans %}Diego Garcia (Biot){% endtrans %}
+    {% trans %}Djibouti{% endtrans %}
+    {% trans %}Dominica{% endtrans %}
+    {% trans %}Dominican Republic{% endtrans %}
+    {% trans %}Easter Island{% endtrans %}
+    {% trans %}Ecuador{% endtrans %}
+    {% trans %}Egypt{% endtrans %}
+    {% trans %}El Salvador{% endtrans %}
+    {% trans %}England{% endtrans %}
+    {% trans %}Equatorial Guinea{% endtrans %}
+    {% trans %}Eritrea{% endtrans %}
+    {% trans %}Estonia{% endtrans %}
+    {% trans %}Ethiopia{% endtrans %}
+    {% trans %}Europa Island{% endtrans %}
+    {% trans %}Falkland Islands{% endtrans %}
+    {% trans %}Faroe Islands{% endtrans %}
+    {% trans %}Fernando de Noronha (BRA){% endtrans %}
+    {% trans %}Fiji{% endtrans %}
+    {% trans %}Finland{% endtrans %}
+    {% trans %}France{% endtrans %}
+    {% trans %}French Guyana{% endtrans %}
+    {% trans %}Gabon{% endtrans %}
+    {% trans %}Galapagos{% endtrans %}
+    {% trans %}Gambia{% endtrans %}
+    {% trans %}Georgia{% endtrans %}
+    {% trans %}Germany{% endtrans %}
+    {% trans %}Ghana{% endtrans %}
+    {% trans %}Gibraltar{% endtrans %}
+    {% trans %}Glorieuse Island{% endtrans %}
+    {% trans %}Greece{% endtrans %}
+    {% trans %}Greenland{% endtrans %}
+    {% trans %}Grenada{% endtrans %}
+    {% trans %}Guadeloupe{% endtrans %}
+    {% trans %}Guam{% endtrans %}
+    {% trans %}Guatemala{% endtrans %}
+    {% trans %}Guernsey{% endtrans %}
+    {% trans %}Guinea{% endtrans %}
+    {% trans %}Guinea-Bissau{% endtrans %}
+    {% trans %}Guyana{% endtrans %}
+    {% trans %}Haiti{% endtrans %}
+    {% trans %}Hawaii{% endtrans %}
+    {% trans %}Honduras{% endtrans %}
+    {% trans %}Howland & Baker Islands{% endtrans %}
+    {% trans %}Hungary{% endtrans %}
+    {% trans %}Iceland{% endtrans %}
+    {% trans %}India{% endtrans %}
+    {% trans %}Indonesia{% endtrans %}
+    {% trans %}Int Waters: Africa{% endtrans %}
+    {% trans %}Int Waters: Asia{% endtrans %}
+    {% trans %}Int Waters: C.America / Carribean{% endtrans %}
+    {% trans %}Int Waters: Europe{% endtrans %}
+    {% trans %}Int Waters: N.America{% endtrans %}
+    {% trans %}Int Waters: Oceania{% endtrans %}
+    {% trans %}Int Waters: S.America{% endtrans %}
+    {% trans %}Iran{% endtrans %}
+    {% trans %}Iraq{% endtrans %}
+    {% trans %}Ireland{% endtrans %}
+    {% trans %}Isle Of Man{% endtrans %}
+    {% trans %}Israel{% endtrans %}
+    {% trans %}Italy{% endtrans %}
+    {% trans %}Ivory Coast{% endtrans %}
+    {% trans %}Jamaica{% endtrans %}
+    {% trans %}Jan Mayen{% endtrans %}
+    {% trans %}Japan{% endtrans %}
+    {% trans %}Jarvis{% endtrans %}
+    {% trans %}Jersey{% endtrans %}
+    {% trans %}Johnston Island{% endtrans %}
+    {% trans %}Jordan{% endtrans %}
+    {% trans %}Juan De Nova Island{% endtrans %}
+    {% trans %}Juan Fernandez & Isla Rob{% endtrans %}
+    {% trans %}Kalinigrad{% endtrans %}
+    {% trans %}Kazakhstan{% endtrans %}
+    {% trans %}Kenya{% endtrans %}
+    {% trans %}Kirghizistan{% endtrans %}
+    {% trans %}Kiribati{% endtrans %}
+    {% trans %}Korea, North{% endtrans %}
+    {% trans %}Korea, South{% endtrans %}
+    {% trans %}Kuwait{% endtrans %}
+    {% trans %}Laos{% endtrans %}
+    {% trans %}Latvia{% endtrans %}
+    {% trans %}Lebanon{% endtrans %}
+    {% trans %}Lesotho{% endtrans %}
+    {% trans %}Liberia{% endtrans %}
+    {% trans %}Libya{% endtrans %}
+    {% trans %}Liechtenstein{% endtrans %}
+    {% trans %}Line Islands (North){% endtrans %}
+    {% trans %}Line Islands (South){% endtrans %}
+    {% trans %}Lithuania{% endtrans %}
+    {% trans %}Lord Howe Island{% endtrans %}
+    {% trans %}Luxembourg{% endtrans %}
+    {% trans %}Macedonia{% endtrans %}
+    {% trans %}Madagascar{% endtrans %}
+    {% trans %}Madeira{% endtrans %}
+    {% trans %}Malawi{% endtrans %}
+    {% trans %}Malaysia{% endtrans %}
+    {% trans %}Maldives{% endtrans %}
+    {% trans %}Mali{% endtrans %}
+    {% trans %}Malta{% endtrans %}
+    {% trans %}Marquesas Islands{% endtrans %}
+    {% trans %}Marshall Islands{% endtrans %}
+    {% trans %}Martinique{% endtrans %}
+    {% trans %}Mauritania{% endtrans %}
+    {% trans %}Mauritius{% endtrans %}
+    {% trans %}Mayotte{% endtrans %}
+    {% trans %}Melilla{% endtrans %}
+    {% trans %}Mexico{% endtrans %}
+    {% trans %}Micronesia{% endtrans %}
+    {% trans %}Midway Island{% endtrans %}
+    {% trans %}Minami Tori Shima (JPN){% endtrans %}
+    {% trans %}Moldova{% endtrans %}
+    {% trans %}Monaco{% endtrans %}
+    {% trans %}Mongolia{% endtrans %}
+    {% trans %}Montenegro (Yugoslavia){% endtrans %}
+    {% trans %}Montserrat{% endtrans %}
+    {% trans %}Morocco{% endtrans %}
+    {% trans %}Mozambique{% endtrans %}
+    {% trans %}Myanmar{% endtrans %}
+    {% trans %}Nakhichevan (Azerbaijan){% endtrans %}
+    {% trans %}Namibia{% endtrans %}
+    {% trans %}Nauru{% endtrans %}
+    {% trans %}Nepal{% endtrans %}
+    {% trans %}Netherlands{% endtrans %}
+    {% trans %}Netherlands Antilles{% endtrans %}
+    {% trans %}New Caledonia{% endtrans %}
+    {% trans %}New Zealand{% endtrans %}
+    {% trans %}Nicaragua{% endtrans %}
+    {% trans %}Niger{% endtrans %}
+    {% trans %}Nigeria{% endtrans %}
+    {% trans %}Niue Island{% endtrans %}
+    {% trans %}Norfolk Island{% endtrans %}
+    {% trans %}Northern Ireland{% endtrans %}
+    {% trans %}Northern Mariana Islands{% endtrans %}
+    {% trans %}Norway{% endtrans %}
+    {% trans %}Ogasawara (JPN){% endtrans %}
+    {% trans %}Okino Tori Shima (JPN){% endtrans %}
+    {% trans %}Oman{% endtrans %}
+    {% trans %}Orkney Islands{% endtrans %}
+    {% trans %}Pakistan{% endtrans %}
+    {% trans %}Palau{% endtrans %}
+    {% trans %}Palmyra{% endtrans %}
+    {% trans %}Panama{% endtrans %}
+    {% trans %}Papua New Guinea{% endtrans %}
+    {% trans %}Paraguay{% endtrans %}
+    {% trans %}Peru{% endtrans %}
+    {% trans %}Philippines{% endtrans %}
+    {% trans %}Phoenix Islands{% endtrans %}
+    {% trans %}Pitcairn Island{% endtrans %}
+    {% trans %}Poland{% endtrans %}
+    {% trans %}Portugal{% endtrans %}
+    {% trans %}Puerto Rico{% endtrans %}
+    {% trans %}Qatar{% endtrans %}
+    {% trans %}Reunion{% endtrans %}
+    {% trans %}Romania{% endtrans %}
+    {% trans %}Russia (Eastern){% endtrans %}
+    {% trans %}Russia (European){% endtrans %}
+    {% trans %}Rwanda{% endtrans %}
+    {% trans %}Ryukyu Islands (JPN){% endtrans %}
+    {% trans %}Saints Peter and Paul Rocks (BRA){% endtrans %}
+    {% trans %}Samoa, American{% endtrans %}
+    {% trans %}Samoa, Western{% endtrans %}
+    {% trans %}San Andres & Providencia{% endtrans %}
+    {% trans %}San Marino{% endtrans %}
+    {% trans %}Sao Tome E Principe{% endtrans %}
+    {% trans %}Sardinia{% endtrans %}
+    {% trans %}Saudi Arabia{% endtrans %}
+    {% trans %}Scotland{% endtrans %}
+    {% trans %}Senegal{% endtrans %}
+    {% trans %}Serbia (Yugoslavia){% endtrans %}
+    {% trans %}Seychelles{% endtrans %}
+    {% trans %}Shetland Islands{% endtrans %}
+    {% trans %}Sicily{% endtrans %}
+    {% trans %}Sierra Leone{% endtrans %}
+    {% trans %}Singapore{% endtrans %}
+    {% trans %}Slovakia{% endtrans %}
+    {% trans %}Slovenia{% endtrans %}
+    {% trans %}Society Islands (Tahiti){% endtrans %}
+    {% trans %}Solomon Islands{% endtrans %}
+    {% trans %}Somalia{% endtrans %}
+    {% trans %}South Africa{% endtrans %}
+    {% trans %}South Georgia (UK){% endtrans %}
+    {% trans %}South Orkney Is. (UK){% endtrans %}
+    {% trans %}South Sandwich Is. (UK){% endtrans %}
+    {% trans %}South Shetland Is. (UK){% endtrans %}
+    {% trans %}Spain{% endtrans %}
+    {% trans %}Spratley Islands{% endtrans %}
+    {% trans %}Sri Lanka{% endtrans %}
+    {% trans %}St Barthelemy{% endtrans %}
+    {% trans %}St Helena{% endtrans %}
+    {% trans %}St Kitts-Nevis{% endtrans %}
+    {% trans %}St Lucia{% endtrans %}
+    {% trans %}St Pierre Et Miquelon{% endtrans %}
+    {% trans %}St Vincent{% endtrans %}
+    {% trans %}Sudan{% endtrans %}
+    {% trans %}Suriname{% endtrans %}
+    {% trans %}Svalbard{% endtrans %}
+    {% trans %}Swan Island (Islas Del Cisne){% endtrans %}
+    {% trans %}Swaziland{% endtrans %}
+    {% trans %}Sweden{% endtrans %}
+    {% trans %}Switzerland{% endtrans %}
+    {% trans %}Syria{% endtrans %}
+    {% trans %}Taiwan{% endtrans %}
+    {% trans %}Tajikistan{% endtrans %}
+    {% trans %}Tanzania{% endtrans %}
+    {% trans %}Thailand{% endtrans %}
+    {% trans %}Timor{% endtrans %}
+    {% trans %}Togo{% endtrans %}
+    {% trans %}Tokelau{% endtrans %}
+    {% trans %}Tonga{% endtrans %}
+    {% trans %}Trinadade Martin Vas Is. (BRA){% endtrans %}
+    {% trans %}Trinidad & Tobago{% endtrans %}
+    {% trans %}Tristan Da Cunha{% endtrans %}
+    {% trans %}Tromelin Island{% endtrans %}
+    {% trans %}Tuamotu Archipelago{% endtrans %}
+    {% trans %}Tunisia{% endtrans %}
+    {% trans %}Turkey{% endtrans %}
+    {% trans %}Turkmenistan{% endtrans %}
+    {% trans %}Turks & Caicos Islands{% endtrans %}
+    {% trans %}Tuvalu{% endtrans %}
+    {% trans %}Uganda{% endtrans %}
+    {% trans %}Ukraine{% endtrans %}
+    {% trans %}UNID (Africa?){% endtrans %}
+    {% trans %}UNID (Asia?){% endtrans %}
+    {% trans %}UNID (C.America / Carribean?){% endtrans %}
+    {% trans %}UNID (Europe?){% endtrans %}
+    {% trans %}UNID (N.America?){% endtrans %}
+    {% trans %}UNID (No idea where){% endtrans %}
+    {% trans %}UNID (Oceania?){% endtrans %}
+    {% trans %}UNID (S.America?){% endtrans %}
+    {% trans %}United Arab Emirates{% endtrans %}
+    {% trans %}Uruguay{% endtrans %}
+    {% trans %}USA{% endtrans %}
+    {% trans %}Uzbekistan{% endtrans %}
+    {% trans %}Vanuatu{% endtrans %}
+    {% trans %}Vatican State{% endtrans %}
+    {% trans %}Venezuela{% endtrans %}
+    {% trans %}Vietnam{% endtrans %}
+    {% trans %}Virgin Islands (British){% endtrans %}
+    {% trans %}Virgin Islands (US){% endtrans %}
+    {% trans %}Volcano Islands / Iwo Jima (JPN){% endtrans %}
+    {% trans %}Wake Island{% endtrans %}
+    {% trans %}Wales{% endtrans %}
+    {% trans %}Wallis Et Futuna{% endtrans %}
+    {% trans %}West Bank and Gaza Strip{% endtrans %}
+    {% trans %}Western Sahara{% endtrans %}
+    {% trans %}Yemen{% endtrans %}
+    {% trans %}Zambia{% endtrans %}
+    {% trans %}Zimbabwe{% endtrans %}
+{% endif %}
+
+{%  if 'States' %}
+    {% trans %}Alberta{% endtrans %}
+    {% trans %}Alaska (Co=ALS){% endtrans %}
+    {% trans %}Alabama{% endtrans %}
+    {% trans %}Arkansas{% endtrans %}
+    {% trans %}Australian Capital Territory{% endtrans %}
+    {% trans %}Arizona{% endtrans %}
+    {% trans %}British Columbia{% endtrans %}
+    {% trans %}California{% endtrans %}
+    {% trans %}Colorado{% endtrans %}
+    {% trans %}Connecticut{% endtrans %}
+    {% trans %}Washington D.C.{% endtrans %}
+    {% trans %}Delaware{% endtrans %}
+    {% trans %}Florida{% endtrans %}
+    {% trans %}Hawaii (Co=HWA){% endtrans %}
+    {% trans %}Iowa{% endtrans %}
+    {% trans %}Idaho{% endtrans %}
+    {% trans %}Illinois{% endtrans %}
+    {% trans %}Indiana{% endtrans %}
+    {% trans %}Kansas{% endtrans %}
+    {% trans %}Kentucky{% endtrans %}
+    {% trans %}Louisiana{% endtrans %}
+    {% trans %}Massachusetts{% endtrans %}
+    {% trans %}Manitoba{% endtrans %}
+    {% trans %}Maryland{% endtrans %}
+    {% trans %}Maine{% endtrans %}
+    {% trans %}Michigan{% endtrans %}
+    {% trans %}Minnesota{% endtrans %}
+    {% trans %}Missouri{% endtrans %}
+    {% trans %}Mississippi{% endtrans %}
+    {% trans %}Montana{% endtrans %}
+    {% trans %}New Brunswick{% endtrans %}
+    {% trans %}North Carolina{% endtrans %}
+    {% trans %}North Dakota{% endtrans %}
+    {% trans %}Nebraska{% endtrans %}
+    {% trans %}New Hampshire{% endtrans %}
+    {% trans %}New Jersey{% endtrans %}
+    {% trans %}Newfd. & Lab.{% endtrans %}
+    {% trans %}New Mexico{% endtrans %}
+    {% trans %}Northern Territory{% endtrans %}
+    {% trans %}Nova Scotia{% endtrans %}
+    {% trans %}Northwest Territories{% endtrans %}
+    {% trans %}Nunavut{% endtrans %}
+    {% trans %}Nevada{% endtrans %}
+    {% trans %}New South Wales{% endtrans %}
+    {% trans %}New York{% endtrans %}
+    {% trans %}Ohio{% endtrans %}
+    {% trans %}Oklahoma{% endtrans %}
+    {% trans %}Ontario{% endtrans %}
+    {% trans %}Oregon{% endtrans %}
+    {% trans %}Pennsylvania{% endtrans %}
+    {% trans %}P.E.I.{% endtrans %}
+    {% trans %}Puerto Rica (Co=PTR){% endtrans %}
+    {% trans %}Quebec{% endtrans %}
+    {% trans %}Queensland{% endtrans %}
+    {% trans %}Rhode Island{% endtrans %}
+    {% trans %}South Australia{% endtrans %}
+    {% trans %}South Carolina{% endtrans %}
+    {% trans %}South Dakota{% endtrans %}
+    {% trans %}Saskatchewan{% endtrans %}
+    {% trans %}Tasmania{% endtrans %}
+    {% trans %}Tennessee{% endtrans %}
+    {% trans %}Texas{% endtrans %}
+    {% trans %}Utah{% endtrans %}
+    {% trans %}Virginia{% endtrans %}
+    {% trans %}Victoria{% endtrans %}
+    {% trans %}Vermont{% endtrans %}
+    {% trans %}Washington{% endtrans %}
+    {% trans %}Western Australia{% endtrans %}
+    {% trans %}Wisconsin{% endtrans %}
+    {% trans %}West Virginia{% endtrans %}
+    {% trans %}Wyoming{% endtrans %}
+    {% trans %}Yukon Territories{% endtrans %}
+{% endif %}
+
 {% if 'Signals List' %}
     {# Form #}
         {% trans %}Signals List{% endtrans %}
@@ -165,8 +584,6 @@
         {% trans %}This report prints best in Portrait.{% endtrans %}
         {% trans %}Customise %s Listeners List{% endtrans %}
         {% trans %}Show{% endtrans %}
-        {% trans %}<{% endtrans %}
-        {% trans %}>{% endtrans %}
         {% trans %}of %s listeners{% endtrans %}
         {% trans %}Search For{% endtrans %}
         {% trans %}Show Counts{% endtrans %}
@@ -205,17 +622,6 @@
         {% trans %}Maps of Listener Locations{% endtrans %}
         {% trans %}(North America){% endtrans %}
         {% trans %}(Europe){% endtrans %}
-{% endif %}
-{% if 'Log On' %}
-    {% trans %}Administrator Log On{% endtrans %}
-    {% trans %}Log On{% endtrans %}
-    {% trans %}You must Log On in order to perform administrative functions.{% endtrans %}
-    {% trans %}You are now logged on as an Administrator and may perform administrative functions.{% endtrans %}
-    {% trans %}To Log Off, select <strong>Log Off</strong> from the main menu.{% endtrans %}
-    {% trans %}Username{% endtrans %}
-    {% trans %}Password{% endtrans %}
-    {% trans %}Please provide a valid Username{% endtrans %}
-    {% trans %}Please provide a valid Password{% endtrans %}
 {% endif %}
 {% if 'Actions' %}
     {% trans %}Print...{% endtrans %}
@@ -257,272 +663,6 @@
         {% trans %}Other form of transmission{% endtrans %}
     {% trans %}(All){% endtrans %}
 {% endif %}
-{% if 'Regions' %}
-    {% trans %}(All Regions){% endtrans %}
-    {% trans %}Africa{% endtrans %}
-    {% trans %}Antarctica{% endtrans %}
-    {% trans %}Asia{% endtrans %}
-    {% trans %}Carribean{% endtrans %}
-    {% trans %}Europe{% endtrans %}
-    {% trans %}International Waters{% endtrans %}
-    {% trans %}North America{% endtrans %}
-    {% trans %}Oceania (Pacific){% endtrans %}
-    {% trans %}South America{% endtrans %}
-    {% trans %}Unknown{% endtrans %}
-{% endif %}
-{% if 'Countries' %}
-    {% trans %}(All Countries){% endtrans %}
-    {% trans %}Alaska{% endtrans %}
-    {% trans %}Antarctica (Mainland){% endtrans %}
-    {% trans %}Antigua & Barbuda{% endtrans %}
-    {% trans %}Argentina{% endtrans %}
-    {% trans %}Australia{% endtrans %}
-    {% trans %}Austria{% endtrans %}
-    {% trans %}Azores{% endtrans %}
-    {% trans %}Balearic Islands{% endtrans %}
-    {% trans %}Barbados{% endtrans %}
-    {% trans %}Belgium{% endtrans %}
-    {% trans %}Brazil{% endtrans %}
-    {% trans %}Burkina Faso{% endtrans %}
-    {% trans %}Canada{% endtrans %}
-    {% trans %}Canary Islands{% endtrans %}
-    {% trans %}Cape Verde{% endtrans %}
-    {% trans %}Cayman Islands{% endtrans %}
-    {% trans %}Ceuta{% endtrans %}
-    {% trans %}China{% endtrans %}
-    {% trans %}Croatia{% endtrans %}
-    {% trans %}Cuba{% endtrans %}
-    {% trans %}Cyprus{% endtrans %}
-    {% trans %}Czechia{% endtrans %}
-    {% trans %}Denmark{% endtrans %}
-    {% trans %}Dominican Republic{% endtrans %}
-    {% trans %}Egypt{% endtrans %}
-    {% trans %}England{% endtrans %}
-    {% trans %}Finland{% endtrans %}
-    {% trans %}France{% endtrans %}
-    {% trans %}Gambia{% endtrans %}
-    {% trans %}Germany{% endtrans %}
-    {% trans %}Ghana{% endtrans %}
-    {% trans %}Greece{% endtrans %}
-    {% trans %}Greenland{% endtrans %}
-    {% trans %}Guernsey{% endtrans %}
-    {% trans %}Hawaii{% endtrans %}
-    {% trans %}Hungary{% endtrans %}
-    {% trans %}Iceland{% endtrans %}
-    {% trans %}India{% endtrans %}
-    {% trans %}Int Waters: Europe{% endtrans %}
-    {% trans %}Ireland{% endtrans %}
-    {% trans %}Italy{% endtrans %}
-    {% trans %}Japan{% endtrans %}
-    {% trans %}Korea, South{% endtrans %}
-    {% trans %}Latvia{% endtrans %}
-    {% trans %}Luxembourg{% endtrans %}
-    {% trans %}Malaysia{% endtrans %}
-    {% trans %}Mauritania{% endtrans %}
-    {% trans %}Montenegro (Yugoslavia){% endtrans %}
-    {% trans %}Morocco{% endtrans %}
-    {% trans %}Netherlands{% endtrans %}
-    {% trans %}New Caledonia{% endtrans %}
-    {% trans %}New Zealand{% endtrans %}
-    {% trans %}Northern Ireland{% endtrans %}
-    {% trans %}Norway{% endtrans %}
-    {% trans %}Oman{% endtrans %}
-    {% trans %}Poland{% endtrans %}
-    {% trans %}Portugal{% endtrans %}
-    {% trans %}Qatar{% endtrans %}
-    {% trans %}Reunion{% endtrans %}
-    {% trans %}Russia (Eastern){% endtrans %}
-    {% trans %}Russia (European){% endtrans %}
-    {% trans %}Sardinia{% endtrans %}
-    {% trans %}Scotland{% endtrans %}
-    {% trans %}Senegal{% endtrans %}
-    {% trans %}Serbia (Yugoslavia){% endtrans %}
-    {% trans %}Shetland Islands{% endtrans %}
-    {% trans %}Sicily{% endtrans %}
-    {% trans %}Singapore{% endtrans %}
-    {% trans %}Slovakia{% endtrans %}
-    {% trans %}Slovenia{% endtrans %}
-    {% trans %}South Africa{% endtrans %}
-    {% trans %}Spain{% endtrans %}
-    {% trans %}St Lucia{% endtrans %}
-    {% trans %}Svalbard{% endtrans %}
-    {% trans %}Sweden{% endtrans %}
-    {% trans %}Switzerland{% endtrans %}
-    {% trans %}Taiwan{% endtrans %}
-    {% trans %}Thailand{% endtrans %}
-    {% trans %}Tunisia{% endtrans %}
-    {% trans %}Turkey{% endtrans %}
-    {% trans %}Ukraine{% endtrans %}
-    {% trans %}Uruguay{% endtrans %}
-    {% trans %}USA{% endtrans %}
-    {% trans %}Wales{% endtrans %}
-    {% trans %}Afghanistan{% endtrans %}
-    {% trans %}Albania{% endtrans %}
-    {% trans %}Algeria{% endtrans %}
-    {% trans %}Andorra{% endtrans %}
-    {% trans %}Angola{% endtrans %}
-    {% trans %}Anguilla{% endtrans %}
-    {% trans %}Armenia{% endtrans %}
-    {% trans %}Ascension Island{% endtrans %}
-    {% trans %}Austral Islands (Iles Tubuai){% endtrans %}
-    {% trans %}Azerbaijan{% endtrans %}
-    {% trans %}Bahamas{% endtrans %}
-    {% trans %}Bahrain{% endtrans %}
-    {% trans %}Bear Island (Bjornoya){% endtrans %}
-    {% trans %}Belarus{% endtrans %}
-    {% trans %}Belize{% endtrans %}
-    {% trans %}Bermuda{% endtrans %}
-    {% trans %}Bolivia{% endtrans %}
-    {% trans %}Bosnia-Hercegovina{% endtrans %}
-    {% trans %}Botswana{% endtrans %}
-    {% trans %}Brunei{% endtrans %}
-    {% trans %}Bulgaria{% endtrans %}
-    {% trans %}Cambodia{% endtrans %}
-    {% trans %}Chad{% endtrans %}
-    {% trans %}Chile{% endtrans %}
-    {% trans %}Cocos (Keeling) Islands{% endtrans %}
-    {% trans %}Colombia{% endtrans %}
-    {% trans %}Cook Islands (Southern){% endtrans %}
-    {% trans %}Corsica{% endtrans %}
-    {% trans %}Costa Rica{% endtrans %}
-    {% trans %}Diego Garcia (Biot){% endtrans %}
-    {% trans %}Djibouti{% endtrans %}
-    {% trans %}Dominica{% endtrans %}
-    {% trans %}Easter Island{% endtrans %}
-    {% trans %}Ecuador{% endtrans %}
-    {% trans %}El Salvador{% endtrans %}
-    {% trans %}Equatorial Guinea{% endtrans %}
-    {% trans %}Estonia{% endtrans %}
-    {% trans %}Ethiopia{% endtrans %}
-    {% trans %}Falkland Islands{% endtrans %}
-    {% trans %}Faroe Islands{% endtrans %}
-    {% trans %}Fernando de Noronha (BRA){% endtrans %}
-    {% trans %}Fiji{% endtrans %}
-    {% trans %}French Guyana{% endtrans %}
-    {% trans %}Galapagos{% endtrans %}
-    {% trans %}Georgia{% endtrans %}
-    {% trans %}Gibraltar{% endtrans %}
-    {% trans %}Grenada{% endtrans %}
-    {% trans %}Guadeloupe{% endtrans %}
-    {% trans %}Guam{% endtrans %}
-    {% trans %}Guatemala{% endtrans %}
-    {% trans %}Guinea{% endtrans %}
-    {% trans %}Guyana{% endtrans %}
-    {% trans %}Haiti{% endtrans %}
-    {% trans %}Honduras{% endtrans %}
-    {% trans %}Indonesia{% endtrans %}
-    {% trans %}Int Waters: Africa{% endtrans %}
-    {% trans %}Int Waters: Asia{% endtrans %}
-    {% trans %}Int Waters: C.America / Carribean{% endtrans %}
-    {% trans %}Int Waters: N.America{% endtrans %}
-    {% trans %}Int Waters: Oceania{% endtrans %}
-    {% trans %}Int Waters: S.America{% endtrans %}
-    {% trans %}Iran{% endtrans %}
-    {% trans %}Iraq{% endtrans %}
-    {% trans %}Isle Of Man{% endtrans %}
-    {% trans %}Israel{% endtrans %}
-    {% trans %}Jamaica{% endtrans %}
-    {% trans %}Jan Mayen{% endtrans %}
-    {% trans %}Jersey{% endtrans %}
-    {% trans %}Johnston Island{% endtrans %}
-    {% trans %}Jordan{% endtrans %}
-    {% trans %}Kalinigrad{% endtrans %}
-    {% trans %}Kazakhstan{% endtrans %}
-    {% trans %}Kenya{% endtrans %}
-    {% trans %}Kirghizistan{% endtrans %}
-    {% trans %}Kiribati{% endtrans %}
-    {% trans %}Korea, North{% endtrans %}
-    {% trans %}Kuwait{% endtrans %}
-    {% trans %}Laos{% endtrans %}
-    {% trans %}Lebanon{% endtrans %}
-    {% trans %}Libya{% endtrans %}
-    {% trans %}Lithuania{% endtrans %}
-    {% trans %}Macedonia{% endtrans %}
-    {% trans %}Madagascar{% endtrans %}
-    {% trans %}Madeira{% endtrans %}
-    {% trans %}Malawi{% endtrans %}
-    {% trans %}Maldives{% endtrans %}
-    {% trans %}Mali{% endtrans %}
-    {% trans %}Malta{% endtrans %}
-    {% trans %}Marquesas Islands{% endtrans %}
-    {% trans %}Marshall Islands{% endtrans %}
-    {% trans %}Martinique{% endtrans %}
-    {% trans %}Mauritius{% endtrans %}
-    {% trans %}Mayotte{% endtrans %}
-    {% trans %}Melilla{% endtrans %}
-    {% trans %}Mexico{% endtrans %}
-    {% trans %}Micronesia{% endtrans %}
-    {% trans %}Midway Island{% endtrans %}
-    {% trans %}Minami Tori Shima (JPN){% endtrans %}
-    {% trans %}Moldova{% endtrans %}
-    {% trans %}Monaco{% endtrans %}
-    {% trans %}Mongolia{% endtrans %}
-    {% trans %}Mozambique{% endtrans %}
-    {% trans %}Myanmar{% endtrans %}
-    {% trans %}Namibia{% endtrans %}
-    {% trans %}Nauru{% endtrans %}
-    {% trans %}Netherlands Antilles{% endtrans %}
-    {% trans %}Nicaragua{% endtrans %}
-    {% trans %}Niger{% endtrans %}
-    {% trans %}Nigeria{% endtrans %}
-    {% trans %}Niue Island{% endtrans %}
-    {% trans %}Norfolk Island{% endtrans %}
-    {% trans %}Northern Mariana Islands{% endtrans %}
-    {% trans %}Ogasawara (JPN){% endtrans %}
-    {% trans %}Orkney Islands{% endtrans %}
-    {% trans %}Pakistan{% endtrans %}
-    {% trans %}Palau{% endtrans %}
-    {% trans %}Panama{% endtrans %}
-    {% trans %}Papua New Guinea{% endtrans %}
-    {% trans %}Paraguay{% endtrans %}
-    {% trans %}Peru{% endtrans %}
-    {% trans %}Philippines{% endtrans %}
-    {% trans %}Puerto Rico{% endtrans %}
-    {% trans %}Romania{% endtrans %}
-    {% trans %}Ryukyu Islands (JPN){% endtrans %}
-    {% trans %}Samoa, American{% endtrans %}
-    {% trans %}Samoa, Western{% endtrans %}
-    {% trans %}San Andres & Providencia{% endtrans %}
-    {% trans %}Saudi Arabia{% endtrans %}
-    {% trans %}Society Islands (Tahiti){% endtrans %}
-    {% trans %}Solomon Islands{% endtrans %}
-    {% trans %}Somalia{% endtrans %}
-    {% trans %}Sri Lanka{% endtrans %}
-    {% trans %}St Helena{% endtrans %}
-    {% trans %}St Kitts-Nevis{% endtrans %}
-    {% trans %}St Pierre Et Miquelon{% endtrans %}
-    {% trans %}St Vincent{% endtrans %}
-    {% trans %}Sudan{% endtrans %}
-    {% trans %}Swaziland{% endtrans %}
-    {% trans %}Syria{% endtrans %}
-    {% trans %}Tajikistan{% endtrans %}
-    {% trans %}Timor{% endtrans %}
-    {% trans %}Trinidad & Tobago{% endtrans %}
-    {% trans %}Tuamotu Archipelago{% endtrans %}
-    {% trans %}Turkmenistan{% endtrans %}
-    {% trans %}Turks & Caicos Islands{% endtrans %}
-    {% trans %}Tuvalu{% endtrans %}
-    {% trans %}Uganda{% endtrans %}
-    {% trans %}UNID (Africa?){% endtrans %}
-    {% trans %}UNID (Asia?){% endtrans %}
-    {% trans %}UNID (C.America / Carribean?){% endtrans %}
-    {% trans %}UNID (Europe?){% endtrans %}
-    {% trans %}UNID (N.America?){% endtrans %}
-    {% trans %}UNID (No idea where){% endtrans %}
-    {% trans %}UNID (Oceania?){% endtrans %}
-    {% trans %}UNID (S.America?){% endtrans %}
-    {% trans %}United Arab Emirates{% endtrans %}
-    {% trans %}Uzbekistan{% endtrans %}
-    {% trans %}Vanuatu{% endtrans %}
-    {% trans %}Venezuela{% endtrans %}
-    {% trans %}Vietnam{% endtrans %}
-    {% trans %}Virgin Islands (British){% endtrans %}
-    {% trans %}Virgin Islands (US){% endtrans %}
-    {% trans %}Volcano Islands / Iwo Jima (JPN){% endtrans %}
-    {% trans %}Wallis Et Futuna{% endtrans %}
-    {% trans %}Zambia{% endtrans %}
-    {% trans %}Zimbabwe{% endtrans %}
-{% endif %}
 {% if 'Maps' %}
     {% trans %}Top{% endtrans %}
     {% trans %}Popup{% endtrans %}
@@ -542,4 +682,41 @@
     {% trans %}Pacific Beacons Map{% endtrans %}
     {% trans %}Japanese NDB List Country Codes{% endtrans %}
     {% trans %}French Polynesian Beacons Map{% endtrans %}
+{% endif %}
+{% if 'Listener View' %}
+    {% trans %}Contact Details{% endtrans %}
+    {% trans %}Receiving Station Details{% endtrans %}
+    {% trans %}Email Address{% endtrans %}
+    {% trans %}Website{% endtrans %}
+    {% trans %}Town / City{% endtrans %}
+    {% trans %}State / Prov{% endtrans %}
+    {% trans %}Grid Square{% endtrans %}
+    {% trans %}Map X{% endtrans %}
+    {% trans %}Map Y{% endtrans %}
+    {% trans %}Yes{% endtrans %}
+    {% trans %}No{% endtrans %}
+    {% trans %}Timezone{% endtrans %}
+    {% trans %}Equipment{% endtrans %}
+    {% trans %}Close{% endtrans %}
+    {% trans %}Save{% endtrans %}
+{% endif %}
+{% if 'Listener QNH' %}
+    {% trans %}Message ID{% endtrans %}
+    {% trans %}Icao{% endtrans %}
+    {% trans %}Hours{% endtrans %}
+    {% trans %}QNH{% endtrans %}
+    {% trans %}Metar - Raw{% endtrans %}
+    {% trans %}Metar - Decoded{% endtrans %}
+{% endif %}
+{% if 'Listener Stats' %}
+    {% trans %}Signal Statistics{% endtrans %}
+    {% trans %}Total Signals{% endtrans %}
+    {% trans %}Log Statistics{% endtrans %}
+    {% trans %}Total Logs{% endtrans %}
+{% endif %}
+{%  if 'Signal View' %}
+    {% trans %}Type{% endtrans %}
+    {% trans %}'Name' and QTH{% endtrans %}
+    {% trans %}Lat{% endtrans %}
+    {% trans %}Lon{% endtrans %}
 {% endif %}

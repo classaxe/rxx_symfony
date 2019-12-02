@@ -119,13 +119,15 @@ class TypeRepository
         return static::types;
     }
 
-    public function getAllChoices()
+    public function getAllChoices($withAllOption = false)
     {
         $out = [];
         foreach (static::types as $key => $type) {
             $out[$type['label']] = 'type_'.$type['class'];
         }
-        $out['(All)'] = 'type_ALL';
+        if ($withAllOption) {
+            $out['(All)'] = 'type_ALL';
+        }
         return $out;
     }
 

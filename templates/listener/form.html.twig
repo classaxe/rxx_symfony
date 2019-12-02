@@ -6,7 +6,9 @@
                 {{ form_row(form.id)  }}
 {% for group, fields in fieldGroups %}
                 <fieldset id="group_{{ group|lower|replace({' ' : '_'}) }}">
-                    <legend>{{ group }}</legend>
+{% if group %}
+                    <legend>{{ group|trans }}</legend>
+{% endif %}
 {% for field in fields %}
 {%  if field %}
                     {{ form_row(attribute(form, field))  }}

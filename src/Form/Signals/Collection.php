@@ -137,7 +137,7 @@ class Collection extends Base
                 ChoiceType::class,
                 [
                     'attr' =>           [ 'legend' => 'Signal Types' ],
-                    'choices' =>        $this->type->getAllChoices(),
+                    'choices' =>        $this->type->getAllChoices(true),
                     'choice_attr' =>    function ($value) { return ['class' => strToLower($value)]; },
                     'data' =>           $options['types'],
                     'expanded' =>       true,
