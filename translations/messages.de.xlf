@@ -2761,6 +2761,26 @@
         <source>Add Listener...</source>
         <target>__Add Listener...</target>
       </trans-unit>
+      <trans-unit id="uq3fcPt" resname="Type">
+        <source>Type</source>
+        <target>__Type</target>
+      </trans-unit>
+      <trans-unit id="zv.jWw6" resname="'Name' and QTH">
+        <source>'Name' and QTH</source>
+        <target>__'Name' and QTH</target>
+      </trans-unit>
+      <trans-unit id="mnEtp.E" resname="Lat">
+        <source>Lat</source>
+        <target>__Lat</target>
+      </trans-unit>
+      <trans-unit id="ysBmWPk" resname="Lon">
+        <source>Lon</source>
+        <target>__Lon</target>
+      </trans-unit>
+      <trans-unit id="47DEQpj" resname="">
+        <source></source>
+        <target>__</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

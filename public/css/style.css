@@ -1,7 +1,7 @@
 /*!
 * Project:   RXX - NDB Logging Database
 * Homepage:  https://rxx.classaxe.com
-* Date:      2019-11-17
+* Date:      2019-12-03
 * Licence:   LGPL
 * Copyright: 2019 Martin Francis
 */
@@ -1129,14 +1129,26 @@ fieldset#form_range_units div label {
   margin: 0 30%;
   width: 10em;
 }
-/* [ Form listener_edit ] */
-.listener_edit #form label {
+/* [ Form listener_view ] */
+.listener_view #form label {
   width: 20%;
   min-width: 120px;
 }
-.listener_edit #form input[type='text'],
-.listener_edit #form textarea,
-.listener_edit #form select {
+.listener_view #form input[type='text'],
+.listener_view #form textarea,
+.listener_view #form select {
+  width: 75%;
+  padding: 0.125em 0.25em;
+  margin: 0 0 0.25em 0;
+}
+/* [ Form signal_view ] */
+.signal_view #form label {
+  width: 20%;
+  min-width: 120px;
+}
+.signal_view #form input[type='text'],
+.signal_view #form textarea,
+.signal_view #form select {
   width: 75%;
   padding: 0.125em 0.25em;
   margin: 0 0 0.25em 0;
