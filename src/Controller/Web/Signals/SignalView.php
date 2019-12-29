@@ -58,10 +58,16 @@ class SignalView extends Base
             'sp' =>     $signal->getSp(),
             'itu' =>    $signal->getItu(),
             'gsq' =>    $signal->getGsq(),
+            'heardIn' =>$signal->getHeardIn(),
             'lat' =>    $signal->getLat(),
             'lon' =>    $signal->getLon(),
             'lsb' =>    $signal->getLsb(),
             'usb' =>    $signal->getUsb(),
+            'sec' =>    $signal->getSec(),
+            'active' => $signal->getActive(),
+            'format' => $signal->getFormat(),
+            'firstHeard' => $signal->getFirstHeard()->format('Y-m-d'),
+            'lastHeard' => $signal->getLastHeard()->format('Y-m-d'),
             'notes' =>  $signal->getNotes(),
         ];
         $form = $signalViewForm->buildForm(
@@ -120,10 +126,11 @@ class SignalView extends Base
 
         $parameters = [
             'id' =>                 $id,
-            'fieldGroups' =>        $signalViewForm->getFieldGroups($isAdmin),
+            'heardInHtml' =>        $signal->getHeardInHtml(),
+            'isAdmin' =>            $isAdmin,
             'form' =>               $form->createView(),
             '_locale' =>            $_locale,
-            'mode' =>               ($isAdmin && !$signal ? 'Add Signal' : $signal->getCall() . '-' . $signal->getKhz().' &gt; Profile'),
+            'mode' =>               $isAdmin && !$signal ? 'Add Signal' : $signal->getCall() . '-' . $signal->getKhz(). ' (' . ($signal->getActive() ? 'Active' : 'Inactive') . ')',
             'system' =>             $system,
             'tabs' =>               $signalRepository->getTabs($signal),
         ];

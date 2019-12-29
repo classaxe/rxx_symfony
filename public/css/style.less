@@ -393,6 +393,7 @@ table.seeklist {
             }
             div.sl_h,
             div.sl_d {
+                white-space: nowrap;
                 span {
                     font-family: "Courier New bold", Courier, monospace;
                     white-space: nowrap;
@@ -1116,14 +1117,122 @@ fieldset#form_range_units {
 .signal_view {
     #form {
         label {
-            width: 20%; min-width: 120px;
+            width: 25%;
+            min-width: 120px;
+            &[for="form_khz"],
+            &[for="form_pwr"],
+            &[for="form_type"],
+            &[for="form_itu"],
+            &[for="form_lat"],
+            &[for="form_lon"],
+            &[for="form_usb"],
+            &[for="form_sec"],
+            &[for="form_format"],
+            &[for="form_firstHeard"],
+            &[for="form_lastHeard"] {
+                min-width: auto;
+                text-align: right;
+                padding-right: 0.25em;
+            }
+            &[for="form_khz"],
+            &[for="form_pwr"],
+            &[for="form_type"] {
+                width: 10%;
+            }
+            &[for="form_itu"],
+            &[for="form_lat"],
+            &[for="form_lon"]{
+                width: 15%;
+            }
+            &[for="form_usb"],
+            &[for="form_sec"] {
+                width: 9%;
+            }
+            &[for="form_format"] {
+                width: 11%;
+            }
+            &[for="form_firstHeard"],
+            &[for="form_lastHeard"]{
+                width: 18%;
+            }
+            b {
+                font-weight: normal;
+                background: #ffff00;
+                padding: 1px;
+                border: 1px solid #b0b000;
+                border-radius: 2px;
+            }
         }
         input[type='text'],
         textarea,
         select {
             width: 75%;
             padding: 0.125em 0.25em;
-            margin: 0 0 0.25em 0
+            margin: 0 0 0.25em 0;
+            &#form_call,
+            &#form_khz,
+            &#form_pwr,
+            &#form_type {
+                width: 10%;
+            }
+            &#form_sp {
+                width: 40%;
+            }
+            &#form_itu {
+                width: 20%;
+            }
+            &#form_gsq,
+            &#form_lat,
+            &#form_lon {
+                width: 15% !important;
+            }
+            &#form_lsb,
+            &#form_usb,
+            &#form_sec {
+                width: 7%;
+            }
+            &#form_format {
+                width: 20%;
+            }
+            &#form_active {
+                width: 13%;
+            }
+            &#form_firstHeard,
+            &#form_lastHeard {
+                width: 13%;
+            }
+        }
+        div#form_pwr_suffix,
+        div#form_sec_suffix {
+            padding-left: 0.25em;
+            float: left;
+            width: 5%;
+            font-size: 80%;
+        }
+        div#heardIn {
+            width: 75%;
+            font-size: 80%;
+            height: auto;
+            border: 1px solid #cacaca;
+            box-shadow: inset 0 1px 2px rgba(10,10,10,.1);
+            background: #e6e6e6;
+            padding: 0.25em;
+            margin-bottom: 0.25em;
+            a {
+                font-weight: normal;
+                &:hover {
+                    color: #0000ff;
+                }
+                b {
+                    background: #ffff00;
+                    padding: 1px;
+                    border: 1px solid #b0b000;
+                    border-radius: 2px;
+                }
+            }
+        }
+        fieldset {
+            margin-top: 0.75em;
         }
     }
 }

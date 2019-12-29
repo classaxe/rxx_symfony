@@ -1,7 +1,7 @@
 /*!
 * Project:   RXX - NDB Logging Database
 * Homepage:  https://rxx.classaxe.com
-* Date:      2019-12-03
+* Date:      2019-12-29
 * Licence:   LGPL
 * Copyright: 2019 Martin Francis
 */
@@ -456,6 +456,10 @@ table.seeklist tbody td {
 }
 table.seeklist tbody td .head {
   padding: 0 0.25em !important;
+}
+table.seeklist tbody td div.sl_h,
+table.seeklist tbody td div.sl_d {
+  white-space: nowrap;
 }
 table.seeklist tbody td div.sl_h span,
 table.seeklist tbody td div.sl_d span {
@@ -1143,8 +1147,51 @@ fieldset#form_range_units div label {
 }
 /* [ Form signal_view ] */
 .signal_view #form label {
-  width: 20%;
+  width: 25%;
   min-width: 120px;
+}
+.signal_view #form label[for="form_khz"],
+.signal_view #form label[for="form_pwr"],
+.signal_view #form label[for="form_type"],
+.signal_view #form label[for="form_itu"],
+.signal_view #form label[for="form_lat"],
+.signal_view #form label[for="form_lon"],
+.signal_view #form label[for="form_usb"],
+.signal_view #form label[for="form_sec"],
+.signal_view #form label[for="form_format"],
+.signal_view #form label[for="form_firstHeard"],
+.signal_view #form label[for="form_lastHeard"] {
+  min-width: auto;
+  text-align: right;
+  padding-right: 0.25em;
+}
+.signal_view #form label[for="form_khz"],
+.signal_view #form label[for="form_pwr"],
+.signal_view #form label[for="form_type"] {
+  width: 10%;
+}
+.signal_view #form label[for="form_itu"],
+.signal_view #form label[for="form_lat"],
+.signal_view #form label[for="form_lon"] {
+  width: 15%;
+}
+.signal_view #form label[for="form_usb"],
+.signal_view #form label[for="form_sec"] {
+  width: 9%;
+}
+.signal_view #form label[for="form_format"] {
+  width: 11%;
+}
+.signal_view #form label[for="form_firstHeard"],
+.signal_view #form label[for="form_lastHeard"] {
+  width: 18%;
+}
+.signal_view #form label b {
+  font-weight: normal;
+  background: #ffff00;
+  padding: 1px;
+  border: 1px solid #b0b000;
+  border-radius: 2px;
 }
 .signal_view #form input[type='text'],
 .signal_view #form textarea,
@@ -1152,6 +1199,102 @@ fieldset#form_range_units div label {
   width: 75%;
   padding: 0.125em 0.25em;
   margin: 0 0 0.25em 0;
+}
+.signal_view #form input[type='text']#form_call,
+.signal_view #form textarea#form_call,
+.signal_view #form select#form_call,
+.signal_view #form input[type='text']#form_khz,
+.signal_view #form textarea#form_khz,
+.signal_view #form select#form_khz,
+.signal_view #form input[type='text']#form_pwr,
+.signal_view #form textarea#form_pwr,
+.signal_view #form select#form_pwr,
+.signal_view #form input[type='text']#form_type,
+.signal_view #form textarea#form_type,
+.signal_view #form select#form_type {
+  width: 10%;
+}
+.signal_view #form input[type='text']#form_sp,
+.signal_view #form textarea#form_sp,
+.signal_view #form select#form_sp {
+  width: 40%;
+}
+.signal_view #form input[type='text']#form_itu,
+.signal_view #form textarea#form_itu,
+.signal_view #form select#form_itu {
+  width: 20%;
+}
+.signal_view #form input[type='text']#form_gsq,
+.signal_view #form textarea#form_gsq,
+.signal_view #form select#form_gsq,
+.signal_view #form input[type='text']#form_lat,
+.signal_view #form textarea#form_lat,
+.signal_view #form select#form_lat,
+.signal_view #form input[type='text']#form_lon,
+.signal_view #form textarea#form_lon,
+.signal_view #form select#form_lon {
+  width: 15% !important;
+}
+.signal_view #form input[type='text']#form_lsb,
+.signal_view #form textarea#form_lsb,
+.signal_view #form select#form_lsb,
+.signal_view #form input[type='text']#form_usb,
+.signal_view #form textarea#form_usb,
+.signal_view #form select#form_usb,
+.signal_view #form input[type='text']#form_sec,
+.signal_view #form textarea#form_sec,
+.signal_view #form select#form_sec {
+  width: 7%;
+}
+.signal_view #form input[type='text']#form_format,
+.signal_view #form textarea#form_format,
+.signal_view #form select#form_format {
+  width: 20%;
+}
+.signal_view #form input[type='text']#form_active,
+.signal_view #form textarea#form_active,
+.signal_view #form select#form_active {
+  width: 13%;
+}
+.signal_view #form input[type='text']#form_firstHeard,
+.signal_view #form textarea#form_firstHeard,
+.signal_view #form select#form_firstHeard,
+.signal_view #form input[type='text']#form_lastHeard,
+.signal_view #form textarea#form_lastHeard,
+.signal_view #form select#form_lastHeard {
+  width: 13%;
+}
+.signal_view #form div#form_pwr_suffix,
+.signal_view #form div#form_sec_suffix {
+  padding-left: 0.25em;
+  float: left;
+  width: 5%;
+  font-size: 80%;
+}
+.signal_view #form div#heardIn {
+  width: 75%;
+  font-size: 80%;
+  height: auto;
+  border: 1px solid #cacaca;
+  box-shadow: inset 0 1px 2px rgba(10, 10, 10, 0.1);
+  background: #e6e6e6;
+  padding: 0.25em;
+  margin-bottom: 0.25em;
+}
+.signal_view #form div#heardIn a {
+  font-weight: normal;
+}
+.signal_view #form div#heardIn a:hover {
+  color: #0000ff;
+}
+.signal_view #form div#heardIn a b {
+  background: #ffff00;
+  padding: 1px;
+  border: 1px solid #b0b000;
+  border-radius: 2px;
+}
+.signal_view #form fieldset {
+  margin-top: 0.75em;
 }
 /* [ Form listener_signals ] */
 .listener_signals .results thead tr th,

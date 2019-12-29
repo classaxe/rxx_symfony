@@ -362,7 +362,7 @@ class Signal
 
     public function getHeardInHtml(): ?string
     {
-        return str_replace(['<b>','</b>'],['<em>','</em>'],$this->heardInHtml);
+        return $this->heardInHtml;
     }
 
     public function setHeardInHtml(string $heardInHtml): self

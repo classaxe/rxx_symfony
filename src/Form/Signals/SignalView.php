@@ -66,38 +66,6 @@ class SignalView extends AbstractType
         $this->type =       $type;
     }
 
-    public function getFieldGroups($isAdmin)
-    {
-        return [
-            'Profile' =>    [
-                'call',
-                'khz',
-                'pwr',
-                'type',
-            ],
-            'Location' => [
-                'qth',
-                'sp',
-                'itu',
-                'gsq',
-                'lat',
-                'lon'
-            ],
-            'Latest Values' =>  [
-                'lsb',
-                'usb',
-//                'cycle',
-//                'format',
-
-                'notes',
-            ],
-            '' => [
-                'print',
-                'close',
-                ($isAdmin ? 'save' : '')
-            ]
-        ];
-    }
     /**
      * @param FormBuilderInterface $formBuilder
      * @param array $options
@@ -147,7 +115,7 @@ class SignalView extends AbstractType
                     'disabled'      => !$isAdmin,
                     'empty_data'    => '',
                     'label'         => 'Pwr',
-                    'required'      => false
+                    'required'      => false,
                 ]
             )
             ->add(
@@ -160,6 +128,21 @@ class SignalView extends AbstractType
                     'empty_data'    => '',
                     'label'         => 'Type',
                     'required'      => true
+                ]
+            )
+            ->add(
+                'notes',
+                TextareaType::class,
+                [
+                    'attr'          => [
+                        'cols'          => 80,
+                        'rows'          => 4,
+                    ],
+                    'data'          => $options['notes'],
+                    'disabled'      => !$isAdmin,
+                    'empty_data'    => '',
+                    'label'         => 'Notes',
+                    'required'      => false
                 ]
             )
             ->add(
@@ -259,17 +242,58 @@ class SignalView extends AbstractType
                 ]
             )
             ->add(
-                'notes',
-                TextareaType::class,
+                'sec',
+                TextType::class,
                 [
-                    'attr'          => [
-                        'cols'          => 80,
-                        'rows'          => 3,
-                    ],
-                    'data'          => $options['notes'],
+                    'data'          => $options['sec'],
                     'disabled'      => !$isAdmin,
                     'empty_data'    => '',
-                    'label'         => 'Notes',
+                    'label'         => 'Cycle',
+                    'required'      => false
+                ]
+            )
+            ->add(
+                'format',
+                TextType::class,
+                [
+                    'data'          => $options['format'],
+                    'disabled'      => !$isAdmin,
+                    'empty_data'    => '',
+                    'label'         => 'Format',
+                    'required'      => false
+                ]
+            )
+            ->add(
+                'active',
+                ChoiceType::class,
+                [
+                    'choices'       => [ 'Inactive' => 0, 'Active' => 1 ],
+                    'data'          => $options['active'],
+                    'disabled'      => !$isAdmin,
+                    'empty_data'    => '',
+                    'label'         => 'Status',
+                    'required'      => false
+                ]
+            )
+            ->add(
+                'firstHeard',
+                TextType::class,
+                [
+                    'data'          => $options['firstHeard'],
+                    'disabled'      => !$isAdmin,
+                    'empty_data'    => '',
+                    'label'         => 'First Logged',
+                    'required'      => false
+                ]
+            )
+            ->add(
+                'lastHeard',
+                TextType::class,
+                [
+                    'data'          => $options['lastHeard'],
+                    'disabled'      => !$isAdmin,
+                    'empty_data'    => '',
+                    'label'         => 'Last Logged',
                     'required'      => false
                 ]
             )

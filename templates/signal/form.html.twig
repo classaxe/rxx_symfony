@@ -4,16 +4,80 @@
         {{ form_start(form) }}
             <div id="form">
                 {{ form_row(form.id)  }}
-{% for group, fields in fieldGroups %}
-                <fieldset id="group_{{ group|lower|replace({' ' : '_'}) }}">
-                    <legend>{{ group }}</legend>
-{% for field in fields %}
-{%  if field %}
-                    {{ form_row(attribute(form, field))  }}
-{% endif %}
-{% endfor %}
+                <fieldset id="group_profile">
+                    <div>
+                        {{ form_label(form.call) }}
+                        {{ form_widget(form.call) }}
+                        {{ form_label(form.khz) }}
+                        {{ form_widget(form.khz) }}
+                        {{ form_label(form.pwr) }}
+                        {{ form_widget(form.pwr) }}<div id="form_pwr_suffix">{% trans %}W{% endtrans %}</div>
+                        {{ form_label(form.type) }}
+                        {{ form_widget(form.type) }}
+                    </div>
+                    <div>
+                        {{ form_label(form.active) }}
+                        {{ form_widget(form.active) }}
+                        {{ form_label(form.firstHeard) }}
+                        {{ form_widget(form.firstHeard) }}
+                        {{ form_label(form.lastHeard) }}
+                        {{ form_widget(form.lastHeard) }}
+                    </div>
                 </fieldset>
-{% endfor %}
+
+                <fieldset id="group_location">
+                    <div>
+                        {{ form_label(form.qth) }}
+                        {{ form_widget(form.qth) }}
+                    </div>
+                    <div>
+                        {{ form_label(form.sp) }}
+                        {{ form_widget(form.sp) }}
+                        {{ form_label(form.itu) }}
+                        {{ form_widget(form.itu) }}
+                    </div>
+                    <div>
+                        {{ form_label(form.gsq) }}
+                        {{ form_widget(form.gsq) }}
+                        {{ form_label(form.lat) }}
+                        {{ form_widget(form.lat) }}
+                        {{ form_label(form.lon) }}
+                        {{ form_widget(form.lon) }}
+                    </div>
+                </fieldset>
+
+
+                <fieldset id="group_latest_values">
+                    <legend>{% trans %}Latest Values{% endtrans %}</legend>
+                    <div>
+                        {{ form_label(form.lsb) }}
+                        {{ form_widget(form.lsb) }}
+                        {{ form_label(form.usb) }}
+                        {{ form_widget(form.usb) }}
+                        {{ form_label(form.sec) }}
+                        {{ form_widget(form.sec) }}<div id="form_sec_suffix">{% trans %}(Sec){% endtrans %}</div>
+                        {{ form_label(form.format) }}
+                        {{ form_widget(form.format) }}
+                    </div>
+
+                    <div style="height: auto">
+                        <label>{% trans %}Heard Here{% endtrans %} <div class="text-nowrap"><b>(Daytime Log)</b></div></label>
+                        <div id="heardIn">{{ heardInHtml|raw }}</div>
+                    </div>
+
+                    <div>
+                        {{ form_label(form.notes) }}
+                        {{ form_widget(form.notes) }}
+                    </div>
+                </fieldset>
+
+
+                <fieldset id="group_">
+                    {{ form_row(form.print) }}
+                    {{ form_row(form.close) }}
+                    {% if isAdmin %}{{ form_row(form.save) }}{% endif %}
+                </fieldset>
+
             </div>
         {{ form_end(form, {'render_rest': false}) }}
         </div>

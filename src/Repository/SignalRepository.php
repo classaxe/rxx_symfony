@@ -34,7 +34,7 @@ class SignalRepository extends ServiceEntityRepository
     ];
 
     const popup = [
-        'signal'  => "width=800,height=680,status=1,scrollbars=1,resizable=1",
+        'signal'  => "width=640,height=480,status=1,scrollbars=1,resizable=1",
     ];
 
     public function __construct(

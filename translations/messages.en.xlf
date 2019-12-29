@@ -2781,6 +2781,34 @@
         <source></source>
         <target></target>
       </trans-unit>
+      <trans-unit id="1pajW90" resname="Profile">
+        <source>Profile</source>
+        <target>Profile</target>
+      </trans-unit>
+      <trans-unit id="k7tLZPY" resname="Cycle (secs)">
+        <source>Cycle (secs)</source>
+        <target>Cycle (secs)</target>
+      </trans-unit>
+      <trans-unit id=".LX0Dfm" resname="W">
+        <source>W</source>
+        <target>W</target>
+      </trans-unit>
+      <trans-unit id="E9vWjsu" resname="Latest Values">
+        <source>Latest Values</source>
+        <target>Latest Values</target>
+      </trans-unit>
+      <trans-unit id="UYZTUwR" resname="Cycle">
+        <source>Cycle</source>
+        <target>Cycle</target>
+      </trans-unit>
+      <trans-unit id="4XRrt6w" resname="(Sec)">
+        <source>(Sec)</source>
+        <target>(Sec)</target>
+      </trans-unit>
+      <trans-unit id="kg5BPH1" resname="Status">
+        <source>Status</source>
+        <target>Status</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

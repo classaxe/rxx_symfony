@@ -8,7 +8,7 @@
 <td {% if column.td_class %} class="{{ column.td_class }}"{% endif %}>
     {% if column.field == 'call' %}
         <a href="{{ url('signal', { 'system' : system, 'id' : signal.ID }) }}"
-           rel="external" data-popup="signal_{{ signal.ID }}|width=800,height=680,status=1,scrollbars=1,resizable=1\">
+           rel="external" data-popup="signal_{{ signal.ID }}|width=640,height=480,status=1,scrollbars=1,resizable=1\">
             {{ signal.call }}
         </a>
     {% else %}
