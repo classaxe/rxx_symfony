@@ -7,7 +7,14 @@
     <h1>{% trans %}Log On{% endtrans %}</h1>
 {% if not isAdmin %}
     <p>{% trans %}You must Log On in order to perform administrative functions.{% endtrans %}</p>
-    {% include 'forms/form.html.twig' %}
+    <div class="controlPanel {{ form_class }}">
+        <div class="header">{{ form_title }}</div>
+        <div class="content clearfix">
+            {{ form_start(form) }}
+            {{ form_widget(form) }}
+            {{ form_end(form) }}
+        </div>
+    </div>
 {% else %}
     <p id='success'>{% trans %}You are now logged on as an Administrator and may perform administrative functions.{% endtrans %}</p>
     <p>{% trans %}To Log Off, select <strong>Log Off</strong> from the main menu.{% endtrans %}</p>

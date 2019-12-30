@@ -37,7 +37,11 @@ class Rxx
         $lon = (int)round((2 * ($lon_d*10 + $lon_m + $lon_s/24 + $offset) - 180)*10000)/10000;
         $lat = (int)round(($lat_d*10 + $lat_m + $lat_s/24 + $offset - 90)*10000)/10000;
 
-        return ["lat" => $lat, "lon" => $lon];
+        return [
+            "lat" => $lat,
+            "lon" => $lon,
+            "GSQ" => strtoUpper(substr($GSQ, 0, 4)) . strtoLower(substr($GSQ, 4, 2))
+        ];
     }
 
     public static function debug($var)

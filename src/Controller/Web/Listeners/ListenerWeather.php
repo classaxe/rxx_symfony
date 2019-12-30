@@ -53,7 +53,7 @@ class ListenerWeather extends Base
             $options
         );
         $form->handleRequest($request);
-        if ($form->isSubmitted()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $form_data = $form->getData();
             $data['form'] = $form_data;
 

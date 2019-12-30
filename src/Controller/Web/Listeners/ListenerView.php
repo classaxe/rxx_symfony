@@ -3,6 +3,7 @@ namespace App\Controller\Web\Listeners;
 
 use App\Entity\Listener as ListenerEntity;
 use App\Form\Listeners\ListenerView as ListenerViewForm;
+use App\Repository\CountryRepository;
 use App\Repository\ListenerRepository;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 use Symfony\Component\HttpFoundation\Request;
@@ -14,6 +15,9 @@ use App\Utils\Rxx;
  */
 class ListenerView extends Base
 {
+    const EDITABLE_FIELDS = [
+        'callsign', 'email', 'equipment', 'itu', 'mapX', 'mapY', 'name', 'notes', 'primaryQth', 'qth', 'sp', 'timezone', 'website'
+    ];
 
     /**
      * @Route(
@@ -30,6 +34,7 @@ class ListenerView extends Base
         $system,
         $id,
         Request $request,
+        CountryRepository $countryRepository,
         ListenerViewForm $listenerViewForm,
         ListenerRepository $listenerRepository
     ) {
@@ -48,29 +53,21 @@ class ListenerView extends Base
             return $this->redirectToRoute('listeners', ['system' => $system]);
         }
         $options = [
-            'isAdmin'   =>  $isAdmin,
-            'id'        =>  $listener->getId(),
-            'callsign'  =>  $listener->getCallsign(),
-            'email'     =>  $listener->getEmail(),
-            'equipment' =>  $listener->getEquipment(),
-            'gsq'       =>  $listener->getGsq(),
-            'itu'       =>  $listener->getItu(),
-            'mapX'      =>  $listener->getMapX(),
-            'mapY'      =>  $listener->getMapY(),
-            'name'      =>  $listener->getName(),
-            'notes'     =>  $listener->getNotes(),
-            'primary'   =>  $listener->getPrimaryQth(),
-            'qth'       =>  $listener->getQth(),
-            'sp'        =>  $listener->getSp(),
-            'timezone'  =>  $listener->getTimezone(),
-            'website'   =>  $listener->getWebsite(),
+            'isAdmin' =>    $isAdmin,
+            'id' =>         $listener->getId(),
+            'gsq' =>        $listener->getGsq(),
+            'lat' =>        $listener->getLat(),
+            'lon' =>        $listener->getLon()
         ];
+        foreach (static::EDITABLE_FIELDS as $f) {
+            $options[$f] = $listener->{'get' . ucfirst($f)}();
+        }
         $form = $listenerViewForm->buildForm(
             $this->createFormBuilder(),
             $options
         );
         $form->handleRequest($request);
-        if ($isAdmin && $form->isSubmitted()) {
+        if ($isAdmin && $form->isSubmitted() && $form->isValid()) {
             $form_data = $form->getData();
             $data['form'] = $form_data;
             if ((int)$id) {
@@ -80,36 +77,25 @@ class ListenerView extends Base
                 $listener
                     ->setLogLatest(Rxx::getUtcDateTime('0000-00-00'));
             }
-            if ($form_data['gsq']) {
-                $GSQ =
-                    strtoUpper(substr($form_data['gsq'], 0, 4))
-                    .strtoLower(substr($form_data['gsq'], 4, 2));
-                $a =    Rxx::convertGsqToDegrees($GSQ);
+            if ($form_data['gsq'] && $a = Rxx::convertGsqToDegrees($form_data['gsq'])) {
                 $lat =  $a["lat"];
                 $lon =  $a["lon"];
+                $GSQ =  $a["GSQ"];
             } else {
                 $GSQ =  '';
                 $lat =  0;
                 $lon =  0;
             }
+            $region = $countryRepository->getRegionForCountry($form_data['itu']);
             $listener
-                ->setCallsign($form_data['callsign'])
-                ->setEmail($form_data['email'])
-                ->setEquipment($form_data['equipment'])
                 ->setGsq($GSQ)
-                ->setItu($form_data['itu'])
                 ->setLat($lat)
                 ->setLon($lon)
-                ->setMapX($form_data['mapX'])
-                ->setMapY($form_data['mapY'])
-                ->setName($form_data['name'])
-                ->setNotes($form_data['notes'])
-                ->setPrimaryQth($form_data['primary'])
-                ->setQth($form_data['qth'])
-                ->setSp($form_data['sp'])
-                ->setTimezone($form_data['timezone'])
-                ->setWebsite($form_data['website'])
-            ;
+                ->setRegion($region);
+            foreach (static::EDITABLE_FIELDS as $f) {
+                $listener->{'set' . ucfirst($f)}($form_data[$f]);
+            }
+
             $em = $this->getDoctrine()->getManager();
             if (!(int)$id) {
                 $em->persist($listener);

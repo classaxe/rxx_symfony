@@ -58,7 +58,7 @@ class Signal
     /**
      * @var string
      *
-     * @ORM\Column(name="call", type="string", length=12, nullable=false)
+     * @ORM\Column(name="`call`", type="string", length=12, nullable=false)
      */
     private $call = '';
 
@@ -569,9 +569,9 @@ class Signal
         return $this->lsb;
     }
 
-    public function setLsb(?int $lsb): self
+    public function setLsb($lsb): self
     {
-        $this->lsb = $lsb;
+        $this->lsb = ($lsb === '' ? null : (int) $lsb);
 
         return $this;
     }
@@ -665,9 +665,9 @@ class Signal
         return $this->usb;
     }
 
-    public function setUsb(?int $usb): self
+    public function setUsb($usb): self
     {
-        $this->usb = $usb;
+        $this->usb = ($usb === '' ? null : (int) $usb);
 
         return $this;
     }

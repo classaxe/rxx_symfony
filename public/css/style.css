@@ -1244,12 +1244,12 @@ fieldset#form_range_units div label {
 .signal_view #form input[type='text']#form_sec,
 .signal_view #form textarea#form_sec,
 .signal_view #form select#form_sec {
-  width: 7%;
+  width: 9%;
 }
 .signal_view #form input[type='text']#form_format,
 .signal_view #form textarea#form_format,
 .signal_view #form select#form_format {
-  width: 20%;
+  width: 14%;
 }
 .signal_view #form input[type='text']#form_active,
 .signal_view #form textarea#form_active,

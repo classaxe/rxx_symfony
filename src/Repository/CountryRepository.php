@@ -177,4 +177,15 @@ class CountryRepository extends ServiceEntityRepository
                 return false;
         }
     }
+
+    public function getRegionForCountry($code)
+    {
+        return $this
+            ->createQueryBuilder('c')
+            ->select('c.region')
+            ->where('c.itu = :country')
+            ->setParameter(':country', $code)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
 }

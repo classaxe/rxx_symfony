@@ -122,7 +122,7 @@ class SignalView extends AbstractType
                 'type',
                 ChoiceType::class,
                 [
-                    'choices'       => $this->type->getAllChoices(false),
+                    'choices'       => $this->type->getAllChoicesForKey(),
                     'data'          => $options['type'],
                     'disabled'      => !$isAdmin,
                     'empty_data'    => '',
@@ -167,7 +167,8 @@ class SignalView extends AbstractType
                     'data'          => $options['sp'],
                     'disabled'      => !$isAdmin,
                     'empty_data'    => null,
-                    'label'         => 'State / Prov'
+                    'label'         => 'State / Prov',
+                    'required'      => false
                 ]
             )
             ->add(

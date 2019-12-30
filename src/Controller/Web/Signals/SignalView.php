@@ -14,6 +14,9 @@ use App\Utils\Rxx;
  */
 class SignalView extends Base
 {
+    const EDITABLE_FIELDS = [
+        'active', 'call', 'format', 'gsq', 'itu', 'khz', 'notes', 'pwr', 'qth', 'sec', 'sp', 'type'
+    ];
 
     /**
      * @Route(
@@ -48,28 +51,19 @@ class SignalView extends Base
             return $this->redirectToRoute('signals', ['system' => $system]);
         }
         $options = [
-            'isAdmin' =>  $isAdmin,
-            'id' =>     $signal->getId(),
-            'call' =>   $signal->getCall(),
-            'khz' =>    $signal->getKhz(),
-            'pwr' =>    $signal->getPwr(),
-            'type' =>   $signal->getType(),
-            'qth' =>    $signal->getQth(),
-            'sp' =>     $signal->getSp(),
-            'itu' =>    $signal->getItu(),
-            'gsq' =>    $signal->getGsq(),
-            'heardIn' =>$signal->getHeardIn(),
-            'lat' =>    $signal->getLat(),
-            'lon' =>    $signal->getLon(),
-            'lsb' =>    $signal->getLsb(),
-            'usb' =>    $signal->getUsb(),
-            'sec' =>    $signal->getSec(),
-            'active' => $signal->getActive(),
-            'format' => $signal->getFormat(),
+            'isAdmin' =>    $isAdmin,
+            'id' =>         $signal->getId(),
+            'heardIn' =>    $signal->getHeardIn(),
+            'lat' =>        $signal->getLat(),
+            'lon' =>        $signal->getLon(),
+            'lsb' =>        $signal->getLsbApprox() . $signal->getLsb(),
+            'usb' =>        $signal->getUsbApprox() . $signal->getUsb(),
             'firstHeard' => $signal->getFirstHeard()->format('Y-m-d'),
-            'lastHeard' => $signal->getLastHeard()->format('Y-m-d'),
-            'notes' =>  $signal->getNotes(),
+            'lastHeard' =>  $signal->getLastHeard()->format('Y-m-d')
         ];
+        foreach (static::EDITABLE_FIELDS as $f) {
+            $options[$f] = $signal->{'get' . ucfirst($f)}();
+        }
         $form = $signalViewForm->buildForm(
             $this->createFormBuilder(),
             $options
@@ -95,33 +89,32 @@ class SignalView extends Base
                 $lat =  0;
                 $lon =  0;
             }
-/*
+            $lsbApprox = substr($form_data['lsb'], 0, 1) === '~' ? '~' : null;
+            $usbApprox = substr($form_data['usb'], 0, 1) === '~' ? '~' : null;
+            $lsb = str_replace('~', '', $form_data['lsb']);
+            $usb = str_replace('~', '', $form_data['usb']);
             $signal
-                ->setCallsign($form_data['callsign'])
-                ->setEmail($form_data['email'])
-                ->setEquipment($form_data['equipment'])
                 ->setGsq($GSQ)
-                ->setItu($form_data['itu'])
                 ->setLat($lat)
                 ->setLon($lon)
-                ->setMapX($form_data['mapX'])
-                ->setMapY($form_data['mapY'])
-                ->setName($form_data['name'])
-                ->setNotes($form_data['notes'])
-                ->setPrimaryQth($form_data['primary'])
-                ->setQth($form_data['qth'])
-                ->setSp($form_data['sp'])
-                ->setTimezone($form_data['timezone'])
-                ->setWebsite($form_data['website'])
-            ;
+                ->setLsb($lsb)
+                ->setLsbApprox($lsbApprox)
+                ->setUsb($usb)
+                ->setUsbApprox($usbApprox);
 
-*/            $em = $this->getDoctrine()->getManager();
+            foreach (static::EDITABLE_FIELDS as $f) {
+                $signal->{'set' . ucfirst($f)}($form_data[$f]);
+            }
+            $em = $this->getDoctrine()->getManager();
             if (!(int)$id) {
                 $em->persist($signal);
             }
             $em->flush();
             $id = $signal->getId();
-            return $this->redirectToRoute('signal', ['system' => $system, 'id' => $id]);
+            return $this->redirectToRoute(
+                'signal',
+                [ 'system' => $system, 'id' => $id]
+            );
         }
 
         $parameters = [

@@ -464,11 +464,11 @@ class SignalRepository extends ServiceEntityRepository
     private function addSelectColumnsOffsets()
     {
         if ($this->args['offsets'] === '1') {
-            $this->query['select'][] = "ROUND(s.khz - (s.LSB/1000), 3) as LSB";
-            $this->query['select'][] = "ROUND(s.khz + (s.USB/1000), 3) as USB";
+            $this->query['select'][] = "CONCAT(COALESCE(s.LSB_approx, ''), ROUND(s.khz - (s.LSB/1000), 3)) as LSB";
+            $this->query['select'][] = "CONCAT(COALESCE(s.USB_approx, ''), ROUND(s.khz + (s.USB/1000), 3)) as USB";
         } else {
-            $this->query['select'][] = "s.LSB as LSB";
-            $this->query['select'][] = "s.USB as USB";
+            $this->query['select'][] = "CONCAT(COALESCE(s.LSB_approx, ''), s.LSB) as LSB";
+            $this->query['select'][] = "CONCAT(COALESCE(s.USB_approx, ''), s.USB) as USB";
         }
         return $this;
     }

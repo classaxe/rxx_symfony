@@ -84,7 +84,7 @@ class ListenerView extends AbstractType
                 ($isAdmin ? 'mapY' : ''),
             ],
             'Receiving Station Details' =>  [
-                'primary',
+                'primaryQth',
                 'timezone',
                 'equipment',
                 'notes',
@@ -180,7 +180,8 @@ class ListenerView extends AbstractType
                     'choices'       => $this->sp->getMatchingOptions(),
                     'data'          => $options['sp'],
                     'disabled'      => !$isAdmin,
-                    'label'         => 'State / Prov'
+                    'label'         => 'State / Prov',
+                    'required'      => false
                 ]
             )
             ->add(
@@ -228,7 +229,7 @@ class ListenerView extends AbstractType
                 ]
             )
             ->add(
-                'primary',
+                'primaryQth',
                 ChoiceType::class,
                 [
                     'attr'          => [
@@ -238,7 +239,7 @@ class ListenerView extends AbstractType
                         'Yes'           => 1,
                         'No'            => 0,
                     ],
-                    'data'          => $options['primary'],
+                    'data'          => $options['primaryQth'],
                     'disabled'      => !$isAdmin,
                     'label'         => 'Primary Location',
                 ]

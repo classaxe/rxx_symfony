@@ -131,6 +131,15 @@ class TypeRepository
         return $out;
     }
 
+    public function getAllChoicesForKey()
+    {
+        $out = [];
+        foreach (static::types as $key => $type) {
+            $out[$type['label']] = $key;
+        }
+        return $out;
+    }
+
     public function getColorsForCodes()
     {
         $out = [];
