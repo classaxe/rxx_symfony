@@ -5,15 +5,15 @@
         {% if showTopAndPopup is defined %}
             <a href="#top">{{ "Top" | trans }}</a>
             |
-            <a href="{{ url('map', { '_locale' : _locale, 'system' : system, 'area' : key }) }}"{% if (popup is defined and popup) %} data-popup="{{ popup }}"{% endif %}>{{ 'Popup' | trans }}</a>
+            <a href="{{ url('map', { '_locale' : _locale, 'system' : system, 'area' : key }) }}" data-popup="1">{{ 'Popup' | trans }}</a>
             {% if ((stateBtn is defined and stateBtn) or (countryBtn is defined and countryBtn)) %}|{% endif %}
         {% endif %}
         {% if (stateBtn is defined and stateBtn) %}
-            <a href="{{ url('states', { '_locale' : _locale, 'system' : system, 'filter' : stateFilter }) }}" data-type="sp" data-popup="{{ popups.sp }}">{{ stateBtn | trans }}</a>
+            <a href="{{ url('states', { '_locale' : _locale, 'system' : system, 'filter' : stateFilter }) }}" data-popup="1">{{ stateBtn | trans }}</a>
             {% if ((stateBtn is defined and stateBtn) and (countryBtn is defined and countryBtn)) %}|{% endif %}
         {% endif %}
         {% if (countryBtn is defined and countryBtn) %}
-            <a href="{{ url('countries', { '_locale' : _locale, 'system' : system, 'filter' : countryFilter }) }}" data-type="itu" data-popup="{{ popups.itu }}">{{ countryBtn | trans }}</a>
+            <a href="{{ url('countries', { '_locale' : _locale, 'system' : system, 'filter' : countryFilter }) }}" data-popup="1">{{ countryBtn | trans }}</a>
         {% endif %}
         ]</div>
     {% endif %}

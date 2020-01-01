@@ -1144,9 +1144,11 @@ fieldset#form_range_units {
             &[for="form_lon"]{
                 width: 15%;
             }
-            &[for="form_usb"],
-            &[for="form_sec"] {
+            &[for="form_usb"] {
                 width: 9%;
+            }
+            &[for="form_sec"] {
+                width: 13%;
             }
             &[for="form_format"] {
                 width: 11%;
@@ -1176,7 +1178,7 @@ fieldset#form_range_units {
                 width: 10%;
             }
             &#form_sp {
-                width: 40%;
+                width: 30%;
             }
             &#form_itu {
                 width: 20%;
@@ -1189,10 +1191,10 @@ fieldset#form_range_units {
             &#form_lsb,
             &#form_usb,
             &#form_sec {
-                width: 9%;
+                width: 7%;
             }
             &#form_format {
-                width: 14%;
+                width: 16%;
             }
             &#form_active {
                 width: 13%;
@@ -1201,6 +1203,13 @@ fieldset#form_range_units {
             &#form_lastHeard {
                 width: 13%;
             }
+        }
+        div#form_itu_suffix,
+        div#form_sp_suffix {
+            padding-left: 0.25em;
+            float: left;
+            width: 5%;
+            font-size: 80%;
         }
         div#form_pwr_suffix,
         div#form_sec_suffix {
@@ -1644,7 +1653,7 @@ body.map {
   }
   h3 {
     margin: 0;
-    font-size: 14pt;
+    font-size: 10pt;
     display: block;
     clear-after: both;
   }
@@ -1663,4 +1672,12 @@ body.map {
       width: 16em;
     }
   }
+}
+#main .help .header h3 {
+    font-size: 120%;
+    float: left;
+}
+
+.fa-info-circle {
+    color: #00f;
 }

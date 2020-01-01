@@ -19,7 +19,7 @@
         <div class="header">
             <h2 id='{{ country.itu }}'>{{ country.name }}</h2>
             <div class="links">
-                [ {%  if country.map %}<a href="{{ url('map', { 'system' : system, 'area' : country.map }) }}" rel="external">Map</a> | {% endif %}<a href="#top">Top</a> ]
+                [ {%  if country.map %}<a href="{{ url('map', { 'system' : system, 'area' : country.map }) }}" data-popup="1">Map</a> | {% endif %}<a href="#top">Top</a> ]
             </div>
         </div>
         {% if country.states|length  %}

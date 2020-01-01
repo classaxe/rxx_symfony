@@ -35,8 +35,10 @@
                     <div>
                         {{ form_label(form.sp) }}
                         {{ form_widget(form.sp) }}
+                        <div id="form_sp_suffix"><a href="{{ url('states', { '_locale' : _locale, 'system' : system }) }}" data-popup="states|width=640,height=800,resizable=1">{% trans %}List{% endtrans %}</a></div>
                         {{ form_label(form.itu) }}
                         {{ form_widget(form.itu) }}
+                        <div id="form_itu_suffix"><a href="{{ url('countries', { '_locale' : _locale, 'system' : system }) }}" data-popup="countries|resizable=1">{% trans %}List{% endtrans %}</a></div>
                     </div>
                     <div>
                         {{ form_label(form.gsq) }}
@@ -57,8 +59,15 @@
                             {{ form_widget(form.lsb) }}
                             {{ form_label(form.usb) }}
                             {{ form_widget(form.usb) }}
-                            {{ form_label(form.sec) }}
-                            {{ form_widget(form.sec) }}<div id="form_sec_suffix">{% trans %}(Sec){% endtrans %}</div>
+                            <label for="form_sec" data-tooltip style="cursor:pointer;" title="{% trans %}INFORMATION{% endtrans %}
+
+{% trans %}Where two values are given for Cycle (e.g. 8.0/28.0), the first value is for the Ident portion and the second is for the whole cycle.{% endtrans %}">
+                                <i class="fa fa-info-circle"></i>
+                                {% trans %}Cycle{% endtrans %}
+                            </label>
+                            {{ form_widget(form.sec) }}
+                            <div id="form_sec_suffix">{% trans %}(Sec){% endtrans %}</div>
+
                             {{ form_label(form.format) }}
                             {{ form_widget(form.format) }}
                         </div>

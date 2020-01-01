@@ -1175,9 +1175,11 @@ fieldset#form_range_units div label {
 .signal_view #form label[for="form_lon"] {
   width: 15%;
 }
-.signal_view #form label[for="form_usb"],
-.signal_view #form label[for="form_sec"] {
+.signal_view #form label[for="form_usb"] {
   width: 9%;
+}
+.signal_view #form label[for="form_sec"] {
+  width: 13%;
 }
 .signal_view #form label[for="form_format"] {
   width: 11%;
@@ -1217,7 +1219,7 @@ fieldset#form_range_units div label {
 .signal_view #form input[type='text']#form_sp,
 .signal_view #form textarea#form_sp,
 .signal_view #form select#form_sp {
-  width: 40%;
+  width: 30%;
 }
 .signal_view #form input[type='text']#form_itu,
 .signal_view #form textarea#form_itu,
@@ -1244,12 +1246,12 @@ fieldset#form_range_units div label {
 .signal_view #form input[type='text']#form_sec,
 .signal_view #form textarea#form_sec,
 .signal_view #form select#form_sec {
-  width: 9%;
+  width: 7%;
 }
 .signal_view #form input[type='text']#form_format,
 .signal_view #form textarea#form_format,
 .signal_view #form select#form_format {
-  width: 14%;
+  width: 16%;
 }
 .signal_view #form input[type='text']#form_active,
 .signal_view #form textarea#form_active,
@@ -1263,6 +1265,13 @@ fieldset#form_range_units div label {
 .signal_view #form textarea#form_lastHeard,
 .signal_view #form select#form_lastHeard {
   width: 13%;
+}
+.signal_view #form div#form_itu_suffix,
+.signal_view #form div#form_sp_suffix {
+  padding-left: 0.25em;
+  float: left;
+  width: 5%;
+  font-size: 80%;
 }
 .signal_view #form div#form_pwr_suffix,
 .signal_view #form div#form_sec_suffix {
@@ -1658,7 +1667,7 @@ body.map .gm-style-iw p {
 }
 .map_info h3 {
   margin: 0;
-  font-size: 14pt;
+  font-size: 10pt;
   display: block;
   clear-after: both;
 }
@@ -1674,4 +1683,11 @@ body.map .gm-style-iw p {
   padding: 3px;
   font-size: 10pt;
   width: 16em;
+}
+#main .help .header h3 {
+  font-size: 120%;
+  float: left;
+}
+.fa-info-circle {
+  color: #00f;
 }

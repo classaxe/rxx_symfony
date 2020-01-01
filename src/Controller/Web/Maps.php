@@ -10,10 +10,6 @@ use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
  */
 class Maps extends Base
 {
-    const popups = [
-        'itu' => "itu|width=640,height=500,resizable=1",
-        'sp' =>  "sp|width=640,height=500,resizable=1"
-    ];
     /**
      * @Route(
      *     "/{_locale}/{system}/map/{area}",
@@ -33,7 +29,6 @@ class Maps extends Base
     public function map($_locale, $system, $area, MapRepository $mapRepository)
     {
         $parameters = $mapRepository->get($area);
-        $parameters['popups'] = self::popups;
         $parameters['_locale'] = $_locale;
         $parameters['system'] = $system;
 
@@ -61,7 +56,6 @@ class Maps extends Base
         $parameters = [
             '_locale' =>    $_locale,
             'mode' =>       'Maps',
-            'popups' =>     self::popups,
             'system' =>     $system,
             'title' =>      $maps['title'],
             'zones' =>      $maps['maps'],

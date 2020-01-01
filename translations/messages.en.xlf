@@ -2817,6 +2817,18 @@
         <source>(Daytime Log)</source>
         <target>(Daytime Log)</target>
       </trans-unit>
+      <trans-unit id="5Z2l4Lh" resname="INFORMATION">
+        <source>INFORMATION</source>
+        <target>INFORMATION</target>
+      </trans-unit>
+      <trans-unit id="VM_H3bf" resname="Where two values are given for Cycle Time (e.g. 8.0/28.0), the first value is for the ID portion of the cycle and the second value is for the whole thing.">
+        <source>Where two values are given for Cycle Time (e.g. 8.0/28.0), the first value is for the ID portion of the cycle and the second value is for the whole thing.</source>
+        <target>Where two values are given for Cycle Time (e.g. 8.0/28.0), the first value is for the ID portion of the cycle and the second value is for the whole thing.</target>
+      </trans-unit>
+      <trans-unit id=".GJcIPg" resname="Where two values are given for Cycle (e.g. 8.0/28.0), the first value is for the Ident portion and the second is for the whole cycle.">
+        <source>Where two values are given for Cycle (e.g. 8.0/28.0), the first value is for the Ident portion and the second is for the whole cycle.</source>
+        <target>Where two values are given for Cycle (e.g. 8.0/28.0), the first value is for the Ident portion and the second is for the whole cycle.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
