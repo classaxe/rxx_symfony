@@ -2809,6 +2809,14 @@
         <source>Status</source>
         <target>Status</target>
       </trans-unit>
+      <trans-unit id="QFB9iY_" resname="(All Countries)">
+        <source>(All Countries)</source>
+        <target>(All Countries)</target>
+      </trans-unit>
+      <trans-unit id="JJT6Ej9" resname="(Daytime Log)">
+        <source>(Daytime Log)</source>
+        <target>(Daytime Log)</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

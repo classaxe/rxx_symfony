@@ -24,14 +24,6 @@ class ListenerRepository extends ServiceEntityRepository
         ['listener_stats', 'Stats']
     ];
 
-    const popup = [
-        'addlog'    => "width=640,height=480,status=1,scrollbars=1,resizable=1",
-        'hamcall'   => "width=640,height=480,status=1,scrollbars=1,resizable=1",
-        'listener'  => "width=800,height=680,status=1,scrollbars=1,resizable=1",
-        'nwl'       => "status=1,scrollbars=1,resizable=1",
-        'www'       => "width=640,height=480,status=1,scrollbars=1,resizable=1"
-    ];
-
     private $listenersColumns;
     private $listenerLogsColumns;
     private $listenerSignalsColumns;
@@ -77,11 +69,6 @@ class ListenerRepository extends ServiceEntityRepository
     public function getLogsColumns()
     {
         return $this->listenerLogsColumns;
-    }
-
-    public static function getPopupArgs($which)
-    {
-        return static::popup[$which];
     }
 
     public function getStats($system, $region)

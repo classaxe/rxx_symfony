@@ -187,8 +187,6 @@ class SignalView extends AbstractType
                 [
                     'attr'          => [
                         'maxlength'     => 6,
-                        'onchange'      => "try{setCustomValidity('')}catch(e){}",
-                        'oninvalid'     => "setCustomValidity('Please provide the grid square so we can calculate distances')",
                         'size'          => 6,
                         'style'         => "width: 6em"
                     ],
@@ -196,6 +194,7 @@ class SignalView extends AbstractType
                     'disabled'      => !$isAdmin,
                     'empty_data'    => '',
                     'label'         => 'Grid Square',
+                    'required'     => false
                 ]
             )
             ->add(
@@ -273,7 +272,7 @@ class SignalView extends AbstractType
                     'disabled'      => !$isAdmin,
                     'empty_data'    => '',
                     'label'         => 'Status',
-                    'required'      => false
+                    'required'      => true
                 ]
             )
             ->add(

@@ -7,7 +7,11 @@
     <input type="button" class="button small" value="{{ 'All %s > %s'   |trans|format(system|upper, 'ILG')}}" onclick="exportSignallistILG()" />
 {% endif %}
 {% if isAdmin %}
-    <input type="button" class="button small" value="{% trans %}Add Signal...{% endtrans %}" onclick="alert('soon')" />
+    {% if isAdmin %}
+        <input type="button" class="button small" value="{{ 'Add Signal...' | trans }}"
+               onclick="window.open('{{ path('signal', { '_locale' : _locale, 'system' : system, 'id' : 'new'})}}', 'signal_new', popWinSpecs['signals_[id]'])"
+        >
+    {% endif %}
 {% endif %}
 </p>
 {% endif %}

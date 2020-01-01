@@ -18,10 +18,12 @@
                     <div>
                         {{ form_label(form.active) }}
                         {{ form_widget(form.active) }}
-                        {{ form_label(form.firstHeard) }}
-                        {{ form_widget(form.firstHeard) }}
-                        {{ form_label(form.lastHeard) }}
-                        {{ form_widget(form.lastHeard) }}
+                        {% if id %}
+                            {{ form_label(form.firstHeard) }}
+                            {{ form_widget(form.firstHeard) }}
+                            {{ form_label(form.lastHeard) }}
+                            {{ form_widget(form.lastHeard) }}
+                        {% endif %}
                     </div>
                 </fieldset>
 
@@ -46,31 +48,35 @@
                     </div>
                 </fieldset>
 
-
                 <fieldset id="group_latest_values">
-                    <legend>{% trans %}Latest Values{% endtrans %}</legend>
-                    <div>
-                        {{ form_label(form.lsb) }}
-                        {{ form_widget(form.lsb) }}
-                        {{ form_label(form.usb) }}
-                        {{ form_widget(form.usb) }}
-                        {{ form_label(form.sec) }}
-                        {{ form_widget(form.sec) }}<div id="form_sec_suffix">{% trans %}(Sec){% endtrans %}</div>
-                        {{ form_label(form.format) }}
-                        {{ form_widget(form.format) }}
-                    </div>
 
-                    <div style="height: auto">
-                        <label>{% trans %}Heard Here{% endtrans %} <div class="text-nowrap"><b>(Daytime Log)</b></div></label>
-                        <div id="heardIn">{{ heardInHtml|raw }}</div>
-                    </div>
+                    {% if id %}
+                        <legend>{% trans %}Latest Values{% endtrans %}</legend>
+                        <div>
+                            {{ form_label(form.lsb) }}
+                            {{ form_widget(form.lsb) }}
+                            {{ form_label(form.usb) }}
+                            {{ form_widget(form.usb) }}
+                            {{ form_label(form.sec) }}
+                            {{ form_widget(form.sec) }}<div id="form_sec_suffix">{% trans %}(Sec){% endtrans %}</div>
+                            {{ form_label(form.format) }}
+                            {{ form_widget(form.format) }}
+                        </div>
+                        <div style="height: auto">
+                            <label>{% trans %}Heard Here{% endtrans %}
+                                {% if '<b>' in heardInHtml %}
+                                    <div class="text-nowrap"><b>{% trans %}(Daytime Log){% endtrans %}</b></div>
+                                {% endif %}
+                            </label>
+                            <div id="heardIn">{{ heardInHtml|raw }}</div>
+                        </div>
+                    {% endif %}
 
                     <div>
                         {{ form_label(form.notes) }}
                         {{ form_widget(form.notes) }}
                     </div>
                 </fieldset>
-
 
                 <fieldset id="group_">
                     {{ form_row(form.print) }}

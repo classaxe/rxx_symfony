@@ -914,7 +914,7 @@ class SignalRepository extends ServiceEntityRepository
 
     public function getTabs($signal = false)
     {
-        if (!$signal || $signal->getId()) {
+        if (!$signal->getId()) {
             return [];
         }
         $logs =     123;//$signal->getCountLogs();

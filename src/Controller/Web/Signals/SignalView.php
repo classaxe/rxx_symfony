@@ -58,8 +58,8 @@ class SignalView extends Base
             'lon' =>        $signal->getLon(),
             'lsb' =>        $signal->getLsbApprox() . $signal->getLsb(),
             'usb' =>        $signal->getUsbApprox() . $signal->getUsb(),
-            'firstHeard' => $signal->getFirstHeard()->format('Y-m-d'),
-            'lastHeard' =>  $signal->getLastHeard()->format('Y-m-d')
+            'firstHeard' => $signal->getFirstHeard() ? $signal->getFirstHeard()->format('Y-m-d') : '',
+            'lastHeard' =>  $signal->getLastHeard() ? $signal->getLastHeard()->format('Y-m-d') : ''
         ];
         foreach (static::EDITABLE_FIELDS as $f) {
             $options[$f] = $signal->{'get' . ucfirst($f)}();
@@ -93,18 +93,21 @@ class SignalView extends Base
             $usbApprox = substr($form_data['usb'], 0, 1) === '~' ? '~' : null;
             $lsb = str_replace('~', '', $form_data['lsb']);
             $usb = str_replace('~', '', $form_data['usb']);
-            $signal
-                ->setGsq($GSQ)
-                ->setLat($lat)
-                ->setLon($lon)
-                ->setLsb($lsb)
-                ->setLsbApprox($lsbApprox)
-                ->setUsb($usb)
-                ->setUsbApprox($usbApprox);
 
             foreach (static::EDITABLE_FIELDS as $f) {
                 $signal->{'set' . ucfirst($f)}($form_data[$f]);
             }
+            $signal
+                ->setGsq($GSQ)
+                ->setHeardInHtml($signal->getHeardInHtml() ?? '')
+                ->setLat($lat)
+                ->setLon($lon)
+                ->setLsb($lsb)
+                ->setLsbApprox($lsbApprox)
+                ->setPwr($signal->getPwr() ?? 0)
+                ->setUsb($usb)
+                ->setUsbApprox($usbApprox);
+
             $em = $this->getDoctrine()->getManager();
             if (!(int)$id) {
                 $em->persist($signal);
@@ -123,7 +126,7 @@ class SignalView extends Base
             'isAdmin' =>            $isAdmin,
             'form' =>               $form->createView(),
             '_locale' =>            $_locale,
-            'mode' =>               $isAdmin && !$signal ? 'Add Signal' : $signal->getCall() . '-' . $signal->getKhz(). ' (' . ($signal->getActive() ? 'Active' : 'Inactive') . ')',
+            'mode' =>               $isAdmin && !$id ? 'Add Signal' : $signal->getCall() . '-' . $signal->getKhz(). ' (' . ($signal->getActive() ? 'Active' : 'Inactive') . ')',
             'system' =>             $system,
             'tabs' =>               $signalRepository->getTabs($signal),
         ];

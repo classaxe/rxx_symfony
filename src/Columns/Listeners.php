@@ -148,7 +148,7 @@ class Listeners
             'countDgps' => [
                 'admin'     =>  false,
                 'arg'       =>  'type_DGPS',
-                'field'     =>  'formattedCountDgps',
+                'field'     =>  'countDgps',
                 'label'     =>  '<div>DGPS</div>',
                 'order'     =>  'd',
                 'sort'      =>  'l.countDgps',
@@ -159,7 +159,7 @@ class Listeners
             'countDsc' => [
                 'admin'     =>  false,
                 'arg'       =>  'type_DSC',
-                'field'     =>  'formattedCountDsc',
+                'field'     =>  'countDsc',
                 'label'     =>  '<div>DSC</div>',
                 'order'     =>  'd',
                 'sort'      =>  'l.countDsc',
@@ -170,7 +170,7 @@ class Listeners
             'countHambcn' => [
                 'admin'     =>  false,
                 'arg'       =>  'type_HAMBCN',
-                'field'     =>  'formattedCountHambcn',
+                'field'     =>  'countHambcn',
                 'label'     =>  '<div>HAMBCN</div>',
                 'order'     =>  'd',
                 'sort'      =>  'l.countHambcn',
@@ -181,7 +181,7 @@ class Listeners
             'countNavtex' => [
                 'admin'     =>  false,
                 'arg'       =>  'type_NAVTEX',
-                'field'     =>  'formattedCountNavtex',
+                'field'     =>  'countNavtex',
                 'label'     =>  '<div>NAVTEX</div>',
                 'order'     =>  'd',
                 'sort'      =>  'l.countNavtex',
@@ -192,7 +192,7 @@ class Listeners
             'countNdb' => [
                 'admin'     =>  false,
                 'arg'       =>  'type_NDB',
-                'field'     =>  'formattedCountNdb',
+                'field'     =>  'countNdb',
                 'label'     =>  '<div>NDB</div>',
                 'order'     =>  'd',
                 'sort'      =>  'l.countNdb',
@@ -203,7 +203,7 @@ class Listeners
             'countTime' => [
                 'admin'     =>  false,
                 'arg'       =>  'type_TIME',
-                'field'     =>  'formattedCountTime',
+                'field'     =>  'countTime',
                 'label'     =>  '<div>TIME</div>',
                 'order'     =>  'd',
                 'sort'      =>  'l.countTime',
@@ -214,7 +214,7 @@ class Listeners
             'countOther' => [
                 'admin'     =>  false,
                 'arg'       =>  'type_OTHER',
-                'field'     =>  'formattedCountOther',
+                'field'     =>  'countOther',
                 'label'     =>  '<div>OTHER</div>',
                 'order'     =>  'd',
                 'sort'      =>  'l.countOther',

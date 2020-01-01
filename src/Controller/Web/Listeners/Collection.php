@@ -86,7 +86,6 @@ class Collection extends Base
             'form' =>               $form->createView(),
             'listeners' =>          $listeners,
             '_locale' =>            $_locale,
-            'listenerPopup' =>      ListenerRepository::getPopupArgs('listener'),
             'mode' =>               'Listeners List',
             'system' =>             $system,
             'results' => [

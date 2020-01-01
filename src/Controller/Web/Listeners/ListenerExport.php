@@ -41,7 +41,6 @@ class ListenerExport extends Base
             'mode' =>               'Export Loggings for '.$listener->getFormattedNameAndLocation(),
             'logs' =>               $listener->getCountLogs(),
             'signals' =>            $listener->getCountSignals(),
-            'popupNdbWeblog' =>     "status=1,scrollbars=1,resizable=1",
             'system' =>             $system,
             'tabs' =>               $listenerRepository->getTabs($listener)
         ];

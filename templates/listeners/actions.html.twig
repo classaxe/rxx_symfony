@@ -4,7 +4,9 @@
         <input type="button" class="button small" value="{{ 'Print...' | trans }}" onclick="window.print()">
     {% endif %}
     {% if isAdmin %}
-        <input type="button" class="button small" value="{{ 'Add Listener...' | trans }}" onclick="window.open('{{ path('listener', { '_locale' : _locale, 'system' : system, 'id' : 'new'})}}','new','{{ listenerPopup }}')">
+        <input type="button" class="button small" value="{{ 'Add Listener...' | trans }}"
+           onclick="window.open('{{ path('listener', { '_locale' : _locale, 'system' : system, 'id' : 'new'})}}', 'listener_new', popWinSpecs['listeners_[id]'])"
+        >
     {% endif %}
     </p>
 {% endif %}

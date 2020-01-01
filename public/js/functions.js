@@ -1,3 +1,12 @@
+var popWinSpecs = {
+    'listeners_[id]' :              'width=800,height=680,status=1,scrollbars=1,resizable=1',
+    'listeners_[id]_logs' :         'width=800,height=680,status=1,scrollbars=1,resizable=1',
+    'listeners_[id]_signals' :      'width=800,height=680,status=1,scrollbars=1,resizable=1',
+    'listeners_[id]_signalmap' :    'width=800,height=680,status=1,scrollbars=1,resizable=1,location=1',
+    'listeners_[id]_ndbweblog' :    'status=1,scrollbars=1,resizable=1',
+    'signals_[id]' :                'width=640,height=480,status=1,scrollbars=1,resizable=1'
+};
+
 function changeShowMode(mode) {
     $('#form_show').val(mode);
     $('#form_submit').click();
@@ -332,6 +341,47 @@ function initSignalsForm(pagingMsg, resultsCount) {
     });
 }
 
+function popup(url) {
+
+    var hd, i, id, mode, name, path;
+    var pattern = [];
+    var systems = [ 'rna', 'reu', 'rww' ];
+
+    path = url.split('/').reverse();
+    for(i = 0; i <= 2; i++) {
+        if ($.isNumeric(path[i])) {
+            id = path[i];
+            pattern.push('[id]');
+        } else {
+            pattern.push(path[i]);
+        }
+    }
+    if (systems.includes(pattern[2])) {
+        pattern.pop();
+    }
+    pattern.reverse();
+    mode = pattern.join('_');
+
+    if ('undefined' === typeof popWinSpecs[mode]) {
+        alert('Unhandled mode ' + mode);
+        return;
+    }
+    name = mode.replace('[id]', id);
+    hd = window.open(url, name, popWinSpecs[mode]);
+    if (!hd){
+        alert(
+            'ERROR:\n\n'+
+            'This site tried to open a popup window\n'+
+            'but was prevented from doing so.\n\n'+
+            'Please disable any popup blockers you may\n'+
+            'have enabled for this site.'
+        );
+        return false;
+    }
+    hd.focus();
+    return false;
+}
+
 function scrollToResults() {
     if ($('#form_show').val() !== '') {
         $([document.documentElement, document.body]).animate({
@@ -384,10 +434,14 @@ function setEmailLinks() {
 function setExternalLinks() {
     $('a[rel="external"]').attr('target', '_blank');
     $('a[data-popup]').click(function() {
+        if (1 === $(this).data('popup')) {
+            return popup(this.href);
+        }
         var args = $(this).data('popup').split('|');
         window.open(this.href, args[0], args[1]);
         return false;
     });
+
 }
 
 /* [ Enable Country change to resubmit form ] */

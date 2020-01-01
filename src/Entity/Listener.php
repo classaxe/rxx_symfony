@@ -774,10 +774,8 @@ class Listener
     public function getFormattedAddlogLink(): ?string
     {
         $popup_url =    'http://example.com';
-        $popup_name =   "addlog_{$this->id}";
-        $popup_args =   ListenerRepository::getPopupArgs('addlog');
         return
-            "<a href=\"{$popup_url}\" rel=\"external\" data-popup=\"{$popup_name}|{$popup_args}\">Add...</a>";
+            "<a href=\"{$popup_url}\" data-popup=\"1\">Add...</a>";
     }
 
     /* Custom getters for column display */
@@ -791,51 +789,21 @@ class Listener
             return '';
         }
         $popup_url =    "https://hamcall.net/call?callsign=".urlencode($this->callsign);
-        $popup_name =   "callsign_{$this->id}";
-        $popup_args =   ListenerRepository::getPopupArgs('hamcall');
         return
-            "<a href=\"$popup_url\" rel=\"external\" data-popup=\"{$popup_name}|{$popup_args}\">{$this->callsign}</a>";
+            "<a href=\"$popup_url\" rel=\"external\">{$this->callsign}</a>";
     }
 
     private function getLogLink($value) {
         $popup_url =    "listeners/{$this->id}/logs";
-        $popup_name =   "edit_{$this->id}";
-        $popup_args =   ListenerRepository::getPopupArgs('listener');
-        return "<a href=\"$popup_url\" rel=\"external\" data-popup=\"{$popup_name}|{$popup_args}\">{$value}</a>";
+        return "<a href=\"$popup_url\" data-popup=\"1\">$value</a>";
 
     }
 
-    private function getSignalsLink($value, $type) {
-        $popup_url =    "listeners/{$this->id}/signals". ($type !== '' ? "/{$type}" : '');
-        $popup_name =   "edit_{$this->id}";
-        $popup_args =   ListenerRepository::getPopupArgs('listener');
-        return "<a href=\"$popup_url\" rel=\"external\" data-popup=\"{$popup_name}|{$popup_args}\">{$value}</a>";
+    private function getSignalsLink($value) {
+        $popup_url =    "listeners/{$this->id}/signals";
+        return "<a href=\"$popup_url\" data-popup=\"1\">$value</a>";
 
     }
-    /**
-     * @return null|string
-     */
-    public function getFormattedCountDgps(): ?string
-    {
-        return ($this->countDgps ? $this->getSignalsLink($this->countDgps, 1) : '');
-    }
-
-    /**
-     * @return null|string
-     */
-    public function getFormattedCountDsc(): ?string
-    {
-        return ($this->countDsc ? $this->getSignalsLink($this->countDsc, 6) : '');
-    }
-
-    /**
-     * @return null|string
-     */
-    public function getFormattedCountHambcn(): ?string
-    {
-        return ($this->countHambcn ? $this->getSignalsLink($this->countHambcn, 4) : '');
-    }
-
     /**
      * @return null|string
      */
@@ -847,41 +815,9 @@ class Listener
     /**
      * @return null|string
      */
-    public function getFormattedCountNavtex(): ?string
-    {
-        return ($this->countNavtex ? $this->getSignalsLink($this->countNavtex, 3) : '');
-    }
-
-    /**
-     * @return null|string
-     */
-    public function getFormattedCountNdb(): ?string
-    {
-        return ($this->countNdb ? $this->getSignalsLink($this->countNdb, 0) : '');
-    }
-
-    /**
-     * @return null|string
-     */
-    public function getFormattedCountOther(): ?string
-    {
-        return ($this->countOther ? $this->getSignalsLink($this->countOther, 5) : '');
-    }
-
-    /**
-     * @return null|string
-     */
     public function getFormattedCountSignals(): ?string
     {
-        return ($this->countSignals ? $this->getSignalsLink($this->countSignals, '') : '');
-    }
-
-    /**
-     * @return null|string
-     */
-    public function getFormattedCountTime(): ?string
-    {
-        return ($this->countTime ? $this->getSignalsLink($this->countTime, 2) : '');
+        return ($this->countSignals ? $this->getSignalsLink($this->countSignals) : '');
     }
 
     /**
@@ -926,9 +862,7 @@ class Listener
     public function getFormattedNameLink(): ?string
     {
         $popup_url =    "listeners/{$this->id}";
-        $popup_name =   "listener_{$this->id}";
-        $popup_args =   ListenerRepository::getPopupArgs('listener');
-        return "<a href=\"$popup_url\" rel=\"external\" data-popup=\"{$popup_name}|{$popup_args}\">{$this->name}</a>";
+        return "<a href=\"$popup_url\" data-popup=\"1\">{$this->name}</a>";
     }
 
     /**
@@ -940,9 +874,7 @@ class Listener
             return '';
         }
         $popup_url =    "listeners/{$this->id}/ndbweblog";
-        $popup_name =   "nwl_{$this->id}";
-        $popup_args =   ListenerRepository::getPopupArgs('nwl');
-        return "<a href=\"$popup_url\" rel=\"external\" data-popup=\"{$popup_name}|{$popup_args}\">NWL</a>";
+        return "<a href=\"$popup_url\" data-popup=\"1\">NWL</a>";
     }
 
     /**
@@ -977,6 +909,6 @@ class Listener
         $popup_args =   "width=640,height=480,status=1,scrollbars=1,resizable=1";
         $short_url =    preg_replace(['(^https?://)', '(/$)'], '', $this->website);
         return
-            "<a href=\"{$this->website}\" rel=\"external\" data-popup=\"{$popup_name}|{$popup_args}\">{$short_url}</a>";
+            "<a href=\"{$this->website}\" data-popup=\"{$popup_name}|{$popup_args}\">{$short_url}</a>";
     }
 }

@@ -78,7 +78,6 @@ class ListenerSignals extends Base
                 'total' =>              $options['total']
             ],
             'signals' =>            $listenerRepository->getSignalsForListener($id, $args),
-            'signalPopup' =>        'width=590,height=640,status=1,scrollbars=1,resizable=1',
             'system' =>             $system,
             'tabs' =>               $listenerRepository->getTabs($listener),
             'typeRepository' =>     $typeRepository

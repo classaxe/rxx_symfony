@@ -600,14 +600,14 @@ class Signal
         return $this;
     }
 
-    public function getPwr(): ?float
+    public function getPwr()
     {
-        return $this->pwr;
+        return $this->pwr ? $this->pwr : '';
     }
 
-    public function setPwr(float $pwr): self
+    public function setPwr(?string $pwr): self
     {
-        $this->pwr = $pwr;
+        $this->pwr = ($pwr === '' ? null : (int) $pwr);;
 
         return $this;
     }
