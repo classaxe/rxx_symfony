@@ -438,6 +438,23 @@ class Collection extends Base
                 ]
             );
 
+        if ($options['isAdmin']) {
+            $formBuilder
+                ->add(
+                    'admin_mode',
+                    ChoiceType::class,
+                    [
+                        'choices' =>        [
+                            '0 - Default View seen by regular visitors' =>   '',
+                            '1 - Listing view of unlogged signals for all systems' =>   '1',
+                            '2 - Listing view of logged and unlogged from all systems' =>    '2'
+                        ],
+                        'data' =>           $options['admin_mode'],
+                        'label' =>          'Admin Mode',
+                        'required' =>       false
+                    ]
+                );
+        }
         $this->addPaging($formBuilder, $options);
 
         return $formBuilder->getForm();

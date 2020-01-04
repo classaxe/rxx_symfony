@@ -69,14 +69,17 @@ class Collection extends Base
         SignalRepository $signalRepository,
         TypeRepository $typeRepository
     ) {
+        $isAdmin = $this->parameters['isAdmin'];
         $args = [
             'active' =>         0,
+            'admin_mode' =>     $_REQUEST['form']['admin_mode'] ?? 0,
             'call' =>           '',
             'channels' =>       '',
             'countries' =>      '',
             'gsq' =>            '',
             'heard_in' =>       '',
             'heard_in_mod' =>   '',
+            'isAdmin' =>        $isAdmin,
             'khz_1' =>          '',
             'khz_2' =>          '',
             'limit' =>          static::defaultlimit,
@@ -127,7 +130,11 @@ class Collection extends Base
         if (empty($args['types'])) {
             $args['types'][] = 'type_NDB';
         }
+        $args['isAdmin'] =      $isAdmin;
         $args['signalTypes'] =  $typeRepository->getSignalTypesSearched($args['types']);
+        if ($isAdmin && $args['admin_mode'] !== '') {
+            $args['show'] = 'list';
+        }
         $paper =                isset($args['paper']) ? $paperRepository->getSpecifications($args['paper']) : false;
         $signals =              $signalRepository->getFilteredSignals($system, $args);
         $total =                $signalRepository->getFilteredSignalsCount($system, $args);
@@ -143,6 +150,7 @@ class Collection extends Base
             'args' =>               $args,
             'columns' =>            $signalRepository->getColumns(),
             'form' =>               $form->createView(),
+            'isAdmin' =>            $isAdmin,
             'mode' =>               'Signals',
             'paper' =>              $paper,
             'paperChoices' =>       $paperRepository->getAllChoices(),

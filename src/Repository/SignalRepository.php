@@ -286,6 +286,13 @@ class SignalRepository extends ServiceEntityRepository
         return $this;
     }
 
+    private function addFilterUnlogged()
+    {
+        $this->query['where'][] =
+            '(s.heard_in_af = 0 AND s.heard_in_an = 0 AND s.heard_in_as = 0 AND s.heard_in_ca = 0 AND s.heard_in_eu = 0 AND s.heard_in_iw = 0 AND s.heard_in_na = 0 AND s.heard_in_oc = 0 AND s.heard_in_sa = 0)';
+        return $this;
+    }
+
     private function addFromTables()
     {
         if (
@@ -625,27 +632,32 @@ class SignalRepository extends ServiceEntityRepository
     public function getFilteredSignals($system, $args)
     {
 //        print("<pre>".print_r($args, true)."</pre>");
-        $this->args = $args;
         $this
             ->setArgs($system, $args)
-
+            ->addFromTables()
             ->addFilterActive()
             ->addFilterCall()
             ->addFilterChannels()
             ->addFilterFreq()
             ->addFilterGsq()
-            ->addFilterHeardIn()
-            ->addFilterListeners()
-            ->addFilterLoggedDate()
-            ->addFilterLoggedFirst()
-            ->addFilterLoggedLast()
             ->addFilterRange()
             ->addFilterRegion()
             ->addFilterStatesAndCountries()
-            ->addFilterSystem()
-            ->addFilterTypes()
+            ->addFilterTypes();
 
-            ->addFromTables();
+        if ($args['isAdmin'] && $args['admin_mode'] === '1') {
+            $this->addFilterUnlogged();
+        } elseif($args['isAdmin'] && $args['admin_mode'] === '2') {
+            // No filter
+        } else {
+            $this
+                ->addFilterHeardIn()
+                ->addFilterListeners()
+                ->addFilterLoggedDate()
+                ->addFilterLoggedFirst()
+                ->addFilterLoggedLast()
+                ->addFilterSystem();
+        }
 
         switch ($this->args['show']) {
             case 'seeklist':
@@ -696,27 +708,31 @@ class SignalRepository extends ServiceEntityRepository
     {
         $this
             ->setArgs($system, $args)
-
             ->addSelectColumnCountSignal()
-
             ->addFromTables()
-
             ->addFilterActive()
             ->addFilterCall()
             ->addFilterChannels()
             ->addFilterFreq()
             ->addFilterGsq()
-            ->addFilterHeardIn()
-            ->addFilterListeners()
-            ->addFilterLoggedDate()
-            ->addFilterLoggedFirst()
-            ->addFilterLoggedLast()
             ->addFilterRange()
             ->addFilterRegion()
             ->addFilterStatesAndCountries()
-            ->addFilterSystem()
-            ->addFilterTypes()
-        ;
+            ->addFilterTypes();
+
+        if ($args['isAdmin'] && $args['admin_mode'] === '1') {
+            $this->addFilterUnlogged();
+        } elseif($args['isAdmin'] && $args['admin_mode'] === '2') {
+            // No filter
+        } else {
+            $this
+                ->addFilterHeardIn()
+                ->addFilterListeners()
+                ->addFilterLoggedDate()
+                ->addFilterLoggedFirst()
+                ->addFilterLoggedLast()
+                ->addFilterSystem();
+        }
 
         $sql = $this->buildQuery();
 
@@ -899,15 +915,6 @@ class SignalRepository extends ServiceEntityRepository
     private function setArgs($system, $args)
     {
         $this->system = $system;
-//        if (trim($args['heard_in']) === '') {
-//            unset($args['heard_in']);
-//        }
-//        if ((!$args['listener'] || in_array('', $args['listener']))) {
-//            unset($args['listener']);
-//        }
-//        if ($args['listener_invert'] === 0) {
-//            unset($args['listener_invert']);
-//        }
         $this->args = $args;
         return $this;
     }

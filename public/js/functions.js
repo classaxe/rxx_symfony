@@ -342,6 +342,7 @@ function initSignalsForm(pagingMsg, resultsCount) {
         setFormTypesDefault();
         setFormTypesAllAction();
         setFormCountryAction();
+        setFormAdminAction();
         setFormRegionAction();
 
         setFormListenerInvertDefault();
@@ -673,6 +674,18 @@ function setFormRangeUnitsDefault() {
     }
 }
 
+/* [ Enable Admin Mode change to resubmit form ] */
+function setFormAdminAction(enable) {
+    enable = typeof enable !== 'undefined' ? enable : true;
+    if (enable) {
+        $('select#form_admin_mode').change(function () {
+            $('#form_submit').click();
+        });
+    } else {
+        $('select#form_admin_mode').off('change');
+    }
+}
+
 /* [ Enable Region change to resubmit form ] */
 function setFormRegionAction(enable) {
     enable = typeof enable !== 'undefined' ? enable : true;
@@ -689,8 +702,10 @@ function setFormResetAction(form) {
     switch (form) {
         case 'signals':
             $('button[type="reset"]').click(function () {
+                setFormAdminAction(false);
                 setFormRegionAction(false);
 
+                $('#form_show').val('');
                 $('#form_types div :checkbox').prop('checked', false);
                 $('#form_types div :checkbox[value=type_NDB]').prop('checked', true);
                 $('#form_call').val('');
@@ -724,7 +739,11 @@ function setFormResetAction(form) {
                 $('#form_logged_last_1').val('');
                 $('#form_logged_last_2').val('');
 
+                $('#form_admin_mode').prop('selectedIndex', 0);
+
+                setFormAdminAction(true);
                 setFormRegionAction(true);
+                $('#form_submit').click();
                 return false;
             });
             break;

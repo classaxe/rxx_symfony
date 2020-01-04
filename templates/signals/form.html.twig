@@ -87,6 +87,15 @@
                         {{  form_widget(form.logged_last_1) }} <span>-</span> {{  form_widget(form.logged_last_2) }}
                     </div>
                 </fieldset>
+                {% if (isAdmin) %}
+                <fieldset class="section">
+                    <legend class="line">{% trans %}Admin Only{% endtrans %}</legend>
+                    <div>
+                        {{  form_label(form.admin_mode) }}
+                        {{  form_widget(form.admin_mode) }}
+                    </div>
+                </fieldset>
+                {% endif %}
                 <fieldset class="actionButtons">
                     <legend class="sr-only">{% trans %}Form Actions{% endtrans %}</legend>
                     {{ form_widget(form.submit) }}

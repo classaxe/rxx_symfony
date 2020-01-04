@@ -2829,6 +2829,38 @@
         <source>Where two values are given for Cycle (e.g. 8.0/28.0), the first value is for the Ident portion and the second is for the whole cycle.</source>
         <target>__Where two values are given for Cycle (e.g. 8.0/28.0), the first value is for the Ident portion and the second is for the whole cycle.</target>
       </trans-unit>
+      <trans-unit id="U.lQlet" resname="Admin Only">
+        <source>Admin Only</source>
+        <target>__Admin Only</target>
+      </trans-unit>
+      <trans-unit id="ly3ziZj" resname="Admin Mode">
+        <source>Admin Mode</source>
+        <target>__Admin Mode</target>
+      </trans-unit>
+      <trans-unit id="R8RREIv" resname="0 - Default View seen by regular visitors">
+        <source>0 - Default View seen by regular visitors</source>
+        <target>__0 - Default View seen by regular visitors</target>
+      </trans-unit>
+      <trans-unit id=".D9_GO_" resname="1 - Listing view of unlogged signals for all systems">
+        <source>1 - Listing view of unlogged signals for all systems</source>
+        <target>__1 - Listing view of unlogged signals for all systems</target>
+      </trans-unit>
+      <trans-unit id="_iB0qFq" resname="2 - Listing view of logged and unlogged from all systems">
+        <source>2 - Listing view of logged and unlogged from all systems</source>
+        <target>__2 - Listing view of logged and unlogged from all systems</target>
+      </trans-unit>
+      <trans-unit id="Vyp4I_N" resname="Showing Unlogged Signals for all systems">
+        <source>Showing Unlogged Signals for all systems</source>
+        <target>__Showing Unlogged Signals for all systems</target>
+      </trans-unit>
+      <trans-unit id="1ZPz9Ls" resname="Showing Logged and Unlogged Signals for all systems">
+        <source>Showing Logged and Unlogged Signals for all systems</source>
+        <target>__Showing Logged and Unlogged Signals for all systems</target>
+      </trans-unit>
+      <trans-unit id="byAvVKe" resname="List">
+        <source>List</source>
+        <target>__List</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
