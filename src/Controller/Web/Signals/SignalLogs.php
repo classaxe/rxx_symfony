@@ -1,54 +1,59 @@
 <?php
-namespace App\Controller\Web\Listeners;
+namespace App\Controller\Web\Signals;
 
-use App\Form\Listeners\ListenerSignals as Form;
-use App\Repository\ListenerRepository;
+use App\Form\Signals\SignalLogs as Form;
+use App\Repository\SignalRepository;
 use App\Repository\TypeRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 
 /**
  * Class Listeners
- * @package App\Controller\Web\Listener
+ * @package App\Controller\Web
  */
-class ListenerSignals extends Base
+class SignalLogs extends Base
 {
-    const defaultlimit =    20;
-    const defaultSorting =  'khz';
-    const defaultOrder =    'a';
+    const defaultlimit =     20;
+    const defaultSorting =  'logDate';
+    const defaultOrder =    'd';
 
     /**
      * @Route(
-     *     "/{_locale}/{system}/listeners/{id}/signals/{type}",
+     *     "/{_locale}/{system}/signals/{id}/logs",
      *     requirements={
      *        "locale": "de|en|es|fr",
      *        "system": "reu|rna|rww"
      *     },
-     *     defaults={"type"=""},
-     *     name="listener_signals"
+     *     name="signal_logs"
      * )
+     * @param $_locale
+     * @param $system
+     * @param $id
+     * @param Request $request
+     * @param Form $form
+     * @param SignalRepository $signalRepository
+     * @param TypeRepository $typeRepository
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function signalsController(
+    public function logsController(
         $_locale,
         $system,
         $id,
-        $type,
         Request $request,
         Form $form,
-        ListenerRepository $listenerRepository,
+        SignalRepository $signalRepository,
         TypeRepository $typeRepository
     ) {
-        if (!$listener = $this->getValidReportingListener($id, $listenerRepository)) {
-            return $this->redirectToRoute('listeners', ['system' => $system]);
+        if (!$signal = $this->getValidSignal($id, $signalRepository)) {
+            return $this->redirectToRoute('signals', ['system' => $system]);
         }
 
-        $totalSignals = $listener->getCountSignals();
         $options = [
             'limit' =>          static::defaultlimit,
             'order' =>          static::defaultOrder,
             'page' =>           0,
             'sort' =>           static::defaultSorting,
-            'total' =>          $totalSignals
+            'total' =>          $signal->getLogs()
         ];
         $form = $form->buildForm($this->createFormBuilder(), $options);
         $form->handleRequest($request);
@@ -57,32 +62,29 @@ class ListenerSignals extends Base
             'order' =>          static::defaultOrder,
             'page' =>           0,
             'sort' =>           static::defaultSorting,
-            'total' =>          $totalSignals,
-            'type' =>           $type
         ];
         if ($form->isSubmitted() && $form->isValid()) {
             $args = $form->getData();
-            $args['total'] = $totalSignals;
         }
         $parameters = [
             'args' =>               $args,
             'id' =>                 $id,
-            'columns' =>            $listenerRepository->getSignalsColumns(),
+            'columns' =>            $signalRepository->getLogsColumns(),
             'form' =>               $form->createView(),
             '_locale' =>            $_locale,
-            'matched' =>            'of '.$options['total'].' signals',
-            'mode' =>               'Signals received by '.$listener->getFormattedNameAndLocation(),
+            'matched' =>            'of ' . $options['total'] . ' log records.',
+            'mode' =>               'Logs for ' . $signal->getFormattedIdent(),
+            'logs' =>               $signalRepository->getLogsForSignal($id, $args),
             'results' => [
                 'limit' =>              isset($args['limit']) ? $args['limit'] : static::defaultlimit,
                 'page' =>               isset($args['page']) ? $args['page'] : 0,
                 'total' =>              $options['total']
             ],
-            'signals' =>            $listenerRepository->getSignalsForListener($id, $args),
             'system' =>             $system,
-            'tabs' =>               $listenerRepository->getTabs($listener),
+            'tabs' =>               $signalRepository->getTabs($signal),
             'typeRepository' =>     $typeRepository
         ];
         $parameters = array_merge($parameters, $this->parameters);
-        return $this->render('listener/signals.html.twig', $parameters);
+        return $this->render('signal/logs.html.twig', $parameters);
     }
 }

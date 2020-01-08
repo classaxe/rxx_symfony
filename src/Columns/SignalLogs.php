@@ -8,7 +8,7 @@
 
 namespace App\Columns;
 
-class ListenerLogs
+class SignalLogs
 {
     public function getColumns()
     {
@@ -22,7 +22,7 @@ class ListenerLogs
                 'sort'      =>  'logDate',
                 'sort_2'    =>  'logTime',
                 'order_2'   =>  'a',
-                'td_class'  =>  '',
+                'td_class'  =>  'text-nowrap',
                 'th_class'  =>  '',
                 'tooltip'   =>  '',
             ],
@@ -37,26 +37,13 @@ class ListenerLogs
                 'th_class'  =>  '',
                 'tooltip'   =>  '',
             ],
-            'khz' => [
+            'name' => [
                 'admin'     =>  false,
                 'arg'       =>  '',
-                'field'     =>  'khz',
-                'label'     =>  'KHz',
-                'order'     =>  'a',
-                'sort'      =>  's.khz',
-                'sort_2'    =>  's.call',
-                'order_2'   =>  'a',
-                'td_class'  =>  '',
-                'th_class'  =>  '',
-                'tooltip'   =>  '',
-            ],
-            'call' => [
-                'admin'     =>  false,
-                'arg'       =>  '',
-                'field'     =>  'call',
+                'field'     =>  'name',
                 'label'     =>  'ID',
                 'order'     =>  'a',
-                'sort'      =>  's.call',
+                'sort'      =>  'li.name',
                 'td_class'  =>  '',
                 'th_class'  =>  '',
                 'tooltip'   =>  '',
@@ -67,7 +54,7 @@ class ListenerLogs
                 'field'     =>  'qth',
                 'label'     =>  'Location',
                 'order'     =>  'a',
-                'sort'      =>  's.qth',
+                'sort'      =>  'li.qth',
                 'td_class'  =>  'clipped',
                 'th_class'  =>  '',
                 'tooltip'   =>  '',
@@ -78,7 +65,7 @@ class ListenerLogs
                 'field'     =>  'sp',
                 'label'     =>  'S/P',
                 'order'     =>  'a',
-                'sort'      =>  's.sp',
+                'sort'      =>  'li.sp',
                 'td_class'  =>  '',
                 'th_class'  =>  '',
                 'tooltip'   =>  'State / Province',
@@ -89,7 +76,7 @@ class ListenerLogs
                 'field'     =>  'itu',
                 'label'     =>  'ITU',
                 'order'     =>  'a',
-                'sort'      =>  's.itu',
+                'sort'      =>  'li.itu',
                 'td_class'  =>  '',
                 'th_class'  =>  '',
                 'tooltip'   =>  'ITU Country Code',
@@ -130,7 +117,7 @@ class ListenerLogs
             'sec' => [
                 'admin'     =>  false,
                 'arg'       =>  '',
-                'field'     =>  'secF',
+                'field'     =>  'sec',
                 'label'     =>  'Sec.',
                 'order'     =>  'a',
                 'sort'      =>  'l.sec',

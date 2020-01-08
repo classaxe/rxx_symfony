@@ -8,10 +8,6 @@ use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 use Symfony\Component\HttpFoundation\Request;
 use App\Utils\Rxx;
 
-/**
- * Class Listeners
- * @package App\Controller\Web\Listener
- */
 class SignalView extends Base
 {
     const EDITABLE_FIELDS = [
@@ -126,7 +122,7 @@ class SignalView extends Base
             'isAdmin' =>            $isAdmin,
             'form' =>               $form->createView(),
             '_locale' =>            $_locale,
-            'mode' =>               $isAdmin && !$id ? 'Add Signal' : $signal->getCall() . '-' . $signal->getKhz(). ' (' . ($signal->getActive() ? 'Active' : 'Inactive') . ')',
+            'mode' =>               $isAdmin && !$id ? 'Add Signal' : $signal->getFormattedIdent() . ' (' . ($signal->getActive() ? 'Active' : 'Inactive') . ')',
             'system' =>             $system,
             'tabs' =>               $signalRepository->getTabs($signal),
         ];

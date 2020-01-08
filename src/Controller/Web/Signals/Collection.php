@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller\Web\Signals;
 
+use App\Entity\Signal as SignalEntity;
 use App\Form\Signals\Collection as Form;
 use App\Repository\ListenerRepository;
 use App\Repository\PaperRepository;
@@ -140,11 +141,20 @@ class Collection extends Base
         $total =                $signalRepository->getFilteredSignalsCount($system, $args);
         $seeklistStats =        [];
         $seeklistColumns =      [];
-        if ($args['show'] === 'seeklist') {
+        if ('seeklist' === $args['show']) {
             $seeklistStats =    SignalRepository::getSeeklistStats($signals);
             $seeklistColumns =  SignalRepository::getSeeklistColumns($signals, $paper);
         }
-
+        $signalEntities = [];
+        foreach ($signals as $signal) {
+            if ('seeklist' !== $args['show']) {
+                $signal['first_heard'] =    $signal['first_heard'] ? new DateTime($signal['first_heard']) : null;
+                $signal['last_heard'] =     $signal['last_heard'] ? new DateTime($signal['last_heard']) : null;
+            }
+            $s = new SignalEntity;
+            $s->loadFromArray($signal);
+            $signalEntities[] = $s;
+        }
         $parameters = [
             '_locale' =>            $_locale,
             'args' =>               $args,
@@ -162,7 +172,7 @@ class Collection extends Base
             ],
             'seeklistColumns' =>    $seeklistColumns,
             'seeklistStats' =>      $seeklistStats,
-            'signals' =>            $signals,
+            'signals' =>            $signalEntities,
             'statsBlocks' =>
                 $signalRepository->getStats($this->isAdmin()) +
                 $listenerRepository->getStats($system, $args['region']),

@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Entity;
-use App\Repository\ListenerRepository;
 use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -260,7 +259,7 @@ class Listener
      */
     public function getCountDgps(): ?int
     {
-        return $this->countDgps;
+        return $this->countDgps ? $this->countDgps : null;
     }
 
     /**
@@ -279,7 +278,7 @@ class Listener
      */
     public function getCountDsc(): ?int
     {
-        return $this->countDsc;
+        return $this->countDsc ? $this->countDsc : null;
     }
 
     /**
@@ -298,7 +297,7 @@ class Listener
      */
     public function getCountHambcn(): ?int
     {
-        return $this->countHambcn;
+        return $this->countHambcn ? $this->countHambcn : null;
     }
 
     /**
@@ -317,7 +316,7 @@ class Listener
      */
     public function getCountLogs(): ?int
     {
-        return $this->countLogs;
+        return $this->countLogs ? $this->countLogs : null;
     }
 
     /**
@@ -336,7 +335,7 @@ class Listener
      */
     public function getCountNavtex(): ?int
     {
-        return $this->countNavtex;
+        return $this->countNavtex ? $this->countNavtex : null;
     }
 
     /**
@@ -355,7 +354,7 @@ class Listener
      */
     public function getCountNdb(): ?int
     {
-        return $this->countNdb;
+        return $this->countNdb ? $this->countNdb : null;
     }
 
     /**
@@ -374,7 +373,7 @@ class Listener
      */
     public function getCountOther(): ?int
     {
-        return $this->countOther;
+        return $this->countOther ? $this->countOther : null;
     }
 
     /**
@@ -393,7 +392,7 @@ class Listener
      */
     public function getCountTime(): ?int
     {
-        return $this->countTime;
+        return $this->countTime ? $this->countTime : null;
     }
 
     /**
@@ -412,7 +411,7 @@ class Listener
      */
     public function getCountSignals(): ?int
     {
-        return $this->countSignals;
+        return $this->countSignals ? $this->countSignals : null;
     }
 
     /**
@@ -771,63 +770,12 @@ class Listener
     /**
      * @return null|string
      */
-    public function getFormattedAddlogLink(): ?string
+    public function getAddlog(): ?int
     {
-        $popup_url =    'http://example.com';
-        return
-            "<a href=\"{$popup_url}\" data-popup=\"1\">Add...</a>";
+        return $this->id;
     }
 
     /* Custom getters for column display */
-
-    /**
-     * @return null|string
-     */
-    public function getFormattedCallsignLink(): ?string
-    {
-        if (!$this->callsign) {
-            return '';
-        }
-        $popup_url =    "https://hamcall.net/call?callsign=".urlencode($this->callsign);
-        return
-            "<a href=\"$popup_url\" rel=\"external\">{$this->callsign}</a>";
-    }
-
-    private function getLogLink($value) {
-        $popup_url =    "listeners/{$this->id}/logs";
-        return "<a href=\"$popup_url\" data-popup=\"1\">$value</a>";
-
-    }
-
-    private function getSignalsLink($value) {
-        $popup_url =    "listeners/{$this->id}/signals";
-        return "<a href=\"$popup_url\" data-popup=\"1\">$value</a>";
-
-    }
-    /**
-     * @return null|string
-     */
-    public function getFormattedCountLogs(): ?string
-    {
-        return ($this->countLogs ? $this->getLogLink($this->countLogs) : '');
-    }
-
-    /**
-     * @return null|string
-     */
-    public function getFormattedCountSignals(): ?string
-    {
-        return ($this->countSignals ? $this->getSignalsLink($this->countSignals) : '');
-    }
-
-    /**
-     * @return null|string
-     */
-    public function getFormattedDeleteLink(): ?string
-    {
-        $url =  "listeners/{$this->id}/delete";
-        return "<a href=\"{$url}\" onclick=\"return confirm('Delete this Listener?  Are you sure?');\">Delete</a>";
-    }
 
     /**
      * @return null|string
@@ -856,59 +804,25 @@ class Listener
         return $this->name.', '.$this->qth.($this->sp ? ', '.$this->sp : '').', '.$this->itu;
     }
 
+
     /**
-     * @return null|string
+     * @return null|bool
      */
-    public function getFormattedNameLink(): ?string
+    public function getNdbWebLog(): ?bool
     {
-        $popup_url =    "listeners/{$this->id}";
-        return "<a href=\"$popup_url\" data-popup=\"1\">{$this->name}</a>";
+        return $this->countLogs;
     }
 
     /**
-     * @return null|string
+     * @return null|bool
      */
-    public function getFormattedNdbWeblogLink(): ?string
+    public function getSignalsMap(): ?bool
     {
-        if (!$this->countLogs) {
-            return '';
-        }
-        $popup_url =    "listeners/{$this->id}/ndbweblog";
-        return "<a href=\"$popup_url\" data-popup=\"1\">NWL</a>";
+        return $this->countLogs;
     }
 
-    /**
-     * @return null|string
-     */
-    public function getFormattedSignalsMapLink(): ?string
+    public function getDelete(): int
     {
-        if (!$this->countLogs) {
-            return '';
-        }
-        $popup_url =    "listeners/{$this->id}/signalmap";
-        return "<a href=\"$popup_url\" rel=\"external\">Map</a>";
-    }
-
-    /**
-     * @return null|string
-     */
-    public function getFormattedRegion(): ?string
-    {
-        return strtoupper($this->region);
-    }
-
-    /**
-     * @return null|string
-     */
-    public function getFormattedWebsiteLink(): ?string
-    {
-        if (!$this->website) {
-            return '';
-        }
-        $popup_name =   "www_{$this->id}";
-        $popup_args =   "width=640,height=480,status=1,scrollbars=1,resizable=1";
-        $short_url =    preg_replace(['(^https?://)', '(/$)'], '', $this->website);
-        return
-            "<a href=\"{$this->website}\" data-popup=\"{$popup_name}|{$popup_args}\">{$short_url}</a>";
+        return $this->id;
     }
 }

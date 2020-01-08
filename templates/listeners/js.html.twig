@@ -1,0 +1,21 @@
+<script>
+    var system = '{{ system }}';
+    var msg = {
+        'delete'   : "{% trans %}Delete this Listener?  Are you sure?{% endtrans %}",
+    };
+
+    $(document).ready( function() {
+        setFormPagingActions();
+        setFormTypesStyles();
+        setFormTypesDefault();
+        setFormTypesAllAction();
+        setFormCountryAction();
+        setFormRegionAction();
+        setFormResetAction('listeners');
+        setColumnSortActions();
+        setColumnSortedClass();
+        setExternalLinks();
+        $('#form_paging_status').html('{{ 'of %s listeners' | trans | format(results.total) }}');
+    });
+
+</script>

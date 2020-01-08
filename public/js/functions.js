@@ -20,7 +20,10 @@ var popWinSpecs = {
     'map_pacific' :                 'width=600,height=750,resizable=1',
     'map_polynesia' :               'width=500,height=525,resizable=1',
     'map_sa' :                      'width=490,height=745,resizable=1',
-    'signals_[id]' :                'width=640,height=480,status=1,scrollbars=1,resizable=1',
+    'signals_[id]' :                'width=800,height=680,status=1,scrollbars=1,resizable=1',
+    'signals_[id]_logs' :           'width=800,height=680,status=1,scrollbars=1,resizable=1',
+    'signals_[id]_listeners' :      'width=800,height=680,status=1,scrollbars=1,resizable=1',
+    'signals_[id]_weather' :        'width=800,height=680,status=1,scrollbars=1,resizable=1',
     'states_aus' :                  'width=640,height=240,resizable=1',
     'states_can_usa' :              'width=640,height=690,resizable=1',
 };

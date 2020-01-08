@@ -28,6 +28,7 @@ class ListenerRepository extends ServiceEntityRepository
     private $listenerLogsColumns;
     private $listenerSignalsColumns;
     private $logRepository;
+    private $regionRepository;
 
     public function __construct(
         Connection $connection,
@@ -387,6 +388,8 @@ class ListenerRepository extends ServiceEntityRepository
             .'s.type,'
             .'trim(l.sec)+0 as sec,'
             .'(CASE WHEN trim(l.sec)+0 = 0 then \'\' ELSE trim(l.sec)+0 END) as secF,'
+            .'CONCAT(l.lsbApprox,l.lsb) AS lsb,'
+            .'CONCAT(l.usbApprox,l.usb) AS usb,'
             .'l.format,'
             .'l.dxKm,'
             .'l.dxMiles';

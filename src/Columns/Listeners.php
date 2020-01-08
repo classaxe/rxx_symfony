@@ -16,7 +16,7 @@ class Listeners
             'name' => [
                 'admin'     =>  false,
                 'arg'       =>  '',
-                'field'     =>  'formattedNameLink',
+                'field'     =>  'name',
                 'label'     =>  'Name',
                 'order'     =>  'a',
                 'sort'      =>  'l.name',
@@ -27,7 +27,7 @@ class Listeners
             'addlog' => [
                 'admin'     =>  true,
                 'arg'       =>  '',
-                'field'     =>  'formattedAddlogLink',
+                'field'     =>  'addLog',
                 'label'     =>  'Log',
                 'order'     =>  '',
                 'sort'      =>  '',
@@ -49,7 +49,7 @@ class Listeners
             'callsign' => [
                 'admin'     =>  false,
                 'arg'       =>  '',
-                'field'     =>  'formattedCallsignLink',
+                'field'     =>  'callsign',
                 'label'     =>  'Callsign',
                 'order'     =>  'a',
                 'sort'      =>  'l.callsign',
@@ -93,11 +93,11 @@ class Listeners
             'region' => [
                 'admin'     =>  false,
                 'arg'       =>  '',
-                'field'     =>  'formattedRegion',
+                'field'     =>  'region',
                 'label'     =>  '<div>Region</div>',
                 'order'     =>  'a',
                 'sort'      =>  'l.region',
-                'td_class'  =>  '',
+                'td_class'  =>  'text-uppercase',
                 'th_class'  =>  'txt_vertical',
                 'tooltip'   =>  '',
             ],
@@ -126,7 +126,7 @@ class Listeners
             'countLogs' => [
                 'admin'     =>  false,
                 'arg'       =>  '',
-                'field'     =>  'formattedCountLogs',
+                'field'     =>  'countLogs',
                 'label'     =>  '<div>Total Logs</div>',
                 'order'     =>  'd',
                 'sort'      =>  'l.countLogs',
@@ -225,7 +225,7 @@ class Listeners
             'countSignals' => [
                 'admin'     =>  false,
                 'arg'       =>  '',
-                'field'     =>  'formattedCountSignals',
+                'field'     =>  'countSignals',
                 'label'     =>  '<div>All Signals</div>',
                 'order'     =>  'd',
                 'sort'      =>  'l.countSignals',
@@ -236,7 +236,7 @@ class Listeners
             'website' => [
                 'admin'     =>  false,
                 'arg'       =>  '',
-                'field'     =>  'formattedWebsiteLink',
+                'field'     =>  'website',
                 'label'     =>  'WWW',
                 'sortBy'    =>  [['l.wn','DESC'],['l.website', 'DIR']],
                 'order'     =>  'a',
@@ -248,7 +248,7 @@ class Listeners
             'nwl' => [
                 'admin'     =>  false,
                 'arg'       =>  '',
-                'field'     =>  'formattedNdbWeblogLink',
+                'field'     =>  'ndbWebLog',
                 'label'     =>  'NWL',
                 'order'     =>  '',
                 'sort'      =>  '',
@@ -259,7 +259,7 @@ class Listeners
             'map' => [
                 'admin'     =>  false,
                 'arg'       =>  '',
-                'field'     =>  'formattedSignalsMapLink',
+                'field'     =>  'getSignalsMap',
                 'label'     =>  'Map',
                 'order'     =>  '',
                 'sort'      =>  '',
@@ -281,7 +281,7 @@ class Listeners
             'admin' => [
                 'admin'     =>  true,
                 'arg'       =>  '',
-                'field'     =>  'formattedDeleteLink',
+                'field'     =>  'delete',
                 'label'     =>  'Admin',
                 'order'     =>  '',
                 'sort'      =>  '',

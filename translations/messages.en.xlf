@@ -2861,6 +2861,34 @@
         <source>List</source>
         <target>List</target>
       </trans-unit>
+      <trans-unit id="sLgDT0A" resname="Admin Actions">
+        <source>Admin Actions</source>
+        <target>Admin Actions</target>
+      </trans-unit>
+      <trans-unit id="cw6tOcT" resname="Del">
+        <source>Del</source>
+        <target>Del</target>
+      </trans-unit>
+      <trans-unit id="iFGqp9C" resname="Merge">
+        <source>Merge</source>
+        <target>Merge</target>
+      </trans-unit>
+      <trans-unit id="4tClSWj" resname="Delete">
+        <source>Delete</source>
+        <target>Delete</target>
+      </trans-unit>
+      <trans-unit id="C_CffEL" resname="Add...">
+        <source>Add...</source>
+        <target>Add...</target>
+      </trans-unit>
+      <trans-unit id="SSFftXp" resname="Delete this Listener?  Are you sure?">
+        <source>Delete this Listener?  Are you sure?</source>
+        <target>Delete this Listener?  Are you sure?</target>
+      </trans-unit>
+      <trans-unit id="9DDuAsO" resname="Delete this Signal?  Are you sure?">
+        <source>Delete this Signal?  Are you sure?</source>
+        <target>Delete this Signal?  Are you sure?</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

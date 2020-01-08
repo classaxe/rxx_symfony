@@ -1,0 +1,26 @@
+{% extends 'popup.html.twig' %}
+{% block body %}
+<div class="main fullwidth">
+{% set form_class='signal_logs' %}
+    {% include 'signal/tabs.html.twig' %}
+    <div class="controlPanel {{ form_class }}">
+        <div class="header">{{ mode|raw }}</div>
+        <div class="content">
+{{ form_start(form) }}
+            {% include 'forms/paging.html.twig' %}
+{{ form_end(form) }}
+{% include 'signal/logs.grid.html.twig' %}
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready( function() {
+        setExternalLinks();
+        setFormPagingActions();
+        setColumnSortActions();
+        setColumnSortedClass();
+        setClippedCellTitles();
+        $('#form_paging_status').html('{{ matched }}');
+    });
+</script>
+{% endblock %}

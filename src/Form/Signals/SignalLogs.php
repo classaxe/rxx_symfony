@@ -6,15 +6,15 @@
  * Time: 12:08
  */
 
-namespace App\Form\Listeners;
+namespace App\Form\Signals;
 
 use App\Form\Base;
 
 /**
  * Class ListenerLogs
- * @package App\Form\Listener
+ * @package App\Form\Signal
  */
-class ListenerLogs extends Base
+class SignalLogs extends Base
 {
 
 }

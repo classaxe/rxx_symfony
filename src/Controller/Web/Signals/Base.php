@@ -2,7 +2,7 @@
 namespace App\Controller\Web\Signals;
 
 use App\Controller\Web\Base as WebBase;
-use App\Repository\SignalRepository;
+use App\Entity\Signal;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 
 class Base extends WebBase
@@ -10,7 +10,7 @@ class Base extends WebBase
     /**
      * @param $id
      * @param $signalRepository
-     * @return bool
+     * @return Signal
      */
     protected function getValidSignal($id, $signalRepository)
     {
@@ -28,7 +28,7 @@ class Base extends WebBase
     /**
      * @param $id
      * @param $signalRepository
-     * @return bool
+     * @return Signal|bool
      */
     protected function getValidReportingListener($id, $signalRepository)
     {

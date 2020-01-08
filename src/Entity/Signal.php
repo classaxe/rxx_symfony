@@ -2,7 +2,9 @@
 
 namespace App\Entity;
 
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\UrlHelper;
 
 /**
  * Signals
@@ -279,7 +281,6 @@ class Signal
      */
     private $usbApprox;
 
-    private $rangeDeg;
     private $rangeKm;
     private $rangeMi;
 
@@ -288,14 +289,21 @@ class Signal
         return $this->id;
     }
 
-    public function getActive(): ?bool
+    public function setId(int $id): self
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    public function getActive()
     {
         return $this->active;
     }
 
-    public function setActive(?bool $active): self
+    public function setActive($active): self
     {
-        $this->active = $active;
+        $this->active = (int)$active;
 
         return $this;
     }
@@ -312,12 +320,12 @@ class Signal
         return $this;
     }
 
-    public function getFirstHeard(): ?\DateTimeInterface
+    public function getFirstHeard(): ?DateTimeInterface
     {
         return $this->firstHeard;
     }
 
-    public function setFirstHeard(?\DateTimeInterface $firstHeard): self
+    public function setFirstHeard(?DateTimeInterface $firstHeard): self
     {
         $this->firstHeard = $firstHeard;
 
@@ -504,12 +512,12 @@ class Signal
         return $this;
     }
 
-    public function getLastHeard(): ?\DateTimeInterface
+    public function getLastHeard(): ?DateTimeInterface
     {
         return $this->lastHeard;
     }
 
-    public function setLastHeard(?\DateTimeInterface $lastHeard): self
+    public function setLastHeard(?DateTimeInterface $lastHeard): self
     {
         $this->lastHeard = $lastHeard;
 
@@ -687,15 +695,6 @@ class Signal
     /**
      * @return null|string
      */
-    public function getFormattedDeleteLink(): ?string
-    {
-        $url =  "signals/{$this->id}/delete";
-        return "<a href=\"{$url}\" onclick=\"return confirm('Delete this Signal?  Are you sure?');\">Delete</a>";
-    }
-
-    /**
-     * @return null|string
-     */
     public function getFormattedFirstHeard(): ?string
     {
         if (is_null($this->firstHeard)) {
@@ -721,13 +720,40 @@ class Signal
         return $this->lastHeard->format("Y-m-d");
     }
 
+    public function getFormattedLsbAbs(): ?string {
+        if (!$this->lsb) {
+            return '';
+        }
+        return $this->lsbApprox . ($this->khz - number_format($this->lsb / 1000, 3, '.'));
+    }
+
+    public function getFormattedLsbRel(): ?string {
+        if (!$this->lsb) {
+            return '';
+        }
+        return $this->lsbApprox . $this->lsb;
+    }
+
+    public function getFormattedUsbAbs(): ?string {
+        if (!$this->usb) {
+            return '';
+        }
+        return $this->usbApprox . ($this->khz + number_format($this->usb / 1000, 3, '.'));
+    }
+
+    public function getFormattedUsbRel(): ?string {
+        if (!$this->usb) {
+            return '';
+        }
+        return $this->usbApprox . $this->usb;
+    }
+
     /**
      * @return null|string
      */
-    public function getFormattedLogsLink(): ?string
+    public function getFormattedIdent(): ?string
     {
-        $url =  "signals/{$this->id}/logs";
-        return "<a href=\"{$url}\">{$this->logs}</a>";
+        return $this->call . '-' . (float)$this->khz;
     }
 
     /**
@@ -766,5 +792,23 @@ class Signal
             return '';
         }
         return $this->rangeMi;
+    }
+
+    public function getActions(): int
+    {
+        return $this->id;
+    }
+
+    public function loadFromArray(array $array)
+    {
+        foreach($array as $key => $value) {
+            if ('_' === substr($key, 0,1)) {
+                continue;
+            }
+            $method = 'set' . str_replace('_', '', ucwords($key, '-'));
+            if (method_exists($this, $method)) {
+                $this->{$method}($value);
+            }
+        }
     }
 }

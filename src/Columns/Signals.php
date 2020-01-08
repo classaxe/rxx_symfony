@@ -178,7 +178,6 @@ class Signals
                 'highlight' =>  false,
                 'label'     =>  'Notes',
                 'labelSort' =>  'Notes',
-                'labelSort' =>  '',
                 'order'     =>  'a',
                 'sort'      =>  's.notes',
                 'td_class'  =>  '',
@@ -188,7 +187,7 @@ class Signals
             'heard_in' => [
                 'admin'     =>  false,
                 'arg'       =>  '',
-                'field'     =>  'heard_in_html',
+                'field'     =>  'heardInHtml',
                 'highlight' =>  'heard_in',
                 'label'     =>  'Heard In<br /><b>(Daytime Log)</b>',
                 'labelSort' =>  'Heard In',
@@ -214,7 +213,7 @@ class Signals
             'first_heard' => [
                 'admin'     =>  false,
                 'arg'       =>  '',
-                'field'     =>  'first_heard',
+                'field'     =>  'formattedFirstHeard',
                 'highlight' =>  false,
                 'label'     =>  'First Logged',
                 'labelSort' =>  '',
@@ -227,7 +226,7 @@ class Signals
             'last_heard' => [
                 'admin'     =>  false,
                 'arg'       =>  '',
-                'field'     =>  'last_heard',
+                'field'     =>  'formattedLastHeard',
                 'highlight' =>  false,
                 'label'     =>  'Last Logged',
                 'labelSort' =>  '',
@@ -276,18 +275,18 @@ class Signals
                 'th_class'  =>  '',
                 'tooltip'   =>  'Bearing relative to GSQ',
             ],
-//            'admin' => [
-//                'admin'     =>  true,
-//                'arg'       =>  '',
-//                'field'     =>  'formattedDeleteLink',
-//                'highlight' =>  false,
-//                'label'     =>  'Admin',
-//                'order'     =>  '',
-//                'sort'      =>  '',
-//                'td_class'  =>  '',
-//                'th_class'  =>  '',
-//                'tooltip'   =>  '',
-//            ],
+            'actions' => [
+                'admin'     =>  true,
+                'arg'       =>  '',
+                'field'     =>  'actions',
+                'highlight' =>  false,
+                'label'     =>  'Admin Actions',
+                'order'     =>  '',
+                'sort'      =>  '',
+                'td_class'  =>  '',
+                'th_class'  =>  '',
+                'tooltip'   =>  '',
+            ],
         ];
     }
 }

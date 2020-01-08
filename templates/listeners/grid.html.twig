@@ -4,10 +4,23 @@
         <tr>
 {% for key, column in columns %}
 {% if ((not column.admin or isAdmin) and (not column.arg or (column.arg and column.arg in args.types))) %}
-            <th{%  if key and column.order %} id="{{ key }}|{{ column.order }}"{% endif %}
-{% if column.th_class or column.sort%} class="{{ column.th_class }}{% if column.sort %} sort{% endif %}"{% endif %}
-{% if column.tooltip %} title="{{ column.tooltip | trans }}"{% endif %}
->{{ column.label | trans | raw }}</th>
+            <th{%
+                if key and column.order
+            %} id="{{ key }}|{{ column.order }}"{%
+                endif
+            %}{%
+                if column.th_class or column.sort
+            %} class="{{ column.th_class }}{%
+                    if column.sort
+                %} sort{%
+                    endif
+            %}"{%
+                endif
+            %}{%
+                if column.tooltip
+            %} title="{{ column.tooltip | trans }}"{%
+                endif
+            %}>{{ column.label | trans | raw }}</th>
 {% endif %}
 {% endfor %}
         </tr>
@@ -17,8 +30,35 @@
         <tr>
 {% for key, column in columns %}
 {% if ((not column.admin or isAdmin) and (not column.arg or (column.arg and column.arg in args.types))) %}
-            <td{% if key == 'name' %} title="{{ listener.primaryQth ? 'Primary Location' | trans : 'Secondary Location' | trans }}" class="{{ listener.primaryQth ? 'primaryQth' : 'secondaryQth' }}">{% else %}{% if column.td_class %} class="{{ column.td_class }}"{% endif %}>{% endif %}
-{{ attribute(listener, column.field) | raw }}</td>
+            <td{%
+                if key == 'name'
+                    %} title="{{ listener.primaryQth ? 'Primary Location' | trans : 'Secondary Location' | trans }}" class="{{ listener.primaryQth ? 'primaryQth' : 'secondaryQth' }}"{%
+                elseif column.td_class
+                    %} class="{{ column.td_class }}"{%
+                endif
+            %}>{%
+                if key == 'name'
+                    %}<a href="{{ url('listener', { 'system' : system, 'id' : listener.ID }) }}" data-popup="1">{{ listener.name }}</a>{%
+                elseif key == 'addlog'
+                    %}{% if isAdmin %}<a href="#" onclick="alert('soon'); return false;">{% trans %}Add...{% endtrans %}</a>{% endif %}{%
+                elseif key == 'callsign'
+                    %}{% if listener.callsign %}<a href="https://hamcall.net/call?callsign={{ listener.callsign }}" rel="external">{{ listener.callsign }}</a>{% endif %}{%
+                elseif key == 'countLogs'
+                    %}{% if listener.countLogs %}<a href="{{ url('listener_logs', { 'system' : system, 'id' : listener.ID }) }}" data-popup="1">{{ listener.countLogs }}</a>{% endif %}{%
+                elseif key == 'countSignals'
+                    %}{% if listener.countSignals %}<a href="{{ url('listener_signals', { 'system' : system, 'id' : listener.ID }) }}" data-popup="1">{{ listener.countSignals }}</a>{% endif %}{%
+                elseif key == 'map'
+                    %}{% if listener.signalsMap %}<a href="{{ url('listener_export_signalmap', { 'system' : system, 'id' : listener.ID }) }}" rel="external">{% trans %}Map{% endtrans %}</a>{% endif %}{%
+                elseif key == 'nwl'
+                    %}{% if listener.ndbWebLog %}<a href="{{ url('listener_ndbweblog', { 'system' : system, 'id' : listener.ID }) }}" data-popup="1">{% trans %}NWL{% endtrans %}</a>{% endif %}{%
+                elseif key == 'website'
+                    %}{% if listener.website %}<a href="{{ listener.website }}" data-popup="www_{{ listener.id }}|width=640,height=480,status=1,scrollbars=1,resizable=1">{{ listener.website |replace({'http://' : '', 'https://' : ''})}}</a>{% endif %}{%
+                elseif key == 'admin'
+                    %}{% if isAdmin %}<a href="{{ url('listener_delete', { 'system' : system, 'id' : listener.ID }) }}" onclick="return confirm(msg.delete);">{% trans %}Delete{% endtrans %}</a>{% endif %}{%
+                else
+                    %}{{ attribute(listener, column.field) | raw }}{%
+                endif
+            %}</td>
 {% endif %}
 {% endfor %}
         </tr>

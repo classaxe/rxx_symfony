@@ -5,7 +5,7 @@ var signals = [
 {% set type = typeRepository.TypeForCode(row.type) %}
     {
 {% if args.personalise %}        'logged' : {{ row.personalise }},{% endif %}
-        'active' : {{ row.active }},
+        'active' : {{ row.active ? '1' : '0' }},
         'id' : {{ row.ID }},
         'khz' : {{ row.khz }},
         'call' : '{{ row.call }}',
@@ -19,12 +19,12 @@ var signals = [
         'lat' : {{ row.lat }},
         'lon' : {{ row.lon }},
         'gsq' : '{{ row.GSQ }}',
-        'lsb' : '{{ row.LSB_approx }}{{ args['offsets'] == '' ? row.LSB : row.khz-(row.LSB/1000) | number_format(3,'.') }}',
-        'usb' : '{{ row.USB_approx }}{{ args['offsets'] == '' ? row.USB : row.khz+(row.USB/1000) | number_format(3,'.') }}',
+        'lsb' : '{{ args['offsets'] == '' ? row.formattedLsbRel : row.formattedLsbAbs }}',
+        'usb' : '{{ args['offsets'] == '' ? row.formattedUsbRel : row.formattedUsbAbs }}',
         'sec' : '{{ row.sec }}',
         'fmt' : '{{ row.format }}',
-        'heard' : '{{ row.last_heard != '0000-00-00' ? row.last_heard : '' }}',
-        'heard_in' : '{{ row.heard_in }}'
+        'heard' : '{{ row.formattedLastHeard }}',
+        'heard_in' : '{{ row.heardIn }}'
     },
 {% endif %}{% endfor %}
 ];

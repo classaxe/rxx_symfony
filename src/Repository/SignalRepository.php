@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Columns\Signals as SignalsColumns;
+use App\Columns\SignalLogs as SignalLogsColumns;
 use App\Entity\Signal;
 use App\Utils\Rxx;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -24,28 +25,27 @@ class SignalRepository extends ServiceEntityRepository
         'where' =>  [],
     ];
     private $signalsColumns;
+    private $signalLogsColumns;
     private $system;
 
     private $tabs = [
         ['signal', 'Profile'],
 //        ['signal_listeners', 'Listeners (%%listeners%%)'],
-//        ['signal_logs', 'Logs (%%logs%%)'],
+        ['signal_logs', 'Logs (%%logs%%)'],
 //        ['signal_weather', 'Weather'],
-    ];
-
-    const popup = [
-        'signal'  => "width=640,height=480,status=1,scrollbars=1,resizable=1",
     ];
 
     public function __construct(
         RegistryInterface $registry,
         Connection $connection,
-        SignalsColumns $signalsColumns
+        SignalsColumns $signalsColumns,
+        SignalLogsColumns $signalLogsColumns
 
     ) {
         parent::__construct($registry, Signal::class);
         $this->connection = $connection;
         $this->signalsColumns = $signalsColumns->getColumns();
+        $this->signalLogsColumns = $signalLogsColumns->getColumns();
     }
 
     private function addFilterActive()
@@ -629,6 +629,11 @@ class SignalRepository extends ServiceEntityRepository
         return $this->signalsColumns;
     }
 
+    public function getLogsColumns()
+    {
+        return $this->signalLogsColumns;
+    }
+
     public function getFilteredSignals($system, $args)
     {
 //        print("<pre>".print_r($args, true)."</pre>");
@@ -907,9 +912,61 @@ class SignalRepository extends ServiceEntityRepository
         return $stmt->fetchColumn();
     }
 
-    public static function getPopupArgs($which)
+    public function getLogsForSignal($signalID, array $args)
     {
-        return static::popup[$which];
+        $columns =
+            'trim(l.date) as logDate,'
+            . 'trim(l.time) as logTime,'
+            . 'li.id as listenerId,'
+            . 'li.name,'
+            . 'li.qth,'
+            . 'li.gsq,'
+            . 'li.sp,'
+            . 'li.itu,'
+            . 'CONCAT(l.lsbApprox,l.lsb) AS lsb,'
+            . 'CONCAT(l.usbApprox,l.usb) AS usb,'
+            . 'l.format,'
+            . 'l.sec,'
+            . 'l.dxKm,'
+            . 'l.dxMiles';
+
+        $qb = $this
+            ->createQueryBuilder('s')
+            ->select($columns)
+            ->innerJoin('\App\Entity\Log', 'l')
+            ->andWhere('l.signalid = s.id')
+
+            ->innerJoin('\App\Entity\Listener', 'li')
+            ->andWhere('li.id = l.listenerid')
+
+            ->andWhere('s.id = :signalID')
+            ->setParameter(':signalID', $signalID);
+
+        if (isset($args['limit']) && (int)$args['limit'] !== -1 && isset($args['page'])) {
+            $qb
+                ->setFirstResult($args['page'] * $args['limit'])
+                ->setMaxResults($args['limit']);
+        }
+
+        if ($this->signalLogsColumns[$args['sort']]['sort']) {
+            $idx = $this->signalLogsColumns[$args['sort']];
+            $qb
+                ->addOrderBy(
+                    ($idx['sort']),
+                    ($args['order'] == 'd' ? 'DESC' : 'ASC')
+                );
+            if (isset($idx['sort_2']) && isset($idx['order_2'])) {
+                $qb
+                    ->addOrderBy(
+                        ($idx['sort_2']),
+                        ($idx['order_2'] == 'd' ? 'DESC' : 'ASC')
+                    );
+            }
+        }
+
+        $result = $qb->getQuery()->execute();
+//        print "<pre>".print_r($result, true)."</pre>";
+        return $result;
     }
 
     private function setArgs($system, $args)
@@ -924,19 +981,17 @@ class SignalRepository extends ServiceEntityRepository
         if (!$signal->getId()) {
             return [];
         }
-        $logs =     123;//$signal->getCountLogs();
-        $signals =  55;//$signal->getCountSignals();
+        $logs =     $signal->getLogs();
+        $listeners =  55;//$signal->getCountListeners();
         $out = [];
         foreach ($this->tabs as $idx => $data) {
             $route = $data[0];
             switch ($route) {
-                case "listener_logs":
-                case "listener_signals":
-                case "listener_stats":
+                case "signal_logs":
                     if ($logs) {
                         $out[] = str_replace(
-                            ['%%logs%%', '%%signals%%'],
-                            [$logs, $signals],
+                            ['%%logs%%', '%%listeners%%'],
+                            [$logs, $listeners],
                             $data
                         );
                     }

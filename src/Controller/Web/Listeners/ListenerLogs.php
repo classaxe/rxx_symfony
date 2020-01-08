@@ -1,7 +1,7 @@
 <?php
 namespace App\Controller\Web\Listeners;
 
-use App\Form\Listeners\ListenerLogs as ListenerLogsForm;
+use App\Form\Listeners\ListenerLogs as Form;
 use App\Repository\ListenerRepository;
 use App\Repository\TypeRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,7 +15,7 @@ class ListenerLogs extends Base
 {
     const defaultlimit =     20;
     const defaultSorting =  'logDate';
-    const defaultOrder =    'a';
+    const defaultOrder =    'd';
 
     /**
      * @Route(
@@ -30,7 +30,7 @@ class ListenerLogs extends Base
      * @param $system
      * @param $id
      * @param Request $request
-     * @param ListenerLogsForm $form
+     * @param Form $form
      * @param ListenerRepository $listenerRepository
      * @param TypeRepository $typeRepository
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
@@ -40,7 +40,7 @@ class ListenerLogs extends Base
         $system,
         $id,
         Request $request,
-        ListenerLogsForm $form,
+        Form $form,
         ListenerRepository $listenerRepository,
         TypeRepository $typeRepository
     ) {
@@ -80,7 +80,6 @@ class ListenerLogs extends Base
                 'page' =>               isset($args['page']) ? $args['page'] : 0,
                 'total' =>              $options['total']
             ],
-            'signalPopup' =>        'width=590,height=640,status=1,scrollbars=1,resizable=1',
             'system' =>             $system,
             'tabs' =>               $listenerRepository->getTabs($listener),
             'typeRepository' =>     $typeRepository
