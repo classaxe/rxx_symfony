@@ -2889,6 +2889,130 @@
         <source>Delete this Signal?  Are you sure?</source>
         <target>Delete this Signal?  Are you sure?</target>
       </trans-unit>
+      <trans-unit id="u7i9R28" resname="Signal %s has %d logs and so cannot simply be deleted.">
+        <source>Signal %s has %d logs and so cannot simply be deleted.</source>
+        <target>Signal %s has %d logs and so cannot simply be deleted.</target>
+      </trans-unit>
+      <trans-unit id="WgnOrRO" resname="Signal %s has %d logs and so cannot be deleted at this time.">
+        <source>Signal %s has %d logs and so cannot be deleted at this time.</source>
+        <target>Signal %s has %d logs and so cannot be deleted at this time.</target>
+      </trans-unit>
+      <trans-unit id="cnatGSA" resname="Signal %s has been deleted.">
+        <source>Signal %s has been deleted.</source>
+        <target>Signal %s has been deleted.</target>
+      </trans-unit>
+      <trans-unit id="dOnmdPf" resname="Listener %s has %d logs and so cannot be deleted at this time.">
+        <source>Listener %s has %d logs and so cannot be deleted at this time.</source>
+        <target>Listener %s has %d logs and so cannot be deleted at this time.</target>
+      </trans-unit>
+      <trans-unit id="UgkGo.m" resname="Listener %s has been deleted.">
+        <source>Listener %s has been deleted.</source>
+        <target>Listener %s has been deleted.</target>
+      </trans-unit>
+      <trans-unit id="oi4WjdM" resname="Listeners (%d)">
+        <source>Listeners (%d)</source>
+        <target>Listeners (%d)</target>
+      </trans-unit>
+      <trans-unit id="9_Upral" resname="Logs (%d)">
+        <source>Logs (%d)</source>
+        <target>Logs (%d)</target>
+      </trans-unit>
+      <trans-unit id="oLumOBJ" resname="Weather">
+        <source>Weather</source>
+        <target>Weather</target>
+      </trans-unit>
+      <trans-unit id="zVcsfSu" resname="State / Province">
+        <source>State / Province</source>
+        <target>State / Province</target>
+      </trans-unit>
+      <trans-unit id="_KWSzFq" resname="ITU Country Code">
+        <source>ITU Country Code</source>
+        <target>ITU Country Code</target>
+      </trans-unit>
+      <trans-unit id="8ivsG74" resname="Maidenhead Locator Grid Square">
+        <source>Maidenhead Locator Grid Square</source>
+        <target>Maidenhead Locator Grid Square</target>
+      </trans-unit>
+      <trans-unit id="DReuL8Z" resname="Total number of logs for this signal">
+        <source>Total number of logs for this signal</source>
+        <target>Total number of logs for this signal</target>
+      </trans-unit>
+      <trans-unit id="cDVBLpP" resname="of %s Listeners">
+        <source>of %s Listeners</source>
+        <target>of %s Listeners</target>
+      </trans-unit>
+      <trans-unit id="PpRv.BS" resname="Listeners for %s">
+        <source>Listeners for %s</source>
+        <target>Listeners for %s</target>
+      </trans-unit>
+      <trans-unit id="VgztSSt" resname="of %s Log Records">
+        <source>of %s Log Records</source>
+        <target>of %s Log Records</target>
+      </trans-unit>
+      <trans-unit id="6GzS_zN" resname="Logs for %s">
+        <source>Logs for %s</source>
+        <target>Logs for %s</target>
+      </trans-unit>
+      <trans-unit id="mcQKtAW" resname="Date">
+        <source>Date</source>
+        <target>Date</target>
+      </trans-unit>
+      <trans-unit id="fl92yUp" resname="UTC">
+        <source>UTC</source>
+        <target>UTC</target>
+      </trans-unit>
+      <trans-unit id="ckEmirq" resname="Lower Sideband">
+        <source>Lower Sideband</source>
+        <target>Lower Sideband</target>
+      </trans-unit>
+      <trans-unit id="MK3RDlR" resname="Upper Sideband">
+        <source>Upper Sideband</source>
+        <target>Upper Sideband</target>
+      </trans-unit>
+      <trans-unit id="SYriEas" resname="Sec.">
+        <source>Sec.</source>
+        <target>Sec.</target>
+      </trans-unit>
+      <trans-unit id="1VcTgut" resname="Cycle Time in seconds">
+        <source>Cycle Time in seconds</source>
+        <target>Cycle Time in seconds</target>
+      </trans-unit>
+      <trans-unit id="wp7myw1" resname="Fmt.">
+        <source>Fmt.</source>
+        <target>Fmt.</target>
+      </trans-unit>
+      <trans-unit id="4qhSLQo" resname="Format of signal">
+        <source>Format of signal</source>
+        <target>Format of signal</target>
+      </trans-unit>
+      <trans-unit id="oArScRk" resname="Distance in KM">
+        <source>Distance in KM</source>
+        <target>Distance in KM</target>
+      </trans-unit>
+      <trans-unit id="4PQPa3i" resname="Distance in Miles">
+        <source>Distance in Miles</source>
+        <target>Distance in Miles</target>
+      </trans-unit>
+      <trans-unit id="pp1piHo" resname="Add Signal">
+        <source>Add Signal</source>
+        <target>Add Signal</target>
+      </trans-unit>
+      <trans-unit id="KM8Y_df" resname="%s (Active)">
+        <source>%s (Active)</source>
+        <target>%s (Active)</target>
+      </trans-unit>
+      <trans-unit id="lmXrZ0D" resname="%s (Inctive)">
+        <source>%s (Inctive)</source>
+        <target>%s (Inctive)</target>
+      </trans-unit>
+      <trans-unit id=".H8aogV" resname="Listing">
+        <source>Listing</source>
+        <target>Listing</target>
+      </trans-unit>
+      <trans-unit id="gMv1n7D" resname="Seeklist">
+        <source>Seeklist</source>
+        <target>Seeklist</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

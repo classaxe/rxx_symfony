@@ -1,7 +1,6 @@
 <?php
 namespace App\Controller\Web\Listeners;
 
-use App\Controller\Web\Listeners\Base;
 use App\Repository\ListenerRepository;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 
@@ -22,14 +21,13 @@ class ListenerExport extends Base
      *     name="listener_export"
      * )
      */
-    public function exportController(
+    public function controller(
         $_locale,
         $system,
         $id,
         ListenerRepository $listenerRepository
     ) {
         if ((int) $id) {
-            $listener = $listenerRepository->find((int)$id);
             if (!$listener = $this->getValidReportingListener($id, $listenerRepository)) {
                 return $this->redirectToRoute('listeners', ['system' => $system]);
             }

@@ -4,11 +4,12 @@ namespace App\Repository;
 
 use App\Columns\Signals as SignalsColumns;
 use App\Columns\SignalLogs as SignalLogsColumns;
+use App\Columns\SignalListeners as SignalListenersColumns;
 use App\Entity\Signal;
 use App\Utils\Rxx;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\DBAL\Driver\Connection;
-use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\Persistence\ManagerRegistry;
 
 class SignalRepository extends ServiceEntityRepository
 {
@@ -24,27 +25,32 @@ class SignalRepository extends ServiceEntityRepository
         'select' => [],
         'where' =>  [],
     ];
+    private $logRepository;
     private $signalsColumns;
+    private $signalListenersColumns;
     private $signalLogsColumns;
     private $system;
 
     private $tabs = [
-        ['signal', 'Profile'],
-//        ['signal_listeners', 'Listeners (%%listeners%%)'],
-        ['signal_logs', 'Logs (%%logs%%)'],
+        [ 'signal', 'Profile' ],
+        [ 'signal_listeners', 'Listeners (%d)' ],
+        [ 'signal_logs', 'Logs (%d)' ],
 //        ['signal_weather', 'Weather'],
     ];
 
     public function __construct(
-        RegistryInterface $registry,
+        ManagerRegistry $registry,
         Connection $connection,
+        LogRepository $logRepository,
         SignalsColumns $signalsColumns,
+        SignalListenersColumns $signalListenersColumns,
         SignalLogsColumns $signalLogsColumns
-
     ) {
         parent::__construct($registry, Signal::class);
         $this->connection = $connection;
+        $this->logRepository = $logRepository;
         $this->signalsColumns = $signalsColumns->getColumns();
+        $this->signalListenersColumns = $signalListenersColumns->getColumns();
         $this->signalLogsColumns = $signalLogsColumns->getColumns();
     }
 
@@ -629,6 +635,11 @@ class SignalRepository extends ServiceEntityRepository
         return $this->signalsColumns;
     }
 
+    public function getListenersColumns()
+    {
+        return $this->signalListenersColumns;
+    }
+
     public function getLogsColumns()
     {
         return $this->signalLogsColumns;
@@ -912,19 +923,49 @@ class SignalRepository extends ServiceEntityRepository
         return $stmt->fetchColumn();
     }
 
-    public function getLogsForSignal($signalID, array $args)
+    public function getListenersForSignal($signalID, array $args)
     {
         $columns =
-            'trim(l.date) as logDate,'
-            . 'trim(l.time) as logTime,'
-            . 'li.id as listenerId,'
+             'li.id,'
             . 'li.name,'
             . 'li.qth,'
             . 'li.gsq,'
             . 'li.sp,'
             . 'li.itu,'
-            . 'CONCAT(l.lsbApprox,l.lsb) AS lsb,'
-            . 'CONCAT(l.usbApprox,l.usb) AS usb,'
+            . 'COUNT(l.id) as countLogs,'
+            . 'l.dxKm,'
+            . 'l.dxMiles';
+
+        $qb = $this
+            ->createQueryBuilder('s')
+            ->select($columns)
+            ->innerJoin('\App\Entity\Log', 'l')
+            ->andWhere('l.signalid = s.id')
+            ->innerJoin('\App\Entity\Listener', 'li')
+            ->andWhere('li.id = l.listenerid')
+            ->andWhere('s.id = :signalID')
+            ->setParameter(':signalID', $signalID)
+            ->addGroupBy('li.id');
+
+        $this->addSimpleLimit($qb, $args);
+        $this->addSimpleSort($qb, $args, $this->signalListenersColumns);
+
+        return $qb->getQuery()->execute();
+    }
+
+    public function getLogsForSignal($signalID, array $args)
+    {
+        $columns =
+            'l.date,'
+            . 'l.time,'
+            . 'li.id,'
+            . 'li.name,'
+            . 'li.qth,'
+            . 'li.gsq,'
+            . 'li.sp,'
+            . 'li.itu,'
+            . 'CONCAT(COALESCE(l.lsbApprox, \'\'), l.lsb) AS lsb,'
+            . 'CONCAT(COALESCE(l.usbApprox, \'\'), l.usb) AS usb,'
             . 'l.format,'
             . 'l.sec,'
             . 'l.dxKm,'
@@ -935,38 +976,39 @@ class SignalRepository extends ServiceEntityRepository
             ->select($columns)
             ->innerJoin('\App\Entity\Log', 'l')
             ->andWhere('l.signalid = s.id')
-
             ->innerJoin('\App\Entity\Listener', 'li')
             ->andWhere('li.id = l.listenerid')
-
             ->andWhere('s.id = :signalID')
             ->setParameter(':signalID', $signalID);
 
-        if (isset($args['limit']) && (int)$args['limit'] !== -1 && isset($args['page'])) {
+        $this->addSimpleLimit($qb, $args);
+        $this->addSimpleSort($qb, $args, $this->signalLogsColumns);
+
+        return $qb->getQuery()->execute();
+    }
+
+    private function addSimpleLimit($qb, $args)
+    {
+        if (isset($args['limit']) && (-1 !== (int)$args['limit']) && isset($args['page'])) {
             $qb
                 ->setFirstResult($args['page'] * $args['limit'])
                 ->setMaxResults($args['limit']);
         }
+    }
 
-        if ($this->signalLogsColumns[$args['sort']]['sort']) {
-            $idx = $this->signalLogsColumns[$args['sort']];
-            $qb
-                ->addOrderBy(
-                    ($idx['sort']),
-                    ($args['order'] == 'd' ? 'DESC' : 'ASC')
-                );
-            if (isset($idx['sort_2']) && isset($idx['order_2'])) {
-                $qb
-                    ->addOrderBy(
-                        ($idx['sort_2']),
-                        ($idx['order_2'] == 'd' ? 'DESC' : 'ASC')
-                    );
+    private function addSimpleSort($qb, $args, $refColumns)
+    {
+        $idx = $refColumns[$args['sort']];
+        if (isset($idx['sort'])) {
+            $qb->addSelect('CASE WHEN ' . $idx['sort'] . ' IS NULL OR ' . $idx['sort'] . ' = \'\' THEN 1 ELSE 0 END AS N1');
+            $qb->addOrderBy('N1', 'ASC');
+            $qb->addOrderBy($idx['sort'], ('d' === $args['order'] ? 'DESC' : 'ASC'));
+            if (isset($idx['sort_2'])) {
+                $qb->addSelect('CASE WHEN ' . $idx['sort_2'] . ' IS NULL OR ' . $idx['sort_2'] . ' = \'\' THEN 1 ELSE 0 END AS N2');
+                $qb->addOrderBy('N2', 'ASC');
+                $qb->addOrderBy($idx['sort_2'], ('d' === $idx['order_2'] ? 'DESC' : 'ASC'));
             }
         }
-
-        $result = $qb->getQuery()->execute();
-//        print "<pre>".print_r($result, true)."</pre>";
-        return $result;
     }
 
     private function setArgs($system, $args)
@@ -976,31 +1018,44 @@ class SignalRepository extends ServiceEntityRepository
         return $this;
     }
 
-    public function getTabs($signal = false)
+    public function getTabs(Signal $signal): array
     {
-        if (!$signal->getId()) {
-            return [];
-        }
-        $logs =     $signal->getLogs();
-        $listeners =  55;//$signal->getCountListeners();
         $out = [];
+        if (!$signal->getId()) {
+            return $out;
+        }
         foreach ($this->tabs as $idx => $data) {
             $route = $data[0];
+            $label = $data[1];
             switch ($route) {
                 case "signal_logs":
-                    if ($logs) {
-                        $out[] = str_replace(
-                            ['%%logs%%', '%%listeners%%'],
-                            [$logs, $listeners],
-                            $data
-                        );
+                    if ($logs = $signal->getLogs()) {
+                        $label = sprintf($label, $logs);
+                        $out[] = [$route, $label];
+                    }
+                    break;
+                case "signal_listeners":
+                    if ($listeners = $this->getListenersCount($signal->getId())) {
+                        $label = sprintf($label, $listeners);
+                        $out[] = [$route, $label];
                     }
                     break;
                 default:
-                    $out[] = $data;
+                    $out[] = [$route, $label];
                     break;
             }
         }
         return $out;
+    }
+
+    public function getListenersCount($signalid)
+    {
+        $qb = $this
+            ->logRepository
+            ->createQueryBuilder('l')
+            ->select('COUNT(distinct l.listenerid)')
+            ->andWhere('l.signalid = :signalid')
+            ->setParameter('signalid', $signalid);
+        return $qb->getQuery()->getSingleScalarResult();
     }
 }

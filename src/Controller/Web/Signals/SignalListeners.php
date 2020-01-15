@@ -1,8 +1,8 @@
 <?php
-namespace App\Controller\Web\Listeners;
+namespace App\Controller\Web\Signals;
 
-use App\Form\Listeners\ListenerLogs as Form;
-use App\Repository\ListenerRepository;
+use App\Form\Signals\SignalLogs as Form;
+use App\Repository\SignalRepository;
 use App\Repository\TypeRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
@@ -11,27 +11,27 @@ use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
  * Class Listeners
  * @package App\Controller\Web
  */
-class ListenerLogs extends Base
+class SignalListeners extends Base
 {
     const defaultlimit =     20;
-    const defaultSorting =  'logDate';
-    const defaultOrder =    'd';
+    const defaultSorting =  'name';
+    const defaultOrder =    'a';
 
     /**
      * @Route(
-     *     "/{_locale}/{system}/listeners/{id}/logs",
+     *     "/{_locale}/{system}/signals/{id}/listeners",
      *     requirements={
      *        "locale": "de|en|es|fr",
      *        "system": "reu|rna|rww"
      *     },
-     *     name="listener_logs"
+     *     name="signal_listeners"
      * )
      * @param $_locale
      * @param $system
      * @param $id
      * @param Request $request
      * @param Form $form
-     * @param ListenerRepository $listenerRepository
+     * @param SignalRepository $signalRepository
      * @param TypeRepository $typeRepository
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
@@ -41,11 +41,11 @@ class ListenerLogs extends Base
         $id,
         Request $request,
         Form $form,
-        ListenerRepository $listenerRepository,
+        SignalRepository $signalRepository,
         TypeRepository $typeRepository
     ) {
-        if (!$listener = $this->getValidReportingListener($id, $listenerRepository)) {
-            return $this->redirectToRoute('listeners', ['system' => $system]);
+        if (!$signal = $this->getValidSignal($id, $signalRepository)) {
+            return $this->redirectToRoute('signals', ['system' => $system]);
         }
 
         $options = [
@@ -53,7 +53,7 @@ class ListenerLogs extends Base
             'order' =>          static::defaultOrder,
             'page' =>           0,
             'sort' =>           static::defaultSorting,
-            'total' =>          $listener->getCountLogs()
+            'total' =>          $signalRepository->getListenersCount($id)
         ];
         $form = $form->buildForm($this->createFormBuilder(), $options);
         $form->handleRequest($request);
@@ -69,22 +69,22 @@ class ListenerLogs extends Base
         $parameters = [
             'args' =>               $args,
             'id' =>                 $id,
-            'columns' =>            $listenerRepository->getLogsColumns(),
+            'columns' =>            $signalRepository->getListenersColumns(),
             'form' =>               $form->createView(),
             '_locale' =>            $_locale,
-            'matched' =>            'of '.$options['total']. ' log records.',
-            'mode' =>               'Logs for '.$listener->getFormattedNameAndLocation(),
-            'logs' =>               $listenerRepository->getLogsForListener($id, $args),
+            'matched' =>            sprintf($this->translator->trans('of %s Listeners'), $options['total']),
+            'mode' =>               sprintf($this->translator->trans('Listeners for %s'), $signal->getFormattedIdent()),
+            'records' =>            $signalRepository->getListenersForSignal($id, $args),
             'results' => [
                 'limit' =>              isset($args['limit']) ? $args['limit'] : static::defaultlimit,
                 'page' =>               isset($args['page']) ? $args['page'] : 0,
                 'total' =>              $options['total']
             ],
             'system' =>             $system,
-            'tabs' =>               $listenerRepository->getTabs($listener),
+            'tabs' =>               $signalRepository->getTabs($signal),
             'typeRepository' =>     $typeRepository
         ];
         $parameters = array_merge($parameters, $this->parameters);
-        return $this->render('listener/logs.html.twig', $parameters);
+        return $this->render('signal/listeners.html.twig', $parameters);
     }
 }

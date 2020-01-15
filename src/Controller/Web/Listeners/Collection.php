@@ -47,7 +47,7 @@ class Collection extends Base
      *     name="listeners"
      * )
      */
-    public function listenerListController(
+    public function controller(
         $_locale,
         $system,
         Request $request,

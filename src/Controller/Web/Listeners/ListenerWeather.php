@@ -1,12 +1,10 @@
 <?php
 namespace App\Controller\Web\Listeners;
 
-use App\Controller\Web\Listeners\Base;
 use App\Form\Listeners\ListenerWeather as ListenerWeatherForm;
 use App\Repository\ListenerRepository;
 use App\Repository\IcaoRepository;
 
-use App\Utils\Rxx;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 use Symfony\Component\HttpFoundation\Request;
 
@@ -27,7 +25,7 @@ class ListenerWeather extends Base
      *     name="listener_weather"
      * )
      */
-    public function weatherController(
+    public function controller(
         $_locale,
         $system,
         $id,

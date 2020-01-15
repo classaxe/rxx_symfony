@@ -1,29 +1,30 @@
 <div style="height:0;overflow:hidden"></div>
-{% if logs|length > 0 %}
-<table class="signal logs results" style="width: 100%">
+<table class="signal results">
     <thead>
         <tr>
 {% for key, column in columns %}
 {% if ((not column.admin or isAdmin) and (not column.arg or (column.arg and column.arg in args.types))) %}
             <th{%  if key and column.order %} id="{{ key }}|{{ column.order }}"{% endif %}
 {% if column.th_class or column.sort%} class="{{ column.th_class }}{% if column.sort %} sort{% endif %}"{% endif %}
-{% if column.tooltip %} title="{{ column.tooltip }}"{% endif %}
->{{ column.label|raw }}</th>
+{% if column.tooltip %} title="{{ column.tooltip|trans }}"{% endif %}
+>{{ column.label|raw|trans }}</th>
 {% endif %}
 {% endfor %}
         </tr>
     </thead>
     <tbody>
-{% for log in logs %}
+{% for r in records %}
         <tr>
 {% for key, column in columns %}
 {% if ((not column.admin or isAdmin) and (not column.arg or (column.arg and column.arg in args.types))) %}
             <td{% if column.td_class %} class="{{ column.td_class }}"{% endif %}>
 
 {% if key == 'name' %}
-                <a href="{{ url('listener', { '_locale' : _locale, 'system' : system, 'id': log.listenerId }) }}" data-popup="1">{{ attribute(log, column.field)|raw }}</a>
+                <a href="{{ url('listener', { '_locale' : _locale, 'system' : system, 'id': r.id }) }}" data-popup="1">{{ attribute(r, column.field)|raw }}</a>
+{% elseif key == 'date' %}
+                {{ attribute(r, column.field)|date('Y-m-d') }}
 {% else %}
-                {{ attribute(log, column.field)|raw }}
+                {{ attribute(r, column.field)|raw }}
 {% endif %}
             </td>
 {% endif %}
@@ -32,6 +33,3 @@
 {% endfor %}
     </tbody>
 </table>
-{% else %}
-    <p class="no-results">(No log have been reported for this signal)</p>
-{% endif %}

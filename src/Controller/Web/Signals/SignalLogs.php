@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 class SignalLogs extends Base
 {
     const defaultlimit =     20;
-    const defaultSorting =  'logDate';
+    const defaultSorting =  'date';
     const defaultOrder =    'd';
 
     /**
@@ -35,7 +35,7 @@ class SignalLogs extends Base
      * @param TypeRepository $typeRepository
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function logsController(
+    public function controller(
         $_locale,
         $system,
         $id,
@@ -72,9 +72,9 @@ class SignalLogs extends Base
             'columns' =>            $signalRepository->getLogsColumns(),
             'form' =>               $form->createView(),
             '_locale' =>            $_locale,
-            'matched' =>            'of ' . $options['total'] . ' log records.',
-            'mode' =>               'Logs for ' . $signal->getFormattedIdent(),
-            'logs' =>               $signalRepository->getLogsForSignal($id, $args),
+            'matched' =>            sprintf($this->translator->trans('of %s Log Records'), $options['total']),
+            'mode' =>               sprintf($this->translator->trans('Logs for %s'), $signal->getFormattedIdent()),
+            'records' =>            $signalRepository->getLogsForSignal($id, $args),
             'results' => [
                 'limit' =>              isset($args['limit']) ? $args['limit'] : static::defaultlimit,
                 'page' =>               isset($args['page']) ? $args['page'] : 0,

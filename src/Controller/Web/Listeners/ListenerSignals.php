@@ -28,7 +28,7 @@ class ListenerSignals extends Base
      *     name="listener_signals"
      * )
      */
-    public function signalsController(
+    public function controller(
         $_locale,
         $system,
         $id,

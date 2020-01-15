@@ -1,10 +1,8 @@
 <?php
 namespace App\Controller\Web\Signals;
 
-use App\Controller\Web\Base;
 use App\Repository\SignalRepository;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
-
 
 class SignalDelete extends Base
 {
@@ -18,33 +16,44 @@ class SignalDelete extends Base
      *     name="signal_delete"
      * )
      */
-    public function deleteController(
+    public function controller(
         $_locale,
         $system,
         $id,
         SignalRepository $signalRepository
     ) {
-        if (!(int) $id) {
+        if (!$this->parameters['isAdmin']) {
             return $this->redirectToRoute('signals', ['_locale' => $_locale, 'system' => $system]);
         }
-        if (!$this->parameters['isAdmin']) {
-            return $this->redirectToRoute('signals', ['_locale' => $_locale, 'system' => $system, 'id' => $id]);
+        $args =  ['_locale' => $_locale, 'system' => $system, 'admin_mode' => $_REQUEST['form']['admin_mode'] ?? ''];
+        if (!(int) $id) {
+            return $this->redirectToRoute('signals', $args);
         }
         if (!$signal = $this->getValidSignal($id, $signalRepository)) {
-            return $this->redirectToRoute('signals', ['system' => $system]);
+            return $this->redirectToRoute('signals', $args);
         }
-        if ($signal->getCountLogs() > 0) {
+        if ($signal->getLogs() > 0) {
             $this->session->set(
                 'lastError',
-                "Signal ".$signal->getKhz() . "-" . $signal->getCall() . " has ".$signal->getCountLogs()." logs and cannot be deleted"
+                sprintf(
+                    $this->translator->trans("Signal %s has %d logs and so cannot be deleted at this time."),
+                    $signal->getFormattedIdent(),
+                    $signal->getLogs()
+                )
             );
-            return $this->redirectToRoute('signals', ['_locale' => $_locale, 'system' => $system]);
+            return $this->redirectToRoute('signals', $args);
         }
         $em = $this->getDoctrine()->getManager();
         $em->remove($signal);
         $em->flush();
 
-        $this->session->set('lastMessage', "Signal ". $signal->getKhz() . "-" . $signal->getCall() . " has been deleted");
-        return $this->redirectToRoute('signals', ['_locale' => $_locale, 'system' => $system]);
+        $this->session->set(
+            'lastMessage',
+            sprintf(
+                $this->translator->trans("Signal %s has been deleted."),
+                $signal->getFormattedIdent()
+            )
+        );
+        return $this->redirectToRoute('signals', $args);
     }
 }

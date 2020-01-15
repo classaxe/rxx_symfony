@@ -9,7 +9,7 @@ use App\Utils\Rxx;
 use App\Columns\Listeners as ListenersColumns;
 use Doctrine\DBAL\Driver\Connection;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\Persistence\ManagerRegistry;
 
 class ListenerRepository extends ServiceEntityRepository
 {
@@ -33,7 +33,7 @@ class ListenerRepository extends ServiceEntityRepository
     public function __construct(
         Connection $connection,
         RegionRepository $regionRepository,
-        RegistryInterface $registry,
+        ManagerRegistry $registry,
         ListenersColumns $listenersColumns,
         ListenerLogsColumns $listenerLogsColumns,
         ListenerSignalsColumns $listenerSignalsColumns,

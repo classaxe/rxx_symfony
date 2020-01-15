@@ -30,7 +30,7 @@ class Collection extends Base
      *     name="_signals"
      * )
      */
-    public function _signalsListController(
+    public function redirector(
         $system
     ) {
         $parameters =[
@@ -60,7 +60,7 @@ class Collection extends Base
      * @return \Symfony\Component\HttpFoundation\Response
      * @throws \Exception
      */
-    public function signalsListController(
+    public function controller(
         $_locale,
         $system,
         Request $request,
@@ -161,7 +161,7 @@ class Collection extends Base
             'columns' =>            $signalRepository->getColumns(),
             'form' =>               $form->createView(),
             'isAdmin' =>            $isAdmin,
-            'mode' =>               'Signals',
+            'mode' =>               $this->translator->trans('Signals'),
             'paper' =>              $paper,
             'paperChoices' =>       $paperRepository->getAllChoices(),
             'personalised' =>       isset($args['personalise']) ? $listenerRepository->getDescription($args['personalise']) : false,

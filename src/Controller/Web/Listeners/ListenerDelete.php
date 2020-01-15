@@ -21,7 +21,7 @@ class ListenerDelete extends Base
      *     name="listener_delete"
      * )
      */
-    public function deleteController(
+    public function controller(
         $_locale,
         $system,
         $id,
@@ -40,7 +40,11 @@ class ListenerDelete extends Base
         if ($listener->getCountLogs() > 0) {
             $this->session->set(
                 'lastError',
-                "Listener ".$listener->getName()." has ".$listener->getCountLogs()." logs and cannot be deleted"
+                sprintf(
+                    $this->translator->trans("Listener %s has %d logs and so cannot be deleted at this time."),
+                    $listener->getName(),
+                    $listener->getCountLogs()
+                )
             );
             return $this->redirectToRoute('listeners', ['_locale' => $_locale, 'system' => $system]);
         }
@@ -48,7 +52,13 @@ class ListenerDelete extends Base
         $em->remove($listener);
         $em->flush();
 
-        $this->session->set('lastMessage', "Listener ".$listener->getName()." has been deleted");
+        $this->session->set(
+            'lastMessage',
+            sprintf(
+                $this->translator->trans("Listener %s has been deleted."),
+                $listener->getName()
+            )
+        );
         return $this->redirectToRoute('listeners', ['_locale' => $_locale, 'system' => $system]);
     }
 }

@@ -24,7 +24,7 @@ class SignalView extends Base
      *     name="signal"
      * )
      */
-    public function viewController(
+    public function controller(
         $_locale,
         $system,
         $id,
@@ -122,7 +122,16 @@ class SignalView extends Base
             'isAdmin' =>            $isAdmin,
             'form' =>               $form->createView(),
             '_locale' =>            $_locale,
-            'mode' =>               $isAdmin && !$id ? 'Add Signal' : $signal->getFormattedIdent() . ' (' . ($signal->getActive() ? 'Active' : 'Inactive') . ')',
+            'mode' =>
+                ($isAdmin && !$id ?
+                    $this->translator->trans('Add Signal')
+                :
+                    sprintf($signal->getActive() ?
+                        $this->translator->trans('%s (Active)')
+                    :
+                        $this->translator->trans('%s (Inctive)'),  $signal->getFormattedIdent()
+                    )
+                ),
             'system' =>             $system,
             'tabs' =>               $signalRepository->getTabs($signal),
         ];

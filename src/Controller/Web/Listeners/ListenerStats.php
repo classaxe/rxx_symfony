@@ -1,11 +1,9 @@
 <?php
 namespace App\Controller\Web\Listeners;
 
-use App\Controller\Web\Listeners\Base;
 use App\Repository\ListenerRepository;
 use App\Repository\TypeRepository;
 
-use App\Utils\Rxx;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 
 /**
@@ -25,7 +23,7 @@ class ListenerStats extends Base
      *     name="listener_stats"
      * )
      */
-    public function statsController(
+    public function controller(
         $_locale,
         $system,
         $id,

@@ -6,6 +6,6 @@
                 if (idx != 0 and (isAdmin and args.admin_mode != '')) %} disabled{% endif
         %}" id="show_{{ tab[0] }}"{%
                 if (idx != 0 and (isAdmin and args.admin_mode != '')) %} onclick="return false"{% else %} onclick="changeShowMode('{{ tab[0] }}')"{% endif
-        %}>{{ tab[1] }}</a>
+        %}>{{ tab[1]|trans }}</a>
     {% endfor %}
 </div>

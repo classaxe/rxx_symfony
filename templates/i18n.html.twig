@@ -534,6 +534,9 @@
     {% trans %}Loggings{% endtrans %}
     {% trans %}First log{% endtrans %}
     {% trans %}Last log{% endtrans %}
+    {% trans %}Listing{% endtrans %}
+    {% trans %}Map{% endtrans %}
+    {% trans %}Seeklist{% endtrans %}
 
     {# Report Columns and tooltips #}
         {% trans %}Logged{% endtrans %}
@@ -553,18 +556,21 @@
         {% trans %}'Name' and Location{% endtrans %}
         {% trans %}State / Province / Territory{% endtrans %}
         {% trans %}S/P{% endtrans %}
+        {% trans %}State / Province{% endtrans %}
         {% trans %}ITU{% endtrans %}
+        {% trans %}ITU Country Code{% endtrans %}
         {% trans %}<div>Region</div>{% endtrans %}
         {% trans %}Continent or Zone{% endtrans %}
         {% trans %}Signal Grid Square{% endtrans %}
         {% trans %}GSQ{% endtrans %}
+        {% trans %}Maidenhead Locator Grid Square{% endtrans %}
         {% trans %}Power in Watts{% endtrans %}
         {% trans %}Pwr{% endtrans %}
         {% trans %}Notes about this signal{% endtrans %}
         {% trans %}Notes{% endtrans %}
         {% trans %}Heard In<br /><b>(Daytime Log)</b>{% endtrans %}
-
         {% trans %}Logs{% endtrans %}
+        {% trans %}Total number of logs for this signal{% endtrans %}
         {% trans %}KM{% endtrans %}
         {% trans %}Kilometers from GSQ{% endtrans %}
         {% trans %}Miles{% endtrans %}
@@ -573,6 +579,8 @@
         {% trans %}Deg{% endtrans %}
         {% trans %}Admin Actions{% endtrans %}
         {% trans %}Delete{% endtrans %}
+        {% trans %}Signal %s has %d logs and so cannot be deleted at this time.{% endtrans %}
+        {% trans %}Signal %s has been deleted.{% endtrans %}
         {% trans %}Merge{% endtrans %}
         {% trans %}Delete this Signal?  Are you sure?{% endtrans %}
         {% trans %}Inactive stations are shown at the bottom of the list.{% endtrans %}
@@ -630,6 +638,8 @@
         {% trans %}<div>Map Pos</div>{% endtrans %}
         {% trans %}Admin{% endtrans %}
         {% trans %}Delete this Listener?  Are you sure?{% endtrans %}
+        {% trans %}Listener %s has %d logs and so cannot be deleted at this time.{% endtrans %}
+        {% trans %}Listener %s has been deleted.{% endtrans %}
     {# Info Panel #}
         {% trans %}Maps of Listener Locations{% endtrans %}
         {% trans %}(North America){% endtrans %}
@@ -727,6 +737,9 @@
     {% trans %}Total Logs{% endtrans %}
 {% endif %}
 {%  if 'Signal View' %}
+    {% trans %}Add Signal{% endtrans %}
+    {% trans %}%s (Active){% endtrans %}
+    {% trans %}%s (Inctive){% endtrans %}
     {% trans %}Type{% endtrans %}
     {% trans %}W{% endtrans %}
     {% trans %}'Name' and QTH{% endtrans %}
@@ -739,4 +752,23 @@
     {% trans %}Status{% endtrans %}
     {% trans %}Heard Here{% endtrans %}
     {% trans %}(Daytime Log){% endtrans %}
+    {% trans %}Profile{% endtrans %}
+    {% trans %}Listeners (%d){% endtrans %}
+    {% trans %}Logs (%d){% endtrans %}
+    {% trans %}Weather{% endtrans %}
+    {% trans %}Listeners for %s{% endtrans %}
+{% endif %}
+{%  if 'Signal Logs' %}
+    {% trans %}of %s Log Records{% endtrans %}
+    {% trans %}Logs for %s{% endtrans %}
+    {% trans %}Date{% endtrans %}
+    {% trans %}UTC{% endtrans %}
+    {% trans %}Lower Sideband{% endtrans %}
+    {% trans %}Upper Sideband{% endtrans %}
+    {% trans %}Sec.{% endtrans %}
+    {% trans %}Cycle Time in seconds{% endtrans %}
+    {% trans %}Fmt.{% endtrans %}
+    {% trans %}Format of signal{% endtrans %}
+    {% trans %}Distance in KM{% endtrans %}
+    {% trans %}Distance in Miles{% endtrans %}
 {% endif %}

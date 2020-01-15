@@ -4,14 +4,14 @@ namespace App\Repository;
 
 use App\Entity\Region;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\Persistence\ManagerRegistry;
 
 class RegionRepository extends ServiceEntityRepository
 {
     private $country;
 
     public function __construct(
-        RegistryInterface $registry,
+        ManagerRegistry $registry,
         CountryRepository $country
     ) {
         parent::__construct($registry, Region::class);

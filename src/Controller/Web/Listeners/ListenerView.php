@@ -29,7 +29,7 @@ class ListenerView extends Base
      *     name="listener"
      * )
      */
-    public function viewController(
+    public function controller(
         $_locale,
         $system,
         $id,

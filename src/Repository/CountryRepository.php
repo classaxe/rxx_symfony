@@ -4,7 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Itu;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\Persistence\ManagerRegistry;
 
 class CountryRepository extends ServiceEntityRepository
 {
@@ -15,7 +15,7 @@ class CountryRepository extends ServiceEntityRepository
     const RECIEVED_IN_NORTH_AMERICA = "rna";
 
     public function __construct(
-        RegistryInterface $registry,
+        ManagerRegistry $registry,
         StateRepository $sp
     ) {
         parent::__construct($registry, Itu::class);

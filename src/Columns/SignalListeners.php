@@ -8,79 +8,11 @@
 
 namespace App\Columns;
 
-class SignalLogs
+class SignalListeners
 {
     public function getColumns()
     {
         return [
-            'date' => [
-                'admin'     =>  false,
-                'arg'       =>  '',
-                'field'     =>  'date',
-                'label'     =>  'Date',
-                'order'     =>  'a',
-                'sort'      =>  'l.date',
-                'sort_2'    =>  'l.time',
-                'order_2'   =>  'a',
-                'td_class'  =>  'text-nowrap',
-                'th_class'  =>  '',
-                'tooltip'   =>  '',
-            ],
-            'time' => [
-                'admin'     =>  false,
-                'arg'       =>  '',
-                'field'     =>  'time',
-                'label'     =>  'UTC',
-                'order'     =>  'a',
-                'sort'      =>  'l.time',
-                'td_class'  =>  '',
-                'th_class'  =>  '',
-                'tooltip'   =>  '',
-            ],
-            'lsb' => [
-                'admin'     =>  false,
-                'arg'       =>  '',
-                'field'     =>  'lsb',
-                'label'     =>  'LSB',
-                'order'     =>  'a',
-                'sort'      =>  'l.lsb',
-                'td_class'  =>  '',
-                'th_class'  =>  '',
-                'tooltip'   =>  'Lower Sideband',
-            ],
-            'usb' => [
-                'admin'     =>  false,
-                'arg'       =>  '',
-                'field'     =>  'usb',
-                'label'     =>  'USB',
-                'order'     =>  'a',
-                'sort'      =>  'l.usb',
-                'td_class'  =>  '',
-                'th_class'  =>  '',
-                'tooltip'   =>  'Upper Sideband',
-            ],
-            'sec' => [
-                'admin'     =>  false,
-                'arg'       =>  '',
-                'field'     =>  'sec',
-                'label'     =>  'Sec.',
-                'order'     =>  'a',
-                'sort'      =>  'CAST(l.sec AS DECIMAL(10,2))',
-                'td_class'  =>  '',
-                'th_class'  =>  '',
-                'tooltip'   =>  'Cycle Time in seconds',
-            ],
-            'format' => [
-                'admin'     =>  false,
-                'arg'       =>  '',
-                'field'     =>  'format',
-                'label'     =>  'Fmt.',
-                'order'     =>  'a',
-                'sort'      =>  'l.format',
-                'td_class'  =>  '',
-                'th_class'  =>  '',
-                'tooltip'   =>  'Format of signal',
-            ],
             'name' => [
                 'admin'     =>  false,
                 'arg'       =>  '',
@@ -145,7 +77,7 @@ class SignalLogs
                 'sort'      =>  'l.dxKm',
                 'td_class'  =>  'txt_r',
                 'th_class'  =>  '',
-                'tooltip'   =>  'Distance in KM',
+                'tooltip'   =>  '',
             ],
             'dxMiles' => [
                 'admin'     =>  false,
@@ -156,7 +88,18 @@ class SignalLogs
                 'sort'      =>  'l.dxMiles',
                 'td_class'  =>  'txt_r',
                 'th_class'  =>  '',
-                'tooltip'   =>  'Distance in Miles',
+                'tooltip'   =>  '',
+            ],
+            'countLogs' => [
+                'admin'     =>  false,
+                'arg'       =>  '',
+                'field'     =>  'countLogs',
+                'label'     =>  'Logs',
+                'order'     =>  'd',
+                'sort'      =>  'COUNT(l.id)',
+                'td_class'  =>  'txt_r',
+                'th_class'  =>  '',
+                'tooltip'   =>  'Total number of logs for this signal',
             ],
         ];
     }
