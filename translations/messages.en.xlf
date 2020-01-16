@@ -3013,6 +3013,22 @@
         <source>Seeklist</source>
         <target>Seeklist</target>
       </trans-unit>
+      <trans-unit id="eVSSbNG" resname="Details for %s (Active)">
+        <source>Details for %s (Active)</source>
+        <target>Details for %s (Active)</target>
+      </trans-unit>
+      <trans-unit id="QivFZSY" resname="Details for %s (Inctive)">
+        <source>Details for %s (Inctive)</source>
+        <target>Details for %s (Inctive)</target>
+      </trans-unit>
+      <trans-unit id="PTEWBn3" resname="Weather for %s">
+        <source>Weather for %s</source>
+        <target>Weather for %s</target>
+      </trans-unit>
+      <trans-unit id="RSlknb9" resname="Press QNH to view recent barometric pressure readings.">
+        <source>Press QNH to view recent barometric pressure readings.</source>
+        <target>Press QNH to view recent barometric pressure readings.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

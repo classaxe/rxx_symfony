@@ -127,9 +127,9 @@ class SignalView extends Base
                     $this->translator->trans('Add Signal')
                 :
                     sprintf($signal->getActive() ?
-                        $this->translator->trans('%s (Active)')
+                        $this->translator->trans('Details for %s (Active)')
                     :
-                        $this->translator->trans('%s (Inctive)'),  $signal->getFormattedIdent()
+                        $this->translator->trans('Details for %s (Inctive)'),  $signal->getFormattedIdent()
                     )
                 ),
             'system' =>             $system,

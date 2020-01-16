@@ -35,7 +35,7 @@ class SignalRepository extends ServiceEntityRepository
         [ 'signal', 'Profile' ],
         [ 'signal_listeners', 'Listeners (%d)' ],
         [ 'signal_logs', 'Logs (%d)' ],
-//        ['signal_weather', 'Weather'],
+        ['signal_weather', 'Weather'],
     ];
 
     public function __construct(
@@ -1024,20 +1024,28 @@ class SignalRepository extends ServiceEntityRepository
         if (!$signal->getId()) {
             return $out;
         }
+        $logs =         $signal->getLogs();
+        $listeners =    $this->getListenersCount($signal->getId());
+        $knownQth =     ($signal->getLat() || $signal->getLon());
         foreach ($this->tabs as $idx => $data) {
             $route = $data[0];
             $label = $data[1];
             switch ($route) {
                 case "signal_logs":
-                    if ($logs = $signal->getLogs()) {
+                    if ($logs) {
                         $label = sprintf($label, $logs);
                         $out[] = [$route, $label];
                     }
                     break;
                 case "signal_listeners":
-                    if ($listeners = $this->getListenersCount($signal->getId())) {
+                    if ($listeners) {
                         $label = sprintf($label, $listeners);
                         $out[] = [$route, $label];
+                    }
+                    break;
+                case 'signal_weather':
+                    if ($knownQth) {
+                        $out[] = $data;
                     }
                     break;
                 default:

@@ -155,20 +155,26 @@ class ListenerRepository extends ServiceEntityRepository
         }
         $logs =     $listener->getCountLogs();
         $signals =  $listener->getCountSignals();
+        $knownQth = ($listener->getLat() || $listener->getLon());
         $out = [];
         foreach ($this->tabs as $idx => $data) {
             $route = $data[0];
             switch ($route) {
-                case "listener_export":
-                case "listener_logs":
-                case "listener_signals":
-                case "listener_stats":
+                case 'listener_export':
+                case 'listener_logs':
+                case 'listener_signals':
+                case 'listener_stats':
                     if ($logs) {
                         $out[] = str_replace(
                             ['%%logs%%', '%%signals%%'],
                             [$logs, $signals],
                             $data
                         );
+                    }
+                    break;
+                case 'listener_weather':
+                    if ($knownQth) {
+                        $out[] = $data;
                     }
                     break;
                 default:

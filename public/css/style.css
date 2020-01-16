@@ -1,7 +1,7 @@
 /*!
 * Project:   RXX - NDB Logging Database
 * Homepage:  https://rxx.classaxe.com
-* Date:      2020-01-07
+* Date:      2020-01-15
 * Licence:   LGPL
 * Copyright: 2020 Martin Francis
 */
@@ -1313,24 +1313,29 @@ fieldset#form_range_units div label {
 .signal_logs .results thead tr th {
   height: 3em !important;
 }
-/* [ Form listener_weather ] */
-.listener_weather #form div {
+/* [ Form listener_weather, signal_weather ] */
+.listener_weather #form div,
+.signal_weather #form div {
   display: inline-block;
 }
-.listener_weather #form div button {
+.listener_weather #form div button,
+.signal_weather #form div button {
   width: 8.5em;
 }
-.listener_weather #form_icao {
+.listener_weather #form_icao,
+.signal_weather #form_icao {
   width: 20em;
   font-size: 10pt;
   font-family: 'Courier New', monospace;
   font-weight: bold;
 }
-.listener_weather #form_hours {
+.listener_weather #form_hours,
+.signal_weather #form_hours {
   width: 3.5em;
   text-align: right;
 }
-.listener_weather #weather {
+.listener_weather #weather,
+.signal_weather #weather {
   height: 25em;
   font-size: 10pt;
   font-family: 'Courier New', monospace;

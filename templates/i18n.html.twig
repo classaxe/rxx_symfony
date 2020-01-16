@@ -738,8 +738,8 @@
 {% endif %}
 {%  if 'Signal View' %}
     {% trans %}Add Signal{% endtrans %}
-    {% trans %}%s (Active){% endtrans %}
-    {% trans %}%s (Inctive){% endtrans %}
+    {% trans %}Details for %s (Active){% endtrans %}
+    {% trans %}Details for %s (Inctive){% endtrans %}
     {% trans %}Type{% endtrans %}
     {% trans %}W{% endtrans %}
     {% trans %}'Name' and QTH{% endtrans %}
@@ -771,4 +771,7 @@
     {% trans %}Format of signal{% endtrans %}
     {% trans %}Distance in KM{% endtrans %}
     {% trans %}Distance in Miles{% endtrans %}
+{% endif %}
+{%  if 'Signal Weather' %}
+    {% trans %}Weather for %s{% endtrans %}
 {% endif %}
