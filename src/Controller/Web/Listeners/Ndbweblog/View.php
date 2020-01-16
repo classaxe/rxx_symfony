@@ -3,6 +3,8 @@ namespace App\Controller\Web\Listeners\Ndbweblog;
 
 use App\Controller\Web\Listeners\Base;
 use App\Repository\ListenerRepository;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 
 /**
@@ -21,15 +23,23 @@ class View extends Base
      *     defaults={"id"=""},
      *     name="listener_ndbweblog"
      * )
+     * @param $_locale
+     * @param $system
+     * @param $id
+     * @param ListenerRepository $listenerRepository
+     * @return RedirectResponse|Response
      */
-    public function viewController(
+    public function controller(
         $_locale,
         $system,
         $id,
         ListenerRepository $listenerRepository
     ) {
         if (!$listener = $this->getValidReportingListener($id, $listenerRepository)) {
-            return $this->redirectToRoute('listeners', ['system' => $system]);
+            return $this->redirectToRoute(
+                'listeners',
+                ['system' => $system]
+            );
         }
         $parameters = [
             'id' =>                 $id,

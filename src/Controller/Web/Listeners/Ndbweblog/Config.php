@@ -3,7 +3,9 @@ namespace App\Controller\Web\Listeners\Ndbweblog;
 
 use App\Controller\Web\Listeners\Base;
 use App\Repository\ListenerRepository;
-use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Class Listeners
@@ -21,15 +23,23 @@ class Config extends Base
      *     defaults={"id"=""},
      *     name="listener_ndbweblog_config"
      * )
+     * @param $_locale
+     * @param $system
+     * @param $id
+     * @param ListenerRepository $listenerRepository
+     * @return RedirectResponse|Response
      */
-    public function configController(
+    public function controller(
         $_locale,
         $system,
         $id,
         ListenerRepository $listenerRepository
     ) {
         if (!$listener = $this->getValidReportingListener($id, $listenerRepository)) {
-            return $this->redirectToRoute('listeners', ['_locale' => $_locale, 'system' => $system]);
+            return $this->redirectToRoute(
+                'listeners',
+                ['_locale' => $_locale, 'system' => $system]
+            );
         }
         $parameters = [
             '_locale' =>    $_locale,
@@ -41,6 +51,7 @@ class Config extends Base
         $response = $this->render('listener/ndbweblog/config.js.twig', $parameters);
         $response->headers->set('Content-Type', 'application/javascript');
         $response->headers->set('Content-Disposition','attachment;filename=config.js');
+
         return $response;
     }
 }

@@ -4,7 +4,9 @@ namespace App\Controller\Web\Listeners\Ndbweblog;
 use App\Controller\Web\Listeners\Base;
 use App\Repository\ListenerRepository;
 use App\Repository\LogRepository;
-use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Class Listeners
@@ -22,8 +24,14 @@ class Logs extends Base
      *     defaults={"id"=""},
      *     name="listener_ndbweblog_logs"
      * )
+     * @param $_locale
+     * @param $system
+     * @param $id
+     * @param ListenerRepository $listenerRepository
+     * @param LogRepository $logRepository
+     * @return RedirectResponse|Response
      */
-    public function logsController(
+    public function controller(
         $_locale,
         $system,
         $id,
@@ -31,7 +39,10 @@ class Logs extends Base
         LogRepository $logRepository
     ) {
         if (!$listener = $this->getValidReportingListener($id, $listenerRepository)) {
-            return $this->redirectToRoute('listeners', ['system' => $system]);
+            return $this->redirectToRoute(
+                'listeners',
+                ['system' => $system]
+            );
         }
         $parameters = [
             '_locale' =>            $_locale,

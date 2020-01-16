@@ -23,26 +23,6 @@ class Collection extends Base
 
     /**
      * @Route(
-     *     "/{system}/signals",
-     *     requirements={
-     *        "system": "reu|rna|rww"
-     *     },
-     *     name="_signals"
-     * )
-     */
-    public function redirector(
-        $system
-    ) {
-        $parameters =[
-            '_locale' =>    $this->get('session')->get('_locale'),
-            'system' =>     $system
-        ];
-
-        return $this->redirectToRoute('signals', $parameters, 301);
-    }
-
-    /**
-     * @Route(
      *     "/{_locale}/{system}/signals",
      *     requirements={
      *        "locale": "de|en|es|fr",

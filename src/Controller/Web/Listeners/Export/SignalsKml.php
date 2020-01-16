@@ -4,7 +4,9 @@ namespace App\Controller\Web\Listeners\Export;
 use App\Controller\Web\Listeners\Base;
 use App\Repository\ListenerRepository;
 use App\Repository\TypeRepository;
-use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Class Listeners
@@ -22,8 +24,16 @@ class SignalsKml extends Base
      *     defaults={"id"="", "type"="*", "active"="*"},
      *     name="listener_export_signals_kml"
      * )
+     * @param $_locale
+     * @param $system
+     * @param $id
+     * @param $type
+     * @param $active
+     * @param ListenerRepository $listenerRepository
+     * @param TypeRepository $typeRepository
+     * @return RedirectResponse|Response
      */
-    public function signalsKmlController(
+    public function controller(
         $_locale,
         $system,
         $id,
@@ -35,10 +45,7 @@ class SignalsKml extends Base
         if (!$listener = $this->getValidReportingListener($id, $listenerRepository)) {
             return $this->redirectToRoute(
                 'listeners',
-                [
-                    '_locale' => $_locale,
-                    'system' => $system
-                ]
+                [ '_locale' => $_locale, 'system' => $system ]
             );
         }
         $filter =                   [];
@@ -68,6 +75,7 @@ class SignalsKml extends Base
         $response->headers->set('Content-Disposition',"attachment;filename={$filename}");
         $response->headers->set('Content-Type', 'application/vnd.google-earth.kml+xml');
 //        $response->headers->set('Content-Type', 'text/plain');
+
         return $response;
     }
 }

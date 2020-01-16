@@ -3,7 +3,9 @@ namespace App\Controller\Web\Listeners\Ndbweblog;
 
 use App\Controller\Web\Listeners\Base;
 use App\Repository\ListenerRepository;
-use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Class Listeners
@@ -21,8 +23,13 @@ class Signals extends Base
      *     defaults={"id"=""},
      *     name="listener_ndbweblog_stations"
      * )
+     * @param $_locale
+     * @param $system
+     * @param $id
+     * @param ListenerRepository $listenerRepository
+     * @return RedirectResponse|Response
      */
-    public function stationsController(
+    public function controller(
         $_locale,
         $system,
         $id,
