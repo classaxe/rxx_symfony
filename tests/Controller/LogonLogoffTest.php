@@ -19,24 +19,24 @@ class LogonLogoffTest extends Base
         foreach ($this->getSystems() as $system) {
             $this->setNoRedirect();
 
-            $this->client->request('GET', '/en/' . $system . '/admin/logoff');
+            $this->myClient->request('GET', '/en/' . $system . '/admin/logoff');
             $expected = 302;
-            $actual =   $this->getResponseStatusCode();
+            $actual =   $this->getMyResponseStatusCode();
             $message =  $this->getError(1, [$system, $expected, $actual]);
             $this->assertEquals($expected, $actual, $message);
 
-            $this->client->request('GET', '/en/' . $system . '/admin/logon');
+            $this->myClient->request('GET', '/en/' . $system . '/admin/logon');
             $expected = 200;
-            $actual =   $this->getResponseStatusCode();
+            $actual =   $this->getMyResponseStatusCode();
             $message =  $this->getError(2, [$system, $expected, $actual]);
             $this->assertEquals($expected, $actual, $message);
 
             $expected = strToUpper($system) . ' > Logon';
-            $actual = $this->getResponsePageTitle();
+            $actual = $this->getMyResponsePageTitle();
             $message = $this->getError(3, [$system, $expected, $actual]);
             $this->assertEquals($expected, $actual, $message);
 
-            $forms = $this->getCrawler()->filter('form[name="form"]');
+            $forms = $this->getMyCrawler()->filter('form[name="form"]');
             $expected = 1;
             $actual = $forms->count();
             $message = $this->getError(4, [$system, $expected, $actual]);
@@ -45,10 +45,10 @@ class LogonLogoffTest extends Base
             $this->setYesRedirect();
 
             foreach ($this->getAdminUsers() as $user => $data) {
-                $this->client->request('GET', '/en/' . $system . '/admin/logoff');
+                $this->myClient->request('GET', '/en/' . $system . '/admin/logoff');
 
                 $form = $this
-                    ->getCrawler()
+                    ->getMyCrawler()
                     ->filter('button#form_submit')
                     ->form(
                         [
@@ -57,7 +57,7 @@ class LogonLogoffTest extends Base
                         ],
                         'POST'
                     );
-                $this->client->submit($form);
+                $this->myClient->submit($form);
 
                 $expected = (
                     $data['valid'] ?
@@ -66,8 +66,8 @@ class LogonLogoffTest extends Base
                         'Error: Incorrect Username and / or Password.'
                     );
 
-                $errMsg =   $this->getCrawler()->filter('div#lastError');
-                $okMsg =    $this->getCrawler()->filter('p#success');
+                $errMsg =   $this->getMyCrawler()->filter('div#lastError');
+                $okMsg =    $this->getMyCrawler()->filter('p#success');
 
                 $actual =   (
                     $errMsg->count() ?

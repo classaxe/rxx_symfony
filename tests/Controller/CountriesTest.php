@@ -23,26 +23,26 @@ class CountriesTest extends Base
     {
         foreach ($this->getSystems() as $system) {
             $url = '/en/'.$system.'/countries';
-            $this->client->request('GET', $url);
+            $this->myClient->request('GET', $url);
 
             $expected =     strtoupper($system).' > Country Code Locator';
-            $actual =       $this->getResponsePageTitle();
+            $actual =       $this->getMyResponsePageTitle();
             $message =      $this->getError(1, [$url, $expected, $actual]);
             $this->assertEquals($expected, $actual, $message);
 
-            $links =        $this->getCrawler()->filter('.quicklinks a');
+            $links =        $this->getMyCrawler()->filter('.quicklinks a');
             $expected =     count($this->getRegions());
             $actual =       $links->count();
             $message =      $this->getError(2, [$url,  $expected, $actual]);
             $this->assertEquals($expected, $actual, $message);
 
-            $regions =      $this->getCrawler()->filter('.zone .header h2');
+            $regions =      $this->getMyCrawler()->filter('.zone .header h2');
             $expected =     count($this->getRegions());
             $actual =       $regions->count();
             $message =      $this->getError(3, [$url,  $expected, $actual]);
             $this->assertEquals($expected, $actual, $message);
 
-            $maplinks =     $this->getCrawler()->filter('.zone .header .links a:contains("Map")');
+            $maplinks =     $this->getMyCrawler()->filter('.zone .header .links a:contains("Map")');
             $expected =     $this->countRegionsWithMaps();
             $actual =       $maplinks->count();
             $message =      $this->getError(4, [$url,  $expected, $actual]);
@@ -54,32 +54,32 @@ class CountriesTest extends Base
     {
         foreach ($this->getRegions() as $region => $settings) {
             $url = '/en/rww/countries/' . $region;
-            $this->client->request('GET', $url);
+            $this->myClient->request('GET', $url);
 
             $expected = 'RWW > Country Code Locator';
-            $actual = $this->getResponsePageTitle();
+            $actual = $this->getMyResponsePageTitle();
             $message = $this->getError(5, [$url, $expected, $actual]);
             $this->assertEquals($expected, $actual, $message);
 
-            $links = $this->getCrawler()->filter('.quicklinks a');
+            $links = $this->getMyCrawler()->filter('.quicklinks a');
             $expected = 0;
             $actual = $links->count();
             $message = $this->getError(6, [$url, $expected, $actual]);
             $this->assertEquals($expected, $actual, $message);
 
-            $regions = $this->getCrawler()->filter('.zone .header h2');
+            $regions = $this->getMyCrawler()->filter('.zone .header h2');
             $expected = 1;
             $actual = $regions->count();
             $message = $this->getError(7, [$url, $expected, $actual]);
             $this->assertEquals($expected, $actual, $message);
 
-            $maplinks = $this->getCrawler()->filter('.zone .header .links a:contains("Map")');
+            $maplinks = $this->getMyCrawler()->filter('.zone .header .links a:contains("Map")');
             $expected = ($settings['map'] ? 1 : 0);
             $actual = $maplinks->count();
             $message = $this->getError(8, [$url, $expected, $actual]);
             $this->assertEquals($expected, $actual, $message);
 
-            $regions = $this->getCrawler()->filter('.zone .header h2');
+            $regions = $this->getMyCrawler()->filter('.zone .header h2');
             $expected = $settings['title'];
             $actual = $regions->eq(0)->text();
             $message = $this->getError(9, [$url, $expected, $actual]);
@@ -91,9 +91,9 @@ class CountriesTest extends Base
     {
         $allRegions = array_keys($this->getRegions());
         $url = '/en/rww/countries/'.implode(',', $allRegions);
-        $this->client->request('GET', $url);
+        $this->myClient->request('GET', $url);
 
-        $links =        $this->getCrawler()->filter('.quicklinks a');
+        $links =        $this->getMyCrawler()->filter('.quicklinks a');
         $expected =     count($allRegions);
         $actual =       $links->count();
         $message =      $this->getError(10, [$url,  $expected, $actual]);

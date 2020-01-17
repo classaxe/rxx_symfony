@@ -38,54 +38,54 @@ class ListenersTest extends Base
     {
         foreach ($this->getSystems() as $system) {
             $url = '/en/' . $system . '/listeners';
-            $this->client->request('GET', $url);
+            $this->myClient->request('GET', $url);
             $expected =     200;
-            $actual =       $this->getResponseStatusCode();
+            $actual =       $this->getMyResponseStatusCode();
             $message =      $this->getError(1, [$url, $usertype, $expected, $actual]);
             $this->assertEquals($expected, $actual, $message);
 
             $expected =     strToUpper($system) . ' > Listeners List';
-            $actual =       $this->getResponsePageTitle();
+            $actual =       $this->getMyResponsePageTitle();
             $message =      $this->getError(2, [$url, $usertype, $expected, $actual]);
             $this->assertEquals($expected, $actual, $message);
 
-            $selectors =    $this->getCrawler()->filter('#form_region');
+            $selectors =    $this->getMyCrawler()->filter('#form_region');
             $expected =     $system === 'rww' ? 1 : 0;
             $actual =       $selectors->count();
             $message =      $this->getError(3, [$url, $usertype, $expected, $actual]);
             $this->assertEquals($expected, $actual, $message);
 
-            $headRow =      $this->getCrawler()->filter('table.listener.results thead tr')->eq(0);
+            $headRow =      $this->getMyCrawler()->filter('table.listener.results thead tr')->eq(0);
             $expected =     static::COLS_MIN + ($usertype == 'admin' ? static::COLS_ADMIN : 0);
             $actual =       $headRow->children()->count();
             $message =      $this->getError(4, [$url, $usertype, $expected, $actual]);
             $this->assertEquals($expected, $actual, $message);
 
-            $resultRows =   $this->getCrawler()->filter('table.listener.results tbody')->eq(0);
+            $resultRows =   $this->getMyCrawler()->filter('table.listener.results tbody')->eq(0);
             $expected =     10;  // 'GreaterThan' clause is used to test
             $actual =       $resultRows->children()->count();
             $message =      $this->getError(5, [$url, $usertype, $expected, $actual]);
             $this->assertGreaterThan($expected, $actual, $message);
 
             $form = $this
-                ->getCrawler()
+                ->getMyCrawler()
                 ->filter('button#form_submit')
                 ->form(['form[types]' =>    array_values((new TypeRepository)->getAllChoices())], 'POST');
-            $this->client->submit($form);
+            $this->myClient->submit($form);
 
-            $headRow =      $this->getCrawler()->filter('table.listener.results thead tr')->eq(0);
+            $headRow =      $this->getMyCrawler()->filter('table.listener.results thead tr')->eq(0);
             $expected =     static::COLS_MAX + ($usertype == 'admin' ? static::COLS_ADMIN : 0);
             $actual =       $headRow->children()->count();
             $message =      $this->getError(6, [$url, $usertype, $expected, $actual]);
             $this->assertEquals($expected, $actual, $message);
 
             $form = $this
-                ->getCrawler()
+                ->getMyCrawler()
                 ->filter('button#form_submit')
                 ->form(['form[filter]' =>    'AAAA'], 'POST');
-            $this->client->submit($form);
+            $this->myClient->submit($form);
 
-            $noResults =    $this->getCrawler()->filter('p.no-results')->eq(0);
+            $noResults =    $this->getMyCrawler()->filter('p.no-results')->eq(0);
             $expected =     '(No listeners found matching your criteria)';
             $actual =       $noResults->text();
             $message =      $this->getError(7, [$url, $usertype, $expected, $actual]);

@@ -6,7 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 abstract class Base extends WebTestCase
 {
-    protected $client;
+    protected $myClient;
 
     protected $currentUserType = 'public';
 
@@ -15,7 +15,7 @@ abstract class Base extends WebTestCase
     protected function setUp()
     {
         $client = static::createClient();
-        $this->client = $client;
+        $this->myClient = $client;
     }
 
     protected function getCountriesHavingStates()
@@ -222,9 +222,9 @@ abstract class Base extends WebTestCase
     /**
      * @return mixed
      */
-    protected function getCrawler()
+    protected function getMyCrawler()
     {
-        return $this->client->getCrawler();
+        return $this->myClient->getCrawler();
     }
 
     /**
@@ -233,7 +233,7 @@ abstract class Base extends WebTestCase
      */
     protected function filter($match)
     {
-        return $this->getCrawler()->filter($match);
+        return $this->getMyCrawler()->filter($match);
     }
 
     /**
@@ -255,41 +255,41 @@ abstract class Base extends WebTestCase
     /**
      * @return mixed
      */
-    protected function getResponse()
+    protected function getMyResponse()
     {
-        return $this->client->getResponse();
+        return $this->myClient->getResponse();
     }
 
     /**
      * @return mixed
      */
-    protected function getResponseContent()
+    protected function getMyResponseContent()
     {
-        return $this->getResponse()->getContent();
+        return $this->getMyResponse()->getContent();
     }
 
     /**
      * @return mixed
      */
-    protected function getResponseRedirectLocation()
+    protected function getMyResponseRedirectLocation()
     {
-        return $this->getResponse()->headers->get('location');
+        return $this->getMyResponse()->headers->get('location');
     }
 
     /**
      * @return mixed
      */
-    protected function getResponsePageTitle()
+    protected function getMyResponsePageTitle()
     {
-        return $this->getCrawler()->filter('title')->eq(0)->text();
+        return $this->getMyCrawler()->filter('title')->eq(0)->text();
     }
 
     /**
      * @return mixed
      */
-    protected function getResponseStatusCode()
+    protected function getMyResponseStatusCode()
     {
-        return $this->getResponse()->getStatusCode();
+        return $this->getMyResponse()->getStatusCode();
     }
 
     /**
@@ -298,8 +298,8 @@ abstract class Base extends WebTestCase
     protected function setNoRedirect()
     {
         $this->currentRedirectStatus = false;
-        $this->client->setMaxRedirects(1);
-        $this->client->followRedirects(false);
+        $this->myClient->setMaxRedirects(1);
+        $this->myClient->followRedirects(false);
         return $this;
     }
 
@@ -309,8 +309,8 @@ abstract class Base extends WebTestCase
     protected function setYesRedirect()
     {
         $this->currentRedirectStatus = true;
-        $this->client->setMaxRedirects(10);
-        $this->client->followRedirects(true);
+        $this->myClient->setMaxRedirects(10);
+        $this->myClient->followRedirects(true);
         return $this;
     }
 
@@ -319,9 +319,9 @@ abstract class Base extends WebTestCase
         $initialRedirectStatus = $this->currentRedirectStatus;
         $this->setYesRedirect();
         $admin = $this->getAdminUser();
-        $this->client->request('GET', '/en/rww/admin/logon');
+        $this->myClient->request('GET', '/en/rww/admin/logon');
         $form = $this
-            ->getCrawler()
+            ->getMyCrawler()
             ->filter('button#form_submit')
             ->form(
                 [
@@ -330,7 +330,7 @@ abstract class Base extends WebTestCase
                 ],
                 'POST'
             );
-        $this->client->submit($form);
+        $this->myClient->submit($form);
         if (!$initialRedirectStatus) {
             $this->setNoRedirect();
         }
@@ -339,7 +339,7 @@ abstract class Base extends WebTestCase
 
     protected function setUserPublic()
     {
-        $this->client->request('GET', '/en/rww/admin/logoff');
+        $this->myClient->request('GET', '/en/rww/admin/logoff');
         $this->currentUserType = 'public';
     }
 

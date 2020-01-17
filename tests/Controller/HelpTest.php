@@ -15,14 +15,14 @@ class HelpTest extends Base
     {
         foreach ($this->getSystems() as $system) {
             $url = '/en/'.$system.'/help';
-            $this->client->request('GET', $url);
+            $this->myClient->request('GET', $url);
 
             $expected =     strtoupper($system).' > Help';
-            $actual =       $this->getResponsePageTitle();
+            $actual =       $this->getMyResponsePageTitle();
             $message =      $this->getError(1, [$url, $expected, $actual]);
             $this->assertEquals($expected, $actual, $message);
 
-            $links =        $this->getCrawler()->filter('.quicklinks a');
+            $links =        $this->getMyCrawler()->filter('.quicklinks a');
             $expected =     8;
             $actual =       $links->count();
             $message =      $this->getError(2, [$url,  $expected, $actual]);

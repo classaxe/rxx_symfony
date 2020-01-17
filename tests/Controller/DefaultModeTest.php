@@ -22,20 +22,20 @@ class DefaultModeTest extends Base
         foreach ($this->getSystems() as $system) {
             $this->setNoRedirect();
 
-            $this->client->request('GET', '/en/'.$system.'/');
+            $this->myClient->request('GET', '/en/'.$system.'/');
 
             $expected =     'Redirecting to /en/'.$system.'/'.$this->getDefaultMode();
-            $actual =       $this->getResponsePageTitle();
+            $actual =       $this->getMyResponsePageTitle();
             $message =      $this->getError(1, [$system, $expected, $actual]);
             $this->assertEquals($expected, $actual, $message);
 
             $expected =     302;
-            $actual =       $this->getResponseStatusCode();
+            $actual =       $this->getMyResponseStatusCode();
             $message =      $this->getError(2, [$system, $expected, $actual]);
             $this->assertEquals($expected, $actual, $message);
 
             $expected =     '/en/'.$system.'/'.$this->getDefaultMode();
-            $actual =       $this->getResponseRedirectLocation();
+            $actual =       $this->getMyResponseRedirectLocation();
             $message =      $this->getError(3, [$system, $expected, $actual]);
             $this->assertEquals($expected, $actual, $message);
         }

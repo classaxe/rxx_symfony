@@ -19,20 +19,20 @@ class DefaultSystemTest extends Base
                 ->setVisitorIP($profile['IP'])
                 ->setNoRedirect();
 
-            $this->client->request('GET', '/');
+            $this->myClient->request('GET', '/');
 
             $expected =     'Redirecting to /en/';
-            $actual =       $this->getResponsePageTitle();
+            $actual =       $this->getMyResponsePageTitle();
             $message =      $this->getError(1, [$expected, $actual]);
             $this->assertEquals($expected, $actual, $message);
 
             $expected =     302;
-            $actual =       $this->getResponseStatusCode();
+            $actual =       $this->getMyResponseStatusCode();
             $message =      $this->getError(2, [$expected, $actual]);
             $this->assertEquals($expected, $actual, $message);
 
             $expected =     '/en/';
-            $actual =       $this->getResponseRedirectLocation();
+            $actual =       $this->getMyResponseRedirectLocation();
             $message =      $this->getError(3, [$expected, $actual]);
             $this->assertEquals($expected, $actual, $message);
         }
