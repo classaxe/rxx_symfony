@@ -25,5 +25,8 @@
         </div>
         {% include 'signals/actions.html.twig' %}
      </div>
-    {% include 'signals/js.html.twig' %}
+{% include 'js_trans.html.twig' %}
+<script>
+    initSignalsForm(msg.paging, {{ results.total }});
+</script>
 {% endblock %}

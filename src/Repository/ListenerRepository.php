@@ -74,14 +74,21 @@ class ListenerRepository extends ServiceEntityRepository
 
     public function getStats($system, $region)
     {
-        $dates = $this->logRepository->getFirstAndLastLog($system, $region);
-        $stats = [
-            [ 'Locations' =>    number_format($this->getFilteredListenersCount($system, [ 'region' => $region ]))],
-            [ 'Loggings' =>     number_format($this->logRepository->getFilteredLogsCount($system, $region)) ],
-            [ 'First log' =>    date('j M Y', strtotime($dates['first'])) ],
-            [ 'Last log' =>     date('j M Y', strtotime($dates['last' ])) ]
-        ];
+        $listeners =    $this->getFilteredListenersCount($system, [ 'region' => $region ]);
+        if (!$listeners) {
+            return [];
+        }
+        $loggings =     $this->logRepository->getFilteredLogsCount($system, $region);
+        $dates =        $this->logRepository->getFirstAndLastLog($system, $region);
 
+        $stats = [
+            [ 'Locations' =>    number_format($listeners)],
+            [ 'Loggings' =>     number_format($loggings) ]
+        ];
+        if ($loggings) {
+            $stats[] = [ 'First log' =>    date('j M Y', strtotime($dates['first'])) ];
+            $stats[] = [ 'Last log' =>     date('j M Y', strtotime($dates['last' ])) ];
+        }
         return [ '%s Listeners' . ($region ? "<br />in " . $this->regionRepository->get($region)->getName() : "") => $stats];
     }
 

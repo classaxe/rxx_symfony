@@ -12,27 +12,6 @@
 {% include 'forms/paging.html.twig' %}
                 </fieldset>
                 <fieldset class="section">
-                    <legend class="line">{% trans %}Customise{% endtrans %}</legend>
-                    {{ form_row(form.personalise) }}
-                    <div style="display:inline-block; clear: none; float:right;">
-                        {{ form_label(form.offsets) }}
-                        {{ form_widget(form.offsets) }}
-                    </div>
-                    <div>
-                        {{ form_label(form.range_gsq) }}
-                        {{ form_widget(form.range_gsq) }}
-                        {{ form_label(form.range_min) }}
-                        {{ form_widget(form.range_min) }}
-                        <span>-</span>
-                        <label for="form_range_max" class="sr-only">{% trans %}DX Max{% endtrans %}</label>
-                        {{ form_widget(form.range_max) }}
-                        {{ form_widget(form.range_units) }}
-                    </div>
-                    <div style="display:inline-block;">
-                        {% include 'signals/formSortby.html.twig' %}
-                    </div>
-                </fieldset>
-                <fieldset class="section">
                     <legend class="line">{% trans %}Signal Details{% endtrans %}</legend>
                     {{ form_row(form.types) }}
                     <div style="display:inline-block; width:auto">
@@ -85,6 +64,27 @@
                     <div>
                         {{  form_label(form.logged_last_1) }}
                         {{  form_widget(form.logged_last_1) }} <span>-</span> {{  form_widget(form.logged_last_2) }}
+                    </div>
+                </fieldset>
+                <fieldset class="section">
+                    <legend class="line">{% trans %}Customise{% endtrans %}</legend>
+                    {{ form_row(form.personalise) }}
+                    <div style="display:inline-block; clear: none; float:right;">
+                        {{ form_label(form.offsets) }}
+                        {{ form_widget(form.offsets) }}
+                    </div>
+                    <div>
+                        {{ form_label(form.range_gsq) }}
+                        {{ form_widget(form.range_gsq) }}
+                        {{ form_label(form.range_min) }}
+                        {{ form_widget(form.range_min) }}
+                        <span>-</span>
+                        <label for="form_range_max" class="sr-only">{% trans %}DX Max{% endtrans %}</label>
+                        {{ form_widget(form.range_max) }}
+                        {{ form_widget(form.range_units) }}
+                    </div>
+                    <div style="display:inline-block;">
+                        {% include 'signals/formSortby.html.twig' %}
                     </div>
                 </fieldset>
                 {% if (isAdmin) %}

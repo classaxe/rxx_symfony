@@ -3029,6 +3029,22 @@
         <source>Press QNH to view recent barometric pressure readings.</source>
         <target>Press QNH to view recent barometric pressure readings.</target>
       </trans-unit>
+      <trans-unit id="zs6tjyt" resname="%s Listeners&lt;br /&gt;in Unknown">
+        <source>%s Listeners&lt;br /&gt;in Unknown</source>
+        <target><![CDATA[%s Listeners<br />in Unknown]]></target>
+      </trans-unit>
+      <trans-unit id="DNIEr_U" resname="Set or Clear filtering on this value">
+        <source>Set or Clear filtering on this value</source>
+        <target>Set or Clear filtering on this value</target>
+      </trans-unit>
+      <trans-unit id="Bsj4CmI" resname="Set or Clear Signal filtering on this value">
+        <source>Set or Clear Signal filtering on this value</source>
+        <target>Set or Clear Signal filtering on this value</target>
+      </trans-unit>
+      <trans-unit id="UoGqWST" resname="Show map (accuracy limited to nearest Grid Square)">
+        <source>Show map (accuracy limited to nearest Grid Square)</source>
+        <target>Show map (accuracy limited to nearest Grid Square)</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

@@ -103,8 +103,7 @@ function getMetar(decoded) {
     );
 }
 
-function getPagingOptions(total, limit, page)
-{
+function getPagingOptions(total, limit, page) {
     var out = "";
     pages = total/limit;
     for (var i=0; i < pages; i++) {
@@ -467,21 +466,61 @@ function setExternalLinks() {
         window.open(this.href, args[0], args[1]);
         return false;
     });
-    $('a[data-append]').click(function() {
-        var abbr, div, field, items;
-        abbr = $(this).find('span').html();
-        div = ('itu' === $(this).data('append') ? '#form_countries' : '#form_states');
-        field = window.opener.$(div);
-        items = field.val().split(' ');
-        if ($.inArray(abbr, items) !== -1) {
-            items = items.filter(function(elem){ return elem != abbr; });
-        } else {
-            items.push(abbr);
-        }
-        field.val(Array.from(new Set(items)).sort().join(' ').trim());
-        return false;
-    });
-
+    $('a[data-append]')
+        .click(function() {
+            var abbr, div, field, items;
+            abbr = $(this).find('span').html();
+            div = ('itu' === $(this).data('append') ? '#form_countries' : '#form_states');
+            field = window.opener.$(div);
+            items = field.val().split(' ');
+            if ($.inArray(abbr, items) !== -1) {
+                items = items.filter(function(elem){ return elem != abbr; });
+            } else {
+                items.push(abbr);
+            }
+            field.val(Array.from(new Set(items)).sort().join(' ').trim());
+            return false;
+        })
+        .attr('title', msg.data_append);
+    $('a[data-set]')
+        .click(function() {
+            var abbr, divs, field, i;
+            abbr = $(this).text();
+            switch ($(this).data('set')) {
+                case 'khz':
+                    divs = ['#form_khz_1', '#form_khz_2'];
+                    break;
+                case 'itu':
+                    divs = ['#form_countries'];
+                    break;
+                case 'sp':
+                    divs = ['#form_states'];
+                    break;
+            }
+            for (i in divs) {
+                field = $(divs[i]);
+                if (field.val() === abbr) {
+                    field.val('');
+                } else {
+                    field.val(abbr);
+                }
+            }
+            $('form[name="form"]').submit();
+            return false;
+        })
+        .attr('title', msg.data_set);
+    $('a[data-gsq]')
+        .click(function() {
+            var args, div, field;
+            args = $(this).data('gsq').split('|');
+            window.open(
+                'http://maps.google.com/maps?ll='+args[1]+','+args[2]+'&spn=0.005223,0.009438&t=h&hl=en',
+                'popMap'+args[0],
+                'scrollbars=1,resizable=1,width=1024,height=800'
+            );
+            return false;
+        })
+        .attr('title', msg.data_gsq);
 }
 
 /* [ Enable Country change to resubmit form ] */
