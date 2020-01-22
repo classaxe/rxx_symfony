@@ -504,11 +504,13 @@ table.seeklist {
         list-style: none;
         font-size: 80%;
         font-weight: normal;
-        &:hover {
-            background: #ffff00;
-        }
         span.abbr {
             float: right; font-weight: bold;
+        }
+        a:hover,
+        a:hover * {
+            background: #ffff00;
+            text-decoration: underline;
         }
     }
     .body {

@@ -32,7 +32,7 @@ class States extends AbstractController
      *        "locale": "de|en|es|fr",
      *        "system": "reu|rna|rww"
      *     },
-     *     defaults={"filter"=""},
+     *     defaults={"filter"="*"},
      *     name="states"
      * )
      */
@@ -40,9 +40,10 @@ class States extends AbstractController
     {
         $parameters = [
             '_locale' =>    $_locale,
-            'system' =>     $system,
+            'countries' =>  $this->country->getCountriesAndStates($filter),
+            'filter' =>     $filter,
             'mode' =>       'State and Province Locator',
-            'countries' =>  $this->country->getCountriesAndStates($filter)
+            'system' =>     $system,
         ];
 
         return $this->render('states/index.html.twig', $parameters);

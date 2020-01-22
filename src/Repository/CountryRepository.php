@@ -121,7 +121,7 @@ class CountryRepository extends ServiceEntityRepository
             ->execute();
     }
 
-    public function getCountriesAndStates($countryCodes = null)
+    public function getCountriesAndStates($countryCodes = '*')
     {
         $countries = $this->getMatching(
             false,
@@ -129,7 +129,7 @@ class CountryRepository extends ServiceEntityRepository
             false,
             false,
             true,
-            $countryCodes
+            '*' === $countryCodes ? '' : $countryCodes
         );
 
         foreach ($countries as &$country) {

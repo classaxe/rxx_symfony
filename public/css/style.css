@@ -1,7 +1,7 @@
 /*!
 * Project:   RXX - NDB Logging Database
 * Homepage:  https://rxx.classaxe.com
-* Date:      2020-01-15
+* Date:      2020-01-22
 * Licence:   LGPL
 * Copyright: 2020 Martin Francis
 */
@@ -570,12 +570,14 @@ table.seeklist tbody td div.sl_d.inactive {
   font-size: 80%;
   font-weight: normal;
 }
-.help li:hover {
-  background: #ffff00;
-}
 .help li span.abbr {
   float: right;
   font-weight: bold;
+}
+.help li a:hover,
+.help li a:hover * {
+  background: #ffff00;
+  text-decoration: underline;
 }
 .help .body {
   border: 1px solid #707070;

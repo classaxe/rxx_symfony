@@ -57,9 +57,9 @@ class RegionRepository extends ServiceEntityRepository
         return $out;
     }
 
-    public function getAllWithCountries($region = null)
+    public function getAllWithCountries($region = '*')
     {
-        $regions = $this->getRegions($region);
+        $regions = $this->getRegions('*' === $region ? '' : $region);
         foreach ($regions as &$region) {
             $code =                 $region->getRegion();
             $region->countries =    $this->country->getMatching(false, $code);

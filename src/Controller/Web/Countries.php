@@ -33,7 +33,7 @@ class Countries extends AbstractController
      *        "locale": "de|en|es|fr",
      *        "system": "reu|rna|rww"
      *     },
-     *     defaults={"filter"=""},
+     *     defaults={"filter"="*"},
      *     name="countries"
      * )
      */
@@ -41,9 +41,10 @@ class Countries extends AbstractController
     {
         $parameters = [
             '_locale' =>    $_locale,
-            'system' =>     $system,
+            'filter' =>     $filter,
             'mode' =>       'Country Code Locator',
-            'regions' =>    $this->region->getAllWithCountries($filter)
+            'regions' =>    $this->region->getAllWithCountries($filter),
+            'system' =>     $system
         ];
 
         return $this->render('countries/index.html.twig', $parameters);

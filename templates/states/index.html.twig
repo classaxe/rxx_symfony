@@ -25,7 +25,7 @@
         {% if country.states|length  %}
         <ol class="row small-up-1 medium-up-3 large-up-4 clearfix">
             {% for s in country.states %}
-            <li class="column">{{ s.name }}<span class="abbr">{{ s.sp }}</span></li>
+            <li class="column">{% if filter == '*' %}<a data-append="sp">{% endif %}{{ s.name }}<span class="abbr">{{ s.sp }}</span>{% if filter == '*' %}</a>{% endif %}</li>
             {% endfor %}
         </ol>
         {% endif %}

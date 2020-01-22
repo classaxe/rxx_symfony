@@ -1,4 +1,5 @@
 var popWinSpecs = {
+    'countries_*' :                 'width=860,height=630,resizable=1',
     'countries_af' :                'width=640,height=630,resizable=1',
     'countries_as' :                'width=780,height=590,resizable=1',
     'countries_eu' :                'width=680,height=590,resizable=1',
@@ -24,8 +25,9 @@ var popWinSpecs = {
     'signals_[id]_logs' :           'width=800,height=680,status=1,scrollbars=1,resizable=1',
     'signals_[id]_listeners' :      'width=800,height=680,status=1,scrollbars=1,resizable=1',
     'signals_[id]_weather' :        'width=800,height=680,status=1,scrollbars=1,resizable=1',
-    'states_aus' :                  'width=640,height=240,resizable=1',
-    'states_can_usa' :              'width=640,height=690,resizable=1',
+    'states_*' :                    'width=720,height=760,resizable=1',
+    'states_aus' :                  'width=720,height=240,resizable=1',
+    'states_can_usa' :              'width=680,height=690,resizable=1',
 };
 
 function changeShowMode(mode) {
@@ -347,6 +349,8 @@ function initSignalsForm(pagingMsg, resultsCount) {
         setFormCountryAction();
         setFormAdminAction();
         setFormRegionAction();
+        setFormStatesLabelLink();
+        setFormCountriesLabelLink();
 
         setFormListenerInvertDefault();
         setFormHeardInModDefault();
@@ -463,6 +467,20 @@ function setExternalLinks() {
         window.open(this.href, args[0], args[1]);
         return false;
     });
+    $('a[data-append]').click(function() {
+        var abbr, div, field, items;
+        abbr = $(this).find('span').html();
+        div = ('itu' === $(this).data('append') ? '#form_countries' : '#form_states');
+        field = window.opener.$(div);
+        items = field.val().split(' ');
+        if ($.inArray(abbr, items) !== -1) {
+            items = items.filter(function(elem){ return elem != abbr; });
+        } else {
+            items.push(abbr);
+        }
+        field.val(Array.from(new Set(items)).sort().join(' ').trim());
+        return false;
+    });
 
 }
 
@@ -476,6 +494,16 @@ function setFormCountryAction(enable) {
     } else {
         $('select#form_country').off('change');
     }
+}
+
+function setFormCountriesLabelLink() {
+    var ele = $('label[for="form_countries"]');
+    ele.html('<a href="countries/*" data-popup="1">' + ele.html() + '</a>');
+}
+
+function setFormStatesLabelLink() {
+    var ele = $('label[for="form_states"]');
+    ele.html('<a href="states/*" data-popup="1">' + ele.html() + '</a>');
 }
 
 function setFormDatePickers() {
