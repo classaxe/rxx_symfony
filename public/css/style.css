@@ -1,7 +1,7 @@
 /*!
 * Project:   RXX - NDB Logging Database
 * Homepage:  https://rxx.classaxe.com
-* Date:      2020-01-22
+* Date:      2020-01-27
 * Licence:   LGPL
 * Copyright: 2020 Martin Francis
 */
@@ -278,6 +278,9 @@ pre {
   margin: 0.5em !important;
   font-size: 8pt !important;
   display: inline-block;
+}
+a.hover:hover {
+  background-color: #ffff00;
 }
 /* [ Menu ] */
 body .menu-centered {
@@ -1192,7 +1195,7 @@ fieldset#form_range_units div label {
 }
 .signal_view #form label b {
   font-weight: normal;
-  background: #ffff00;
+  background: #ffffa0;
   padding: 1px;
   border: 1px solid #b0b000;
   border-radius: 2px;
@@ -1300,7 +1303,7 @@ fieldset#form_range_units div label {
   color: #0000ff;
 }
 .signal_view #form div#heardIn b {
-  background: #ffff00;
+  background: #ffffa0;
   padding: 1px;
   border: 1px solid #b0b000;
   border-radius: 2px;
@@ -1426,7 +1429,7 @@ fieldset#group_weather_report_details div label {
   color: #ffe4b3;
 }
 .results th b {
-  background: #ffff00;
+  background: #ffffa0;
   color: #0000ff;
   border: 1px solid #b0b000;
   border-radius: 2px;
@@ -1458,7 +1461,7 @@ fieldset#group_weather_report_details div label {
   border-radius: 2px;
 }
 .results td b {
-  background: #ffff00;
+  background: #ffffa0;
   padding: 1px;
   border: 1px solid #b0b000;
   border-radius: 2px;

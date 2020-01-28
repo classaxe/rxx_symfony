@@ -521,6 +521,32 @@ function setExternalLinks() {
             return false;
         })
         .attr('title', msg.data_gsq);
+
+    $('a[data-signal-map-eu]')
+        .click(function() {
+            var target = 'eu_' + $(this).data('signal-map-eu');
+            var features = 'scrollbars=1,resizable=1,width=1024,height=800';
+            window.open(this.href, target, features);
+            return false;
+        })
+        .each(function() {
+            $(this).attr('href', './signals/'  + $(this).data('signal-map-eu') + '/map/eu');
+        })
+        .attr('title', msg.s_map_eu)
+        .attr('class', 'hover');
+
+    $('a[data-signal-map-na]')
+        .click(function() {
+            var target = 'na_' + $(this).data('signal-map-na');
+            var features = 'scrollbars=1,resizable=1,width=1024,height=800';
+            window.open(this.href, target, features);
+            return false;
+        })
+        .each(function() {
+            $(this).attr('href', './signals/' + $(this).data('signal-map-na') + '/map/na');
+        })
+        .attr('title', msg.s_map_na)
+        .attr('class', 'hover');
 }
 
 /* [ Enable Country change to resubmit form ] */

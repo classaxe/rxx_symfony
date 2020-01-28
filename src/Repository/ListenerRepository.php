@@ -67,6 +67,51 @@ class ListenerRepository extends ServiceEntityRepository
             . ($l->getGsq() ? ' | ' . $l->getGsq() : '');
     }
 
+    public function getSignalListenersSpItus($map)
+    {
+        $qb = $this
+            ->createQueryBuilder('l')
+            ->select('l.sp, l.itu')
+            ->andWhere('(l.mapX != 0 OR l.mapY != 0)')
+            ->andWhere('l.countLogs != 0')
+            ->addGroupBy('l.sp, l.itu');
+
+        $this->addFilterMap($qb, $map);
+
+        return $qb->getQuery()->execute();
+    }
+
+    public function getSignalListenersMapCoords($map)
+    {
+        $qb = $this
+            ->createQueryBuilder('l')
+            ->select('l.mapX, l.mapY, l.primaryQth')
+            ->andWhere('(l.mapX != 0 OR l.mapY != 0)')
+            ->andWhere('l.countLogs != 0');
+
+        $this->addFilterMap($qb, $map);
+
+        return $qb->getQuery()->execute();
+    }
+
+    public function getSignalListenersMapDetails($map, $signalId)
+    {
+        $qb = $this
+            ->createQueryBuilder('l')
+            ->select('l.mapX, l.mapY, l.name, l.primaryQth, logs.heardIn, logs.dxMiles, logs.dxKm, MAX(logs.daytime) AS daytime')
+            ->innerJoin('\App\Entity\Log', 'logs')
+            ->andWhere('logs.listenerid = l.id')
+            ->andWhere('logs.signalid = :signalId')
+            ->setParameter('signalId', $signalId)
+            ->andWhere('(l.mapX != 0 OR l.mapY != 0)')
+            ->andWhere('l.countLogs != 0')
+            ->addGroupBy('l.id');
+
+        $this->addFilterMap($qb, $map);
+
+        return $qb->getQuery()->execute();
+    }
+
     public function getLogsColumns()
     {
         return $this->listenerLogsColumns;
@@ -190,6 +235,24 @@ class ListenerRepository extends ServiceEntityRepository
             }
         }
         return $out;
+    }
+
+    private function addFilterMap(&$qb, $map)
+    {
+        switch ($map) {
+            case "eu":
+                $qb
+                    ->andWhere('(l.region = :eu)')
+                    ->setParameter('eu', 'eu');
+                break;
+            case "na":
+                $qb
+                    ->andWhere('(l.region = :oc and l.itu = :hwa) or (l.region in (:na_ca))')
+                    ->setParameter('na_ca', ['na','ca'])
+                    ->setParameter('oc', 'oc')
+                    ->setParameter('hwa', 'hwa');
+                break;
+        }
     }
 
     private function addFilterSystem(&$qb, $system)

@@ -3045,6 +3045,14 @@
         <source>Show map (accuracy limited to nearest Grid Square)</source>
         <target>__Show map (accuracy limited to nearest Grid Square)</target>
       </trans-unit>
+      <trans-unit id="V6qROl1" resname="European Reception Map">
+        <source>European Reception Map</source>
+        <target>__European Reception Map</target>
+      </trans-unit>
+      <trans-unit id="me7Mrrg" resname="North American Reception Map">
+        <source>North American Reception Map</source>
+        <target>__North American Reception Map</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
