@@ -18,7 +18,7 @@ class Logs extends Base
      * @Route(
      *     "/{_locale}/{system}/listeners/{id}/export/logs",
      *     requirements={
-     *        "locale": "de|en|es|fr",
+     *        "_locale": "de|en|es|fr",
      *        "system": "reu|rna|rww"
      *     },
      *     defaults={"id"=""},

@@ -14,7 +14,7 @@ class Maps extends Base
      * @Route(
      *     "/{_locale}/{system}/map/{area}",
      *     requirements={
-     *        "locale": "de|en|es|fr",
+     *        "_locale": "de|en|es|fr",
      *        "system": "reu|rna|rww",
      *        "area": "af|alaska|as|au|eu|japan|na|pacific|polynesia|sa"
      *     },
@@ -39,7 +39,7 @@ class Maps extends Base
      * @Route(
      *     "/{_locale}/{system}/maps",
      *     requirements={
-     *        "locale": "de|en|es|fr",
+     *        "_locale": "de|en|es|fr",
      *        "system": "reu|rna|rww"
      *     },
      *     name="maps"

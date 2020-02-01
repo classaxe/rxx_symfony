@@ -15,7 +15,7 @@ class Logoff extends Base
      * @Route(
      *     "/{_locale}/{system}/admin/logoff",
      *     requirements={
-     *        "locale": "de|en|es|fr",
+     *        "_locale": "de|en|es|fr",
      *        "system": "reu|rna|rww"
      *     },
      *     name="logoff"

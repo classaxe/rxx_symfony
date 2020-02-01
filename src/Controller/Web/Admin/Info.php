@@ -2,8 +2,9 @@
 namespace App\Controller\Web\Admin;
 
 use App\Controller\Web\Base;
+use DOMDocument;
+use DOMElement;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Utils\Rxx;
 
 /**
  * Class Listeners
@@ -15,7 +16,7 @@ class Info extends Base
      * @Route(
      *     "/{_locale}/{system}/admin/info",
      *     requirements={
-     *        "locale": "de|en|es|fr",
+     *        "_locale": "de|en|es|fr",
      *        "system": "reu|rna|rww"
      *     },
      *     name="admin/info"
@@ -53,7 +54,7 @@ class Info extends Base
 
     private function getPhpInfo()
     {
-        $doc = new \DOMDocument();
+        $doc = new DOMDocument();
         ob_start();
         phpinfo();
         $doc->loadHtml(ob_get_contents());
@@ -63,7 +64,7 @@ class Info extends Base
         );
     }
 
-    private function innerHTML(\DOMElement $element)
+    private function innerHTML(DOMElement $element)
     {
         $doc = $element->ownerDocument;
         $html = '';

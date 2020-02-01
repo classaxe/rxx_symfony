@@ -30,7 +30,7 @@ class Countries extends AbstractController
      * @Route(
      *     "/{_locale}/{system}/countries/{filter}",
      *     requirements={
-     *        "locale": "de|en|es|fr",
+     *        "_locale": "de|en|es|fr",
      *        "system": "reu|rna|rww"
      *     },
      *     defaults={"filter"="*"},

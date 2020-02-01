@@ -25,7 +25,7 @@ class Collection extends Base
      * @Route(
      *     "/{_locale}/{system}/signals",
      *     requirements={
-     *        "locale": "de|en|es|fr",
+     *        "_locale": "de|en|es|fr",
      *        "system": "reu|rna|rww"
      *     },
      *     name="signals"

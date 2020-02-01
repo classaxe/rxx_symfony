@@ -29,7 +29,7 @@ class States extends AbstractController
      * @Route(
      *     "/{_locale}/{system}/states/{filter}",
      *     requirements={
-     *        "locale": "de|en|es|fr",
+     *        "_locale": "de|en|es|fr",
      *        "system": "reu|rna|rww"
      *     },
      *     defaults={"filter"="*"},

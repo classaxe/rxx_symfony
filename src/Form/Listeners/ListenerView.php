@@ -138,17 +138,6 @@ class ListenerView extends AbstractType
                 ]
             )
             ->add(
-                'email',
-                TextType::class,
-                [
-                    'data'          => $options['email'],
-                    'disabled'      => !$isAdmin,
-                    'empty_data'    => '',
-                    'label'         => 'Email Address',
-                    'required'      => false
-                ]
-            )
-            ->add(
                 'website',
                 TextType::class,
                 [
@@ -245,38 +234,6 @@ class ListenerView extends AbstractType
                 ]
             )
             ->add(
-                'mapX',
-                TextType::class,
-                [
-                    'attr'          => [
-                        'maxlength'     => 3,
-                        'size'          => 3,
-                        'style'         => "width: 4em;"
-                    ],
-                    'data'          => $options['mapX'],
-                    'disabled'      => !$isAdmin,
-                    'empty_data'    => 0,
-                    'label'         => 'Map X',
-                    'required'      => false
-                ]
-            )
-            ->add(
-                'mapY',
-                TextType::class,
-                [
-                    'attr'          => [
-                        'maxlength'     => 3,
-                        'size'          => 3,
-                        'style'         => "width: 4em;"
-                    ],
-                    'data'          => $options['mapY'],
-                    'disabled'      => !$isAdmin,
-                    'empty_data'    => 0,
-                    'label'         => 'Map Y',
-                    'required'      => false
-                ]
-            )
-            ->add(
                 'equipment',
                 TextareaType::class,
                 [
@@ -327,18 +284,65 @@ class ListenerView extends AbstractType
                     ],
                     'label'         => 'Close',
                 ]
-            )
-            ->add(
-                'save',
-                SubmitType::class,
-                [
-                    'attr'          => [
-                        'class'         => 'button small'
-                    ],
-                    'label'         => 'Save',
-                ]
-            )
+            );
         ;
+
+        if ($isAdmin) {
+            $formBuilder
+                ->add(
+                    'email',
+                    TextType::class,
+                    [
+                        'data'          => $options['email'],
+                        'disabled'      => !$isAdmin,
+                        'empty_data'    => '',
+                        'label'         => 'Email Address',
+                        'required'      => false
+                    ]
+                )
+                ->add(
+                    'mapX',
+                    TextType::class,
+                    [
+                        'attr'          => [
+                            'maxlength'     => 3,
+                            'size'          => 3,
+                            'style'         => "width: 4em;"
+                        ],
+                        'data'          => $options['mapX'],
+                        'disabled'      => !$isAdmin,
+                        'empty_data'    => 0,
+                        'label'         => 'Map X',
+                        'required'      => false
+                    ]
+                )
+                ->add(
+                    'mapY',
+                    TextType::class,
+                    [
+                        'attr'          => [
+                            'maxlength'     => 3,
+                            'size'          => 3,
+                            'style'         => "width: 4em;"
+                        ],
+                        'data'          => $options['mapY'],
+                        'disabled'      => !$isAdmin,
+                        'empty_data'    => 0,
+                        'label'         => 'Map Y',
+                        'required'      => false
+                    ]
+                )
+                ->add(
+                    'save',
+                    SubmitType::class,
+                    [
+                        'attr' => [
+                            'class' => 'button small'
+                        ],
+                        'label' => 'Save',
+                    ]
+                );
+        }
 
         return $formBuilder->getForm();
     }

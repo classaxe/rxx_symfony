@@ -15,7 +15,7 @@ class ListenerExport extends Base
      * @Route(
      *     "/{_locale}/{system}/listeners/{id}/export",
      *     requirements={
-     *        "locale": "de|en|es|fr",
+     *        "_locale": "de|en|es|fr",
      *        "system": "reu|rna|rww"
      *     },
      *     name="listener_export"

@@ -21,7 +21,7 @@ class Logon extends Base
      * @Route(
      *     "/{_locale}/{system}/admin/logon",
      *     requirements={
-     *        "locale": "de|en|es|fr",
+     *        "_locale": "de|en|es|fr",
      *        "system": "reu|rna|rww"
      *     },
      *     name="logon"

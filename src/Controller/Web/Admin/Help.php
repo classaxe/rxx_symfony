@@ -14,7 +14,7 @@ class Help extends Base
      * @Route(
      *     "/{_locale}/{system}/admin/help",
      *     requirements={
-     *        "locale": "de|en|es|fr",
+     *        "_locale": "de|en|es|fr",
      *        "system": "reu|rna|rww"
      *     },
      *     name="admin/help"

@@ -21,7 +21,7 @@ class SignalLogs extends Base
      * @Route(
      *     "/{_locale}/{system}/signals/{id}/logs",
      *     requirements={
-     *        "locale": "de|en|es|fr",
+     *        "_locale": "de|en|es|fr",
      *        "system": "reu|rna|rww"
      *     },
      *     name="signal_logs"

@@ -9,22 +9,11 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class Help extends Base
 {
-
-    /**
-     * @var string
-     */
-    private $username = '';
-
-    /**
-     * @var string
-     */
-    private $password = '';
-
     /**
      * @Route(
      *     "/{_locale}/{system}/help",
      *     requirements={
-     *        "locale": "de|en|es|fr",
+     *        "_locale": "de|en|es|fr",
      *        "system": "reu|rna|rww"
      *     },
      *     name="help"

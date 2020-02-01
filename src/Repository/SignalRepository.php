@@ -1051,6 +1051,11 @@ class SignalRepository extends ServiceEntityRepository
                         $out[] = $data;
                     }
                     break;
+                case 'signal_map':
+                    if ($knownQth) {
+                        $out[] = $data;
+                    }
+                    break;
                 default:
                     $out[] = [$route, $label, false];
                     break;

@@ -15,7 +15,7 @@ class ListenerDelete extends Base
      * @Route(
      *     "/{_locale}/{system}/listeners/{id}/delete",
      *     requirements={
-     *        "locale": "de|en|es|fr",
+     *        "_locale": "de|en|es|fr",
      *        "system": "reu|rna|rww"
      *     },
      *     name="listener_delete"

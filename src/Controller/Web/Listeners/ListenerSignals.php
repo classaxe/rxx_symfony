@@ -21,7 +21,7 @@ class ListenerSignals extends Base
      * @Route(
      *     "/{_locale}/{system}/listeners/{id}/signals/{type}",
      *     requirements={
-     *        "locale": "de|en|es|fr",
+     *        "_locale": "de|en|es|fr",
      *        "system": "reu|rna|rww"
      *     },
      *     defaults={"type"=""},

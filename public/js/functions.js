@@ -512,7 +512,7 @@ function setExternalLinks() {
 
     $('a[data-gsq]')
         .click(function() {
-            var target = 'map_' + $(this).data('data-gsq');
+            var target = 'map_' + $(this).data('gsq');
             var features = 'scrollbars=1,resizable=1,width=1024,height=800';
             window.open(this.href, target, features);
             return false;
@@ -548,6 +548,17 @@ function setExternalLinks() {
         })
         .attr('title', msg.s_map_na)
         .attr('class', 'hover');
+
+    $('area[data-map]')
+        .click(function() {
+            var target = 'listeners_' + $(this).data('map');
+            window.open(this.href, target, popWinSpecs["listeners_[id]"]);
+            return false;
+        })
+        .attr('shape', 'circle')
+        .each(function() {
+            $(this).attr('title', $(this).attr('alt'));
+        });
 }
 
 /* [ Enable Country change to resubmit form ] */

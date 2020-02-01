@@ -19,7 +19,7 @@ class SignalMap extends Base
      * @Route(
      *     "/{_locale}/{system}/signals/{id}/map",
      *     requirements={
-     *        "locale": "de|en|es|fr",
+     *        "_locale": "de|en|es|fr",
      *        "system": "reu|rna|rww"
      *     },
      *     name="signal_map"
@@ -59,7 +59,7 @@ class SignalMap extends Base
      * @Route(
      *     "/{_locale}/{system}/signals/{id}/map/eu",
      *     requirements={
-     *        "locale": "de|en|es|fr",
+     *        "_locale": "de|en|es|fr",
      *        "system": "reu|rna|rww"
      *     },
      *     name="signal_rx_map_eu"
@@ -89,7 +89,7 @@ class SignalMap extends Base
      * @Route(
      *     "/{_locale}/{system}/signals/{id}/map/na",
      *     requirements={
-     *        "locale": "de|en|es|fr",
+     *        "_locale": "de|en|es|fr",
      *        "system": "reu|rna|rww"
      *     },
      *     name="signal_rx_map_na"
@@ -147,7 +147,7 @@ class SignalMap extends Base
      * @Route(
      *     "/{_locale}/{system}/signals/{id}/map/{map}/image",
      *     requirements={
-     *        "locale": "de|en|es|fr",
+     *        "_locale": "de|en|es|fr",
      *        "system": "reu|rna|rww",
      *        "map": "eu|na"
      *     },
@@ -185,6 +185,8 @@ class SignalMap extends Base
             'pri' =>    $i18n->trans('Listener Primary QTH'),
             'sec' =>    $i18n->trans('Listener Other QTH'),
         ];
+
+        header('Content-Type: image/gif');
 
         $mapRepository->drawMapImage($map, 'station', $basedIn, $listenerSpItus, $listenerMapCoords, $heardIn, $text);
         die;

@@ -41,7 +41,7 @@ class Collection extends Base
      * @Route(
      *     "/{_locale}/{system}/listeners",
      *     requirements={
-     *        "locale": "de|en|es|fr",
+     *        "_locale": "de|en|es|fr",
      *        "system": "reu|rna|rww"
      *     },
      *     name="listeners"

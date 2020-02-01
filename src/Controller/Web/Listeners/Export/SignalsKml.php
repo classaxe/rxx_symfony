@@ -18,7 +18,7 @@ class SignalsKml extends Base
      * @Route(
      *     "/{_locale}/{system}/listeners/{id}/export/signals.kml/{type}/{active}",
      *     requirements={
-     *        "locale": "de|en|es|fr",
+     *        "_locale": "de|en|es|fr",
      *        "system": "reu|rna|rww"
      *     },
      *     defaults={"id"="", "type"="*", "active"="*"},

@@ -317,8 +317,6 @@ class MapRepository
 
     public function drawMapImage($region, $mode, $basedIn, $reportersIn, $reportersData, $heardIn, $text)
     {
-        header('Content-Type: image/gif');
-
         switch ($region) {
             case 'eu':
                 $width = 688;

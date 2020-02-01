@@ -17,7 +17,7 @@ class Config extends Base
      * @Route(
      *     "/{_locale}/{system}/listeners/{id}/ndbweblog/config.js",
      *     requirements={
-     *        "locale": "de|en|es|fr",
+     *        "_locale": "de|en|es|fr",
      *        "system": "reu|rna|rww"
      *     },
      *     defaults={"id"=""},

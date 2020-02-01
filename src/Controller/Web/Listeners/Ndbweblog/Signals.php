@@ -17,7 +17,7 @@ class Signals extends Base
      * @Route(
      *     "/{_locale}/{system}/listeners/{id}/ndbweblog/stations.js",
      *     requirements={
-     *        "locale": "de|en|es|fr",
+     *        "_locale": "de|en|es|fr",
      *        "system": "reu|rna|rww"
      *     },
      *     defaults={"id"=""},

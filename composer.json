@@ -31,7 +31,8 @@
         "symfony/web-link": "^4.1",
         "symfony/yaml": "^4.1",
       "ext-posix": "*",
-      "ext-gd": "*"
+      "ext-gd": "*",
+      "ext-dom": "*"
     },
     "require-dev": {
         "symfony/browser-kit": "^4.1",

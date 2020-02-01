@@ -20,7 +20,7 @@ class SignalWeather extends Base
      * @Route(
      *     "/{_locale}/{system}/signals/{id}/weather",
      *     requirements={
-     *        "locale": "de|en|es|fr",
+     *        "_locale": "de|en|es|fr",
      *        "system": "reu|rna|rww"
      *     },
      *     name="signal_weather"
