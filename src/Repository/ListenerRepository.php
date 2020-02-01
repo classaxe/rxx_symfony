@@ -9,6 +9,7 @@ use App\Utils\Rxx;
 use App\Columns\Listeners as ListenersColumns;
 use Doctrine\DBAL\Driver\Connection;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
 
 class ListenerRepository extends ServiceEntityRepository
@@ -86,28 +87,31 @@ class ListenerRepository extends ServiceEntityRepository
         return $out;
     }
 
-    public function getSignalListenersMapCoords($map)
+    public function getSignalListenersMapCoords($map, $signalId)
     {
         $qb = $this
-            ->createQueryBuilder('l')
-            ->select('l.id, l.mapX, l.mapY, l.primaryQth')
+            ->createQueryBuilder('l', 'l.id')
+            ->select('l.mapX, l.mapY, l.primaryQth, CASE WHEN logs.id IS NULL THEN 0 ELSE 1 END AS heard')
+            ->leftJoin(
+                '\App\Entity\Log',
+                'logs',
+                Join::WITH,
+                'logs.listenerid = l.id AND logs.signalid = :signalId'
+            )
             ->andWhere('(l.mapX != 0 OR l.mapY != 0)')
-            ->andWhere('l.countLogs != 0');
+            ->andWhere('l.countLogs != 0')
+            ->setParameter('signalId', $signalId)
+            ->addGroupBy('l.id');
 
         $this->addFilterMap($qb, $map);
 
-        $results = $qb->getQuery()->execute();
-        $out = [];
-        foreach ($results as $r) {
-            $out[$r['id']] = $r;
-        }
-        return $out;
+        return $qb->getQuery()->execute();
     }
 
     public function getSignalListenersMapDetails($map, $signalId)
     {
         $qb = $this
-            ->createQueryBuilder('l')
+            ->createQueryBuilder('l', 'l.id')
             ->select('l.id, l.mapX, l.mapY, l.name, l.primaryQth, logs.heardIn, logs.dxMiles, logs.dxKm, MAX(logs.daytime) AS daytime')
             ->innerJoin('\App\Entity\Log', 'logs')
             ->andWhere('logs.listenerid = l.id')
@@ -119,12 +123,7 @@ class ListenerRepository extends ServiceEntityRepository
 
         $this->addFilterMap($qb, $map);
 
-        $results = $qb->getQuery()->execute();
-        $out = [];
-        foreach ($results as $r) {
-            $out[$r['id']] = $r;
-        }
-        return $out;
+        return $qb->getQuery()->execute();
     }
 
     public function getLogsColumns()

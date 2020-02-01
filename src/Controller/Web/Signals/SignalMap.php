@@ -51,12 +51,9 @@ class SignalMap extends Base
         }
         $i18n = $this->translator;
         $listenerSpItus =     $listenerRepository->getSignalListenersSpItus($map);
-        $listenerMapCoords =  $listenerRepository->getSignalListenersMapCoords($map);
-        $listenerMapDetails = $listenerRepository->getSignalListenersMapDetails($map, $id);
+        $listenerMapCoords =  $listenerRepository->getSignalListenersMapCoords($map, $id);
+//        $listenerMapDetails = $listenerRepository->getSignalListenersMapDetails($map, $id);
 
-        foreach($listenerMapCoords as $key => &$r) {
-            $r['heard'] = isset($listenerMapDetails[$key]) ? 1 : 0;
-        }
         $basedIn = $signal->getSp() ?? $signal->getItu();
         $heardIn = $signal->getHeardInArr();
         $text = [
