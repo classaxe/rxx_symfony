@@ -1,7 +1,7 @@
 /*!
 * Project:   RXX - NDB Logging Database
 * Homepage:  https://rxx.classaxe.com
-* Date:      2020-01-27
+* Date:      2020-02-01
 * Licence:   LGPL
 * Copyright: 2020 Martin Francis
 */
@@ -70,10 +70,10 @@ body.rna {
   background: #f8f8ff;
 }
 body.rna table.stats tr {
-  background: #e6e6ff;
+  background: #e0e0ff;
 }
 body.rna .menu-centered .header {
-  background: #e6e6ff;
+  background: #e0e0ff;
   border: 3px solid #3333ff;
 }
 body.rna .menu-centered .header h2 {
@@ -104,7 +104,7 @@ body.rna fieldset legend {
   color: #3333ff;
 }
 body.rna .controlPanel .content {
-  background: #e6e6ff;
+  background: #e0e0ff;
 }
 body.rna .footer {
   border-top: 3px solid #3333ff;

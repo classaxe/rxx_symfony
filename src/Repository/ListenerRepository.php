@@ -73,7 +73,6 @@ class ListenerRepository extends ServiceEntityRepository
         $qb = $this
             ->createQueryBuilder('l')
             ->select('l.sp, l.itu')
-            ->andWhere('(l.mapX != 0 OR l.mapY != 0)')
             ->andWhere('l.countLogs != 0')
             ->addGroupBy('l.sp, l.itu');
 
@@ -91,7 +90,7 @@ class ListenerRepository extends ServiceEntityRepository
     {
         $qb = $this
             ->createQueryBuilder('l', 'l.id')
-            ->select('l.mapX, l.mapY, l.primaryQth, CASE WHEN logs.id IS NULL THEN 0 ELSE 1 END AS heard')
+            ->select('l.mapX, l.mapY, l.primaryQth, (CASE WHEN logs.id IS NULL THEN 0 ELSE 1 END) AS heard')
             ->leftJoin(
                 '\App\Entity\Log',
                 'logs',

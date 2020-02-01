@@ -35,7 +35,10 @@ class SignalRepository extends ServiceEntityRepository
         [ 'signal', 'Profile' ],
         [ 'signal_listeners', 'Listeners (%d)' ],
         [ 'signal_logs', 'Logs (%d)' ],
-        ['signal_weather', 'Weather'],
+        [ 'signal_map' , 'Map'],
+        [ 'signal_rx_map_na' , 'Reception Map (NA)'],
+        [ 'signal_rx_map_eu' , 'Reception Map (EU)'],
+        [ 'signal_weather', 'Weather' ],
     ];
 
     public function __construct(
@@ -1034,13 +1037,13 @@ class SignalRepository extends ServiceEntityRepository
                 case "signal_logs":
                     if ($logs) {
                         $label = sprintf($label, $logs);
-                        $out[] = [$route, $label];
+                        $out[] = [$route, $label, false];
                     }
                     break;
                 case "signal_listeners":
                     if ($listeners) {
                         $label = sprintf($label, $listeners);
-                        $out[] = [$route, $label];
+                        $out[] = [$route, $label, false];
                     }
                     break;
                 case 'signal_weather':
@@ -1049,7 +1052,7 @@ class SignalRepository extends ServiceEntityRepository
                     }
                     break;
                 default:
-                    $out[] = [$route, $label];
+                    $out[] = [$route, $label, false];
                     break;
             }
         }

@@ -17,6 +17,7 @@
                                 {{ form_row(attribute(form, field))  }}
                             {% endif %}
                         {% endfor %}
+                        <label for="weather" class="sr-only">{% trans %}Weather Report{% endtrans %}</label>
                         <textarea id="weather">
 {% if weather != false %}{{ weather|join("\n") }}{% else %}{% trans %}Press QNH to view recent barometric pressure readings.{% endtrans %}{% endif %}
                         </textarea>

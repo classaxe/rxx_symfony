@@ -509,22 +509,23 @@ function setExternalLinks() {
             return false;
         })
         .attr('title', msg.data_set);
+
     $('a[data-gsq]')
         .click(function() {
-            var args, div, field;
-            args = $(this).data('gsq').split('|');
-            window.open(
-                'http://maps.google.com/maps?ll='+args[1]+','+args[2]+'&spn=0.005223,0.009438&t=h&hl=en',
-                'popMap'+args[0],
-                'scrollbars=1,resizable=1,width=1024,height=800'
-            );
+            var target = 'map_' + $(this).data('data-gsq');
+            var features = 'scrollbars=1,resizable=1,width=1024,height=800';
+            window.open(this.href, target, features);
             return false;
         })
-        .attr('title', msg.data_gsq);
+        .each(function() {
+            $(this).attr('href', './signals/'  + $(this).data('gsq') + '/map');
+        })
+        .attr('title', msg.s_map_eu)
+        .attr('class', 'hover');
 
     $('a[data-signal-map-eu]')
         .click(function() {
-            var target = 'eu_' + $(this).data('signal-map-eu');
+            var target = 'map_' + $(this).data('signal-map-eu');
             var features = 'scrollbars=1,resizable=1,width=1024,height=800';
             window.open(this.href, target, features);
             return false;
@@ -537,7 +538,7 @@ function setExternalLinks() {
 
     $('a[data-signal-map-na]')
         .click(function() {
-            var target = 'na_' + $(this).data('signal-map-na');
+            var target = 'map_' + $(this).data('signal-map-na');
             var features = 'scrollbars=1,resizable=1,width=1024,height=800';
             window.open(this.href, target, features);
             return false;

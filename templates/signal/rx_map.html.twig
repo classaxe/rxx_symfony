@@ -1,0 +1,12 @@
+{% extends 'popup.html.twig' %}
+{% block body %}
+<div class="main fullwidth">
+{% include 'signal/tabs.html.twig' %}
+    <div class="controlPanel">
+        <div class="header">{{ mode|raw }}</div>
+        <div class="content">
+            <img src="{{ url('signal_rx_map_image', { '_locale' : _locale, 'system' : system, 'map' : map, 'id' : id })  }}" alt="{{ mode }}"/>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -13,6 +13,7 @@
         </div>
     </div>
 </div>
+{% include 'js_trans.html.twig' %}
 <script>
     $(document).ready( function() {
         setExternalLinks();
@@ -23,4 +24,5 @@
         $('#form_paging_status').html('{{ matched }}');
     });
 </script>
+
 {% endblock %}

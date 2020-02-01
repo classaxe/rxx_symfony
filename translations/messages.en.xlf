@@ -3085,6 +3085,22 @@
         <source>Listener Other QTH</source>
         <target>Listener Other QTH</target>
       </trans-unit>
+      <trans-unit id="CkqiFlk" resname="European Reception Map for %s">
+        <source>European Reception Map for %s</source>
+        <target>European Reception Map for %s</target>
+      </trans-unit>
+      <trans-unit id="HU_84Q2" resname="North American Reception Map for %s">
+        <source>North American Reception Map for %s</source>
+        <target>North American Reception Map for %s</target>
+      </trans-unit>
+      <trans-unit id="53WvjOZ" resname="Reception Map (NA)">
+        <source>Reception Map (NA)</source>
+        <target>Reception Map (NA)</target>
+      </trans-unit>
+      <trans-unit id="3QnZ.zf" resname="Reception Map (EU)">
+        <source>Reception Map (EU)</source>
+        <target>Reception Map (EU)</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

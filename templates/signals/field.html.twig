@@ -11,7 +11,7 @@
     elseif column.field == 'call'
         %}<a href="{{ url('signal', { 'system' : system, 'id' : signal.id }) }}" data-popup="1">{{ signal.call }}</a>{%
     elseif column.field == 'GSQ'
-        %}{% if signal.GSQ %}<a data-gsq="{{ signal.id }}|{{ signal.lat }}|{{ signal.lon }}">{{ value | raw }}</a>{% endif %}{%
+        %}{% if signal.GSQ %}<a data-gsq="{{ signal.id }}">{{ value | raw }}</a>{% endif %}{%
     elseif column.field == 'ITU'
         %}{% if signal.itu %}<a data-set="itu">{{ value | raw }}</a>{% endif %}{%
     elseif column.field == 'khz'

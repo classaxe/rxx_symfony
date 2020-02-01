@@ -600,6 +600,8 @@
         {% trans %}(total: %s){% endtrans %}
 {% endif %}
 {% if 'Signal Map' %}
+    {% trans %}European Reception Map for %s{% endtrans %}
+    {% trans %}North American Reception Map for %s{% endtrans %}
     {% trans %}Transmitter{% endtrans %}
     {% trans %}Reported{% endtrans %}
     {% trans %}Not Reported{% endtrans %}
@@ -742,12 +744,23 @@
     {% trans %}Metar - Raw{% endtrans %}
     {% trans %}Metar - Decoded{% endtrans %}
 {% endif %}
+
 {% if 'Listener Stats' %}
     {% trans %}Signal Statistics{% endtrans %}
     {% trans %}Total Signals{% endtrans %}
     {% trans %}Log Statistics{% endtrans %}
     {% trans %}Total Logs{% endtrans %}
 {% endif %}
+
+{% if 'Signal Tabs' %}
+    {% trans %}Profile{% endtrans %}
+    {% trans %}Listeners (%d){% endtrans %}
+    {% trans %}Logs (%d){% endtrans %}
+    {% trans %}Reception Map (NA){% endtrans %}
+    {% trans %}Reception Map (EU){% endtrans %}
+    {% trans %}Weather{% endtrans %}
+{% endif %}
+
 {%  if 'Signal View' %}
     {% trans %}Add Signal{% endtrans %}
     {% trans %}Details for %s (Active){% endtrans %}
@@ -764,11 +777,6 @@
     {% trans %}Status{% endtrans %}
     {% trans %}Heard Here{% endtrans %}
     {% trans %}(Daytime Log){% endtrans %}
-    {% trans %}Profile{% endtrans %}
-    {% trans %}Listeners (%d){% endtrans %}
-    {% trans %}Logs (%d){% endtrans %}
-    {% trans %}Weather{% endtrans %}
-    {% trans %}Listeners for %s{% endtrans %}
 {% endif %}
 {%  if 'Signal Logs' %}
     {% trans %}of %s Log Records{% endtrans %}
@@ -784,6 +792,11 @@
     {% trans %}Distance in KM{% endtrans %}
     {% trans %}Distance in Miles{% endtrans %}
 {% endif %}
+{% if 'Signal Listeners' %}
+    {% trans %}Listeners for %s{% endtrans %}
+{% endif %}
 {%  if 'Signal Weather' %}
     {% trans %}Weather for %s{% endtrans %}
+    {% trans %}Weather Report Details{% endtrans %}
+    {% trans %}Weather Report{% endtrans %}
 {% endif %}

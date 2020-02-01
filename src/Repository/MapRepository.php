@@ -191,7 +191,7 @@ class MapRepository
             'TUR' => [[434, 576],[519, 606]],
             'UKR' => [[480, 465]],
             'WLS' => [[97, 397],[105, 410]],
-            'sea' => [[600, 40],[100, 100],[448, 585],[500, 550]]
+            'SEA' => [[600, 40],[100, 100],[448, 585],[500, 550]]
         ],
         'na' => [
             'AB' =>     [[260, 180]],
@@ -383,7 +383,7 @@ class MapRepository
             'no' =>         $this->ImageColorAllocate('#ffd2d2'),
             'yes' =>        $this->ImageColorAllocate('#e6ffe6'),
             'based' =>      $this->ImageColorAllocate('#96dcff'),
-            'sea' =>        $this->ImageColorAllocate('#e6e6ff')
+            'sea' =>        $this->ImageColorAllocate('#f0f0ff')
         ];
     }
 
