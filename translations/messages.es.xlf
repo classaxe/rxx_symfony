@@ -3053,6 +3053,38 @@
         <source>North American Reception Map</source>
         <target>__North American Reception Map</target>
       </trans-unit>
+      <trans-unit id="414dhhl" resname="Transmitter">
+        <source>Transmitter</source>
+        <target>__Transmitter</target>
+      </trans-unit>
+      <trans-unit id="NFQLt7C" resname="Reported">
+        <source>Reported</source>
+        <target>__Reported</target>
+      </trans-unit>
+      <trans-unit id="eOS80nK" resname="Not Reported">
+        <source>Not Reported</source>
+        <target>__Not Reported</target>
+      </trans-unit>
+      <trans-unit id="JmGD8Od" resname="Listener Pri.">
+        <source>Listener Pri.</source>
+        <target>__Listener Pri.</target>
+      </trans-unit>
+      <trans-unit id="61vBBib" resname="Listener Sec.">
+        <source>Listener Sec.</source>
+        <target>__Listener Sec.</target>
+      </trans-unit>
+      <trans-unit id="emAr8MD" resname="Map for %s">
+        <source>Map for %s</source>
+        <target>__Map for %s</target>
+      </trans-unit>
+      <trans-unit id="MCGsyOB" resname="Listener Primary QTH">
+        <source>Listener Primary QTH</source>
+        <target>__Listener Primary QTH</target>
+      </trans-unit>
+      <trans-unit id="Io797TR" resname="Listener Other QTH">
+        <source>Listener Other QTH</source>
+        <target>__Listener Other QTH</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

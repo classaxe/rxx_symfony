@@ -30,7 +30,8 @@
         "symfony/var-dumper": "^4.1",
         "symfony/web-link": "^4.1",
         "symfony/yaml": "^4.1",
-      "ext-posix": "*"
+      "ext-posix": "*",
+      "ext-gd": "*"
     },
     "require-dev": {
         "symfony/browser-kit": "^4.1",

@@ -78,27 +78,37 @@ class ListenerRepository extends ServiceEntityRepository
 
         $this->addFilterMap($qb, $map);
 
-        return $qb->getQuery()->execute();
+        $results = $qb->getQuery()->execute();
+        $out = [];
+        foreach ($results as $result) {
+            $out[] = $result['sp'] ? $result['sp'] : $result['itu'];
+        }
+        return $out;
     }
 
     public function getSignalListenersMapCoords($map)
     {
         $qb = $this
             ->createQueryBuilder('l')
-            ->select('l.mapX, l.mapY, l.primaryQth')
+            ->select('l.id, l.mapX, l.mapY, l.primaryQth')
             ->andWhere('(l.mapX != 0 OR l.mapY != 0)')
             ->andWhere('l.countLogs != 0');
 
         $this->addFilterMap($qb, $map);
 
-        return $qb->getQuery()->execute();
+        $results = $qb->getQuery()->execute();
+        $out = [];
+        foreach ($results as $r) {
+            $out[$r['id']] = $r;
+        }
+        return $out;
     }
 
     public function getSignalListenersMapDetails($map, $signalId)
     {
         $qb = $this
             ->createQueryBuilder('l')
-            ->select('l.mapX, l.mapY, l.name, l.primaryQth, logs.heardIn, logs.dxMiles, logs.dxKm, MAX(logs.daytime) AS daytime')
+            ->select('l.id, l.mapX, l.mapY, l.name, l.primaryQth, logs.heardIn, logs.dxMiles, logs.dxKm, MAX(logs.daytime) AS daytime')
             ->innerJoin('\App\Entity\Log', 'logs')
             ->andWhere('logs.listenerid = l.id')
             ->andWhere('logs.signalid = :signalId')
@@ -109,7 +119,12 @@ class ListenerRepository extends ServiceEntityRepository
 
         $this->addFilterMap($qb, $map);
 
-        return $qb->getQuery()->execute();
+        $results = $qb->getQuery()->execute();
+        $out = [];
+        foreach ($results as $r) {
+            $out[$r['id']] = $r;
+        }
+        return $out;
     }
 
     public function getLogsColumns()

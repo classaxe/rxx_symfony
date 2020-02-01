@@ -599,6 +599,13 @@
         {% trans %}(received %s of %s){% endtrans %}
         {% trans %}(total: %s){% endtrans %}
 {% endif %}
+{% if 'Signal Map' %}
+    {% trans %}Transmitter{% endtrans %}
+    {% trans %}Reported{% endtrans %}
+    {% trans %}Not Reported{% endtrans %}
+    {% trans %}Listener Primary QTH{% endtrans %}
+    {% trans %}Listener Other QTH{% endtrans %}
+{% endif %}
 {% if 'Listeners List' %}
     {# Form #}
         {% trans %}Listeners List{% endtrans %}

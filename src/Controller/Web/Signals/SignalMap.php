@@ -2,6 +2,7 @@
 namespace App\Controller\Web\Signals;
 
 use App\Repository\ListenerRepository;
+use App\Repository\MapRepository;
 use App\Repository\SignalRepository;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,7 +31,9 @@ class SignalMap extends Base
      * @param $id
      * @param $map
      * @param Request $request
-     * @param SignalRepository $signalRepository
+     * @param ListenerRepository $listenerRepository,
+     * @param MapRepository $mapRepository,
+     * @param SignalRepository $signalRepository,
      * @return RedirectResponse|Response
      */
     public function controller(
@@ -40,14 +43,32 @@ class SignalMap extends Base
         $map,
         Request $request,
         ListenerRepository $listenerRepository,
+        MapRepository $mapRepository,
         SignalRepository $signalRepository
     ) {
         if (!$signal = $this->getValidSignal($id, $signalRepository)) {
             return $this->redirectToRoute('signals', ['system' => $system]);
         }
-        $signalListenerSpItus =     $listenerRepository->getSignalListenersSpItus($map);
-        $signalListenerMapCoords =  $listenerRepository->getSignalListenersMapCoords($map);
-        $signalListenerMapDetails = $listenerRepository->getSignalListenersMapDetails($map, $id);
+        $i18n = $this->translator;
+        $listenerSpItus =     $listenerRepository->getSignalListenersSpItus($map);
+        $listenerMapCoords =  $listenerRepository->getSignalListenersMapCoords($map);
+        $listenerMapDetails = $listenerRepository->getSignalListenersMapDetails($map, $id);
+
+        foreach($listenerMapCoords as $key => &$r) {
+            $r['heard'] = isset($listenerMapDetails[$key]) ? 1 : 0;
+        }
+        $basedIn = $signal->getSp() ?? $signal->getItu();
+        $heardIn = $signal->getHeardInArr();
+        $text = [
+            'title' =>  $signal->getFormattedIdent(),
+            'tx' =>     $i18n->trans('Transmitter'),
+            'yes' =>    $i18n->trans('Reported'),
+            'no' =>     $i18n->trans('Not Reported'),
+            'pri' =>    $i18n->trans('Listener Primary QTH'),
+            'sec' =>    $i18n->trans('Listener Other QTH'),
+        ];
+
+        $mapRepository->drawMapImage($map, 'station', $basedIn, $listenerSpItus, $listenerMapCoords, $heardIn, $text);
 
         return new Response(
             'Coming soon...',
@@ -57,7 +78,7 @@ class SignalMap extends Base
         $parameters = [
             'id' =>                 $id,
             '_locale' =>            $_locale,
-            'mode' =>               sprintf($this->translator->trans('Map for %s'), $signal->getFormattedIdent()),
+            'mode' =>               sprintf($i18n->trans('Map for %s'), $signal->getFormattedIdent()),
             'system' =>             $system,
             'tabs' =>               $signalRepository->getTabs($signal),
         ];

@@ -4,7 +4,6 @@ namespace App\Entity;
 
 use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\HttpFoundation\UrlHelper;
 
 /**
  * Signals
@@ -792,6 +791,11 @@ class Signal
             return '';
         }
         return $this->rangeMi;
+    }
+
+    public function getHeardInArr(): ?array
+    {
+        return explode(' ', $this->heardIn);
     }
 
     public function getActions(): int
