@@ -26,6 +26,10 @@ class Info extends Base
         $_locale,
         $system
     ) {
+        if (!$this->parameters['isAdmin']) {
+            throw $this->createAccessDeniedException('You must be an Administrator to access this resource');
+        }
+
         $parameters = [
             '_locale' =>        $_locale,
             'changelog' =>      "<p>".implode("</p><p></p>", $this->getGitInfo())."</p>",
