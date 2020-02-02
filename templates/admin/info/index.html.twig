@@ -18,10 +18,19 @@
                 <td class="v"><strong>{{ symfonyVersion() }}</strong></td>
             </tr>
             <tr>
-                <td class="e">{{ 'Change Log' | trans }}</td>
+                <td class="e">{{ 'Change Log' | trans }}<br />
+                    <a href="https://github.com/classaxe/rxx_symfony" rel="external">Github</a>
+                </td>
                 <td class="v"><div style="height:200px; overflow:auto">{{ changelog|raw }}</div></td>
             </tr>
         </table>
     {{ info|raw }}
     </div>
+    {% include 'js_trans.html.twig' %}
+    <script>
+        $(document).ready( function() {
+            setExternalLinks();
+        });
+    </script>
+
 {% endblock %}

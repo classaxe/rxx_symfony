@@ -455,6 +455,15 @@ function setEmailLinks() {
     });
 }
 
+function setEqualHeight(a, b) {
+    if (!$(a).height()) {
+        return window.setTimeout(function(){ setEqualHeight(a, b); }, 100);
+    }
+    $(b).height($(a).height());
+    $(b).show();
+    $(b).height($(a).height());
+}
+
 /* [ Set links to open in external or popup window if rel attribute is set ] */
 function setExternalLinks() {
     $('a[rel="external"]').attr('target', '_blank');

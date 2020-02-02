@@ -1,24 +1,63 @@
 {% extends 'popup.html.twig' %}
 {% block body %}
-<div class="main fullwidth">
-{% include 'signal/tabs.html.twig' %}
-    <div class="controlPanel">
-        <div class="header">{{ mode|raw }}</div>
-        <div class="content">
-            <img usemap="#map" alt="{{ mode }}"
-                 src="{{ url('signal_rx_map_image', { 'system' : system, 'map' : map, 'id' : id })  }}" />
-            <map name="map">
-                {% for key, l in listeners %}
-                <area alt="{{ l.name }}" href="{{ url('listener', {'system' : system, 'id' : l.id}) }}" coords="{{ l.mapX }},{{ l.mapY }},4" data-map="{{ l.id }}" />
-                {% endfor %}
-            </map>
+    <div class="main fullwidth">
+        {% include 'signal/tabs.html.twig' %}
+        {% set src = url('signal_rx_map_image', { 'system' : system, 'map' : map, 'id' : id }) %}
+        <div class="controlPanel">
+            <div class="header">{{ mode|raw }}</div>
+            <div class="content row collapse">
+                <table class="signal_rx_map">
+                    <tr>
+                        <td>
+                            <img id="rx_map"  src="{{ src }}" usemap="#map" alt="{{ mode }}" />
+                            <map name="map">
+                                {% for key, l in listeners %}
+                                    <area alt="{{ l.name }}" href="{{ url('listener', {'system' : system, 'id' : l.id}) }}" coords="{{ l.mapX }},{{ l.mapY }},4" data-map="{{ l.id }}" />
+                                {% endfor %}
+                            </map>
+                        </td>
+                        <td>
+                            <div class="scroll float-left" id="list" style="display:none;">
+                                <h1 class="text-center">{% trans %}Listener Locations{% endtrans %}</h1>
+                                <div>
+                                    <table class="results float-left">
+                                        <thead>
+                                        <tr>
+                                            <th>{% trans %}QTH{% endtrans %}</th>
+                                            <th>{% trans %}Listener{% endtrans %}</th>
+                                            <th>KM</th>
+                                            <th>Miles</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for key, l in listeners %}
+                                            <tr data-map="{{ l.id }}">
+                                                <td>{{ l.heardIn }}</td>
+                                                <td>{{ l.name }}</td>
+                                                <td>{{ l.dxKm }}</td>
+                                                <td>{{ l.dxMiles }}</td>
+                                            </tr>
+                                        {% endfor %}
+
+                                        </tbody>
+                                    </table>
+                                    <ul>
+                                    </ul>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
         </div>
     </div>
-</div>
-{% include 'js_trans.html.twig' %}
-<script>
-$(document).ready( function() {
-    setExternalLinks();
-});
-</script>
+    {% include 'js_trans.html.twig' %}
+    <script>
+        $(document).ready( function() {
+            setExternalLinks();
+            setEqualHeight('#rx_map', '#list');
+            $(window).resize(function() { setEqualHeight('#rx_map', '#list') });
+        });
+
+    </script>
 {% endblock %}

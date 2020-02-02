@@ -118,7 +118,9 @@ class ListenerRepository extends ServiceEntityRepository
             ->setParameter('signalId', $signalId)
             ->andWhere('(l.mapX != 0 OR l.mapY != 0)')
             ->andWhere('l.countLogs != 0')
-            ->addGroupBy('l.id');
+            ->addGroupBy('l.id')
+            ->addOrderBy('logs.heardIn', 'ASC')
+            ->addOrderBy('l.name', 'ASC');
 
         $this->addFilterMap($qb, $map);
 
