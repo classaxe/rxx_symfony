@@ -17,10 +17,10 @@
                             </map>
                         </td>
                         <td>
-                            <div class="scroll float-left" id="list" style="display:none;">
+                            <div class="scroll" id="list" style="display:none;">
                                 <h1 class="text-center">{% trans %}Listener Locations{% endtrans %}</h1>
                                 <div>
-                                    <table class="results float-left">
+                                    <table class="results">
                                         <thead>
                                         <tr>
                                             <th>{% trans %}QTH{% endtrans %}</th>
@@ -32,8 +32,8 @@
                                         <tbody>
                                         {% for key, l in listeners %}
                                             <tr data-map="{{ l.id }}">
-                                                <td>{{ l.heardIn }}</td>
-                                                <td>{{ l.name }}</td>
+                                                <td>{% if l.primaryQth %}<img src="{{ asset('image/map_point1.gif') }}" alt="Primary QTH" />{% else %}<img src="{{ asset('image/map_point2.gif') }}" alt="Other QTH" />{% endif %}{{ l.heardIn }}</td>
+                                                <td><a href="{{ url('listener', { 'system' : system, 'id': l.id }) }}">{{ l.name|raw }}</a></td>
                                                 <td>{{ l.dxKm }}</td>
                                                 <td>{{ l.dxMiles }}</td>
                                             </tr>

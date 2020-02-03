@@ -20,7 +20,7 @@
             <td{% if column.td_class %} class="{{ column.td_class }}"{% endif %}>
 
 {% if key == 'name' %}
-                <a href="{{ url('listener', { '_locale' : _locale, 'system' : system, 'id': r.id }) }}" data-popup="1">{{ attribute(r, column.field)|raw }}</a>
+                <a href="{{ url('listener', { 'system' : system, 'id': r.id }) }}" data-popup="1">{{ attribute(r, column.field)|raw }}</a>
 {% elseif key == 'date' %}
                 {{ attribute(r, column.field)|date('Y-m-d') }}
 {% else %}

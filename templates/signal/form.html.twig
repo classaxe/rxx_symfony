@@ -35,10 +35,10 @@
                     <div>
                         {{ form_label(form.sp) }}
                         {{ form_widget(form.sp) }}
-                        <div id="form_sp_suffix"><a href="{{ url('states', { '_locale' : _locale, 'system' : system }) }}" data-popup="states|width=640,height=800,resizable=1">{% trans %}List{% endtrans %}</a></div>
+                        <div id="form_sp_suffix"><a href="{{ url('states', { 'system' : system }) }}" data-popup="states|width=640,height=800,resizable=1">{% trans %}List{% endtrans %}</a></div>
                         {{ form_label(form.itu) }}
                         {{ form_widget(form.itu) }}
-                        <div id="form_itu_suffix"><a href="{{ url('countries', { '_locale' : _locale, 'system' : system }) }}" data-popup="countries|resizable=1">{% trans %}List{% endtrans %}</a></div>
+                        <div id="form_itu_suffix"><a href="{{ url('countries', { 'system' : system }) }}" data-popup="countries|resizable=1">{% trans %}List{% endtrans %}</a></div>
                     </div>
                     <div>
                         {{ form_label(form.gsq) }}

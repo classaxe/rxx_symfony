@@ -9,7 +9,7 @@
 {% if isAdmin %}
     {% if isAdmin %}
         <input type="button" class="button small" value="{{ 'Add Signal...' | trans }}"
-               onclick="window.open('{{ path('signal', { '_locale' : _locale, 'system' : system, 'id' : 'new'})}}', 'signal_new', popWinSpecs['signals_[id]'])"
+               onclick="window.open('{{ path('signal', { 'system' : system, 'id' : 'new'})}}', 'signal_new', popWinSpecs['signals_[id]'])"
         >
     {% endif %}
 {% endif %}

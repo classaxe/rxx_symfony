@@ -15,7 +15,7 @@
     {% for key, modeRepo in modes[0] %}
     {% if ((isAdmin and modeRepo.admin) or (not isAdmin and modeRepo.guest))%}
             <li{% if (app.request.get('_route') == key) %} class="is-active"{% endif %}>
-                <a href="{{ url(key, { '_locale' : _locale, 'system' : system}) }}">{{ modeRepo['menu']|trans }}</a>
+                <a href="{{ url(key, { 'system' : system}) }}">{{ modeRepo['menu']|trans }}</a>
             </li>
     {% endif %}
     {% endfor %}
@@ -25,7 +25,7 @@
     {% for key, modeRepo in modes[1] %}
     {% if ((isAdmin and modeRepo.admin) or (not isAdmin and modeRepo.guest))%}
             <li{% if (app.request.get('_route') == key) %} class="is-active"{% endif %}>
-                <a href="{{ url(key, { '_locale' : _locale, 'system' : system }) }}">{{ modeRepo['menu']|trans }}</a>
+                <a href="{{ url(key, { 'system' : system }) }}">{{ modeRepo['menu']|trans }}</a>
             </li>
     {% endif %}
     {% endfor %}

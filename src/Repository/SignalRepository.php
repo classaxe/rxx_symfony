@@ -1056,6 +1056,16 @@ class SignalRepository extends ServiceEntityRepository
                         $out[] = $data;
                     }
                     break;
+                case 'signal_rx_map_eu':
+                    if ($signal->getHeardInEu()) {
+                        $out[] = $data;
+                    }
+                    break;
+                case 'signal_rx_map_na':
+                    if ($signal->getHeardInNa() || $signal->getHeardInCa()) {
+                        $out[] = $data;
+                    }
+                    break;
                 default:
                     $out[] = [$route, $label, false];
                     break;

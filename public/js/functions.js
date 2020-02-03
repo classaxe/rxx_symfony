@@ -568,6 +568,21 @@ function setExternalLinks() {
         .each(function() {
             $(this).attr('title', $(this).attr('alt'));
         });
+
+    $('tr[data-map]')
+        .click(function() {
+            var target = 'listeners_' + $(this).data('map');
+            alert(target);
+            return false;
+        });
+
+    $('tr[data-map] a')
+        .click(function() {
+            var target = 'listeners_' + $(this).data('map');
+            window.open(this.href, target, popWinSpecs["listeners_[id]"]);
+            return false;
+        });
+
 }
 
 /* [ Enable Country change to resubmit form ] */

@@ -25,7 +25,7 @@
             <td{% if column.td_class %} class="{{ column.td_class }}"{% endif %}>
 
 {% if key == 'call' %}
-                <a href="{{ url('signal', { '_locale' : _locale, 'system' : system, 'id': signal.id }) }}" data-popup="1">{{ attribute(signal, column.field)|raw }}</a>
+                <a href="{{ url('signal', { 'system' : system, 'id': signal.id }) }}" data-popup="1">{{ attribute(signal, column.field)|raw }}</a>
 {% else %}
                 {{ attribute(signal, column.field)|raw }}
 {% endif %}

@@ -321,14 +321,14 @@ class MapRepository
             case 'eu':
                 $width = 688;
                 $height = 665;
-                $legend_x = 6;
-                $legend_y = 6;
+                $legend_x = 8;
+                $legend_y = 8;
                 break;
             case 'na':
                 $width = 653;
                 $height = 620;
-                $legend_x = 6;
-                $legend_y = 540;
+                $legend_x = 8;
+                $legend_y = 538;
                 break;
             default:
                 return;

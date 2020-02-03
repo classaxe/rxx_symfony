@@ -5,7 +5,7 @@
     {% endif %}
     {% if isAdmin %}
         <input type="button" class="button small" value="{{ 'Add Listener...' | trans }}"
-           onclick="window.open('{{ path('listener', { '_locale' : _locale, 'system' : system, 'id' : 'new'})}}', 'listener_new', popWinSpecs['listeners_[id]'])"
+           onclick="window.open('{{ path('listener', { 'system' : system, 'id' : 'new'})}}', 'listener_new', popWinSpecs['listeners_[id]'])"
         >
     {% endif %}
     </p>
