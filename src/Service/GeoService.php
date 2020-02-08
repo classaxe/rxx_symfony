@@ -8,9 +8,10 @@
 
 namespace App\Service;
 
+use Exception;
 use GeoIp2\Exception\AddressNotFoundException;
 use GeoIp2\Database\Reader;
-use Symfony\Component\DependencyInjection\Container;
+use MaxMind\Db\Reader\InvalidDatabaseException;
 
 /**
  * Class GeoService
@@ -23,7 +24,7 @@ class GeoService
      */
     private $visitor;
 
-    private $dbPath = '/usr/local/share/GeoIP/GeoIP2-City.mmdb';
+    private $dbPath = '/usr/share/GeoIP/GeoLite2-City.mmdb';
 
     /**
      * GeoService constructor.
@@ -42,7 +43,7 @@ class GeoService
         }
         try {
             $reader = new Reader($this->dbPath);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $user =     posix_getpwuid(posix_geteuid());
             $uName =    $user['name'];
             $group =    posix_getgrgid($user['gid']);
@@ -61,6 +62,8 @@ class GeoService
             $record = $reader->city($ip);
             return $record->continent->code;
         } catch (AddressNotFoundException $e) {
+            return 'NA';
+        } catch (InvalidDatabaseException $e) {
             return 'NA';
         }
     }
