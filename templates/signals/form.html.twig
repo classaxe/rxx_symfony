@@ -25,8 +25,6 @@
                             <label for="form_khz_2" class="sr-only">{% trans %}Freq. 2{% endtrans %}</label>
                             {{ form_widget(form.khz_2) }} <span>kHz</span>
                         </fieldset>
-                    </div>
-                    <div style="display:inline-block; width:auto; float:right">
                         {{ form_label(form.channels) }}
                         {{ form_widget(form.channels) }}
                     </div>
@@ -38,11 +36,15 @@
                     </div>
                     {{ form_row(form.countries) }}
                     {{ form_row(form.region) }}
-                    {{ form_row(form.gsq) }}
-                    {{ form_row(form.active) }}
+                    <div style="display:inline-block; width:auto">
+                        {{ form_label(form.gsq) }}
+                        {{ form_widget(form.gsq) }}
+                        {{ form_label(form.active) }}
+                        {{ form_widget(form.active) }}
+                    </div>
                 </fieldset>
                 <fieldset class="section">
-                    <legend class="line">{% trans %}Loggings{% endtrans %}</legend>
+                    <legend class="line" id="section_loggings">{% trans %}Loggings{% endtrans %}</legend>
                     <div>
                         <div>
                             {{ form_label(form.listener) }}
@@ -67,7 +69,7 @@
                     </div>
                 </fieldset>
                 <fieldset class="section">
-                    <legend class="line">{% trans %}Customise{% endtrans %}</legend>
+                    <legend class="line" id="section_customise">{% trans %}Customise{% endtrans %}</legend>
                     {{ form_row(form.personalise) }}
                     <div style="display:inline-block; clear: none; float:right;">
                         {{ form_label(form.offsets) }}
