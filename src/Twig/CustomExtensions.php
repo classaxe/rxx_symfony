@@ -13,7 +13,8 @@ class CustomExtensions extends AbstractExtension
         return [
             new TwigFilter('float', function ($val) { return (float)$val; }),
             new TwigFilter('ireplace', [$this, '_ireplace']),
-            new TwigFilter('obfuscateEmail', [$this, '_obfuscateEmail'])
+            new TwigFilter('obfuscateEmail', [$this, '_obfuscateEmail']),
+            new TwigFilter('unescape', [$this, '_unescape'])
         ];
     }
 
@@ -52,5 +53,10 @@ class CustomExtensions extends AbstractExtension
     public function _symfonyVersion()
     {
         return \Symfony\Component\HttpKernel\Kernel::VERSION;
+    }
+
+    public function _unescape($value)
+    {
+        return html_entity_decode($value);
     }
 }

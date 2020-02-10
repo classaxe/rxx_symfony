@@ -24,6 +24,12 @@ class ModeRepository
                 'menu' =>   'Listeners',
                 'title' =>  'Listeners List'
             ],
+            'cle' =>    [
+                'admin' =>  true,
+                'guest' =>  true,
+                'menu' =>   'CLE',
+                'title' =>  'CLE'
+            ],
             'logon' =>    [
                 'admin' =>  false,
                 'guest' =>  true,

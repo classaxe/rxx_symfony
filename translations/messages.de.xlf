@@ -3117,6 +3117,44 @@
         <source>Weather Report</source>
         <target>__Weather Report</target>
       </trans-unit>
+      <trans-unit id="950wJz4" resname="CLE">
+        <source>CLE</source>
+        <target>__CLE</target>
+      </trans-unit>
+      <trans-unit id="vaRjagD" resname="CLE %NUMBER%">
+        <source>CLE %NUMBER%</source>
+        <target>__CLE %NUMBER%</target>
+      </trans-unit>
+      <trans-unit id="ZS2GYo5" resname="'Co-ordinated Listening Events' (or CLEs) take place several times a year and provide opportunities for&#10;        listeners of all ranges of experience to practice our hobby and learn more about it.&#10;        To learn more about the &lt;a href=&quot;https://groups.io/g/ndblist&quot; rel=&quot;external&quot;&gt;NDB List&lt;/a&gt;, or to join&#10;        (it's free!), visit &lt;a href=&quot;https://groups.io/g/ndblist&quot; rel=&quot;external&quot;&gt;https://groups.io/g/ndblist&lt;/a&gt;">
+        <source>'Co-ordinated Listening Events' (or CLEs) take place several times a year and provide opportunities for
+        listeners of all ranges of experience to practice our hobby and learn more about it.
+        To learn more about the &lt;a href="https://groups.io/g/ndblist" rel="external"&gt;NDB List&lt;/a&gt;, or to join
+        (it's free!), visit &lt;a href="https://groups.io/g/ndblist" rel="external"&gt;https://groups.io/g/ndblist&lt;/a&gt;</source>
+        <target><![CDATA[__'Co-ordinated Listening Events' (or CLEs) take place several times a year and provide opportunities for
+        listeners of all ranges of experience to practice our hobby and learn more about it.
+        To learn more about the <a href="https://groups.io/g/ndblist" rel="external">NDB List</a>, or to join
+        (it's free!), visit <a href="https://groups.io/g/ndblist" rel="external">https://groups.io/g/ndblist</a>]]></target>
+      </trans-unit>
+      <trans-unit id="3G8j8TY" resname="Date Range:">
+        <source>Date Range:</source>
+        <target>__Date Range:</target>
+      </trans-unit>
+      <trans-unit id="fDUhwIQ" resname="&lt;strong&gt;CLE %CLE%&lt;/strong&gt; starts at midday %DATESTART% and ends at midday %DATEEND% LOCAL TIME at the reciever.">
+        <source>&lt;strong&gt;CLE %CLE%&lt;/strong&gt; starts at midday %DATESTART% and ends at midday %DATEEND% LOCAL TIME at the reciever.</source>
+        <target><![CDATA[__<strong>CLE %CLE%</strong> starts at midday %DATESTART% and ends at midday %DATEEND% LOCAL TIME at the reciever.]]></target>
+      </trans-unit>
+      <trans-unit id="8AOKllP" resname="Scope:">
+        <source>Scope:</source>
+        <target>__Scope:</target>
+      </trans-unit>
+      <trans-unit id="XyA7thF" resname="Additional Information:">
+        <source>Additional Information:</source>
+        <target>__Additional Information:</target>
+      </trans-unit>
+      <trans-unit id="031KMPS" resname="CLE %CLE% starts at midday %DATESTART% and ends at midday %DATEEND% LOCAL TIME at the reciever.">
+        <source>CLE %CLE% starts at midday %DATESTART% and ends at midday %DATEEND% LOCAL TIME at the reciever.</source>
+        <target>__CLE %CLE% starts at midday %DATESTART% and ends at midday %DATEEND% LOCAL TIME at the reciever.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

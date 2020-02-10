@@ -598,23 +598,18 @@ table.seeklist tbody td div.sl_d.inactive {
   padding: 0.5em;
 }
 .main p {
-  margin: 0.5em 0;
+  margin: 0.25em 0 0.5em 0;
   font-size: 100%;
-}
-.main h1,
-.main h2,
-.main h3 {
-  margin: 0.125em 0;
 }
 .main h1 {
   font-size: 120%;
   font-weight: bold;
+  margin: 0.125em 0;
 }
 .main h2 {
   font-size: 120%;
-  font-weight: normal;
-  display: inline-block;
-  float: left;
+  font-weight: bold;
+  margin: 0.5em 0 0.125em 0;
 }
 .main h2 + small {
   display: inline-block;
@@ -623,6 +618,7 @@ table.seeklist tbody td div.sl_d.inactive {
 }
 .main h3 {
   font-size: 90%;
+  margin: 0.125em 0;
   display: inline-block;
   float: left;
 }

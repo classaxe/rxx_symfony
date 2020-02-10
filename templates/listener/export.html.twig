@@ -7,7 +7,7 @@
             <div class="header">{{ mode|raw }}</div>
             <div class="content">
                 {% if (logs > 0) %}
-                    <h2>Export this listener's logs in these formats:</h2><br style="clear:both">
+                    <h2>Export this listener's logs in these formats:</h2>
                     <ul>
                         <li>
                             View <a href="{{ url('listener_export_logs', { 'system' : system, 'id': id }) }}" rel="external">text listing</a>

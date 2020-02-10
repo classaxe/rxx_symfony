@@ -1,0 +1,23 @@
+{% extends 'main.html.twig' %}
+{# This could use some work #}
+{% block body %}
+<div class="main">
+    <h1>{{ mode }}</h1>
+    <p>{% trans %}'Co-ordinated Listening Events' (or CLEs) take place several times a year and provide opportunities for
+        listeners of all ranges of experience to practice our hobby and learn more about it.
+        To learn more about the <a href="https://groups.io/g/ndblist" rel="external">NDB List</a>, or to join
+        (it's free!), visit <a href="https://groups.io/g/ndblist" rel="external">https://groups.io/g/ndblist</a>{% endtrans %}</p>
+    <hr />
+
+    <h2>{% trans %}Date Range:{% endtrans %}</h2>
+    <p>{% trans with { '%CLE%' : cle.cle, '%DATESTART%' : cle.dateStart|date('Y-m-d'), '%DATEEND%' : cle.dateEnd|date('Y-m-d') } %}
+        CLE %CLE% starts at midday %DATESTART% and ends at midday %DATEEND% LOCAL TIME at the reciever.{% endtrans %}</p>
+
+    <h2>{% trans %}Scope:{% endtrans %}</h2>
+    <p>{{ cle.scope }}</p>
+
+    <h2>{% trans %}Additional Information:{% endtrans %}</h2>
+    <p>{{ cle.additional|unescape|raw }}</p>
+    <hr />
+</div>
+{% endblock %}
