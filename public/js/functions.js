@@ -559,12 +559,17 @@ function setExternalLinks() {
         .attr('class', 'hover');
 
     $('area[data-map]')
-        .click(function() {
-            var target = 'listeners_' + $(this).data('map');
-            window.open(this.href, target, popWinSpecs["listeners_[id]"]);
-            return false;
-        })
         .attr('shape', 'circle')
+        .mouseover(function() {
+            $('#listener_' + $(this).data('map'))
+                .css({backgroundColor: '#ffff00'})
+                .trigger('mouseenter');
+        })
+        .mouseout(function() {
+            $('#listener_' + $(this).data('map'))
+                .css({backgroundColor: ''})
+                .trigger('mouseleave');
+        })
         .each(function() {
             $(this).attr('title', $(this).attr('alt'));
         });
@@ -574,6 +579,15 @@ function setExternalLinks() {
             var target = 'listeners_' + $(this).data('map');
             alert(target);
             return false;
+        })
+        .mouseover(function() {
+            var coords = $(this).data('map').split('|');
+            $('#point_here')
+                .show()
+                .css({left: (coords[0] - 5)+'px', top: (coords[1]-5) + 'px'});
+        })
+        .mouseout(function() {
+            $('#point_here').hide();
         });
 
     $('tr[data-map] a')

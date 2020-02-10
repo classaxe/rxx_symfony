@@ -3101,6 +3101,22 @@
         <source>Reception Map (EU)</source>
         <target>__Reception Map (EU)</target>
       </trans-unit>
+      <trans-unit id="vLOvbM0" resname="Listener Locations">
+        <source>Listener Locations</source>
+        <target>__Listener Locations</target>
+      </trans-unit>
+      <trans-unit id="gubRiZU" resname="Listener">
+        <source>Listener</source>
+        <target>__Listener</target>
+      </trans-unit>
+      <trans-unit id="n94aqUa" resname="Weather Report Details">
+        <source>Weather Report Details</source>
+        <target>__Weather Report Details</target>
+      </trans-unit>
+      <trans-unit id="Enr9PKF" resname="Weather Report">
+        <source>Weather Report</source>
+        <target>__Weather Report</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

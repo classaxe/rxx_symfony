@@ -1,7 +1,7 @@
 /*!
 * Project:   RXX - NDB Logging Database
 * Homepage:  https://rxx.classaxe.com
-* Date:      2020-02-08
+* Date:      2020-02-10
 * Licence:   LGPL
 * Copyright: 2020 Martin Francis
 */
@@ -1332,6 +1332,22 @@ fieldset#form_range_units div label {
   border: 0;
   vertical-align: top;
   background: transparent;
+}
+.signal_rx_map #map,
+.signal_rx_map * #map {
+  position: relative;
+  top: 0;
+  left: 0;
+}
+.signal_rx_map #rx_map,
+.signal_rx_map * #rx_map {
+  position: relative;
+}
+.signal_rx_map #point_here,
+.signal_rx_map * #point_here {
+  z-index: 100;
+  position: absolute;
+  display: none;
 }
 .signal_rx_map div.scroll {
   padding: 0 0.5em;
