@@ -3155,6 +3155,38 @@
         <source>CLE %CLE% starts at midday %DATESTART% and ends at midday %DATEEND% LOCAL TIME at the reciever.</source>
         <target>__CLE %CLE% starts at midday %DATESTART% and ends at midday %DATEEND% LOCAL TIME at the reciever.</target>
       </trans-unit>
+      <trans-unit id="BAEwBOe" resname="Links for Each Region">
+        <source>Links for Each Region</source>
+        <target>__Links for Each Region</target>
+      </trans-unit>
+      <trans-unit id="C1Ggrsv" resname="RNA">
+        <source>RNA</source>
+        <target>__RNA</target>
+      </trans-unit>
+      <trans-unit id="8o7mSJW" resname="%MIN%KHz to %MAX%KHz">
+        <source>%MIN%KHz to %MAX%KHz</source>
+        <target>__%MIN%KHz to %MAX%KHz</target>
+      </trans-unit>
+      <trans-unit id="14f7D7c" resname="REU">
+        <source>REU</source>
+        <target>__REU</target>
+      </trans-unit>
+      <trans-unit id="4BgKVfE" resname="RWW - Africa">
+        <source>RWW - Africa</source>
+        <target>__RWW - Africa</target>
+      </trans-unit>
+      <trans-unit id="EheyYfR" resname="RWW - Asia">
+        <source>RWW - Asia</source>
+        <target>__RWW - Asia</target>
+      </trans-unit>
+      <trans-unit id="YXWf9DV" resname="RWW - Pacific">
+        <source>RWW - Pacific</source>
+        <target>__RWW - Pacific</target>
+      </trans-unit>
+      <trans-unit id="DZyVwnh" resname="RWW - S. America">
+        <source>RWW - S. America</source>
+        <target>__RWW - S. America</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

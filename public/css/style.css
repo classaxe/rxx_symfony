@@ -1,7 +1,7 @@
 /*!
 * Project:   RXX - NDB Logging Database
 * Homepage:  https://rxx.classaxe.com
-* Date:      2020-02-10
+* Date:      2020-02-14
 * Licence:   LGPL
 * Copyright: 2020 Martin Francis
 */
@@ -1756,4 +1756,48 @@ body.map .gm-style-iw p {
 }
 .fa-info-circle {
   color: #00f;
+}
+.cle_links {
+  margin: 0;
+}
+.cle_links div {
+  padding: 0;
+}
+.cle_links div div {
+  border: 1px solid #444;
+  margin: 2px;
+  padding: 2px;
+}
+.cle_links div div a {
+  color: inherit;
+  font-weight: normal;
+}
+.cle_links div div a:hover {
+  font-weight: bold;
+}
+.cle_links div div.rna {
+  background: #e0e0ff;
+  color: #3333ff;
+}
+.cle_links div div.reu {
+  background: #fff0f0;
+  color: #d03333;
+}
+.cle_links div div.rww {
+  background: #f2fff2;
+  color: #198019;
+}
+.cle_links div div h3 {
+  display: block;
+  width: 100%;
+  white-space: nowrap;
+  margin: 2px auto;
+  font-weight: bold;
+  text-align: center !important;
+}
+.cle_links div div ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  text-align: center;
 }
