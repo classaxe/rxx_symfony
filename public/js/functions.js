@@ -348,6 +348,7 @@ function initSignalsForm(pagingMsg, resultsCount) {
         setFormCountryAction();
         setFormAdminAction();
         setFormRegionAction();
+        setFormRwwFocusAction();
         setFormStatesLabelLink();
         setFormCountriesLabelLink();
 
@@ -844,12 +845,24 @@ function setFormRegionAction(enable) {
     }
 }
 
+function setFormRwwFocusAction(enable) {
+    enable = typeof enable !== 'undefined' ? enable : true;
+    if (enable) {
+        $('select#form_rww_focus').change(function () {
+            $('#form_submit').click();
+        });
+    } else {
+        $('select#form_rww_focus').off('change');
+    }
+}
+
 function setFormResetAction(form) {
     switch (form) {
         case 'signals':
             $('button[type="reset"]').click(function () {
                 setFormAdminAction(false);
                 setFormRegionAction(false);
+                setFormRwwFocusAction(false);
 
                 $('#form_show').val('');
                 $('#form_types div :checkbox').prop('checked', false);
@@ -866,6 +879,7 @@ function setFormResetAction(form) {
                 $('#form_sp_itu_clause').prop('selectedIndex', 0);
                 $('#form_countries').val('');
                 $('#form_region').prop('selectedIndex', 0);
+                $('#form_rww_focus').prop('selectedIndex', 0);
                 $('#form_gsq').val('');
                 $('#form_range_gsq').val('');
                 $('#form_range_min').val('');
@@ -889,6 +903,7 @@ function setFormResetAction(form) {
 
                 setFormAdminAction(true);
                 setFormRegionAction(true);
+                setFormRwwFocusAction(true);
                 $('#form_submit').click();
                 return false;
             });
@@ -898,12 +913,14 @@ function setFormResetAction(form) {
                 $('fieldset#form_types div :checkbox').prop('checked', false);
                 $('fieldset#form_types div :checkbox[value=type_NDB]').prop('checked', true);
                 $('#form_filter').val('');
-                setFormRegionAction(false);
                 setFormCountryAction(false);
+                setFormRegionAction(false);
+                setFormRwwFocusAction(false);
                 $('select#form_region').prop('selectedIndex', 0);
                 $('select#form_country').prop('selectedIndex', 0);
                 setFormCountryAction(true);
                 setFormRegionAction(true);
+                setFormRwwFocusAction(true);
                 return false;
             });
             break;

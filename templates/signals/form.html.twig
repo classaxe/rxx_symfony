@@ -13,6 +13,9 @@
                 </fieldset>
                 <fieldset class="section">
                     <legend class="line">{% trans %}Signal Details{% endtrans %}</legend>
+                    {% if system == 'rww' %}
+                        {{ form_row(form.rww_focus) }}
+                    {% endif %}
                     {{ form_row(form.types) }}
                     <div style="display:inline-block; width:auto">
                         {{ form_label(form.call) }}

@@ -246,6 +246,13 @@ class SignalRepository extends ServiceEntityRepository
         return $this;
     }
 
+    private function addFilterRwwFocus()
+    {
+        if ('rww' === $this->system && $this->args['rww_focus']) {
+            $this->query['where'][] ='s.heard_in_' . $this->args['rww_focus']. ' = 1';
+        }
+    }
+
     private function addFilterStatesAndCountries()
     {
         $clauses = [];
@@ -675,7 +682,8 @@ class SignalRepository extends ServiceEntityRepository
                 ->addFilterLoggedDate()
                 ->addFilterLoggedFirst()
                 ->addFilterLoggedLast()
-                ->addFilterSystem();
+                ->addFilterSystem()
+                ->addFilterRwwFocus();
         }
 
         switch ($this->args['show']) {
@@ -750,9 +758,9 @@ class SignalRepository extends ServiceEntityRepository
                 ->addFilterLoggedDate()
                 ->addFilterLoggedFirst()
                 ->addFilterLoggedLast()
-                ->addFilterSystem();
+                ->addFilterSystem()
+                ->addFilterRwwFocus();
         }
-
         $sql = $this->buildQuery();
 
         if ($this->debug) {

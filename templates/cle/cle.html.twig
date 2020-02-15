@@ -64,13 +64,13 @@
                 <h3>{% trans %}RWW - Africa{% endtrans %}</h3>
                 <ul>
                     <li>
-                        <a href="{{ path('signals', { 'system' : 'rww'  } )}}?{{ rww1 }}">{%
+                        <a href="{{ path('signals', { 'system' : 'rww' } )}}?rww_focus=af&{{ rww1 }}">{%
                             trans with {'%MIN%': cle.worldRange1Low, '%MAX%' : cle.worldRange1High} %}%MIN%KHz to %MAX%KHz{% endtrans
                         %}</a>
                     </li>
                     {% if cle.worldRange2Low or cle.worldRange2High %}
                     <li>
-                        <a href="{{ path('signals', { 'system' : 'rww' } )}}?{{ rww2 }}">{%
+                        <a href="{{ path('signals', { 'system' : 'rww' } )}}?rww_focus=af&{{ rww2 }}">{%
                             trans with {'%MIN%': cle.worldRange2Low, '%MAX%' : cle.worldRange2High} %}%MIN%KHz to %MAX%KHz{% endtrans
                         %}</a>
                     </li>
@@ -83,13 +83,13 @@
                 <h3>{% trans %}RWW - Asia{% endtrans %}</h3>
                 <ul>
                     <li>
-                        <a href="{{ path('signals', { 'system' : 'rww'  } )}}?{{ rww1 }}">{%
+                        <a href="{{ path('signals', { 'system' : 'rww'  } )}}?rww_focus=as&{{ rww1 }}">{%
                             trans with {'%MIN%': cle.worldRange1Low, '%MAX%' : cle.worldRange1High} %}%MIN%KHz to %MAX%KHz{% endtrans
                         %}</a>
                     </li>
                     {% if cle.worldRange2Low or cle.worldRange2High %}
                     <li>
-                        <a href="{{ path('signals', { 'system' : 'rww'  } )}}?{{ rww2 }}">{%
+                        <a href="{{ path('signals', { 'system' : 'rww'  } )}}?rww_focus=as&{{ rww2 }}">{%
                             trans with {'%MIN%': cle.worldRange2Low, '%MAX%' : cle.worldRange2High} %}%MIN%KHz to %MAX%KHz{% endtrans
                         %}</a>
                     </li>
@@ -102,13 +102,13 @@
                 <h3>{% trans %}RWW - Pacific{% endtrans %}</h3>
                 <ul>
                     <li>
-                        <a href="{{ path('signals', { 'system' : 'rww'  } )}}?{{ rww1 }}">{%
+                        <a href="{{ path('signals', { 'system' : 'rww'  } )}}?rww_focus=oc&{{ rww1 }}">{%
                             trans with {'%MIN%': cle.worldRange1Low, '%MAX%' : cle.worldRange1High} %}%MIN%KHz to %MAX%KHz{% endtrans
                         %}</a>
                     </li>
                     {% if cle.worldRange2Low or cle.worldRange2High %}
                     <li>
-                        <a href="{{ path('signals', { 'system' : 'rww'  } )}}?{{ rww2 }}">{%
+                        <a href="{{ path('signals', { 'system' : 'rww'  } )}}?rww_focus=oc&{{ rww2 }}">{%
                             trans with {'%MIN%': cle.worldRange2Low, '%MAX%' : cle.worldRange2High} %}%MIN%KHz to %MAX%KHz{% endtrans
                         %}</a>
                     </li>
@@ -121,13 +121,13 @@
                 <h3>{% trans %}RWW - S. America{% endtrans %}</h3>
                 <ul>
                     <li>
-                        <a href="{{ path('signals', { 'system' : 'rww'  } )}}?{{ rww1 }}">{%
+                        <a href="{{ path('signals', { 'system' : 'rww'  } )}}?rww_focus=sa&{{ rww1 }}">{%
                             trans with {'%MIN%': cle.worldRange1Low, '%MAX%' : cle.worldRange1High} %}%MIN%KHz to %MAX%KHz{% endtrans
                         %}</a>
                     </li>
                     {% if cle.worldRange2Low or cle.worldRange2High %}
                     <li>
-                        <a href="{{ path('signals', { 'system' : 'rww'  } )}}?{{ rww2 }}">{%
+                        <a href="{{ path('signals', { 'system' : 'rww'  } )}}?rww_focus=sa&{{ rww2 }}">{%
                             trans with {'%MIN%': cle.worldRange2Low, '%MAX%' : cle.worldRange2High} %}%MIN%KHz to %MAX%KHz{% endtrans
                         %}</a>
                     </li>

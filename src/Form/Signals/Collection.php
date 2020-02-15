@@ -254,6 +254,16 @@ class Collection extends Base
                 ]
             )
             ->add(
+                'rww_focus',
+                ChoiceType::class,
+                [
+                    'choices' =>        $this->region->getAllOptions(),
+                    'data' =>           $options['rww_focus'],
+                    'label' =>          'RWW Focus',
+                    'required' =>       false
+                ]
+            )
+            ->add(
                 'gsq',
                 TextType::class,
                 [
