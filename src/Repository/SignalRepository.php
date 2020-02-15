@@ -273,7 +273,10 @@ class SignalRepository extends ServiceEntityRepository
                 $this->query['where'][] = $clauses[0];
                 break;
             case 2:
-                $this->query['where'][] = $clauses[0] . " " . $this->args['sp_itu_clause'] . " " . $clauses[1];
+                $this->query['where'][] =
+                    $clauses[0]
+                    . ' ' . (in_array($this->args['sp_itu_clause'], ['AND', 'OR']) ? $this->args['sp_itu_clause'] : 'AND')
+                    . ' ' . $clauses[1];
                 break;
         }
         return $this;

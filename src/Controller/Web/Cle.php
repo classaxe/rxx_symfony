@@ -56,6 +56,33 @@ class Cle extends Base
         if ($val = $cle->{ $prefix . 'High'}()) {
             $params[] = 'khz_2=' . $val;
         }
+        if ($val = $cle->{ $prefix . 'Channels'}()) {
+            $params[] = 'channels=' . $val;
+        }
+        if ($val = $cle->{ $prefix . 'Type'}()) {
+            $types = explode('&amp;', str_replace('=1', '', $val));
+            foreach ($types as $t) {
+                $params[] = 'types[]=' . $t;
+            }
+        }
+        if ($val = $cle->{ $prefix . 'Locator'}()) {
+            $params[] = 'gsq=' . urlencode($val);
+        }
+        if ($val = $cle->{ $prefix . 'Itu'}()) {
+            $params[] = 'countries=' . urlencode($val);
+        }
+        if ($val = $cle->{ $prefix . 'Sp'}()) {
+            $params[] = 'states=' . urlencode($val);
+        }
+        if (($val = $cle->{ $prefix . 'SpItuClause'}()) && $cle->{ $prefix . 'Itu'}() && $cle->{ $prefix . 'Sp'}()) {
+            $params[] = 'sp_itu_clause=' . urlencode($val);
+        }
+        if ($val = $cle->{ $prefix . 'FilterOther'}()) {
+            $args = explode('&', $val);
+            foreach ($args as $arg) {
+                $params[] = $arg;
+            }
+        }
         return implode('&', $params);
     }
 }

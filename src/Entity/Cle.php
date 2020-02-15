@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -94,6 +95,13 @@ class Cle
     /**
      * @var string|null
      *
+     * @ORM\Column(name="world_range_1_locator", type="text", length=65535, nullable=true)
+     */
+    private $worldRange1Locator;
+
+    /**
+     * @var string|null
+     *
      * @ORM\Column(name="world_range_1_itu", type="text", length=65535, nullable=true)
      */
     private $worldRange1Itu;
@@ -153,6 +161,13 @@ class Cle
      * @ORM\Column(name="world_range_2_type", type="text", length=65535, nullable=true)
      */
     private $worldRange2Type;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="world_range_2_locator", type="text", length=65535, nullable=true)
+     */
+    private $worldRange2Locator;
 
     /**
      * @var string|null
@@ -220,6 +235,13 @@ class Cle
     /**
      * @var string|null
      *
+     * @ORM\Column(name="europe_range_1_locator", type="text", length=65535, nullable=true)
+     */
+    private $europeRange1Locator;
+
+    /**
+     * @var string|null
+     *
      * @ORM\Column(name="europe_range_1_itu", type="text", length=65535, nullable=true)
      */
     private $europeRange1Itu;
@@ -283,6 +305,13 @@ class Cle
     /**
      * @var string|null
      *
+     * @ORM\Column(name="europe_range_2_locator", type="text", length=65535, nullable=true)
+     */
+    private $europeRange2Locator;
+
+    /**
+     * @var string|null
+     *
      * @ORM\Column(name="europe_range_2_itu", type="text", length=65535, nullable=true)
      */
     private $europeRange2Itu;
@@ -332,24 +361,24 @@ class Cle
         return $this;
     }
 
-    public function getDateStart(): ?\DateTimeInterface
+    public function getDateStart(): ?DateTimeInterface
     {
         return $this->dateStart;
     }
 
-    public function setDateStart(?\DateTimeInterface $dateStart): self
+    public function setDateStart(?DateTimeInterface $dateStart): self
     {
         $this->dateStart = $dateStart;
 
         return $this;
     }
 
-    public function getDateEnd(): ?\DateTimeInterface
+    public function getDateEnd(): ?DateTimeInterface
     {
         return $this->dateEnd;
     }
 
-    public function setDateEnd(?\DateTimeInterface $dateEnd): self
+    public function setDateEnd(?DateTimeInterface $dateEnd): self
     {
         $this->dateEnd = $dateEnd;
 
@@ -436,6 +465,18 @@ class Cle
     public function setWorldRange1Type(?string $worldRange1Type): self
     {
         $this->worldRange1Type = $worldRange1Type;
+
+        return $this;
+    }
+
+    public function getWorldRange1Locator(): ?string
+    {
+        return $this->worldRange1Locator;
+    }
+
+    public function setWorldRange1Locator(?string $worldRange1Locator): self
+    {
+        $this->worldRange1Locator = $worldRange1Locator;
 
         return $this;
     }
@@ -548,6 +589,18 @@ class Cle
         return $this;
     }
 
+    public function getWorldRange2Locator(): ?string
+    {
+        return $this->worldRange2Locator;
+    }
+
+    public function setWorldRange2Locator(?string $worldRange2Locator): self
+    {
+        $this->worldRange2Locator = $worldRange2Locator;
+
+        return $this;
+    }
+
     public function getWorldRange2Itu(): ?string
     {
         return $this->worldRange2Itu;
@@ -656,6 +709,18 @@ class Cle
         return $this;
     }
 
+    public function getEuropeRange1Locator(): ?string
+    {
+        return $this->europeRange1Locator;
+    }
+
+    public function setEuropeRange1Locator(?string $europeRange1Locator): self
+    {
+        $this->europeRange1Locator = $europeRange1Locator;
+
+        return $this;
+    }
+
     public function getEuropeRange1Itu(): ?string
     {
         return $this->europeRange1Itu;
@@ -760,6 +825,18 @@ class Cle
     public function setEuropeRange2Type(?string $europeRange2Type): self
     {
         $this->europeRange2Type = $europeRange2Type;
+
+        return $this;
+    }
+
+    public function getEuropeRange2Locator(): ?string
+    {
+        return $this->europeRange2Locator;
+    }
+
+    public function setEuropeRange2Locator(?string $europeRange2Locator): self
+    {
+        $this->europeRange2Locator = $europeRange2Locator;
 
         return $this;
     }
