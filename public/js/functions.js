@@ -11,16 +11,16 @@ var popWinSpecs = {
     'listeners_[id]_signals' :      'width=800,height=680,status=1,scrollbars=1,resizable=1',
     'listeners_[id]_signalmap' :    'width=800,height=680,status=1,scrollbars=1,resizable=1,location=1',
     'listeners_[id]_ndbweblog' :    'status=1,scrollbars=1,resizable=1',
-    'map_af' :                      'width=646,height=652,resizable=1',
-    'map_alaska' :                  'width=600,height=620,resizable=1',
-    'map_as' :                      'width=856,height=645,resizable=1',
-    'map_au' :                      'width=511,height=545,resizable=1',
-    'map_eu' :                      'width=704,height=760,resizable=1',
-    'map_japan' :                   'width=517,height=740,resizable=1',
-    'map_na' :                      'width=669,height=720,resizable=1',
-    'map_pacific' :                 'width=600,height=750,resizable=1',
-    'map_polynesia' :               'width=500,height=525,resizable=1',
-    'map_sa' :                      'width=490,height=745,resizable=1',
+    'maps_af' :                     'width=646,height=652,resizable=1',
+    'maps_alaska' :                 'width=600,height=620,resizable=1',
+    'maps_as' :                     'width=856,height=645,resizable=1',
+    'maps_au' :                     'width=511,height=545,resizable=1',
+    'maps_eu' :                     'width=704,height=760,resizable=1',
+    'maps_japan' :                  'width=517,height=740,resizable=1',
+    'maps_na' :                     'width=669,height=720,resizable=1',
+    'maps_pacific' :                'width=600,height=750,resizable=1',
+    'maps_polynesia' :              'width=500,height=525,resizable=1',
+    'maps_sa' :                     'width=490,height=745,resizable=1',
     'signals_[id]' :                'width=800,height=680,status=1,scrollbars=1,resizable=1',
     'signals_[id]_logs' :           'width=800,height=680,status=1,scrollbars=1,resizable=1',
     'signals_[id]_listeners' :      'width=800,height=680,status=1,scrollbars=1,resizable=1',
@@ -576,11 +576,6 @@ function setExternalLinks() {
         });
 
     $('tr[data-map]')
-        .click(function() {
-            var target = 'listeners_' + $(this).data('map');
-            alert(target);
-            return false;
-        })
         .mouseover(function() {
             var coords = $(this).data('map').split('|');
             $('#point_here')

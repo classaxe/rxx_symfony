@@ -3191,6 +3191,18 @@
         <source>RWW Focus</source>
         <target>RWW Focus</target>
       </trans-unit>
+      <trans-unit id="C26Ytxl" resname="CLE - Co-ordinated Listening Events">
+        <source>CLE - Co-ordinated Listening Events</source>
+        <target>CLE - Co-ordinated Listening Events</target>
+      </trans-unit>
+      <trans-unit id="NTi24XE" resname="'Co-ordinated Listening Events' take place several times a year and provide opportunities for listeners of all ranges of experience to practice our hobby and learn more about it. To learn more about the %URL1%, or to join (it's free!), visit %URL2%">
+        <source>'Co-ordinated Listening Events' take place several times a year and provide opportunities for listeners of all ranges of experience to practice our hobby and learn more about it. To learn more about the %URL1%, or to join (it's free!), visit %URL2%</source>
+        <target>'Co-ordinated Listening Events' take place several times a year and provide opportunities for listeners of all ranges of experience to practice our hobby and learn more about it. To learn more about the %URL1%, or to join (it's free!), visit %URL2%</target>
+      </trans-unit>
+      <trans-unit id="7pBw0sZ" resname="CLE %CLE% starts at midday %DATESTART% and ends at midday %DATEEND% LOCAL TIME at the receiver.">
+        <source>CLE %CLE% starts at midday %DATESTART% and ends at midday %DATEEND% LOCAL TIME at the receiver.</source>
+        <target>CLE %CLE% starts at midday %DATESTART% and ends at midday %DATEEND% LOCAL TIME at the receiver.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

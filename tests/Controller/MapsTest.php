@@ -45,7 +45,7 @@ class MapsTest extends Base
         foreach ($this->getSystems() as $system) {
             foreach ($this->getMapsForSystem($system) as $area) {
                 $mapDetails = $this->getMap($area);
-                $url = '/en/'.$system.'/map/' . $area;
+                $url = '/en/'.$system.'/maps/' . $area;
                 $this->myClient->request('GET', $url);
 
                 $expected = strToUpper($system).' > '.$mapDetails['mode'];
