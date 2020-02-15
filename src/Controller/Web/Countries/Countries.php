@@ -1,5 +1,5 @@
 <?php
-namespace App\Controller\Web;
+namespace App\Controller\Web\Countries;
 
 use App\Repository\RegionRepository as Region;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

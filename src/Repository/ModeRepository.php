@@ -12,12 +12,6 @@ class ModeRepository
                 'menu' =>   'Signals',
                 'title' =>  'Signals List'
             ],
-            'maps' =>    [
-                'admin' =>  true,
-                'guest' =>  true,
-                'menu' =>   'Maps',
-                'title' =>  'Maps'
-            ],
             'listeners' =>    [
                 'admin' =>  true,
                 'guest' =>  true,
@@ -29,6 +23,12 @@ class ModeRepository
                 'guest' =>  true,
                 'menu' =>   'CLE',
                 'title' =>  'CLE'
+            ],
+            'maps' =>    [
+                'admin' =>  true,
+                'guest' =>  true,
+                'menu' =>   'Maps',
+                'title' =>  'Maps'
             ],
             'logon' =>    [
                 'admin' =>  false,

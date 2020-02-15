@@ -1,12 +1,13 @@
 <?php
-namespace App\Controller\Web;
+namespace App\Controller\Web\Maps;
 
+use App\Controller\Web\Base;
 use App\Repository\MapRepository;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 
 /**
  * Class Countries
- * @package App\Controller\Web
+ * @package App\Controller\Web\Maps
  */
 class Maps extends Base
 {

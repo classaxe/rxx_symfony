@@ -1,5 +1,5 @@
 <?php
-namespace App\Controller\Web;
+namespace App\Controller\Web\States;
 
 use App\Repository\CountryRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

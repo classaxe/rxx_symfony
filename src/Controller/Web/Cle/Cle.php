@@ -1,6 +1,7 @@
 <?php
-namespace App\Controller\Web;
+namespace App\Controller\Web\Cle;
 
+use App\Controller\Web\Base;
 use App\Repository\CleRepository;
 use App\Repository\MapRepository;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations

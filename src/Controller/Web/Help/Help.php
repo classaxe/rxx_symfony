@@ -1,6 +1,8 @@
 <?php
-namespace App\Controller\Web;
+namespace App\Controller\Web\Help;
 
+use App\Controller\Web\Base;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -18,11 +20,11 @@ class Help extends Base
      *     },
      *     name="help"
      * )
+     * @param $_locale
+     * @param $system
+     * @return Response
      */
-    public function helpController(
-        $_locale,
-        $system
-    ) {
+    public function helpController($_locale, $system) {
         $parameters = [
             '_locale' =>    $_locale,
             'mode' =>       'Help',
