@@ -3203,6 +3203,34 @@
         <source>CLE %CLE% starts at midday %DATESTART% and ends at midday %DATEEND% LOCAL TIME at the receiver.</source>
         <target>CLE %CLE% starts at midday %DATESTART% and ends at midday %DATEEND% LOCAL TIME at the receiver.</target>
       </trans-unit>
+      <trans-unit id="YXBikGd" resname="Error:">
+        <source>Error:</source>
+        <target>Error:</target>
+      </trans-unit>
+      <trans-unit id="Sim.dhG" resname="Incorrect Username and / or Password.">
+        <source>Incorrect Username and / or Password.</source>
+        <target>Incorrect Username and / or Password.</target>
+      </trans-unit>
+      <trans-unit id="9TlPcnn" resname="Message:">
+        <source>Message:</source>
+        <target>Message:</target>
+      </trans-unit>
+      <trans-unit id="UD0BZKc" resname="Signal Stats:">
+        <source>Signal Stats:</source>
+        <target>Signal Stats:</target>
+      </trans-unit>
+      <trans-unit id="5bPwU4O" resname="RNA only: %RNA% | REU only: %REU% | RNA + REU: %RNAREU% | RWW: %RWW% | Unlogged: %UNLOGGED%">
+        <source>RNA only: %RNA% | REU only: %REU% | RNA + REU: %RNAREU% | RWW: %RWW% | Unlogged: %UNLOGGED%</source>
+        <target>RNA only: %RNA% | REU only: %REU% | RNA + REU: %RNAREU% | RWW: %RWW% | Unlogged: %UNLOGGED%</target>
+      </trans-unit>
+      <trans-unit id="2izvyxs" resname="%SYSTEM% %FOCUS% Listener Stats:">
+        <source>%SYSTEM% %FOCUS% Listener Stats:</source>
+        <target>%SYSTEM% %FOCUS% Listener Stats:</target>
+      </trans-unit>
+      <trans-unit id="URadVpj" resname="Locations: %LOCATIONS% | Logs: %LOGS% | First Log: %FIRST% | Last Log: %LAST%">
+        <source>Locations: %LOCATIONS% | Logs: %LOGS% | First Log: %FIRST% | Last Log: %LAST%</source>
+        <target>Locations: %LOCATIONS% | Logs: %LOGS% | First Log: %FIRST% | Last Log: %LAST%</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

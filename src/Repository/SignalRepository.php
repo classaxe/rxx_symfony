@@ -780,18 +780,15 @@ class SignalRepository extends ServiceEntityRepository
         return $stmt->fetchColumn();
     }
 
-    public function getStats($isAdmin)
+    public function getStats()
     {
-        $stats = [
-            [ 'RNA Only' =>     number_format($this->getCountSignalsRNAOnly()) ],
-            [ 'REU Only' =>     number_format($this->getCountSignalsREUOnly()) ],
-            [ 'RNA + REU' =>    number_format($this->getCountSignalsRNAAndREU()) ],
-            [ 'RWW' =>          number_format($this->getCountSignalsRWW()) ]
-        ];
-        if ($isAdmin) {
-            $stats[] =[ 'Unlogged' => $this->getCountSignalsUnlogged() ];
-        }
-        return [ 'Signals' => $stats ];
+        return [ 'signals' => [
+            'RNA Only' =>     number_format($this->getCountSignalsRNAOnly()),
+            'REU Only' =>     number_format($this->getCountSignalsREUOnly()),
+            'RNA + REU' =>    number_format($this->getCountSignalsRNAAndREU()),
+            'RWW' =>          number_format($this->getCountSignalsRWW()),
+            'Unlogged' =>     $this->getCountSignalsUnlogged()
+        ]];
     }
 
     public static function getSeeklistColumns($signals, $paper)

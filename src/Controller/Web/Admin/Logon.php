@@ -3,6 +3,8 @@ namespace App\Controller\Web\Admin;
 
 use App\Controller\Web\Base;
 use App\Form\Logon as LogonForm;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Dotenv\Dotenv;
@@ -26,13 +28,14 @@ class Logon extends Base
      *     },
      *     name="logon"
      * )
+     * @param $_locale
+     * @param $system
+     * @param Request $request
+     * @param LogonForm $form
+     * @return RedirectResponse|Response
      */
-    public function logonController(
-        $_locale,
-        $system,
-        Request $request,
-        LogonForm $form
-    ) {
+    public function logonController($_locale, $system, Request $request, LogonForm $form)
+    {
         if (!$this->getConfig()) {
             return $this->configError();
         }
@@ -47,19 +50,22 @@ class Logon extends Base
             $args = $form->getData();
             if ($args['user'] !== $this->username || $args['password'] !== $this->password) {
                 $this->session->set('lastError', 'Incorrect Username and / or Password.');
-                return $this->redirectToRoute('logon', ['system' => $system]);
-            } else {
-                if (!$this->session->get('isAdmin', 0)) {
-                    $this->session->set('isAdmin', 1);
-                    $this->session->set('lastError', '');
-                    return $this->redirectToRoute(
-                        'logon',
-                        [
-                            '_locale' => $_locale,
-                            'system' => $system
-                        ]
-                    );
-                }
+                $parameters = [
+                    '_locale' => $_locale,
+                    'system' => $system
+                ];
+
+                return $this->redirectToRoute('logon', $parameters);
+            }
+            if (!$this->session->get('isAdmin', 0)) {
+                $this->session->set('isAdmin', 1);
+                $this->session->set('lastError', '');
+                $parameters = [
+                    '_locale' => $_locale,
+                    'system' => $system
+                ];
+
+                return $this->redirectToRoute('logon', $parameters);
             }
         } else {
             $this->session->set('lastError', '');

@@ -25,6 +25,8 @@
     {% trans %}To Log Off, select <strong>Log Off</strong> from the main menu.{% endtrans %}
     {% trans %}Username{% endtrans %}
     {% trans %}Password{% endtrans %}
+    {% trans %}Error:{% endtrans %}
+    {% trans %}Incorrect Username and / or Password.{% endtrans %}
     {% trans %}Please provide a valid Username{% endtrans %}
     {% trans %}Please provide a valid Password{% endtrans %}
 {% endif %}
@@ -449,6 +451,10 @@
 {% if 'Signals List' %}
     {# Form #}
         {% trans %}Signals List{% endtrans %}
+        {% trans %}Signal Stats:{% endtrans %}
+        {% trans %}RNA only: %RNA% | REU only: %REU% | RNA + REU: %RNAREU% | RWW: %RWW% | Unlogged: %UNLOGGED%{% endtrans %}
+        {% trans %}%SYSTEM% %FOCUS% Listener Stats:{% endtrans %}
+        {% trans %}Locations: %LOCATIONS% | Logs: %LOGS% | First Log: %FIRST% | Last Log: %LAST%{% endtrans %}
         {% trans %}RWW Focus{% endtrans %}
         {% trans %}Customise %s Signals List{% endtrans %}
         {% trans %}Paging Controls{% endtrans %}

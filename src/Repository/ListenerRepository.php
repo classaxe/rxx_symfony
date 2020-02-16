@@ -142,14 +142,15 @@ class ListenerRepository extends ServiceEntityRepository
         $dates =        $this->logRepository->getFirstAndLastLog($system, $region);
 
         $stats = [
-            [ 'Locations' =>    number_format($listeners)],
-            [ 'Loggings' =>     number_format($loggings) ]
+            'Focus' =>        ($region ? $this->regionRepository->get($region)->getName() : ""),
+            'Locations' =>    number_format($listeners),
+            'Loggings' =>     number_format($loggings)
         ];
         if ($loggings) {
-            $stats[] = [ 'First log' =>    date('j M Y', strtotime($dates['first'])) ];
-            $stats[] = [ 'Last log' =>     date('j M Y', strtotime($dates['last' ])) ];
+            $stats['First log'] = date('j M Y', strtotime($dates['first']));
+            $stats['Last log'] = date('j M Y', strtotime($dates['last' ]));
         }
-        return [ '%s Listeners' . ($region ? "<br />in " . $this->regionRepository->get($region)->getName() : "") => $stats];
+        return [ 'listeners' => $stats ];
     }
 
     public function getSignalsColumns()

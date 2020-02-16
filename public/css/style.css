@@ -1,16 +1,13 @@
 /*!
 * Project:   RXX - NDB Logging Database
 * Homepage:  https://rxx.classaxe.com
-* Date:      2020-02-14
+* Date:      2020-02-16
 * Licence:   LGPL
 * Copyright: 2020 Martin Francis
 */
 /* [ System Colours ] */
 body.reu {
   background: #fffafa;
-}
-body.reu table.stats tr {
-  background: #fff0f0;
 }
 body.reu .menu-centered .header {
   background: #fff0f0;
@@ -69,9 +66,6 @@ body.reu .button.is-active {
 body.rna {
   background: #f8f8ff;
 }
-body.rna table.stats tr {
-  background: #e0e0ff;
-}
 body.rna .menu-centered .header {
   background: #e0e0ff;
   border: 3px solid #3333ff;
@@ -128,9 +122,6 @@ body.rna .button.is-active {
 }
 body.rww {
   background: #fafffa;
-}
-body.rww table.stats tr {
-  background: #f2fff2;
 }
 body.rww .menu-centered .header {
   background: #f2fff2;
@@ -367,55 +358,6 @@ body .menu-centered .language li a {
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
   border: 0;
-}
-/* Signals Responsive Layout */
-div.c_1 {
-  float: left;
-  margin-right: 10px;
-}
-@media all and (max-width: 810px) {
-  div.c_2 section {
-    float: left;
-    margin: 0.5em 1em 0.5em 0;
-  }
-  div.c_2 section:last-child {
-    margin-right: 0;
-  }
-  div.c_2 section .stats {
-    width: 265px;
-  }
-}
-@media all and (min-width: 811px) {
-  div.c_2 {
-    float: right;
-  }
-  div.c_2 section {
-    margin-bottom: 1em;
-  }
-  div.c_2 section .stats {
-    width: 180px;
-  }
-}
-table.stats {
-  width: 180px;
-  margin: 0;
-  border: 0;
-  border-radius: 0;
-  border-collapse: collapse;
-  padding: 0;
-}
-table.stats thead,
-table.stats tbody,
-table.stats tfoot {
-  border: 0;
-}
-table.stats tr th {
-  text-align: left;
-  padding: 0;
-}
-table.stats tr td {
-  text-align: right;
-  padding: 0;
 }
 label[for="seeklist_paper"] {
   font-weight: bold;

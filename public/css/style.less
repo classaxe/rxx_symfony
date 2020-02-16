@@ -4,7 +4,6 @@
     menuLangBtn:    80px;
     listenersForm:  570px;
     signalsForm:    570px;
-    stats:          180px;
     logonForm:      300px;
     label:          120px;
 }
@@ -59,11 +58,6 @@
 #sysColor(@rmode) {
     body.@{rmode} {
         background: @@rmode[bodyBg];
-        table.stats {
-            tr {
-                background: @@rmode[panelBg] !important;
-            }
-        }
         .menu-centered {
             .header {
                 background: @@rmode[panelBg];
@@ -289,62 +283,6 @@ body {
     border: 0;
 }
 
-/* Signals Responsive Layout */
-div.c_1 {
-    float: left;
-    margin-right: 10px;
-}
-
-@media all and (max-width: @width[signalsForm] + 60 + @width[stats]) {
-    div.c_2 {
-        section {
-            float: left;
-            margin: 0.5em 1em 0.5em 0;
-            &:last-child {
-                margin-right: 0;
-            }
-            .stats {
-                width: (@width[signalsForm] / 2) - 20;
-            }
-        }
-    }
-}
-
-@media all and (min-width: @width[signalsForm] + 60 + @width[stats] + 1) {
-    div.c_2 {
-        float: right;
-        section {
-            margin-bottom: 1em;
-            .stats {
-                width: @width[stats];
-            }
-        }
-    }
-}
-
-table.stats {
-    width: @width[stats];
-    thead,
-    tbody,
-    tfoot {
-        border: 0;
-    }
-    tr {
-        th {
-            text-align: left;
-            padding: 0;
-        }
-        td {
-            text-align: right;
-            padding: 0;
-        }
-    }
-    margin: 0;
-    border: 0;
-    border-radius: 0;
-    border-collapse: collapse;
-    padding: 0;
-}
 label[for="seeklist_paper"] {
     font-weight: bold;
     display: inline-block;

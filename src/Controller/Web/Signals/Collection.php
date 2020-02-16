@@ -154,9 +154,9 @@ class Collection extends Base
             'seeklistColumns' =>    $seeklistColumns,
             'seeklistStats' =>      $seeklistStats,
             'signals' =>            $signalEntities,
-            'statsBlocks' =>
-                $signalRepository->getStats($this->isAdmin()) +
-                $listenerRepository->getStats($system, $args['region']),
+            'stats' =>
+                $signalRepository->getStats() +
+                $listenerRepository->getStats($system, $args['rww_focus']),
             'system' =>             $system,
             'sortbyOptions' =>      $signalRepository->getColumns(),
             'tabs' => [

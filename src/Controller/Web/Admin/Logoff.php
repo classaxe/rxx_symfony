@@ -2,6 +2,7 @@
 namespace App\Controller\Web\Admin;
 
 use App\Controller\Web\Base;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 
 /**
@@ -20,18 +21,19 @@ class Logoff extends Base
      *     },
      *     name="logoff"
      * )
+     * @param $_locale
+     * @param $system
+     * @return RedirectResponse
      */
-    public function logoffController(
-        $_locale,
-        $system
-    ) {
+    public function logoffController($_locale, $system)
+    {
         $this->session->set('isAdmin', 0);
-        return $this->redirectToRoute(
-            'logon',
-            [
-                '_locale' => $_locale,
-                'system' => $system
-            ]
-        );
+
+        $parameters = [
+            '_locale' => $_locale,
+            'system' => $system
+        ];
+
+        return $this->redirectToRoute('logon', $parameters);
     }
 }
