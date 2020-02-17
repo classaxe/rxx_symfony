@@ -571,14 +571,14 @@ class Signal
         return $this;
     }
 
-    public function getLsb(): ?int
+    public function getLsb(): ?float
     {
         return $this->lsb;
     }
 
     public function setLsb($lsb): self
     {
-        $this->lsb = ($lsb === '' ? null : (int) $lsb);
+        $this->lsb = ($lsb === '' ? null : (float) $lsb);
 
         return $this;
     }
@@ -667,14 +667,14 @@ class Signal
         return $this;
     }
 
-    public function getUsb(): ?int
+    public function getUsb(): ?float
     {
         return $this->usb;
     }
 
     public function setUsb($usb): self
     {
-        $this->usb = ($usb === '' ? null : (int) $usb);
+        $this->usb = ($usb === '' ? null : (float) $usb);
 
         return $this;
     }

@@ -32,7 +32,7 @@ var popWinSpecs = {
 
 function changeShowMode(mode) {
     $('#form_show').val(mode);
-    $('#form_submit').click();
+    formSubmit();
 }
 
 function exportSignallistExcel() {
@@ -336,6 +336,7 @@ function initSignalsForm(pagingMsg, resultsCount) {
         setFormPagingActions();
 
         setFormPersonaliseAction();
+        setFormOffsetsAction();
         setFormRangeAction();
         setFormRangeUnitsDefault();
         setFormSortbyAction();
@@ -617,7 +618,7 @@ function setFormCountryAction(enable) {
     enable = typeof enable !== 'undefined' ? enable : true;
     if (enable) {
         $('select#form_country').change(function () {
-            $('#form_submit').click();
+            formSubmit();
         });
     } else {
         $('select#form_country').off('change');
@@ -800,14 +801,30 @@ function setFormPagingStatus(string, value) {
     );
 }
 
-function setFormPersonaliseAction() {
-    $('#form_personalise').change(function() {
-        var lbl = $('#form_personalise option:selected').text();
-        var gsq = (lbl.split('|').length === 2 ? lbl.split('|')[1] : '').trim();
-        $('#form_range_gsq').val(gsq);
-        $('#form_range_gsq').trigger('keyup');
-        $('form[name="form"]').submit();
-    });
+function setFormPersonaliseAction(enable) {
+    enable = typeof enable !== 'undefined' ? enable : true;
+    if (enable) {
+        $('#form_personalise').change(function () {
+            var lbl = $('#form_personalise option:selected').text();
+            var gsq = (lbl.split('|').length === 2 ? lbl.split('|')[1] : '').trim();
+            $('#form_range_gsq').val(gsq);
+            $('#form_range_gsq').trigger('keyup');
+            $('form[name="form"]').submit();
+        });
+    } else {
+        $('#form_personalise').off('change');
+    }
+}
+
+function setFormOffsetsAction(enable) {
+    enable = typeof enable !== 'undefined' ? enable : true;
+    if (enable) {
+        $('#form_offsets').change(function () {
+            formSubmit();
+        });
+    } else {
+        $('#form_offsets').off('change');
+    }
 }
 
 function setFormRangeAction() {
@@ -839,7 +856,7 @@ function setFormAdminAction(enable) {
     enable = typeof enable !== 'undefined' ? enable : true;
     if (enable) {
         $('select#form_admin_mode').change(function () {
-            $('#form_submit').click();
+            formSubmit();
         });
     } else {
         $('select#form_admin_mode').off('change');
@@ -851,7 +868,7 @@ function setFormRegionAction(enable) {
     enable = typeof enable !== 'undefined' ? enable : true;
     if (enable) {
         $('select#form_region').change(function () {
-            $('#form_submit').click();
+            formSubmit();
         });
     } else {
         $('select#form_region').off('change');
@@ -862,7 +879,7 @@ function setFormRwwFocusAction(enable) {
     enable = typeof enable !== 'undefined' ? enable : true;
     if (enable) {
         $('select#form_rww_focus').change(function () {
-            $('#form_submit').click();
+            formSubmit();
         });
     } else {
         $('select#form_rww_focus').off('change');
@@ -876,6 +893,8 @@ function setFormResetAction(form) {
                 setFormAdminAction(false);
                 setFormRegionAction(false);
                 setFormRwwFocusAction(false);
+                setFormOffsetsAction(false);
+                setFormPersonaliseAction(false);
 
                 $('#form_show').val('');
                 $('#form_types div :checkbox').prop('checked', false);
@@ -914,10 +933,12 @@ function setFormResetAction(form) {
 
                 $('#form_admin_mode').prop('selectedIndex', 0);
 
+                setFormPersonaliseAction(true);
+                setFormOffsetsAction(true);
                 setFormAdminAction(true);
                 setFormRegionAction(true);
                 setFormRwwFocusAction(true);
-                $('#form_submit').click();
+                formSubmit();
                 return false;
             });
             break;
@@ -940,11 +961,17 @@ function setFormResetAction(form) {
     }
 }
 
+function formSubmit() {
+    $('#form_clear').prop('disabled', 'disabled');
+    $('#form_submit')
+        .click()
+        .prop('disabled', 'disabled');
+}
 function setFormShowModeAction() {
     $('#seeklist_paper')
         .change(function() {
             $('#form_paper').val($('#seeklist_paper option:selected').val());
-            $('#form_submit').click();
+            formSubmit();
         });
 }
 
@@ -954,14 +981,14 @@ function setFormSortbyAction() {
         $('#form_sort').val(val.split('|')[0]);
         $('#form_order').val(val.split('|')[1]);
         $('#form_za').prop('checked', val.split('|')[1] === 'd');
-        $('#form_submit').click();
+        formSubmit();
     });
 }
 
 function setFormSortZaAction() {
     $('input#form_za').change(function () {
         $('#form_order').val($('input#form_za').prop('checked') ? 'd' : 'a');
-        $('#form_submit').click();
+        formSubmit();
     });
 }
 

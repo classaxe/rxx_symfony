@@ -6,22 +6,24 @@
     {% endfor %}
 {% endif %}
 <td {% if column.td_class %} class="{{ column.td_class }}"{% endif %}>{%
-    if column.field == 'actions'
+    if (column.field == 'actions')
         %}{% if isAdmin %}<a href="{{ url('signal_delete', { 'system' : system, 'id' : signal.id }) }}" onclick="return confirm(msg.delete)">{% trans %}Delete{% endtrans %}</a>{% endif %}{%
-    elseif column.field == 'call'
+    elseif (column.field == 'call')
         %}<a href="{{ url('signal', { 'system' : system, 'id' : signal.id }) }}" data-popup="1">{{ signal.call }}</a>{%
-    elseif column.field == 'GSQ'
+    elseif (column.field == 'GSQ')
         %}{% if signal.GSQ %}<a data-gsq="{{ signal.id }}">{{ value | raw }}</a>{% endif %}{%
-    elseif column.field == 'ITU'
+    elseif (column.field == 'ITU')
         %}{% if signal.itu %}<a data-set="itu">{{ value | raw }}</a>{% endif %}{%
-    elseif column.field == 'khz'
+    elseif (column.field == 'khz')
         %}<a data-set="khz">{{ value | raw }}</a>{%
-    elseif column.field == 'logs'
+    elseif (column.field == 'logs')
         %}{% if signal.logs %}<a href="{{ url('signal_logs', { 'system' : system, 'id' : signal.id }) }}" data-popup="1">{{ signal.logs }}</a>{% endif %}{%
-    elseif column.field == 'SP'
+    elseif (column.field == 'LSB' or column.field == 'USB')
+        %}{%  if value != 0 %}{% if (args.offsets == '1') %}{{ value | number_format(3) }}{% else %}{{ value }}{% endif %}{% endif %}{%
+    elseif (column.field == 'SP')
         %}{% if signal.sp %}<a data-set="sp">{{ value | raw }}</a>{% endif %}{%
     else
-        %}{% if column.float is defined %}{{ value | float }}{% else %}{{ value | raw }}{% endif %}{%
+        %}{{ value | raw }}{%
     endif
 %}</td>
 {% endif %}

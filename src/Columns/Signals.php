@@ -17,7 +17,6 @@ class Signals
                 'admin'     =>  false,
                 'arg'       =>  '',
                 'field'     =>  'khz',
-                'float'     =>  true,
                 'highlight' =>  false,
                 'label'     =>  'KHz',
                 'labelSort' =>  '',
