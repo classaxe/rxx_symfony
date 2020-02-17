@@ -21,10 +21,10 @@ var popWinSpecs = {
     'maps_pacific' :                'width=600,height=750,resizable=1',
     'maps_polynesia' :              'width=500,height=525,resizable=1',
     'maps_sa' :                     'width=490,height=745,resizable=1',
-    'signals_[id]' :                'width=800,height=680,status=1,scrollbars=1,resizable=1',
-    'signals_[id]_logs' :           'width=800,height=680,status=1,scrollbars=1,resizable=1',
-    'signals_[id]_listeners' :      'width=800,height=680,status=1,scrollbars=1,resizable=1',
-    'signals_[id]_weather' :        'width=800,height=680,status=1,scrollbars=1,resizable=1',
+    'signals_[id]' :                'width=1040,height=800,status=1,scrollbars=1,resizable=1',
+    'signals_[id]_logs' :           'width=1040,height=800,status=1,scrollbars=1,resizable=1',
+    'signals_[id]_listeners' :      'width=1040,height=800,status=1,scrollbars=1,resizable=1',
+    'signals_[id]_weather' :        'width=1040,height=800,status=1,scrollbars=1,resizable=1',
     'states_*' :                    'width=720,height=760,resizable=1',
     'states_aus' :                  'width=720,height=240,resizable=1',
     'states_can_usa' :              'width=680,height=690,resizable=1',
@@ -356,6 +356,7 @@ function initSignalsForm(pagingMsg, resultsCount) {
         setFormHeardInModDefault();
         setFormListenerOptionsStyle();
         setFormDatePickers();
+        setFormCollapseSections();
 
         setFormResetAction('signals');
         setColumnSortActions();
@@ -536,7 +537,7 @@ function setExternalLinks() {
     $('a[data-signal-map-eu]')
         .click(function() {
             var target = 'map_' + $(this).data('signal-map-eu');
-            var features = 'scrollbars=1,resizable=1,width=1024,height=800';
+            var features = 'scrollbars=1,resizable=1,width=1040,height=800';
             window.open(this.href, target, features);
             return false;
         })
@@ -549,7 +550,7 @@ function setExternalLinks() {
     $('a[data-signal-map-na]')
         .click(function() {
             var target = 'map_' + $(this).data('signal-map-na');
-            var features = 'scrollbars=1,resizable=1,width=1024,height=800';
+            var features = 'scrollbars=1,resizable=1,width=1040,height=800';
             window.open(this.href, target, features);
             return false;
         })
@@ -578,9 +579,10 @@ function setExternalLinks() {
     $('tr[data-map]')
         .mouseover(function() {
             var coords = $(this).data('map').split('|');
+            var scale = $('#rx_map').width() / $('#rx_map')[0].naturalWidth;
             $('#point_here')
                 .show()
-                .css({left: (coords[0] - 5)+'px', top: (coords[1]-5) + 'px'});
+                .css({left: ((coords[0] * scale) - 5) + 'px', top: ((coords[1] * scale) - 5) + 'px'});
         })
         .mouseout(function() {
             $('#point_here').hide();
@@ -593,6 +595,21 @@ function setExternalLinks() {
             return false;
         });
 
+}
+
+function setFormCollapseSections() {
+    $('#section_loggings legend').click(
+        function() {
+            $(this).parent().find('fieldset').toggle();
+            $(this).find('span').toggle();
+        }
+    );
+    $('#section_customise legend').click(
+        function() {
+            $(this).parent().find('fieldset').toggle();
+            $(this).find('span').toggle();
+        }
+    );
 }
 
 /* [ Enable Country change to resubmit form ] */
@@ -789,6 +806,7 @@ function setFormPersonaliseAction() {
         var gsq = (lbl.split('|').length === 2 ? lbl.split('|')[1] : '').trim();
         $('#form_range_gsq').val(gsq);
         $('#form_range_gsq').trigger('keyup');
+        $('form[name="form"]').submit();
     });
 }
 

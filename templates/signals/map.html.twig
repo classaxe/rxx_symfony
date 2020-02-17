@@ -33,7 +33,11 @@ var signals = [
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCmvsfY0bgnVB-gl_nMHGQ71rp1WTz9tGM&callback=signalsMap.init"></script>
 <div class="row">
     <div class="small-6 text-left"><h2>{{ system|upper }} {% trans %}Signals Map{% endtrans %}</h2></div>
-    <div class="small-6 text-right">{% if personalised %}<h3>{{ 'Personalised for %s'|trans|format(personalised) }}</h3>{% endif %}</div>
+    <div class="small-6 text-right">{% if personalised %}<h3>{{ 'Personalised for %s%s%s'|trans|format(
+            "<a href='" ~ url('listener', { 'system' : system, 'id' : args.personalise }) ~ "' data-popup='1'>",
+            personalised,
+            '</a>'
+        )|raw }}</h3>{% endif %}</div>
 </div>
 <div id="panel">
     <div id="markerlist">

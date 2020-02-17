@@ -1,7 +1,7 @@
 /*!
 * Project:   RXX - NDB Logging Database
 * Homepage:  https://rxx.classaxe.com
-* Date:      2020-02-16
+* Date:      2020-02-17
 * Licence:   LGPL
 * Copyright: 2020 Martin Francis
 */
@@ -387,6 +387,17 @@ table.seeklist thead tr.sl_1 td h4 {
   margin: 0;
   font-size: 100%;
 }
+table.seeklist thead tr.sl_1 td h2 a,
+table.seeklist thead tr.sl_1 td h3 a,
+table.seeklist thead tr.sl_1 td h4 a {
+  color: #ffffff;
+}
+table.seeklist thead tr.sl_1 td h2 a:hover,
+table.seeklist thead tr.sl_1 td h3 a:hover,
+table.seeklist thead tr.sl_1 td h4 a:hover {
+  background: #ffffff;
+  color: #0000ff;
+}
 table.seeklist thead tr.sl_2 td i {
   background-color: #e0e0e0 !important;
   padding: 0 0.125em;
@@ -749,6 +760,16 @@ button.tiny {
 #form fieldset legend.line {
   border-top: 1px solid #ccc;
   padding: 0.25em 0 0 0;
+}
+#form fieldset legend.toggle {
+  cursor: pointer;
+}
+#form fieldset legend.toggle:hover {
+  color: #000080;
+}
+#form fieldset legend span {
+  float: none;
+  margin: 0;
 }
 #form fieldset#group_ {
   padding: 0;
@@ -1310,6 +1331,12 @@ fieldset#form_range_units div label {
 }
 .signal_rx_map div.scroll div table.results tbody tr:hover {
   background: #ffff00;
+}
+.signal_rx_map div.scroll div table.results tbody td {
+  white-space: nowrap;
+}
+.signal_rx_map div.scroll div table.results tbody td.qth {
+  min-width: 4em;
 }
 .signal_rx_map div.scroll div table.results img {
   margin: 0.5em 0.25em 0 0;

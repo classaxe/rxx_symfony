@@ -13,6 +13,29 @@ use Doctrine\Persistence\ManagerRegistry;
 
 class SignalRepository extends ServiceEntityRepository
 {
+    const collapsable_sections = [
+        'loggings' => [
+            'listener',
+            'heard_in',
+            'logged_date_1',
+            'logged_date_2',
+            'logged_first_1',
+            'logged_first_2',
+            'logged_last_1',
+            'logged_last_2'
+        ],
+        'customise' => [
+            'personalise',
+            'offsets',
+            'range_gsq',
+            'range_min',
+            'range_max'
+        ]
+    ];
+    const defaultlimit =     50;
+    const defaultSorting =  'khz';
+    const defaultOrder =    'a';
+
     private $args;
     private $connection;
     private $debug = false;

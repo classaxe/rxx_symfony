@@ -17,10 +17,6 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class Collection extends Base
 {
-    const defaultlimit =     50;
-    const defaultSorting =  'khz';
-    const defaultOrder =    'a';
-
     /**
      * @Route(
      *     "/{_locale}/{system}/signals",
@@ -63,7 +59,7 @@ class Collection extends Base
             'isAdmin' =>        $isAdmin,
             'khz_1' =>          '',
             'khz_2' =>          '',
-            'limit' =>          static::defaultlimit,
+            'limit' =>          SignalRepository::defaultlimit,
             'listener' =>       [],
             'listener_invert' => '',
             'logged_date_1' =>  '',
@@ -73,7 +69,7 @@ class Collection extends Base
             'logged_last_1' =>  '',
             'logged_last_2' =>  '',
             'offsets' =>        '',
-            'order' =>          static::defaultOrder,
+            'order' =>          SignalRepository::defaultOrder,
             'page' =>           0,
             'paper' =>          $paperRepository::getDefaultForSystem($system),
             'personalise' =>    '',
@@ -84,7 +80,7 @@ class Collection extends Base
             'region' =>         $_REQUEST['form']['region'] ?? '',
             'rww_focus' =>      '',
             'show' =>           '',
-            'sort' =>           static::defaultSorting,
+            'sort' =>           SignalRepository::defaultSorting,
             'sp_itu_clause' =>  '',
             'states' =>         '',
             'system' =>         $system,
@@ -103,11 +99,13 @@ class Collection extends Base
         foreach (['logged_date_1', 'logged_date_2', 'logged_first_1', 'logged_first_2', 'logged_last_1', 'logged_last_2'] as $arg) {
             $args[$arg] = $args[$arg] ? new DateTime($args[$arg]) : null;
         }
-
         $form = $form->buildForm($this->createFormBuilder(), $args);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $args = $form->getData();
+        }
+        if ([''] === $args['listener']) {
+            $args['listener'] = [];
         }
         if (empty($args['types'])) {
             $args['types'][] = 'type_NDB';
@@ -136,10 +134,22 @@ class Collection extends Base
             $s->loadFromArray($signal);
             $signalEntities[] = $s;
         }
+        $expanded = [];
+        foreach (SignalRepository::collapsable_sections as $section => $fields) {
+            $expanded[$section] = 0;
+            foreach ($fields as $field) {
+                if ($args[$field]) {
+                    $expanded[$section] = 1;
+                    break;
+                }
+            }
+        }
+
         $parameters = [
             '_locale' =>            $_locale,
             'args' =>               $args,
             'columns' =>            $signalRepository->getColumns(),
+            'expanded' =>           $expanded,
             'form' =>               $form->createView(),
             'isAdmin' =>            $isAdmin,
             'mode' =>               $this->translator->trans('Signals'),
@@ -147,7 +157,7 @@ class Collection extends Base
             'paperChoices' =>       $paperRepository->getAllChoices(),
             'personalised' =>       isset($args['personalise']) ? $listenerRepository->getDescription($args['personalise']) : false,
             'results' => [
-                'limit' =>              isset($args['limit']) ? $args['limit'] : static::defaultlimit,
+                'limit' =>              isset($args['limit']) ? $args['limit'] : SignalRepository::defaultlimit,
                 'page' =>               isset($args['page']) ? $args['page'] : 0,
                 'total' =>              $total
             ],
@@ -161,8 +171,8 @@ class Collection extends Base
             'sortbyOptions' =>      $signalRepository->getColumns(),
             'tabs' => [
                 [ 'list', 'Listing' ],
+                [ 'seeklist', 'Seeklist'],
                 [ 'map', 'Map' ],
-                [ 'seeklist', 'Seeklist']
             ],
             'typeRepository' =>     $typeRepository
         ];

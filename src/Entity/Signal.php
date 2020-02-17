@@ -813,6 +813,9 @@ class Signal
             if (method_exists($this, $method)) {
                 $this->{$method}($value);
             }
+            if (in_array($key, ['personalise', 'range_km', 'range_mi', 'range_deg'])) {
+                $this->$key = $value;
+            }
         }
     }
 }

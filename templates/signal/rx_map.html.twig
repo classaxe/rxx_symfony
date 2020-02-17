@@ -35,7 +35,7 @@
                                         <tbody>
                                         {% for key, l in listeners %}
                                             <tr id="listener_{{ l.id }}" data-map="{{ l.mapX }}|{{ l.mapY }}">
-                                                <td>{% if l.primaryQth %}<img src="{{ asset('image/map_point1.gif') }}" alt="Primary QTH" />{% else %}<img src="{{ asset('image/map_point2.gif') }}" alt="Other QTH" />{% endif %}{{ l.heardIn }}</td>
+                                                <td class="qth">{% if l.primaryQth %}<img src="{{ asset('image/map_point1.gif') }}" alt="Primary QTH" />{% else %}<img src="{{ asset('image/map_point2.gif') }}" alt="Other QTH" />{% endif %}{{ l.heardIn }}</td>
                                                 <td><a href="{{ url('listener', { 'system' : system, 'id': l.id }) }}">{{ l.name|raw }}</a></td>
                                                 <td>{{ l.dxKm }}</td>
                                                 <td>{{ l.dxMiles }}</td>

@@ -17,7 +17,7 @@
                         {{ form_row(form.rww_focus) }}
                     {% endif %}
                     {{ form_row(form.types) }}
-                    <div style="display:inline-block; width:auto">
+                    <div>
                         {{ form_label(form.call) }}
                         {{ form_widget(form.call) }}
                         <fieldset style="display:inline-block; width:auto; float: left;">
@@ -39,58 +39,69 @@
                     </div>
                     {{ form_row(form.countries) }}
                     {{ form_row(form.region) }}
-                    <div style="display:inline-block; width:auto">
+                    <div>
                         {{ form_label(form.gsq) }}
                         {{ form_widget(form.gsq) }}
                         {{ form_label(form.active) }}
                         {{ form_widget(form.active) }}
                     </div>
                 </fieldset>
-                <fieldset class="section">
-                    <legend class="line" id="section_loggings">{% trans %}Loggings{% endtrans %}</legend>
-                    <div>
+                <fieldset class="section" id="section_loggings">
+                    <legend class="line toggle">{% trans %}Loggings{% endtrans %}
+                        [<span id="section_loggings_show"{% if expanded.loggings %} style="display:none"{% endif %}>{% trans %}Show{% endtrans %}</span><span
+                                id="section_loggings_hide"{% if not expanded.loggings %} style="display:none"{% endif %}>{% trans %}Hide{% endtrans %}</span>]
+                    </legend>
+                    <fieldset{% if not expanded.loggings %} style="display:none"{% endif %}>
                         <div>
-                            {{ form_label(form.listener) }}
-                            {{ form_widget(form.listener_invert) }}
-                            <div id="listener_selection_help">{% trans %}Use SHIFT or CONTROL to select multiple values{% endtrans %}</div>
+                            <div>
+                                {{ form_label(form.listener) }}
+                                {{ form_widget(form.listener_invert) }}
+                                <div id="listener_selection_help">{% trans %}Use SHIFT or CONTROL to select multiple values{% endtrans %}</div>
+                            </div>
+                            {{ form_widget(form.listener) }}
                         </div>
-                        {{ form_widget(form.listener) }}
-                    </div>
-                    <div>{{ form_label(form.heard_in) }}{{ form_widget(form.heard_in) }}
-                        {{ form_widget(form.heard_in_mod) }}</div>
-                    <div>
-                        {{  form_label(form.logged_date_1) }}
-                        {{  form_widget(form.logged_date_1) }} <span>-</span> {{  form_widget(form.logged_date_2) }}
-                    </div>
-                    <div>
-                        {{  form_label(form.logged_first_1) }}
-                        {{  form_widget(form.logged_first_1) }} <span>-</span> {{  form_widget(form.logged_first_2) }}
-                    </div>
-                    <div>
-                        {{  form_label(form.logged_last_1) }}
-                        {{  form_widget(form.logged_last_1) }} <span>-</span> {{  form_widget(form.logged_last_2) }}
-                    </div>
+                        <div>{{ form_label(form.heard_in) }}{{ form_widget(form.heard_in) }}
+                            <div>{{ form_widget(form.heard_in_mod) }}</div>
+                        </div>
+                        <div>
+                            {{  form_label(form.logged_date_1) }}
+                            {{  form_widget(form.logged_date_1) }} <span>-</span> {{  form_widget(form.logged_date_2) }}
+                        </div>
+                        <div>
+                            {{  form_label(form.logged_first_1) }}
+                            {{  form_widget(form.logged_first_1) }} <span>-</span> {{  form_widget(form.logged_first_2) }}
+                        </div>
+                        <div>
+                            {{  form_label(form.logged_last_1) }}
+                            {{  form_widget(form.logged_last_1) }} <span>-</span> {{  form_widget(form.logged_last_2) }}
+                        </div>
+                    </fieldset>
                 </fieldset>
-                <fieldset class="section">
-                    <legend class="line" id="section_customise">{% trans %}Customise{% endtrans %}</legend>
-                    {{ form_row(form.personalise) }}
-                    <div style="display:inline-block; clear: none; float:right;">
-                        {{ form_label(form.offsets) }}
-                        {{ form_widget(form.offsets) }}
-                    </div>
-                    <div>
-                        {{ form_label(form.range_gsq) }}
-                        {{ form_widget(form.range_gsq) }}
-                        {{ form_label(form.range_min) }}
-                        {{ form_widget(form.range_min) }}
-                        <span>-</span>
-                        <label for="form_range_max" class="sr-only">{% trans %}DX Max{% endtrans %}</label>
-                        {{ form_widget(form.range_max) }}
-                        {{ form_widget(form.range_units) }}
-                    </div>
-                    <div style="display:inline-block;">
-                        {% include 'signals/formSortby.html.twig' %}
-                    </div>
+                <fieldset class="section" id="section_customise">
+                    <legend class="line toggle">{% trans %}Customise{% endtrans %}
+                        [<span id="section_customise_show"{% if expanded.customise %} style="display:none"{% endif %}>{% trans %}Show{% endtrans %}</span><span
+                            id="section_customise_hide"{% if not expanded.customise %} style="display:none"{% endif %}>{% trans %}Hide{% endtrans %}</span>]
+                    </legend>
+                    <fieldset{% if not expanded.customise %} style="display:none"{% endif %}>
+                        {{ form_row(form.personalise) }}
+                        <div style="clear: none; float:right;">
+                            {{ form_label(form.offsets) }}
+                            {{ form_widget(form.offsets) }}
+                        </div>
+                        <div>
+                            {{ form_label(form.range_gsq) }}
+                            {{ form_widget(form.range_gsq) }}
+                            {{ form_label(form.range_min) }}
+                            {{ form_widget(form.range_min) }}
+                            <span>-</span>
+                            <label for="form_range_max" class="sr-only">{% trans %}DX Max{% endtrans %}</label>
+                            {{ form_widget(form.range_max) }}
+                            {{ form_widget(form.range_units) }}
+                        </div>
+                        <div>
+                            {% include 'signals/formSortby.html.twig' %}
+                        </div>
+                    </fieldset>
                 </fieldset>
                 {% if (isAdmin) %}
                 <fieldset class="section">

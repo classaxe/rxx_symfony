@@ -3231,6 +3231,14 @@
         <source>Locations: %LOCATIONS% | Logs: %LOGS% | First Log: %FIRST% | Last Log: %LAST%</source>
         <target>__Locations: %LOCATIONS% | Logs: %LOGS% | First Log: %FIRST% | Last Log: %LAST%</target>
       </trans-unit>
+      <trans-unit id="rCCle.3" resname="Hide">
+        <source>Hide</source>
+        <target>__Hide</target>
+      </trans-unit>
+      <trans-unit id="bjdok1O" resname="Personalised for %s%s%s">
+        <source>Personalised for %s%s%s</source>
+        <target>__Personalised for %s%s%s</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

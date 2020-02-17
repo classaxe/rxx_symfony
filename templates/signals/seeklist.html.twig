@@ -9,7 +9,11 @@
                     <div class="row">
                         <h2 class="small-{{ personalised ? 2 : 6 }} text-left">{{ '%s Seeklist'|trans|format(system|upper) }}</h2>
                         {% if personalised %}<h3 class="small-8 text-center">
-                            {{ 'For %s'|trans|format(personalised) }}
+                            {{ 'Personalised for %s%s%s'|trans|format(
+                                    "<a href='" ~ url('listener', { 'system' : system, 'id' : args.personalise }) ~ "' data-popup='1'>",
+                                    personalised,
+                                    '</a>'
+                                )|raw }}
                             </h3>{% endif %}
                         <h4 class="small-{{ personalised ? 2 : 6 }} text-right">{{ 'Page %s of %s'|trans|format(page, pages) }}</h4>
                     </div>
@@ -39,7 +43,7 @@
                         {% endif %}
                         </div>
                         <div class="small-6 text-right">
-                            {{ 'Updated %s'|trans|format(statsBlocks['%s Listeners'][3]['Last log']) }}
+                            {{ 'Updated %s'|trans|format(stats['listeners']['Last log']) }}
                         </div>
                     </div>
                     <div class="row">
@@ -64,10 +68,10 @@
                     {% for signal in seeklistColumns[ (col) + ((page -1) * paper.cols) - 1] %}
                         {% if itu != signal.itu or sp != signal.sp %}
                             {% set itu, sp, key = signal.itu, signal.sp , signal.itu ~ '_' ~ signal.sp %}
-                            {% set stats = attribute(seeklistStats, key) %}
+                            {% set sl_stats = attribute(seeklistStats, key) %}
                             <div class="clearfix sl_h">
                                 <span><b>{{ itu }} {{ sp }}</b></span>
-                                <em>({% if (args.personalise) %}{{ stats.heard }} of {% endif %}{{ stats.total  }})</em>
+                                <em>({% if (args.personalise) %}{{ sl_stats.heard }} of {% endif %}{{ sl_stats.total  }})</em>
                             </div>
                         {% endif %}
                         <div {% if not signal.active %}title="(Inactive)"{% endif %} class="clearfix sl_d{% if signal.personalise %} heard{% endif %}{% if not signal.active %} inactive{% endif %}">

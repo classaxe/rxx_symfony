@@ -308,6 +308,13 @@ table.seeklist {
                     font-weight: bold;
                     margin: 0;
                     font-size: 100%;
+                    a {
+                        color: #ffffff;
+                        &:hover {
+                            background: #ffffff;
+                            color: #0000ff;
+                        }
+                    }
                 }
             }
         }
@@ -690,6 +697,16 @@ button.tiny {
             &.line {
                 border-top: 1px solid #ccc;
                 padding: 0.25em 0 0 0;
+            }
+            &.toggle {
+                cursor: pointer;
+                &:hover {
+                    color: #000080;
+                }
+            }
+            span {
+                float: none;
+                margin: 0;
             }
         }
         &#group_ {
@@ -1245,8 +1262,16 @@ fieldset#form_range_units {
             thead {
                 th { position: sticky; top: -1px; border-top: none; border-bottom: none; }
             }
-            tbody tr:hover {
-                background: #ffff00;
+            tbody {
+                tr:hover {
+                    background: #ffff00;
+                }
+                td {
+                    white-space: nowrap;
+                    &.qth {
+                        min-width: 4em;
+                    }
+                }
             }
             img { margin: 0.5em 0.25em 0 0;}
         }

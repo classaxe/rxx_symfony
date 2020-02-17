@@ -11,7 +11,11 @@
             {% endif %}
             </h2>
         </div>
-        <div class="small-6 text-right">{% if personalised %}<h3>{{ 'Personalised for %s'|trans|format(personalised) }}</h3>{% endif %}</div>
+        <div class="small-6 text-right">{% if personalised %}<h3>{{ 'Personalised for %s%s%s'|trans|format(
+            "<a href='" ~ url('listener', { 'system' : system, 'id' : args.personalise }) ~ "' data-popup='1'>",
+            personalised,
+            '</a>'
+        )|raw }}</h3>{% endif %}</div>
     </div>
 
 {% if signals|length > 0 %}
