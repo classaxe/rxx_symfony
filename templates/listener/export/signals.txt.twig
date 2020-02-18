@@ -1,0 +1,19 @@
+{{ title }}
+{{ subtitle }}
+---------------------------------------------------------------------------------------------------
+KHz      ID           Logs    KM    Mi   PWR GSQ    SP ITU Location
+---------------------------------------------------------------------------------------------------
+{% for signal in signals %}
+{{
+    "% -8s"  | format((0 + signal.khz)) }} {{
+    "% -10s" | format(signal.call) }} {{
+    "% 6s"   | format(signal.logs) }} {{
+    "% 5s"   | format(signal.dxKm) }} {{
+    "% 5s"   | format(signal.dxMiles) }} {{
+    "% 5s"   | format(signal.pwr ? signal.pwr : '') }} {{
+    "% 6s"   | format(signal.gsq) }} {{
+    "% 2s"   | format(signal.sp) }} {{
+    "% 3s"   | format(signal.itu) }} {{
+    signal.qth|raw
+}}
+{% endfor %}

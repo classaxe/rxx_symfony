@@ -14,6 +14,10 @@
                             showing all {{ logs }} logs.
                         </li>
                         <li>
+                            View <a href="{{ url('listener_export_signals', { 'system' : system, 'id': id }) }}" rel="external">text listing</a>
+                            showing all {{ signals }} signals.
+                        </li>
+                        <li>
                             View <a href="{{ url('listener_export_signalmap', { 'system' : system, 'id': id }) }}" data-popup="1">Google Map</a>
                             showing all {{ signals }} signals.
                         </li>

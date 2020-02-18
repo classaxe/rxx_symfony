@@ -707,6 +707,15 @@ table.seeklist tbody td div.sl_d.inactive {
   font-weight: bold;
   box-shadow: #777 2px 2px 5px;
 }
+.controlPanel .header a.export {
+  border-radius: 3px;
+  border: 1px solid #000000;
+  background: #ffffa0;
+  color: #0000ff;
+  float: right;
+  padding: 0 0.5em;
+  margin-right: 0.5em;
+}
 .controlPanel .content {
   border: 1px solid #cacaca;
   box-shadow: #777 2px 2px 5px;

@@ -4,7 +4,9 @@
 {% set form_class='listener_logs' %}
     {% include 'listener/tabs.html.twig' %}
     <div class="controlPanel {{ form_class }}">
-        <div class="header">{{ mode|raw }}</div>
+        <div class="header">{{ mode|raw }}
+            <a class="export" href="{{ url('listener_export_logs', { 'system' : system, 'id': id }) }}" rel="external">Export <span class='ui-icon ui-icon-document'></span></a>
+        </div>
         <div class="content scroll" id="list">
 {{ form_start(form) }}
             {% include 'forms/paging.html.twig' %}
