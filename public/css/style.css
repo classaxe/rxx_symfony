@@ -1,7 +1,7 @@
 /*!
 * Project:   RXX - NDB Logging Database
 * Homepage:  https://rxx.classaxe.com
-* Date:      2020-02-17
+* Date:      2020-02-18
 * Licence:   LGPL
 * Copyright: 2020 Martin Francis
 */
@@ -1308,37 +1308,37 @@ fieldset#form_range_units div label {
   position: absolute;
   display: none;
 }
-.signal_rx_map div.scroll {
+div.scroll {
   padding: 0 0.5em;
   display: flex;
   flex-direction: column;
 }
-.signal_rx_map div.scroll div {
+div.scroll div {
   height: 100%;
   overflow: auto;
 }
-.signal_rx_map div.scroll div table.results {
-  border-top: 1px solid #808080;
+div.scroll div table.results {
+  border-top: 2px solid #808080;
   border-bottom: 1px solid #808080;
   border-right: 1px solid #808080;
   background: #ffffff;
 }
-.signal_rx_map div.scroll div table.results thead th {
+div.scroll div table.results thead th {
   position: sticky;
   top: -1px;
   border-top: none;
   border-bottom: none;
 }
-.signal_rx_map div.scroll div table.results tbody tr:hover {
+div.scroll div table.results tbody tr:hover {
   background: #ffff00;
 }
-.signal_rx_map div.scroll div table.results tbody td {
+div.scroll div table.results tbody td {
   white-space: nowrap;
 }
-.signal_rx_map div.scroll div table.results tbody td.qth {
+div.scroll div table.results tbody td.qth {
   min-width: 4em;
 }
-.signal_rx_map div.scroll div table.results img {
+div.scroll div table.results img {
   margin: 0.5em 0.25em 0 0;
 }
 /* [ Form listener_weather, signal_weather ] */

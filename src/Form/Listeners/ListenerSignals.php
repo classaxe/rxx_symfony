@@ -9,9 +9,6 @@
 namespace App\Form\Listeners;
 
 use App\Form\Base;
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
-use Symfony\Component\Form\FormBuilderInterface;
 
 /**
  * Class Listeners

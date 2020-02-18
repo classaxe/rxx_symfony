@@ -5,7 +5,7 @@
     {% include 'signal/tabs.html.twig' %}
     <div class="controlPanel {{ form_class }}">
         <div class="header">{{ mode|raw }}</div>
-        <div class="content">
+        <div class="content scroll" id="list">
 {{ form_start(form) }}
             {% include 'forms/paging.html.twig' %}
 {{ form_end(form) }}
@@ -22,6 +22,10 @@
         setColumnSortedClass();
         setClippedCellTitles();
         $('#form_paging_status').html('{{ matched }}');
+        $('#list').height($(window).height() - 90);
+        $(window).resize(function () {
+            $('#list').height($(window).height() - 90);
+        });
     });
 </script>
 

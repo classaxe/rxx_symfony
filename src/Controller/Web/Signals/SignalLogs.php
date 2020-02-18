@@ -4,7 +4,9 @@ namespace App\Controller\Web\Signals;
 use App\Form\Signals\SignalLogs as Form;
 use App\Repository\SignalRepository;
 use App\Repository\TypeRepository;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 
 /**
@@ -13,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
  */
 class SignalLogs extends Base
 {
-    const defaultlimit =     20;
+    const defaultlimit =     1000;
     const defaultSorting =  'date';
     const defaultOrder =    'd';
 
@@ -33,7 +35,7 @@ class SignalLogs extends Base
      * @param Form $form
      * @param SignalRepository $signalRepository
      * @param TypeRepository $typeRepository
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @return RedirectResponse|Response
      */
     public function controller(
         $_locale,

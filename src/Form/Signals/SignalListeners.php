@@ -14,7 +14,7 @@ use App\Form\Base;
  * Class ListenerLogs
  * @package App\Form\Signals
  */
-class SignalLogs extends Base
+class SignalListeners extends Base
 {
 
 }

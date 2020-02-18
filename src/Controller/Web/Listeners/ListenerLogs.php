@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
  */
 class ListenerLogs extends Base
 {
-    const defaultlimit =     20;
+    const defaultlimit =     1000;
     const defaultSorting =  'logDate';
     const defaultOrder =    'd';
 

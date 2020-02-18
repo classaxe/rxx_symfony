@@ -1,38 +1,39 @@
-<div style="height:0;overflow:hidden"></div>
 {% if logs|length > 0 %}
-<table class="listener logs results" style="width: 100%">
-    <thead>
-        <tr>
-{% for key, column in columns %}
-{% if ((not column.admin or isAdmin) and (not column.arg or (column.arg and column.arg in args.types))) %}
-            <th{%  if key and column.order %} id="{{ key }}|{{ column.order }}"{% endif %}
-{% if column.th_class or column.sort%} class="{{ column.th_class }}{% if column.sort %} sort{% endif %}"{% endif %}
-{% if column.tooltip %} title="{{ column.tooltip }}"{% endif %}
->{{ column.label|raw }}</th>
-{% endif %}
-{% endfor %}
-        </tr>
-    </thead>
-    <tbody>
-{% for log in logs %}
-{% set type = typeRepository.TypeForCode(log.type) %}
-        <tr class="{% if log.active == '0' %}inactive {% endif %}type_{{ type.class|lower }}" title="{{ type.title }}{% if log.active == '0' %} (inactive){% endif %}">
-{% for key, column in columns %}
-{% if ((not column.admin or isAdmin) and (not column.arg or (column.arg and column.arg in args.types))) %}
-            <td{% if column.td_class %} class="{{ column.td_class }}"{% endif %}>
+<div>
+    <table class="listener logs results" style="width: 100%">
+        <thead>
+            <tr>
+    {% for key, column in columns %}
+    {% if ((not column.admin or isAdmin) and (not column.arg or (column.arg and column.arg in args.types))) %}
+                <th{%  if key and column.order %} id="{{ key }}|{{ column.order }}"{% endif %}
+    {% if column.th_class or column.sort%} class="{{ column.th_class }}{% if column.sort %} sort{% endif %}"{% endif %}
+    {% if column.tooltip %} title="{{ column.tooltip }}"{% endif %}
+    >{{ column.label|raw }}</th>
+    {% endif %}
+    {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+    {% for log in logs %}
+    {% set type = typeRepository.TypeForCode(log.type) %}
+            <tr class="{% if log.active == '0' %}inactive {% endif %}type_{{ type.class|lower }}" title="{{ type.title }}{% if log.active == '0' %} (inactive){% endif %}">
+    {% for key, column in columns %}
+    {% if ((not column.admin or isAdmin) and (not column.arg or (column.arg and column.arg in args.types))) %}
+                <td{% if column.td_class %} class="{{ column.td_class }}"{% endif %}>
 
-{% if key == 'call' %}
-                <a href="{{ url('signal', { 'system' : system, 'id': log.id }) }}" data-popup="1">{{ attribute(log, column.field)|raw }}</a>
-{% else %}
-                {{ attribute(log, column.field)|raw }}
-{% endif %}
-            </td>
-{% endif %}
-{% endfor %}
-        </tr>
-{% endfor %}
-    </tbody>
-</table>
+    {% if key == 'call' %}
+                    <a href="{{ url('signal', { 'system' : system, 'id': log.id }) }}" data-popup="1">{{ attribute(log, column.field)|raw }}</a>
+    {% else %}
+                    {{ attribute(log, column.field)|raw }}
+    {% endif %}
+                </td>
+    {% endif %}
+    {% endfor %}
+            </tr>
+    {% endfor %}
+        </tbody>
+    </table>
+</div>
 {% else %}
     <p class="no-results">(No log have been reported by this listener)</p>
 {% endif %}
