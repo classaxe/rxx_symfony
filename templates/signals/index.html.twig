@@ -1,14 +1,14 @@
 {% extends 'main.html.twig' %}
 
 {% block body %}
+{% set form_title='Customise %s Signals List' | trans | format(system|upper) %}
+{% set form_class='signal_list' %}
     <div class="main">
-        <h1>{{ mode }}</h1>
-        {% include 'signals/tips.html.twig' %}
-        {% include 'signals/refs.html.twig' %}
-        {% include 'status.html.twig' %}
-        {% set form_title='Customise %s Signals List' | trans | format(system|upper) %}
-        {% set form_class='signal_list' %}
-        <div class="text-center">
+        <div class="text-center center-block">
+            <h1>{{ mode }}</h1>
+            {% include 'signals/tips.html.twig' %}
+            {% include 'signals/refs.html.twig' %}
+            {% include 'status.html.twig' %}
             {% include 'signals/form.html.twig' %}
         </div>
 

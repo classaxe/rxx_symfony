@@ -12,6 +12,7 @@ use App\Form\Base;
 use App\Repository\CountryRepository;
 use App\Repository\RegionRepository;
 use App\Repository\TypeRepository;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\ResetType;
@@ -72,6 +73,13 @@ class Collection extends Base
         $this->addSorting($formBuilder, $options);
 
         $formBuilder
+            ->add(
+                'show',
+                HiddenType::class,
+                [
+                    'data' =>           $options['show']
+                ]
+            )
             ->add(
                 'filter',
                 TextType::class,

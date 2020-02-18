@@ -2,25 +2,28 @@
 
 {% block body %}
 <div class="main">
-    <h1>{{ mode | trans }}</h1>
-    {% include 'status.html.twig' %}
-    {% if isAdmin %}
-        {% include 'listeners/latestlogs.html.twig' %}
-        {% include 'listeners/addlogfor.html.twig' %}
-    {% else %}
-        <ul>
-            <li>{{ "Log and station counts are updated each time new log data is added - figures are for logs in the system at this time." | trans }}</li>
-            <li>{{ "To see stats for different types of signals, check the boxes shown for 'Types' below." | trans }}</li>
-            <li>{{ "This report prints best in Portrait." | trans }}</li>
-        </ul>
-    {% endif %}
-    {% set form_title='Customise %s Listeners List' | trans | format(system | upper) %}
-    {% set form_class='listener_list' %}
-    <div class="text-center">
+    <div class="text-center center-block">
+        <h1>{{ mode | trans }}</h1>
+        {% include 'status.html.twig' %}
+        {% if isAdmin %}
+            {% include 'listeners/latestlogs.html.twig' %}
+            {% include 'listeners/addlogfor.html.twig' %}
+        {% else %}
+            <p>
+                {{ "Log and station counts are updated each time new log data is added - figures are for logs in the system at this time." | trans }}<br />
+                {{ "To see stats for different types of signals, check the boxes shown for 'Types' below." | trans }}<br />
+                {{ "This report prints best in Portrait." | trans }}
+            </p>
+        {% endif %}
+        {% set form_title='Customise %s Listeners List' | trans | format(system | upper) %}
+        {% set form_class='listener_list' %}
         {% include 'forms/listeners/form.html.twig' %}
     </div>
-
-    {% include 'listeners/grid.html.twig' %}
+    {% include 'listeners/tabs.html.twig' %}
+    <div class="listeners_container">
+        {% if args['show'] in ['', 'list'] %}{% include 'listeners/grid.html.twig' %}{% endif %}
+        {% if args['show'] == 'map' %}{% include 'listeners/map.html.twig' %}{% endif %}
+    </div>
     {% include 'listeners/actions.html.twig' %}
     {% include 'listeners/js.html.twig' %}
 </div>

@@ -23,7 +23,8 @@ class ListenerRepository extends ServiceEntityRepository
         ['listener_signalmap', 'Signals Map'],
         ['listener_export', 'Export'],
         ['listener_weather', 'Weather'],
-        ['listener_stats', 'Stats']
+        ['listener_stats', 'Stats'],
+        ['listener_awards', 'Awards'],
     ];
 
     private $listenersColumns;

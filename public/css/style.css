@@ -668,27 +668,32 @@ table.seeklist tbody td div.sl_d.inactive {
   display: inline-block;
   width: 16em;
 }
+.main .listeners_container,
 .main .signals_container {
   background-color: #fff;
   page-break-before: always;
 }
+.main .listeners_container p.no-results,
 .main .signals_container p.no-results {
   margin: 0;
   font-size: 12pt;
 }
 @media screen {
+  .main .listeners_container,
   .main .signals_container {
     border: 1px solid #888;
     border-radius: 5px;
     padding: 0.25em;
   }
 }
+.main .listeners_container h2,
 .main .signals_container h2 {
   font-weight: bold;
   display: block;
   margin: 0 0.25em;
   float: none;
 }
+.main .listeners_container h3,
 .main .signals_container h3 {
   font-weight: bold;
   display: block;

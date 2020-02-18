@@ -1,0 +1,29 @@
+<script type="text/javascript">
+    //<!--
+    var listeners = [
+        {% for row in listeners %}{% if row.lat or row.lon %}
+        {
+            'name' : '{{ row.name }}',
+            'qth' : '{{ row.QTH }}',
+            'itu' : '{{ row.ITU }}',
+            'sp' : '{{ row.SP }}',
+            'lat' : {{ row.lat }},
+            'lon' : {{ row.lon }},
+            'gsq' : '{{ row.GSQ }}',
+        },
+        {% endif %}{% endfor %}
+    ];
+    // -->
+</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCmvsfY0bgnVB-gl_nMHGQ71rp1WTz9tGM&callback=listenersMap.init"></script>
+<div class="row">
+    <div class="small-6 text-left"><h2>{{ system|upper }} {% trans %}Listeners Map{% endtrans %}</h2></div>
+</div>
+<div id="panel">
+    <div id="markerlist">
+        <p class="no-results">{% trans %}(No listeners found matching your criteria){% endtrans %}</p>
+    </div>
+</div>
+<div id="map-container">
+    <div id="map"></div>
+</div>

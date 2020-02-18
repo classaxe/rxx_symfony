@@ -65,6 +65,7 @@ class Collection extends Base
             'order' =>      static::defaultOrder,
             'page' =>       0,
             'region' =>     $_REQUEST['form']['region'] ?? '',
+            'show' =>       '',
             'sort' =>       static::defaultSorting,
             'system' =>     $system,
             'types' =>      [],
@@ -87,11 +88,15 @@ class Collection extends Base
             'listeners' =>          $listeners,
             '_locale' =>            $_locale,
             'mode' =>               'Listeners List',
-            'system' =>             $system,
             'results' => [
                 'limit' =>              isset($args['limit']) ? $args['limit'] : static::defaultlimit,
                 'page' =>               isset($args['page']) ? $args['page'] : 0,
                 'total' =>              $total
+            ],
+            'system' =>             $system,
+            'tabs' => [
+                [ 'list', 'Listing' ],
+                [ 'map', 'Map' ],
             ]
         ];
         if ($this->parameters['isAdmin']) {

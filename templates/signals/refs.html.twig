@@ -1,14 +1,16 @@
-<ul class="refs hide-for-print">
+<div class="refs hide-for-print margin-bottom-2">
+<p>
     {% for type in typeRepository.getSignalTypesSearched(args.types) %}
         {% set refs = typeRepository.getTypeForCode(type).refs %}
         {% if refs %}
-            <li><strong>{{ refs.title | trans }}</strong>
+            <strong>{{ refs.title | trans }}</strong>
                 [
                 {% for link in refs.links %}
                     <a href="{{ link.url }}">{{ link.label | trans }}</a>{% if not loop.last %} | {% endif %}
                 {% endfor %}
-                ]
-            </li>
+                ]<br />
+
         {% endif %}
     {% endfor %}
-</ul>
+</p>
+</div>
