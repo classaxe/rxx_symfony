@@ -1558,35 +1558,43 @@ body.map {
   padding: 0;
   background: #f0f0f0;
 }
-body.map #header {
-  min-height: 4.5em;
+.map {
+  margin: 0;
 }
-body.map #header .form_layers {
+.map #header .form_layers {
   display: inline-block;
   background: #ffffff;
   border: 1px solid #aaa;
   margin: 0 5px;
-  border-radius: 4px;
+  border-radius: 5px;
 }
-body.map #header .form_layers div {
+.map #header .form_layers div {
+  line-height: 1.8em;
   float: left;
   padding: 2px 4px;
   margin: 0;
 }
-body.map #map {
+.map #header .form_layers div input[type='checkbox'] {
+  padding: 0;
+  margin: 0;
+}
+.map #header .form_layers div label {
+  padding: 0 0.25em;
+}
+.map #map {
   height: 80%;
   margin: 0 0.25em;
   overflow: auto;
   border: 1px solid #aaa;
 }
-body.map h1 {
+.map h1 {
   margin: 0.125em 5px;
   white-space: nowrap;
 }
-body.map .gm-style-iw h2 {
+.map .gm-style-iw h2 {
   margin: 0.25em 0;
 }
-body.map .gm-style-iw p {
+.map .gm-style-iw p {
   margin: 0.25em 0;
 }
 .gridLabel {

@@ -10,22 +10,6 @@
                     <h2>Export this listener's logs in these formats:</h2>
                     <ul>
                         <li>
-                            View <a href="{{ url('listener_export_logs', { 'system' : system, 'id': id }) }}" rel="external">text listing</a>
-                            showing all {{ logs }} logs.
-                        </li>
-                        <li>
-                            View <a href="{{ url('listener_export_signals', { 'system' : system, 'id': id }) }}" rel="external">text listing</a>
-                            showing all {{ signals }} signals.
-                        </li>
-                        <li>
-                            View <a href="{{ url('listener_export_signalmap', { 'system' : system, 'id': id }) }}" data-popup="1">Google Map</a>
-                            showing all {{ signals }} signals.
-                        </li>
-                        <li>
-                            Download <a href="{{ url('listener_export_signals_kml', { 'system' : system, 'id': id }) }}" rel="external">KML file</a>
-                            containing all {{ signals }} signals - use this with <a href="https://earth.google.com/download-earth.html" rel="external">Google Earth</a>.
-                        </li>
-                        <li>
                             Use <a href="{{ url('listener_ndbweblog', { 'system' : system, 'id': id }) }}" data-popup="1">Hosted version</a>
                             of NDB WebLog for this listener.
                         </li>

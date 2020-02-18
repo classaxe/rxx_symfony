@@ -9,7 +9,7 @@ var popWinSpecs = {
     'listeners_[id]' :              'width=800,height=680,status=1,scrollbars=1,resizable=1',
     'listeners_[id]_logs' :         'width=800,height=680,status=1,scrollbars=1,resizable=1',
     'listeners_[id]_signals' :      'width=800,height=680,status=1,scrollbars=1,resizable=1',
-    'listeners_[id]_signalmap' :    'width=800,height=680,status=1,scrollbars=1,resizable=1,location=1',
+    'listeners_[id]_map' :          'width=800,height=680,status=1,scrollbars=1,resizable=1',
     'listeners_[id]_ndbweblog' :    'status=1,scrollbars=1,resizable=1',
     'maps_af' :                     'width=646,height=652,resizable=1',
     'maps_alaska' :                 'width=600,height=620,resizable=1',

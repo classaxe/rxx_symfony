@@ -48,7 +48,7 @@
                 elseif key == 'countSignals'
                     %}{% if listener.countSignals %}<a href="{{ url('listener_signals', { 'system' : system, 'id' : listener.ID }) }}" data-popup="1">{{ listener.countSignals }}</a>{% endif %}{%
                 elseif key == 'map'
-                    %}{% if listener.signalsMap %}<a href="{{ url('listener_export_signalmap', { 'system' : system, 'id' : listener.ID }) }}" rel="external">{% trans %}Map{% endtrans %}</a>{% endif %}{%
+                    %}{% if listener.signalsMap %}<a href="{{ url('listener_signalmap', { 'system' : system, 'id' : listener.ID }) }}" data-popup="1">{% trans %}Map{% endtrans %}</a>{% endif %}{%
                 elseif key == 'nwl'
                     %}{% if listener.ndbWebLog %}<a href="{{ url('listener_ndbweblog', { 'system' : system, 'id' : listener.ID }) }}" data-popup="1">{% trans %}NWL{% endtrans %}</a>{% endif %}{%
                 elseif key == 'website'
