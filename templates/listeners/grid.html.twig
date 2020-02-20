@@ -39,7 +39,7 @@
                 endif
             %}>{%
                 if key == 'name'
-                    %}<a href="{{ url('listener', { 'system' : system, 'id' : listener.ID }) }}" data-popup="1">{{ listener.name }}</a>{%
+                    %}<a href="{{ url('listener', { 'system' : system, 'id' : listener.ID }) }}" data-popup="1">{{ listener.name|raw }}</a>{%
                 elseif key == 'addlog'
                     %}{% if isAdmin %}<a href="#" onclick="alert('soon'); return false;">{% trans %}Add...{% endtrans %}</a>{% endif %}{%
                 elseif key == 'callsign'
