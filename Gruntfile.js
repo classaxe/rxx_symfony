@@ -2,16 +2,46 @@ module.exports = function(grunt) {
 
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
+
         banner:
-            '/*!\n' +
-            '* Project:   <%= pkg.description %>\n' +
-            '* Homepage:  <%= pkg.homepage %>\n' +
-            '* Date:      <%= grunt.template.today("yyyy-mm-dd") %>\n' +
-            '* Licence:   <%= pkg.license %>\n' +
-            '* Copyright: <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>\n' +
-            '*/',
+            '/*\n' +
+            ' * Project:    <%= pkg.description %>\n' +
+            ' * Homepage:   <%= pkg.homepage %>\n' +
+            ' * Version:    <%= githash.main.tag %>\n' +
+            ' * Date:       <%= grunt.template.today("yyyy-mm-dd") %>\n' +
+            ' * Licence:    <%= pkg.license %>\n' +
+            ' * Copyright:  <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>\n' +
+            ' */',
+
+        concat: {
+            options: {
+                banner: '<%= banner %>\n',
+                separator: ';\n\n'
+            },
+            dist: {
+                src: ['src/js/*.js'],
+                dest: 'public/js/functions.js'
+            }
+        },
+
+        cssmin: {
+            options: {
+                banner: '<%= banner %>'
+            },
+            dist:  {
+                src: ['public/css/style.css'],
+                dest: 'public/css/style.min.css',
+            }
+        },
+
+        githash: {
+            main: {
+                options: {},
+            }
+        },
+
         jshint: {
-            files: ['Gruntfile.js', 'public/js/functions.js'],
+            files: ['Gruntfile.js', 'js/*.js'],
             options: {
                 // options here to override JSHint defaults
                 globals: {
@@ -22,71 +52,34 @@ module.exports = function(grunt) {
                 }
             }
         },
-        // concat: {
-        //     options: {
-        //         separator: ';'
-        //     },
-        //     dist: {
-        //         src: ['src/**/*.js'],
-        //         dest: 'dist/<%= pkg.name %>.js'
-        //     }
-        // },
-        uglify: {
-            options: {
-                banner: '<%= banner %>',
-            },
-            dist: {
-                src: ['public/js/functions.js', 'public/js/signalsmap.js'],
-                dest: 'public/js/functions.min.js',
-                // files: {
-                //     'public/js/<%= pkg.name %>.min.js': ['<%= concat.dist.dest %>']
-                // }
-            }
-        },
         less: {
             options: {
                 banner: '<%= banner %>'
             },
             dist:  {
-                src:  'public/css/style.less',
+                src:  'src/css/style.less',
                 dest: 'public/css/style.css'
             },
         },
-        cssmin: {
+        uglify: {
             options: {
-                banner: '<%= banner %>'
+                banner: '<%= banner %>',
             },
-            dist:  {
-                src: ['public/css/style.css'],
-                dest: 'public/css/style.min.css',
+            dist: {
+                src: ['public/js/functions.js'],
+                dest: 'public/js/functions.min.js',
             }
-            // target: {
-            //     files: [{
-            //         expand: true,
-            //         cwd: 'release/css',
-            //         src: ['*.css', '!*.min.css'],
-            //         dest: 'release/css',
-            //         ext: '.min.css'
-            //     }]
-            // }
         },
-        // watch: {
-        //     files: ['<%= jshint.files %>'],
-        //     tasks: ['jshint', 'qunit', 'less']
-        // }
     });
 
-    grunt.loadNpmTasks('grunt-contrib-uglify');
-    grunt.loadNpmTasks('grunt-contrib-jshint');
-    grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-contrib-less');
+    grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
-//    grunt.loadNpmTasks('grunt-contrib-concat');
-//    grunt.loadNpmTasks('grunt-contrib-qunit');
+    grunt.loadNpmTasks('grunt-contrib-less');
+    grunt.loadNpmTasks('grunt-contrib-jshint');
+    grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-githash');
 
-//    grunt.registerTask('test', ['jshint', 'qunit']);
-
-    grunt.registerTask('css',     ['less', 'cssmin']);
-    grunt.registerTask('js',      ['jshint', 'uglify']);
-    grunt.registerTask('default', ['jshint', 'uglify', 'less', 'cssmin']);
+    grunt.registerTask('css',     ['githash', 'less', 'cssmin']);
+    grunt.registerTask('js',      ['githash', 'jshint', 'concat', 'uglify']);
+    grunt.registerTask('default', ['githash', 'jshint', 'concat', 'uglify', 'less', 'cssmin']);
 };
