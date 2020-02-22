@@ -1,0 +1,13 @@
+"KHz","ID","Logs","KM","Miles","PWR","GSQ","SP","ITU","Location"
+{% for s in signals %}{{
+    0 + s.khz }},"{{
+    s.call }}",{{
+    s.logs }},{{
+    s.dxKm }},{{
+    s.dxMiles }},"{{
+    s.pwr ? s.pwr : '' }}","{{
+    s.gsq }}","{{
+    s.sp }}","{{
+    s.itu }}","{{
+    s.qth|raw}}"
+{% endfor %}

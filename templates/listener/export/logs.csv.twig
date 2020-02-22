@@ -1,0 +1,14 @@
+"YYYYMMDD","UTC","KHz","ID","KM","Miles","PWR","GSQ","SP","ITU","Location"
+{% for l in logs %}"{{
+    l.date | date('Ymd') }}","{{
+    l.time }}",{{
+    0 + l.khz }},"{{
+    l.call }}",{{
+    l.dxKm }},{{
+    l.dxMiles }},"{{
+    l.pwr ? l.pwr : '' }}","{{
+    l.gsq }}","{{
+    l.sp }}","{{
+    l.itu }}","{{
+    l.qth|raw }}"
+{% endfor %}

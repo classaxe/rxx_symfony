@@ -15,13 +15,13 @@ class Signals extends Base
 {
     /**
      * @Route(
-     *     "/{_locale}/{system}/listeners/{id}/export/signals",
+     *     "/{_locale}/{system}/listeners/{id}/export/signals_csv",
      *     requirements={
      *        "_locale": "de|en|es|fr",
      *        "system": "reu|rna|rww"
      *     },
      *     defaults={"id"=""},
-     *     name="listener_export_signals"
+     *     name="listener_export_signals_csv"
      * )
      * @param $_locale
      * @param $system
@@ -29,10 +29,53 @@ class Signals extends Base
      * @param ListenerRepository $listenerRepository
      * @return RedirectResponse|Response
      */
-    public function controller(
+    public function csv(
         $_locale,
         $system,
         $id,
+        ListenerRepository $listenerRepository
+    ) {
+        return $this->export($_locale, $system, $id, 'csv', $listenerRepository);
+    }
+
+    /**
+     * @Route(
+     *     "/{_locale}/{system}/listeners/{id}/export/signals_txt",
+     *     requirements={
+     *        "_locale": "de|en|es|fr",
+     *        "system": "reu|rna|rww"
+     *     },
+     *     defaults={"id"=""},
+     *     name="listener_export_signals_txt"
+     * )
+     * @param $_locale
+     * @param $system
+     * @param $id
+     * @param ListenerRepository $listenerRepository
+     * @return RedirectResponse|Response
+     */
+    public function txt(
+        $_locale,
+        $system,
+        $id,
+        ListenerRepository $listenerRepository
+    ) {
+        return $this->export($_locale, $system, $id, 'txt', $listenerRepository);
+    }
+
+    /**
+     * @param $_locale
+     * @param $system
+     * @param $id
+     * @param $mode
+     * @param ListenerRepository $listenerRepository
+     * @return RedirectResponse|Response
+     */
+    private function export(
+        $_locale,
+        $system,
+        $id,
+        $mode,
         ListenerRepository $listenerRepository
     ) {
         if (!$listener = $this->getValidReportingListener($id, $listenerRepository)) {
@@ -51,8 +94,16 @@ class Signals extends Base
             'signals' =>            $signals
         ];
         $parameters =   array_merge($parameters, $this->parameters);
-        $response = $this->render('listener/export/signals.txt.twig', $parameters);
+        switch ($mode) {
+            case 'csv':
+                $response = $this->render("listener/export/signals.csv.twig", $parameters);
+                break;
+            case 'txt':
+                $response = $this->render("listener/export/signals.txt.twig", $parameters);
+                break;
+        }
         $response->headers->set('Content-Type', 'text/plain');
+        $response->headers->set('Content-Disposition',"attachment;filename=listener_{$id}_signals.{$mode}");
         return $response;
     }
 }
