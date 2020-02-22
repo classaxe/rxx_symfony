@@ -66,7 +66,7 @@ class SignalsKml extends Base
         ];
         $parameters =   array_merge($parameters, $this->parameters);
         $filename =
-             "signals_"
+             "listener_signals_"
             .$id
             .($type !== '*' ? "_type_".str_replace(',','_', $type) : '')
             .($active !== '*' ? "_".($active ? "active" : "inactive") : "")

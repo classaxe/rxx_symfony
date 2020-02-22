@@ -6,7 +6,11 @@
         {% include 'listener/tabs.html.twig' %}
         <div class="controlPanel {{ form_class }}">
             <div class="header">{{ mode|raw }}
-                <a class="export" href="{{ url('listener_export_signals_kml', { 'system' : system, 'id': id }) }}" rel="external">Export <span class='ui-icon ui-icon-document'></span></a>
+                <div class="export">{% trans %}Export{% endtrans %}
+                    <a href="{{ url('listener_export_signals_kml', { 'system' : system, 'id': id }) }}">
+                        <span class='ui-icon ui-icon-document'></span>.kml
+                    </a>
+                </div>
             </div>
             <div class="content map" style="margin: 0;padding: 0.25em 0.5em 0.5em 0">
                 <div id="header">
