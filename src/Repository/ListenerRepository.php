@@ -329,21 +329,28 @@ class ListenerRepository extends ServiceEntityRepository
                 ->setMaxResults($args['limit']);
         }
 
-        $qb
-            ->addOrderBy(
-                'l.primaryQth',
-                'DESC'
-            );
         if (isset($args['sort']) && $this->listenersColumns[$args['sort']]['sort']) {
-            $qb
-                ->addOrderBy(
-                    '_blank',
-                    'ASC'
-                )
-                ->addOrderBy(
-                    ($this->listenersColumns[$args['sort']]['sort']),
-                    ($args['order'] == 'd' ? 'DESC' : 'ASC')
-                );
+            if ($args['sort'] === 'name') {
+                $qb
+                    ->addOrderBy(
+                        'l.name',
+                        ($args['order'] == 'd' ? 'DESC' : 'ASC')
+                    )
+                    ->addOrderBy('l.primaryQth', 'DESC')
+                    ->addOrderBy('l.sp', 'ASC')
+                    ->addOrderBy('l.itu', 'ASC')
+                    ->addOrderBy('l.qth', 'ASC');
+            } else {
+                $qb
+                    ->addOrderBy(
+                        '_blank',
+                        'ASC'
+                    )
+                    ->addOrderBy(
+                        ($this->listenersColumns[$args['sort']]['sort']),
+                        ($args['order'] == 'd' ? 'DESC' : 'ASC')
+                    );
+            }
         }
         $result = $qb->getQuery()->execute();
 

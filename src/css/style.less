@@ -1279,12 +1279,6 @@ div.scroll {
                 tr:hover {
                     background: #ffff00;
                 }
-                td {
-                    white-space: nowrap;
-                    &.qth {
-                        min-width: 4em;
-                    }
-                }
             }
             img { margin: 0.5em 0.25em 0 0;}
         }
@@ -1642,20 +1636,35 @@ body.map {
     width: 100%;
     height: 650px;
 }
-#panel {
-    #markerlist {
-        height: 620px;
-        margin: 10px 5px 0 10px;
-        overflow: auto;
-        .logged {
-            a {
-                b {
-                    background: #e0ffe0 !important;
-                    border: 1px solid #80c080 !important;
-                }
+#markerlist {
+    height: 620px;
+    margin: 10px 0 0 0;
+    overflow: auto;
+    th {
+        height: 3em !important;
+    }
+    .logged {
+        a {
+            b {
+                background: #e0ffe0 !important;
+                border: 1px solid #80c080 !important;
             }
         }
     }
+}
+
+table.map_layout {
+    padding: 0;
+    margin: 0;
+    tbody {
+        border: none;
+        td {
+            vertical-align: top;
+        }
+    }
+}
+
+#panel {
     .title {
         border-bottom: 1px solid #e0ecff;
         white-space: nowrap;

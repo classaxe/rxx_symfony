@@ -3,6 +3,10 @@ function changeShowMode(mode) {
     formSubmit();
 }
 
+function decodeHtmlEntities(value) {
+    return $("<div/>").html(value).text();
+}
+
 function exportSignallistExcel() {
     if (!confirm(
             (msg.export + "\n\n" + msg.time + "\n\n" + msg.options + "\n\n" + msg.continue)

@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    0.39.4
- * Date:       2020-02-22
+ * Version:    0.40.0
+ * Date:       2020-02-24
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
  */
@@ -1350,12 +1350,6 @@ div.scroll div table.results thead th {
 div.scroll div table.results tbody tr:hover {
   background: #ffff00;
 }
-div.scroll div table.results tbody td {
-  white-space: nowrap;
-}
-div.scroll div table.results tbody td.qth {
-  min-width: 4em;
-}
 div.scroll div table.results img {
   margin: 0.5em 0.25em 0 0;
 }
@@ -1686,14 +1680,27 @@ body.map {
   width: 100%;
   height: 650px;
 }
-#panel #markerlist {
+#markerlist {
   height: 620px;
-  margin: 10px 5px 0 10px;
+  margin: 10px 0 0 0;
   overflow: auto;
 }
-#panel #markerlist .logged a b {
+#markerlist th {
+  height: 3em !important;
+}
+#markerlist .logged a b {
   background: #e0ffe0 !important;
   border: 1px solid #80c080 !important;
+}
+table.map_layout {
+  padding: 0;
+  margin: 0;
+}
+table.map_layout tbody {
+  border: none;
+}
+table.map_layout tbody td {
+  vertical-align: top;
 }
 #panel .title {
   border-bottom: 1px solid #e0ecff;

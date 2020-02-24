@@ -134,6 +134,7 @@ class Redirect extends AbstractController
      *        "_locale": "de|en|es|fr",
      *        "system": "reu|rna|rww"
      *     },
+     *     name = "locale_system"
      * )
      * @param $_locale
      * @param $system

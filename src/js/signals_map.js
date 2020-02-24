@@ -1,6 +1,3 @@
-// Used with Detailed State maps in legacy system - e.g. http://dev.classaxe.com/dx/ndb/rna/state_map?simple=1&SP=AK
-// Not yet part of new RXX system
-
 var signalsMap = {
     map: null,
     icons: {},
@@ -9,6 +6,7 @@ var signalsMap = {
     options: {},
 
     init: function() {
+        TxtOverlay =    initMapsTxtOverlay();
         signalsMap.items = signals;
         var icons = [ 'dgps', 'dsc', 'hambcn', 'navtex', 'ndb', 'time', 'other' ];
         var states = [ 0, 1 ];
@@ -27,6 +25,9 @@ var signalsMap = {
         signalsMap.map = new google.maps.Map(document.getElementById('map'), signalsMap.options);
         signalsMap.infoWindow = new google.maps.InfoWindow();
         signalsMap.showMarkers();
+
+        showGrid(signalsMap.map, layers, 'gridLabel');
+
     },
 
     markerClickFunction: function(s, latlng) {

@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="{{ asset('css/style' ~ minified ~ '.css') }}" />
 {% block stylesheets %}{% endblock %}
     <script>
+        var base_url = "{{ path('locale_system', { 'system' : system }) }}";
         var base_image = "{{ asset('image') }}";
         var base_js = "{{ asset('js') }}";
     </script>

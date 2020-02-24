@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    0.39.4
- * Date:       2020-02-22
+ * Version:    0.40.0
+ * Date:       2020-02-24
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
  */
@@ -46,6 +46,10 @@ var popWinSpecs = {
 function changeShowMode(mode) {
     $('#form_show').val(mode);
     formSubmit();
+}
+
+function decodeHtmlEntities(value) {
+    return $("<div/>").html(value).text();
 }
 
 function exportSignallistExcel() {
@@ -864,7 +868,7 @@ function initListenerSignalsMap() {
         qthInfo.open(map, layers.qth);
     });
 
-    showGrid(map, 'gridLabel');
+    showGrid(map, layers, 'gridLabel');
 
     // Signal Types overlays
     for (type in listener.types) {
@@ -909,25 +913,25 @@ function initListenerSignalsMap() {
         }
     }
 
-    function toggleQth() {
-        if (layers.qth.getMap() == null) {
-            layers.qth.setMap(map);
-        } else {
-            layers.qth.setMap(null);
+    function toggle(layer) {
+        var active;
+        if (!Array.isArray(layers[layer])) {
+            active = (layers[layer].getMap() !== null);
+            layers[layer].setMap(active ? null : map);
+            return;
+        }
+        active = (layers[layer][0].getMap() !== null);
+        for (var i in layers[layer]) {
+            layers[layer][i].setMap(active ? null : map);
         }
     }
 
+    function toggleQth() {
+        toggle('qth');
+    }
+
     function toggleGrid() {
-        var i;
-        if (layers.grid[0].getMap() == null) {
-            for(i in layers.grid) {
-                layers.grid[i].setMap(map);
-            }
-        } else {
-            for(i in layers.grid) {
-                layers.grid[i].setMap(null);
-            }
-        }
+        toggle('grid');
     }
 
     google.maps.event.addDomListener(document.getElementById('layer_grid'), 'click', function() {
@@ -947,91 +951,297 @@ function initListenerSignalsMap() {
             toggleLayer( type );
         });
     });
+};
 
-    function showGrid(map, overlayClass) {
-        var i, la, lo;
-        for (la=0; la<180; la+=10) {
-            layers.grid.push(
-                new google.maps.Polyline({
-                    path: [{lat: (la-90), lng: -180}, {lat:(la-90), lng: 0}, {lat: (la-90), lng: 180}],
-                    geodesic: false,
-                    strokeColor: gridColor,
-                    strokeOpacity: gridOpacity,
-                    strokeWeight: 0.5
-                })
-            );
+// Used here: http://rxx.classaxe.com/en/rna/listeners/56/map
+function initListenersMap() {
+    var markerGroups;
+    // Global vars:
+    //     google.maps
+    //     gridColor, gridOpacity, layers, map
+    TxtOverlay =    initMapsTxtOverlay();
+
+    map = new google.maps.Map(document.getElementById('map'), {
+        center: { lat: 30, lng: 0 },
+        scaleControl: true,
+        zoomControl: true,
+        zoom: 2
+    });
+
+    function showMarkers() {
+        var html, i, marker;
+        if (!listeners) {
+            return;
         }
-        for (lo=0; lo<360; lo+=20) {
-            layers.grid.push(
-                new google.maps.Polyline({
-                    path: [{lat:85.05, lng: lo}, {lat:-85.05, lng: lo}],
-                    geodesic: false,
-                    strokeColor: gridColor,
-                    strokeOpacity: gridOpacity,
-                    strokeWeight: 0.5
-                })
-            );
+        markerGroups=new google.maps.MVCObject();
+        markerGroups.set('primary', map);
+        markerGroups.set('secondary', map);
+        var icon_primary = {
+            url: base_image + "/map_point3.gif", // url
+            origin: new google.maps.Point(0,0), // origin
+            anchor: new google.maps.Point(0, 0) // anchor
+        };
+        var icon_secondary = {
+            url: base_image + "/map_point4.gif", // url
+            origin: new google.maps.Point(0,0), // origin
+            anchor: new google.maps.Point(0, 0) // anchor
+        };
+        html = '';
+        for (i in listeners) {
+            l = listeners[i];
+            html +=
+                '<tr>' +
+                '<td>' + (l.pri ? '<strong>' : '&nbsp; &nbsp; ') +
+                    '<a href="' + base_url + 'listeners/' + l.id + '" data-popup="1">' + l.name + '</a>' +
+                    (l.pri ? '</strong>' : '') +
+                '</td>' +
+                '<td>' + l.qth +'</td>' +
+                '<td>' + l.sp +'</td>' +
+                '<td>' + l.itu +'</td>' +
+                '</tr>';
+            marker=new google.maps.Marker({
+                position: new google.maps.LatLng(l.lat, l.lon),
+                title: (decodeHtmlEntities(l.name) + ': ' + decodeHtmlEntities(l.qth) + (l.sp ? ', ' + l.sp : '') + ', ' + l.itu),
+                icon: (l.pri ? icon_primary : icon_secondary)
+            });
+            marker.bindTo('map', markerGroups, (l.pri ? 'primary' : 'secondary'));
         }
-        for (la=10; la<170; la+=10) {
-            for (lo = 0; lo < 360; lo += 20) {
-                layers.grid.push(
-                    new TxtOverlay(
-                        new google.maps.LatLng(la -90 +5,lo -180 + 10),
-                        String.fromCharCode((lo/20) +65) + String.fromCharCode((la/10) +65),
-                        overlayClass,
-                        map
-                    )
-                );
-            }
+        $('.results tbody').append(html);
+        $('.no-results').hide();
+        $('.results').show();
+        setExternalLinks();
+        setClippedCellTitles();
+    }
+
+    function toggle(layer) {
+        var active;
+        if (!Array.isArray(layers[layer])) {
+            active = (layers[layer].getMap() !== null);
+            layers[layer].setMap(active ? null : map);
+            return;
         }
-        for (i in layers.grid) {
-            layers.grid[i].setMap(map);
+        active = (layers[layer][0].getMap() !== null);
+        for (var i in layers[layer]) {
+            layers[layer][i].setMap(active ? null : map);
         }
     }
 
-    function initMapsTxtOverlay() {
-        // Thanks to Michal, 'UX Lead at Alphero' for this custom text overlay code
-        // Ref: https://stackoverflow.com/a/3955258/815790
+    function toggleGrid() {
+        toggle('grid');
+    }
 
-        function TxtOverlay(pos, txt, cls, map) {
-            this.pos = pos;
-            this.txt_ = txt;
-            this.cls_ = cls;
-            this.map_ = map;
-            this.div_ = null;
-            this.setMap(map);
+    function togglePrimary() {
+        markerGroups.set('primary', $('#layer_primary').prop('checked') ? map : null);
+    }
+
+    function toggleSecondary() {
+        markerGroups.set('secondary', $('#layer_secondary').prop('checked') ? map : null);
+    }
+
+    google.maps.event.addDomListener(document.getElementById('layer_grid'), 'click', function() {
+        toggleGrid();
+    });
+
+    google.maps.event.addDomListener(document.getElementById('layer_primary'), 'click', function() {
+        togglePrimary();
+    });
+
+    google.maps.event.addDomListener(document.getElementById('layer_secondary'), 'click', function() {
+        toggleSecondary();
+    });
+
+    showGrid(map, layers, 'gridLabel');
+    showMarkers();
+};
+
+function showGrid(map, layers, overlayClass) {
+    var i, la, lo;
+    for (la=0; la<180; la+=10) {
+        layers.grid.push(
+            new google.maps.Polyline({
+                path: [{lat: (la-90), lng: -180}, {lat:(la-90), lng: 0}, {lat: (la-90), lng: 180}],
+                geodesic: false,
+                strokeColor: gridColor,
+                strokeOpacity: gridOpacity,
+                strokeWeight: 0.5
+            })
+        );
+    }
+    for (lo=0; lo<360; lo+=20) {
+        layers.grid.push(
+            new google.maps.Polyline({
+                path: [{lat:85.05, lng: lo}, {lat:-85.05, lng: lo}],
+                geodesic: false,
+                strokeColor: gridColor,
+                strokeOpacity: gridOpacity,
+                strokeWeight: 0.5
+            })
+        );
+    }
+    for (la=10; la<170; la+=10) {
+        for (lo = 0; lo < 360; lo += 20) {
+            layers.grid.push(
+                new TxtOverlay(
+                    new google.maps.LatLng(la -90 +5,lo -180 + 10),
+                    String.fromCharCode((lo/20) +65) + String.fromCharCode((la/10) +65),
+                    overlayClass,
+                    map
+                )
+            );
         }
-
-        TxtOverlay.prototype = new google.maps.OverlayView();
-
-        TxtOverlay.prototype.onAdd = function() {
-            var div, overlayProjection, panes, position;
-            div = document.createElement('DIV');
-            div.className = this.cls_;
-            div.innerHTML = this.txt_;
-            this.div_ = div;
-            overlayProjection = this.getProjection();
-            position = overlayProjection.fromLatLngToDivPixel(this.pos);
-            div.style.left = position.x + 'px';
-            div.style.top = position.y + 'px';
-            panes = this.getPanes();
-            panes.floatPane.appendChild(div);
-        };
-
-        TxtOverlay.prototype.draw = function() {
-            var div, position, overlayProjection;
-            overlayProjection = this.getProjection();
-            position = overlayProjection.fromLatLngToDivPixel(this.pos);
-            div = this.div_;
-            div.style.left = position.x + 'px';
-            div.style.top = position.y + 'px';
-        };
-
-        TxtOverlay.prototype.onRemove = function() {
-            this.div_.parentNode.removeChild(this.div_);
-            this.div_ = null;
-        };
-
-        return TxtOverlay;
+    }
+    for (i in layers.grid) {
+        layers.grid[i].setMap(map);
     }
 }
+
+function initMapsTxtOverlay() {
+    // Thanks to Michal, 'UX Lead at Alphero' for this custom text overlay code
+    // Ref: https://stackoverflow.com/a/3955258/815790
+
+    function TxtOverlay(pos, txt, cls, map) {
+        this.pos = pos;
+        this.txt_ = txt;
+        this.cls_ = cls;
+        this.map_ = map;
+        this.div_ = null;
+        this.setMap(map);
+    }
+
+    TxtOverlay.prototype = new google.maps.OverlayView();
+
+    TxtOverlay.prototype.onAdd = function() {
+        var div, overlayProjection, panes, position;
+        div = document.createElement('DIV');
+        div.className = this.cls_;
+        div.innerHTML = this.txt_;
+        this.div_ = div;
+        overlayProjection = this.getProjection();
+        position = overlayProjection.fromLatLngToDivPixel(this.pos);
+        div.style.left = position.x + 'px';
+        div.style.top = position.y + 'px';
+        panes = this.getPanes();
+        panes.floatPane.appendChild(div);
+    };
+
+    TxtOverlay.prototype.draw = function() {
+        var div, position, overlayProjection;
+        overlayProjection = this.getProjection();
+        position = overlayProjection.fromLatLngToDivPixel(this.pos);
+        div = this.div_;
+        div.style.left = position.x + 'px';
+        div.style.top = position.y + 'px';
+    };
+
+    TxtOverlay.prototype.onRemove = function() {
+        this.div_.parentNode.removeChild(this.div_);
+        this.div_ = null;
+    };
+
+    return TxtOverlay;
+}
+;
+
+var signalsMap = {
+    map: null,
+    icons: {},
+    infoWindow: null,
+    items: [],
+    options: {},
+
+    init: function() {
+        TxtOverlay =    initMapsTxtOverlay();
+        signalsMap.items = signals;
+        var icons = [ 'dgps', 'dsc', 'hambcn', 'navtex', 'ndb', 'time', 'other' ];
+        var states = [ 0, 1 ];
+        for (var i in icons) {
+            for (var j in states) {
+                var pin = base_image + '/pins/' + icons[i] + '_' + states[j] + '.png';
+                signalsMap.icons[icons[i] + '_' + states[j]] =
+                    new google.maps.MarkerImage(pin, new google.maps.Size(12, 20));
+            }
+        }
+        signalsMap.options = {
+            'zoom': 2,
+            'center': new google.maps.LatLng(20, 0),
+            'mapTypeId': google.maps.MapTypeId.ROADMAP
+        };
+        signalsMap.map = new google.maps.Map(document.getElementById('map'), signalsMap.options);
+        signalsMap.infoWindow = new google.maps.InfoWindow();
+        signalsMap.showMarkers();
+
+        showGrid(signalsMap.map, layers, 'gridLabel');
+
+    },
+
+    markerClickFunction: function(s, latlng) {
+        return function(e) {
+            e.cancelBubble = true;
+            e.returnValue = false;
+            if (e.stopPropagation) {
+                e.stopPropagation();
+                e.preventDefault();
+            }
+            var title = s.khz+' '+s.call+' ';
+            var infoHtml =
+                '<div class="map_info">' +
+                '  <h3><a href="./rna/signal_info/' + s.id + '" target="_blank">' + title + '</a></h3>' +
+                '  <table class="info-body">' +
+                (typeof s.logged !== 'undefined' ? '    <tr><th>Received</th><td><b>' + (s.logged ? 'Yes' : 'No') + '</b></td></tr>' : '') +
+                '    <tr><th>ID</th><td>'+s.call + '</td></tr>' +
+                '    <tr><th>KHz</th><td>'+s.khz + '</td></tr>' +
+                '    <tr><th>Type</th><td>'+s.type + '</td></tr>' +
+                (s.pwr !== '0' ? '    <tr><th>Power</th><td>'+s.pwr + 'W</td></tr>' : '') +
+                '    <tr><th>\'Name\' / QTH</th><td>'+s.qth + (s.sp ? ', ' + s.sp : '') + ', ' + s.itu + '</td></tr>' +
+                (s.gsq ? '    <tr><th>GSQ</th><td><a href="." onclick="popup_map('+s.id+','+s.lat+','+s.lon+');return false;" title="Show map (accuracy limited to nearest Grid Square)">'+s.gsq+'</a></td></tr>' : '') +
+                '    <tr><th>Lat / Lon</th><td>' + s.lat + ', ' + s.lon + '</td></tr>' +
+                (s.usb || s.lsb ? '    <tr><th>Sidebands</th><td>' + (s.lsb ? 'LSB: ' + s.lsb : '') + (s.usb ? (s.lsb ? ', ' : '') + ' USB: ' + s.usb : '') + '</td></tr>' : '') +
+                (s.sec || s.fmt ? '    <tr><th>Secs / Format</th><td>' + (s.sec ? s.sec + ' sec' : '') + (s.sec && s.fmt ? ', ' : '') + s.fmt + '</td></tr>' : '') +
+                '    <tr><th>Last Logged</th><td>' + s.heard + '</td></tr>' +
+                '    <tr><th>Heard In</th><td>' + s.heard_in + '</td></tr>' +
+                '  </table>' +
+                '</div>';
+            signalsMap.infoWindow.setContent(infoHtml);
+            signalsMap.infoWindow.setPosition(latlng);
+            signalsMap.infoWindow.open(signalsMap.map);
+        };
+    },
+
+    showMarkers: function() {
+        var fn, i, item, latLng, marker, panel, s, title, titleText;
+        signalsMap.markers = [];
+        panel = document.getElementById('markerlist');
+        if (signalsMap.items.length === 0) {
+            return;
+        }
+        panel.innerHTML = '';
+
+        for (i = 0; i < signalsMap.items.length; i++) {
+            s = signalsMap.items[i];
+            titleText =
+                '<b>' + (typeof s.logged !== 'undefined' ? (s.logged ? '&#9745;' : '&#9744;') + ' ' : '') + s.khz+' '+s.call + '</b> ' +
+                s.qth + (s.sp ? ', ' + s.sp : '') + ', ' + s.itu;
+            item = document.createElement('DIV');
+            title = document.createElement('A');
+            title.href = '#';
+            title.className = 'title type_' + s.className;
+            title.innerHTML = titleText;
+            if (typeof s.logged !== 'undefined' && s.logged) {
+                item.className = 'logged';
+                item.title = 'Received';
+            }
+            item.appendChild(title);
+            panel.appendChild(item);
+            latLng = new google.maps.LatLng(s.lat, s.lon);
+            marker = new google.maps.Marker({
+                'title' :  strip_tags(s.khz + ' ' + s.call),
+                'position': latLng,
+                'icon': signalsMap.icons[s.icon + '_' + (s.active ? 1 : 0)]
+            });
+            fn = signalsMap.markerClickFunction(s, latLng);
+            google.maps.event.addListener(marker, 'click', fn);
+            google.maps.event.addDomListener(title, 'click', fn);
+            marker.setMap(signalsMap.map);
+        }
+    }
+};
