@@ -81,8 +81,23 @@ class Collection extends Base
         $listeners =    $listenerRepository->getFilteredListeners($system, $args);
         $total =        $listenerRepository->getFilteredListenersCount($system, $args);
 
+        $lats =     array_column($listeners, 'lat');
+        $lons =     array_column($listeners, 'lon');
+        $lat_min =  min($lats);
+        $lat_max =  max($lats);
+        $lon_min =  min($lons);
+        $lon_max =  max($lons);
+        $lat_cen =  $lat_min + (($lat_max - $lat_min) / 2);
+        $lon_cen =  $lon_min + (($lon_max - $lon_min) / 2);
+
+
+        $box =      [[$lat_min, $lon_min], [$lat_max, $lon_max]];
+        $center =   [$lat_cen, $lon_cen];
+
         $parameters = [
             'args' =>               $args,
+            'box' =>                $box,
+            'center' =>             $center,
             'columns' =>            $listenerRepository->getColumns(),
             'form' =>               $form->createView(),
             'listeners' =>          $listeners,

@@ -1,9 +1,10 @@
 {% include 'js_trans.html.twig' %}
 <script>
 //<!--
+var box = [{ lat: {{ box[0][0] }}, lon: {{ box[0][1] }}}, { lat: {{ box[1][0] }}, lon: {{ box[1][1] }} }];
+var center = { lat: {{ center[0] }}, lon: {{ center[1] }} };
 var listeners = [
-{% for row in listeners %}{% if row.lat != 0 or row.lon != 0
-    %}    { 'id':"{{
+{% for row in listeners %}{'id':"{{
     row.id }}", 'name':"{{
     row.name|raw }}", 'pri':{{
     row.primaryQth ? 1 : 0 }}, 'qth':"{{
@@ -13,7 +14,7 @@ var listeners = [
     row.lat }}, 'lon':{{
     row.lon }}, 'gsq':"{{
     row.gsq }}"},
-{% endif %}{% endfor %}
+{% endfor %}
 ];
 
 $(document).ready( function() {

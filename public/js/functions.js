@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    0.40.0
- * Date:       2020-02-24
+ * Version:    0.40.1
+ * Date:       2020-02-25
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
  */
@@ -958,39 +958,52 @@ function initListenersMap() {
     var markerGroups;
     // Global vars:
     //     google.maps
-    //     gridColor, gridOpacity, layers, map
+    //     box, center, gridColor, gridOpacity, layers, map
     TxtOverlay =    initMapsTxtOverlay();
 
     map = new google.maps.Map(document.getElementById('map'), {
-        center: { lat: 30, lng: 0 },
+        center: { lat: center.lat, lng: center.lon },
         scaleControl: true,
         zoomControl: true,
         zoom: 2
     });
 
+    map.fitBounds(
+        new google.maps.LatLngBounds(
+            new google.maps.LatLng( box[0].lat, box[0].lon), //sw
+            new google.maps.LatLng( box[1].lat, box[1].lon) //ne
+        )
+    );
+
     function showMarkers() {
-        var html, i, marker;
+        var html, i, icon_highlight, icon_primary, icon_secondary, marker;
         if (!listeners) {
             return;
         }
         markerGroups=new google.maps.MVCObject();
         markerGroups.set('primary', map);
         markerGroups.set('secondary', map);
-        var icon_primary = {
-            url: base_image + "/map_point3.gif", // url
-            origin: new google.maps.Point(0,0), // origin
-            anchor: new google.maps.Point(0, 0) // anchor
+        markerGroups.set('highlight', map);
+        icon_primary = {
+            url: base_image + "/map_point3.gif",
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(5, 5)
         };
-        var icon_secondary = {
-            url: base_image + "/map_point4.gif", // url
-            origin: new google.maps.Point(0,0), // origin
-            anchor: new google.maps.Point(0, 0) // anchor
+        icon_secondary = {
+            url: base_image + "/map_point4.gif",
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(5, 5)
+        };
+        icon_highlight = {
+            url: base_image + "/map_point_here.gif",
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(6, 6)
         };
         html = '';
         for (i in listeners) {
             l = listeners[i];
             html +=
-                '<tr>' +
+                '<tr data-gmap="' + l.lat + '|' + l.lon + '">' +
                 '<td>' + (l.pri ? '<strong>' : '&nbsp; &nbsp; ') +
                     '<a href="' + base_url + 'listeners/' + l.id + '" data-popup="1">' + l.name + '</a>' +
                     (l.pri ? '</strong>' : '') +
@@ -999,6 +1012,7 @@ function initListenersMap() {
                 '<td>' + l.sp +'</td>' +
                 '<td>' + l.itu +'</td>' +
                 '</tr>';
+
             marker=new google.maps.Marker({
                 position: new google.maps.LatLng(l.lat, l.lon),
                 title: (decodeHtmlEntities(l.name) + ': ' + decodeHtmlEntities(l.qth) + (l.sp ? ', ' + l.sp : '') + ', ' + l.itu),
@@ -1009,8 +1023,22 @@ function initListenersMap() {
         $('.results tbody').append(html);
         $('.no-results').hide();
         $('.results').show();
+
         setExternalLinks();
         setClippedCellTitles();
+
+        $('tr[data-gmap]')
+            .mouseover(function() {
+                var coords = $(this).data('gmap').split('|');
+                highlight = new google.maps.Marker({
+                    position: new google.maps.LatLng(coords[0], coords[1]),
+                    map: map,
+                    icon: icon_highlight
+                });
+            })
+            .mouseout(function() {
+                highlight.setMap(null);
+            });
     }
 
     function toggle(layer) {

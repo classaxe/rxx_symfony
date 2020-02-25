@@ -323,7 +323,12 @@ class ListenerRepository extends ServiceEntityRepository
                 ->setParameter('region', $args['region']);
         }
 
-        if (isset($args['limit']) && (int)$args['limit'] !== -1 && isset($args['page'])) {
+        if (isset($args['show']) && $args['show'] === 'map') {
+            $qb
+                ->andWhere('(l.lat != 0 OR l.lon !=0)');
+        }
+
+        if (isset($args['limit']) && (int)$args['limit'] !== -1 && isset($args['page']) && isset($args['show']) && $args['show'] !== 'map') {
             $qb
                 ->setFirstResult((int)$args['page'] * (int)$args['limit'])
                 ->setMaxResults($args['limit']);

@@ -134,7 +134,7 @@ class Listener
      *
      * @ORM\Column(name="lat", type="float", precision=10, scale=0, nullable=false)
      */
-    private $lat = '0';
+    public $lat = '0';
 
     /**
      * @var string
@@ -155,7 +155,7 @@ class Listener
      *
      * @ORM\Column(name="lon", type="float", precision=10, scale=0, nullable=false)
      */
-    private $lon = '0';
+    public $lon = '0';
 
     /**
      * @var int
