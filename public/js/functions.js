@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    0.40.1
- * Date:       2020-02-25
+ * Version:    0.40.3
+ * Date:       2020-02-26
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
  */
@@ -1003,22 +1003,33 @@ function initListenersMap() {
         for (i in listeners) {
             l = listeners[i];
             html +=
-                '<tr data-gmap="' + l.lat + '|' + l.lon + '">' +
+                '<tr id="listener_' + l.id + '" data-gmap="' + l.lat + '|' + l.lon + '">' +
                 '<td>' + (l.pri ? '<strong>' : '&nbsp; &nbsp; ') +
-                    '<a href="' + base_url + 'listeners/' + l.id + '" data-popup="1">' + l.name + '</a>' +
-                    (l.pri ? '</strong>' : '') +
+                '<a href="' + base_url + 'listeners/' + l.id + '" data-popup="1">' + l.name + '</a>' +
+                (l.pri ? '</strong>' : '') +
                 '</td>' +
-                '<td>' + l.qth +'</td>' +
-                '<td>' + l.sp +'</td>' +
-                '<td>' + l.itu +'</td>' +
+                '<td>' + l.qth + '</td>' +
+                '<td>' + l.sp + '</td>' +
+                '<td>' + l.itu + '</td>' +
                 '</tr>';
 
-            marker=new google.maps.Marker({
+            marker = new google.maps.Marker({
                 position: new google.maps.LatLng(l.lat, l.lon),
+                id: 'point_' + l.id,
                 title: (decodeHtmlEntities(l.name) + ': ' + decodeHtmlEntities(l.qth) + (l.sp ? ', ' + l.sp : '') + ', ' + l.itu),
                 icon: (l.pri ? icon_primary : icon_secondary)
             });
-            marker.bindTo('map', markerGroups, (l.pri ? 'primary' : 'secondary'));
+            marker.bindTo(
+                'map',
+                markerGroups,
+                (l.pri ? 'primary' : 'secondary')
+            );
+            marker.addListener('mouseover', function() {
+                $('#listener_' + this.id.split('_')[1]).css('background', '#ffff00');
+            });
+            marker.addListener('mouseout', function() {
+                $('#listener_' + this.id.split('_')[1]).css('background', '');
+            });
         }
         $('.results tbody').append(html);
         $('.no-results').hide();
