@@ -28,8 +28,8 @@
                     </div>
 
                     {{ form_row(form.gsq) }}
-                    {% if isAdmin and l.region in ['eu', 'na']%}
-                    <div>
+                    {% if isAdmin%}
+                    <div{% if l.region not in ['eu', 'na'] %} style="display: none"{% endif %}>
                         <label for="{{ form.mapX.vars.id }}">
                             <a href="{{ url('listener_locatormap', { 'system' : system, 'id' : id }) }}" data-popup="1">
                                 {{ form.mapX.vars.label|trans }}

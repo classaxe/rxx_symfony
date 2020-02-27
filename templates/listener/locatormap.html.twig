@@ -9,7 +9,7 @@
                 <div class="col">
                     <div style="position:relative;">
                         <img id="rx_map" src="{{ url('listener_locatormap_image', { 'system' : system, 'map' : map, 'id' : id }) }}" usemap="#map" alt="{{ mode }}" />
-                        <img id="cursor" src="{{ asset('image/cursor_map.gif') }}" style="position: absolute;{% if (l.mapX == 0 and l.mapY == 0) %}display:none;{{ l.map }}{% endif %}">
+                        <img id="cursor" src="{{ asset('image/cursor_map.gif') }}" style="position: absolute;{% if (l.mapX == 0 and l.mapY == 0) %}display:none;{% endif %}">
                     </div>
                 </div>
                 <div class="col listener_locator_map float-right">

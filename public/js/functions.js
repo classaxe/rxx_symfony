@@ -1,7 +1,7 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    0.41.1
+ * Version:    0.41.3
  * Date:       2020-02-27
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
@@ -21,12 +21,12 @@ var popWinSpecs = {
     'countries_na' :                'width=640,height=220,resizable=1',
     'countries_oc' :                'width=680,height=500,resizable=1',
     'countries_sa' :                'width=320,height=600,resizable=1',
-    'listeners_[id]' :              'width=840,height=760,status=1,scrollbars=1,resizable=1',
-    'listeners_[id]_logs' :         'width=840,height=760,status=1,scrollbars=1,resizable=1',
-    'listeners_[id]_signals' :      'width=840,height=760,status=1,scrollbars=1,resizable=1',
-    'listeners_[id]_map' :          'width=840,height=760,status=1,scrollbars=1,resizable=1',
-    'listeners_[id]_locatormap' :   'width=840,height=760,status=1,scrollbars=1,resizable=1',
-    'listeners_[id]_signalsmap' :   'width=840,height=760,status=1,scrollbars=1,resizable=1',
+    'listeners_[id]' :              'width=880,height=760,status=1,scrollbars=1,resizable=1',
+    'listeners_[id]_logs' :         'width=880,height=760,status=1,scrollbars=1,resizable=1',
+    'listeners_[id]_signals' :      'width=880,height=760,status=1,scrollbars=1,resizable=1',
+    'listeners_[id]_map' :          'width=880,height=760,status=1,scrollbars=1,resizable=1',
+    'listeners_[id]_locatormap' :   'width=880,height=760,status=1,scrollbars=1,resizable=1',
+    'listeners_[id]_signalsmap' :   'width=880,height=760,status=1,scrollbars=1,resizable=1',
     'listeners_[id]_ndbweblog' :    'status=1,scrollbars=1,resizable=1',
     'maps_af' :                     'width=646,height=652,resizable=1',
     'maps_alaska' :                 'width=600,height=620,resizable=1',

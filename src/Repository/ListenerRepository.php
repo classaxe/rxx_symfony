@@ -70,10 +70,18 @@ class ListenerRepository extends ServiceEntityRepository
         }
         switch ($args['has_map_pos']) {
             case 'N':
-                $qb->andWhere('(l.mapX = 0 AND l.mapY = 0)');
+                $qb
+                    ->andWhere('(l.mapX = 0 AND l.mapY = 0)')
+                    ->andWhere('(l.region = :eu OR l.region = :na)')
+                    ->setParameter('eu', 'eu')
+                    ->setParameter('na', 'na');
                 break;
             case 'Y':
-                $qb->andWhere('(l.mapX != 0 OR l.mapY != 0)');
+                $qb
+                    ->andWhere('(l.mapX != 0 OR l.mapY != 0)')
+                    ->andWhere('(l.region = :eu OR l.region = :na)')
+                    ->setParameter('eu', 'eu')
+                    ->setParameter('na', 'na');
                 break;
         }
     }
