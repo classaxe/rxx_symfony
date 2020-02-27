@@ -3,7 +3,7 @@ function initListenersMap() {
     var markerGroups;
     // Global vars:
     //     google.maps
-    //     box, center, gridColor, gridOpacity, layers, map
+    //     box, center, gridColor, gridOpacity, highlight, layers, map, markers
     TxtOverlay =    initMapsTxtOverlay();
 
     map = new google.maps.Map(document.getElementById('map'), {
@@ -64,18 +64,22 @@ function initListenersMap() {
                 title: (decodeHtmlEntities(l.name) + ': ' + decodeHtmlEntities(l.qth) + (l.sp ? ', ' + l.sp : '') + ', ' + l.itu),
                 icon: (l.pri ? icon_primary : icon_secondary)
             });
-            marker.bindTo(
-                'map',
-                markerGroups,
-                (l.pri ? 'primary' : 'secondary')
-            );
-            marker.addListener('mouseover', function() {
+            marker.bindTo('map', markerGroups, (l.pri ? 'primary' : 'secondary'));
+            markers.push(marker);
+        }
+
+        for (i in markers) {
+            markers[i].addListener('mouseover', function() {
                 $('#listener_' + this.id.split('_')[1]).css('background', '#ffff00');
             });
-            marker.addListener('mouseout', function() {
+            markers[i].addListener('mouseout', function () {
                 $('#listener_' + this.id.split('_')[1]).css('background', '');
             });
+            markers[i].addListener('click', function () {
+                $('#listener_' + this.id.split('_')[1]).find('a').trigger('click');
+            });
         }
+
         $('.results tbody').append(html);
         $('.no-results').hide();
         $('.results').show();

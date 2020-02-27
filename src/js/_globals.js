@@ -1,7 +1,9 @@
 var gridColor = "#808080";
 var gridOpacity = 0.5;
+var highlight;
 var layers = {grid: []};
 var map;
+var markers = [];
 
 var popWinSpecs = {
     'countries_*' :                 'width=860,height=630,resizable=1',
