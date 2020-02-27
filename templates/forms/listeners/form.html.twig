@@ -13,7 +13,9 @@
                 {{ form_row(form.region) }}
             {% endif %}
             {{ form_row(form.country) }}
-            {{ form_row(form.has_map_pos) }}
+            {% if isAdmin %}
+                {{ form_row(form.has_map_pos) }}
+            {% endif %}
             <fieldset class="actionButtons">
                 {{ form_widget(form.submit) }}
                 {{ form_widget(form.clear) }}
