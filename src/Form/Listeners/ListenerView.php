@@ -201,6 +201,22 @@ class ListenerView extends AbstractType
                 ]
             )
             ->add(
+                'primaryQth',
+                ChoiceType::class,
+                [
+                    'attr'          => [
+                        'style'         => "width: 6em"
+                    ],
+                    'choices'       => [
+                        'Yes'           => 1,
+                        'No'            => 0,
+                    ],
+                    'data'          => $options['primaryQth'],
+                    'disabled'      => !$isAdmin,
+                    'label'         => 'Primary Location',
+                ]
+            )
+            ->add(
                 'timezone',
                 TextType::class,
                 [
@@ -215,22 +231,6 @@ class ListenerView extends AbstractType
                     'disabled'      => !$isAdmin,
                     'empty_data'    => '',
                     'label'         => 'Timezone',
-                ]
-            )
-            ->add(
-                'primaryQth',
-                ChoiceType::class,
-                [
-                    'attr'          => [
-                        'style'         => "width: 6em"
-                    ],
-                    'choices'       => [
-                        'Yes'           => 1,
-                        'No'            => 0,
-                    ],
-                    'data'          => $options['primaryQth'],
-                    'disabled'      => !$isAdmin,
-                    'label'         => 'Primary Location',
                 ]
             )
             ->add(
@@ -307,12 +307,12 @@ class ListenerView extends AbstractType
                         'attr'          => [
                             'maxlength'     => 3,
                             'size'          => 3,
-                            'style'         => "width: 4em;"
+                            'style'         => "margin: 0 0.5em;width: 3em;"
                         ],
                         'data'          => $options['mapX'],
                         'disabled'      => !$isAdmin,
                         'empty_data'    => 0,
-                        'label'         => 'Map X',
+                        'label'         => 'Locator Map',
                         'required'      => false
                     ]
                 )
@@ -323,12 +323,12 @@ class ListenerView extends AbstractType
                         'attr'          => [
                             'maxlength'     => 3,
                             'size'          => 3,
-                            'style'         => "width: 4em;"
+                            'style'         => "margin: 0 0.5em;width: 3em;"
                         ],
                         'data'          => $options['mapY'],
                         'disabled'      => !$isAdmin,
                         'empty_data'    => 0,
-                        'label'         => 'Map Y',
+                        'label'         => '',
                         'required'      => false
                     ]
                 )

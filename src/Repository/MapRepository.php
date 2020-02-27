@@ -315,8 +315,9 @@ class MapRepository
         return $out;
     }
 
-    public function drawMapImage($region, $mode, $basedIn, $reportersIn, $reportersData, $heardIn, $text)
-    {
+    public function drawMapImage(
+        $region, $mode, $basedIn = false, $reportersIn = false, $reportersData = false, $heardIn = false, $text = false
+    ) {
         switch ($region) {
             case 'eu':
                 $width = 688;
@@ -339,23 +340,29 @@ class MapRepository
         $this->ImageColorAllocateAll();
         $this->ImageCopyMerge($region . '_map_outline.gif', $width, $height, 100);
         $this->ImageMarkersInit();
-        if ($reportersIn) {
-            $this->ImageDrawCountryList($region, $reportersIn, $this->colors['no']);
+        switch ($mode) {
+            case 'countries':
+                $this->ImageDrawCountries($region);
+                break;
+            case 'signal':
+                if ($reportersIn) {
+                    $this->ImageDrawCountryList($region, $reportersIn, $this->colors['no']);
+                }
+                if ($heardIn) {
+                    $this->ImageDrawCountry($region, 'SEA', $this->colors['sea']);
+                    $this->ImageDrawCountryList($region, $heardIn, $this->colors['yes']);
+                }
+                if ($basedIn) {
+                    $this->ImageDrawCountry($region, $basedIn, $this->colors['based']);
+                }
+                if ($text) {
+                    $this->ImageDrawLegend($legend_x, $legend_y, $text);
+                }
+                if ($reportersData) {
+                    $this->ImageDrawPointList($reportersData);
+                }
+                break;
         }
-        if ($heardIn) {
-            $this->ImageDrawCountry($region, 'SEA', $this->colors['sea']);
-            $this->ImageDrawCountryList($region, $heardIn, $this->colors['yes']);
-        }
-        if ($basedIn) {
-            $this->ImageDrawCountry($region, $basedIn, $this->colors['based']);
-        }
-        if ($text) {
-            $this->ImageDrawLegend($legend_x, $legend_y, $text);
-        }
-        if ($reportersData) {
-            $this->ImageDrawPointList($reportersData);
-        }
-
         $this->ImageCopyMerge($region . '_map_codes.gif', 653, 620, 30);
 
         ImageColorTransparent($this->image, $this->colors['bg']);
@@ -403,6 +410,19 @@ class MapRepository
         }
         foreach (static::MAP_FLOOD[$region][strtoupper($place)] as $point) {
             ImageFill($this->image, $point[0], $point[1], $color);
+        }
+    }
+
+    private function ImageDrawCountries($region)
+    {
+        foreach (static::MAP_COLORS[$region] as $color => $places) {
+            $place_list = explode(',', $places);
+            $id = $this->ImageColorAllocate($color);
+            foreach ($place_list as $place) {
+                foreach (static::MAP_FLOOD[$region][$place] as $point) {
+                    ImageFill($this->image, $point[0], $point[1], $id);
+                }
+            }
         }
     }
 

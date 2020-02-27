@@ -33,6 +33,8 @@ class ListenerExport extends Base
             }
         }
 
+        $isAdmin = $this->parameters['isAdmin'];
+
         $parameters = [
             'id' =>                 $id,
             '_locale' =>            $_locale,
@@ -40,7 +42,7 @@ class ListenerExport extends Base
             'logs' =>               $listener->getCountLogs(),
             'signals' =>            $listener->getCountSignals(),
             'system' =>             $system,
-            'tabs' =>               $listenerRepository->getTabs($listener)
+            'tabs' =>               $listenerRepository->getTabs($listener, $isAdmin)
         ];
         $parameters = array_merge($parameters, $this->parameters);
         return $this->render('listener/export.html.twig', $parameters);

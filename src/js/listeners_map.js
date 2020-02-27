@@ -141,3 +141,20 @@ function initListenersMap() {
     showGrid(map, layers, 'gridLabel');
     showMarkers();
 }
+
+function map_locator(system,map_x,map_y,name,QTH,lat,lon){
+    var href = base_url + 'map_locator?system=' + system + '&map_x=' + map_x + '&map_y=' + map_y + '&name=' + name + '&QTH=' + QTH + '&lat=' + lat + '&lon=' + lon;
+    var name = 'popMapLocator' + system;
+    var spec = false;
+    switch(system) {
+        case 'eu':
+            var spec = 'scrollbars=0,resizable=1,width=688,height=695';
+            break;
+        case 'na':
+            var spec = 'scrollbars=0,resizable=1,width=653,height=680';
+            break;
+    }
+    if (spec) {
+        window.open(href, name, spec);
+    }
+}

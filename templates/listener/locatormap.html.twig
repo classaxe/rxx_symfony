@@ -1,0 +1,71 @@
+{% extends 'popup.html.twig' %}
+{% block body %}
+<div class="main fullwidth">
+{% include 'signal/tabs.html.twig' %}
+    <div class="controlPanel">
+        <div class="header">{{ mode|raw }}</div>
+        <div class="content">
+            <div class="row">
+                <div class="col">
+                    <div style="position:relative;">
+                        <img id="rx_map" src="{{ url('listener_locatormap_image', { 'system' : system, 'map' : map, 'id' : id }) }}" usemap="#map" alt="{{ mode }}" />
+                        <img id="cursor" src="{{ asset('image/cursor_map.gif') }}" style="position: absolute;{% if (l.mapX == 0 and l.mapY == 0) %}display:none;{{ l.map }}{% endif %}">
+                    </div>
+                </div>
+                <div class="col listener_locator_map float-right">
+                    <div id="form" style="display: none">
+                        {{ form_start(form) }}
+                        <table class="tiny" style="float:right" cellpadding="0" cellspacing="0" border="0">
+                            <tr>
+                                <th>&nbsp;</th>
+                                <th><button type="button" id="y_sub" class="button small">&uparrow;</button></th>
+                                <th>&nbsp;</th>
+                            </tr>
+                            <tr>
+                                <th><button type="button" id="x_sub" class="button small">&leftarrow;</button></th>
+                                <th>&nbsp;</th>
+                                <th><button type="button" id="x_add" class="button small">&rightarrow;</button></th>
+                            </tr>
+                            <tr>
+                                <th>&nbsp;</th>
+                                <th><button type="button" id="y_add" class="button small">&downarrow;</button></th>
+                                <th>&nbsp;</th>
+                            </tr>
+                        </table>
+                        <div>
+                            {{ form_label(form.mapX)}}
+                            {{ form_widget(form.mapX)}}
+                        </div>
+                        <div>
+                            {{ form_label(form.mapY)}}
+                            {{ form_widget(form.mapY)}}
+                        </div>
+                        <div>
+                            {{ form_widget(form.reset) }}
+                            {{ form_widget(form.save) }}
+                        </div>
+                        {{ form_end(form, {'render_rest': true}) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+var xpos = {{ l.mapX }};
+var ypos = {{ l.mapY }};
+$('#rx_map').on('click', function (e) {
+    var x = parseInt(e.pageX - $(this).offset().left);
+    var y = parseInt(e.pageY - $(this).offset().top);
+    setListenerMapLocatorPos(x, y);
+    $('#form_mapX').val(x);
+    $('#form_mapY').val(y);
+});
+
+$(document).ready( function() {
+    showListenerMapLocatorForm();
+    setListenerMapLocatorFormActions();
+    setListenerMapLocatorPos(xpos, ypos);
+});
+</script>
+{% endblock %}

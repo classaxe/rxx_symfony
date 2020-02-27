@@ -1,7 +1,7 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    0.41.0
+ * Version:    0.41.1
  * Date:       2020-02-27
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
@@ -21,10 +21,12 @@ var popWinSpecs = {
     'countries_na' :                'width=640,height=220,resizable=1',
     'countries_oc' :                'width=680,height=500,resizable=1',
     'countries_sa' :                'width=320,height=600,resizable=1',
-    'listeners_[id]' :              'width=800,height=680,status=1,scrollbars=1,resizable=1',
-    'listeners_[id]_logs' :         'width=800,height=680,status=1,scrollbars=1,resizable=1',
-    'listeners_[id]_signals' :      'width=800,height=680,status=1,scrollbars=1,resizable=1',
-    'listeners_[id]_map' :          'width=800,height=680,status=1,scrollbars=1,resizable=1',
+    'listeners_[id]' :              'width=840,height=760,status=1,scrollbars=1,resizable=1',
+    'listeners_[id]_logs' :         'width=840,height=760,status=1,scrollbars=1,resizable=1',
+    'listeners_[id]_signals' :      'width=840,height=760,status=1,scrollbars=1,resizable=1',
+    'listeners_[id]_map' :          'width=840,height=760,status=1,scrollbars=1,resizable=1',
+    'listeners_[id]_locatormap' :   'width=840,height=760,status=1,scrollbars=1,resizable=1',
+    'listeners_[id]_signalsmap' :   'width=840,height=760,status=1,scrollbars=1,resizable=1',
     'listeners_[id]_ndbweblog' :    'status=1,scrollbars=1,resizable=1',
     'maps_af' :                     'width=646,height=652,resizable=1',
     'maps_alaska' :                 'width=600,height=620,resizable=1',
@@ -420,7 +422,6 @@ function setFormCollapseSections() {
     );
 }
 
-/* [ Enable Country change to resubmit form ] */
 function setFormCountryAction(enable) {
     enable = typeof enable !== 'undefined' ? enable : true;
     if (enable) {
@@ -1110,7 +1111,25 @@ function initListenersMap() {
 
     showGrid(map, layers, 'gridLabel');
     showMarkers();
-};
+}
+
+function map_locator(system,map_x,map_y,name,QTH,lat,lon){
+    var href = base_url + 'map_locator?system=' + system + '&map_x=' + map_x + '&map_y=' + map_y + '&name=' + name + '&QTH=' + QTH + '&lat=' + lat + '&lon=' + lon;
+    var name = 'popMapLocator' + system;
+    var spec = false;
+    switch(system) {
+        case 'eu':
+            var spec = 'scrollbars=0,resizable=1,width=688,height=695';
+            break;
+        case 'na':
+            var spec = 'scrollbars=0,resizable=1,width=653,height=680';
+            break;
+    }
+    if (spec) {
+        window.open(href, name, spec);
+    }
+}
+;
 
 function showGrid(map, layers, overlayClass) {
     var i, la, lo;
@@ -1198,7 +1217,77 @@ function initMapsTxtOverlay() {
 
     return TxtOverlay;
 }
-;
+
+function showListenerMapLocatorForm() {
+    if (!$('#rx_map').height()) {
+        return window.setTimeout(function(){ showListenerMapLocatorForm(); }, 100);
+    }
+    $('#form').show();
+}
+
+function setListenerMapLocatorPos(xpos, ypos) {
+    if (xpos === 0 && ypos === 0) {
+        return;
+    }
+    $('#cursor').css({
+        left : (xpos - 10) + 'px',
+        top : (ypos - 10) + 'px',
+        display: 'block'
+    });
+}
+
+function setListenerMapLocatorFormActions() {
+    $('#form_mapX').change(function(e) {
+        xpos = parseInt($('#form_mapX').val());
+        setListenerMapLocatorPos(xpos, ypos);
+    });
+
+    $('#form_mapY').change(function(e) {
+        ypos = parseInt($('#form_mapY').val());
+        setListenerMapLocatorPos(xpos, ypos);
+    });
+
+    $('#x_sub').click(function(e) {
+        var val = parseInt($('#form_mapX').val());
+        if (val > 0) {
+            $('#form_mapX')
+                .val(val - 1)
+                .trigger('change');
+        }
+    });
+
+    $('#x_add').click(function(e) {
+        var val = parseInt($('#form_mapX').val());
+        $('#form_mapX')
+            .val(val + 1)
+            .trigger('change');
+    });
+
+    $('#y_sub').click(function(e) {
+        var val = parseInt($('#form_mapY').val());
+        if (val > 0) {
+            $('#form_mapY')
+                .val(val - 1)
+                .trigger('change');
+        }
+    });
+
+    $('#y_add').click(function(e) {
+        var val = parseInt($('#form_mapY').val());
+        $('#form_mapY')
+            .val(val + 1)
+            .trigger('change');
+    });
+
+    $('#form_reset').click(function(e) {
+        e.preventDefault();
+        form = e.toElement.form;
+        form.reset();
+        xpos = $('#form_mapX').val();
+        ypos = $('#form_mapY').val();
+        setListenerMapLocatorPos(xpos, ypos);
+    });
+};
 
 var signalsMap = {
     map: null,

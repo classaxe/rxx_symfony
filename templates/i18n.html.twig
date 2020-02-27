@@ -738,16 +738,26 @@
     {% trans %}Town / City{% endtrans %}
     {% trans %}State / Prov{% endtrans %}
     {% trans %}Grid Square{% endtrans %}
-    {% trans %}Map X{% endtrans %}
-    {% trans %}Map Y{% endtrans %}
+    {% trans %}Locator Map{% endtrans %}
+    {% trans %}X:{% endtrans %}
+    {% trans %}Y:{% endtrans %}
     {% trans %}Yes{% endtrans %}
     {% trans %}No{% endtrans %}
     {% trans %}Timezone{% endtrans %}
     {% trans %}Equipment{% endtrans %}
     {% trans %}Close{% endtrans %}
     {% trans %}Save{% endtrans %}
+    {% trans %}Reset{% endtrans %}
 {% endif %}
-{% if 'Listener QNH' %}
+{% if 'Listener Map' %}
+    {% trans %}Map for %s (GSQ %s){% endtrans %}
+{% endif %}
+{% if 'Listener Locator Map' %}
+    {% trans %}Locator Map for %s{% endtrans %}
+    {% trans %}X{% endtrans %}
+    {% trans %}Y{% endtrans %}
+{% endif %}
+{% if 'Listener Weather' %}
     {% trans %}Message ID{% endtrans %}
     {% trans %}Icao{% endtrans %}
     {% trans %}Hours{% endtrans %}

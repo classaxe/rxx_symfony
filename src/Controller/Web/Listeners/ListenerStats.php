@@ -33,13 +33,15 @@ class ListenerStats extends Base
         if (!$listener = $this->getValidListener($id, $listenerRepository)) {
             return $this->redirectToRoute('listeners', ['system' => $system]);
         }
+
+        $isAdmin = $this->parameters['isAdmin'];
         $parameters = [
             'id' =>                 $id,
             '_locale' =>            $_locale,
             'mode' =>               $listener->getName().' &gt; Stats',
             'listener' =>           $listener,
             'system' =>             $system,
-            'tabs' =>               $listenerRepository->getTabs($listener),
+            'tabs' =>               $listenerRepository->getTabs($listener, $isAdmin),
             'typeRepository' =>     $typeRepository
         ];
         $parameters = array_merge($parameters, $this->parameters);

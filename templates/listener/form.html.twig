@@ -4,18 +4,54 @@
         {{ form_start(form) }}
             <div id="form">
                 {{ form_row(form.id)  }}
-{% for group, fields in fieldGroups %}
-                <fieldset id="group_{{ group|lower|replace({' ' : '_'}) }}">
-{% if group %}
-                    <legend>{{ group|trans }}</legend>
-{% endif %}
-{% for field in fields %}
-{%  if field %}
-                    {{ form_row(attribute(form, field))  }}
-{% endif %}
-{% endfor %}
+                <fieldset id="group_contact_details">
+                    <legend>{% trans %}Contact Details{% endtrans %}</legend>
+                    {{ form_row(form.name) }}
+                    {{ form_row(form.callsign) }}
+                    {% if isAdmin %}
+                        {{ form_row(form.email) }}
+                    {% endif %}
+                    {{ form_row(form.website) }}
                 </fieldset>
-{% endfor %}
+                <fieldset id="group_location">
+                    <legend>{% trans %}Location{% endtrans %}</legend>
+                    {{ form_row(form.qth) }}
+                    {{ form_row(form.sp) }}
+                    {{ form_row(form.itu) }}
+                    <div>
+                        <label for="{{ form.gsq.vars.id }}">
+                            <a href="{{ url('listener_map', { 'system' : system, 'id' : id }) }}" data-popup="1">
+                                {{ form.gsq.vars.label|trans }}
+                            </a>
+                        </label>
+                        {{ form_widget(form.gsq) }}
+                    </div>
+
+                    {{ form_row(form.gsq) }}
+                    {% if isAdmin and l.region in ['eu', 'na']%}
+                    <div>
+                        <label for="{{ form.mapX.vars.id }}">
+                            <a href="{{ url('listener_locatormap', { 'system' : system, 'id' : id }) }}" data-popup="1">
+                                {{ form.mapX.vars.label|trans }}
+                            </a>
+                        </label>
+                        <div>{% trans %}X:{% endtrans %}</div>{{ form_widget(form.mapX) }}
+                        <div>{% trans %}Y:{% endtrans %}</div>{{ form_widget(form.mapY) }}
+                    </div>
+                    {% endif %}
+                </fieldset>
+                <fieldset id="group_receiving_station_details">
+                    <legend>{% trans %}Receiving Station Details{% endtrans %}</legend>
+                    {{ form_row(form.primaryQth) }}
+                    {{ form_row(form.timezone) }}
+                    {{ form_row(form.equipment) }}
+                    {{ form_row(form.notes) }}
+                </fieldset>
+                <fieldset id="group_">
+                    {{ form_row(form.print) }}
+                    {{ form_row(form.close) }}
+                    {% if isAdmin %}{{ form_row(form.save) }}{% endif %}
+                </fieldset>
             </div>
         {{ form_end(form, {'render_rest': true}) }}
         </div>

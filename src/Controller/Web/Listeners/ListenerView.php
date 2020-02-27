@@ -28,6 +28,14 @@ class ListenerView extends Base
      *     },
      *     name="listener"
      * )
+     * @param $_locale
+     * @param $system
+     * @param $id
+     * @param Request $request
+     * @param CountryRepository $countryRepository
+     * @param ListenerViewForm $listenerViewForm
+     * @param ListenerRepository $listenerRepository
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function controller(
         $_locale,
@@ -48,7 +56,9 @@ class ListenerView extends Base
         } else {
             $listener = new ListenerEntity();
         }
+
         $isAdmin = $this->parameters['isAdmin'];
+
         if (!$id && !$isAdmin) {
             return $this->redirectToRoute('listeners', ['system' => $system]);
         }
@@ -106,13 +116,14 @@ class ListenerView extends Base
         }
 
         $parameters = [
+            '_locale' =>            $_locale,
             'id' =>                 $id,
             'fieldGroups' =>        $listenerViewForm->getFieldGroups($isAdmin),
             'form' =>               $form->createView(),
-            '_locale' =>            $_locale,
+            'l' =>                  $listener,
             'mode' =>               ($isAdmin && !$id ? 'Add Listener' : $listener->getName().' &gt; Profile'),
             'system' =>             $system,
-            'tabs' =>               $listenerRepository->getTabs($listener),
+            'tabs' =>               $listenerRepository->getTabs($listener, $isAdmin),
         ];
         $parameters = array_merge($parameters, $this->parameters);
         return $this->render('listener/profile.html.twig', $parameters);

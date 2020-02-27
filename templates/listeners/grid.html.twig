@@ -48,6 +48,8 @@
                     %}{% if listener.countLogs %}<a href="{{ url('listener_logs', { 'system' : system, 'id' : listener.ID }) }}" data-popup="1">{{ listener.countLogs }}</a>{% endif %}{%
                 elseif key == 'countSignals'
                     %}{% if listener.countSignals %}<a href="{{ url('listener_signals', { 'system' : system, 'id' : listener.ID }) }}" data-popup="1">{{ listener.countSignals }}</a>{% endif %}{%
+                elseif key == 'gsq'
+                    %}{% if listener.gsq %}<a href="{{ url('listener_map', { 'system' : system, 'id' : listener.ID }) }}" data-popup="1">{{ listener.gsq }}</a>{% endif %}{%
                 elseif key == 'map'
                     %}{% if listener.signalsMap %}<a href="{{ url('listener_signalmap', { 'system' : system, 'id' : listener.ID }) }}" data-popup="1">{% trans %}Map{% endtrans %}</a>{% endif %}{%
                 elseif key == 'nwl'

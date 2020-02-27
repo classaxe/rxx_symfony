@@ -37,6 +37,8 @@ class ListenerWeather extends Base
         if (!$listener = $this->getValidListener($id, $listenerRepository)) {
             return $this->redirectToRoute('listeners', ['system' => $system]);
         }
+
+        $isAdmin = $this->parameters['isAdmin'];
         $weather = false;
         $options = [
             'hours'     =>  '12',
@@ -89,7 +91,7 @@ class ListenerWeather extends Base
             '_locale' =>            $_locale,
             'mode' =>               $listener->getName().' &gt; Weather',
             'system' =>             $system,
-            'tabs' =>               $listenerRepository->getTabs($listener),
+            'tabs' =>               $listenerRepository->getTabs($listener, $isAdmin),
             'weather' =>            $weather
         ];
         $parameters = array_merge($parameters, $this->parameters);

@@ -48,6 +48,7 @@ class ListenerLogs extends Base
             return $this->redirectToRoute('listeners', ['system' => $system]);
         }
 
+        $isAdmin = $this->parameters['isAdmin'];
         $options = [
             'limit' =>          static::defaultlimit,
             'order' =>          static::defaultOrder,
@@ -81,7 +82,7 @@ class ListenerLogs extends Base
                 'total' =>              $options['total']
             ],
             'system' =>             $system,
-            'tabs' =>               $listenerRepository->getTabs($listener),
+            'tabs' =>               $listenerRepository->getTabs($listener, $isAdmin),
             'typeRepository' =>     $typeRepository
         ];
         $parameters = array_merge($parameters, $this->parameters);

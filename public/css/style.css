@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    0.40.0
- * Date:       2020-02-24
+ * Version:    0.41.1
+ * Date:       2020-02-27
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
  */
@@ -1379,6 +1379,38 @@ div.scroll div table.results img {
   height: 25em;
   font-size: 10pt;
   font-family: 'Courier New', monospace;
+}
+.listener_locator_map #form {
+  margin: 0 0 0 1em;
+  border: 1px solid #000;
+  border-radius: 5px;
+  padding: 0.5em 0.5em 0 0.5em;
+  background-color: #fff;
+}
+.listener_locator_map #form label {
+  width: 1em;
+}
+.listener_locator_map #form button {
+  margin: 0;
+  width: 4em;
+  float: none;
+}
+.listener_locator_map #form button#x_sub,
+.listener_locator_map #form button#x_add,
+.listener_locator_map #form button#y_sub,
+.listener_locator_map #form button#y_add {
+  height: 1.5em;
+  width: 1.5em;
+}
+.listener_locator_map #form table tbody {
+  border: 1px solid #aaa;
+}
+.listener_locator_map #form table tbody tr {
+  background-color: #f0f0f0 !important;
+}
+.listener_locator_map #form table tbody th {
+  padding: 0;
+  margin: 0;
 }
 fieldset#group_weather_report_details div * {
   line-height: 1.8em;

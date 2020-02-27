@@ -42,6 +42,7 @@ class ListenerSignals extends Base
             return $this->redirectToRoute('listeners', ['system' => $system]);
         }
 
+        $isAdmin = $this->parameters['isAdmin'];
         $totalSignals = $listener->getCountSignals();
         $options = [
             'limit' =>          static::defaultlimit,
@@ -79,7 +80,7 @@ class ListenerSignals extends Base
             ],
             'signals' =>            $listenerRepository->getSignalsForListener($id, $args),
             'system' =>             $system,
-            'tabs' =>               $listenerRepository->getTabs($listener),
+            'tabs' =>               $listenerRepository->getTabs($listener, $isAdmin),
             'typeRepository' =>     $typeRepository
         ];
         $parameters = array_merge($parameters, $this->parameters);

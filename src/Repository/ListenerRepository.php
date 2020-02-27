@@ -18,6 +18,8 @@ class ListenerRepository extends ServiceEntityRepository
 
     private $tabs = [
         ['listener', 'Profile'],
+        ['listener_map', 'Map'],
+        ['listener_locatormap', 'Locator Map'],
         ['listener_signals', 'Signals (%%signals%%)'],
         ['listener_logs', 'Logs (%%logs%%)'],
         ['listener_signalmap', 'Signals Map'],
@@ -299,7 +301,7 @@ class ListenerRepository extends ServiceEntityRepository
         return $out;
     }
 
-    public function getTabs($listener = false)
+    public function getTabs($listener = false, $isAdmin = false)
     {
         if (!$listener->getId()) {
             return [];
@@ -321,6 +323,16 @@ class ListenerRepository extends ServiceEntityRepository
                             [$logs, $signals],
                             $data
                         );
+                    }
+                    break;
+                case 'listener_map':
+                    if ($knownQth) {
+                        $out[] = $data;
+                    }
+                    break;
+                case 'listener_locatormap':
+                    if ($isAdmin) {
+                        $out[] = $data;
                     }
                     break;
                 case 'listener_weather':

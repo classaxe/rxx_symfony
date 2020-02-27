@@ -16,7 +16,7 @@ class Signalmap extends Base
 {
     /**
      * @Route(
-     *     "/{_locale}/{system}/listeners/{id}/map",
+     *     "/{_locale}/{system}/listeners/{id}/signalsmap",
      *     requirements={
      *        "_locale": "de|en|es|fr",
      *        "system": "reu|rna|rww"
@@ -46,6 +46,8 @@ class Signalmap extends Base
                 ['_locale' => $_locale, 'system' => $system]
             );
         }
+
+        $isAdmin = $this->parameters['isAdmin'];
         $listenerSignalTypes = [];
         foreach ($listenerRepository->getSignalTypesForListener($id) as $type) {
             $listenerSignalTypes[$type] = $typeRepository->getTypeForCode($type);
@@ -59,7 +61,7 @@ class Signalmap extends Base
             'mode' =>               strToUpper($system).' Map of Signals received by '.$listener->getName(),
             'types' =>              $listenerSignalTypes,
             'system' =>             $system,
-            'tabs' =>               $listenerRepository->getTabs($listener)
+            'tabs' =>               $listenerRepository->getTabs($listener, $isAdmin)
         ];
         $parameters = array_merge($parameters, $this->parameters);
         $response = $this->render('listener/signalmap.html.twig', $parameters);

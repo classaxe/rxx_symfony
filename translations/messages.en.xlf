@@ -3239,6 +3239,54 @@
         <source>Personalised for %s%s%s</source>
         <target>Personalised for %s%s%s</target>
       </trans-unit>
+      <trans-unit id="VqTV6WA" resname="Locator Map for %s">
+        <source>Locator Map for %s</source>
+        <target>Locator Map for %s</target>
+      </trans-unit>
+      <trans-unit id="NmSJVXn" resname="Export">
+        <source>Export</source>
+        <target>Export</target>
+      </trans-unit>
+      <trans-unit id="3MtN8Vc" resname="View Map">
+        <source>View Map</source>
+        <target>View Map</target>
+      </trans-unit>
+      <trans-unit id="aQkjC5F" resname="Listeners Map">
+        <source>Listeners Map</source>
+        <target>Listeners Map</target>
+      </trans-unit>
+      <trans-unit id="2u52BrM" resname="Reset">
+        <source>Reset</source>
+        <target>Reset</target>
+      </trans-unit>
+      <trans-unit id="S2irOEf" resname="X">
+        <source>X</source>
+        <target>X</target>
+      </trans-unit>
+      <trans-unit id="GPU4TVi" resname="Y">
+        <source>Y</source>
+        <target>Y</target>
+      </trans-unit>
+      <trans-unit id="YcUBEkU" resname="Locator Map">
+        <source>Locator Map</source>
+        <target>Locator Map</target>
+      </trans-unit>
+      <trans-unit id="k5.H0kE" resname="X:">
+        <source>X:</source>
+        <target>X:</target>
+      </trans-unit>
+      <trans-unit id="hBzu6cL" resname="Y:">
+        <source>Y:</source>
+        <target>Y:</target>
+      </trans-unit>
+      <trans-unit id="WVMIiZA" resname="Map for %s (GSQ %s)">
+        <source>Map for %s (GSQ %s)</source>
+        <target>Map for %s (GSQ %s)</target>
+      </trans-unit>
+      <trans-unit id="zQ7qbi_" resname="Map for %s (GSQ: %s)">
+        <source>Map for %s (GSQ: %s)</source>
+        <target>Map for %s (GSQ: %s)</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

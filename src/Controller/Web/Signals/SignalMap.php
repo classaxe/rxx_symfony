@@ -188,7 +188,7 @@ class SignalMap extends Base
 
         header('Content-Type: image/gif');
 
-        $mapRepository->drawMapImage($map, 'station', $basedIn, $listenerSpItus, $listenerMapCoords, $heardIn, $text);
+        $mapRepository->drawMapImage($map, 'signal', $basedIn, $listenerSpItus, $listenerMapCoords, $heardIn, $text);
         die;
     }
 }
