@@ -1,7 +1,7 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    0.40.4
+ * Version:    0.41.0
  * Date:       2020-02-27
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
@@ -658,7 +658,6 @@ function setFormRangeUnitsDefault() {
     }
 }
 
-/* [ Enable Admin Mode change to resubmit form ] */
 function setFormAdminAction(enable) {
     enable = typeof enable !== 'undefined' ? enable : true;
     if (enable) {
@@ -670,7 +669,17 @@ function setFormAdminAction(enable) {
     }
 }
 
-/* [ Enable Region change to resubmit form ] */
+function setFormHasMapPosAction(enable) {
+    enable = typeof enable !== 'undefined' ? enable : true;
+    if (enable) {
+        $('select#form_has_map_pos').change(function () {
+            formSubmit();
+        });
+    } else {
+        $('select#form_has_map_pos').off('change');
+    }
+}
+
 function setFormRegionAction(enable) {
     enable = typeof enable !== 'undefined' ? enable : true;
     if (enable) {
@@ -757,11 +766,15 @@ function setFormResetAction(form) {
                 setFormCountryAction(false);
                 setFormRegionAction(false);
                 setFormRwwFocusAction(false);
+                setFormHasMapPosAction(false);
                 $('select#form_region').prop('selectedIndex', 0);
                 $('select#form_country').prop('selectedIndex', 0);
+                $('select#form_has_map_pos').prop('selectedIndex', 0);
                 setFormCountryAction(true);
                 setFormRegionAction(true);
                 setFormRwwFocusAction(true);
+                setFormHasMapPosAction(true);
+                formSubmit();
                 return false;
             });
             break;
@@ -1006,7 +1019,7 @@ function initListenersMap() {
             l = listeners[i];
             html +=
                 '<tr id="listener_' + l.id + '" data-gmap="' + l.lat + '|' + l.lon + '">' +
-                '<td>' + (l.pri ? '<strong>' : '&nbsp; &nbsp; ') +
+                '<td class="text-nowrap">' + (l.pri ? '<strong>' : '&nbsp; &nbsp; ') +
                 '<a href="' + base_url + 'listeners/' + l.id + '" data-popup="1">' + l.name + '</a>' +
                 (l.pri ? '</strong>' : '') +
                 '</td>' +

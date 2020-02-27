@@ -116,22 +116,7 @@ class Collection extends Base
                     'label' => 'Country',
                     'required' => false
                 ]
-            );
-
-        if ($system=='rww') {
-            $formBuilder
-                ->add(
-                    'region',
-                    ChoiceType::class,
-                    [
-                        'choices' => $this->region->getAllOptions(),
-                        'label' => 'Region',
-                        'required' =>   false
-                    ]
-                );
-        }
-
-        $formBuilder
+            )
             ->add(
                 'submit',
                 SubmitType::class,
@@ -149,6 +134,37 @@ class Collection extends Base
                 ]
             );
 
+
+        if ($system=='rww') {
+            $formBuilder
+                ->add(
+                    'region',
+                    ChoiceType::class,
+                    [
+                        'choices' => $this->region->getAllOptions(),
+                        'label' => 'Region',
+                        'required' =>   false
+                    ]
+                );
+        }
+
+        if ($options['isAdmin']) {
+            $formBuilder
+                ->add(
+                    'has_map_pos',
+                    ChoiceType::class,
+                    [
+                        'choices' =>        [
+                            '' =>      '',
+                            'No' =>    'N',
+                            'Yes' =>   'Y'
+                        ],
+                        'data' =>           $options['has_map_pos'],
+                        'label' =>          'Has Map Pos',
+                        'required' =>       false
+                    ]
+                );
+        }
         $this->addPaging($formBuilder, $options);
 
         return $formBuilder->getForm();

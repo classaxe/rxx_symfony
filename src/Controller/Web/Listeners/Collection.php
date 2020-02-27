@@ -54,6 +54,7 @@ class Collection extends Base
         Form $form,
         ListenerRepository $listenerRepository
     ) {
+        $isAdmin = $this->parameters['isAdmin'];
         $args = [
             'country' =>    '',
             'dx_gsq' =>     '',
@@ -61,7 +62,9 @@ class Collection extends Base
             'dx_max' =>     '',
             'dx_units' =>   'km',
             'filter' =>     '',
+            'isAdmin' =>    $isAdmin,
             'limit' =>      static::defaultlimit,
+            'has_map_pos' => '',
             'order' =>      static::defaultOrder,
             'page' =>       0,
             'region' =>     $_REQUEST['form']['region'] ?? '',

@@ -49,7 +49,7 @@ function initListenersMap() {
             l = listeners[i];
             html +=
                 '<tr id="listener_' + l.id + '" data-gmap="' + l.lat + '|' + l.lon + '">' +
-                '<td>' + (l.pri ? '<strong>' : '&nbsp; &nbsp; ') +
+                '<td class="text-nowrap">' + (l.pri ? '<strong>' : '&nbsp; &nbsp; ') +
                 '<a href="' + base_url + 'listeners/' + l.id + '" data-popup="1">' + l.name + '</a>' +
                 (l.pri ? '</strong>' : '') +
                 '</td>' +

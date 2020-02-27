@@ -373,7 +373,6 @@ function setFormCollapseSections() {
     );
 }
 
-/* [ Enable Country change to resubmit form ] */
 function setFormCountryAction(enable) {
     enable = typeof enable !== 'undefined' ? enable : true;
     if (enable) {
@@ -611,7 +610,6 @@ function setFormRangeUnitsDefault() {
     }
 }
 
-/* [ Enable Admin Mode change to resubmit form ] */
 function setFormAdminAction(enable) {
     enable = typeof enable !== 'undefined' ? enable : true;
     if (enable) {
@@ -623,7 +621,17 @@ function setFormAdminAction(enable) {
     }
 }
 
-/* [ Enable Region change to resubmit form ] */
+function setFormHasMapPosAction(enable) {
+    enable = typeof enable !== 'undefined' ? enable : true;
+    if (enable) {
+        $('select#form_has_map_pos').change(function () {
+            formSubmit();
+        });
+    } else {
+        $('select#form_has_map_pos').off('change');
+    }
+}
+
 function setFormRegionAction(enable) {
     enable = typeof enable !== 'undefined' ? enable : true;
     if (enable) {
@@ -710,11 +718,15 @@ function setFormResetAction(form) {
                 setFormCountryAction(false);
                 setFormRegionAction(false);
                 setFormRwwFocusAction(false);
+                setFormHasMapPosAction(false);
                 $('select#form_region').prop('selectedIndex', 0);
                 $('select#form_country').prop('selectedIndex', 0);
+                $('select#form_has_map_pos').prop('selectedIndex', 0);
                 setFormCountryAction(true);
                 setFormRegionAction(true);
                 setFormRwwFocusAction(true);
+                setFormHasMapPosAction(true);
+                formSubmit();
                 return false;
             });
             break;

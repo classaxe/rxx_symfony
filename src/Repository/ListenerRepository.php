@@ -51,6 +51,87 @@ class ListenerRepository extends ServiceEntityRepository
         $this->regionRepository = $regionRepository;
     }
 
+    private function addFilterCountry($qb, $args)
+    {
+        if (empty($args['country'])) {
+            return;
+        }
+        $qb
+            ->andWhere('(l.itu = :country)')
+            ->setParameter('country', $args['country']);
+    }
+
+    private function addFilterHasMapPos($qb, $args)
+    {
+        if (!isset($args['has_map_pos'])) {
+            return;
+        }
+        switch ($args['has_map_pos']) {
+            case 'N':
+                $qb->andWhere('(l.mapX = 0 AND l.mapY = 0)');
+                break;
+            case 'Y':
+                $qb->andWhere('(l.mapX != 0 OR l.mapY != 0)');
+                break;
+        }
+    }
+
+    private function addFilterMap(&$qb, $map)
+    {
+        switch ($map) {
+            case "eu":
+                $qb
+                    ->andWhere('(l.region = :eu)')
+                    ->setParameter('eu', 'eu');
+                break;
+            case "na":
+                $qb
+                    ->andWhere('(l.region = :oc and l.itu = :hwa) or (l.region in (:na_ca))')
+                    ->setParameter('na_ca', ['na','ca'])
+                    ->setParameter('oc', 'oc')
+                    ->setParameter('hwa', 'hwa');
+                break;
+        }
+    }
+
+    private function addFilterRegion(&$qb, $args)
+    {
+        if (empty($args['region'])) {
+            return;
+        }
+        $qb
+            ->andWhere('(l.region = :region)')
+            ->setParameter('region', $args['region']);
+    }
+
+    private function addFilterSearch($qb, $args)
+    {
+        if (empty($args['filter'])) {
+            return;
+        }
+        $qb
+            ->andWhere('(l.name like :filter or l.qth like :filter or l.callsign like :filter)')
+            ->setParameter('filter', '%'.$args['filter'].'%');
+    }
+
+    private function addFilterSystem(&$qb, $system)
+    {
+        switch ($system) {
+            case "reu":
+                $qb
+                    ->andWhere('(l.region = :eu)')
+                    ->setParameter('eu', 'eu');
+                break;
+            case "rna":
+                $qb
+                    ->andWhere('(l.region = :oc and l.itu = :hwa) or (l.region in (:na_ca))')
+                    ->setParameter('na_ca', ['na','ca'])
+                    ->setParameter('oc', 'oc')
+                    ->setParameter('hwa', 'hwa');
+                break;
+        }
+    }
+
     public function getColumns()
     {
         return $this->listenersColumns;
@@ -255,42 +336,6 @@ class ListenerRepository extends ServiceEntityRepository
         return $out;
     }
 
-    private function addFilterMap(&$qb, $map)
-    {
-        switch ($map) {
-            case "eu":
-                $qb
-                    ->andWhere('(l.region = :eu)')
-                    ->setParameter('eu', 'eu');
-                break;
-            case "na":
-                $qb
-                    ->andWhere('(l.region = :oc and l.itu = :hwa) or (l.region in (:na_ca))')
-                    ->setParameter('na_ca', ['na','ca'])
-                    ->setParameter('oc', 'oc')
-                    ->setParameter('hwa', 'hwa');
-                break;
-        }
-    }
-
-    private function addFilterSystem(&$qb, $system)
-    {
-        switch ($system) {
-            case "reu":
-                $qb
-                    ->andWhere('(l.region = :eu)')
-                    ->setParameter('eu', 'eu');
-                break;
-            case "rna":
-                $qb
-                    ->andWhere('(l.region = :oc and l.itu = :hwa) or (l.region in (:na_ca))')
-                    ->setParameter('na_ca', ['na','ca'])
-                    ->setParameter('oc', 'oc')
-                    ->setParameter('hwa', 'hwa');
-                break;
-        }
-    }
-
     public function getFilteredListeners($system, $args)
     {
         $qb = $this
@@ -304,24 +349,10 @@ class ListenerRepository extends ServiceEntityRepository
         }
 
         $this->addFilterSystem($qb, $system);
-
-        if (isset($args['filter']) && $args['filter']) {
-            $qb
-                ->andWhere('(l.name like :filter or l.qth like :filter or l.callsign like :filter)')
-                ->setParameter('filter', '%'.$args['filter'].'%');
-        }
-
-        if (isset($args['country']) && $args['country']) {
-            $qb
-                ->andWhere('(l.itu = :country)')
-                ->setParameter('country', $args['country']);
-        }
-
-        if (isset($args['region']) && $args['region']) {
-            $qb
-                ->andWhere('(l.region = :region)')
-                ->setParameter('region', $args['region']);
-        }
+        $this->addFilterHasMapPos($qb, $args);
+        $this->addFilterSearch($qb, $args);
+        $this->addFilterCountry($qb, $args);
+        $this->addFilterRegion($qb, $args);
 
         if (isset($args['show']) && $args['show'] === 'map') {
             $qb
@@ -374,22 +405,10 @@ class ListenerRepository extends ServiceEntityRepository
             ->select('COUNT(l.id) as count');
 
         $this->addFilterSystem($qb, $system);
-
-        if (!empty($args['filter'])) {
-            $qb
-                ->andWhere('(l.name like :filter or l.qth like :filter or l.callsign like :filter)')
-                ->setParameter('filter', '%'.$args['filter'].'%');
-        }
-        if (!empty($args['country'])) {
-            $qb
-                ->andWhere('(l.itu = :country)')
-                ->setParameter('country', $args['country']);
-        }
-        if (!empty($args['region'])) {
-            $qb
-                ->andWhere('(l.region = :region)')
-                ->setParameter('region', $args['region']);
-        }
+        $this->addFilterHasMapPos($qb, $args);
+        $this->addFilterSearch($qb, $args);
+        $this->addFilterCountry($qb, $args);
+        $this->addFilterRegion($qb, $args);
         return $qb->getQuery()->getSingleScalarResult();
     }
 
