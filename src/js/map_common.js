@@ -106,10 +106,12 @@ function setListenerMapLocatorPos(xpos, ypos) {
 function setListenerMapLocatorFormActions() {
     $('#form_mapX').change(function(e) {
         xpos = parseInt($('#form_mapX').val());
+        ypos = parseInt($('#form_mapY').val());
         setListenerMapLocatorPos(xpos, ypos);
     });
 
     $('#form_mapY').change(function(e) {
+        xpos = parseInt($('#form_mapX').val());
         ypos = parseInt($('#form_mapY').val());
         setListenerMapLocatorPos(xpos, ypos);
     });

@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    0.41.3
- * Date:       2020-02-27
+ * Version:    0.41.4
+ * Date:       2020-02-28
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
  */
@@ -1239,10 +1239,12 @@ function setListenerMapLocatorPos(xpos, ypos) {
 function setListenerMapLocatorFormActions() {
     $('#form_mapX').change(function(e) {
         xpos = parseInt($('#form_mapX').val());
+        ypos = parseInt($('#form_mapY').val());
         setListenerMapLocatorPos(xpos, ypos);
     });
 
     $('#form_mapY').change(function(e) {
+        xpos = parseInt($('#form_mapX').val());
         ypos = parseInt($('#form_mapY').val());
         setListenerMapLocatorPos(xpos, ypos);
     });

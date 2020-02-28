@@ -3287,6 +3287,10 @@
         <source>Map for %s (GSQ: %s)</source>
         <target>Map for %s (GSQ: %s)</target>
       </trans-unit>
+      <trans-unit id="d0jB1oE" resname="Has Map Pos">
+        <source>Has Map Pos</source>
+        <target>Has Map Pos</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
