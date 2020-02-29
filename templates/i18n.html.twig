@@ -56,6 +56,7 @@
 {% endif %}
 {% if 'Countries' %}
     {% trans %}(All Countries){% endtrans %}
+    {% trans %}(All Countries in selected region){% endtrans %}
     {% trans %}Afghanistan{% endtrans %}
     {% trans %}Alaska{% endtrans %}
     {% trans %}Albania{% endtrans %}
@@ -731,6 +732,7 @@
     {% trans %}Japanese NDB List Country Codes{% endtrans %}
     {% trans %}French Polynesian Beacons Map{% endtrans %}
 {% endif %}
+
 {% if 'Listener View' %}
     {% trans %}Contact Details{% endtrans %}
     {% trans %}Receiving Station Details{% endtrans %}
@@ -750,14 +752,17 @@
     {% trans %}Save{% endtrans %}
     {% trans %}Reset{% endtrans %}
 {% endif %}
+
 {% if 'Listener Map' %}
     {% trans %}Map for %s (GSQ %s){% endtrans %}
 {% endif %}
+
 {% if 'Listener Locator Map' %}
     {% trans %}Locator Map for %s{% endtrans %}
     {% trans %}X{% endtrans %}
     {% trans %}Y{% endtrans %}
 {% endif %}
+
 {% if 'Listener Weather' %}
     {% trans %}Message ID{% endtrans %}
     {% trans %}Icao{% endtrans %}
@@ -772,6 +777,15 @@
     {% trans %}Total Signals{% endtrans %}
     {% trans %}Log Statistics{% endtrans %}
     {% trans %}Total Logs{% endtrans %}
+{% endif %}
+
+{% if 'Listener Awards' %}
+    {% trans %}%s &gt; Listener Awards{% endtrans %}
+    {% trans %}About These Awards{% endtrans %}
+    {% trans %}The NDB List Awards Program recognizes the achievements and issues certificates free of charge to NDB List Members who DX non-directional radio beacons in the LF/MF frequency range (190 to 1800 kHz). These certificates are not intended as, nor should they be considered prizes in a 'contest'. They are tangible symbols of the hard work, dedication, technical skill and fun that goes along with our hobby.{% endtrans %}
+    {% trans %}Virtually all listeners who desire them can get at least one in each category. The 'difficulty factor' in each ranges from modest to a level that even experienced listeners will find challenging. In setting these requirements, we have kept in mind the fact that the vast majority of List members are in either Europe or North America.{% endtrans %}
+    {% trans %}To request an award, click on the shopping-cart icon besides the award name and category.{% endtrans %}
+    {% trans %}Awards Available for %NAME%{% endtrans %}
 {% endif %}
 
 {% if 'Signal Tabs' %}

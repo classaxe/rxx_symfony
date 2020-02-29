@@ -39,6 +39,7 @@ class ListenerAwards extends Base
             'id' =>                 $id,
             '_locale' =>            $_locale,
             'mode' =>               'Awards Available for '.$listener->getFormattedNameAndLocation(),
+            'l' =>                  $listener,
             'logs' =>               $listener->getCountLogs(),
             'signals' =>            $listener->getCountSignals(),
             'system' =>             $system,

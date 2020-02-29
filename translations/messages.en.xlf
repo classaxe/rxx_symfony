@@ -3291,6 +3291,34 @@
         <source>Has Map Pos</source>
         <target>Has Map Pos</target>
       </trans-unit>
+      <trans-unit id="MyqGcIP" resname="(All Countries in selected region)">
+        <source>(All Countries in selected region)</source>
+        <target>(All Countries in selected region)</target>
+      </trans-unit>
+      <trans-unit id="j5C.saB" resname="%s &amp;gt; Listener Awards">
+        <source>%s &amp;gt; Listener Awards</source>
+        <target><![CDATA[%s &gt; Listener Awards]]></target>
+      </trans-unit>
+      <trans-unit id="bnZDyW8" resname="About These Awards">
+        <source>About These Awards</source>
+        <target>About These Awards</target>
+      </trans-unit>
+      <trans-unit id="KUFSU5C" resname="The NDB List Awards Program recognizes the achievements and issues certificates free of charge to NDB List Members who DX non-directional radio beacons in the LF/MF frequency range (190 to 1800 kHz). These certificates are not intended as, nor should they be considered prizes in a 'contest'. They are tangible symbols of the hard work, dedication, technical skill and fun that goes along with our hobby.">
+        <source>The NDB List Awards Program recognizes the achievements and issues certificates free of charge to NDB List Members who DX non-directional radio beacons in the LF/MF frequency range (190 to 1800 kHz). These certificates are not intended as, nor should they be considered prizes in a 'contest'. They are tangible symbols of the hard work, dedication, technical skill and fun that goes along with our hobby.</source>
+        <target>The NDB List Awards Program recognizes the achievements and issues certificates free of charge to NDB List Members who DX non-directional radio beacons in the LF/MF frequency range (190 to 1800 kHz). These certificates are not intended as, nor should they be considered prizes in a 'contest'. They are tangible symbols of the hard work, dedication, technical skill and fun that goes along with our hobby.</target>
+      </trans-unit>
+      <trans-unit id="D7dbbAl" resname="Virtually all listeners who desire them can get at least one in each category. The 'difficulty factor' in each ranges from modest to a level that even experienced listeners will find challenging. In setting these requirements, we have kept in mind the fact that the vast majority of List members are in either Europe or North America.">
+        <source>Virtually all listeners who desire them can get at least one in each category. The 'difficulty factor' in each ranges from modest to a level that even experienced listeners will find challenging. In setting these requirements, we have kept in mind the fact that the vast majority of List members are in either Europe or North America.</source>
+        <target>Virtually all listeners who desire them can get at least one in each category. The 'difficulty factor' in each ranges from modest to a level that even experienced listeners will find challenging. In setting these requirements, we have kept in mind the fact that the vast majority of List members are in either Europe or North America.</target>
+      </trans-unit>
+      <trans-unit id="YLi5oS_" resname="To request an award, click on the shopping-cart icon besides the award name and category.">
+        <source>To request an award, click on the shopping-cart icon besides the award name and category.</source>
+        <target>To request an award, click on the shopping-cart icon besides the award name and category.</target>
+      </trans-unit>
+      <trans-unit id="7udYTtP" resname="Awards Available for %NAME%">
+        <source>Awards Available for %NAME%</source>
+        <target>Awards Available for %NAME%</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

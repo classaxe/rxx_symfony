@@ -373,6 +373,15 @@ function setFormCollapseSections() {
     );
 }
 
+function setAwardsCollapseAbout() {
+    $('#toggle_about').click(
+        function() {
+            $('#about').toggle();
+            $(this).find('span').toggle();
+        }
+    );
+}
+
 function setFormCountryAction(enable) {
     enable = typeof enable !== 'undefined' ? enable : true;
     if (enable) {
