@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    0.41.5
- * Date:       2020-02-29
+ * Version:    0.42.3
+ * Date:       2020-03-01
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
  */
@@ -422,14 +422,45 @@ function setFormCollapseSections() {
     );
 }
 
-function setAwardsCollapseAbout() {
-    $('#toggle_about').click(
-        function() {
-            $('#about').toggle();
-            $(this).find('span').toggle();
-        }
-    );
+function setAwardsShowHide(zones) {
+    var i, zone;
+    for (i in zones) {
+        zone = zones[i];
+        $('#toggle_' + zone)
+            .css({ 'cursor' : 'pointer' })
+            .prop('title', msg.show_hide)
+            .click(
+                function() {
+                    $('#' + this.id.split('_')[1]).toggle();
+                    $(this).find('span').toggle();
+                }
+            )
+            .find('span').css({'font-size': '120%'});
+    }
 }
+
+// function setAwardsCollapse() {
+//     var zones = ['about', 'daytime', 'longranger'];
+//     for (var i in zones)
+//     $('#toggle_about').click(
+//         function() {
+//             $('#about').toggle();
+//             $(this).find('span').toggle();
+//         }
+//     );
+//     $('#toggle_daytime').click(
+//         function() {
+//             $('#daytime').toggle();
+//             $(this).find('span').toggle();
+//         }
+//     );
+//     $('#toggle_daytime').click(
+//         function() {
+//             $('#daytime').toggle();
+//             $(this).find('span').toggle();
+//         }
+//     );
+// }
 
 function setFormCountryAction(enable) {
     enable = typeof enable !== 'undefined' ? enable : true;
