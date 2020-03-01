@@ -1,0 +1,70 @@
+{% if awards.longranger %}
+    <h2>{% trans %}Long Ranger DX Awards{% endtrans %}</h2>
+    <div class="row">
+        <div class="small-12 columns" style="padding: 0">{% trans %}This certificate recognises really long distance reception of NDBs particularly at night when skywave propagation is possible that is, two hours before and afer noon in the listener's timezone.{% endtrans %}</div>
+    </div>
+    <div class="row">
+        <div class="small-12 medium-3 columns" style="padding: 0 1em 0 0">
+            <table class="results very-short">
+                <thead>
+                <tr>
+                    <th>{% trans %}Miles{% endtrans %}</th>
+                    <th>{% trans %}KM{% endtrans %}</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for key, range in awards.longranger %}
+                    <tr>
+                        <td>{{ key|split('|')[0] }}{{ key|split('|')[1] ? '-' : '+' }}{{ key|split('|')[1] ? key|split('|')[1] : '' }}</td>
+                        <td>{{ key|split('|')[2] }}{{ key|split('|')[3] ? '-' : '+' }}{{ key|split('|')[3] ? key|split('|')[3] : '' }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="small-12 medium-9 columns" style="padding: 0">
+            <table class="results very-short" style="width: 100%">
+                <thead>
+                <tr>
+                    <th>{% trans %}KHz{% endtrans %}</th>
+                    <th>{% trans %}ID{% endtrans %}</th>
+                    <th>{% trans %}Location{% endtrans %}</th>
+                    <th>{% trans %}S/P{% endtrans %}</th>
+                    <th>{% trans %}ITU{% endtrans %}</th>
+                    <th>{% trans %}Pwr{% endtrans %}</th>
+                    <th>{% trans %}Miles{% endtrans %}</th>
+                    <th>{% trans %}KM{% endtrans %}</th>
+                    <th>{% trans %}Date{% endtrans %}</th>
+                    <th>{% trans %}UTC{% endtrans %}</th>
+                    <th>{% trans %}Order{% endtrans %}</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for i, range in awards.longranger %}
+                    <tr>
+                        {% if range %}
+                            {% set bad = 0 %}
+                            <td>{{ range['khz'] }}</td>
+                            <td>{{ range['call'] }}</td>
+                            <td class="award_qth" title="{{ range['qth'] }}">{{ range['qth'] }}</td>
+                            <td>{{ range['sp'] }}</td>
+                            <td>{{ range['itu'] }}</td>
+                            <td>{{ range['pwr'] > 0 ? range['pwr'] : '&nbsp;' }}</td>
+                            <td>{{ range['dxMiles'] }}</td>
+                            <td>{{ range['dxKm'] }}</td>
+                            <td class="text-nowrap">{{ range['logDate'] }}</td>
+                            <td>{{ range['logTime'] }}</td>
+                            <td>[icon]</td>
+                        {% else %}
+
+                            <td colspan="11" class="panel_{{ system|lower }}">&nbsp;</td>
+                            {% set bad = 1 %}
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <br />
+{% endif %}

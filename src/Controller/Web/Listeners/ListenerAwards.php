@@ -56,7 +56,8 @@ class ListenerAwards extends Base
 
 
         $awards = [
-            'daytime' => $this->getDaytimeAwards()
+            'daytime' =>    $this->getBestDx('DAYTIME'),
+            'longranger' => $this->getBestDx('LONGRANGER')
         ];
 
         $parameters = [
@@ -77,15 +78,16 @@ class ListenerAwards extends Base
         return $this->render('listener/awards.html.twig', $parameters);
     }
 
-    private function getDaytimeAwards() {
-        $ranges = $this->cleRepository->getAwardSpec('DAYTIME');
+    private function getBestDx($award)
+    {
+        $ranges = $this->cleRepository->getAwardSpec($award);
         $result = [];
         foreach ($ranges as $range) {
             $result[implode('|', $range)] = [];
         }
         $valid = false;
         foreach ($this->signals as $signal) {
-            if (!$signal['daytime']) {
+            if ('DAYTIME' === $award && !$signal['daytime']) {
                 continue;
             }
             foreach ($ranges as $range) {

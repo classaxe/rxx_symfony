@@ -1,15 +1,15 @@
 {% if awards.daytime %}
     <h2>{% trans with { '%START%' : daytime_start, '%END%' : daytime_end } %}Daytime DX Awards (Daytime hours are %START% - %END% hrs UTC){% endtrans %}</h2>
     <div class="row">
-        <div class="small-12 columns">{% trans with {'%COUNT%' : awards.daytime|length } %}This certificate recognises long distance reception of NDBs between the hours of 1000 and 1400 local standard time - that is, two hours before and afer noon in the listener's timezone. There are %COUNT% levels:{% endtrans %}</div>
+        <div class="small-12 columns" style="padding: 0">{% trans %}This certificate recognises long distance reception of NDBs between the hours of 1000 and 1400 local standard time - that is, two hours before and afer noon in the listener's timezone.{% endtrans %}</div>
     </div>
     <div class="row">
-        <div class="small-12 medium-3 columns">
+        <div class="small-12 medium-3 columns" style="padding: 0 1em 0 0">
             <table class="results very-short">
                 <thead>
                     <tr>
                         <th>{% trans %}Miles{% endtrans %}</th>
-                        <th>{% trans %}Km{% endtrans %}</th>
+                        <th>{% trans %}KM{% endtrans %}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -22,14 +22,14 @@
                 </tbody>
             </table>
         </div>
-        <div class="small-12 medium-9 columns">
+        <div class="small-12 medium-9 columns" style="padding: 0">
             <table class="results very-short">
                 <thead>
                 <tr>
                     <th>{% trans %}KHz{% endtrans %}</th>
                     <th>{% trans %}ID{% endtrans %}</th>
                     <th>{% trans %}Location{% endtrans %}</th>
-                    <th>{% trans %}SP{% endtrans %}</th>
+                    <th>{% trans %}S/P{% endtrans %}</th>
                     <th>{% trans %}ITU{% endtrans %}</th>
                     <th>{% trans %}Pwr{% endtrans %}</th>
                     <th>{% trans %}Miles{% endtrans %}</th>
@@ -46,13 +46,13 @@
 {% set bad = 0 %}
                         <td>{{ range['khz'] }}</td>
                         <td>{{ range['call'] }}</td>
-                        <td>{{ range['qth'] }}</td>
+                        <td class="text-nowrap" style="max-width: 14em;overflow: hidden;text-overflow: ellipsis" title="{{ range['qth'] }}">{{ range['qth'] }}</td>
                         <td>{{ range['sp'] }}</td>
                         <td>{{ range['itu'] }}</td>
                         <td>{{ range['pwr'] > 0 ? range['pwr'] : '&nbsp;' }}</td>
                         <td>{{ range['dxMiles'] }}</td>
                         <td>{{ range['dxKm'] }}</td>
-                        <td>{{ range['logDate'] }}</td>
+                        <td class="text-nowrap">{{ range['logDate'] }}</td>
                         <td>{{ range['logTime'] }}</td>
                         <td>[icon]</td>
 {% else %}
@@ -66,6 +66,5 @@
             </table>
         </div>
     </div>
-{% for range in awards.daytime %}
-{% endfor %}
+<br />
 {% endif %}

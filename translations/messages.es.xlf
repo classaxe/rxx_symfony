@@ -3319,6 +3319,30 @@
         <source>Awards Available for %NAME%</source>
         <target>__Awards Available for %NAME%</target>
       </trans-unit>
+      <trans-unit id="E6t43ba" resname="Logged betweeen 10am and 2pm local time">
+        <source>Logged betweeen 10am and 2pm local time</source>
+        <target>__Logged betweeen 10am and 2pm local time</target>
+      </trans-unit>
+      <trans-unit id="a_CQgly" resname="Order">
+        <source>Order</source>
+        <target>__Order</target>
+      </trans-unit>
+      <trans-unit id="0ElxcVB" resname="Daytime DX Awards (Daytime hours are %START% - %END% hrs UTC)">
+        <source>Daytime DX Awards (Daytime hours are %START% - %END% hrs UTC)</source>
+        <target>__Daytime DX Awards (Daytime hours are %START% - %END% hrs UTC)</target>
+      </trans-unit>
+      <trans-unit id="wSx8x1m" resname="This certificate recognises long distance reception of NDBs between the hours of 1000 and 1400 local standard time - that is, two hours before and afer noon in the listener's timezone.">
+        <source>This certificate recognises long distance reception of NDBs between the hours of 1000 and 1400 local standard time - that is, two hours before and afer noon in the listener's timezone.</source>
+        <target>__This certificate recognises long distance reception of NDBs between the hours of 1000 and 1400 local standard time - that is, two hours before and afer noon in the listener's timezone.</target>
+      </trans-unit>
+      <trans-unit id="CK8Z_ua" resname="Long Ranger DX Awards">
+        <source>Long Ranger DX Awards</source>
+        <target>__Long Ranger DX Awards</target>
+      </trans-unit>
+      <trans-unit id="Lv1cmKS" resname="This certificate recognises really long distance reception of NDBs particularly at night when skywave propagation is possible that is, two hours before and afer noon in the listener's timezone.">
+        <source>This certificate recognises really long distance reception of NDBs particularly at night when skywave propagation is possible that is, two hours before and afer noon in the listener's timezone.</source>
+        <target>__This certificate recognises really long distance reception of NDBs particularly at night when skywave propagation is possible that is, two hours before and afer noon in the listener's timezone.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
