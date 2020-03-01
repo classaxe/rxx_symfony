@@ -818,7 +818,7 @@ class Listener
      */
     public function getSignalsMap(): ?bool
     {
-        return $this->countLogs;
+        return $this->countLogs && ($this->lat || $this->lon);
     }
 
     public function getDelete(): int

@@ -99,6 +99,13 @@ class Collection extends Base
             $center =   [$lat_cen, $lon_cen];
         }
 
+        $tabs =[[ 'list', 'Listing' ]];
+        foreach ($listeners as $l) {
+            if ($l->getSignalsMap()) {
+                $tabs[] = [ 'map', 'Map'];
+                break;
+            }
+        }
         $parameters = [
             'args' =>               $args,
             'box' =>                $box,
@@ -114,10 +121,7 @@ class Collection extends Base
                 'total' =>              $total
             ],
             'system' =>             $system,
-            'tabs' => [
-                [ 'list', 'Listing' ],
-                [ 'map', 'Map' ],
-            ]
+            'tabs' =>               $tabs
         ];
         if ($this->parameters['isAdmin']) {
             $parameters['latestListeners'] =    $listenerRepository->getLatestLoggedListeners($system);

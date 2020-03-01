@@ -344,6 +344,11 @@ class ListenerRepository extends ServiceEntityRepository
                         $out[] = $data;
                     }
                     break;
+                case 'listener_signalmap':
+                    if ($listener->getSignalsMap()) {
+                        $out[] = $data;
+                    }
+                    break;
                 case 'listener_locatormap':
                     if ($isAdmin) {
                         $out[] = $data;

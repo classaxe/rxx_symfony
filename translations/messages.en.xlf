@@ -3343,6 +3343,10 @@
         <source>This certificate recognises really long distance reception of NDBs particularly at night when skywave propagation is possible that is, two hours before and afer noon in the listener's timezone.</source>
         <target>This certificate recognises really long distance reception of NDBs particularly at night when skywave propagation is possible that is, two hours before and afer noon in the listener's timezone.</target>
       </trans-unit>
+      <trans-unit id="WmJhJip" resname="Show / Hide this section">
+        <source>Show / Hide this section</source>
+        <target>Show / Hide this section</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
