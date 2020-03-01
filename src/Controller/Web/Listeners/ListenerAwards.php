@@ -57,7 +57,15 @@ class ListenerAwards extends Base
 
         $awards = [
             'daytime' =>    $this->getBestDx('DAYTIME'),
-            'longranger' => $this->getBestDx('LONGRANGER')
+            'longranger' => $this->getBestDx('LONGRANGER'),
+            'region_eu' =>  $this->getRegionDx('eu'),
+            'region_na' =>  $this->getRegionDx('na'),
+            'region_ca' =>  $this->getRegionDx('ca'),
+            'region_sa' =>  $this->getRegionDx('sa'),
+            'region_af' =>  $this->getRegionDx('af'),
+            'region_as' =>  $this->getRegionDx('as'),
+            'region_oc' =>  $this->getRegionDx('oc'),
+            'region_an' =>  $this->getRegionDx('an'),
         ];
 
         $parameters = [
@@ -83,7 +91,8 @@ class ListenerAwards extends Base
         $ranges = $this->cleRepository->getAwardSpec($award);
         $result = [];
         foreach ($ranges as $range) {
-            $result[implode('|', $range)] = [];
+            $key = implode('|', $range);
+            $result[$key] = [];
         }
         $valid = false;
         foreach ($this->signals as $signal) {
@@ -102,6 +111,46 @@ class ListenerAwards extends Base
         }
         if (!$valid) {
             return [];
+        }
+        return $result;
+    }
+
+    private function getRegionDx($region)
+    {
+        $ranges = $this->cleRepository->getAwardSpec('REGION_' . strtoupper($region));
+        $result = [ 'total' => 0 ];
+        foreach ($ranges as $range) {
+            $result[$range] = [];
+        }
+        $places = [];
+        foreach ($this->signals as $signal) {
+            if ($signal['region'] !== $region) {
+                continue;
+            }
+            switch ($signal['place']) {
+                case "HI":
+                    $place = 'HWA';
+                    break;
+                case "PR":
+                    $place = 'PTR';
+                    break;
+                default:
+                    $place = $signal['place'];
+                    break;
+            }
+            $places[$place] = true;
+        }
+        $places = array_keys($places);
+        sort($places);
+        $offset = 0;
+        $result['total'] = count($places);
+        foreach ($ranges as $range) {
+            for ($i = 0; $i < $range - $offset; $i++) {
+                if (count($places)) {
+                    $result[$range][] = array_shift($places);
+                }
+            }
+            $offset = $range;
         }
         return $result;
     }

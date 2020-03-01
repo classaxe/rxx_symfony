@@ -1,7 +1,7 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    0.42.3
+ * Version:    0.42.5
  * Date:       2020-03-01
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
@@ -431,7 +431,7 @@ function setAwardsShowHide(zones) {
             .prop('title', msg.show_hide)
             .click(
                 function() {
-                    $('#' + this.id.split('_')[1]).toggle();
+                    $('#' + this.id.replace('toggle_','')).toggle();
                     $(this).find('span').toggle();
                 }
             )

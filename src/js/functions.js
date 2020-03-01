@@ -382,7 +382,7 @@ function setAwardsShowHide(zones) {
             .prop('title', msg.show_hide)
             .click(
                 function() {
-                    $('#' + this.id.split('_')[1]).toggle();
+                    $('#' + this.id.replace('toggle_','')).toggle();
                     $(this).find('span').toggle();
                 }
             )

@@ -3347,6 +3347,66 @@
         <source>Show / Hide this section</source>
         <target>Show / Hide this section</target>
       </trans-unit>
+      <trans-unit id="1cK72wm" resname="European NDB DX Awards">
+        <source>European NDB DX Awards</source>
+        <target>European NDB DX Awards</target>
+      </trans-unit>
+      <trans-unit id="laUY9_L" resname="This certificate recognises reception of NDBs located in Europe at the levels shown below.">
+        <source>This certificate recognises reception of NDBs located in Europe at the levels shown below.</source>
+        <target>This certificate recognises reception of NDBs located in Europe at the levels shown below.</target>
+      </trans-unit>
+      <trans-unit id="ZgYRG5p" resname="Antarctic NDB DX Awards">
+        <source>Antarctic NDB DX Awards</source>
+        <target>Antarctic NDB DX Awards</target>
+      </trans-unit>
+      <trans-unit id="3pGWlTB" resname="If anyone hears a NDB from this frozen place, they will definately receive an award!">
+        <source>If anyone hears a NDB from this frozen place, they will definately receive an award!</source>
+        <target>If anyone hears a NDB from this frozen place, they will definately receive an award!</target>
+      </trans-unit>
+      <trans-unit id="HsPJAXX" resname="South American NDB DX Awards">
+        <source>South American NDB DX Awards</source>
+        <target>South American NDB DX Awards</target>
+      </trans-unit>
+      <trans-unit id="aG9nRjs" resname="Available in the following categories:">
+        <source>Available in the following categories:</source>
+        <target>Available in the following categories:</target>
+      </trans-unit>
+      <trans-unit id="dYeNwdX" resname="North American NDB DX Awards">
+        <source>North American NDB DX Awards</source>
+        <target>North American NDB DX Awards</target>
+      </trans-unit>
+      <trans-unit id="OjUukon" resname="This certificate recognises reception of NDBs located in in North America. Remember that each US state and Canadian province is considered a separate 'country'.">
+        <source>This certificate recognises reception of NDBs located in in North America. Remember that each US state and Canadian province is considered a separate 'country'.</source>
+        <target>This certificate recognises reception of NDBs located in in North America. Remember that each US state and Canadian province is considered a separate 'country'.</target>
+      </trans-unit>
+      <trans-unit id="P5.VfJ0" resname="Caribbean / Central American NDB DX Awards">
+        <source>Caribbean / Central American NDB DX Awards</source>
+        <target>Caribbean / Central American NDB DX Awards</target>
+      </trans-unit>
+      <trans-unit id="dFMgAwM" resname="Australian and Pacific Islands NDB DX Awards">
+        <source>Australian and Pacific Islands NDB DX Awards</source>
+        <target>Australian and Pacific Islands NDB DX Awards</target>
+      </trans-unit>
+      <trans-unit id="RMeAca6" resname="Get it in these 'denominations'">
+        <source>Get it in these 'denominations'</source>
+        <target>Get it in these 'denominations'</target>
+      </trans-unit>
+      <trans-unit id="Kx5jwhI" resname="African NDB DX Awards">
+        <source>African NDB DX Awards</source>
+        <target>African NDB DX Awards</target>
+      </trans-unit>
+      <trans-unit id="aK.t1xY" resname="Asian NDB DX Awards">
+        <source>Asian NDB DX Awards</source>
+        <target>Asian NDB DX Awards</target>
+      </trans-unit>
+      <trans-unit id="Qbx4Sul" resname="(%TOTAL% qualifying countries)">
+        <source>(%TOTAL% qualifying countries)</source>
+        <target>(%TOTAL% qualifying countries)</target>
+      </trans-unit>
+      <trans-unit id="HSQGoWF" resname="NDB List Country codes">
+        <source>NDB List Country codes</source>
+        <target>NDB List Country codes</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

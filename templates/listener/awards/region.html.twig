@@ -1,0 +1,48 @@
+{% if awards[award].total %}
+    <h2 id="toggle_{{ award }}">
+        <span style="display:none">&#9744;</span><span>&#9746;</span>
+        {{ award_title }}
+        {% trans with { '%TOTAL%' : awards[award].total } %}(%TOTAL% qualifying countries){% endtrans %}
+    </h2>
+    <div id="{{ award }}" style="margin:0 0 1em 1.5em">
+        <div class="row">
+            <div class="small-12 columns" style="padding: 0">{{ award_info }}</div>
+        </div>
+        <div class="row">
+            <div class="small-12 medium-3 columns" style="padding: 0 1em 0 0">
+                <table class="results very-short">
+                    <thead>
+                        <tr>
+                            <th>{% trans %}Countries{% endtrans %}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+{% for key, range in awards[award] %}{% if key != 'total' %}
+                        <tr>
+                            <td>{{ key }}</td>
+                        </tr>
+{% endif %}{% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="small-12 medium-9 columns" style="padding: 0">
+                <table class="results very-short">
+                    <thead>
+                    <tr>
+                        <th>{% trans %}	NDB List Country codes{% endtrans %}</th>
+                        <th>{% trans %}Order{% endtrans %}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+{% for key, range in awards[award] %}{% if key != 'total' %}
+                        <tr>
+                            <td class="monospace">{{ range | join(' ')}}</td>
+                            <td>[icon]</td>
+                        </tr>
+{% endif %}{% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endif %}

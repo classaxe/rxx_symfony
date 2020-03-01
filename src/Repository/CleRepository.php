@@ -24,8 +24,15 @@ class CleRepository extends ServiceEntityRepository
             [ 2500, 2999, 4023, 4826 ],
             [ 3000, 4999, 4827, 8044 ],
             [ 5000,    0, 8045,    0 ]
-
-        ]
+        ],
+        'REGION_EU' => [ 10, 20, 30, 40 ],
+        'REGION_NA' => [ 10, 30, 45, 60 ],
+        'REGION_CA' => [  3, 10, 15, 20 ],
+        'REGION_SA' => [  1,  3,  5, 10 ],
+        'REGION_AF' => [  1,  5, 10, 15 ],
+        'REGION_AS' => [  1,  3,  5, 10 ],
+        'REGION_OC' => [  1,  3,  5, 10 ],
+        'REGION_AN' => [  1 ],
     ];
 
     public function __construct(ManagerRegistry $registry)
