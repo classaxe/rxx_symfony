@@ -966,7 +966,8 @@ class SignalRepository extends ServiceEntityRepository
             . 'li.gsq,'
             . 'li.sp,'
             . 'li.itu,'
-            . 'COUNT(l.id) as countLogs,'
+            . 'COUNT(l.id) AS countLogs,'
+            . 'MAX(l.daytime) AS daytime,'
             . 'l.dxKm,'
             . 'l.dxMiles';
 
@@ -1003,7 +1004,8 @@ class SignalRepository extends ServiceEntityRepository
             . 'l.format,'
             . 'l.sec,'
             . 'l.dxKm,'
-            . 'l.dxMiles';
+            . 'l.dxMiles,'
+            . 'MAX(l.daytime) AS daytime';
 
         $qb = $this
             ->createQueryBuilder('s')
@@ -1013,7 +1015,8 @@ class SignalRepository extends ServiceEntityRepository
             ->innerJoin('\App\Entity\Listener', 'li')
             ->andWhere('li.id = l.listenerid')
             ->andWhere('s.id = :signalID')
-            ->setParameter(':signalID', $signalID);
+            ->setParameter(':signalID', $signalID)
+            ->addGroupBy('l.id');
 
         $this->addSimpleLimit($qb, $args);
         $this->addSimpleSort($qb, $args, $this->signalLogsColumns);

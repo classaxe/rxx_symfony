@@ -1,8 +1,10 @@
-"KHz","ID","Logs","KM","Miles","PWR","GSQ","SP","ITU","Location"
+"KHz","ID","Logs","Latest","Daytime","KM","Miles","PWR","GSQ","SP","ITU","Location"
 {% for s in signals %}{{
     0 + s.khz }},"{{
     s.call }}",{{
     s.logs }},{{
+    s.latest }},{{
+    s.daytime ? 'Y' : 'N' }},{{
     s.dxKm }},{{
     s.dxMiles }},"{{
     s.pwr ? s.pwr : '' }}","{{

@@ -15,7 +15,15 @@
                     <p>{% trans %}Virtually all listeners who desire them can get at least one in each category. The 'difficulty factor' in each ranges from modest to a level that even experienced listeners will find challenging. In setting these requirements, we have kept in mind the fact that the vast majority of List members are in either Europe or North America.{% endtrans %}</p>
                     <p>{% trans %}To request an award, click on the shopping-cart icon besides the award name and category.{% endtrans %}</p>
                 </div>
-                <h2>{% trans with { '%NAME%' : l.formattedNameAndLocation } %}Awards Available for %NAME%{% endtrans %}</h2>
+                {% include 'listener/awards/daytime.html.twig' %}
+                {% include 'listener/awards/longranger.html.twig' %}
+                {% include 'listener/awards/continental.html.twig' %}
+                {% include 'listener/awards/country.html.twig' %}
+                {% include 'listener/awards/north60.html.twig' %}
+                {% include 'listener/awards/lt.html.twig' %}
+                {% include 'listener/awards/transatlantic.html.twig' %}
+                {% include 'listener/awards/transpacific.html.twig' %}
+                {% include 'listener/awards/canadiantranscontinental.html.twig' %}
             </div>
         </div>
     </div>

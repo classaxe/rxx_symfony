@@ -1,13 +1,17 @@
 {{ title }}
 {{ subtitle }}
----------------------------------------------------------------------------------------------------
-KHz      ID           Logs    KM    Mi   PWR GSQ    SP ITU Location
----------------------------------------------------------------------------------------------------
+DT - {% trans %}Logged betweeen 10am and 2pm local time{% endtrans %}
+
+----------------------------------------------------------------------------------------------------------------
+KHz      ID           Logs Latest      DT   KM    Mi   PWR GSQ    SP ITU Location
+----------------------------------------------------------------------------------------------------------------
 {% for signal in signals %}
 {{
     "% -8s"  | format((0 + signal.khz)) }} {{
     "% -10s" | format(signal.call) }} {{
     "% 6s"   | format(signal.logs) }} {{
+    "% 10s"  | format(signal.latest) }} {{
+    "% 2s"   | format(signal.daytime ? 'Y' : 'N') }} {{
     "% 5s"   | format(signal.dxKm) }} {{
     "% 5s"   | format(signal.dxMiles) }} {{
     "% 5s"   | format(signal.pwr ? signal.pwr : '') }} {{

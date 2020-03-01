@@ -125,6 +125,17 @@ class ListenerSignals
                 'th_class'  =>  '',
                 'tooltip'   =>  '',
             ],
+            'daytime' => [
+                'admin'     =>  false,
+                'arg'       =>  '',
+                'field'     =>  'daytime',
+                'label'     =>  'Daytime',
+                'order'     =>  'd',
+                'sort'      =>  'daytime',
+                'td_class'  =>  '',
+                'th_class'  =>  '',
+                'tooltip'   =>  'Logged between 10am and 2pm local time',
+            ],
             'dxKm' => [
                 'admin'     =>  false,
                 'arg'       =>  '',

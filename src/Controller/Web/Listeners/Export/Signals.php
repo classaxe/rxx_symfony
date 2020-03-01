@@ -88,7 +88,7 @@ class Signals extends Base
         $parameters = [
             '_locale' =>            $_locale,
             'title' =>              strToUpper($system) . ' signals for '.$listener->getName() . " on " . date('Y-m-d'),
-            'subtitle' =>           '(' . count($signals) . ' records sorted by Frequency and callsign and Time)',
+            'subtitle' =>           '(' . count($signals) . ' records sorted by Frequency and ID)',
             'system' =>             $system,
             'listener' =>           $listener,
             'signals' =>            $signals

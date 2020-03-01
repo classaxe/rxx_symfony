@@ -53,7 +53,6 @@
         btnActive:      #208020;
     };
 }
-
 // Colours
 #sysColor(@rmode) {
     body.@{rmode} {
@@ -128,6 +127,38 @@
 #sysColor(reu);
 #sysColor(rna);
 #sysColor(rww);
+
+.panel_reu {
+    background-color: @reu[panelBg];
+}
+.panel_rna {
+    background-color: @rna[panelBg];
+}
+.panel_rww {
+    background-color: @rww[panelBg];
+}
+
+.results td.no_sides_reu {
+    border-left:   1px solid @reu[panelBg];
+    border-right:  1px solid @reu[panelBg];
+}
+.results td.no_sides_rna {
+    border-left:   1px solid @rna[panelBg];
+    border-right:  1px solid @rna[panelBg];
+}
+.results td.no_sides_rww {
+    border-left:   1px solid @rww[panelBg];
+    border-right:  1px solid @rww[panelBg];
+}
+.results td.no_bottom_reu {
+    border-bottom: 1px solid @reu[panelBg];
+}
+.results td.no_bottom_rna {
+    border-bottom: 1px solid @rna[panelBg];
+}
+.results td.no_bottom_rww {
+    border-bottom: 1px solid @rww[panelBg];
+}
 
 .type_inactive, tr.inactive td { background-color: #d0d0d0 !important; }
 .type_ndb     , tr.ndb      td { background-color: #ffffff !important; }
@@ -1223,18 +1254,21 @@ fieldset#form_range_units {
     }
 }
 
-/* [ Form listener_signals ] */
-.listener_signals,
-.listener_logs,
-.signal_listeners,
-.signal_logs,
-.signal_rx_map {
-    .results {
-        thead {
-            tr {
-                th {
-                    height: 3em !important;
-                }
+.results.short,
+.signal_rx_map.short {
+    thead {
+        tr {
+            th {
+                height: 3em !important;
+            }
+        }
+    }
+}
+.results.very-short {
+    thead {
+        tr {
+            th {
+                height: 1.75em !important;
             }
         }
     }
@@ -1449,7 +1483,11 @@ fieldset#group_weather_report_details {
             border-radius: 2px;
         }
     }
-
+    tr.daytime {
+        td {
+            font-weight: bold;
+        }
+    }
     tr.logged {
         td {
             background: #e8ffe8 !important;

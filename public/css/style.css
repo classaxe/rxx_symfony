@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    0.41.1
- * Date:       2020-02-27
+ * Version:    0.42.1
+ * Date:       2020-03-01
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
  */
@@ -177,6 +177,36 @@ body.rww .button.is-active {
   background: #208020;
   color: #ffff40;
   text-decoration: underline;
+}
+.panel_reu {
+  background-color: #fff0f0;
+}
+.panel_rna {
+  background-color: #e0e0ff;
+}
+.panel_rww {
+  background-color: #f2fff2;
+}
+.results td.no_sides_reu {
+  border-left: 1px solid #fff0f0;
+  border-right: 1px solid #fff0f0;
+}
+.results td.no_sides_rna {
+  border-left: 1px solid #e0e0ff;
+  border-right: 1px solid #e0e0ff;
+}
+.results td.no_sides_rww {
+  border-left: 1px solid #f2fff2;
+  border-right: 1px solid #f2fff2;
+}
+.results td.no_bottom_reu {
+  border-bottom: 1px solid #fff0f0;
+}
+.results td.no_bottom_rna {
+  border-bottom: 1px solid #e0e0ff;
+}
+.results td.no_bottom_rww {
+  border-bottom: 1px solid #f2fff2;
 }
 .type_inactive,
 tr.inactive td {
@@ -1294,13 +1324,12 @@ fieldset#form_range_units div label {
 .signal_view #form fieldset {
   margin-top: 0.75em;
 }
-/* [ Form listener_signals ] */
-.listener_signals .results thead tr th,
-.listener_logs .results thead tr th,
-.signal_listeners .results thead tr th,
-.signal_logs .results thead tr th,
-.signal_rx_map .results thead tr th {
+.results.short thead tr th,
+.signal_rx_map.short thead tr th {
   height: 3em !important;
+}
+.results.very-short thead tr th {
+  height: 1.75em !important;
 }
 .signal_rx_map,
 .signal_rx_map * {
@@ -1500,6 +1529,9 @@ fieldset#group_weather_report_details div label {
   color: #0000ff;
   border: 1px solid #b0b000;
   border-radius: 2px;
+}
+.results tr.daytime td {
+  font-weight: bold;
 }
 .results tr.logged td {
   background: #e8ffe8 !important;

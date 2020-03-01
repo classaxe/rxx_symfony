@@ -1,6 +1,6 @@
 {% if logs|length > 0 %}
 <div>
-    <table class="listener logs results" style="width: 100%">
+    <table class="listener logs results short" style="width: 100%">
         <thead>
             <tr>
     {% for key, column in columns %}
@@ -16,7 +16,7 @@
         <tbody>
     {% for log in logs %}
     {% set type = typeRepository.TypeForCode(log.type) %}
-            <tr class="{% if log.active == '0' %}inactive {% endif %}type_{{ type.class|lower }}" title="{{ type.title }}{% if log.active == '0' %} (inactive){% endif %}">
+            <tr class="{% if log.active == '0' %}inactive {% endif %}{% if log.daytime %}daytime {% endif %}type_{{ type.class|lower }}" title="{{ type.title }}{% if log.daytime %} {% trans %}Logged betweeen 10am and 2pm local time{% endtrans %}{% endif %}{% if log.active == '0' %} (inactive){% endif %}">
     {% for key, column in columns %}
     {% if ((not column.admin or isAdmin) and (not column.arg or (column.arg and column.arg in args.types))) %}
                 <td{% if column.td_class %} class="{{ column.td_class }}"{% endif %}>

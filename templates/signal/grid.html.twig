@@ -1,5 +1,5 @@
 <div>
-    <table class="signal results" style="width: 100%">
+    <table class="signal results short" style="width: 100%">
         <thead>
             <tr>
     {% for key, column in columns %}
@@ -14,7 +14,7 @@
         </thead>
         <tbody>
     {% for r in records %}
-            <tr>
+            <tr{% if r.daytime %} class="daytime" title="{% trans %}Logged betweeen 10am and 2pm local time{% endtrans %}"{% endif %}>
     {% for key, column in columns %}
     {% if ((not column.admin or isAdmin) and (not column.arg or (column.arg and column.arg in args.types))) %}
                 <td{% if column.td_class %} class="{{ column.td_class }}"{% endif %}>

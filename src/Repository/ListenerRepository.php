@@ -456,7 +456,7 @@ class ListenerRepository extends ServiceEntityRepository
         $result = $qb
             ->getQuery()
             ->execute();
-        uasort($result, array($this, 'cmpObj'));
+        uasort($result, [$this, 'cmpObj']);
 
         return $result;
     }
@@ -537,10 +537,12 @@ class ListenerRepository extends ServiceEntityRepository
             .'s.itu,'
             .'s.gsq,'
             .'s.type,'
+            .'s.pwr,'
             .'trim(l.sec)+0 as sec,'
             .'(CASE WHEN trim(l.sec)+0 = 0 then \'\' ELSE trim(l.sec)+0 END) as secF,'
             .'CONCAT(l.lsbApprox,l.lsb) AS lsb,'
             .'CONCAT(l.usbApprox,l.usb) AS usb,'
+            .'l.daytime,'
             .'l.format,'
             .'l.dxKm,'
             .'l.dxMiles';
@@ -557,13 +559,19 @@ class ListenerRepository extends ServiceEntityRepository
             ->andWhere('li.id = :listenerID')
             ->setParameter('listenerID', $listenerID);
 
+        if (isset($args['type']) && $args['type'] !== '') {
+            $qb
+                ->andWhere('s.type in(:type)')
+                ->setParameter('type', $args['type']);
+        }
+
         if (isset($args['limit']) && (int)$args['limit'] !== -1 && isset($args['page'])) {
             $qb
                 ->setFirstResult($args['page'] * $args['limit'])
                 ->setMaxResults($args['limit']);
         }
 
-        if ($this->listenerLogsColumns[$args['sort']]['sort']) {
+        if (isset($args['sort']) && $this->listenerLogsColumns[$args['sort']]['sort']) {
             $idx = $this->listenerLogsColumns[$args['sort']];
             $qb
                 ->addOrderBy(
@@ -588,14 +596,14 @@ class ListenerRepository extends ServiceEntityRepository
     {
         $columns =
             's.id,'
-            .'trim(s.khz)+0 as khz,'
+            .'trim(s.khz)+0 AS khz,'
             .'s.active,'
             .'s.call,'
             .'s.qth,'
             .'s.sp,'
             .'s.itu,'
-            .'trim(s.sec)+0 as sec,'
-            .'(CASE WHEN trim(s.sec)+0 = 0 then \'\' ELSE trim(s.sec)+0 END) as secF,'
+            .'trim(s.sec)+0 AS sec,'
+            .'(CASE WHEN trim(s.sec)+0 = 0 THEN \'\' ELSE trim(s.sec)+0 END) AS secF,'
             .'s.format,'
             .'s.gsq,'
             .'s.type,'
@@ -607,8 +615,10 @@ class ListenerRepository extends ServiceEntityRepository
             .'s.notes,'
             .'l.dxKm,'
             .'l.dxMiles,'
-            .'COUNT(l.signalid) as logs,'
-            .'MAX(l.date) as latest';
+            .'COUNT(l.signalid) AS logs,'
+            .'MAX(l.daytime) AS daytime,'
+            .'MIN(l.date) AS earliest,'
+            .'MAX(l.date) AS latest';
 
         $qb = $this
             ->createQueryBuilder('li')
@@ -658,6 +668,7 @@ class ListenerRepository extends ServiceEntityRepository
                     );
             }
         }
+
         $result = $qb->getQuery()->execute();
         foreach ($result as &$row) {
             $row['qth'] = str_replace("\"", "\\\"", html_entity_decode($row['qth']));
