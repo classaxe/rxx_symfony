@@ -49,6 +49,6 @@ class View extends Base
         ];
         $parameters = array_merge($parameters, $this->parameters);
 
-        return $this->render('listener/ndbweblog/index.html.twig', $parameters);
+        return $this->render('listener/ndbweblog/ndbweblog.html.twig', $parameters);
     }
 }

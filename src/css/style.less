@@ -128,38 +128,6 @@
 #sysColor(rna);
 #sysColor(rww);
 
-.panel_reu {
-    background-color: @reu[panelBg];
-}
-.panel_rna {
-    background-color: @rna[panelBg];
-}
-.panel_rww {
-    background-color: @rww[panelBg];
-}
-
-.results td.no_sides_reu {
-    border-left:   1px solid @reu[panelBg];
-    border-right:  1px solid @reu[panelBg];
-}
-.results td.no_sides_rna {
-    border-left:   1px solid @rna[panelBg];
-    border-right:  1px solid @rna[panelBg];
-}
-.results td.no_sides_rww {
-    border-left:   1px solid @rww[panelBg];
-    border-right:  1px solid @rww[panelBg];
-}
-.results td.no_bottom_reu {
-    border-bottom: 1px solid @reu[panelBg];
-}
-.results td.no_bottom_rna {
-    border-bottom: 1px solid @rna[panelBg];
-}
-.results td.no_bottom_rww {
-    border-bottom: 1px solid @rww[panelBg];
-}
-
 .type_inactive, tr.inactive td { background-color: #d0d0d0 !important; }
 .type_ndb     , tr.ndb      td { background-color: #ffffff !important; }
 .type_dgps    , tr.dgps     td { background-color: #00d8ff !important; }
@@ -1278,6 +1246,13 @@ fieldset#form_range_units {
     max-width: 10em;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+.results .cart {
+    width: 1.5em;
+    text-align: right;
+}
+.results .num {
+    text-align: right;
 }
 .signal_rx_map,
 .signal_rx_map * {

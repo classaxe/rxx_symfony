@@ -25,14 +25,8 @@
                 {% include 'listener/awards/transatlantic.html.twig' %}
                 {% include 'listener/awards/transpacific.html.twig' %}
                 {% include 'listener/awards/canadiantranscontinental.html.twig' %}
-                {% include 'listener/awards/region_eu.html.twig' %}
-                {% include 'listener/awards/region_na.html.twig' %}
-                {% include 'listener/awards/region_ca.html.twig' %}
-                {% include 'listener/awards/region_sa.html.twig' %}
-                {% include 'listener/awards/region_af.html.twig' %}
-                {% include 'listener/awards/region_as.html.twig' %}
-                {% include 'listener/awards/region_oc.html.twig' %}
-                {% include 'listener/awards/region_an.html.twig' %}
+                {% include 'listener/awards/region_list.html.twig' %}
+                {% include 'listener/awards/country_list.html.twig' %}
             </div>
         </div>
     </div>
@@ -40,7 +34,11 @@
 <script>
     $(document).ready( function() {
         setExternalLinks();
-        setAwardsShowHide([ 'about', 'daytime', 'longranger', 'region_eu', 'region_na', 'region_ca', 'region_sa', 'region_af', 'region_as', 'region_oc', 'region_an' ]);
+        setAwardsShowHide([
+            'about', 'daytime', 'longranger',
+            'region_eu', 'region_na', 'region_ca', 'region_sa', 'region_af', 'region_as', 'region_oc', 'region_an',
+
+        ]);
     });
 </script>
 {% endblock %}

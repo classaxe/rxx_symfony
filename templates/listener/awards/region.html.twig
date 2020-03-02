@@ -30,15 +30,17 @@
                     <thead>
                     <tr>
                         <th>{% trans %}	NDB List Country codes{% endtrans %}</th>
-                        <th>{% trans %}Order{% endtrans %}</th>
+                        <th class="cart">{% trans %}Order{% endtrans %}</th>
                     </tr>
                     </thead>
                     <tbody>
+{% set previous = 0 %}
 {% for key, range in awards[award] %}{% if key != 'total' %}
                         <tr>
                             <td class="monospace">{{ range | join(' ')}}</td>
-                            <td>[icon]</td>
+                            <td class="cart">{% if (range|length + previous == key) %}[icon]{% endif %}</td>
                         </tr>
+{% set previous = previous + range|length %}
 {% endif %}{% endfor %}
                     </tbody>
                 </table>

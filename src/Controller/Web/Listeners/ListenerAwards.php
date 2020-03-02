@@ -83,7 +83,7 @@ class ListenerAwards extends Base
             'tabs' =>               $listenerRepository->getTabs($listener, $isAdmin)
         ];
         $parameters = array_merge($parameters, $this->parameters);
-        return $this->render('listener/awards.html.twig', $parameters);
+        return $this->render('listener/awards/awards.html.twig', $parameters);
     }
 
     private function getBestDx($award)

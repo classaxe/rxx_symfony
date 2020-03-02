@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    0.42.2
- * Date:       2020-03-01
+ * Version:    0.42.5
+ * Date:       2020-03-02
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
  */
@@ -177,36 +177,6 @@ body.rww .button.is-active {
   background: #208020;
   color: #ffff40;
   text-decoration: underline;
-}
-.panel_reu {
-  background-color: #fff0f0;
-}
-.panel_rna {
-  background-color: #e0e0ff;
-}
-.panel_rww {
-  background-color: #f2fff2;
-}
-.results td.no_sides_reu {
-  border-left: 1px solid #fff0f0;
-  border-right: 1px solid #fff0f0;
-}
-.results td.no_sides_rna {
-  border-left: 1px solid #e0e0ff;
-  border-right: 1px solid #e0e0ff;
-}
-.results td.no_sides_rww {
-  border-left: 1px solid #f2fff2;
-  border-right: 1px solid #f2fff2;
-}
-.results td.no_bottom_reu {
-  border-bottom: 1px solid #fff0f0;
-}
-.results td.no_bottom_rna {
-  border-bottom: 1px solid #e0e0ff;
-}
-.results td.no_bottom_rww {
-  border-bottom: 1px solid #f2fff2;
 }
 .type_inactive,
 tr.inactive td {
@@ -1336,6 +1306,13 @@ fieldset#form_range_units div label {
   max-width: 10em;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+.results .cart {
+  width: 1.5em;
+  text-align: right;
+}
+.results .num {
+  text-align: right;
 }
 .signal_rx_map,
 .signal_rx_map * {

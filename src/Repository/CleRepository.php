@@ -9,6 +9,34 @@ use Doctrine\Persistence\ManagerRegistry;
 class CleRepository extends ServiceEntityRepository
 {
     const AWARDSPEC = [
+        'COUNTRY_BENELUX' => [
+            'ITU' => [ 'BEL', 'HOL', 'LUX' ],
+            'NUM' => [  5, 15, 25, 35 ]
+        ],
+        'COUNTRY_FRANCE' => [
+            'ITU' => [ 'FRA', 'COR' ],
+            'NUM' => [ 20, 40, 80, 120 ]
+        ],
+        'COUNTRY_GERMANY' => [
+            'ITU' => [ 'DEU' ],
+            'NUM' => [ 20, 30, 60, 100 ]
+        ],
+        'COUNTRY_SCANDANAVIA' => [
+            'ITU' => [ 'SWE', 'NOR', 'FIN', 'DNK' ],
+            'NUM' => [ 25, 100, 200, 300 ]
+        ],
+        'COUNTRY_UK' => [
+            'ITU' => [ 'ENG', 'WLS', 'IOM', 'GSY', 'JSY', 'SCT', 'ORK', 'SHE', 'NIR', 'IRL' ],
+            'NUM' => [ 20, 40, 80, 120 ]
+        ],
+        'COUNTRY_ITALY' => [
+            'ITU' => [ 'ITA', 'SAR', 'SCY' ],
+            'NUM' => [ 20, 40, 60, 90 ]
+        ],
+        'COUNTRY_IBERIA' =>  [
+            'ITU' => [ 'ESP', 'POR', 'BAL' ],
+            'NUM' => [ 20, 40, 60, 90 ]
+        ],
         'DAYTIME' => [
             [ 250,   499,  402,  804 ],
             [ 500,   749,  805, 1205 ],
@@ -33,6 +61,7 @@ class CleRepository extends ServiceEntityRepository
         'REGION_AS' => [  1,  3,  5, 10 ],
         'REGION_OC' => [  1,  3,  5, 10 ],
         'REGION_AN' => [  1 ],
+
     ];
 
     public function __construct(ManagerRegistry $registry)

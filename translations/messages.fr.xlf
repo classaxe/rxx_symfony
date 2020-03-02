@@ -3407,6 +3407,62 @@
         <source>NDB List Country codes</source>
         <target>__NDB List Country codes</target>
       </trans-unit>
+      <trans-unit id="tzuPmJA" resname="Benelux NDB Award">
+        <source>Benelux NDB Award</source>
+        <target>__Benelux NDB Award</target>
+      </trans-unit>
+      <trans-unit id="Oc1QH6r" resname="This certificate recognises reception of NDBs in the 'Benelux' countries (Belgium, the Netherlands and Luxembourg).&lt;br&gt;&lt;b&gt;Note that, for all certificates, at least one beacon in each of the three countries must have been received.&lt;/b&gt;">
+        <source>This certificate recognises reception of NDBs in the 'Benelux' countries (Belgium, the Netherlands and Luxembourg).&lt;br&gt;&lt;b&gt;Note that, for all certificates, at least one beacon in each of the three countries must have been received.&lt;/b&gt;</source>
+        <target><![CDATA[__This certificate recognises reception of NDBs in the 'Benelux' countries (Belgium, the Netherlands and Luxembourg).<br><b>Note that, for all certificates, at least one beacon in each of the three countries must have been received.</b>]]></target>
+      </trans-unit>
+      <trans-unit id="B1kVwAT" resname="French NDB Award">
+        <source>French NDB Award</source>
+        <target>__French NDB Award</target>
+      </trans-unit>
+      <trans-unit id="iFqxR1j" resname="This certificate recognises reception of NDBs located in France at the following levels:">
+        <source>This certificate recognises reception of NDBs located in France at the following levels:</source>
+        <target>__This certificate recognises reception of NDBs located in France at the following levels:</target>
+      </trans-unit>
+      <trans-unit id="PNYheKh" resname="German NDB Award">
+        <source>German NDB Award</source>
+        <target>__German NDB Award</target>
+      </trans-unit>
+      <trans-unit id="L3JLPGQ" resname="This certificate recognises reception of NDBs located in Germany at the following levels:">
+        <source>This certificate recognises reception of NDBs located in Germany at the following levels:</source>
+        <target>__This certificate recognises reception of NDBs located in Germany at the following levels:</target>
+      </trans-unit>
+      <trans-unit id="4_ZSpE6" resname="Scandanavian NDB Award">
+        <source>Scandanavian NDB Award</source>
+        <target>__Scandanavian NDB Award</target>
+      </trans-unit>
+      <trans-unit id="SJx3kXU" resname="This certificate recognises reception of NDBs located in Sweden, Norway, Finland or Denmark (but excluding Iceland and island dependencies in the North Atlantic) at the following levels:">
+        <source>This certificate recognises reception of NDBs located in Sweden, Norway, Finland or Denmark (but excluding Iceland and island dependencies in the North Atlantic) at the following levels:</source>
+        <target>__This certificate recognises reception of NDBs located in Sweden, Norway, Finland or Denmark (but excluding Iceland and island dependencies in the North Atlantic) at the following levels:</target>
+      </trans-unit>
+      <trans-unit id="SToS7Kj" resname="UK and Irish NDB Award">
+        <source>UK and Irish NDB Award</source>
+        <target>__UK and Irish NDB Award</target>
+      </trans-unit>
+      <trans-unit id="w1kB8x4" resname="This certificate recognises reception of NDBs located in the United Kingdom (including Northern Ireland, the Channel Island, the Isle of Man and the Shetland Islands) and the republic of Ireland at the following levels:">
+        <source>This certificate recognises reception of NDBs located in the United Kingdom (including Northern Ireland, the Channel Island, the Isle of Man and the Shetland Islands) and the republic of Ireland at the following levels:</source>
+        <target>__This certificate recognises reception of NDBs located in the United Kingdom (including Northern Ireland, the Channel Island, the Isle of Man and the Shetland Islands) and the republic of Ireland at the following levels:</target>
+      </trans-unit>
+      <trans-unit id="oseQOW." resname="Italian NDB Award">
+        <source>Italian NDB Award</source>
+        <target>__Italian NDB Award</target>
+      </trans-unit>
+      <trans-unit id="_QlkHeh" resname="This certificate recognises reception of NDBs located in Italy (including Sardinia and Sicily) at the following levels:">
+        <source>This certificate recognises reception of NDBs located in Italy (including Sardinia and Sicily) at the following levels:</source>
+        <target>__This certificate recognises reception of NDBs located in Italy (including Sardinia and Sicily) at the following levels:</target>
+      </trans-unit>
+      <trans-unit id="f.iBjST" resname="Iberian NDB Award">
+        <source>Iberian NDB Award</source>
+        <target>__Iberian NDB Award</target>
+      </trans-unit>
+      <trans-unit id="YnwDVGy" resname="This certificate recognises reception of NDBs located in Spain and Portugal (including the Baleric Islands but excluding the Azores, the Canary Islands and spanish enclaves in Morocco) at the following levels:">
+        <source>This certificate recognises reception of NDBs located in Spain and Portugal (including the Baleric Islands but excluding the Azores, the Canary Islands and spanish enclaves in Morocco) at the following levels:</source>
+        <target>__This certificate recognises reception of NDBs located in Spain and Portugal (including the Baleric Islands but excluding the Azores, the Canary Islands and spanish enclaves in Morocco) at the following levels:</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

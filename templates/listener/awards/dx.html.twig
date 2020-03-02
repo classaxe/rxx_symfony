@@ -30,41 +30,48 @@
                 <table class="results very-short">
                     <thead>
                     <tr>
-                        <th>{% trans %}KHz{% endtrans %}</th>
+                        <th class="num">{% trans %}KHz{% endtrans %}</th>
                         <th>{% trans %}ID{% endtrans %}</th>
                         <th>{% trans %}Location{% endtrans %}</th>
                         <th>{% trans %}S/P{% endtrans %}</th>
                         <th>{% trans %}ITU{% endtrans %}</th>
-                        <th>{% trans %}Pwr{% endtrans %}</th>
-                        <th>{% trans %}Miles{% endtrans %}</th>
-                        <th>{% trans %}KM{% endtrans %}</th>
+                        <th class="num">{% trans %}Pwr{% endtrans %}</th>
+                        <th class="num">{% trans %}Miles{% endtrans %}</th>
+                        <th class="num">{% trans %}KM{% endtrans %}</th>
                         <th>{% trans %}Date{% endtrans %}</th>
-                        <th>{% trans %}UTC{% endtrans %}</th>
-                        <th>{% trans %}Order{% endtrans %}</th>
+                        <th class="num">{% trans %}UTC{% endtrans %}</th>
+                        <th class="cart">{% trans %}Order{% endtrans %}</th>
                     </tr>
                     </thead>
                     <tbody>
 {% for i, range in awards[award] %}
-                        <tr>
+                    <tr>
 {% if range %}
-{% set bad = 0 %}
-                            <td>{{ range['khz'] }}</td>
-                            <td>{{ range['call'] }}</td>
-                            <td class="text-nowrap" style="max-width: 14em;overflow: hidden;text-overflow: ellipsis" title="{{ range['qth'] }}">{{ range['qth'] }}</td>
-                            <td>{{ range['sp'] }}</td>
-                            <td>{{ range['itu'] }}</td>
-                            <td>{{ range['pwr'] > 0 ? range['pwr'] : '&nbsp;' }}</td>
-                            <td>{{ range['dxMiles'] }}</td>
-                            <td>{{ range['dxKm'] }}</td>
-                            <td class="text-nowrap">{{ range['logDate'] }}</td>
-                            <td>{{ range['logTime'] }}</td>
-                            <td>[icon]</td>
+                        <td class="num">{{ range['khz'] }}</td>
+                        <td><a href="{{ url('signal', { 'system' : system, 'id': range['id'] }) }}" data-popup="1">{{ range['call'] }}</a></td>
+                        <td class="text-nowrap" style="max-width: 14em;overflow: hidden;text-overflow: ellipsis" title="{{ range['qth'] }}">{{ range['qth'] }}</td>
+                        <td>{{ range['sp'] }}</td>
+                        <td>{{ range['itu'] }}</td>
+                        <td class="num">{{ range['pwr'] > 0 ? range['pwr'] : '&nbsp;' }}</td>
+                        <td class="num">{{ range['dxMiles'] }}</td>
+                        <td class="num">{{ range['dxKm'] }}</td>
+                        <td class="text-nowrap">{{ range['logDate'] }}</td>
+                        <td class="num">{{ range['logTime'] }}</td>
+                        <td class="cart">[icon]</td>
 {% else %}
-
-                            <td colspan="11" class="panel_{{ system|lower }}">&nbsp;</td>
-{% set bad = 1 %}
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
 {% endif %}
-                        </tr>
+                    </tr>
 {% endfor %}
                     </tbody>
                 </table>
