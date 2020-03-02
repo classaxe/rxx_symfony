@@ -36,9 +36,10 @@
                     <tbody>
 {% set previous = 0 %}
 {% for key, range in awards[award] %}{% if key != 'total' %}
+{% set qualified = (range|length + previous == key) %}
                         <tr>
-                            <td class="monospace">{{ range | join(' ')}}</td>
-                            <td class="cart">{% if (range|length + previous == key) %}[icon]{% endif %}</td>
+                            <td class="monospace{% if (not qualified) %} unqualified{% endif %}">{% if (qualified) %}{{ range | join(' ')}}{% else %}&nbsp;{% endif %}</td>
+                            <td class="cart">{% if (qualified) %}[icon]{% endif %}</td>
                         </tr>
 {% set previous = previous + range|length %}
 {% endif %}{% endfor %}
