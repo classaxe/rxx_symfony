@@ -34,9 +34,7 @@
     $(document).ready( function() {
         setExternalLinks();
         setAwardsShowHide([
-            'about', 'daytime', 'longranger',
-            'region_eu', 'region_na', 'region_ca', 'region_sa', 'region_af', 'region_as', 'region_oc', 'region_an',
-
+            'about', '{{ award_types | join("', '") | raw }}'
         ]);
     });
 </script>

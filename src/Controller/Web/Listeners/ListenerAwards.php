@@ -54,24 +54,27 @@ class ListenerAwards extends Base
 
         $isAdmin = $this->parameters['isAdmin'];
 
+        $award_types = array_keys(CleRepository::AWARDSPEC);
+        $awards = [];
+        foreach ($award_types as $type) {
+            $family = explode('_', $type)[0];
+            switch($family) {
+                case 'daytime':
+                case 'longranger':
+                    $awards[$type] = $this->getBestDx($type);
+                    break;
+                case 'region':
+                    $awards[$type] = $this->getRegionDx($type);
+                    break;
 
-        $awards = [
-            'daytime' =>    $this->getBestDx('DAYTIME'),
-            'longranger' => $this->getBestDx('LONGRANGER'),
-            'region_eu' =>  $this->getRegionDx('eu'),
-            'region_na' =>  $this->getRegionDx('na'),
-            'region_ca' =>  $this->getRegionDx('ca'),
-            'region_sa' =>  $this->getRegionDx('sa'),
-            'region_af' =>  $this->getRegionDx('af'),
-            'region_as' =>  $this->getRegionDx('as'),
-            'region_oc' =>  $this->getRegionDx('oc'),
-            'region_an' =>  $this->getRegionDx('an'),
-        ];
+            }
+        }
 
         $parameters = [
             'id' =>                 $id,
             '_locale' =>            $_locale,
             'mode' =>               'Awards Available for '.$listener->getFormattedNameAndLocation(),
+            'award_types' =>        $award_types,
             'awards' =>             $awards,
             'daytime_start' =>      str_pad((1000 + $listener->getTimezone() * 100 % 2400), 4, '0'),
             'daytime_end' =>        str_pad((1400 + $listener->getTimezone() * 100 % 2400), 4, '0'),
@@ -115,9 +118,10 @@ class ListenerAwards extends Base
         return $result;
     }
 
-    private function getRegionDx($region)
+    private function getRegionDx($award)
     {
-        $ranges = $this->cleRepository->getAwardSpec('REGION_' . strtoupper($region));
+        $ranges = $this->cleRepository->getAwardSpec($award);
+        $region = explode('_', $award)[1];
         $result = [ 'total' => 0 ];
         foreach ($ranges as $range) {
             $result[$range] = [];
