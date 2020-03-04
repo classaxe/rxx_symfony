@@ -544,6 +544,8 @@ class ListenerRepository extends ServiceEntityRepository
             .'s.gsq,'
             .'s.type,'
             .'s.pwr,'
+            .'s.lat,'
+            .'s.lon,'
             .'(CASE WHEN s.sp = \'\' THEN s.itu ELSE s.sp END) as place,'
             .'trim(l.sec)+0 as sec,'
             .'(CASE WHEN trim(l.sec)+0 = 0 THEN \'\' ELSE trim(l.sec)+0 END) as secF,'

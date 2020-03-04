@@ -3463,6 +3463,18 @@
         <source>This certificate recognises reception of NDBs located in Spain and Portugal (including the Baleric Islands but excluding the Azores, the Canary Islands and spanish enclaves in Morocco) at the following levels:</source>
         <target>This certificate recognises reception of NDBs located in Spain and Portugal (including the Baleric Islands but excluding the Azores, the Canary Islands and spanish enclaves in Morocco) at the following levels:</target>
       </trans-unit>
+      <trans-unit id="RzGybdZ" resname="(%TOTAL% qualifying signals)">
+        <source>(%TOTAL% qualifying signals)</source>
+        <target>(%TOTAL% qualifying signals)</target>
+      </trans-unit>
+      <trans-unit id="rYEhU8P" resname="NDBs">
+        <source>NDBs</source>
+        <target>NDBs</target>
+      </trans-unit>
+      <trans-unit id="X8vIBR0" resname="Qualifying Signals">
+        <source>Qualifying Signals</source>
+        <target>Qualifying Signals</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

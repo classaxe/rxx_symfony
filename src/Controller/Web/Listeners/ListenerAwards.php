@@ -66,10 +66,13 @@ class ListenerAwards extends Base
                 case 'region':
                     $awards[$type] = $this->getRegionDx($type);
                     break;
+                case 'country':
+                    $awards[$type] = $this->getCountryDx($type);
+                    break;
 
             }
         }
-
+//print "<pre>" . print_r($awards['country_france'], true) . "</pre>";
         $parameters = [
             'id' =>                 $id,
             '_locale' =>            $_locale,
@@ -114,6 +117,33 @@ class ListenerAwards extends Base
         }
         if (!$valid) {
             return [];
+        }
+        return $result;
+    }
+
+    private function getCountryDx($award)
+    {
+        $spec = $this->cleRepository->getAwardSpec($award);
+        $result = [ 'total' => 0 ];
+        foreach ($spec['QTY'] as $range) {
+            $result[$range] = [];
+        }
+        $filtered = [];
+        foreach ($this->signals as $s) {
+            if (!in_array($s['itu'], $spec['ITU'])) {
+                continue;
+            }
+            $filtered[$s['khz'].'-'.$s['id']] = $s;
+        }
+        $offset = 0;
+        $result['total'] = count($filtered);
+        foreach ($spec['QTY'] as $range) {
+            for ($i = 0; $i < $range - $offset; $i++) {
+                if (count($filtered)) {
+                    $result[$range][] = array_shift($filtered);
+                }
+            }
+            $offset = $range;
         }
         return $result;
     }
