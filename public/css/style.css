@@ -1,7 +1,7 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    0.42.9
+ * Version:    0.42.10
  * Date:       2020-03-04
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
@@ -1334,6 +1334,9 @@ fieldset#form_range_units div label {
   text-decoration: none;
   color: #00f;
 }
+.results.award-signals div.required {
+  border-width: 3px;
+}
 .results.award-signals .unqualified div {
   border: 1px solid #a66;
   background: #ffe0e0;
@@ -1344,6 +1347,9 @@ fieldset#form_range_units div label {
 .results.award-signals .unqualified div a:hover {
   text-decoration: none;
   color: #00f;
+}
+.results.award-signals .unqualified div.required {
+  border-width: 3px;
 }
 .signal_rx_map,
 .signal_rx_map * {

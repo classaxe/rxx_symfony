@@ -25,7 +25,7 @@
                         <tr>
                             <td>{{ key }}</td>
                             <td class="monospace{% if (not qualified) %} unqualified{% endif %}">
-                                {% for s in signals %}<div><a href="{{ url('signal', { 'system' : system, 'id': s.id }) }}" data-popup="1">{{ "%'_-10.10s" | format(s.khz ~ '-' ~ s.call) | replace({'_' : '&nbsp;'}) | raw }}({{ s.place}})</a></div>{% endfor %}
+                                {% for s in signals %}<div{% if s.required %} class="required"{% endif %}><a href="{{ url('signal', { 'system' : system, 'id': s.id }) }}" data-popup="1">{{ "%'_-10.10s" | format(s.khz ~ '-' ~ s.call) | replace({'_' : '&nbsp;'}) | raw }}({{ s.place}})</a></div>{% endfor %}
                             </td>
                             <td class="cart">
                                 {% if (qualified) %}[icon]{% else %}&nbsp;{% endif %}

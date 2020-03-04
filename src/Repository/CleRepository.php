@@ -34,30 +34,37 @@ class CleRepository extends ServiceEntityRepository
         'region_oc' => [  1,  3,  5, 10 ],
         'region_an' => [  1 ],
         'country_benelux' => [
+            'COM' => 'AND',
             'ITU' => [ 'BEL', 'HOL', 'LUX' ],
-            'QTY' => [  5, 15, 25, 35 ]
+            'QTY' => [  5, 15, 25, 35, 50 ]
         ],
         'country_france' => [
+            'COM' => 'OR',
             'ITU' => [ 'FRA', 'COR' ],
             'QTY' => [ 20, 40, 80, 120 ]
         ],
         'country_germany' => [
+            'COM' => 'OR',
             'ITU' => [ 'DEU' ],
             'QTY' => [ 20, 30, 60, 100 ]
         ],
         'country_scandanavia' => [
+            'COM' => 'OR',
             'ITU' => [ 'SWE', 'NOR', 'FIN', 'DNK' ],
             'QTY' => [ 25, 100, 200, 300 ]
         ],
         'country_uk' => [
+            'COM' => 'OR',
             'ITU' => [ 'ENG', 'WLS', 'IOM', 'GSY', 'JSY', 'SCT', 'ORK', 'SHE', 'NIR', 'IRL' ],
             'QTY' => [ 20, 40, 80, 120 ]
         ],
         'country_italy' => [
+            'COM' => 'OR',
             'ITU' => [ 'ITA', 'SAR', 'SCY' ],
             'QTY' => [ 20, 40, 60, 90 ]
         ],
         'country_iberia' =>  [
+            'COM' => 'OR',
             'ITU' => [ 'ESP', 'POR', 'BAL' ],
             'QTY' => [ 20, 40, 60, 90 ]
         ],

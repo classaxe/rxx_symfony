@@ -50,10 +50,9 @@ class ListenerAwards extends Base
         $this->listenerID = (int) $id;
         $this->cleRepository = $cleRepository;
         $this->listenerRepository = $listenerRepository;
-        $this->signals = $this->listenerRepository->getLogsForListener($this->listenerID, [ 'type' => 0] );
+        $this->signals = $this->listenerRepository->getLogsForListener($this->listenerID, [ 'type' => 0, 'sort' => 'khz', 'order' => 'a']);
 
         $isAdmin = $this->parameters['isAdmin'];
-
         $award_types = array_keys(CleRepository::AWARDSPEC);
         $awards = [];
         foreach ($award_types as $type) {
@@ -72,7 +71,7 @@ class ListenerAwards extends Base
 
             }
         }
-//print "<pre>" . print_r($awards['country_france'], true) . "</pre>";
+
         $parameters = [
             'id' =>                 $id,
             '_locale' =>            $_locale,
@@ -133,14 +132,40 @@ class ListenerAwards extends Base
             if (!in_array($s['itu'], $spec['ITU'])) {
                 continue;
             }
-            $filtered[$s['khz'].'-'.$s['id']] = $s;
+            $filtered[$s['khz'].'-'.$s['call']] = $s;
         }
         $offset = 0;
         $result['total'] = count($filtered);
+
+        if ('AND' === $spec['COM']) {
+            foreach ($spec['QTY'] as $range) {
+                $required = $spec['ITU'];
+                foreach ($required as $r) {
+                    foreach ($filtered as $f) {
+                        if ($f['itu'] === $r) {
+                            $f['required'] = true;
+                            $result[$range][] = $f;
+                            $required = array_diff($required, [$f['itu']]);
+                            break;
+                        }
+                    }
+                }
+                if ($required === []) {
+                    foreach ($result[$range] as $r) {
+                        unset ($r['required']);
+                        unset($filtered[array_search($r, $filtered)]);
+                    }
+                }
+            }
+        }
+
         foreach ($spec['QTY'] as $range) {
-            for ($i = 0; $i < $range - $offset; $i++) {
+            $taken = count($result[$range]);
+            for ($i = 0; $i < $range - $offset - $taken; $i++) {
                 if (count($filtered)) {
-                    $result[$range][] = array_shift($filtered);
+                    $f = array_shift($filtered);
+                    $f['required'] = false;
+                    $result[$range][] = $f;
                 }
             }
             $offset = $range;
