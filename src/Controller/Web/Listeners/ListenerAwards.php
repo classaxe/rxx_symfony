@@ -1,7 +1,7 @@
 <?php
 namespace App\Controller\Web\Listeners;
 
-use App\Repository\CleRepository;
+use App\Repository\AwardRepository;
 use App\Repository\ListenerRepository;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 
@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 class ListenerAwards extends Base
 {
 
-    private $cleRepository;
+    private $awardRepository;
     private $listenerID;
     private $listenerRepository;
     private $signals;
@@ -30,7 +30,7 @@ class ListenerAwards extends Base
      * @param $system
      * @param $id
      * @param ListenerRepository $listenerRepository
-     * @param CleRepository $cleRepository
+     * @param AwardRepository $cleRepository
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function controller(
@@ -38,7 +38,7 @@ class ListenerAwards extends Base
         $system,
         $id,
         ListenerRepository $listenerRepository,
-        CleRepository $cleRepository
+        AwardRepository $awardRepository
     ) {
 
         if ((int) $id) {
@@ -48,12 +48,12 @@ class ListenerAwards extends Base
         }
 
         $this->listenerID = (int) $id;
-        $this->cleRepository = $cleRepository;
+        $this->awardRepository = $awardRepository;
         $this->listenerRepository = $listenerRepository;
         $this->signals = $this->listenerRepository->getLogsForListener($this->listenerID, [ 'type' => 0, 'sort' => 'khz', 'order' => 'a']);
 
         $isAdmin = $this->parameters['isAdmin'];
-        $award_types = array_keys(CleRepository::AWARDSPEC);
+        $award_types = array_keys(AwardRepository::AWARDSPEC);
         $awards = [];
         foreach ($award_types as $type) {
             $family = explode('_', $type)[0];
@@ -72,14 +72,15 @@ class ListenerAwards extends Base
             }
         }
 
+        $daytime = $listenerRepository->getDaytimeHours($listener->getTimezone());
         $parameters = [
             'id' =>                 $id,
             '_locale' =>            $_locale,
             'mode' =>               'Awards Available for '.$listener->getFormattedNameAndLocation(),
             'award_types' =>        $award_types,
             'awards' =>             $awards,
-            'daytime_start' =>      str_pad((1000 + $listener->getTimezone() * 100 % 2400), 4, '0'),
-            'daytime_end' =>        str_pad((1400 + $listener->getTimezone() * 100 % 2400), 4, '0'),
+            'daytime_start' =>      $daytime['start'],
+            'daytime_end' =>        $daytime['end'],
             'l' =>                  $listener,
             'repo' =>               $listenerRepository,
             'logs' =>               $listener->getCountLogs(),
@@ -93,7 +94,7 @@ class ListenerAwards extends Base
 
     private function getBestDx($award)
     {
-        $ranges = $this->cleRepository->getAwardSpec($award);
+        $ranges = $this->awardRepository->getAwardSpec($award);
         $result = [];
         foreach ($ranges as $range) {
             $key = implode('|', $range);
@@ -122,7 +123,7 @@ class ListenerAwards extends Base
 
     private function getCountryDx($award)
     {
-        $spec = $this->cleRepository->getAwardSpec($award);
+        $spec = $this->awardRepository->getAwardSpec($award);
         $result = [ 'total' => 0 ];
         foreach ($spec['QTY'] as $range) {
             $result[$range] = [];
@@ -137,7 +138,7 @@ class ListenerAwards extends Base
         $offset = 0;
         $result['total'] = count($filtered);
 
-        if ('AND' === $spec['COM']) {
+        if ($spec['ALL']) {
             foreach ($spec['QTY'] as $range) {
                 $required = $spec['ITU'];
                 foreach ($required as $r) {
@@ -175,7 +176,7 @@ class ListenerAwards extends Base
 
     private function getRegionDx($award)
     {
-        $ranges = $this->cleRepository->getAwardSpec($award);
+        $ranges = $this->awardRepository->getAwardSpec($award);
         $region = explode('_', $award)[1];
         $result = [ 'total' => 0 ];
         foreach ($ranges as $range) {

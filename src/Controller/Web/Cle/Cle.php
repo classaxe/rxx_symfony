@@ -3,7 +3,7 @@ namespace App\Controller\Web\Cle;
 
 use App\Controller\Web\Base;
 use App\Repository\CleRepository;
-use App\Repository\MapRepository;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 
 /**
@@ -23,9 +23,8 @@ class Cle extends Base
      * )
      * @param $_locale
      * @param $system
-     * @param $area
-     * @param MapRepository $mapRepository
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @param CleRepository $cleRepository
+     * @return Response
      */
     public function controller($_locale, $system, CleRepository $cleRepository)
     {
@@ -48,6 +47,12 @@ class Cle extends Base
         return $this->render('cle/cle.html.twig', $parameters);
     }
 
+    /**
+     * @param $cle
+     * @param $region
+     * @param $range
+     * @return string
+     */
     private function getUrlForRegion($cle, $region, $range) {
         $params = [];
         $prefix = "get{$region}Range$range";

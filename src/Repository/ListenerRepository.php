@@ -153,6 +153,14 @@ class ListenerRepository extends ServiceEntityRepository
         return $this->listenersColumns;
     }
 
+    public function getDaytimeHours($timezone)
+    {
+        return [
+            'start' =>  str_pad((1000 + $timezone * 100 % 2400), 4, '0', STR_PAD_LEFT),
+            'end' =>    str_pad((1400 + $timezone * 100 % 2400), 4, '0', STR_PAD_LEFT)
+        ];
+    }
+
     public function getDescription($id)
     {
         $l = $this->find($id);
