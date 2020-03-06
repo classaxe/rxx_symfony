@@ -1,4 +1,4 @@
-{% if awards[award] %}
+{% if awards[award] is defined and awards[award] %}
     <h2 id="toggle_{{ award }}">
         <span style="display:none">&#9744;</span><span>&#9746;</span>
         {{ award_title }}

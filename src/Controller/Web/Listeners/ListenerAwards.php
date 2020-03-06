@@ -19,16 +19,18 @@ class ListenerAwards extends Base
 
     /**
      * @Route(
-     *     "/{_locale}/{system}/listeners/{id}/awards",
+     *     "/{_locale}/{system}/listeners/{id}/awards/{filter}",
      *     requirements={
      *        "_locale": "de|en|es|fr",
      *        "system": "reu|rna|rww"
      *     },
+     *     defaults={"filter"="*"},
      *     name="listener_awards"
      * )
      * @param $_locale
      * @param $system
      * @param $id
+     * @param $filter
      * @param ListenerRepository $listenerRepository
      * @param AwardRepository $cleRepository
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
@@ -37,10 +39,10 @@ class ListenerAwards extends Base
         $_locale,
         $system,
         $id,
+        $filter,
         ListenerRepository $listenerRepository,
         AwardRepository $awardRepository
     ) {
-
         if ((int) $id) {
             if (!$listener = $this->getValidReportingListener($id, $listenerRepository)) {
                 return $this->redirectToRoute('listeners', ['system' => $system]);
@@ -56,6 +58,9 @@ class ListenerAwards extends Base
         $award_types = array_keys(AwardRepository::AWARDSPEC);
         $awards = [];
         foreach ($award_types as $type) {
+            if ('*' !== $filter && !in_array($type, explode(',', $filter))) {
+                continue;
+            }
             $family = explode('_', $type)[0];
             switch($family) {
                 case 'daytime':

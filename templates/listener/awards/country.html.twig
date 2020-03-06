@@ -1,4 +1,4 @@
-{% if awards[award].total %}
+{% if awards[award] is defined and awards[award].total is defined and awards[award].total %}
     <h2 id="toggle_{{ award }}">
         <span style="display:none">&#9744;</span><span>&#9746;</span>
         {{ award_title | raw }}
