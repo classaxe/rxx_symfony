@@ -33,6 +33,7 @@ var popWinSpecs = {
     'signals_[id]' :                'width=1040,height=800,status=1,scrollbars=1,resizable=1',
     'signals_[id]_logs' :           'width=1040,height=800,status=1,scrollbars=1,resizable=1',
     'signals_[id]_listeners' :      'width=1040,height=800,status=1,scrollbars=1,resizable=1',
+    'signals_[id]_map' :            'width=1040,height=800,status=1,scrollbars=1,resizable=1',
     'signals_[id]_weather' :        'width=1040,height=800,status=1,scrollbars=1,resizable=1',
     'states_*' :                    'width=720,height=760,resizable=1',
     'states_aus' :                  'width=720,height=240,resizable=1',

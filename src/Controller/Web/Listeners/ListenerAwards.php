@@ -63,17 +63,22 @@ class ListenerAwards extends Base
             }
             $family = explode('_', $type)[0];
             switch($family) {
-                case 'daytime':
-                case 'longranger':
-                    $awards[$type] = $this->getBestDx($type);
-                    break;
-                case 'region':
-                    $awards[$type] = $this->getRegionDx($type);
+                case 'continental':
+                    $awards[$type] = $this->getContinentalDx($type);
                     break;
                 case 'country':
                     $awards[$type] = $this->getCountryDx($type);
                     break;
-
+                case 'daytime':
+                case 'longranger':
+                    $awards[$type] = $this->getBestDx($type);
+                    break;
+                case 'lt':
+                    $awards[$type] = $this->getSingle($type);
+                    break;
+                case 'north60':
+                    $awards[$type] = $this->getNorth60($type);
+                    break;
             }
         }
 
@@ -122,6 +127,47 @@ class ListenerAwards extends Base
         }
         if (!$valid) {
             return [];
+        }
+        return $result;
+    }
+
+    private function getContinentalDx($award)
+    {
+        $ranges = $this->awardRepository->getAwardSpec($award);
+        $region = explode('_', $award)[1];
+        $result = [ 'total' => 0 ];
+        foreach ($ranges as $range) {
+            $result[$range] = [];
+        }
+        $places = [];
+        foreach ($this->signals as $signal) {
+            if ($signal['region'] !== $region) {
+                continue;
+            }
+            switch ($signal['place']) {
+                case "HI":
+                    $place = 'HWA';
+                    break;
+                case "PR":
+                    $place = 'PTR';
+                    break;
+                default:
+                    $place = $signal['place'];
+                    break;
+            }
+            $places[$place] = true;
+        }
+        $places = array_keys($places);
+        sort($places);
+        $offset = 0;
+        $result['total'] = count($places);
+        foreach ($ranges as $range) {
+            for ($i = 0; $i < $range - $offset; $i++) {
+                if (count($places)) {
+                    $result[$range][] = array_shift($places);
+                }
+            }
+            $offset = $range;
         }
         return $result;
     }
@@ -182,44 +228,45 @@ class ListenerAwards extends Base
         return $result;
     }
 
-    private function getRegionDx($award)
+    private function getNorth60($award)
     {
-        $ranges = $this->awardRepository->getAwardSpec($award);
-        $region = explode('_', $award)[1];
-        $result = [ 'total' => 0 ];
-        foreach ($ranges as $range) {
+        $spec = $this->awardRepository->getAwardSpec($award);
+        $result = [ 'total' => 10 ];
+        foreach ($spec as $range) {
             $result[$range] = [];
         }
-        $places = [];
-        foreach ($this->signals as $signal) {
-            if ($signal['region'] !== $region) {
+        $filtered = [];
+        foreach ($this->signals as $s) {
+            if ($s['lat'] < 60) {
                 continue;
             }
-            switch ($signal['place']) {
-                case "HI":
-                    $place = 'HWA';
-                    break;
-                case "PR":
-                    $place = 'PTR';
-                    break;
-                default:
-                    $place = $signal['place'];
-                    break;
-            }
-            $places[$place] = true;
+            $filtered[$s['khz'].'-'.$s['call']] = $s;
         }
-        $places = array_keys($places);
-        sort($places);
+        $result['total'] = count($filtered);
         $offset = 0;
-        $result['total'] = count($places);
-        foreach ($ranges as $range) {
-            for ($i = 0; $i < $range - $offset; $i++) {
-                if (count($places)) {
-                    $result[$range][] = array_shift($places);
+        foreach ($spec as $range) {
+            $taken = count($result[$range]);
+            for ($i = 0; $i < $range - $offset - $taken; $i++) {
+                if (count($filtered)) {
+                    $f = array_shift($filtered);
+                    $f['required'] = false;
+                    $result[$range][] = $f;
                 }
             }
             $offset = $range;
         }
         return $result;
     }
+
+    private function getSingle($award)
+    {
+        $spec = $this->awardRepository->getAwardSpec($award);
+        foreach ($this->signals as $s) {
+            if ($s['call'] === $spec['call'] && (float)$s['khz'] === (float)$spec['khz']) {
+                return $s;
+            }
+        }
+        return false;
+    }
+
 }

@@ -1,0 +1,68 @@
+{% if awards[award] is defined and awards[award] %}
+{% set signal = awards[award] %}
+    <h2 id="toggle_{{ award }}">
+        <span style="display:none">&#9744;</span><span>&#9746;</span>
+        {{ award_title | raw }}
+    </h2>
+    <div id="{{ award }}" style="margin:0 0 1em 1.5em">
+        <div class="row">
+            <div class="small-12 columns" style="padding: 0">{{ award_info | raw }}</div>
+        </div>
+        <div class="row">
+            <div class="small-12 medium-3 columns" style="padding: 0 1em 0 0">
+                <table class="results very-short">
+                    <thead>
+                    <tr>
+                        <th>{% trans %}NDB{% endtrans %}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><a href="{{ url('signal', { 'system' : system, 'id': signal['id'] }) }}" data-popup="1">{{ signal['call'] }}-{{ signal['khz'] }}</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="small-12 medium-9 columns" style="padding: 0">
+                <table class="results very-short">
+                    <thead>
+                    <tr>
+                        <th class="num">{% trans %}KHz{% endtrans %}</th>
+                        <th>{% trans %}ID{% endtrans %}</th>
+                        <th>{% trans %}Location{% endtrans %}</th>
+                        <th>{% trans %}S/P{% endtrans %}</th>
+                        <th>{% trans %}ITU{% endtrans %}</th>
+                        <th>{% trans %}GSQ{% endtrans %}</th>
+                        <th class="num">{% trans %}Lon{% endtrans %}</th>
+                        <th class="num">{% trans %}Lat{% endtrans %}</th>
+                        <th class="num">{% trans %}Pwr{% endtrans %}</th>
+                        <th class="num">{% trans %}Miles{% endtrans %}</th>
+                        <th class="num">{% trans %}KM{% endtrans %}</th>
+                        <th>{% trans %}Date{% endtrans %}</th>
+                        <th class="num">{% trans %}UTC{% endtrans %}</th>
+                        <th class="cart">{% trans %}Order{% endtrans %}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="num">{{ signal['khz'] }}</td>
+                            <td><a href="{{ url('signal', { 'system' : system, 'id': signal['id'] }) }}" data-popup="1">{{ signal['call'] }}</a></td>
+                            <td class="text-nowrap" style="max-width: 14em;overflow: hidden;text-overflow: ellipsis" title="{{ signal['qth'] }}">{{ signal['qth'] }}</td>
+                            <td>{{ signal['sp'] }}</td>
+                            <td>{{ signal['itu'] }}</td>
+                            <td><a href="{{ url('signal_map', { 'system' : system, 'id': signal['id'] }) }}" data-popup="1">{{ signal['gsq'] }}</a></td>
+                            <td class="num">{{ signal['lon']|abs }}&deg;{{ signal['lon']>=0 ? 'E' : 'W' }}</td>
+                            <td class="num">{{ signal['lat']|abs }}&deg;{{ signal['lat']>=0 ? 'N' : 'S' }}</td>
+                            <td class="num">{{ signal['pwr'] > 0 ? signal['pwr'] : '&nbsp;' }}</td>
+                            <td class="num">{{ signal['dxMiles'] }}</td>
+                            <td class="num">{{ signal['dxKm'] }}</td>
+                            <td class="text-nowrap">{{ signal['logDate'] }}</td>
+                            <td class="num">{{ signal['logTime'] }}</td>
+                            <td class="cart">[icon]</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endif %}

@@ -3475,6 +3475,22 @@
         <source>Qualifying Signals</source>
         <target>Qualifying Signals</target>
       </trans-unit>
+      <trans-unit id="LL7m0Ex" resname="LT Award">
+        <source>LT Award</source>
+        <target>LT Award</target>
+      </trans-unit>
+      <trans-unit id="L5rg61U" resname="This certificate recognises reception of a single NDBs: LT on 305 KHz, at Alert, Nunavut, in Canada. This is the highest latitude NDB known in the Northern Hemisphere.">
+        <source>This certificate recognises reception of a single NDBs: LT on 305 KHz, at Alert, Nunavut, in Canada. This is the highest latitude NDB known in the Northern Hemisphere.</source>
+        <target>This certificate recognises reception of a single NDBs: LT on 305 KHz, at Alert, Nunavut, in Canada. This is the highest latitude NDB known in the Northern Hemisphere.</target>
+      </trans-unit>
+      <trans-unit id="y0.9_PE" resname="North of 60 Award">
+        <source>North of 60 Award</source>
+        <target>North of 60 Award</target>
+      </trans-unit>
+      <trans-unit id="aWpQmzF" resname="This certificate recognises reception of NDBs located at least 60 Degrees of latitude north of the Equator. This area includes Iceland, Greenland and Alaska as well as most of Scandinavia and parts of Russia and Canada.">
+        <source>This certificate recognises reception of NDBs located at least 60 Degrees of latitude north of the Equator. This area includes Iceland, Greenland and Alaska as well as most of Scandinavia and parts of Russia and Canada.</source>
+        <target>This certificate recognises reception of NDBs located at least 60 Degrees of latitude north of the Equator. This area includes Iceland, Greenland and Alaska as well as most of Scandinavia and parts of Russia and Canada.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
