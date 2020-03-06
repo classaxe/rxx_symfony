@@ -140,7 +140,6 @@ class ListenerAwards extends Base
             }
             $filtered[$s['khz'].'-'.$s['call']] = $s;
         }
-        $offset = 0;
         $result['total'] = count($filtered);
 
         if ($spec['ALL']) {
@@ -162,9 +161,13 @@ class ListenerAwards extends Base
                         unset($filtered[array_search($r, $filtered)]);
                     }
                 }
+                if ($result['total'] < $range) {
+                    break;
+                }
             }
         }
 
+        $offset = 0;
         foreach ($spec['QTY'] as $range) {
             $taken = count($result[$range]);
             for ($i = 0; $i < $range - $offset - $taken; $i++) {
