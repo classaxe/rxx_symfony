@@ -13,7 +13,7 @@ class ListenerAwards extends Base
 {
 
     private $awardRepository;
-    private $listenerID;
+    private $listener;
     private $listenerRepository;
     private $signals;
 
@@ -31,8 +31,8 @@ class ListenerAwards extends Base
      * @param $system
      * @param $id
      * @param $filter
+     * @param AwardRepository $awardRepository
      * @param ListenerRepository $listenerRepository
-     * @param AwardRepository $cleRepository
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function controller(
@@ -40,19 +40,20 @@ class ListenerAwards extends Base
         $system,
         $id,
         $filter,
-        ListenerRepository $listenerRepository,
-        AwardRepository $awardRepository
+        AwardRepository $awardRepository,
+        ListenerRepository $listenerRepository
     ) {
+        $this->awardRepository = $awardRepository;
+        $this->listenerRepository = $listenerRepository;
         if ((int) $id) {
-            if (!$listener = $this->getValidReportingListener($id, $listenerRepository)) {
+            if (!$this->listener = $this->getValidReportingListener($id, $this->listenerRepository)) {
                 return $this->redirectToRoute('listeners', ['system' => $system]);
             }
         }
-
-        $this->listenerID = (int) $id;
-        $this->awardRepository = $awardRepository;
-        $this->listenerRepository = $listenerRepository;
-        $this->signals = $this->listenerRepository->getLogsForListener($this->listenerID, [ 'type' => 0, 'sort' => 'khz', 'order' => 'a']);
+        $this->signals = $this->listenerRepository->getLogsForListener(
+            $this->listener->getId(),
+            [ 'type' => 0, 'sort' => 'khz', 'order' => 'a']
+        );
 
         $isAdmin = $this->parameters['isAdmin'];
         $award_types = array_keys(AwardRepository::AWARDSPEC);
@@ -79,30 +80,40 @@ class ListenerAwards extends Base
                 case 'north60':
                     $awards[$type] = $this->getNorth60($type);
                     break;
+                case 'transatlantic':
+                    $awards[$type] = $this->getTransatlantic($type);
+                    break;
+                case 'transpacific':
+                    $awards[$type] = $this->getTranspacific($type);
+                    break;
             }
         }
 
-        $daytime = $listenerRepository->getDaytimeHours($listener->getTimezone());
+        $daytime = $listenerRepository->getDaytimeHours($this->listener->getTimezone());
         $parameters = [
             'id' =>                 $id,
             '_locale' =>            $_locale,
-            'mode' =>               'Awards Available for '.$listener->getFormattedNameAndLocation(),
+            'mode' =>               'Awards Available for '.$this->listener->getFormattedNameAndLocation(),
             'award_types' =>        $award_types,
             'awards' =>             $awards,
             'daytime_start' =>      $daytime['start'],
             'daytime_end' =>        $daytime['end'],
-            'l' =>                  $listener,
+            'l' =>                  $this->listener,
             'repo' =>               $listenerRepository,
-            'logs' =>               $listener->getCountLogs(),
-            'signals' =>            $listener->getCountSignals(),
+            'logs' =>               $this->listener->getCountLogs(),
+            'signals' =>            $this->listener->getCountSignals(),
             'system' =>             $system,
-            'tabs' =>               $listenerRepository->getTabs($listener, $isAdmin)
+            'tabs' =>               $listenerRepository->getTabs($this->listener, $isAdmin)
         ];
         $parameters = array_merge($parameters, $this->parameters);
         return $this->render('listener/awards/awards.html.twig', $parameters);
     }
 
-    private function getBestDx($award)
+    /**
+     * @param string $award
+     * @return array|bool
+     */
+    private function getBestDx(string $award)
     {
         $ranges = $this->awardRepository->getAwardSpec($award);
         $result = [];
@@ -110,6 +121,7 @@ class ListenerAwards extends Base
             $key = implode('|', $range);
             $result[$key] = [];
         }
+
         $valid = false;
         foreach ($this->signals as $signal) {
             if ('DAYTIME' === $award && !$signal['daytime']) {
@@ -126,19 +138,19 @@ class ListenerAwards extends Base
             }
         }
         if (!$valid) {
-            return [];
+            return false;
         }
         return $result;
     }
 
-    private function getContinentalDx($award)
+    /**
+     * @param string $award
+     * @return array|bool
+     */
+    private function getContinentalDx(string $award)
     {
         $ranges = $this->awardRepository->getAwardSpec($award);
         $region = explode('_', $award)[1];
-        $result = [ 'total' => 0 ];
-        foreach ($ranges as $range) {
-            $result[$range] = [];
-        }
         $places = [];
         foreach ($this->signals as $signal) {
             if ($signal['region'] !== $region) {
@@ -157,11 +169,17 @@ class ListenerAwards extends Base
             }
             $places[$place] = true;
         }
+
+        if (!$places) {
+            return false;
+        }
+
         $places = array_keys($places);
         sort($places);
         $offset = 0;
-        $result['total'] = count($places);
+        $result = [ 'total' => count($places) ];
         foreach ($ranges as $range) {
+            $result[$range] = [];
             for ($i = 0; $i < $range - $offset; $i++) {
                 if (count($places)) {
                     $result[$range][] = array_shift($places);
@@ -172,13 +190,13 @@ class ListenerAwards extends Base
         return $result;
     }
 
-    private function getCountryDx($award)
+    /**
+     * @param string $award
+     * @return array|bool
+     */
+    private function getCountryDx(string $award)
     {
         $spec = $this->awardRepository->getAwardSpec($award);
-        $result = [ 'total' => 0 ];
-        foreach ($spec['QTY'] as $range) {
-            $result[$range] = [];
-        }
         $filtered = [];
         foreach ($this->signals as $s) {
             if (!in_array($s['itu'], $spec['ITU'])) {
@@ -186,7 +204,15 @@ class ListenerAwards extends Base
             }
             $filtered[$s['khz'].'-'.$s['call']] = $s;
         }
-        $result['total'] = count($filtered);
+
+        if (!$filtered) {
+            return false;
+        }
+
+        $result = [ 'total' => count($filtered) ];
+        foreach ($spec['QTY'] as $range) {
+            $result[$range] = [];
+        }
 
         if ($spec['ALL']) {
             foreach ($spec['QTY'] as $range) {
@@ -228,13 +254,13 @@ class ListenerAwards extends Base
         return $result;
     }
 
-    private function getNorth60($award)
+    /**
+     * @param string $award
+     * @return array|bool
+     */
+    private function getNorth60(string $award)
     {
         $spec = $this->awardRepository->getAwardSpec($award);
-        $result = [ 'total' => 10 ];
-        foreach ($spec as $range) {
-            $result[$range] = [];
-        }
         $filtered = [];
         foreach ($this->signals as $s) {
             if ($s['lat'] < 60) {
@@ -242,9 +268,15 @@ class ListenerAwards extends Base
             }
             $filtered[$s['khz'].'-'.$s['call']] = $s;
         }
-        $result['total'] = count($filtered);
+
+        if (!$filtered) {
+            return false;
+        }
+
+        $result = [ 'total' => count($filtered) ];
         $offset = 0;
         foreach ($spec as $range) {
+            $result[$range] = [];
             $taken = count($result[$range]);
             for ($i = 0; $i < $range - $offset - $taken; $i++) {
                 if (count($filtered)) {
@@ -258,7 +290,11 @@ class ListenerAwards extends Base
         return $result;
     }
 
-    private function getSingle($award)
+    /**
+     * @param string $award
+     * @return array|bool
+     */
+    private function getSingle(string $award)
     {
         $spec = $this->awardRepository->getAwardSpec($award);
         foreach ($this->signals as $s) {
@@ -269,4 +305,82 @@ class ListenerAwards extends Base
         return false;
     }
 
+    /**
+     * @param $award
+     * @return array|bool
+     */
+    private function getTransatlantic($award)
+    {
+        $specs = $this->awardRepository->getAwardSpec($award);
+        if (!in_array($this->listener->getRegion(), array_keys($specs))) {
+            return false;
+        }
+        $spec = $specs[$this->listener->getRegion()];
+        $filtered = [];
+        foreach ($this->signals as $s) {
+            if (!in_array($s['region'], $spec['CON'])) {
+                continue;
+            }
+            $filtered[$s['khz'].'-'.$s['call']] = $s;
+        }
+        $result = [ 'total' => count($filtered) ];
+        $offset = 0;
+        foreach ($spec['QTY'] as $range) {
+            $result[$range] = [];
+            $taken = count($result[$range]);
+            for ($i = 0; $i < $range - $offset - $taken; $i++) {
+                if (count($filtered)) {
+                    $f = array_shift($filtered);
+                    $f['required'] = false;
+                    $result[$range][] = $f;
+                }
+            }
+            $offset = $range;
+        }
+        return $result;
+    }
+
+    /**
+     * @param string $award
+     * @return array|bool
+     */
+    private function getTranspacific(string $award)
+    {
+        $specs = $this->awardRepository->getAwardSpec($award);
+        $spec = false;
+        foreach (array_keys($specs) as $key) {
+            $key_arr = explode(',', $key);
+            if (in_array($this->listener->getRegion(), $key_arr) || in_array($this->listener->getItu(), $key_arr)) {
+                $spec = $specs[$key];
+            }
+        }
+        if (!$spec) {
+            return false;
+        }
+
+        $result = [];
+
+        $filtered = [];
+        foreach ($this->signals as $s) {
+            if (!in_array($s['region'], $spec['LOC']) && !in_array($s['itu'], $spec['LOC'])) {
+                continue;
+            }
+            $filtered[$s['khz'].'-'.$s['call']] = $s;
+        }
+        $result['total'] = count($filtered);
+        $offset = 0;
+        foreach ($spec['QTY'] as $range) {
+            $result[$range] = [];
+            $taken = count($result[$range]);
+            for ($i = 0; $i < $range - $offset - $taken; $i++) {
+                if (count($filtered)) {
+                    $f = array_shift($filtered);
+                    $f['required'] = false;
+                    $result[$range][] = $f;
+                }
+            }
+            $offset = $range;
+        }
+        return $result;
+    }
 }

@@ -65,7 +65,27 @@ class AwardRepository
             [ 3000, 4999, 4827, 8044 ],
             [ 5000,    0, 8045,    0 ]
         ],
-        'lt' => [ 'call' => 'LT', 'khz' => 305 ]
+        'lt' => [ 'call' => 'LT', 'khz' => 305 ],
+        'transatlantic' => [
+            'eu' => [
+                'CON' => [ 'ca', 'na', 'sa' ],
+                'QTY' => [ 1, 10 ]
+            ],
+            'na' => [
+                'CON' => [ 'af', 'eu' ],
+                'QTY' => [ 1, 3 ]
+            ]
+        ],
+        'transpacific' => [
+            'ca,na,sa' => [
+                'LOC' => [ 'as',  'AUS', 'NZL', 'PNG' ],
+                'QTY' => [ 1, 10 ]
+            ],
+            'as,AUS,NZL,PNG' => [
+                'LOC' => [ 'ca', 'na', 'sa' ],
+                'QTY' => [ 1, 3 ]
+            ]
+        ]
     ];
 
     /**

@@ -3491,6 +3491,42 @@
         <source>This certificate recognises reception of NDBs located at least 60 Degrees of latitude north of the Equator. This area includes Iceland, Greenland and Alaska as well as most of Scandinavia and parts of Russia and Canada.</source>
         <target>This certificate recognises reception of NDBs located at least 60 Degrees of latitude north of the Equator. This area includes Iceland, Greenland and Alaska as well as most of Scandinavia and parts of Russia and Canada.</target>
       </trans-unit>
+      <trans-unit id="ROB8s7t" resname="Transatlantic DX Awards">
+        <source>Transatlantic DX Awards</source>
+        <target>Transatlantic DX Awards</target>
+      </trans-unit>
+      <trans-unit id="ORTYcQp" resname="This is probably the most challenging award of the program, even at its first level. However, there is a lot of interest on both sides of the Atlantic in transoceanic NDB DX.">
+        <source>This is probably the most challenging award of the program, even at its first level. However, there is a lot of interest on both sides of the Atlantic in transoceanic NDB DX.</source>
+        <target>This is probably the most challenging award of the program, even at its first level. However, there is a lot of interest on both sides of the Atlantic in transoceanic NDB DX.</target>
+      </trans-unit>
+      <trans-unit id="RKNskYW" resname="To qualify, listeners must hear NDBs on the other side.">
+        <source>To qualify, listeners must hear NDBs on the other side.</source>
+        <target>To qualify, listeners must hear NDBs on the other side.</target>
+      </trans-unit>
+      <trans-unit id="4EMb1aK" resname="European listeners may count NDBs in Greenland, Canada, the United States and the islands of the caribbean as well as Central and South America.">
+        <source>European listeners may count NDBs in Greenland, Canada, the United States and the islands of the caribbean as well as Central and South America.</source>
+        <target>European listeners may count NDBs in Greenland, Canada, the United States and the islands of the caribbean as well as Central and South America.</target>
+      </trans-unit>
+      <trans-unit id="YX7ljqE" resname="North American listeners may count NDBs in the Azores, the Canary Islands and Cape Verde as well as those on the European and African continents proper.">
+        <source>North American listeners may count NDBs in the Azores, the Canary Islands and Cape Verde as well as those on the European and African continents proper.</source>
+        <target>North American listeners may count NDBs in the Azores, the Canary Islands and Cape Verde as well as those on the European and African continents proper.</target>
+      </trans-unit>
+      <trans-unit id="6rFq8cx" resname="Transpacific DX Awards">
+        <source>Transpacific DX Awards</source>
+        <target>Transpacific DX Awards</target>
+      </trans-unit>
+      <trans-unit id="zssbtjq" resname="Yes, we must also be fair to those interested in the &quot;Really Big Pond&quot;. This certificate recognises  reception of NDBs accross the pacific in either direction.">
+        <source>Yes, we must also be fair to those interested in the "Really Big Pond". This certificate recognises  reception of NDBs accross the pacific in either direction.</source>
+        <target>Yes, we must also be fair to those interested in the "Really Big Pond". This certificate recognises  reception of NDBs accross the pacific in either direction.</target>
+      </trans-unit>
+      <trans-unit id="JvE9KSR" resname="For listeners in North, central or South America qualifying beacons must be in Asian countries or on Australian mainland, in New Zealand or Papua New Guinea, but not other countries in Oceania.">
+        <source>For listeners in North, central or South America qualifying beacons must be in Asian countries or on Australian mainland, in New Zealand or Papua New Guinea, but not other countries in Oceania.</source>
+        <target>For listeners in North, central or South America qualifying beacons must be in Asian countries or on Australian mainland, in New Zealand or Papua New Guinea, but not other countries in Oceania.</target>
+      </trans-unit>
+      <trans-unit id="nCt5Uek" resname="For listeners in Asia, Australia, New Zealand or Papua New Guinea qualifying beacons must be in North, Central or South America">
+        <source>For listeners in Asia, Australia, New Zealand or Papua New Guinea qualifying beacons must be in North, Central or South America</source>
+        <target>For listeners in Asia, Australia, New Zealand or Papua New Guinea qualifying beacons must be in North, Central or South America</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
