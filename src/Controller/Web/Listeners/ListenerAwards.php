@@ -124,7 +124,7 @@ class ListenerAwards extends Base
 
         $valid = false;
         foreach ($this->signals as $signal) {
-            if ('DAYTIME' === $award && !$signal['daytime']) {
+            if ('daytime' === $award && !$signal['daytime']) {
                 continue;
             }
             foreach ($ranges as $range) {
