@@ -79,11 +79,11 @@ class AwardRepository
         'transpacific' => [
             'ca,na,sa' => [
                 'LOC' => [ 'as',  'AUS', 'NZL', 'PNG' ],
-                'QTY' => [ 1, 10 ]
+                'QTY' => [ 1, 2, 3, 4 ]
             ],
             'as,AUS,NZL,PNG' => [
                 'LOC' => [ 'ca', 'na', 'sa' ],
-                'QTY' => [ 1, 3 ]
+                'QTY' => [ 1, 2, 3, 4 ]
             ]
         ]
     ];
