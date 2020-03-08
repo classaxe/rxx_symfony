@@ -3527,6 +3527,62 @@
         <source>For listeners in Asia, Australia, New Zealand or Papua New Guinea qualifying beacons must be in North, Central or South America</source>
         <target>__For listeners in Asia, Australia, New Zealand or Papua New Guinea qualifying beacons must be in North, Central or South America</target>
       </trans-unit>
+      <trans-unit id="IcNMKIo" resname="(%TOTAL% qualifying pairs of NDBs)">
+        <source>(%TOTAL% qualifying pairs of NDBs)</source>
+        <target>__(%TOTAL% qualifying pairs of NDBs)</target>
+      </trans-unit>
+      <trans-unit id="nT0gTyo" resname="Stations">
+        <source>Stations</source>
+        <target>__Stations</target>
+      </trans-unit>
+      <trans-unit id="81ZHt0z" resname="East Coast">
+        <source>East Coast</source>
+        <target>__East Coast</target>
+      </trans-unit>
+      <trans-unit id="iAEZfPI" resname="Weat Coast">
+        <source>Weat Coast</source>
+        <target>__Weat Coast</target>
+      </trans-unit>
+      <trans-unit id="oM.KOJF" resname="on each coast">
+        <source>on each coast</source>
+        <target>__on each coast</target>
+      </trans-unit>
+      <trans-unit id="XqGx_sL" resname="Canadian Transcontinental NDB DX Award">
+        <source>Canadian Transcontinental NDB DX Award</source>
+        <target>__Canadian Transcontinental NDB DX Award</target>
+      </trans-unit>
+      <trans-unit id="U5MjmXD" resname="US Transcontinental NDB DX Award">
+        <source>US Transcontinental NDB DX Award</source>
+        <target>__US Transcontinental NDB DX Award</target>
+      </trans-unit>
+      <trans-unit id="fYefcJ2" resname="Yes, we must also be fair to those interested in the &quot;Really Big Pond&quot;. This certificate recognises  reception of NDBs across the pacific in either direction.">
+        <source>Yes, we must also be fair to those interested in the "Really Big Pond". This certificate recognises  reception of NDBs across the pacific in either direction.</source>
+        <target>__Yes, we must also be fair to those interested in the "Really Big Pond". This certificate recognises  reception of NDBs across the pacific in either direction.</target>
+      </trans-unit>
+      <trans-unit id="7hnTFvX" resname="This cerificate recognises reception of NDBs on Pacific and Atlantic coasts of Canada (i.e. British Columbia and any of the Maritime Provinces). Qualifying beacons must be in these provinces but do not have to literally be on the shoreline.">
+        <source>This cerificate recognises reception of NDBs on Pacific and Atlantic coasts of Canada (i.e. British Columbia and any of the Maritime Provinces). Qualifying beacons must be in these provinces but do not have to literally be on the shoreline.</source>
+        <target>__This cerificate recognises reception of NDBs on Pacific and Atlantic coasts of Canada (i.e. British Columbia and any of the Maritime Provinces). Qualifying beacons must be in these provinces but do not have to literally be on the shoreline.</target>
+      </trans-unit>
+      <trans-unit id="blxNZ1E" resname="This cerificate recognises reception of NDBs on Pacific and Atlantic coasts of continental United States. Qualifying beacons must be in states with oceanic shorelibes (excluding the Gulf of Mexico).">
+        <source>This cerificate recognises reception of NDBs on Pacific and Atlantic coasts of continental United States. Qualifying beacons must be in states with oceanic shorelibes (excluding the Gulf of Mexico).</source>
+        <target>__This cerificate recognises reception of NDBs on Pacific and Atlantic coasts of continental United States. Qualifying beacons must be in states with oceanic shorelibes (excluding the Gulf of Mexico).</target>
+      </trans-unit>
+      <trans-unit id="VZiOKKT" resname="Collapse All">
+        <source>Collapse All</source>
+        <target>__Collapse All</target>
+      </trans-unit>
+      <trans-unit id="n1sCOkE" resname="Expand All">
+        <source>Expand All</source>
+        <target>__Expand All</target>
+      </trans-unit>
+      <trans-unit id="mecfSMS" resname="Checkout">
+        <source>Checkout</source>
+        <target>__Checkout</target>
+      </trans-unit>
+      <trans-unit id="1HFTKlr" resname="Yes, we must also be fair to those interested in the &quot;Really Big Pond&quot;. This certificate recognises reception of NDBs across the pacific in either direction.">
+        <source>Yes, we must also be fair to those interested in the "Really Big Pond". This certificate recognises reception of NDBs across the pacific in either direction.</source>
+        <target>__Yes, we must also be fair to those interested in the "Really Big Pond". This certificate recognises reception of NDBs across the pacific in either direction.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

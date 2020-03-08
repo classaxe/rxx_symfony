@@ -4,6 +4,7 @@ var highlight;
 var layers = {grid: []};
 var map;
 var markers = [];
+var all_sections = [];
 
 var popWinSpecs = {
     'countries_*' :                 'width=860,height=630,resizable=1',

@@ -5,6 +5,8 @@ use App\Entity\Listener as ListenerEntity;
 use App\Form\Listeners\ListenerView as ListenerViewForm;
 use App\Repository\CountryRepository;
 use App\Repository\ListenerRepository;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 use Symfony\Component\HttpFoundation\Request;
 use App\Utils\Rxx;
@@ -35,7 +37,7 @@ class ListenerView extends Base
      * @param CountryRepository $countryRepository
      * @param ListenerViewForm $listenerViewForm
      * @param ListenerRepository $listenerRepository
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @return RedirectResponse|Response
      */
     public function controller(
         $_locale,

@@ -1,0 +1,47 @@
+{% if awards[award] is defined and awards[award].total is defined and awards[award].total %}
+    <h2 id="toggle_{{ award }}">
+        <span style="display:none">&#9744;</span><span>&#9746;</span>
+        {{ award_title }}
+        {% trans with { '%TOTAL%' : awards[award].total } %}(%TOTAL% qualifying pairs of NDBs){% endtrans %}
+    </h2>
+    <div id="{{ award }}" style="margin:0 0 1em 1.5em">
+        <div class="row">
+            <div class="small-12 columns" style="padding: 0">{{ award_info }}</div>
+        </div>
+        <div class="row">
+            <div class="small-12 columns" style="padding: 0">
+                <table class="results very-short award-signals">
+                    <thead>
+                    <tr>
+                        <th>{% trans %}Stations{% endtrans %}</th>
+                        <th>{% trans %}East Coast{% endtrans %}</th>
+                        <th>{% trans %}Weat Coast{% endtrans %}</th>
+                        <th class="cart">{% trans %}Order{% endtrans %}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% set previous = 0 %}
+                    {% for key, range in awards[award] %}{% if key != 'total' %}
+                        {% set qualified = (range['e']|length + previous == key) %}
+                        <tr>
+                            <td style="white-space: nowrap">{{ key }} {% trans %}on each coast{% endtrans %}</td>
+                            <td class="monospace{% if (not qualified) %} unqualified{% endif %}">
+                                {% for s in range['e'] %}
+                                    <div{% if s.required %} class="required"{% endif %}><a href="{{ url('signal', { 'system' : system, 'id': s.id }) }}" data-popup="1">{{ "%'_-10.10s" | format(s.khz ~ '-' ~ s.call) | replace({'_' : '&nbsp;'}) | raw }}({{ s.place}})</a></div>
+                                {% endfor %}
+                            </td>
+                            <td class="monospace{% if (not qualified) %} unqualified{% endif %}">
+                                {% for s in range['w'] %}
+                                    <div{% if s.required %} class="required"{% endif %}><a href="{{ url('signal', { 'system' : system, 'id': s.id }) }}" data-popup="1">{{ "%'_-10.10s" | format(s.khz ~ '-' ~ s.call) | replace({'_' : '&nbsp;'}) | raw }}({{ s.place}})</a></div>
+                                {% endfor %}
+                            </td>
+                            <td class="cart">{% if (qualified) %}[icon]{% else %}&nbsp;{% endif %}</td>
+                        </tr>
+                        {% set previous = previous + range['e']|length %}
+                    {% endif %}{% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endif %}

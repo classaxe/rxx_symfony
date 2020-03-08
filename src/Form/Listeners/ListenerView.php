@@ -1,17 +1,9 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: mfrancis
- * Date: 2018-06-18
- * Time: 12:08
- */
-
 namespace App\Form\Listeners;
 
 use App\Repository\CountryRepository;
-use App\Repository\StateRepository;
-
 use App\Repository\RegionRepository;
+use App\Repository\StateRepository;
 use App\Repository\TypeRepository;
 
 use Symfony\Component\Form\AbstractType;

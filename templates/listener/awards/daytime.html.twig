@@ -1,4 +1,4 @@
 {% set award = 'daytime' %}
 {% set award_title = "Daytime DX Awards (Daytime hours are %START% - %END% hrs UTC)" | trans({ '%START%' : daytime_start, '%END%' : daytime_end }) %}
 {% set award_info = "This certificate recognises long distance reception of NDBs between the hours of 1000 and 1400 local standard time - that is, two hours before and afer noon in the listener's timezone." | trans %}
-{% include 'listener/awards/dx.html.twig' %}
+{% include 'listener/awards/_dx.html.twig' %}

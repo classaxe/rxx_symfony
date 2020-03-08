@@ -68,23 +68,33 @@ class AwardRepository
         'lt' => [ 'call' => 'LT', 'khz' => 305 ],
         'transatlantic' => [
             'eu' => [
-                'CON' => [ 'ca', 'na', 'sa' ],
+                'LOC' => [ 'ca', 'na', 'sa' ],
                 'QTY' => [ 1, 10 ]
             ],
             'na' => [
-                'CON' => [ 'af', 'eu' ],
+                'LOC' => [ 'af', 'eu' ],
                 'QTY' => [ 1, 3 ]
             ]
         ],
         'transpacific' => [
             'ca,na,sa' => [
                 'LOC' => [ 'as',  'AUS', 'NZL', 'PNG' ],
-                'QTY' => [ 1, 2, 3, 4 ]
+                'QTY' =>    [ 1, 2, 3, 4 ]
             ],
             'as,AUS,NZL,PNG' => [
                 'LOC' => [ 'ca', 'na', 'sa' ],
                 'QTY' => [ 1, 2, 3, 4 ]
             ]
+        ],
+        'transcontinental_canada'  => [
+            'SP_E' =>   [ 'NB', 'NL', 'PE' ],
+            'SP_W' =>   [ 'BC' ],
+            'QTY' =>    [ 1, 2, 4, 6 ]
+        ],
+        'transcontinental_us'  => [
+            'SP_E' =>   [ 'CT', 'DE', 'FL', 'GA' , 'MA', 'MD', 'ME', 'NC', 'NH', 'NJ', 'NY', 'RI', 'SC', 'VA' ],
+            'SP_W' =>   [ 'AK', 'CA', 'OR', 'WA' ],
+            'QTY' =>    [ 1, 2, 3, 4 ]
         ]
     ];
 

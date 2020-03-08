@@ -1,0 +1,22 @@
+{% set award = 'transatlantic' %}
+{% set award_title = "Transatlantic DX Awards" | trans %}
+{% set award_info =
+      "This is probably the most challenging award of the program, even at its first level. However, there is a lot of interest on both sides of the Atlantic in transoceanic NDB DX." | trans
+    ~ "To qualify, listeners must hear NDBs on the other side." | trans
+    ~ "<ul>"
+    ~ "    <li>" ~ "European listeners may count NDBs in Greenland, Canada, the United States and the islands of the caribbean as well as Central and South America." | trans ~ "</li>"
+    ~ "    <li>" ~ "North American listeners may count NDBs in the Azores, the Canary Islands and Cape Verde as well as those on the European and African continents proper." | trans ~ "</li>"
+    ~ "</ul>"
+%}
+{% include 'listener/awards/_signals.html.twig' %}
+
+{% set award = 'transpacific' %}
+{% set award_title = "Transpacific DX Awards" | trans %}
+{% set award_info =
+    'Yes, we must also be fair to those interested in the "Really Big Pond". This certificate recognises reception of NDBs across the pacific in either direction.' | trans
+    ~ "<ul>"
+    ~ "    <li>" ~ "For listeners in North, central or South America qualifying beacons must be in Asian countries or on Australian mainland, in New Zealand or Papua New Guinea, but not other countries in Oceania." | trans ~ "</li>"
+    ~ "    <li>" ~ "For listeners in Asia, Australia, New Zealand or Papua New Guinea qualifying beacons must be in North, Central or South America" | trans ~ "</li>"
+    ~ "</ul>"
+%}
+{% include 'listener/awards/_signals.html.twig' %}

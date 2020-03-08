@@ -1,8 +1,12 @@
 <?php
 namespace App\Controller\Web\Listeners;
 
+use App\Form\Listeners\ListenerAward as ListenerAwardForm;
 use App\Repository\AwardRepository;
 use App\Repository\ListenerRepository;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 
 /**
@@ -31,16 +35,19 @@ class ListenerAwards extends Base
      * @param $system
      * @param $id
      * @param $filter
+     * @param Request $request
      * @param AwardRepository $awardRepository
      * @param ListenerRepository $listenerRepository
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @return RedirectResponse|Response
      */
     public function controller(
         $_locale,
         $system,
         $id,
         $filter,
+        Request $request,
         AwardRepository $awardRepository,
+        ListenerAwardForm $listenerAwardForm,
         ListenerRepository $listenerRepository
     ) {
         $this->awardRepository = $awardRepository;
@@ -81,13 +88,23 @@ class ListenerAwards extends Base
                     $awards[$type] = $this->getNorth60($type);
                     break;
                 case 'transatlantic':
-                    $awards[$type] = $this->getTransatlantic($type);
-                    break;
                 case 'transpacific':
-                    $awards[$type] = $this->getTranspacific($type);
+                    $awards[$type] = $this->getTransoceanic($type);
+                    break;
+                case 'transcontinental':
+                    $awards[$type] = $this->getTranscontinental($type);
                     break;
             }
         }
+        $options = [
+            'email' =>  $this->listener->getEmail(),
+            'id' =>     $this->listener->getId()
+        ];
+        $form = $listenerAwardForm->buildForm(
+            $this->createFormBuilder(),
+            $options
+        );
+        $form->handleRequest($request);
 
         $daytime = $listenerRepository->getDaytimeHours($this->listener->getTimezone());
         $parameters = [
@@ -98,6 +115,7 @@ class ListenerAwards extends Base
             'awards' =>             $awards,
             'daytime_start' =>      $daytime['start'],
             'daytime_end' =>        $daytime['end'],
+            'form' =>               $form->createView(),
             'l' =>                  $this->listener,
             'repo' =>               $listenerRepository,
             'logs' =>               $this->listener->getCountLogs(),
@@ -306,37 +324,46 @@ class ListenerAwards extends Base
     }
 
     /**
-     * @param $award
+     * @param string $award
      * @return array|bool
      */
-    private function getTransatlantic($award)
+    private function getTranscontinental(string $award)
     {
-        $specs = $this->awardRepository->getAwardSpec($award);
-        if (!in_array($this->listener->getRegion(), array_keys($specs))) {
-            return false;
-        }
-        $spec = $specs[$this->listener->getRegion()];
-        $filtered = [];
+        $spec = $this->awardRepository->getAwardSpec($award);
+
+        $result = [];
+
+        $e = [];
+        $w = [];
         foreach ($this->signals as $s) {
-            if (!in_array($s['region'], $spec['CON'])) {
+            if (in_array($s['sp'], $spec['SP_E'])) {
+                $e[$s['khz'].'-'.$s['call']] = $s;
                 continue;
             }
-            $filtered[$s['khz'].'-'.$s['call']] = $s;
+            if (in_array($s['sp'], $spec['SP_W'])) {
+                $w[$s['khz'].'-'.$s['call']] = $s;
+                continue;
+            }
         }
-        $result = [ 'total' => count($filtered) ];
+        $result['total'] = min(count($e), count($w));
+
         $offset = 0;
         foreach ($spec['QTY'] as $range) {
             $result[$range] = [];
             $taken = count($result[$range]);
             for ($i = 0; $i < $range - $offset - $taken; $i++) {
-                if (count($filtered)) {
-                    $f = array_shift($filtered);
-                    $f['required'] = false;
-                    $result[$range][] = $f;
+                if (count($e) && count($w)) {
+                    $_e = array_shift($e);
+                    $_e['required'] = false;
+                    $_w = array_shift($w);
+                    $_w['required'] = false;
+                    $result[$range]['e'][] = $_e;
+                    $result[$range]['w'][] = $_w;
                 }
             }
             $offset = $range;
         }
+//        print "<pre>" . print_r($result, true) . "</pre>"; die;
         return $result;
     }
 
@@ -344,7 +371,7 @@ class ListenerAwards extends Base
      * @param string $award
      * @return array|bool
      */
-    private function getTranspacific(string $award)
+    private function getTransoceanic(string $award)
     {
         $specs = $this->awardRepository->getAwardSpec($award);
         $spec = false;

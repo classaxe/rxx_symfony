@@ -1,0 +1,9 @@
+{% set award = 'transcontinental_canada' %}
+{% set award_title = "Canadian Transcontinental NDB DX Award" | trans %}
+{% set award_info = "This cerificate recognises reception of NDBs on Pacific and Atlantic coasts of Canada (i.e. British Columbia and any of the Maritime Provinces). Qualifying beacons must be in these provinces but do not have to literally be on the shoreline." | trans %}
+{% include 'listener/awards/_transcontinental.html.twig' %}
+
+{% set award = 'transcontinental_us' %}
+{% set award_title = "US Transcontinental NDB DX Award" | trans %}
+{% set award_info = "This cerificate recognises reception of NDBs on Pacific and Atlantic coasts of continental United States. Qualifying beacons must be in states with oceanic shorelibes (excluding the Gulf of Mexico)." | trans %}
+{% include 'listener/awards/_transcontinental.html.twig' %}

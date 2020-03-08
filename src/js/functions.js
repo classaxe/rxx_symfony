@@ -373,10 +373,10 @@ function setFormCollapseSections() {
     );
 }
 
-function setAwardsShowHide(zones) {
+function setAwardsShowHide() {
     var i, zone;
-    for (i in zones) {
-        zone = zones[i];
+    for (i in all_sections) {
+        zone = all_sections[i];
         $('#toggle_' + zone)
             .css({ 'cursor' : 'pointer' })
             .prop('title', msg.show_hide)
@@ -388,30 +388,24 @@ function setAwardsShowHide(zones) {
             )
             .find('span').css({'font-size': '120%'});
     }
+    $('#all_0').click(function() { setAwardsShowHideAll(0); return false; });
+    $('#all_1').click(function() { setAwardsShowHideAll(1); return false; });
 }
 
-// function setAwardsCollapse() {
-//     var zones = ['about', 'daytime', 'longranger'];
-//     for (var i in zones)
-//     $('#toggle_about').click(
-//         function() {
-//             $('#about').toggle();
-//             $(this).find('span').toggle();
-//         }
-//     );
-//     $('#toggle_daytime').click(
-//         function() {
-//             $('#daytime').toggle();
-//             $(this).find('span').toggle();
-//         }
-//     );
-//     $('#toggle_daytime').click(
-//         function() {
-//             $('#daytime').toggle();
-//             $(this).find('span').toggle();
-//         }
-//     );
-// }
+function setAwardsShowHideAll(show) {
+    var i;
+    for (i in all_sections) {
+        if (show) {
+            $('#' + all_sections[i]).show();
+            $('#toggle_' + all_sections[i]).find('span:eq(0)').hide();
+            $('#toggle_' + all_sections[i]).find('span:eq(1)').show();
+        } else {
+            $('#' + all_sections[i]).hide();
+            $('#toggle_' + all_sections[i]).find('span:eq(0)').show();
+            $('#toggle_' + all_sections[i]).find('span:eq(1)').hide();
+        }
+    }
+}
 
 function setFormCountryAction(enable) {
     enable = typeof enable !== 'undefined' ? enable : true;
