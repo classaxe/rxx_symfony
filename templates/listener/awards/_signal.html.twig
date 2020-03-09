@@ -40,7 +40,7 @@
                         <th class="num">{% trans %}KM{% endtrans %}</th>
                         <th>{% trans %}Date{% endtrans %}</th>
                         <th class="num">{% trans %}UTC{% endtrans %}</th>
-                        <th class="cart">{% trans %}Order{% endtrans %}</th>
+                        <th>{% trans %}Order{% endtrans %}</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -58,7 +58,7 @@
                             <td class="num">{{ signal['dxKm'] }}</td>
                             <td class="text-nowrap">{{ signal['logDate'] }}</td>
                             <td class="num">{{ signal['logTime'] }}</td>
-                            <td class="cart">[icon]</td>
+                            <td class="cart" id="{{ award }}">[icon]</td>
                         </tr>
                     </tbody>
                 </table>

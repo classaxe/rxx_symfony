@@ -41,7 +41,7 @@
                         {{ form_widget(form.email) }}
                     </div>
                 </div>
-                <div class="row" style="height:10em">
+                <div class="row" style="height:16em">
                     <div class="small-1 columns">
                         {{ form_label(form.body) }}
                     </div>
@@ -59,10 +59,16 @@
 </div>
 {% include 'js_trans.html.twig' %}
 <script>
-    $(document).ready( function() {
-        all_sections = ['about', '{{ award_types | join("', '") | raw }}'];
-        setExternalLinks();
-        setAwardsShowHide();
-    });
+award = {
+    'admin' : "{{ systems[system]['awards'][0]['name'] }}",
+    'from' :  "{{ l.formattedNameAndLocation }}",
+    'name' :  "{{ l.name }}",
+    'url' :   "{{ url('listener_awards', { 'system' : system, 'id' : id}) }}",
+};
+$(document).ready( function() {
+    all_sections = ['about', '{{ award_types | join("', '") | raw }}'];
+    setExternalLinks();
+    setAwardsActions();
+});
 </script>
 {% endblock %}

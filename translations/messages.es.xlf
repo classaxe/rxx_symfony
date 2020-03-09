@@ -3583,6 +3583,74 @@
         <source>Yes, we must also be fair to those interested in the "Really Big Pond". This certificate recognises reception of NDBs across the pacific in either direction.</source>
         <target>__Yes, we must also be fair to those interested in the "Really Big Pond". This certificate recognises reception of NDBs across the pacific in either direction.</target>
       </trans-unit>
+      <trans-unit id="zoeLOPX" resname="(No awards have been selected)">
+        <source>(No awards have been selected)</source>
+        <target>__(No awards have been selected)</target>
+      </trans-unit>
+      <trans-unit id="J0Tt0SX" resname="NDB LIST AWARD REQUEST:">
+        <source>NDB LIST AWARD REQUEST:</source>
+        <target>__NDB LIST AWARD REQUEST:</target>
+      </trans-unit>
+      <trans-unit id="K1.FyU9" resname="To:">
+        <source>To:</source>
+        <target>__To:</target>
+      </trans-unit>
+      <trans-unit id="3EXTbzX" resname="From:">
+        <source>From:</source>
+        <target>__From:</target>
+      </trans-unit>
+      <trans-unit id="DFQ7qLs" resname="Url:">
+        <source>Url:</source>
+        <target>__Url:</target>
+      </trans-unit>
+      <trans-unit id="4kTnXRO" resname="I would like to request the following awards, based upon my published logs in RNA / REU / RWW.">
+        <source>I would like to request the following awards, based upon my published logs in RNA / REU / RWW.</source>
+        <target>__I would like to request the following awards, based upon my published logs in RNA / REU / RWW.</target>
+      </trans-unit>
+      <trans-unit id="dmZeoXa" resname="I confirm that have not previously received these awards.">
+        <source>I confirm that have not previously received these awards.</source>
+        <target>__I confirm that have not previously received these awards.</target>
+      </trans-unit>
+      <trans-unit id="aUVm8rg" resname="Sincerely,">
+        <source>Sincerely,</source>
+        <target>__Sincerely,</target>
+      </trans-unit>
+      <trans-unit id="sf3Xa_k" resname="West Coast">
+        <source>West Coast</source>
+        <target>__West Coast</target>
+      </trans-unit>
+      <trans-unit id="OhtzWqA" resname="This certificate recognises reception of NDBs on Pacific and Atlantic coasts of Canada (i.e. British Columbia and any of the Maritime Provinces). Qualifying beacons must be in these provinces but do not have to literally be on the shoreline.">
+        <source>This certificate recognises reception of NDBs on Pacific and Atlantic coasts of Canada (i.e. British Columbia and any of the Maritime Provinces). Qualifying beacons must be in these provinces but do not have to literally be on the shoreline.</source>
+        <target>__This certificate recognises reception of NDBs on Pacific and Atlantic coasts of Canada (i.e. British Columbia and any of the Maritime Provinces). Qualifying beacons must be in these provinces but do not have to literally be on the shoreline.</target>
+      </trans-unit>
+      <trans-unit id="agSQd5B" resname="This certificate recognises reception of NDBs on Pacific and Atlantic coasts of continental United States. Qualifying beacons must be in states with oceanic shorelibes (excluding the Gulf of Mexico).">
+        <source>This certificate recognises reception of NDBs on Pacific and Atlantic coasts of continental United States. Qualifying beacons must be in states with oceanic shorelibes (excluding the Gulf of Mexico).</source>
+        <target>__This certificate recognises reception of NDBs on Pacific and Atlantic coasts of continental United States. Qualifying beacons must be in states with oceanic shorelibes (excluding the Gulf of Mexico).</target>
+      </trans-unit>
+      <trans-unit id="01OpnrR" resname="Cancelled">
+        <source>Cancelled</source>
+        <target>__Cancelled</target>
+      </trans-unit>
+      <trans-unit id="riEkotm" resname="CONFIRM ORDER">
+        <source>CONFIRM ORDER</source>
+        <target>__CONFIRM ORDER</target>
+      </trans-unit>
+      <trans-unit id="uHSFvN4" resname="Please verify the details in this form, including the 'Reply To:' email address where awards will be sent.">
+        <source>Please verify the details in this form, including the 'Reply To:' email address where awards will be sent.</source>
+        <target>__Please verify the details in this form, including the 'Reply To:' email address where awards will be sent.</target>
+      </trans-unit>
+      <trans-unit id="QdnFDNR" resname="* Press 'Cancel' if you wish to go back and make changes.">
+        <source>* Press 'Cancel' if you wish to go back and make changes.</source>
+        <target>__* Press 'Cancel' if you wish to go back and make changes.</target>
+      </trans-unit>
+      <trans-unit id="Li4OxKQ" resname="* Press 'OK' to send your request now.">
+        <source>* Press 'OK' to send your request now.</source>
+        <target>__* Press 'OK' to send your request now.</target>
+      </trans-unit>
+      <trans-unit id="2YAnOYr" resname="Operation cancelled">
+        <source>Operation cancelled</source>
+        <target>__Operation cancelled</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

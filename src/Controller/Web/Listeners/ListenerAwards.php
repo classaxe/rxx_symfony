@@ -66,8 +66,15 @@ class ListenerAwards extends Base
         $award_types = array_keys(AwardRepository::AWARDSPEC);
         $awards = [];
         foreach ($award_types as $type) {
-            if ('*' !== $filter && !in_array($type, explode(',', $filter))) {
-                continue;
+            if ('*' !== $filter) {
+                $types = explode(',', $filter);
+                $base_types = [];
+                foreach ($types as $t) {
+                    $base_types[] = explode('-', $t)[0];
+                }
+                if (!in_array($type, $base_types)) {
+                    continue;
+                }
             }
             $family = explode('_', $type)[0];
             switch($family) {

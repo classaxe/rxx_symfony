@@ -26,28 +26,28 @@ class ListenerAward extends AbstractType
                 'id',
                 HiddenType::class,
                 [
-                    'data'          => $options['id']
+                    'data' =>       $options['id']
                 ]
             )
             ->add(
                 'email',
                 TextType::class,
                 [
-                    'data'          => $options['email'],
-                    'empty_data'    => '',
-                    'label'         => 'Reply To',
+                    'data' =>       $options['email'],
+                    'empty_data' => '',
+                    'label' =>      'Reply To:',
                 ]
             )
             ->add(
                 'body',
                 TextareaType::class,
                 [
-                    'attr'          => [
-                        'style'         => "height: 12em;"
+                    'attr' => [
+                        'class' =>  'monospace',
+                        'style' =>  'height: 20em'
                     ],
-                    'empty_data'    => '',
-                    'label'         => 'Message',
-                    'required'      => false
+                    'label' =>      'Message:',
+                    'required' =>   false
                 ]
             )
             ->add(
@@ -55,10 +55,11 @@ class ListenerAward extends AbstractType
                 SubmitType::class,
                 [
                     'attr' => [
-                        'class' => 'button',
-                        'style' => 'padding: 0.25em 1em; width: auto'
+                        'class' =>  'button',
+                        'disabled' => 'disabled',
+                        'style' =>  'padding: 0.25em 1em; width: auto'
                     ],
-                    'label' => 'Place Order',
+                    'label' =>      'Order',
                 ]
             );
 

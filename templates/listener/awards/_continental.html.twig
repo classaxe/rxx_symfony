@@ -30,7 +30,7 @@
                     <thead>
                     <tr>
                         <th>{% trans %}NDB List Country codes{% endtrans %}</th>
-                        <th class="cart">{% trans %}Order{% endtrans %}</th>
+                        <th>{% trans %}Order{% endtrans %}</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -39,7 +39,7 @@
 {% set qualified = (range|length + previous == key) %}
                         <tr>
                             <td class="monospace{% if (not qualified) %} unqualified{% endif %}">{{ range | join(' ')}}</td>
-                            <td class="cart">{% if (qualified) %}[icon]{% else %}&nbsp;{% endif %}</td>
+                            <td{% if (qualified) %} class="cart" id="{{ award }}-{{ key|split('|')[0] }}"{% endif %}>&nbsp;</td>
                         </tr>
 {% set previous = previous + range|length %}
 {% endif %}{% endfor %}

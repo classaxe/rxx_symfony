@@ -15,7 +15,7 @@
                     <tr>
                         <th>{% trans %}NDBs{% endtrans %}</th>
                         <th>{% trans %}Qualifying Signals{% endtrans %}</th>
-                        <th class="cart">{% trans %}Order{% endtrans %}</th>
+                        <th >{% trans %}Order{% endtrans %}</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -27,9 +27,7 @@
                             <td class="monospace{% if (not qualified) %} unqualified{% endif %}">
                                 {% for s in signals %}<div{% if s.required %} class="required"{% endif %}><a href="{{ url('signal', { 'system' : system, 'id': s.id }) }}" data-popup="1">{{ "%'_-10.10s" | format(s.khz ~ '-' ~ s.call) | replace({'_' : '&nbsp;'}) | raw }}({{ s.place}})</a></div>{% endfor %}
                             </td>
-                            <td class="cart">
-                                {% if (qualified) %}[icon]{% else %}&nbsp;{% endif %}
-                            </td>
+                            <td{% if (qualified) %} class="cart" id="{{ award }}-{{ key }}"{% endif %}></td>
                         </tr>
                         {% set previous = previous + signals|length %}
                     {% endif %}{% endfor %}

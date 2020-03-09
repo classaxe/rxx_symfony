@@ -5,6 +5,8 @@ var layers = {grid: []};
 var map;
 var markers = [];
 var all_sections = [];
+var award = {};
+var cart = [];
 
 var popWinSpecs = {
     'countries_*' :                 'width=860,height=630,resizable=1',
