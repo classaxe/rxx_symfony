@@ -3,10 +3,7 @@
     "license": "proprietary",
     "require": {
         "php": "^7.2",
-        "ext-dom": "*",
-        "ext-gd": "*",
         "ext-iconv": "*",
-        "ext-posix": "*",
         "beberlei/doctrineextensions": "^1.2.0",
         "doctrine/doctrine-bundle": "^1.9",
         "friendsofsymfony/rest-bundle": "^2.7",
@@ -19,7 +16,6 @@
         "symfony/flex": "^1.0",
         "symfony/form": "^4.1",
         "symfony/framework-bundle": "^4.1",
-        "symfony/mailer": "^4.1",
         "symfony/monolog-bundle": "^3.3",
         "symfony/orm-pack": "*",
         "symfony/process": "^4.1",
@@ -34,8 +30,9 @@
         "symfony/var-dumper": "^4.1",
         "symfony/web-link": "^4.1",
         "symfony/yaml": "^4.1",
-        "twig/cssinliner-extra": "^3.0",
-        "twig/extra-bundle": "^3.0"
+      "ext-posix": "*",
+      "ext-gd": "*",
+      "ext-dom": "*"
     },
     "require-dev": {
         "symfony/browser-kit": "^4.1",
