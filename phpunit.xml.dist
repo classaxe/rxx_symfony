@@ -16,6 +16,10 @@
         <env name="SHELL_VERBOSITY" value="-1" />
         <!-- define your env variables for the test env here -->
         <!-- Please note that the bootstrap above allows .env variables to be used -->
+
+        <!-- ###+ symfony/mailer ### -->
+        <!-- MAILER_DSN=smtp://localhost -->
+        <!-- ###- symfony/mailer ### -->
     </php>
 
     <testsuites>
