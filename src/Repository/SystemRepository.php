@@ -6,22 +6,25 @@ class SystemRepository
 {
     const AUTHORS = [
         [
-            'email' =>  'martin@classaxe.com',
-            'name' =>   'Martin Francis',
-            'role' =>   '(Software Development)'
+            'email' =>      'martin@classaxe.com',
+            'name' =>       'Martin Francis',
+            'role' =>       'Software Development',
+            'show_email' => true
         ],
         [
-            'email' =>  '',
-            'name' =>   'Andy Robins',
-            'role' =>   '(Initial Concept)'
+            'email' =>      'kb8qgf@gmail.com',
+            'name' =>       'Andy Robins',
+            'role' =>       'Initial Concept',
+            'show_email' => false
         ],
     ];
 
     const AWARDS = [
         [
-            'email' =>  '',
-            'name' =>   'Joseph Miller, KJ8O',
-            'role' =>   '(Awards Coordinator)'
+            'email' =>      'kj8o.ham@gmail.com',
+            'name' =>       'Joseph Miller, KJ8O',
+            'role' =>       'Awards Coordinator',
+            'show_email' => false
         ]
     ];
 
@@ -31,19 +34,22 @@ class SystemRepository
             'awards' =>     self::AWARDS,
             'editors' =>    [
                 [
-                    'email' =>  'peterconway@talktalk.net',
-                    'name' =>   'Peter Conway',
-                    'role' =>   '(for DSC signals)'
+                    'email' =>      'peterconway@talktalk.net',
+                    'name' =>       'Peter Conway',
+                    'role' =>       'DSC Signals',
+                    'show_email' => true
                 ],
                 [
-                    'email' =>  'smoketronics@comcast.net',
-                    'name' =>   'S M O\'Kelley',
-                    'role' =>   '(for NDBs and Ham Beacons)'
+                    'email' =>      'smoketronics@comcast.net',
+                    'name' =>       'S M O\'Kelley',
+                    'role' =>       'NDBs and Ham Beacons',
+                    'show_email' => true
                 ],
                 [
-                    'email' =>  'roelof@ndb.demon.nl',
-                    'name' =>   'Roelof Bakker',
-                    'role' =>   '(for DGPS and Navtex signals)'
+                    'email' =>      'roelof@ndb.demon.nl',
+                    'name' =>       'Roelof Bakker',
+                    'role' =>       'DGPS and Navtex',
+                    'show_email' => true
                 ],
             ],
             'menu' =>       'North America (RNA)',
@@ -54,24 +60,28 @@ class SystemRepository
             'awards' =>     self::AWARDS,
             'editors' =>    [
                 [
-                    'email' =>  'aunumero73@gmail.com',
-                    'name' =>   'Pat Vignoud',
-                    'role' =>   '(for NDBs)'
+                    'email' =>      'aunumero73@gmail.com',
+                    'name' =>       'Pat Vignoud',
+                    'role' =>       'NDBs',
+                    'show_email' => true
                 ],
                 [
-                    'email' =>  'peterconway@talktalk.net',
-                    'name' =>   'Peter Conway',
-                    'role' =>   '(for DSC signals)'
+                    'email' =>      'peterconway@talktalk.net',
+                    'name' =>       'Peter Conway',
+                    'role' =>       'DSC Signals',
+                    'show_email' => true
                 ],
                 [
-                    'email' =>  'smoketronics@comcast.net',
-                    'name' =>   'S M O\'Kelley',
-                    'role' =>   '(for Ham Beacons)'
+                    'email' =>      'smoketronics@comcast.net',
+                    'name' =>       'S M O\'Kelley',
+                    'role' =>       'Ham Beacons',
+                    'show_email' => true
                 ],
                 [
-                    'email' =>  'roelof@ndb.demon.nl',
-                    'name' =>   'Roelof Bakker',
-                    'role' =>   '(for DGPS and Navtex signals)'
+                    'email' =>      'roelof@ndb.demon.nl',
+                    'name' =>       'Roelof Bakker',
+                    'role' =>       'DGPS and Navtex',
+                    'show_email' => true
                 ],
             ],
             'menu' =>       'Europe (REU)',
@@ -82,19 +92,22 @@ class SystemRepository
             'awards' =>     self::AWARDS,
             'editors' =>    [
                 [
-                    'email' =>  'peterconway@talktalk.net',
-                    'name' =>   'Peter Conway',
-                    'role' =>   '(for DSC signals)'
+                    'email' =>      'peterconway@talktalk.net',
+                    'name' =>       'Peter Conway',
+                    'role' =>       'DSC Signals',
+                    'show_email' => true
                 ],
                 [
-                    'email' =>  'smoketronics@comcast.net',
-                    'name' =>   'S M O\'Kelley',
-                    'role' =>   '(for NDBs and Ham Beacons)'
+                    'email' =>      'smoketronics@comcast.net',
+                    'name' =>       'S M O\'Kelley',
+                    'role' =>       'NDBs and Ham Beacons',
+                    'show_email' => true
                 ],
                 [
-                    'email' =>  'roelof@ndb.demon.nl',
-                    'name' =>   'Roelof Bakker',
-                    'role' =>   '(for DGPS and Navtex signals)'
+                    'email' =>      'roelof@ndb.demon.nl',
+                    'name' =>       'Roelof Bakker',
+                    'role' =>       'DGPS and Navtex',
+                    'show_email' => true
                 ],
             ],
             'menu' =>       'Worldwide (RWW)',

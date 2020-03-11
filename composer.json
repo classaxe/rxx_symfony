@@ -3,7 +3,10 @@
     "license": "proprietary",
     "require": {
         "php": "^7.2",
+        "ext-dom": "*",
+        "ext-gd": "*",
         "ext-iconv": "*",
+        "ext-posix": "*",
         "beberlei/doctrineextensions": "^1.2.0",
         "doctrine/doctrine-bundle": "^1.9",
         "friendsofsymfony/rest-bundle": "^2.7",
@@ -23,16 +26,13 @@
         "symfony/serializer": "^4.1",
         "symfony/serializer-pack": "*",
         "symfony/stopwatch": "^4.1",
-        "symfony/swiftmailer-bundle": "^3.1",
+        "symfony/swiftmailer-bundle": "^3.4",
         "symfony/translation": "^4.1",
         "symfony/twig-bundle": "^4.1",
         "symfony/validator": "^4.1",
         "symfony/var-dumper": "^4.1",
         "symfony/web-link": "^4.1",
-        "symfony/yaml": "^4.1",
-      "ext-posix": "*",
-      "ext-gd": "*",
-      "ext-dom": "*"
+        "symfony/yaml": "^4.1"
     },
     "require-dev": {
         "symfony/browser-kit": "^4.1",

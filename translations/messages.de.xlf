@@ -3651,6 +3651,58 @@
         <source>Operation cancelled</source>
         <target>__Operation cancelled</target>
       </trans-unit>
+      <trans-unit id="Mb121ji" resname="DSC Signals">
+        <source>DSC Signals</source>
+        <target>__DSC Signals</target>
+      </trans-unit>
+      <trans-unit id="yrMKOBk" resname="NDBs and Ham Beacons">
+        <source>NDBs and Ham Beacons</source>
+        <target>__NDBs and Ham Beacons</target>
+      </trans-unit>
+      <trans-unit id="kVFhsHz" resname="DGPS and Navtex">
+        <source>DGPS and Navtex</source>
+        <target>__DGPS and Navtex</target>
+      </trans-unit>
+      <trans-unit id="FThcV87" resname="Awards Coordinator">
+        <source>Awards Coordinator</source>
+        <target>__Awards Coordinator</target>
+      </trans-unit>
+      <trans-unit id="r5CH0W5" resname="Software Development">
+        <source>Software Development</source>
+        <target>__Software Development</target>
+      </trans-unit>
+      <trans-unit id="cQFrX56" resname="Initial Concept">
+        <source>Initial Concept</source>
+        <target>__Initial Concept</target>
+      </trans-unit>
+      <trans-unit id="20fGo6K" resname="Ham Beacons">
+        <source>Ham Beacons</source>
+        <target>__Ham Beacons</target>
+      </trans-unit>
+      <trans-unit id="Qc22GO5" resname="{Asian NDB DX Awards">
+        <source>{Asian NDB DX Awards</source>
+        <target>__{Asian NDB DX Awards</target>
+      </trans-unit>
+      <trans-unit id="dEXIsSz" resname="Scandinavian NDB Award">
+        <source>Scandinavian NDB Award</source>
+        <target>__Scandinavian NDB Award</target>
+      </trans-unit>
+      <trans-unit id="QzDpIoi" resname="For listeners in Asia, Australia or Papua New Guinea qualifying beacons must be in North, Central or South America">
+        <source>For listeners in Asia, Australia or Papua New Guinea qualifying beacons must be in North, Central or South America</source>
+        <target>__For listeners in Asia, Australia or Papua New Guinea qualifying beacons must be in North, Central or South America</target>
+      </trans-unit>
+      <trans-unit id="Z8SY5QQ" resname="Reply To:">
+        <source>Reply To:</source>
+        <target>__Reply To:</target>
+      </trans-unit>
+      <trans-unit id="JoPK1Io" resname="Name:">
+        <source>Name:</source>
+        <target>__Name:</target>
+      </trans-unit>
+      <trans-unit id="F1B9z4R" resname="Email:">
+        <source>Email:</source>
+        <target>__Email:</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

@@ -30,12 +30,32 @@ class ListenerAward extends AbstractType
                 ]
             )
             ->add(
+                'awards',
+                HiddenType::class
+            )
+            ->add(
+                'filter',
+                HiddenType::class
+            )
+            ->add(
+                'name',
+                TextType::class,
+                [
+                    'attr' => [
+                        'readonly' => 'readonly',
+                    ],
+                    'data' =>       $options['name'],
+                    'empty_data' => '',
+                    'label' =>      'Name:',
+                ]
+            )
+            ->add(
                 'email',
                 TextType::class,
                 [
                     'data' =>       $options['email'],
                     'empty_data' => '',
-                    'label' =>      'Reply To:',
+                    'label' =>      'Email:',
                 ]
             )
             ->add(
@@ -44,6 +64,7 @@ class ListenerAward extends AbstractType
                 [
                     'attr' => [
                         'class' =>  'monospace',
+                        'readonly' => 'readonly',
                         'style' =>  'height: 20em'
                     ],
                     'label' =>      'Message:',

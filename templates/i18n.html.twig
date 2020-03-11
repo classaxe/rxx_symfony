@@ -32,14 +32,14 @@
 {% endif %}
 {% if 'Footer' %}
     {% trans %}Your %s Editors are:{% endtrans %}
-    {% trans %}(for DSC signals){% endtrans %}
-    {% trans %}(for NDBs and Ham Beacons){% endtrans %}
-    {% trans %}(for DGPS and Navtex signals){% endtrans %}
-    {% trans %}(Awards Coordinator){% endtrans %}
-    {% trans %}(Software Development){% endtrans %}
-    {% trans %}(Initial Concept){% endtrans %}
-    {% trans %}(for NDBs){% endtrans %}
-    {% trans %}(for Ham Beacons){% endtrans %}
+    {% trans %}DSC Signals{% endtrans %}
+    {% trans %}NDBs and Ham Beacons{% endtrans %}
+    {% trans %}DGPS and Navtex{% endtrans %}
+    {% trans %}Awards Coordinator{% endtrans %}
+    {% trans %}Software Development{% endtrans %}
+    {% trans %}Initial Concept{% endtrans %}
+    {% trans %}NDBs{% endtrans %}
+    {% trans %}Ham Beacons{% endtrans %}
 {% endif %}
 {% if 'Regions' %}
     {% trans %}(All Regions){% endtrans %}
@@ -808,7 +808,7 @@
         {% trans %}Available in the following categories:{% endtrans %}
     {% trans %}South American NDB DX Awards{% endtrans %}
     {% trans %}African NDB DX Awards{% endtrans %}
-    {% trans %}{Asian NDB DX Awards% endtrans %}
+    {% trans %}{Asian NDB DX Awards{% endtrans %}
     {% trans %}Australian and Pacific Islands NDB DX Awards{% endtrans %}
         {% trans %}Get it in these 'denominations'{% endtrans %}
     {% trans %}Antarctic NDB DX Awards{% endtrans %}
@@ -849,7 +849,8 @@
         {% trans %}West Coast{% endtrans %}
 
     {% trans %}NDB LIST AWARD REQUEST:{% endtrans %}
-        {% trans %}Reply To:{% endtrans %}
+        {% trans %}Name:{% endtrans %}
+        {% trans %}Email:{% endtrans %}
         {% trans %}Message:{% endtrans %}
         {% trans %}Order{% endtrans %}
         {% trans %}(No awards have been selected){% endtrans %}

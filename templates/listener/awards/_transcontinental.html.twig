@@ -22,6 +22,7 @@
                     <tbody>
                     {% set previous = 0 %}
                     {% for key, range in awards[award] %}{% if key != 'total' %}
+                        {% if range['e'] is defined %}
                         {% set qualified = (range['e']|length + previous == key) %}
                         <tr>
                             <td style="white-space: nowrap">{{ key }} {% trans %}on each coast{% endtrans %}</td>
@@ -38,6 +39,14 @@
                             <td{% if (qualified) %} class="cart" id="{{ award }}-{{ key|split('|')[0] }}"{% endif %}>&nbsp;</td>
                         </tr>
                         {% set previous = previous + range['e']|length %}
+                            {% else %}
+                                <tr>
+                                    <td style="white-space: nowrap">{{ key }} {% trans %}on each coast{% endtrans %}</td>
+                                    <td class="monospace unqualified">&nbsp;</td>
+                                    <td class="monospace unqualified">&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                            {% endif %}
                     {% endif %}{% endfor %}
                     </tbody>
                 </table>

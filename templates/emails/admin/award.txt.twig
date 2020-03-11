@@ -1,0 +1,18 @@
+{# templates/emails/award.html.twig #}
+{% set url = absolute_url(path('listener_awards', { 'system' : system, 'id' : id , 'filter' : filter })) %}
+NDB LIST AWARD REQUEST
+(Reference: {{ url }})
+
+Dear {{ admin }},
+
+I would like to request the following awards, based upon my published logs in {{ system|upper }}.
+I confirm that have not previously received these awards.
+
+{% for award in awards %}
+* {{ award|split('-')[0] }}{% if award|split('-')[1] is defined %} ({{ award|split('-')[1] }}){% endif %}
+
+{% endfor %}
+
+Sincerely,
+
+{{ name|raw }}

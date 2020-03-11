@@ -4,6 +4,10 @@ namespace App\Controller\Web\Listeners;
 use App\Form\Listeners\ListenerAward as ListenerAwardForm;
 use App\Repository\AwardRepository;
 use App\Repository\ListenerRepository;
+use App\Repository\SystemRepository;
+use Swift_Mailer;
+use Swift_Message;
+use Swift_Transport_EsmtpTransport;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,7 +19,6 @@ use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
  */
 class ListenerAwards extends Base
 {
-
     private $awardRepository;
     private $listener;
     private $listenerRepository;
@@ -37,7 +40,10 @@ class ListenerAwards extends Base
      * @param $filter
      * @param Request $request
      * @param AwardRepository $awardRepository
+     * @param ListenerAwardForm $listenerAwardForm
      * @param ListenerRepository $listenerRepository
+     * @param Swift_Mailer $mailer
+     * @param SystemRepository $systemRepositiory
      * @return RedirectResponse|Response
      */
     public function controller(
@@ -48,7 +54,9 @@ class ListenerAwards extends Base
         Request $request,
         AwardRepository $awardRepository,
         ListenerAwardForm $listenerAwardForm,
-        ListenerRepository $listenerRepository
+        ListenerRepository $listenerRepository,
+        Swift_Mailer $mailer,
+        SystemRepository $systemRepository
     ) {
         $this->awardRepository = $awardRepository;
         $this->listenerRepository = $listenerRepository;
@@ -57,6 +65,54 @@ class ListenerAwards extends Base
                 return $this->redirectToRoute('listeners', ['system' => $system]);
             }
         }
+        $options = [
+            'email' =>  $this->listener->getEmail(),
+            'id' =>     $this->listener->getId(),
+            'name' =>   $this->listener->getName(),
+        ];
+        $form = $listenerAwardForm->buildForm(
+            $this->createFormBuilder(),
+            $options
+        );
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $form_data = $form->getData();
+            $data['form'] = $form_data;
+            $admin = $systemRepository::AWARDS[0];
+            $cc =    $systemRepository::AUTHORS[0];
+            $html =  $this->renderView('emails/admin/award.html.twig', [
+                'admin' => $admin['name'] . ' ' . $admin['role'],
+                'awards' => explode(',', $form_data['awards']),
+                'filter' => $form_data['filter'],
+                'id' => $this->listener->getId(),
+                'name' => $this->listener->getName(),
+                'system' => $system
+            ]);
+            $text = $this->renderView('emails/admin/award.txt.twig', [
+                'admin' => $admin['name'] . ' ' . $admin['role'],
+                'awards' => explode(',', $form_data['awards']),
+                'filter' => $form_data['filter'],
+                'id' => $this->listener->getId(),
+                'name' => $this->listener->getName(),
+                'system' => $system
+            ]);
+            $message = (new Swift_Message('NDB LIST AWARD REQUEST'))
+                ->setReplyTo( [ $form_data['email'] =>  $this->listener->getName() ] )
+                ->setFrom('rxx@classaxe.com')
+                ->setTo( [ $admin['email'] => $admin['name'] . ' ' . $admin['role']])
+                ->setCc( [ $cc['email'] => $cc['name'] ])
+                ->setBody($html,'text/html')
+                ->addPart($text,'text/plain');
+
+            $transport = $mailer->getTransport();
+            if ($transport instanceof Swift_Transport_EsmtpTransport){
+                $transport->setStreamOptions([
+                    'ssl' => ['allow_self_signed' => true, 'verify_peer' => false, 'verify_peer_name' => false]
+                ]);
+            }
+            $mailer->send($message);
+        }
+
         $this->signals = $this->listenerRepository->getLogsForListener(
             $this->listener->getId(),
             [ 'type' => 0, 'sort' => 'khz', 'order' => 'a']
@@ -103,15 +159,6 @@ class ListenerAwards extends Base
                     break;
             }
         }
-        $options = [
-            'email' =>  $this->listener->getEmail(),
-            'id' =>     $this->listener->getId()
-        ];
-        $form = $listenerAwardForm->buildForm(
-            $this->createFormBuilder(),
-            $options
-        );
-        $form->handleRequest($request);
 
         $daytime = $listenerRepository->getDaytimeHours($this->listener->getTimezone());
         $parameters = [
@@ -126,6 +173,7 @@ class ListenerAwards extends Base
             'l' =>                  $this->listener,
             'repo' =>               $listenerRepository,
             'logs' =>               $this->listener->getCountLogs(),
+            'message' =>            $html ?? '',
             'signals' =>            $this->listener->getCountSignals(),
             'system' =>             $system,
             'tabs' =>               $listenerRepository->getTabs($this->listener, $isAdmin)

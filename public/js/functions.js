@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    0.42.19
- * Date:       2020-03-09
+ * Version:    0.43.1
+ * Date:       2020-03-11
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
  */
@@ -180,6 +180,11 @@ function initSignalsForm(pagingMsg, resultsCount) {
         setFormPagingStatus(pagingMsg, resultsCount);
         scrollToResults();
     });
+}
+
+function isValidEmail(text) {
+    var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+    return emailReg.test(text);
 }
 
 function popup(url) {
@@ -443,6 +448,16 @@ function setAwardsActions() {
     }
     $('#all_0').click(function() { setAwardsShowHideAll(0); return false; });
     $('#all_1').click(function() { setAwardsShowHideAll(1); return false; });
+    $('#form_email').change(function() {
+        if (isValidEmail($('#form_email').val())) {
+            $('#form_submit').removeAttr('disabled');
+        } else {
+            $('#form_submit').attr('disabled', 'disabled');
+        }
+    });
+    $('#form_done').click(function() {
+       location.replace(location.protocol + '//' + location.host + location.pathname );
+    });
     $('#form_body').val(msg.cart_none);
     $('.cart').each(function() {
         $(this).html(
@@ -462,9 +477,6 @@ function setAwardsActions() {
         var message = msg.cart_conf_1 + '\n' + msg.cart_conf_2 + '\n\n' + msg.cart_conf_3 + '\n' + msg.cart_conf_4
         if (!confirm(message)) {
             alert(msg.cancelled);
-            return false;
-        } else {
-            alert("Almost... but not quite ready yet :-)");
             return false;
         }
     })
@@ -501,8 +513,10 @@ function toggleAward(id) {
             msg.cart_7 + '\n' +
             award.name;
     }
+    $('#form_awards').val(cart.join(','));
+    $('#form_filter').val(awards.join(','));
     $('#form_body').val(message);
-    if (cart.length) {
+    if (cart.length && isValidEmail($('#form_email').val())) {
         $('#form_submit').removeAttr('disabled');
     } else {
         $('#form_submit').attr('disabled', 'disabled');
