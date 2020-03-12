@@ -82,9 +82,8 @@ award = {
     'url' :   "{{ url('listener_awards', { 'system' : system, 'id' : id}) }}",
 };
 $(document).ready( function() {
-    all_sections = ['about', '{{ award_types | join("', '") | raw }}'];
+    awards.init(['about', '{{ award_types | join("', '") | raw }}']);
     setExternalLinks();
-    setAwardsActions();
 });
 </script>
 {% endblock %}

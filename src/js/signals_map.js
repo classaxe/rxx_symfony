@@ -1,9 +1,10 @@
 var signalsMap = {
-    map: null,
-    icons: {},
-    infoWindow: null,
-    items: [],
-    options: {},
+    map : null,
+    icons : {},
+    infoWindow : null,
+    items : [],
+    markers : [],
+    options : {},
 
     init: function() {
         TxtOverlay =    initMapsTxtOverlay();
@@ -65,7 +66,6 @@ var signalsMap = {
 
     showMarkers: function() {
         var fn, i, item, latLng, marker, panel, s, title, titleText;
-        signalsMap.markers = [];
         panel = document.getElementById('markerlist');
         if (signalsMap.items.length === 0) {
             return;
