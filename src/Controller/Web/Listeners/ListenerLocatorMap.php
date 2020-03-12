@@ -46,7 +46,8 @@ class ListenerLocatorMap extends Base
             return $this->redirectToRoute('listener', ['system' => $system, 'id' => $id]);
         }
 
-        if (!in_array($listener->getRegion(), ['eu', 'na'])) {
+        $map = ('HWA' === $listener->getItu() ? 'na' : $listener->getRegion());
+        if (!in_array($map, ['eu', 'na'])) {
             return $this->redirectToRoute('listener', ['system' => $system, 'id' => $id]);
         }
 
@@ -81,7 +82,7 @@ class ListenerLocatorMap extends Base
             'form' =>               $form->createView(),
             'id' =>                 $id,
             'l' =>                  $listener,
-            'map' =>                $listener->getRegion(),
+            'map' =>                $map,
             'mode' =>               sprintf($title, $listener->getFormattedNameAndLocation()),
             'system' =>             $system,
             'tabs' =>               $listenerRepository->getTabs($listener, $isAdmin),
