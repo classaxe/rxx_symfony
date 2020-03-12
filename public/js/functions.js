@@ -1,7 +1,7 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    0.43.3
+ * Version:    0.43.4
  * Date:       2020-03-12
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
@@ -1137,17 +1137,17 @@ var LMap = {
         LMap.markerGroups.set('secondary', map);
         LMap.markerGroups.set('highlight', map);
         icon_primary = {
-            url: base_image + "/map_point3.gif",
+            url: base_image + '/map_point3.gif',
             origin: new google.maps.Point(0, 0),
             anchor: new google.maps.Point(5, 5)
         };
         icon_secondary = {
-            url: base_image + "/map_point4.gif",
+            url: base_image + '/map_point4.gif',
             origin: new google.maps.Point(0, 0),
             anchor: new google.maps.Point(5, 5)
         };
         icon_highlight = {
-            url: base_image + "/map_point_here.gif",
+            url: base_image + '/map_point_here.gif',
             origin: new google.maps.Point(0, 0),
             anchor: new google.maps.Point(6, 6)
         };
@@ -1157,6 +1157,7 @@ var LMap = {
             html +=
                 '<tr id="listener_' + l.id + '" data-gmap="' + l.lat + '|' + l.lon + '">' +
                 '<td class="text-nowrap">' +
+                '<img style="display:block;float: left" src="' + base_image + '/map_point' + (l.pri ? 3 : 4) + '.gif" alt="' + (l.pri ? msg.qth_pri : msg.qth_sec) + '" />' +
                 '<a href="' + base_url + 'listeners/' + l.id + '" class="' + (l.pri ? 'pri' : 'sec') + '" data-popup="1">' +
                 l.name +
                 '</a>' +

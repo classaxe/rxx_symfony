@@ -1,33 +1,39 @@
-<script type="text/javascript">
+<script>
 //<!--
 var signals = [
-{% for row in signals %}{% if row.lat or row.lon %}
-{% set type = typeRepository.TypeForCode(row.type) %}
-    {
-{% if args.personalise %}        'logged' : {{ row.personalise }},{% endif %}
-        'active' : {{ row.active ? '1' : '0' }},
-        'id' : {{ row.ID }},
-        'khz' : {{ row.khz }},
-        'call' : '{{ row.call }}',
-        'className' : '{{ row.active == '0' ? 'inactive' : type.class|lower }}',
-        'type' : '{{ type.title|trans }}{% if row.active == 0 %} {% trans %}(inactive){% endtrans %}{% endif %}',
-        'pwr' : '{{ row.pwr }}',
-        'qth' : '{{ row.QTH }}',
-        'icon' : '{{ type.class|lower }}',
-        'itu' : '{{ row.ITU }}',
-        'sp' : '{{ row.SP }}',
-        'lat' : {{ row.lat }},
-        'lon' : {{ row.lon }},
-        'gsq' : '{{ row.GSQ }}',
-        'lsb' : '{{ args['offsets'] == '' ? row.formattedLsbRel : row.formattedLsbAbs }}',
-        'usb' : '{{ args['offsets'] == '' ? row.formattedUsbRel : row.formattedUsbAbs }}',
-        'sec' : '{{ row.sec }}',
-        'fmt' : '{{ row.format }}',
-        'heard' : '{{ row.formattedLastHeard }}',
-        'heard_in' : '{{ row.heardIn }}'
-    },
-{% endif %}{% endfor %}
+    {% for row in signals %}{% if row.lat or row.lon %}
+        {% set type = typeRepository.TypeForCode(row.type) %}{ 'id':{{
+        row.ID }}, 'khz':{{
+        row.khz }}, 'call':'{{
+        row.call }}', 'active':{{
+        row.active ? '1' : '0' }}, 'className':'{{
+        row.active == '0' ? 'inactive':type.class|lower }}', 'type':'{{
+        type.title|trans }}{% if row.active == 0 %} {% trans %}(inactive){% endtrans %}{% endif %}', 'pwr':'{{
+        row.pwr }}', 'qth':'{{
+        row.QTH }}', 'icon':'{{
+        type.class|lower }}', 'itu':'{{
+        row.ITU }}', 'sp':'{{
+        row.SP }}', 'lat':{{
+        row.lat }}, 'lon':{{
+        row.lon }}, 'gsq':'{{
+        row.GSQ }}', 'lsb':'{{
+        args['offsets'] == '' ? row.formattedLsbRel : row.formattedLsbAbs }}', 'usb':'{{
+        args['offsets'] == '' ? row.formattedUsbRel : row.formattedUsbAbs }}', 'sec':'{{
+        row.sec }}', 'fmt':'{{
+        row.format }}', 'heard':'{{
+        row.formattedLastHeard }}', 'heard_in':'{{
+        row.heardIn }}'{% if args.personalise %},'logged':{{ row.personalise }}, {% endif %} },
+    {% endif %}{% endfor %}
 ];
+
+$(document).ready( function() {
+    $('#map').height($(window).height() - 120);
+    $('.scroll div').height($('#map').height());
+    $(window).resize(function () {
+        $('#map').height($(window).height() - 120);
+        $('.scroll div').height($('#map').height());
+    });
+});
 // -->
 </script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCmvsfY0bgnVB-gl_nMHGQ71rp1WTz9tGM&callback=signalsMap.init"></script>

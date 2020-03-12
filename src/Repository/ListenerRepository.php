@@ -218,7 +218,18 @@ class ListenerRepository extends ServiceEntityRepository
     {
         $qb = $this
             ->createQueryBuilder('l', 'l.id')
-            ->select('l.id, l.mapX, l.mapY, l.name, l.primaryQth, logs.heardIn, logs.dxMiles, logs.dxKm, MAX(logs.daytime) AS daytime')
+            ->select(
+                'l.id,'
+                . 'l.mapX,'
+                . 'l.mapY,'
+                . 'l.name,'
+                . 'l.primaryQth,'
+                . 'l.sp,'
+                . 'l.itu,'
+                . 'logs.dxMiles,'
+                . 'logs.dxKm,'
+                . 'MAX(logs.daytime) AS daytime'
+            )
             ->innerJoin('\App\Entity\Log', 'logs')
             ->andWhere('logs.listenerid = l.id')
             ->andWhere('logs.signalid = :signalId')

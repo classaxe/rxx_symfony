@@ -1,7 +1,7 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    0.43.2
+ * Version:    0.43.4
  * Date:       2020-03-12
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
@@ -1786,10 +1786,10 @@ table.map_layout tbody {
 table.map_layout tbody td {
   vertical-align: top;
 }
-table.map_layout tbody td a.pri {
+a.pri {
   font-weight: bold;
 }
-table.map_layout tbody td a.sec {
+a.sec {
   font-weight: normal;
   margin-left: 1em;
 }

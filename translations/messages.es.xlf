@@ -3703,6 +3703,18 @@
         <source>Email:</source>
         <target>__Email:</target>
       </trans-unit>
+      <trans-unit id="Dw_SE4Z" resname="Primary QTH">
+        <source>Primary QTH</source>
+        <target>__Primary QTH</target>
+      </trans-unit>
+      <trans-unit id="B2QJHzQ" resname="Secondary QTH">
+        <source>Secondary QTH</source>
+        <target>__Secondary QTH</target>
+      </trans-unit>
+      <trans-unit id="nikCJ4t" resname="Daytime Logging">
+        <source>Daytime Logging</source>
+        <target>__Daytime Logging</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

@@ -15,19 +15,28 @@
                                     <table class="results">
                                         <thead>
                                         <tr>
-                                            <th>{% trans %}QTH{% endtrans %}</th>
                                             <th>{% trans %}Listener{% endtrans %}</th>
-                                            <th>KM</th>
-                                            <th>Miles</th>
+                                            <th>{% trans %}S/P{% endtrans %}</th>
+                                            <th>{% trans %}ITU{% endtrans %}</th>
+                                            <th>{% trans %}KM{% endtrans %}</th>
+                                            <th>{% trans %}Miles{% endtrans %}</th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         {% for key, l in listeners %}
-                                            <tr id="listener_{{ l.id }}" data-map="{{ l.mapX }}|{{ l.mapY }}">
-                                                <td class="qth">{% if l.primaryQth %}<img src="{{ asset('image/map_point1.gif') }}" alt="Primary QTH" />{% else %}<img src="{{ asset('image/map_point2.gif') }}" alt="Other QTH" />{% endif %}{{ l.heardIn }}</td>
-                                                <td><a href="{{ url('listener', { 'system' : system, 'id': l.id }) }}">{{ l.name|raw }}</a></td>
-                                                <td>{{ l.dxKm }}</td>
-                                                <td>{{ l.dxMiles }}</td>
+                                            <tr id="listener_{{ l.id }}" data-map="{{ l.mapX }}|{{ l.mapY }}"{% if l.daytime %} title="{% trans %}Daytime Logging{% endtrans %}"{% endif %}>
+                                                <td>
+                                                    {% if l.primaryQth %}
+                                                        <img src="{{ asset('image/map_point1.gif') }}" alt="Primary QTH" />
+                                                    {% else %}
+                                                        <img src="{{ asset('image/map_point2.gif') }}" alt="Other QTH" />
+                                                    {% endif %}
+                                                    <a href="{{ url('listener', { 'system' : system, 'id': l.id }) }}" class="{{ l.primaryQth ? 'pri' : 'sec' }}">{{ l.name|raw }}</a>
+                                                </td>
+                                                <td>{{ l.sp }}</td>
+                                                <td>{{ l.itu }}</td>
+                                                <td>{% if l.daytime %}<b title="{% trans %}Daytime Logging{% endtrans %}">{{ l.dxKm }}</b>{% else %}{{ l.dxKm }}{% endif %}</td>
+                                                <td>{{ l.daytime ? '<b>' : '' }}{{ l.dxMiles }}{{ l.daytime ? '</b>' : '' }}</td>
                                             </tr>
                                         {% endfor %}
 
