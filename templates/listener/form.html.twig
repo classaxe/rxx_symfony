@@ -29,7 +29,7 @@
 
                     {{ form_row(form.gsq) }}
                     {% if isAdmin%}
-                    <div{% if l.region not in ['eu', 'na'] and 'HWA' != l.itu %} style="display: none"{% endif %}>
+                    <div{% if l.region not in ['ca', 'eu', 'na'] and 'HWA' != l.itu %} style="display: none"{% endif %}>
                         <label for="{{ form.mapX.vars.id }}">
                             <a href="{{ url('listener_locatormap', { 'system' : system, 'id' : id }) }}" data-popup="1">
                                 {{ form.mapX.vars.label|trans }}

@@ -72,20 +72,24 @@ class ListenerRepository extends ServiceEntityRepository
             case 'N':
                 $qb
                     ->andWhere('(l.mapX = 0 AND l.mapY = 0)')
-                    ->andWhere('(l.region = :eu OR l.region = :na)')
+                    ->andWhere('(l.region = :ca OR l.region = :eu OR l.region = :na OR l.itu = :hwa)')
                     ->andWhere('(l.itu != :azr AND l.itu != :svb)')
+                    ->setParameter('ca', 'ca')
                     ->setParameter('eu', 'eu')
                     ->setParameter('na', 'na')
+                    ->setParameter('hwa', 'HWA')
                     ->setParameter('azr', 'AZR')
                     ->setParameter('svb', 'SVB');
                 break;
             case 'Y':
                 $qb
                     ->andWhere('(l.mapX != 0 OR l.mapY != 0)')
-                    ->andWhere('(l.region = :eu OR l.region = :na)')
+                    ->andWhere('(l.region = :ca OR l.region = :eu OR l.region = :na OR l.itu = :hwa)')
                     ->andWhere('(l.itu != :azr AND l.itu != :svb)')
+                    ->setParameter('ca', 'ca')
                     ->setParameter('eu', 'eu')
                     ->setParameter('na', 'na')
+                    ->setParameter('hwa', 'HWA')
                     ->setParameter('azr', 'AZR')
                     ->setParameter('svb', 'SVB');
                 break;
