@@ -52,20 +52,8 @@
     </div>
 </div>
 <script>
-var xpos = {{ l.mapX }};
-var ypos = {{ l.mapY }};
-$('#rx_map').on('click', function (e) {
-    var x = parseInt(e.pageX - $(this).offset().left);
-    var y = parseInt(e.pageY - $(this).offset().top);
-    setListenerMapLocatorPos(x, y);
-    $('#form_mapX').val(x);
-    $('#form_mapY').val(y);
-});
-
 $(document).ready( function() {
-    showListenerMapLocatorForm();
-    setListenerMapLocatorFormActions();
-    setListenerMapLocatorPos(xpos, ypos);
+    LocatorMap.init({{ l.mapX }}, {{ l.mapY }});
 });
 </script>
 {% endblock %}

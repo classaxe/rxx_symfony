@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    0.43.1
- * Date:       2020-03-11
+ * Version:    0.43.2
+ * Date:       2020-03-12
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
  */
@@ -1086,36 +1086,54 @@ function initListenerSignalsMap() {
 };
 
 // Used here: http://rxx.classaxe.com/en/rna/listeners/56/map
-function initListenersMap() {
-    var markerGroups;
-    // Global vars:
-    //     google.maps
-    //     box, center, gridColor, gridOpacity, highlight, layers, map, markers
-    TxtOverlay =    initMapsTxtOverlay();
+// Global vars:
+//     google.maps
+//     box, center, gridColor, gridOpacity, highlight, layers, map, markers
 
-    map = new google.maps.Map(document.getElementById('map'), {
-        center: { lat: center.lat, lng: center.lon },
-        scaleControl: true,
-        zoomControl: true,
-        zoom: 2
-    });
+var LMap = {
+    markerGroups : null,
+    init : function() {
+        TxtOverlay =    initMapsTxtOverlay();
 
-    map.fitBounds(
-        new google.maps.LatLngBounds(
-            new google.maps.LatLng( box[0].lat, box[0].lon), //sw
-            new google.maps.LatLng( box[1].lat, box[1].lon) //ne
-        )
-    );
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: { lat: center.lat, lng: center.lon },
+            scaleControl: true,
+            zoomControl: true,
+            zoom: 2
+        });
 
-    function showMarkers() {
+        map.fitBounds(
+            new google.maps.LatLngBounds(
+                new google.maps.LatLng( box[0].lat, box[0].lon), //sw
+                new google.maps.LatLng( box[1].lat, box[1].lon) //ne
+            )
+        );
+        $('#layer_grid').click(function() {
+            LMap.toggleGrid();
+        });
+        $('#layer_primary').click(function() {
+            LMap.togglePrimary();
+        });
+        $('#layer_secondary').click(function() {
+            LMap.toggleSecondary();
+        });
+        LMap.showGrid('gridLabel');
+        LMap.showMarkers();
+        setExternalLinks();
+        setClippedCellTitles();
+    },
+    showGrid : function(overlayClass) {
+        return showGrid(map, layers, overlayClass);
+    },
+    showMarkers : function() {
         var html, i, icon_highlight, icon_primary, icon_secondary, marker;
         if (!listeners) {
             return;
         }
-        markerGroups=new google.maps.MVCObject();
-        markerGroups.set('primary', map);
-        markerGroups.set('secondary', map);
-        markerGroups.set('highlight', map);
+        LMap.markerGroups=new google.maps.MVCObject();
+        LMap.markerGroups.set('primary', map);
+        LMap.markerGroups.set('secondary', map);
+        LMap.markerGroups.set('highlight', map);
         icon_primary = {
             url: base_image + "/map_point3.gif",
             origin: new google.maps.Point(0, 0),
@@ -1136,22 +1154,22 @@ function initListenersMap() {
             l = listeners[i];
             html +=
                 '<tr id="listener_' + l.id + '" data-gmap="' + l.lat + '|' + l.lon + '">' +
-                '<td class="text-nowrap">' + (l.pri ? '<strong>' : '&nbsp; &nbsp; ') +
-                '<a href="' + base_url + 'listeners/' + l.id + '" data-popup="1">' + l.name + '</a>' +
-                (l.pri ? '</strong>' : '') +
+                '<td class="text-nowrap">' +
+                '<a href="' + base_url + 'listeners/' + l.id + '" class="' + (l.pri ? 'pri' : 'sec') + '" data-popup="1">' +
+                l.name +
+                '</a>' +
                 '</td>' +
                 '<td>' + l.qth + '</td>' +
                 '<td>' + l.sp + '</td>' +
                 '<td>' + l.itu + '</td>' +
                 '</tr>';
-
             marker = new google.maps.Marker({
                 position: new google.maps.LatLng(l.lat, l.lon),
                 id: 'point_' + l.id,
                 title: (decodeHtmlEntities(l.name) + ': ' + decodeHtmlEntities(l.qth) + (l.sp ? ', ' + l.sp : '') + ', ' + l.itu),
                 icon: (l.pri ? icon_primary : icon_secondary)
             });
-            marker.bindTo('map', markerGroups, (l.pri ? 'primary' : 'secondary'));
+            marker.bindTo('map', LMap.markerGroups, (l.pri ? 'primary' : 'secondary'));
             markers.push(marker);
         }
 
@@ -1168,12 +1186,6 @@ function initListenersMap() {
         }
 
         $('.results tbody').append(html);
-        $('.no-results').hide();
-        $('.results').show();
-
-        setExternalLinks();
-        setClippedCellTitles();
-
         $('tr[data-gmap]')
             .mouseover(function() {
                 var coords = $(this).data('gmap').split('|');
@@ -1186,66 +1198,31 @@ function initListenersMap() {
             .mouseout(function() {
                 highlight.setMap(null);
             });
-    }
-
-    function toggle(layer) {
-        var active;
+        $('.no-results').hide();
+        $('.results').show();
+    },
+    toggle : function(layer) {
+        var active, i;
         if (!Array.isArray(layers[layer])) {
             active = (layers[layer].getMap() !== null);
             layers[layer].setMap(active ? null : map);
             return;
         }
         active = (layers[layer][0].getMap() !== null);
-        for (var i in layers[layer]) {
+        for (i in layers[layer]) {
             layers[layer][i].setMap(active ? null : map);
         }
+    },
+    toggleGrid : function() {
+        LMap.toggle('grid');
+    },
+    togglePrimary : function() {
+        LMap.markerGroups.set('primary', $('#layer_primary').prop('checked') ? map : null);
+    },
+    toggleSecondary : function() {
+        LMap.markerGroups.set('secondary', $('#layer_secondary').prop('checked') ? map : null);
     }
-
-    function toggleGrid() {
-        toggle('grid');
-    }
-
-    function togglePrimary() {
-        markerGroups.set('primary', $('#layer_primary').prop('checked') ? map : null);
-    }
-
-    function toggleSecondary() {
-        markerGroups.set('secondary', $('#layer_secondary').prop('checked') ? map : null);
-    }
-
-    google.maps.event.addDomListener(document.getElementById('layer_grid'), 'click', function() {
-        toggleGrid();
-    });
-
-    google.maps.event.addDomListener(document.getElementById('layer_primary'), 'click', function() {
-        togglePrimary();
-    });
-
-    google.maps.event.addDomListener(document.getElementById('layer_secondary'), 'click', function() {
-        toggleSecondary();
-    });
-
-    showGrid(map, layers, 'gridLabel');
-    showMarkers();
-}
-
-function map_locator(system,map_x,map_y,name,QTH,lat,lon){
-    var href = base_url + 'map_locator?system=' + system + '&map_x=' + map_x + '&map_y=' + map_y + '&name=' + name + '&QTH=' + QTH + '&lat=' + lat + '&lon=' + lon;
-    var name = 'popMapLocator' + system;
-    var spec = false;
-    switch(system) {
-        case 'eu':
-            var spec = 'scrollbars=0,resizable=1,width=688,height=695';
-            break;
-        case 'na':
-            var spec = 'scrollbars=0,resizable=1,width=653,height=680';
-            break;
-    }
-    if (spec) {
-        window.open(href, name, spec);
-    }
-}
-;
+};;
 
 function showGrid(map, layers, overlayClass) {
     var i, la, lo;
@@ -1334,78 +1311,79 @@ function initMapsTxtOverlay() {
     return TxtOverlay;
 }
 
-function showListenerMapLocatorForm() {
-    if (!$('#rx_map').height()) {
-        return window.setTimeout(function(){ showListenerMapLocatorForm(); }, 100);
-    }
-    $('#form').show();
-}
-
-function setListenerMapLocatorPos(xpos, ypos) {
-    if (xpos === 0 && ypos === 0) {
-        return;
-    }
-    $('#cursor').css({
-        left : (xpos - 10) + 'px',
-        top : (ypos - 10) + 'px',
-        display: 'block'
-    });
-}
-
-function setListenerMapLocatorFormActions() {
-    $('#form_mapX').change(function(e) {
-        xpos = parseInt($('#form_mapX').val());
-        ypos = parseInt($('#form_mapY').val());
-        setListenerMapLocatorPos(xpos, ypos);
-    });
-
-    $('#form_mapY').change(function(e) {
-        xpos = parseInt($('#form_mapX').val());
-        ypos = parseInt($('#form_mapY').val());
-        setListenerMapLocatorPos(xpos, ypos);
-    });
-
-    $('#x_sub').click(function(e) {
-        var val = parseInt($('#form_mapX').val());
-        if (val > 0) {
+var LocatorMap = {
+    init : function(xpos, ypos) {
+        if (!$('#rx_map').height()) {
+            return window.setTimeout(function(){ LocatorMap.init(xpos, ypos); }, 100);
+        }
+        $('#rx_map').on('click', function (e) {
+            var x = parseInt(e.pageX - $(this).offset().left);
+            var y = parseInt(e.pageY - $(this).offset().top);
+            LocatorMap.setPos(x, y);
+            $('#form_mapX').val(x);
+            $('#form_mapY').val(y);
+        });
+        $('#form_mapX').change(function(e) {
+            xpos = parseInt($('#form_mapX').val());
+            ypos = parseInt($('#form_mapY').val());
+            LocatorMap.setPos(xpos, ypos);
+        });
+        $('#form_mapY').change(function(e) {
+            xpos = parseInt($('#form_mapX').val());
+            ypos = parseInt($('#form_mapY').val());
+            LocatorMap.setPos(xpos, ypos);
+        });
+        $('#x_sub').click(function(e) {
+            var val = parseInt($('#form_mapX').val());
+            if (val > 0) {
+                $('#form_mapX')
+                    .val(val - 1)
+                    .trigger('change');
+            }
+        });
+        $('#x_add').click(function(e) {
+            var val = parseInt($('#form_mapX').val());
             $('#form_mapX')
-                .val(val - 1)
+                .val(val + 1)
                 .trigger('change');
-        }
-    });
-
-    $('#x_add').click(function(e) {
-        var val = parseInt($('#form_mapX').val());
-        $('#form_mapX')
-            .val(val + 1)
-            .trigger('change');
-    });
-
-    $('#y_sub').click(function(e) {
-        var val = parseInt($('#form_mapY').val());
-        if (val > 0) {
+        });
+        $('#y_sub').click(function(e) {
+            var val = parseInt($('#form_mapY').val());
+            if (val > 0) {
+                $('#form_mapY')
+                    .val(val - 1)
+                    .trigger('change');
+            }
+        });
+        $('#y_add').click(function(e) {
+            var val = parseInt($('#form_mapY').val());
             $('#form_mapY')
-                .val(val - 1)
+                .val(val + 1)
                 .trigger('change');
+        });
+        $('#form_reset').click(function(e) {
+            e.preventDefault();
+            form = e.toElement.form;
+            form.reset();
+            xpos = $('#form_mapX').val();
+            ypos = $('#form_mapY').val();
+            LocatorMap.setPos(xpos, ypos);
+        });
+        LocatorMap.setPos(xpos, ypos);
+        $('#form').show();
+
+    },
+    setPos : function(xpos, ypos) {
+        if (xpos === 0 && ypos === 0) {
+            return;
         }
-    });
-
-    $('#y_add').click(function(e) {
-        var val = parseInt($('#form_mapY').val());
-        $('#form_mapY')
-            .val(val + 1)
-            .trigger('change');
-    });
-
-    $('#form_reset').click(function(e) {
-        e.preventDefault();
-        form = e.toElement.form;
-        form.reset();
-        xpos = $('#form_mapX').val();
-        ypos = $('#form_mapY').val();
-        setListenerMapLocatorPos(xpos, ypos);
-    });
-};
+        $('#cursor').css({
+            left : (xpos - 10) + 'px',
+            top : (ypos - 10) + 'px',
+            display: 'block'
+        });
+    }
+};;
 
 var signalsMap = {
     map: null,
