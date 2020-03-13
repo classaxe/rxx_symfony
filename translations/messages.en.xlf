@@ -3771,6 +3771,10 @@
         <source>Inactive Signal Marker</source>
         <target>Inactive Signal Marker</target>
       </trans-unit>
+      <trans-unit id="MXwLshJ" resname="May be seen when you choose 'Show Inactive'">
+        <source>May be seen when you choose 'Show Inactive'</source>
+        <target>May be seen when you choose 'Show Inactive'</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

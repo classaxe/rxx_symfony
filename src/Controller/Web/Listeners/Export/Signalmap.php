@@ -15,6 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
  */
 class Signalmap extends Base
 {
+    // TODO: Remove this legacy code once the new system goes live
     /**
      * @Route(
      *     "/{_locale}/{system}/listeners/{id}/signalmap",
@@ -42,10 +43,7 @@ class Signalmap extends Base
         TypeRepository $typeRepository
     ) {
         if (!$listener = $this->getValidReportingListener($id, $listenerRepository)) {
-            return $this->redirectToRoute(
-                'listeners',
-                ['_locale' => $_locale, 'system' => $system]
-            );
+            die();
         }
         $listenerSignalTypes = [];
         foreach ($listenerRepository->getSignalTypesForListener($id) as $type) {

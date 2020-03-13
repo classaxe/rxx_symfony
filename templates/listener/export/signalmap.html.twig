@@ -1,3 +1,7 @@
+<!--
+TODO: Remove this legacy code once the new system goes live
+-->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,14 +30,14 @@ var listener = {
     <h1>{{ title }}</h1>
     <div class="form_layers">
         <div><label><strong>Show</strong></label></div>
-        <div><label title="Show listener's location"><input type="checkbox" id="layer_qth" checked="checked" />QTH</label></div>
-        <div><label title="Show Maidenrhead Locator Grid Squares"><input type="checkbox" id="layer_grid" checked="checked" />Grid</label></div>
-        <div><label title="Include inactive signals"><input type="checkbox" id="layer_inactive" checked="checked" />Inactive</label></div>
+        <div><label title="Show listener's location"><input type="checkbox" id="layer_qth" checked="checked" /> QTH</label></div>
+        <div><label title="Show Maidenrhead Locator Grid Squares"><input type="checkbox" id="layer_grid" checked="checked" /> Grid</label></div>
+        <div><label title="Include inactive signals"><input type="checkbox" id="layer_inactive" checked="checked" /> Inactive</label></div>
     </div>
     <div class="form_layers">
         <div><label><strong>Signal Types: </strong></label></div>
 {% for type,settings in types %}
-    <div class="type_{{ settings.class|lower }}"><label><input type="checkbox" id="layer_{{ type }}" checked="checked" />{{ settings.label }}</label></div>
+    <div class="type_{{ settings.class|lower }}"><label><input type="checkbox" id="layer_{{ type }}" checked="checked" /> {{ settings.label }}</label></div>
 {% endfor %}
     </div>
     <div class="form_layers">
