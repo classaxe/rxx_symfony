@@ -25,10 +25,8 @@ var signalsMap = {
         };
         signalsMap.map = new google.maps.Map(document.getElementById('map'), signalsMap.options);
         signalsMap.infoWindow = new google.maps.InfoWindow();
-        signalsMap.showMarkers();
-
         showGrid(signalsMap.map, layers, 'gridLabel');
-
+        signalsMap.showMarkers();
     },
 
     markerClickFunction: function(s, latlng) {

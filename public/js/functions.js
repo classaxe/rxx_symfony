@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    0.43.4
- * Date:       2020-03-12
+ * Version:    0.43.7
+ * Date:       2020-03-13
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
  */
@@ -1416,10 +1416,8 @@ var signalsMap = {
         };
         signalsMap.map = new google.maps.Map(document.getElementById('map'), signalsMap.options);
         signalsMap.infoWindow = new google.maps.InfoWindow();
-        signalsMap.showMarkers();
-
         showGrid(signalsMap.map, layers, 'gridLabel');
-
+        signalsMap.showMarkers();
     },
 
     markerClickFunction: function(s, latlng) {
