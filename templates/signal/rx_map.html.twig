@@ -2,7 +2,6 @@
 {% block body %}
     <div class="main fullwidth">
         {% include 'signal/tabs.html.twig' %}
-        {% set src = url('signal_rx_map_image', { 'system' : system, 'map' : map, 'id' : id }) %}
         <div class="controlPanel">
             <div class="header">{{ mode|raw }}</div>
             <div class="content row collapse">
@@ -22,39 +21,15 @@
                                             <th>{% trans %}Miles{% endtrans %}</th>
                                         </tr>
                                         </thead>
-                                        <tbody>
-                                        {% for key, l in listeners %}
-                                            <tr id="listener_{{ l.id }}" data-map="{{ l.mapX }}|{{ l.mapY }}"{% if l.daytime %} title="{% trans %}Daytime Logging{% endtrans %}"{% endif %}>
-                                                <td>
-                                                    {% if l.primaryQth %}
-                                                        <img src="{{ asset('image/map_point1.gif') }}" alt="Primary QTH" />
-                                                    {% else %}
-                                                        <img src="{{ asset('image/map_point2.gif') }}" alt="Other QTH" />
-                                                    {% endif %}
-                                                    <a href="{{ url('listener', { 'system' : system, 'id': l.id }) }}" class="{{ l.primaryQth ? 'pri' : 'sec' }}">{{ l.name|raw }}</a>
-                                                </td>
-                                                <td>{{ l.sp }}</td>
-                                                <td>{{ l.itu }}</td>
-                                                <td>{% if l.daytime %}<b title="{% trans %}Daytime Logging{% endtrans %}">{{ l.dxKm }}</b>{% else %}{{ l.dxKm }}{% endif %}</td>
-                                                <td>{{ l.daytime ? '<b>' : '' }}{{ l.dxMiles }}{{ l.daytime ? '</b>' : '' }}</td>
-                                            </tr>
-                                        {% endfor %}
-
-                                        </tbody>
+                                        <tbody></tbody>
                                     </table>
-                                    <ul>
-                                    </ul>
                                 </div>
                             </div>
                         </td>
                         <td>
                             <div id="map">
-                                <map name="map">
-                                    {% for key, l in listeners %}
-                                        <area alt="{{ l.name }}" href="{{ url('listener', {'system' : system, 'id' : l.id}) }}" coords="{{ l.mapX }},{{ l.mapY }},4" data-map="{{ l.id }}" />
-                                    {% endfor %}
-                                </map>
-                                <img id="rx_map"  src="{{ src }}" usemap="#map" alt="{{ mode }}" />
+                                <map name="imgmap" id="imgmap"></map>
+                                <img id="rx_map"  src="{{ url('signal_rx_map_image', { 'system' : system, 'map' : map, 'id' : id }) }}" usemap="#imgmap" alt="{{ mode }}" />
                                 <img id="point_here" alt="X" src="{{ asset('image/map_point_here.gif') }}" />
                             </div>
                         </td>
@@ -63,13 +38,29 @@
             </div>
         </div>
     </div>
-    {% include 'js_trans.html.twig' %}
-    <script>
-        $(document).ready( function() {
-            setExternalLinks();
-            setEqualHeight('#rx_map', '#list');
-            $(window).resize(function() { setEqualHeight('#rx_map', '#list') });
-        });
-
-    </script>
+{% include 'js_trans.html.twig' %}
+<script>
+var listeners = [
+{% for l in listeners %}{'id':{{
+    l.id }}, 'name':"{{
+    l.name|raw }}", 'pri':{{
+    l.primaryQth ? 1 : 0 }}, 'itu':'{{
+    l.itu }}', 'sp':'{{
+    l.sp }}', 'x':{{
+    l.mapX }}, 'y':{{
+    l.mapY }}, 'dt': {{
+    l.daytime }}, 'km':'{{
+    l.dxKm }}', 'mi':'{{
+    l.dxMiles }}'},
+{% endfor %}
+];
+</script>
+<script>
+    $(document).ready( function() {
+        SLMap.init();
+        setExternalLinks();
+        setEqualHeight('#rx_map', '#list');
+        $(window).resize(function() { setEqualHeight('#rx_map', '#list') });
+    });
+</script>
 {% endblock %}

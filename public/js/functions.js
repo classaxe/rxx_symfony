@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    0.43.7
- * Date:       2020-03-13
+ * Version:    0.43.8
+ * Date:       2020-03-12
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
  */
@@ -489,7 +489,6 @@ function setExternalLinks() {
         .attr('class', 'hover');
 
     $('area[data-map]')
-        .attr('shape', 'circle')
         .mouseover(function() {
             $('#listener_' + $(this).data('map'))
                 .css({backgroundColor: '#ffff00'})
@@ -499,10 +498,8 @@ function setExternalLinks() {
             $('#listener_' + $(this).data('map'))
                 .css({backgroundColor: ''})
                 .trigger('mouseleave');
-        })
-        .each(function() {
-            $(this).attr('title', $(this).attr('alt'));
         });
+
 
     $('tr[data-map]')
         .mouseover(function() {
@@ -510,7 +507,13 @@ function setExternalLinks() {
             var scale = $('#rx_map').width() / $('#rx_map')[0].naturalWidth;
             $('#point_here')
                 .show()
-                .css({left: ((coords[0] * scale) - 5) + 'px', top: ((coords[1] * scale) - 5) + 'px'});
+                .css({left: ((coords[0] * scale) - 5) + 'px', top: ((coords[1] * scale) - 5) + 'px'})
+                .unbind()
+                .click(function(e) {
+                    e.preventDefault();
+                    $('#listener_' + coords[2] + ' a').trigger('click');
+                    return false;
+                });
         })
         .mouseout(function() {
             $('#point_here').hide();
@@ -1119,15 +1122,17 @@ var LMap = {
         $('#layer_secondary').click(function() {
             LMap.toggleSecondary();
         });
-        LMap.showGrid('gridLabel');
-        LMap.showMarkers();
+        LMap.drawGrid();
+        LMap.drawMarkers();
         setExternalLinks();
         setClippedCellTitles();
     },
-    showGrid : function(overlayClass) {
-        return showGrid(map, layers, overlayClass);
+
+    drawGrid : function() {
+        return drawGrid(map, layers);
     },
-    showMarkers : function() {
+
+    drawMarkers : function() {
         var html, i, icon_highlight, icon_primary, icon_secondary, marker;
         if (!listeners) {
             return;
@@ -1204,24 +1209,18 @@ var LMap = {
         $('.no-results').hide();
         $('.results').show();
     },
-    toggle : function(layer) {
-        var active, i;
-        if (!Array.isArray(layers[layer])) {
-            active = (layers[layer].getMap() !== null);
-            layers[layer].setMap(active ? null : map);
-            return;
-        }
-        active = (layers[layer][0].getMap() !== null);
-        for (i in layers[layer]) {
-            layers[layer][i].setMap(active ? null : map);
-        }
-    },
+
     toggleGrid : function() {
-        LMap.toggle('grid');
+        active = (layers['grid'][0].getMap() !== null);
+        for (i in layers['grid']) {
+            layers['grid'][i].setMap(active ? null : map);
+        }
     },
+
     togglePrimary : function() {
         LMap.markerGroups.set('primary', $('#layer_primary').prop('checked') ? map : null);
     },
+
     toggleSecondary : function() {
         LMap.markerGroups.set('secondary', $('#layer_secondary').prop('checked') ? map : null);
     }
@@ -1302,7 +1301,7 @@ var LocatorMap = {
     }
 };;
 
-function showGrid(map, layers, overlayClass) {
+function drawGrid(map, layers) {
     var i, la, lo;
     for (la=0; la<180; la+=10) {
         layers.grid.push(
@@ -1332,7 +1331,7 @@ function showGrid(map, layers, overlayClass) {
                 new TxtOverlay(
                     new google.maps.LatLng(la -90 +5,lo -180 + 10),
                     String.fromCharCode((lo/20) +65) + String.fromCharCode((la/10) +65),
-                    overlayClass,
+                    'gridLabel',
                     map
                 )
             );
@@ -1389,7 +1388,32 @@ function initMapsTxtOverlay() {
     return TxtOverlay;
 };
 
-var signalsMap = {
+var SLMap = {
+    init : function() {
+        var html = '', i, imgmap = '', l;
+        for (i in listeners) {
+            l = listeners[i];
+            html +=
+                '<tr id="listener_' + l.id + '" data-map="' + l.x + '|' + l.y + '|' + l.id +'"' + (l.dt ? ' title="' + msg.daytime + '"' : '') +'>\n' +
+                '<td>\n' +
+                '<img src="' + base_image + '/map_point' + (l.pri ? 1 : 2) +'.gif" alt="' + (l.pri ? msg.qth_pri : msg.qth_sec) + '" />\n' +
+                '<a href="' + base_url + 'listeners/' + l.id + '" class="' + (l.pri ? 'pri' : 'sec') + '">' + l.name + '</a>\n' +
+                '</td>\n' +
+                '<td>' + l.sp + '</td>\n' +
+                '<td>' + l.itu + '</td>\n' +
+                '<td>' + (l.dt ? '<b>' + l.km + '</b>' : l.km ) + '</td>\n' +
+                '<td>' + (l.dt ? '<b>' + l.mi + '</b>' : l.mi ) + '</td>\n' +
+                '</tr>\n';
+            imgmap +=
+                '<area alt="' + l.name + '" title="' + l.name + '" shape="circle" href="' + base_url + 'listeners/' + l.id + '" coords="' + l.x + ',' + l.y + ',4" data-map="' + l.id + '" />\n';
+        }
+        $('.results tbody').html(html);
+        $('#imgmap').html(imgmap);
+    }
+};
+;
+
+var SMap = {
     map : null,
     icons : {},
     infoWindow : null,
@@ -1399,25 +1423,71 @@ var signalsMap = {
 
     init: function() {
         TxtOverlay =    initMapsTxtOverlay();
-        signalsMap.items = signals;
+        SMap.items = signals;
         var icons = [ 'dgps', 'dsc', 'hambcn', 'navtex', 'ndb', 'time', 'other' ];
         var states = [ 0, 1 ];
         for (var i in icons) {
             for (var j in states) {
                 var pin = base_image + '/pins/' + icons[i] + '_' + states[j] + '.png';
-                signalsMap.icons[icons[i] + '_' + states[j]] =
+                SMap.icons[icons[i] + '_' + states[j]] =
                     new google.maps.MarkerImage(pin, new google.maps.Size(12, 20));
             }
         }
-        signalsMap.options = {
+        SMap.options = {
             'zoom': 2,
             'center': new google.maps.LatLng(20, 0),
             'mapTypeId': google.maps.MapTypeId.ROADMAP
         };
-        signalsMap.map = new google.maps.Map(document.getElementById('map'), signalsMap.options);
-        signalsMap.infoWindow = new google.maps.InfoWindow();
-        showGrid(signalsMap.map, layers, 'gridLabel');
-        signalsMap.showMarkers();
+        SMap.map = new google.maps.Map(document.getElementById('map'), SMap.options);
+        SMap.infoWindow = new google.maps.InfoWindow();
+        SMap.drawGrid();
+        SMap.drawMarkers();
+
+        $('#layer_grid').click(function() {
+            LMap.toggleGrid();
+        });
+
+    },
+
+    drawGrid : function() {
+        return drawGrid(SMap.map, layers);
+    },
+
+    drawMarkers: function() {
+        var fn, i, item, latLng, marker, panel, s, title, titleText;
+        panel = document.getElementById('markerlist');
+        if (SMap.items.length === 0) {
+            return;
+        }
+        panel.innerHTML = '';
+
+        for (i = 0; i < SMap.items.length; i++) {
+            s = SMap.items[i];
+            titleText =
+                '<b>' + (typeof s.logged !== 'undefined' ? (s.logged ? '&#9745;' : '&#9744;') + ' ' : '') + s.khz+' '+s.call + '</b> ' +
+                s.qth + (s.sp ? ', ' + s.sp : '') + ', ' + s.itu;
+            item = document.createElement('DIV');
+            title = document.createElement('A');
+            title.href = '#';
+            title.className = 'title type_' + s.className;
+            title.innerHTML = titleText;
+            if (typeof s.logged !== 'undefined' && s.logged) {
+                item.className = 'logged';
+                item.title = 'Received';
+            }
+            item.appendChild(title);
+            panel.appendChild(item);
+            latLng = new google.maps.LatLng(s.lat, s.lon);
+            marker = new google.maps.Marker({
+                'title' :  strip_tags(s.khz + ' ' + s.call),
+                'position': latLng,
+                'icon': SMap.icons[s.icon + '_' + (s.active ? 1 : 0)]
+            });
+            fn = SMap.markerClickFunction(s, latLng);
+            google.maps.event.addListener(marker, 'click', fn);
+            google.maps.event.addDomListener(title, 'click', fn);
+            marker.setMap(SMap.map);
+        }
     },
 
     markerClickFunction: function(s, latlng) {
@@ -1447,46 +1517,17 @@ var signalsMap = {
                 '    <tr><th>Heard In</th><td>' + s.heard_in + '</td></tr>' +
                 '  </table>' +
                 '</div>';
-            signalsMap.infoWindow.setContent(infoHtml);
-            signalsMap.infoWindow.setPosition(latlng);
-            signalsMap.infoWindow.open(signalsMap.map);
+            SMap.infoWindow.setContent(infoHtml);
+            SMap.infoWindow.setPosition(latlng);
+            SMap.infoWindow.open(SMap.map);
         };
     },
 
-    showMarkers: function() {
-        var fn, i, item, latLng, marker, panel, s, title, titleText;
-        panel = document.getElementById('markerlist');
-        if (signalsMap.items.length === 0) {
-            return;
+    toggleGrid : function() {
+        active = (layers['grid'][0].getMap() !== null);
+        for (i in layers['grid']) {
+            layers['grid'][i].setMap(active ? null : map);
         }
-        panel.innerHTML = '';
+    },
 
-        for (i = 0; i < signalsMap.items.length; i++) {
-            s = signalsMap.items[i];
-            titleText =
-                '<b>' + (typeof s.logged !== 'undefined' ? (s.logged ? '&#9745;' : '&#9744;') + ' ' : '') + s.khz+' '+s.call + '</b> ' +
-                s.qth + (s.sp ? ', ' + s.sp : '') + ', ' + s.itu;
-            item = document.createElement('DIV');
-            title = document.createElement('A');
-            title.href = '#';
-            title.className = 'title type_' + s.className;
-            title.innerHTML = titleText;
-            if (typeof s.logged !== 'undefined' && s.logged) {
-                item.className = 'logged';
-                item.title = 'Received';
-            }
-            item.appendChild(title);
-            panel.appendChild(item);
-            latLng = new google.maps.LatLng(s.lat, s.lon);
-            marker = new google.maps.Marker({
-                'title' :  strip_tags(s.khz + ' ' + s.call),
-                'position': latLng,
-                'icon': signalsMap.icons[s.icon + '_' + (s.active ? 1 : 0)]
-            });
-            fn = signalsMap.markerClickFunction(s, latLng);
-            google.maps.event.addListener(marker, 'click', fn);
-            google.maps.event.addDomListener(title, 'click', fn);
-            marker.setMap(signalsMap.map);
-        }
-    }
 };

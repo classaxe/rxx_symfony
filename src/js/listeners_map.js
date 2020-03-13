@@ -30,15 +30,17 @@ var LMap = {
         $('#layer_secondary').click(function() {
             LMap.toggleSecondary();
         });
-        LMap.showGrid('gridLabel');
-        LMap.showMarkers();
+        LMap.drawGrid();
+        LMap.drawMarkers();
         setExternalLinks();
         setClippedCellTitles();
     },
-    showGrid : function(overlayClass) {
-        return showGrid(map, layers, overlayClass);
+
+    drawGrid : function() {
+        return drawGrid(map, layers);
     },
-    showMarkers : function() {
+
+    drawMarkers : function() {
         var html, i, icon_highlight, icon_primary, icon_secondary, marker;
         if (!listeners) {
             return;
@@ -115,24 +117,18 @@ var LMap = {
         $('.no-results').hide();
         $('.results').show();
     },
-    toggle : function(layer) {
-        var active, i;
-        if (!Array.isArray(layers[layer])) {
-            active = (layers[layer].getMap() !== null);
-            layers[layer].setMap(active ? null : map);
-            return;
-        }
-        active = (layers[layer][0].getMap() !== null);
-        for (i in layers[layer]) {
-            layers[layer][i].setMap(active ? null : map);
-        }
-    },
+
     toggleGrid : function() {
-        LMap.toggle('grid');
+        active = (layers['grid'][0].getMap() !== null);
+        for (i in layers['grid']) {
+            layers['grid'][i].setMap(active ? null : map);
+        }
     },
+
     togglePrimary : function() {
         LMap.markerGroups.set('primary', $('#layer_primary').prop('checked') ? map : null);
     },
+
     toggleSecondary : function() {
         LMap.markerGroups.set('secondary', $('#layer_secondary').prop('checked') ? map : null);
     }

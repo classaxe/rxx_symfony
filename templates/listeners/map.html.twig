@@ -38,10 +38,10 @@ $(document).ready( function() {
                 <table class="results" id="markerlist" style="display:none; margin: 0; max-width: 500px">
                     <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Location</th>
-                        <th>S/P</th>
-                        <th>ITU</th>
+                        <th>{% trans %}Name{% endtrans %}</th>
+                        <th>{% trans %}Location{% endtrans %}</th>
+                        <th>{% trans %}S/P{% endtrans %}</th>
+                        <th>{% trans %}ITU{% endtrans %}</th>
                     </tr>
                     </thead>
                     <tbody></tbody>
@@ -55,15 +55,15 @@ $(document).ready( function() {
                 <div>
                     <div id="header">
                         <div class="form_layers">
-                            <div><label><strong>Show</strong></label></div>
-                            <div><label title="Show Maidenhead Locator Grid Squares"><input type="checkbox" id="layer_grid" checked="checked" /> Grid</label></div>
-                            <div><label title="Show Primary locations"><input type="checkbox" id="layer_primary" checked="checked" /> Primary</label></div>
-                            <div><label title="Show Secondary locations"><input type="checkbox" id="layer_secondary" checked="checked" /> Secondary</label></div>
+                            <div><label><strong>{% trans %}Show{% endtrans %}</strong></label></div>
+                            <div><label title="{% trans %}Show Maidenhead Locator Grid Squares{% endtrans %}"><input type="checkbox" id="layer_grid" checked="checked" /> {% trans %}Grid{% endtrans %}</label></div>
+                            <div><label title="{% trans %}Show Primary locations{% endtrans %}"><input type="checkbox" id="layer_primary" checked="checked" /> {% trans %}Primary{% endtrans %}</label></div>
+                            <div><label title="{% trans %}Show Secondary locations{% endtrans %}"><input type="checkbox" id="layer_secondary" checked="checked" /> {% trans %}Secondary{% endtrans %}</label></div>
                         </div>
                         <div class="form_layers">
-                            <div><label><strong>Key:</strong></label></div>
-                            <div><label title="Primary Location"><img src="{{ asset('image/map_point3.gif') }}" alt="Primary Location" style="height:0.8em; width: 0.8em"/>Primary</label></div>
-                            <div><label title="Secondary Location"><img src="{{ asset('image/map_point4.gif') }}" alt="Secondary Location" style="height:0.8em; width: 0.8em; opacity: 0.8" />Secondary</label></div>
+                            <div><label><strong>{% trans %}Key:{% endtrans %}</strong></label></div>
+                            <div><label title="{% trans %}Primary Location{% endtrans %}"><img src="{{ asset('image/map_point3.gif') }}" alt="{% trans %}Primary Location{% endtrans %}" style="height:0.8em; width: 0.8em"/>{% trans %}Primary{% endtrans %}</label></div>
+                            <div><label title="{% trans %}Secondary Location{% endtrans %}"><img src="{{ asset('image/map_point4.gif') }}" alt="{% trans %}Secondary Location{% endtrans %}" style="height:0.8em; width: 0.8em; opacity: 0.8" />{% trans %}Secondary{% endtrans %}</label></div>
                         </div>
                     </div>
                     <div id="map"></div>

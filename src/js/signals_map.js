@@ -1,4 +1,4 @@
-var signalsMap = {
+var SMap = {
     map : null,
     icons : {},
     infoWindow : null,
@@ -8,25 +8,71 @@ var signalsMap = {
 
     init: function() {
         TxtOverlay =    initMapsTxtOverlay();
-        signalsMap.items = signals;
+        SMap.items = signals;
         var icons = [ 'dgps', 'dsc', 'hambcn', 'navtex', 'ndb', 'time', 'other' ];
         var states = [ 0, 1 ];
         for (var i in icons) {
             for (var j in states) {
                 var pin = base_image + '/pins/' + icons[i] + '_' + states[j] + '.png';
-                signalsMap.icons[icons[i] + '_' + states[j]] =
+                SMap.icons[icons[i] + '_' + states[j]] =
                     new google.maps.MarkerImage(pin, new google.maps.Size(12, 20));
             }
         }
-        signalsMap.options = {
+        SMap.options = {
             'zoom': 2,
             'center': new google.maps.LatLng(20, 0),
             'mapTypeId': google.maps.MapTypeId.ROADMAP
         };
-        signalsMap.map = new google.maps.Map(document.getElementById('map'), signalsMap.options);
-        signalsMap.infoWindow = new google.maps.InfoWindow();
-        showGrid(signalsMap.map, layers, 'gridLabel');
-        signalsMap.showMarkers();
+        SMap.map = new google.maps.Map(document.getElementById('map'), SMap.options);
+        SMap.infoWindow = new google.maps.InfoWindow();
+        SMap.drawGrid();
+        SMap.drawMarkers();
+
+        $('#layer_grid').click(function() {
+            LMap.toggleGrid();
+        });
+
+    },
+
+    drawGrid : function() {
+        return drawGrid(SMap.map, layers);
+    },
+
+    drawMarkers: function() {
+        var fn, i, item, latLng, marker, panel, s, title, titleText;
+        panel = document.getElementById('markerlist');
+        if (SMap.items.length === 0) {
+            return;
+        }
+        panel.innerHTML = '';
+
+        for (i = 0; i < SMap.items.length; i++) {
+            s = SMap.items[i];
+            titleText =
+                '<b>' + (typeof s.logged !== 'undefined' ? (s.logged ? '&#9745;' : '&#9744;') + ' ' : '') + s.khz+' '+s.call + '</b> ' +
+                s.qth + (s.sp ? ', ' + s.sp : '') + ', ' + s.itu;
+            item = document.createElement('DIV');
+            title = document.createElement('A');
+            title.href = '#';
+            title.className = 'title type_' + s.className;
+            title.innerHTML = titleText;
+            if (typeof s.logged !== 'undefined' && s.logged) {
+                item.className = 'logged';
+                item.title = 'Received';
+            }
+            item.appendChild(title);
+            panel.appendChild(item);
+            latLng = new google.maps.LatLng(s.lat, s.lon);
+            marker = new google.maps.Marker({
+                'title' :  strip_tags(s.khz + ' ' + s.call),
+                'position': latLng,
+                'icon': SMap.icons[s.icon + '_' + (s.active ? 1 : 0)]
+            });
+            fn = SMap.markerClickFunction(s, latLng);
+            google.maps.event.addListener(marker, 'click', fn);
+            google.maps.event.addDomListener(title, 'click', fn);
+            marker.setMap(SMap.map);
+        }
     },
 
     markerClickFunction: function(s, latlng) {
@@ -56,46 +102,17 @@ var signalsMap = {
                 '    <tr><th>Heard In</th><td>' + s.heard_in + '</td></tr>' +
                 '  </table>' +
                 '</div>';
-            signalsMap.infoWindow.setContent(infoHtml);
-            signalsMap.infoWindow.setPosition(latlng);
-            signalsMap.infoWindow.open(signalsMap.map);
+            SMap.infoWindow.setContent(infoHtml);
+            SMap.infoWindow.setPosition(latlng);
+            SMap.infoWindow.open(SMap.map);
         };
     },
 
-    showMarkers: function() {
-        var fn, i, item, latLng, marker, panel, s, title, titleText;
-        panel = document.getElementById('markerlist');
-        if (signalsMap.items.length === 0) {
-            return;
+    toggleGrid : function() {
+        active = (layers['grid'][0].getMap() !== null);
+        for (i in layers['grid']) {
+            layers['grid'][i].setMap(active ? null : map);
         }
-        panel.innerHTML = '';
+    },
 
-        for (i = 0; i < signalsMap.items.length; i++) {
-            s = signalsMap.items[i];
-            titleText =
-                '<b>' + (typeof s.logged !== 'undefined' ? (s.logged ? '&#9745;' : '&#9744;') + ' ' : '') + s.khz+' '+s.call + '</b> ' +
-                s.qth + (s.sp ? ', ' + s.sp : '') + ', ' + s.itu;
-            item = document.createElement('DIV');
-            title = document.createElement('A');
-            title.href = '#';
-            title.className = 'title type_' + s.className;
-            title.innerHTML = titleText;
-            if (typeof s.logged !== 'undefined' && s.logged) {
-                item.className = 'logged';
-                item.title = 'Received';
-            }
-            item.appendChild(title);
-            panel.appendChild(item);
-            latLng = new google.maps.LatLng(s.lat, s.lon);
-            marker = new google.maps.Marker({
-                'title' :  strip_tags(s.khz + ' ' + s.call),
-                'position': latLng,
-                'icon': signalsMap.icons[s.icon + '_' + (s.active ? 1 : 0)]
-            });
-            fn = signalsMap.markerClickFunction(s, latLng);
-            google.maps.event.addListener(marker, 'click', fn);
-            google.maps.event.addDomListener(title, 'click', fn);
-            marker.setMap(signalsMap.map);
-        }
-    }
 };

@@ -1,4 +1,4 @@
-function showGrid(map, layers, overlayClass) {
+function drawGrid(map, layers) {
     var i, la, lo;
     for (la=0; la<180; la+=10) {
         layers.grid.push(
@@ -28,7 +28,7 @@ function showGrid(map, layers, overlayClass) {
                 new TxtOverlay(
                     new google.maps.LatLng(la -90 +5,lo -180 + 10),
                     String.fromCharCode((lo/20) +65) + String.fromCharCode((la/10) +65),
-                    overlayClass,
+                    'gridLabel',
                     map
                 )
             );

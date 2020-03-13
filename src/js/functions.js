@@ -327,7 +327,6 @@ function setExternalLinks() {
         .attr('class', 'hover');
 
     $('area[data-map]')
-        .attr('shape', 'circle')
         .mouseover(function() {
             $('#listener_' + $(this).data('map'))
                 .css({backgroundColor: '#ffff00'})
@@ -337,10 +336,8 @@ function setExternalLinks() {
             $('#listener_' + $(this).data('map'))
                 .css({backgroundColor: ''})
                 .trigger('mouseleave');
-        })
-        .each(function() {
-            $(this).attr('title', $(this).attr('alt'));
         });
+
 
     $('tr[data-map]')
         .mouseover(function() {
@@ -348,7 +345,13 @@ function setExternalLinks() {
             var scale = $('#rx_map').width() / $('#rx_map')[0].naturalWidth;
             $('#point_here')
                 .show()
-                .css({left: ((coords[0] * scale) - 5) + 'px', top: ((coords[1] * scale) - 5) + 'px'});
+                .css({left: ((coords[0] * scale) - 5) + 'px', top: ((coords[1] * scale) - 5) + 'px'})
+                .unbind()
+                .click(function(e) {
+                    e.preventDefault();
+                    $('#listener_' + coords[2] + ' a').trigger('click');
+                    return false;
+                });
         })
         .mouseout(function() {
             $('#point_here').hide();

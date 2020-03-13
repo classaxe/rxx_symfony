@@ -3715,6 +3715,34 @@
         <source>Daytime Logging</source>
         <target>Daytime Logging</target>
       </trans-unit>
+      <trans-unit id="E5Z8feG" resname="Show Maidenhead Locator Grid Squares">
+        <source>Show Maidenhead Locator Grid Squares</source>
+        <target>Show Maidenhead Locator Grid Squares</target>
+      </trans-unit>
+      <trans-unit id="DX0SrGJ" resname="Grid">
+        <source>Grid</source>
+        <target>Grid</target>
+      </trans-unit>
+      <trans-unit id="wxrE_lz" resname="Show Primary locations">
+        <source>Show Primary locations</source>
+        <target>Show Primary locations</target>
+      </trans-unit>
+      <trans-unit id="7_EMgOy" resname="Primary">
+        <source>Primary</source>
+        <target>Primary</target>
+      </trans-unit>
+      <trans-unit id="QMY653b" resname="Show Secondary locations">
+        <source>Show Secondary locations</source>
+        <target>Show Secondary locations</target>
+      </trans-unit>
+      <trans-unit id="YvLM..z" resname="Secondary">
+        <source>Secondary</source>
+        <target>Secondary</target>
+      </trans-unit>
+      <trans-unit id="AxFSa8x" resname="Key:">
+        <source>Key:</source>
+        <target>Key:</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
