@@ -1,4 +1,5 @@
 function drawGrid(map, layers) {
+    TxtOverlay =    initMapsTxtOverlay();
     var i, la, lo;
     for (la=0; la<180; la+=10) {
         layers.grid.push(

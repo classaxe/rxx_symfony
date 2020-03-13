@@ -3743,6 +3743,34 @@
         <source>Key:</source>
         <target>Key:</target>
       </trans-unit>
+      <trans-unit id="9GbOEX6" resname="Show listener's location">
+        <source>Show listener's location</source>
+        <target>Show listener's location</target>
+      </trans-unit>
+      <trans-unit id="3.uXDUC" resname="Include inactive signals">
+        <source>Include inactive signals</source>
+        <target>Include inactive signals</target>
+      </trans-unit>
+      <trans-unit id="mfE7RB2" resname="Signal Types:">
+        <source>Signal Types:</source>
+        <target>Signal Types:</target>
+      </trans-unit>
+      <trans-unit id="ANo58Mi" resname="A signal believed to be active at this time">
+        <source>A signal believed to be active at this time</source>
+        <target>A signal believed to be active at this time</target>
+      </trans-unit>
+      <trans-unit id="75A_Dew" resname="Active Signal Marker">
+        <source>Active Signal Marker</source>
+        <target>Active Signal Marker</target>
+      </trans-unit>
+      <trans-unit id="MxznOfo" resname="May be seen when you choose 'Show Inactive">
+        <source>May be seen when you choose 'Show Inactive</source>
+        <target>May be seen when you choose 'Show Inactive</target>
+      </trans-unit>
+      <trans-unit id="Pr.suLI" resname="Inactive Signal Marker">
+        <source>Inactive Signal Marker</source>
+        <target>Inactive Signal Marker</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

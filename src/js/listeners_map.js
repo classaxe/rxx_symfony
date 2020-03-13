@@ -6,8 +6,6 @@
 var LMap = {
     markerGroups : null,
     init : function() {
-        TxtOverlay =    initMapsTxtOverlay();
-
         map = new google.maps.Map(document.getElementById('map'), {
             center: { lat: center.lat, lng: center.lon },
             scaleControl: true,
@@ -21,17 +19,9 @@ var LMap = {
                 new google.maps.LatLng( box[1].lat, box[1].lon) //ne
             )
         );
-        $('#layer_grid').click(function() {
-            LMap.toggleGrid();
-        });
-        $('#layer_primary').click(function() {
-            LMap.togglePrimary();
-        });
-        $('#layer_secondary').click(function() {
-            LMap.toggleSecondary();
-        });
         LMap.drawGrid();
         LMap.drawMarkers();
+        LMap.setActions();
         setExternalLinks();
         setClippedCellTitles();
     },
@@ -118,18 +108,21 @@ var LMap = {
         $('.results').show();
     },
 
-    toggleGrid : function() {
-        active = (layers['grid'][0].getMap() !== null);
-        for (i in layers['grid']) {
-            layers['grid'][i].setMap(active ? null : map);
-        }
-    },
+    setActions : function() {
+        $('#layer_grid').click(function() {
+            var active, i;
+            active = $('#layer_grid').prop('checked');
+            for (i in layers.grid) {
+                layers.grid[i].setMap(active ? map : null);
+            }
+        });
 
-    togglePrimary : function() {
-        LMap.markerGroups.set('primary', $('#layer_primary').prop('checked') ? map : null);
-    },
+        $('#layer_primary').click(function() {
+            LMap.markerGroups.set('primary', $('#layer_primary').prop('checked') ? map : null);
+        });
 
-    toggleSecondary : function() {
-        LMap.markerGroups.set('secondary', $('#layer_secondary').prop('checked') ? map : null);
+        $('#layer_secondary').click(function() {
+            LMap.markerGroups.set('secondary', $('#layer_secondary').prop('checked') ? map : null);
+        });
     }
 };

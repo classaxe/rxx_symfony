@@ -7,7 +7,6 @@ var SMap = {
     options : {},
 
     init: function() {
-        TxtOverlay =    initMapsTxtOverlay();
         SMap.items = signals;
         var icons = [ 'dgps', 'dsc', 'hambcn', 'navtex', 'ndb', 'time', 'other' ];
         var states = [ 0, 1 ];
@@ -29,9 +28,8 @@ var SMap = {
         SMap.drawMarkers();
 
         $('#layer_grid').click(function() {
-            LMap.toggleGrid();
+            SMap.toggleGrid();
         });
-
     },
 
     drawGrid : function() {

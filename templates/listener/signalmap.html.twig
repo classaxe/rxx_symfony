@@ -15,22 +15,26 @@
             <div class="content map" style="margin: 0;padding: 0.25em 0.5em 0.5em 0">
                 <div id="header">
                     <div class="form_layers">
-                        <div><label><strong>Show</strong></label></div>
-                        <div><label title="Show listener's location"><input type="checkbox" id="layer_qth" checked="checked" />QTH</label></div>
-                        <div><label title="Show Maidenhead Locator Grid Squares"><input type="checkbox" id="layer_grid" checked="checked" />Grid</label></div>
-                        <div><label title="Include inactive signals"><input type="checkbox" id="layer_inactive" checked="checked" />Inactive</label></div>
+                        <div><label><strong>{% trans %}Show{% endtrans %}</strong></label></div>
+                        <div><label title="{% trans %}Show listener's location{% endtrans %}"><input type="checkbox" id="layer_qth" checked="checked" /> {% trans %}QTH{% endtrans %}</label></div>
+                        <div><label title="{% trans %}Show Maidenhead Locator Grid Squares{% endtrans %}"><input type="checkbox" id="layer_grid" checked="checked" /> {% trans %}Grid{% endtrans %}</label></div>
+                        <div><label title="{% trans %}Include inactive signals{% endtrans %}"><input type="checkbox" id="layer_inactive" checked="checked" /> {% trans %}Inactive{% endtrans %}</label></div>
                     </div>
                     <div class="form_layers">
-                        <div><label><strong>Signal Types: </strong></label></div>
-                        {% for type,settings in types %}
+                        <div><label><strong>{% trans %}Signal Types:{% endtrans %}</strong></label></div>
+                        {% for type, settings in types %}
                         <div class="type_{{ settings.class|lower }}"><label><input type="checkbox" id="layer_{{ type }}" checked="checked" /> {{ settings.label }}</label></div>
                         {% endfor %}
                         <div></div>
                     </div>
                     <div class="form_layers">
-                        <div><label><strong>Key:</strong></label></div>
-                        <div><label title="A signal believed to be active at this time"><img src="//maps.google.com/mapfiles/kml/paddle/wht-circle.png" alt="Active Signal Marker" style="height:0.8em; width: 0.8em"/>Active</label></div>
-                        <div><label title="May be seen when you choose 'Show Inactive'"><img src="//maps.google.com/mapfiles/kml/paddle/wht-blank.png" alt="Inactive Signal Marker" style="height:0.8em; width: 0.8em; opacity: 0.8" />Inactive</label></div>
+                        <div><strong>{% trans %}Key:{% endtrans %}</strong></div>
+                        <div title="{% trans %}A signal believed to be active at this time{% endtrans %}">
+                            <img src="//maps.google.com/mapfiles/kml/paddle/wht-circle.png" alt="{% trans %}Active Signal Marker{% endtrans %}" style="height:0.8em; width: 0.8em"/>{% trans %}Active{% endtrans %}
+                        </div>
+                        <div title="{% trans %}May be seen when you choose 'Show Inactive'{% endtrans %}">
+                            <img src="//maps.google.com/mapfiles/kml/paddle/wht-blank.png" alt="{% trans %}Inactive Signal Marker{% endtrans %}" style="height:0.8em; width: 0.8em; opacity: 0.8" />{% trans %}Inactive{% endtrans %}
+                        </div>
                     </div>
                 </div>
                 <div id="map"></div>
@@ -38,28 +42,28 @@
         </div>
     </div>
     {% include 'js_trans.html.twig' %}
-    <script>
-    //<![CDATA[
-    var listener = {
-        source: '{{ url('listener_export_signals_kml', { 'system' : system, 'id' : id }) }}',
-        logLatest: {{ listener.logLatest|date("Ymd") }},
-        lat: {{ listener.lat }},
-        lng: {{ listener.lon }},
-        name: "{{ listener.name }}",
-        qth: "{{ listener.qth }}{% if (listener.sp) %}, {{ listener.sp }}{% endif %}, {{ listener.itu }}",
-        types: [{{ types|keys|join(',') }}]
-    };
-    $(document).ready( function() {
-        setExternalLinks();
-        setColumnSortActions();
-        setColumnSortedClass();
-        setClippedCellTitles();
+<script>
+//<![CDATA[
+var listener = {
+    source: '{{ url('listener_export_signals_kml', { 'system' : system, 'id' : id }) }}',
+    logLatest: {{ listener.logLatest|date("Ymd") }},
+    lat: {{ listener.lat }},
+    lng: {{ listener.lon }},
+    name: "{{ listener.name }}",
+    qth: "{{ listener.qth }}{% if (listener.sp) %}, {{ listener.sp }}{% endif %}, {{ listener.itu }}",
+    types: [{{ types|keys|join(',') }}]
+};
+$(document).ready( function() {
+    setExternalLinks();
+    setColumnSortActions();
+    setColumnSortedClass();
+    setClippedCellTitles();
+    $('#map').height($(window).height() - 140);
+    $(window).resize(function () {
         $('#map').height($(window).height() - 140);
-        $(window).resize(function () {
-            $('#map').height($(window).height() - 140);
-        });
-        //]]>
     });
-    </script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCmvsfY0bgnVB-gl_nMHGQ71rp1WTz9tGM&callback=initListenerSignalsMap"></script>
+    //]]>
+});
+</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCmvsfY0bgnVB-gl_nMHGQ71rp1WTz9tGM&callback=LSMap.init"></script>
 {% endblock %}

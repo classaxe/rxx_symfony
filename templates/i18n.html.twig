@@ -756,9 +756,6 @@
     {% trans %}Reset{% endtrans %}
 {% endif %}
 
-{% if 'Listener Signals' %}
-    {% trans %}Logged betweeen 10am and 2pm local time{% endtrans %}
-{% endif %}
 {% if 'Listener Map' %}
     {% trans %}Map for %s (GSQ %s){% endtrans %}
     {% trans %}Message ID{% endtrans %}
@@ -769,6 +766,20 @@
     {% trans %}Show Secondary locations{% endtrans %}
     {% trans %}Secondary{% endtrans %}
     {% trans %}Key:{% endtrans %}
+{% endif %}
+
+{% if 'Listener Signals' %}
+    {% trans %}Logged betweeen 10am and 2pm local time{% endtrans %}
+{% endif %}
+
+{% if 'Listener Signals Map' %}
+    {% trans %}Show listener's location{% endtrans %}
+    {% trans %}Include inactive signals{% endtrans %}
+    {% trans %}Signal Types:{% endtrans %}
+    {% trans %}A signal believed to be active at this time{% endtrans %}
+    {% trans %}Active Signal Marker{% endtrans %}
+    {% trans %}May be seen when you choose 'Show Inactive'{% endtrans %}
+    {% trans %}Inactive Signal Marker{% endtrans %}
 {% endif %}
 
 {% if 'Listener Locator Map' %}
