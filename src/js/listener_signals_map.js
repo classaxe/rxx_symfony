@@ -34,7 +34,7 @@ function initListenerSignalsMap() {
         qthInfo.open(map, layers.qth);
     });
 
-    showGrid(map, layers, 'gridLabel');
+    drawGrid(map, layers, 'gridLabel');
 
     // Signal Types overlays
     for (type in listener.types) {

@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    0.43.8
- * Date:       2020-03-12
+ * Version:    0.43.9
+ * Date:       2020-03-13
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
  */
@@ -487,45 +487,6 @@ function setExternalLinks() {
         })
         .attr('title', msg.s_map_na)
         .attr('class', 'hover');
-
-    $('area[data-map]')
-        .mouseover(function() {
-            $('#listener_' + $(this).data('map'))
-                .css({backgroundColor: '#ffff00'})
-                .trigger('mouseenter');
-        })
-        .mouseout(function() {
-            $('#listener_' + $(this).data('map'))
-                .css({backgroundColor: ''})
-                .trigger('mouseleave');
-        });
-
-
-    $('tr[data-map]')
-        .mouseover(function() {
-            var coords = $(this).data('map').split('|');
-            var scale = $('#rx_map').width() / $('#rx_map')[0].naturalWidth;
-            $('#point_here')
-                .show()
-                .css({left: ((coords[0] * scale) - 5) + 'px', top: ((coords[1] * scale) - 5) + 'px'})
-                .unbind()
-                .click(function(e) {
-                    e.preventDefault();
-                    $('#listener_' + coords[2] + ' a').trigger('click');
-                    return false;
-                });
-        })
-        .mouseout(function() {
-            $('#point_here').hide();
-        });
-
-    $('tr[data-map] a')
-        .click(function() {
-            var target = 'listeners_' + $(this).data('map');
-            window.open(this.href, target, popWinSpecs["listeners_[id]"]);
-            return false;
-        });
-
 }
 
 function setFormCollapseSections() {
@@ -1005,7 +966,7 @@ function initListenerSignalsMap() {
         qthInfo.open(map, layers.qth);
     });
 
-    showGrid(map, layers, 'gridLabel');
+    drawGrid(map, layers, 'gridLabel');
 
     // Signal Types overlays
     for (type in listener.types) {
@@ -1409,7 +1370,50 @@ var SLMap = {
         }
         $('.results tbody').html(html);
         $('#imgmap').html(imgmap);
+        SLMap.setActions();
+    },
+
+    setActions : function() {
+        $('area[data-map]')
+            .mouseover(function() {
+                $('#listener_' + $(this).data('map'))
+                    .css({backgroundColor: '#ffff00'})
+                    .trigger('mouseenter');
+            })
+            .mouseout(function() {
+                $('#listener_' + $(this).data('map'))
+                    .css({backgroundColor: ''})
+                    .trigger('mouseleave');
+            });
+
+
+        $('tr[data-map]')
+            .mouseover(function() {
+                var coords = $(this).data('map').split('|');
+                var scale = $('#rx_map').width() / $('#rx_map')[0].naturalWidth;
+                $('#point_here')
+                    .show()
+                    .css({left: ((coords[0] * scale) - 5) + 'px', top: ((coords[1] * scale) - 5) + 'px'})
+                    .unbind()
+                    .click(function(e) {
+                        e.preventDefault();
+                        $('#listener_' + coords[2] + ' a').trigger('click');
+                        return false;
+                    });
+            })
+            .mouseout(function() {
+                $('#point_here').hide();
+            });
+
+        $('tr[data-map] a')
+            .click(function() {
+                var target = 'listeners_' + $(this).data('map');
+                window.open(this.href, target, popWinSpecs["listeners_[id]"]);
+                return false;
+            });
+
     }
+
 };
 ;
 
