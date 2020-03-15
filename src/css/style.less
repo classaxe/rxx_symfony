@@ -1332,8 +1332,11 @@ div.scroll {
                 th { position: sticky; top: -1px; border-top: none; border-bottom: none; }
             }
             tbody {
-                tr:hover {
-                    background: #ffff00;
+                tr:hover, tr:hover td {
+                    background: #ffff00 !important;
+                }
+                tr.type_inactive:hover, tr.type_inactive:hover td {
+                    background: #b0b040 !important;
                 }
             }
             img { margin: 0.5em 0.25em 0 0;}
@@ -1460,9 +1463,38 @@ fieldset#group_weather_report_details {
     border-collapse: collapse;
     thead {
         th {
+            height: 7em ~'!important';
+            max-height: 7em ~'!important';
             background: #686868;
             color: #ffffff;
             border: 1px solid #808080;
+            vertical-align: bottom;
+            font-size: 80%;
+            padding: 0.25em;
+            &.sort {
+                border-bottom: 3px solid #a0a0a0;
+            }
+            &.nosort {
+                background: #008000;
+                border-bottom: 3px solid #006000;
+            }
+            &.sort:hover,
+            &.sorted {
+                border-bottom: 3px solid @sortedBorder ~'!important';
+                background: @sortedBg;
+                cursor: pointer;
+            }
+
+            &.sorted {
+                color: @sortedTxt;
+            }
+
+            b {
+                background: #ffffa0;
+                color: #0000ff;
+                border: 1px solid #b0b000;
+                border-radius: 2px;
+            }
         }
     }
     tbody {
@@ -1473,38 +1505,6 @@ fieldset#group_weather_report_details {
             border: 1px solid #808080;
         }
     }
-    th {
-        height: 7em ~'!important';
-        max-height: 7em ~'!important';
-        vertical-align: bottom;
-        font-size: 80%;
-        padding: 0.25em;
-
-        &.sort {
-            border-bottom: 3px solid #a0a0a0;
-        }
-        &.nosort {
-            background: #008000;
-            border-bottom: 3px solid #006000;
-        }
-        &.sort:hover,
-        &.sorted {
-            border-bottom: 3px solid @sortedBorder ~'!important';
-            background: @sortedBg;
-            cursor: pointer;
-        }
-
-        &.sorted {
-            color: @sortedTxt;
-        }
-
-        b {
-            background: #ffffa0;
-            color: #0000ff;
-            border: 1px solid #b0b000;
-            border-radius: 2px;
-        }
-    }
     tr.daytime {
         td {
             font-weight: bold;
@@ -1512,13 +1512,12 @@ fieldset#group_weather_report_details {
     }
     tr.logged {
         td {
-            background: #e8ffe8 !important;
             color: #008000 !important;
         }
     }
-    tr.inactive.logged {
+    tr.unlogged {
         td {
-            background: #a0d0a0 !important;
+            color: #A00000 !important;
         }
     }
     td {
@@ -1618,9 +1617,10 @@ body.map {
             margin: 0 5px;
             border-radius: 5px;
             div {
+                height: 1.8em;
                 line-height: 1.8em;
                 float: left;
-                padding: 2px 4px;
+                padding: 0 4px;
                 margin: 0;
                 input[type='checkbox'] {
                     padding: 0;
@@ -1737,16 +1737,25 @@ body.map {
     height: 620px;
     margin: 10px 0 0 0;
     overflow: auto;
-    th {
-        height: 3em !important;
+    thead{
+        th {
+            height: 3em !important;
+        }
     }
-    .logged {
-        a {
-            b {
-                background: #e0ffe0 !important;
-                border: 1px solid #80c080 !important;
+    tbody{
+        th {
+            margin: 0;
+            padding: 0;
+        }
+        .logged {
+            a {
+                b {
+                    background: #e0ffe0 !important;
+                    border: 1px solid #80c080 !important;
+                }
             }
         }
+
     }
 }
 
@@ -1809,19 +1818,23 @@ a.sec {
     clear-after: both;
   }
   .info-body {
-    th {
-      vertical-align: top;
-      padding: 3px;
-      font-size: 10pt;
-      text-align: left;
-      width: 6em;
-    }
-    td {
-      vertical-align: top;
-      padding: 3px;
-      font-size: 10pt;
-      width: 16em;
-    }
+      padding: 0; margin: 2px 0; border: 1px solid #ccc;
+      tbody {
+          padding: 2px; margin: 0;
+          th {
+              vertical-align: top;
+              padding: 3px;
+              font-size:8pt;
+              text-align: left;
+              width: 10em;
+          }
+          td {
+              vertical-align: top;
+              padding: 3px;
+              font-size: 10pt;
+              width: 16em;
+          }
+      }
   }
 }
 #main .help .header h3 {

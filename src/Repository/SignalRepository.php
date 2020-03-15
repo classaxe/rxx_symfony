@@ -697,6 +697,10 @@ class SignalRepository extends ServiceEntityRepository
             ->addFilterStatesAndCountries()
             ->addFilterTypes();
 
+        if (isset($args['show']) && $args['show'] === 'map') {
+            $this->query['where'][] = '(s.lat != 0 OR s.lon !=0)';
+        }
+
         if ($args['isAdmin'] && $args['admin_mode'] === '1') {
             $this->addFilterUnlogged();
         } elseif($args['isAdmin'] && $args['admin_mode'] === '2') {

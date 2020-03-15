@@ -3775,6 +3775,34 @@
         <source>May be seen when you choose 'Show Inactive'</source>
         <target>__May be seen when you choose 'Show Inactive'</target>
       </trans-unit>
+      <trans-unit id="e4HzHg7" resname="Show Active Signals">
+        <source>Show Active Signals</source>
+        <target>__Show Active Signals</target>
+      </trans-unit>
+      <trans-unit id=".6_OigN" resname="Show Inactive Signals">
+        <source>Show Inactive Signals</source>
+        <target>__Show Inactive Signals</target>
+      </trans-unit>
+      <trans-unit id="AxDT2Tb" resname="Heard In">
+        <source>Heard In</source>
+        <target>__Heard In</target>
+      </trans-unit>
+      <trans-unit id="mS3eKmx" resname="Lat / Lon">
+        <source>Lat / Lon</source>
+        <target>__Lat / Lon</target>
+      </trans-unit>
+      <trans-unit id="hI6WVn1" resname="Power">
+        <source>Power</source>
+        <target>__Power</target>
+      </trans-unit>
+      <trans-unit id="pZlKz35" resname="Secs / Format">
+        <source>Secs / Format</source>
+        <target>__Secs / Format</target>
+      </trans-unit>
+      <trans-unit id="fGKQVse" resname="Sidebands">
+        <source>Sidebands</source>
+        <target>__Sidebands</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

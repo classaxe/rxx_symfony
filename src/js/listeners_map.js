@@ -70,10 +70,10 @@ var LMap = {
                 '<td>' + l.itu + '</td>' +
                 '</tr>';
             marker = new google.maps.Marker({
-                position: new google.maps.LatLng(l.lat, l.lon),
                 id: 'point_' + l.id,
-                title: (decodeHtmlEntities(l.name) + ': ' + decodeHtmlEntities(l.qth) + (l.sp ? ', ' + l.sp : '') + ', ' + l.itu),
-                icon: (l.pri ? icon_primary : icon_secondary)
+                icon: (l.pri ? icon_primary : icon_secondary),
+                position: new google.maps.LatLng(l.lat, l.lon),
+                title: (decodeHtmlEntities(l.name) + ': ' + decodeHtmlEntities(l.qth) + (l.sp ? ', ' + l.sp : '') + ', ' + l.itu)
             });
             marker.bindTo('map', LMap.markerGroups, (l.pri ? 'primary' : 'secondary'));
             markers.push(marker);

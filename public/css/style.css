@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    0.43.4
- * Date:       2020-03-12
+ * Version:    0.43.13
+ * Date:       2020-03-15
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
  */
@@ -1396,8 +1396,13 @@ div.scroll div table.results thead th {
   border-top: none;
   border-bottom: none;
 }
-div.scroll div table.results tbody tr:hover {
-  background: #ffff00;
+div.scroll div table.results tbody tr:hover,
+div.scroll div table.results tbody tr:hover td {
+  background: #ffff00 !important;
+}
+div.scroll div table.results tbody tr.type_inactive:hover,
+div.scroll div table.results tbody tr.type_inactive:hover td {
+  background: #b0b040 !important;
 }
 div.scroll div table.results img {
   margin: 0.5em 0.25em 0 0;
@@ -1511,9 +1516,36 @@ fieldset#group_weather_report_details div label {
   border-collapse: collapse;
 }
 .results thead th {
+  height: 7em !important;
+  max-height: 7em !important;
   background: #686868;
   color: #ffffff;
   border: 1px solid #808080;
+  vertical-align: bottom;
+  font-size: 80%;
+  padding: 0.25em;
+}
+.results thead th.sort {
+  border-bottom: 3px solid #a0a0a0;
+}
+.results thead th.nosort {
+  background: #008000;
+  border-bottom: 3px solid #006000;
+}
+.results thead th.sort:hover,
+.results thead th.sorted {
+  border-bottom: 3px solid #FCC247 !important;
+  background: #665d4b;
+  cursor: pointer;
+}
+.results thead th.sorted {
+  color: #ffe4b3;
+}
+.results thead th b {
+  background: #ffffa0;
+  color: #0000ff;
+  border: 1px solid #b0b000;
+  border-radius: 2px;
 }
 .results tbody th {
   vertical-align: top;
@@ -1521,44 +1553,14 @@ fieldset#group_weather_report_details div label {
   color: #008000;
   border: 1px solid #808080;
 }
-.results th {
-  height: 7em !important;
-  max-height: 7em !important;
-  vertical-align: bottom;
-  font-size: 80%;
-  padding: 0.25em;
-}
-.results th.sort {
-  border-bottom: 3px solid #a0a0a0;
-}
-.results th.nosort {
-  background: #008000;
-  border-bottom: 3px solid #006000;
-}
-.results th.sort:hover,
-.results th.sorted {
-  border-bottom: 3px solid #FCC247 !important;
-  background: #665d4b;
-  cursor: pointer;
-}
-.results th.sorted {
-  color: #ffe4b3;
-}
-.results th b {
-  background: #ffffa0;
-  color: #0000ff;
-  border: 1px solid #b0b000;
-  border-radius: 2px;
-}
 .results tr.daytime td {
   font-weight: bold;
 }
 .results tr.logged td {
-  background: #e8ffe8 !important;
   color: #008000 !important;
 }
-.results tr.inactive.logged td {
-  background: #a0d0a0 !important;
+.results tr.unlogged td {
+  color: #A00000 !important;
 }
 .results td {
   border: 1px solid #808080;
@@ -1656,9 +1658,10 @@ body.map {
   border-radius: 5px;
 }
 .map #header .form_layers div {
+  height: 1.8em;
   line-height: 1.8em;
   float: left;
-  padding: 2px 4px;
+  padding: 0 4px;
   margin: 0;
 }
 .map #header .form_layers div input[type='checkbox'] {
@@ -1769,10 +1772,14 @@ body.map {
   margin: 10px 0 0 0;
   overflow: auto;
 }
-#markerlist th {
+#markerlist thead th {
   height: 3em !important;
 }
-#markerlist .logged a b {
+#markerlist tbody th {
+  margin: 0;
+  padding: 0;
+}
+#markerlist tbody .logged a b {
   background: #e0ffe0 !important;
   border: 1px solid #80c080 !important;
 }
@@ -1830,14 +1837,23 @@ a.sec {
   display: block;
   clear-after: both;
 }
-.map_info .info-body th {
+.map_info .info-body {
+  padding: 0;
+  margin: 2px 0;
+  border: 1px solid #ccc;
+}
+.map_info .info-body tbody {
+  padding: 2px;
+  margin: 0;
+}
+.map_info .info-body tbody th {
   vertical-align: top;
   padding: 3px;
-  font-size: 10pt;
+  font-size: 8pt;
   text-align: left;
-  width: 6em;
+  width: 10em;
 }
-.map_info .info-body td {
+.map_info .info-body tbody td {
   vertical-align: top;
   padding: 3px;
   font-size: 10pt;

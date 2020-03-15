@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    0.43.9
- * Date:       2020-03-13
+ * Version:    0.43.13
+ * Date:       2020-03-15
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
  */
@@ -1119,10 +1119,10 @@ var LMap = {
                 '<td>' + l.itu + '</td>' +
                 '</tr>';
             marker = new google.maps.Marker({
-                position: new google.maps.LatLng(l.lat, l.lon),
                 id: 'point_' + l.id,
-                title: (decodeHtmlEntities(l.name) + ': ' + decodeHtmlEntities(l.qth) + (l.sp ? ', ' + l.sp : '') + ', ' + l.itu),
-                icon: (l.pri ? icon_primary : icon_secondary)
+                icon: (l.pri ? icon_primary : icon_secondary),
+                position: new google.maps.LatLng(l.lat, l.lon),
+                title: (decodeHtmlEntities(l.name) + ': ' + decodeHtmlEntities(l.qth) + (l.sp ? ', ' + l.sp : '') + ', ' + l.itu)
             });
             marker.bindTo('map', LMap.markerGroups, (l.pri ? 'primary' : 'secondary'));
             markers.push(marker);
@@ -1408,12 +1408,10 @@ var SMap = {
     map : null,
     icons : {},
     infoWindow : null,
-    items : [],
     markers : [],
     options : {},
 
     init: function() {
-        SMap.items = signals;
         var icons = [ 'dgps', 'dsc', 'hambcn', 'navtex', 'ndb', 'time', 'other' ];
         var states = [ 0, 1 ];
         for (var i in icons) {
@@ -1432,10 +1430,9 @@ var SMap = {
         SMap.infoWindow = new google.maps.InfoWindow();
         SMap.drawGrid();
         SMap.drawMarkers();
-
-        $('#layer_grid').click(function() {
-            SMap.toggleGrid();
-        });
+        SMap.setActions();
+        setExternalLinks();
+        setClippedCellTitles();
     },
 
     drawGrid : function() {
@@ -1443,40 +1440,71 @@ var SMap = {
     },
 
     drawMarkers: function() {
-        var fn, i, item, latLng, marker, panel, s, title, titleText;
-        panel = document.getElementById('markerlist');
-        if (SMap.items.length === 0) {
+        var f, fn, html, i, icon_highlight, item, latLng, marker, panel, s, title, titleText;
+        if (!signals) {
             return;
         }
-        panel.innerHTML = '';
+        SMap.markerGroups=new google.maps.MVCObject();
+        SMap.markerGroups.set('active', SMap.map);
+        SMap.markerGroups.set('inactive', SMap.map);
+        SMap.markerGroups.set('highlight', SMap.map);
 
-        for (i = 0; i < SMap.items.length; i++) {
-            s = SMap.items[i];
-            titleText =
-                '<b>' + (typeof s.logged !== 'undefined' ? (s.logged ? '&#9745;' : '&#9744;') + ' ' : '') + s.khz+' '+s.call + '</b> ' +
-                s.qth + (s.sp ? ', ' + s.sp : '') + ', ' + s.itu;
-            item = document.createElement('DIV');
-            title = document.createElement('A');
-            title.href = '#';
-            title.className = 'title type_' + s.className;
-            title.innerHTML = titleText;
-            if (typeof s.logged !== 'undefined' && s.logged) {
-                item.className = 'logged';
-                item.title = 'Received';
-            }
-            item.appendChild(title);
-            panel.appendChild(item);
+        icon_highlight = {
+            url: base_image + '/map_point_here.gif',
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(6, 7)
+        };
+
+        html = '';
+        for (i in signals) {
+            s = signals[i];
+            html +=
+                '<tr' +
+                ' class="' + 'type_' + s.className + (typeof s.logged !== 'undefined' ? (s.logged ? ' logged' : ' unlogged') : '') + '"' +
+                ' id="signal_' + s.id + '"' +
+                ' data-gmap="' + s.lat + '|' + s.lon + '"' +
+                ' onclick="$(\'#point_' + s.id + '\').trigger(\'click\')"' +
+                '>' +
+                (typeof s.logged !== 'undefined' ? '<th>' + (s.logged ? '&#x2714;' : '&nbsp;') + '</th>' : '') +
+                '<td>' + s.khz + '</td>' +
+                '<td class="text-nowrap">' +
+                '<a href="' + base_url + 'signals/' + s.id + '" class="' + (s.active ? '' : 'inactive') + '" data-popup="1">' + s.call + '</a>' +
+                '</td>' +
+                '<td>' + s.qth + '</td>' +
+                '<td>' + s.sp + '</td>' +
+                '<td>' + s.itu + '</td>' +
+                '</tr>';
+
             latLng = new google.maps.LatLng(s.lat, s.lon);
             marker = new google.maps.Marker({
-                'title' :  strip_tags(s.khz + ' ' + s.call),
-                'position': latLng,
-                'icon': SMap.icons[s.icon + '_' + (s.active ? 1 : 0)]
+                id : 'point_' + s.id,
+                icon : SMap.icons[s.icon + '_' + (s.active ? 1 : 0)],
+                position : latLng,
+                title :  strip_tags(s.khz + ' ' + s.call)
             });
-            fn = SMap.markerClickFunction(s, latLng);
-            google.maps.event.addListener(marker, 'click', fn);
-            google.maps.event.addDomListener(title, 'click', fn);
-            marker.setMap(SMap.map);
+            google.maps.event.addListener(marker, 'click', SMap.markerClickFunction(s, latLng));
+            google.maps.event.addListener(marker, 'click', SMap.markerClickFunction(s, latLng));
+            marker.bindTo('map', SMap.markerGroups, (s.active ? 'active' : 'inactive'));
+            markers.push(marker);
         }
+
+        $('.results tbody').append(html);
+
+        $('tr[data-gmap]')
+            .mouseover(function() {
+                var coords = $(this).data('gmap').split('|');
+                highlight = new google.maps.Marker({
+                    position: new google.maps.LatLng(coords[0], coords[1]),
+                    map: SMap.map,
+                    icon: icon_highlight
+                });
+            })
+            .mouseout(function() {
+                highlight.setMap(null);
+            });
+
+        $('.no-results').hide();
+        $('.results').show();
     },
 
     markerClickFunction: function(s, latlng) {
@@ -1487,23 +1515,22 @@ var SMap = {
                 e.stopPropagation();
                 e.preventDefault();
             }
-            var title = s.khz+' '+s.call+' ';
             var infoHtml =
                 '<div class="map_info">' +
-                '  <h3><a href="./rna/signal_info/' + s.id + '" target="_blank">' + title + '</a></h3>' +
+                '  <h3><a href="' + base_url + 'signals/' + s.id + '" onclick="return popup(this.href);">' + s.khz + ' ' + s.call + '</a></h3>' +
                 '  <table class="info-body">' +
-                (typeof s.logged !== 'undefined' ? '    <tr><th>Received</th><td><b>' + (s.logged ? 'Yes' : 'No') + '</b></td></tr>' : '') +
-                '    <tr><th>ID</th><td>'+s.call + '</td></tr>' +
-                '    <tr><th>KHz</th><td>'+s.khz + '</td></tr>' +
-                '    <tr><th>Type</th><td>'+s.type + '</td></tr>' +
-                (s.pwr !== '0' ? '    <tr><th>Power</th><td>'+s.pwr + 'W</td></tr>' : '') +
-                '    <tr><th>\'Name\' / QTH</th><td>'+s.qth + (s.sp ? ', ' + s.sp : '') + ', ' + s.itu + '</td></tr>' +
-                (s.gsq ? '    <tr><th>GSQ</th><td><a href="." onclick="popup_map('+s.id+','+s.lat+','+s.lon+');return false;" title="Show map (accuracy limited to nearest Grid Square)">'+s.gsq+'</a></td></tr>' : '') +
-                '    <tr><th>Lat / Lon</th><td>' + s.lat + ', ' + s.lon + '</td></tr>' +
-                (s.usb || s.lsb ? '    <tr><th>Sidebands</th><td>' + (s.lsb ? 'LSB: ' + s.lsb : '') + (s.usb ? (s.lsb ? ', ' : '') + ' USB: ' + s.usb : '') + '</td></tr>' : '') +
-                (s.sec || s.fmt ? '    <tr><th>Secs / Format</th><td>' + (s.sec ? s.sec + ' sec' : '') + (s.sec && s.fmt ? ', ' : '') + s.fmt + '</td></tr>' : '') +
-                '    <tr><th>Last Logged</th><td>' + s.heard + '</td></tr>' +
-                '    <tr><th>Heard In</th><td>' + s.heard_in + '</td></tr>' +
+                (typeof s.logged !== 'undefined' ? '    <tr><th>' + msg.logged +'</th><td>' + (s.logged ? msg.yes : msg.no) + '</td></tr>' : '') +
+                '    <tr><th>' + msg.id + '</th><td>'+s.call + '</td></tr>' +
+                '    <tr><th>' + msg.khz + '</th><td>'+s.khz + '</td></tr>' +
+                '    <tr><th>' + msg.type + '</th><td>'+s.type + '</td></tr>' +
+                (s.pwr !== '0' ? '    <tr><th>' + msg.power + '</th><td>'+s.pwr + 'W</td></tr>' : '') +
+                '    <tr><th>' + msg.name_qth + '</th><td>'+s.qth + (s.sp ? ', ' + s.sp : '') + ', ' + s.itu + '</td></tr>' +
+                (s.gsq ? '    <tr><th>' + msg.gsq + '</th><td><a href="' + base_url + 'signals/' + s.id + '/map" onclick="return popup(this.href);" title="Show map (accuracy limited to nearest Grid Square)">'+s.gsq+'</a></td></tr>' : '') +
+                '    <tr><th>' + msg.lat_lon + '</th><td>' + s.lat + ', ' + s.lon + '</td></tr>' +
+                (s.usb || s.lsb ? '    <tr><th>' + msg.sidebands + '</th><td>' + (s.lsb ? 'LSB: ' + s.lsb : '') + (s.usb ? (s.lsb ? ', ' : '') + ' USB: ' + s.usb : '') + '</td></tr>' : '') +
+                (s.sec || s.fmt ? '    <tr><th>' + msg.sec_format + '</th><td>' + (s.sec ? s.sec + ' sec' : '') + (s.sec && s.fmt ? ', ' : '') + s.fmt + '</td></tr>' : '') +
+                '    <tr><th>' + msg.last_logged + '</th><td>' + s.heard + '</td></tr>' +
+                '    <tr><th>' + msg.heard_in + '</th><td>' + s.heard_in + '</td></tr>' +
                 '  </table>' +
                 '</div>';
             SMap.infoWindow.setContent(infoHtml);
@@ -1512,11 +1539,20 @@ var SMap = {
         };
     },
 
-    toggleGrid : function() {
-        active = (layers['grid'][0].getMap() !== null);
-        for (i in layers['grid']) {
-            layers['grid'][i].setMap(active ? null : map);
-        }
-    },
+    setActions : function() {
+        $('#layer_grid').click(function() {
+            var active, i;
+            active = $('#layer_grid').prop('checked');
+            for (i in layers.grid) {
+                layers.grid[i].setMap(active ? SMap.map : null);
+            }
+        });
 
+        $('#layer_active').click(function() {
+            SMap.markerGroups.set('active', $('#layer_active').prop('checked') ? SMap.map : null);
+        });
+        $('#layer_inactive').click(function() {
+            SMap.markerGroups.set('inactive', $('#layer_inactive').prop('checked') ? SMap.map : null);
+        });
+    }
 };
