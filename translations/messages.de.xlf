@@ -3803,6 +3803,14 @@
         <source>Sidebands</source>
         <target>__Sidebands</target>
       </trans-unit>
+      <trans-unit id="OrxZGho" resname="Show Active signals">
+        <source>Show Active signals</source>
+        <target>__Show Active signals</target>
+      </trans-unit>
+      <trans-unit id="KfhwsJ_" resname="Show Inactive signals">
+        <source>Show Inactive signals</source>
+        <target>__Show Inactive signals</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

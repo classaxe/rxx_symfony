@@ -48,18 +48,18 @@ class Signalmap extends Base
         }
 
         $isAdmin = $this->parameters['isAdmin'];
-        $listenerSignalTypes = [];
+        $types = [];
         foreach ($listenerRepository->getSignalTypesForListener($id) as $type) {
-            $listenerSignalTypes[$type] = $typeRepository->getTypeForCode($type);
+            $types[$type] = $typeRepository->getTypeForCode($type);
         }
-        uasort($listenerSignalTypes, array($typeRepository, 'sortByOrder'));
+        uasort($types, [ $typeRepository, 'sortByOrder' ]);
         $parameters = [
             'id' =>                 $id,
             '_locale' =>            $_locale,
             'listener' =>           $listener,
             'logs' =>               $logRepository->getLogsForListener($id),
             'mode' =>               strToUpper($system).' Map of Signals received by '.$listener->getName(),
-            'types' =>              $listenerSignalTypes,
+            'types' =>              $types,
             'system' =>             $system,
             'tabs' =>               $listenerRepository->getTabs($listener, $isAdmin)
         ];

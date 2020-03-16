@@ -20,7 +20,8 @@ class TypeRepository
                     ]
                 ]
             ],
-            'title' =>  'DGPS Station'
+            'title' =>  'DGPS Station',
+            'type' =>   'type_dgps'
         ],
         6 => [
             'bbggrr' => '00b0ff',
@@ -29,7 +30,8 @@ class TypeRepository
             'label' =>  'DSC',
             'order' =>  1,
             'refs'  =>  [],
-            'title' =>  'DSC Station'
+            'title' =>  'DSC Station',
+            'type' =>   'type_dsc'
         ],
         4 => [
             'bbggrr' => 'c0ffb8',
@@ -54,7 +56,8 @@ class TypeRepository
                     ],
                 ]
             ],
-            'title' =>  'Amateur Radio Beacon'
+            'title' =>  'Amateur Radio Beacon',
+            'type' =>   'type_hambcn'
         ],
         3 => [
             'bbggrr' => 'd8b8ff',
@@ -75,7 +78,8 @@ class TypeRepository
                     ]
                 ],
             ],
-            'title' =>  'NavTex Station'
+            'title' =>  'NavTex Station',
+            'type' =>   'type_navtex'
         ],
         0 => [
             'bbggrr' => 'ffffff',
@@ -92,7 +96,8 @@ class TypeRepository
                 ],
                 'title' =>  'Additional NDB Info:'
             ],
-            'title' =>  'NDB Beacon'
+            'title' =>  'NDB Beacon',
+            'type' =>   'type_ndb'
         ],
         2 => [
             'bbggrr' => 'b0e0ff',
@@ -101,7 +106,8 @@ class TypeRepository
             'label' =>  'Time',
             'order' =>  5,
             'refs'  =>  [],
-            'title' =>  'Time Signal Station'
+            'title' =>  'Time Signal Station',
+            'type' =>   'type_time'
         ],
         5 => [
             'bbggrr' => 'fff8b8',
@@ -110,7 +116,8 @@ class TypeRepository
             'label' =>  'Other',
             'order' =>  6,
             'refs'  =>  [],
-            'title' =>  'Other form of transmission'
+            'title' =>  'Other form of transmission',
+            'type' =>   'type_other'
         ],
     ];
 

@@ -125,6 +125,7 @@ class Collection extends Base
             $seeklistColumns =  SignalRepository::getSeeklistColumns($signals, $paper);
         }
         $signalEntities = [];
+        $signalTypes = [];
         foreach ($signals as $signal) {
             if ('seeklist' !== $args['show']) {
                 $signal['first_heard'] =    $signal['first_heard'] ? new DateTime($signal['first_heard']) : null;
@@ -133,7 +134,13 @@ class Collection extends Base
             $s = new SignalEntity;
             $s->loadFromArray($signal);
             $signalEntities[] = $s;
+            $signalTypes[] = $signal['type'];
         }
+        $types = [];
+        foreach ($signalTypes as $type) {
+            $types[$type] = $typeRepository->getTypeForCode($type);
+        }
+        uasort($types, [$typeRepository, 'sortByOrder']);
         $expanded = [];
         foreach (SignalRepository::collapsable_sections as $section => $fields) {
             $expanded[$section] = 0;
@@ -174,6 +181,7 @@ class Collection extends Base
                 [ 'seeklist', 'Seeklist'],
                 [ 'map', 'Map' ],
             ],
+            'types' =>              $types,
             'typeRepository' =>     $typeRepository
         ];
         return $this->render('signals/index.html.twig', $this->getMergedParameters($parameters));

@@ -6,7 +6,7 @@
 var LMap = {
     markerGroups : null,
     init : function() {
-        map = new google.maps.Map(document.getElementById('map'), {
+        map = new google.maps.Map($('#map').get(0), {
             center: { lat: center.lat, lng: center.lon },
             scaleControl: true,
             zoomControl: true,

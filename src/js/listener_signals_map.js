@@ -7,7 +7,7 @@ var LSMap = {
         //     google.maps
         //     gridColor, gridOpacity, layers, map
 
-        map = new google.maps.Map(document.getElementById('map'), {
+        map = new google.maps.Map($('#map').get(0), {
             center: { lat: listener.lat, lng: listener.lng },
             scaleControl: true,
             zoomControl: true,
@@ -52,51 +52,6 @@ var LSMap = {
             });
         }
 
-        function toggleInactive() {
-            for (type in listener.types) {
-                signalType = listener.types[type];
-                if (document.getElementById('layer_' + signalType).checked) {
-                    if (document.getElementById('layer_inactive').checked) {
-                        layers[signalType + '_0'].setMap(map);
-                    } else {
-                        layers[signalType + '_0'].setMap(null);
-                    }
-                }
-            }
-        }
-
-        function toggleLayer(type) {
-            if (layers[type + '_1'].getMap() == null) {
-                layers[type + '_1'].setMap(map);
-                if (document.getElementById('layer_inactive').checked) {
-                    layers[type + '_0'].setMap(map);
-                } else {
-                    layers[type + '_0'].setMap(null);
-                }
-            } else {
-                layers[type + '_0'].setMap(null);
-                layers[type + '_1'].setMap(null);
-            }
-        }
-
-        $('#layer_inactive').click(function() {
-            toggleInactive();
-        });
-
-        listener.types.forEach(function(type){
-            $('#layer_' + type).click(function(){
-                toggleLayer( type );
-            });
-        });
-
-        LSMap.setActions();
-    },
-
-    drawGrid : function() {
-        return drawGrid(map, layers);
-    },
-
-    setActions : function() {
         $('#layer_qth').click(function() {
             layers['qth'].setMap($('#layer_qth').prop('checked') ? map : null);
         });
@@ -109,8 +64,37 @@ var LSMap = {
             }
         });
 
-        // $('#layer_inactive').click(function() {
-        //     LMap.toggleInactive();
-        // });
+        $('#layer_active').click(function() {
+            for (type in listener.types) {
+                signalType = listener.types[type];
+                layers[signalType + '_1'].setMap(
+                    $('#layer_active').prop('checked') && $('#layer_' + signalType).prop('checked') ? map : null
+                );
+            }
+        });
+
+        $('#layer_inactive').click(function() {
+            for (type in listener.types) {
+                signalType = listener.types[type];
+                layers[signalType + '_0'].setMap(
+                    $('#layer_inactive').prop('checked') && $('#layer_' + signalType).prop('checked') ? map : null
+                );
+            }
+        });
+
+        listener.types.forEach(function(type) {
+            $('#layer_' + type).click(function() {
+                layers[type + '_0'].setMap(
+                    ($('#layer_inactive').prop('checked') && $('#layer_' + type).prop('checked')) ? map : null
+                );
+                layers[type + '_1'].setMap(
+                    ($('#layer_active').prop('checked') && $('#layer_' + type).prop('checked')) ? map : null
+                );
+            });
+        });
+    },
+
+    drawGrid : function() {
+        return drawGrid(map, layers);
     }
 };

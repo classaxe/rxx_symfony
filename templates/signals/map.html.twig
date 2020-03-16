@@ -1,30 +1,33 @@
 <script>
 //<!--
 var signals = [
-    {% for row in signals %}
-        {% set type = typeRepository.TypeForCode(row.type) %}{ 'id':{{
-        row.ID }}, 'khz':{{
-        row.khz }}, 'call':'{{
-        row.call }}', 'active':{{
-        row.active ? '1' : '0' }}, 'className':'{{
-        row.active == '0' ? 'inactive':type.class|lower }}', 'type':'{{
-        type.title|trans }}{% if row.active == 0 %} {% trans %}(inactive){% endtrans %}{% endif %}', 'pwr':'{{
-        row.pwr }}', 'qth':'{{
-        row.QTH }}', 'icon':'{{
-        type.class|lower }}', 'itu':'{{
-        row.ITU }}', 'sp':'{{
-        row.SP }}', 'lat':{{
-        row.lat }}, 'lon':{{
-        row.lon }}, 'gsq':'{{
-        row.GSQ }}', 'lsb':'{{
-        args['offsets'] == '' ? row.formattedLsbRel : row.formattedLsbAbs }}', 'usb':'{{
-        args['offsets'] == '' ? row.formattedUsbRel : row.formattedUsbAbs }}', 'sec':'{{
-        row.sec }}', 'fmt':'{{
-        row.format }}', 'heard':'{{
-        row.formattedLastHeard }}', 'heard_in':'{{
-        row.heardIn }}'{% if args.personalise %},'logged':{{ row.personalise }}, {% endif %} },
-    {% endfor %}
+{% for row in signals %}
+    {% set type = typeRepository.TypeForCode(row.type) %}{ 'id':{{
+    row.ID }}, 'khz':{{
+    row.khz }}, 'call':'{{
+    row.call }}', 'active':{{
+    row.active ? '1' : '0' }}, 'className':'{{
+    row.active == '0' ? 'inactive':type.class|lower }}', 'type':'{{
+    type.title|trans }}{% if row.active == 0 %} {% trans %}(inactive){% endtrans %}{% endif %}', 'typeId':{{
+    row.type }}, 'pwr':'{{
+    row.pwr }}', 'qth':'{{
+    row.QTH }}', 'icon':'{{
+    type.class|lower }}', 'itu':'{{
+    row.ITU }}', 'sp':'{{
+    row.SP }}', 'lat':{{
+    row.lat }}, 'lon':{{
+    row.lon }}, 'gsq':'{{
+    row.GSQ }}', 'lsb':'{{
+    args['offsets'] == '' ? row.formattedLsbRel : row.formattedLsbAbs }}', 'usb':'{{
+    args['offsets'] == '' ? row.formattedUsbRel : row.formattedUsbAbs }}', 'sec':'{{
+    row.sec }}', 'fmt':'{{
+    row.format }}', 'heard':'{{
+    row.formattedLastHeard }}', 'heard_in':'{{
+    row.heardIn }}'{% if args.personalise %},'logged':{{ row.personalise }}, {% endif %} },
+{% endfor %}
 ];
+
+var types = [ {{ types|keys|join(', ') }} ];
 
 $(document).ready( function() {
     $('#map').height($(window).height() - 120);
@@ -77,17 +80,14 @@ $(document).ready( function() {
                         <div class="form_layers">
                             <div><label><strong>{% trans %}Show{% endtrans %}</strong></label></div>
                             <div><label title="{% trans %}Show Maidenhead Locator Grid Squares{% endtrans %}"><input type="checkbox" id="layer_grid" checked="checked" /> {% trans %}Grid{% endtrans %}</label></div>
-                            <div><label title="{% trans %}Show Active Signals{% endtrans %}"><input type="checkbox" id="layer_active" checked="checked" /> {% trans %}Active{% endtrans %}</label></div>
-                            <div><label title="{% trans %}Show Inactive Signals{% endtrans %}"><input type="checkbox" id="layer_inactive" checked="checked" /> {% trans %}Inactive{% endtrans %}</label></div>
+                            <div><label title="{% trans %}Show Active Signals{% endtrans %}"><input type="checkbox" id="layer_active" checked="checked" /> {% trans %}Active{% endtrans %} <img src="//maps.google.com/mapfiles/kml/paddle/wht-circle.png" alt="{% trans %}Active Signal Marker{% endtrans %}" style="height:0.8em; width: 0.8em"/></label></div>
+                            <div><label title="{% trans %}Show Inactive Signals{% endtrans %}"><input type="checkbox" id="layer_inactive" checked="checked" /> {% trans %}Inactive{% endtrans %} <img src="//maps.google.com/mapfiles/kml/paddle/wht-blank.png" alt="{% trans %}Inactive Signal Marker{% endtrans %}" style="height:0.8em; width: 0.8em; opacity: 0.8" /></label></div>
                         </div>
                         <div class="form_layers">
-                            <div><strong>{% trans %}Key:{% endtrans %}</strong></div>
-                            <div title="{% trans %}A signal believed to be active at this time{% endtrans %}">
-                                <img src="//maps.google.com/mapfiles/kml/paddle/wht-circle.png" alt="{% trans %}Active Signal Marker{% endtrans %}" style="height:0.8em; width: 0.8em"/>{% trans %}Active{% endtrans %}
-                            </div>
-                            <div title="{% trans %}May be seen when you choose 'Show Inactive'{% endtrans %}">
-                                <img src="//maps.google.com/mapfiles/kml/paddle/wht-blank.png" alt="{% trans %}Inactive Signal Marker{% endtrans %}" style="height:0.8em; width: 0.8em; opacity: 0.8" />{% trans %}Inactive{% endtrans %}
-                            </div>
+                            <div><label><strong>{% trans %}Signal Types:{% endtrans %}</strong></label></div>
+                            {% for type, settings in types %}
+                                <div class="{{ settings.type }}"><label><input type="checkbox" id="layer_{{ type }}" checked="checked" /> {{ settings.label }}</label></div>
+                            {% endfor %}
                         </div>
                     </div>
                     <div id="map"></div>

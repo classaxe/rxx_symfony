@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    0.43.13
- * Date:       2020-03-15
+ * Version:    0.44.1
+ * Date:       2020-03-16
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
  */
@@ -939,7 +939,7 @@ var LSMap = {
         //     google.maps
         //     gridColor, gridOpacity, layers, map
 
-        map = new google.maps.Map(document.getElementById('map'), {
+        map = new google.maps.Map($('#map').get(0), {
             center: { lat: listener.lat, lng: listener.lng },
             scaleControl: true,
             zoomControl: true,
@@ -984,51 +984,6 @@ var LSMap = {
             });
         }
 
-        function toggleInactive() {
-            for (type in listener.types) {
-                signalType = listener.types[type];
-                if (document.getElementById('layer_' + signalType).checked) {
-                    if (document.getElementById('layer_inactive').checked) {
-                        layers[signalType + '_0'].setMap(map);
-                    } else {
-                        layers[signalType + '_0'].setMap(null);
-                    }
-                }
-            }
-        }
-
-        function toggleLayer(type) {
-            if (layers[type + '_1'].getMap() == null) {
-                layers[type + '_1'].setMap(map);
-                if (document.getElementById('layer_inactive').checked) {
-                    layers[type + '_0'].setMap(map);
-                } else {
-                    layers[type + '_0'].setMap(null);
-                }
-            } else {
-                layers[type + '_0'].setMap(null);
-                layers[type + '_1'].setMap(null);
-            }
-        }
-
-        $('#layer_inactive').click(function() {
-            toggleInactive();
-        });
-
-        listener.types.forEach(function(type){
-            $('#layer_' + type).click(function(){
-                toggleLayer( type );
-            });
-        });
-
-        LSMap.setActions();
-    },
-
-    drawGrid : function() {
-        return drawGrid(map, layers);
-    },
-
-    setActions : function() {
         $('#layer_qth').click(function() {
             layers['qth'].setMap($('#layer_qth').prop('checked') ? map : null);
         });
@@ -1041,9 +996,38 @@ var LSMap = {
             }
         });
 
-        // $('#layer_inactive').click(function() {
-        //     LMap.toggleInactive();
-        // });
+        $('#layer_active').click(function() {
+            for (type in listener.types) {
+                signalType = listener.types[type];
+                layers[signalType + '_1'].setMap(
+                    $('#layer_active').prop('checked') && $('#layer_' + signalType).prop('checked') ? map : null
+                );
+            }
+        });
+
+        $('#layer_inactive').click(function() {
+            for (type in listener.types) {
+                signalType = listener.types[type];
+                layers[signalType + '_0'].setMap(
+                    $('#layer_inactive').prop('checked') && $('#layer_' + signalType).prop('checked') ? map : null
+                );
+            }
+        });
+
+        listener.types.forEach(function(type){
+            $('#layer_' + type).click(function(){
+                layers[type + '_0'].setMap(
+                    $('#layer_inactive').prop('checked') && $('#layer_' + type).prop('checked') ? map : null
+                );
+                layers[type + '_1'].setMap(
+                    $('#layer_active').prop('checked') && $('#layer_' + type).prop('checked') ? map : null
+                );
+            });
+        });
+    },
+
+    drawGrid : function() {
+        return drawGrid(map, layers);
     }
 };;
 
@@ -1055,7 +1039,7 @@ var LSMap = {
 var LMap = {
     markerGroups : null,
     init : function() {
-        map = new google.maps.Map(document.getElementById('map'), {
+        map = new google.maps.Map($('#map').get(0), {
             center: { lat: center.lat, lng: center.lon },
             scaleControl: true,
             zoomControl: true,
@@ -1404,6 +1388,7 @@ var SLMap = {
 };
 ;
 
+// Globals: signals, types
 var SMap = {
     map : null,
     icons : {},
@@ -1426,7 +1411,7 @@ var SMap = {
             'center': new google.maps.LatLng(20, 0),
             'mapTypeId': google.maps.MapTypeId.ROADMAP
         };
-        SMap.map = new google.maps.Map(document.getElementById('map'), SMap.options);
+        SMap.map = new google.maps.Map($('#map').get(0), SMap.options);
         SMap.infoWindow = new google.maps.InfoWindow();
         SMap.drawGrid();
         SMap.drawMarkers();
@@ -1445,8 +1430,10 @@ var SMap = {
             return;
         }
         SMap.markerGroups=new google.maps.MVCObject();
-        SMap.markerGroups.set('active', SMap.map);
-        SMap.markerGroups.set('inactive', SMap.map);
+        for(i in types) {
+            SMap.markerGroups.set('type_' + types[i] + '_0', SMap.map);
+            SMap.markerGroups.set('type_' + types[i] + '_1', SMap.map);
+        }
         SMap.markerGroups.set('highlight', SMap.map);
 
         icon_highlight = {
@@ -1463,7 +1450,6 @@ var SMap = {
                 ' class="' + 'type_' + s.className + (typeof s.logged !== 'undefined' ? (s.logged ? ' logged' : ' unlogged') : '') + '"' +
                 ' id="signal_' + s.id + '"' +
                 ' data-gmap="' + s.lat + '|' + s.lon + '"' +
-                ' onclick="$(\'#point_' + s.id + '\').trigger(\'click\')"' +
                 '>' +
                 (typeof s.logged !== 'undefined' ? '<th>' + (s.logged ? '&#x2714;' : '&nbsp;') + '</th>' : '') +
                 '<td>' + s.khz + '</td>' +
@@ -1475,16 +1461,14 @@ var SMap = {
                 '<td>' + s.itu + '</td>' +
                 '</tr>';
 
-            latLng = new google.maps.LatLng(s.lat, s.lon);
             marker = new google.maps.Marker({
                 id : 'point_' + s.id,
                 icon : SMap.icons[s.icon + '_' + (s.active ? 1 : 0)],
-                position : latLng,
+                position : new google.maps.LatLng(s.lat, s.lon),
                 title :  strip_tags(s.khz + ' ' + s.call)
             });
-            google.maps.event.addListener(marker, 'click', SMap.markerClickFunction(s, latLng));
-            google.maps.event.addListener(marker, 'click', SMap.markerClickFunction(s, latLng));
-            marker.bindTo('map', SMap.markerGroups, (s.active ? 'active' : 'inactive'));
+            google.maps.event.addListener(marker, 'click', SMap.markerClickFunction(s));
+            marker.bindTo('map', SMap.markerGroups, 'type_' + s.typeId + '_' + (s.active ? '1' : '0'));
             markers.push(marker);
         }
 
@@ -1507,7 +1491,7 @@ var SMap = {
         $('.results').show();
     },
 
-    markerClickFunction: function(s, latlng) {
+    markerClickFunction: function(s) {
         return function(e) {
             e.cancelBubble = true;
             e.returnValue = false;
@@ -1534,7 +1518,7 @@ var SMap = {
                 '  </table>' +
                 '</div>';
             SMap.infoWindow.setContent(infoHtml);
-            SMap.infoWindow.setPosition(latlng);
+            SMap.infoWindow.setPosition(new google.maps.LatLng(s.lat, s.lon));
             SMap.infoWindow.open(SMap.map);
         };
     },
@@ -1549,10 +1533,37 @@ var SMap = {
         });
 
         $('#layer_active').click(function() {
-            SMap.markerGroups.set('active', $('#layer_active').prop('checked') ? SMap.map : null);
+            var i, type;
+            for (i in types) {
+                type = types[i];
+                SMap.markerGroups.set(
+                    'type_' + type + '_1',
+                    $('#layer_active').prop('checked') && $('#layer_' + type).prop('checked') ? SMap.map : null
+                );
+            }
         });
         $('#layer_inactive').click(function() {
-            SMap.markerGroups.set('inactive', $('#layer_inactive').prop('checked') ? SMap.map : null);
+            var i, type;
+            for (i in types) {
+                type = types[i];
+                SMap.markerGroups.set(
+                    'type_' + type + '_0',
+                    $('#layer_inactive').prop('checked') && $('#layer_' + type).prop('checked') ? SMap.map : null
+                );
+            }
         });
+        types.forEach(function(type){
+            $('#layer_' + type).click(function() {
+                SMap.markerGroups.set(
+                    'type_' + type + '_0',
+                    $('#layer_inactive').prop('checked') && $('#layer_' + type).prop('checked') ? SMap.map : null
+                );
+                SMap.markerGroups.set(
+                    'type_' + type + '_1',
+                    $('#layer_active').prop('checked') && $('#layer_' + type).prop('checked') ? SMap.map : null
+                );
+            });
+        });
+
     }
 };
