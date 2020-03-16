@@ -78,10 +78,31 @@ $(document).ready( function() {
                 <div>
                     <div id="header">
                         <div class="form_layers">
-                            <div><label><strong>{% trans %}Show{% endtrans %}</strong></label></div>
-                            <div><label title="{% trans %}Show Maidenhead Locator Grid Squares{% endtrans %}"><input type="checkbox" id="layer_grid" checked="checked" /> {% trans %}Grid{% endtrans %}</label></div>
-                            <div><label title="{% trans %}Show Active Signals{% endtrans %}"><input type="checkbox" id="layer_active" checked="checked" /> {% trans %}Active{% endtrans %} <img src="//maps.google.com/mapfiles/kml/paddle/wht-circle.png" alt="{% trans %}Active Signal Marker{% endtrans %}" style="height:0.8em; width: 0.8em"/></label></div>
-                            <div><label title="{% trans %}Show Inactive Signals{% endtrans %}"><input type="checkbox" id="layer_inactive" checked="checked" /> {% trans %}Inactive{% endtrans %} <img src="//maps.google.com/mapfiles/kml/paddle/wht-blank.png" alt="{% trans %}Inactive Signal Marker{% endtrans %}" style="height:0.8em; width: 0.8em; opacity: 0.8" /></label></div>
+                            <div>
+                                <label>
+                                    <strong>{% trans %}Show{% endtrans %}</strong>
+                                </label>
+                            </div>
+                            <div>
+                                <label title="{% trans %}Show Maidenhead Locator Grid Squares{% endtrans %}">
+                                    <input type="checkbox" id="layer_grid" checked="checked" />
+                                    {% trans %}Grid{% endtrans %}
+                                </label>
+                            </div>
+                            <div>
+                                <label title="{% trans %}Show Active Signals{% endtrans %}">
+                                    <input type="checkbox" id="layer_active" checked="checked" />
+                                    {% trans %}Active{% endtrans %}
+                                    <img src="{{ asset('image/pins/ndb_1.png') }}" alt="{% trans %}Active Signal Marker{% endtrans %}" style="height:0.8em"/>
+                                </label>
+                            </div>
+                            <div>
+                                <label title="{% trans %}Show Inactive Signals{% endtrans %}">
+                                    <input type="checkbox" id="layer_inactive" checked="checked" />
+                                    {% trans %}Inactive{% endtrans %}
+                                    <img src="{{ asset('image/pins/ndb_0.png') }}" alt="{% trans %}Inactive Signal Marker{% endtrans %}" style="height:0.8em; opacity: 0.8" />
+                                </label>
+                            </div>
                         </div>
                         <div class="form_layers">
                             <div><label><strong>{% trans %}Signal Types:{% endtrans %}</strong></label></div>

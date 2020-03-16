@@ -3,7 +3,8 @@ var LSMap = {
     init : function() {
         var qthInfo, signalType, type;
         // Global vars:
-        //     listener[source, logLatest, lat, lng, name, qth, types]
+        //     listener[source, logLatest, lat, lng, name, qth]
+        //     types
         //     google.maps
         //     gridColor, gridOpacity, layers, map
 
@@ -37,8 +38,8 @@ var LSMap = {
         LSMap.drawGrid();
 
         // Signal Types overlays
-        for (type in listener.types) {
-            signalType = listener.types[type];
+        for (type in types) {
+            signalType = types[type];
             layers[signalType + '_0'] = new google.maps.KmlLayer({
                 url: listener.source + '/' + signalType + '/0?v=a' +
                     listener.logLatest + '_' + new Date().toJSON().substring(0,10),
@@ -65,8 +66,8 @@ var LSMap = {
         });
 
         $('#layer_active').click(function() {
-            for (type in listener.types) {
-                signalType = listener.types[type];
+            for (type in types) {
+                signalType = types[type];
                 layers[signalType + '_1'].setMap(
                     $('#layer_active').prop('checked') && $('#layer_' + signalType).prop('checked') ? map : null
                 );
@@ -74,15 +75,15 @@ var LSMap = {
         });
 
         $('#layer_inactive').click(function() {
-            for (type in listener.types) {
-                signalType = listener.types[type];
+            for (type in types) {
+                signalType = types[type];
                 layers[signalType + '_0'].setMap(
                     $('#layer_inactive').prop('checked') && $('#layer_' + signalType).prop('checked') ? map : null
                 );
             }
         });
 
-        listener.types.forEach(function(type) {
+        types.forEach(function(type) {
             $('#layer_' + type).click(function() {
                 layers[type + '_0'].setMap(
                     ($('#layer_inactive').prop('checked') && $('#layer_' + type).prop('checked')) ? map : null

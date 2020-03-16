@@ -19,9 +19,11 @@ var listener = {
     lat: {{ listener.lat }},
     lng: {{ listener.lon }},
     name: "{{ listener.name }}",
-    qth: "{{ listener.qth }}{% if (listener.sp) %}, {{ listener.sp }}{% endif %}, {{ listener.itu }}",
-    types: [{{ types|keys|join(',') }}]
+    qth: "{{ listener.qth }}{% if (listener.sp) %}, {{ listener.sp }}{% endif %}, {{ listener.itu }}"
 }
+
+var types = [ {{ types|keys|join(', ') }} ];
+
 //]]>
 </script>
 </head>
@@ -31,19 +33,15 @@ var listener = {
     <div class="form_layers">
         <div><label><strong>Show</strong></label></div>
         <div><label title="Show listener's location"><input type="checkbox" id="layer_qth" checked="checked" /> QTH</label></div>
-        <div><label title="Show Maidenrhead Locator Grid Squares"><input type="checkbox" id="layer_grid" checked="checked" /> Grid</label></div>
-        <div><label title="Include inactive signals"><input type="checkbox" id="layer_inactive" checked="checked" /> Inactive</label></div>
+        <div><label title="Show Maidenhead Locator Grid Squares"><input type="checkbox" id="layer_grid" checked="checked" /> Grid</label></div>
+        <div><label title="Show Active Signals"><input type="checkbox" id="layer_active" checked="checked" /> Active <img src="{{ asset('image/pins/ndb_1.png') }}" alt="Active Signal Marker" style="height:0.8em" /></label></div>
+        <div><label title="Show Inactive signals"><input type="checkbox" id="layer_inactive" checked="checked" /> Inactive <img src="{{ asset('image/pins/ndb_0.png') }}" alt="Inactive Signal Marker" style="height:0.8em; opacity: 0.8" /></label></div>
     </div>
     <div class="form_layers">
         <div><label><strong>Signal Types: </strong></label></div>
 {% for type,settings in types %}
     <div class="type_{{ settings.class|lower }}"><label><input type="checkbox" id="layer_{{ type }}" checked="checked" /> {{ settings.label }}</label></div>
 {% endfor %}
-    </div>
-    <div class="form_layers">
-        <div><label><strong>Key:</strong></label></div>
-        <div><label title="A signal believed to be active at this time"><img src="//maps.google.com/mapfiles/kml/paddle/wht-circle.png" alt="Active Signal Marker" style="height:0.8em; width: 0.8em"/>Active</label></div>
-        <div><label title="May be seen when you choose 'Show Inactive'"><img src="//maps.google.com/mapfiles/kml/paddle/wht-blank.png" alt="Inactive Signal Marker" style="height:0.8em; width: 0.8em; opacity: 0.8" />Inactive</label></div>
     </div>
     <div class="form_layers">
         <div><label><strong>Download</strong></label></div>
