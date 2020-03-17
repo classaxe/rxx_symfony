@@ -23,7 +23,9 @@ var signals = [
         row.active ? '1' : '0' }}, 'className':'{{
         type.class|lower }} {{ row.active == '0' ? 'inactive' : 'active' }}', 'type':'{{
         type.title|trans }}{% if row.active == 0 %} {% trans %}(inactive){% endtrans %}{% endif %}', 'typeId':{{
-        row.type }}, 'pwr':'{{
+        row.type }}, 'km': '{{
+        row.dxKm }}', 'mi': '{{
+        row.dxMiles }}', 'pwr':'{{
         row.pwr }}', 'qth':'{{
         row.qth }}', 'icon':'{{
         type.class|lower }}', 'itu':'{{
@@ -45,9 +47,11 @@ $(document).ready( function() {
     setColumnSortedClass();
     setClippedCellTitles();
     $('#map').height($(window).height() - 120);
+    $('#map').width($(window).width() - 380);
     $('#scrollablelist').height($('#map').height() + 40);
     $(window).resize(function () {
         $('#map').height($(window).height() - 120);
+        $('#map').width($(window).width() - 380);
         $('#scrollablelist').height($('#map').height() + 40);
     });
     //]]>
@@ -70,17 +74,19 @@ $(document).ready( function() {
         <table class="map_layout controlPanel content">
             <tbody style="background:transparent">
             <tr>
-                <td width="35%">
+                <td width="250">
                     <div class="scroll">
                         <div id="scrollablelist">
-                            <table class="results" id="markerlist" style="display:none; margin: 0; max-width: 500px">
+                            <table class="results" id="markerlist" style="display:none; margin: 0;">
                                 <thead>
                                 <tr>
                                     <th>{% trans %}KHz{% endtrans %}</th>
                                     <th>{% trans %}ID{% endtrans %}</th>
-                                    <th>{% trans %}'Name' and Location{% endtrans %}</th>
+                                    <th>{% trans %}QTH{% endtrans %}</th>
                                     <th>{% trans %}S/P{% endtrans %}</th>
                                     <th>{% trans %}ITU{% endtrans %}</th>
+                                    <th class="txt_vertical"><div>{% trans %}KM{% endtrans %}</div></th>
+                                    <th class="txt_vertical"><div>{% trans %}Miles{% endtrans %}</div></th>
                                 </tr>
                                 </thead>
                                 <tbody></tbody>
@@ -94,6 +100,11 @@ $(document).ready( function() {
                         <div>
                             <div id="header">
                                 <div class="form_layers">
+                                    <div>
+                                        <label>
+                                            <strong>{% trans %}Show{% endtrans %}</strong>
+                                        </label>
+                                    </div>
                                     <div>
                                         <label title="{% trans %}Show listener's location{% endtrans %}">
                                             <input type="checkbox" id="layer_qth" checked="checked" />

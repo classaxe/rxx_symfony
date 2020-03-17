@@ -1,7 +1,7 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    0.45.0
+ * Version:    0.45.1
  * Date:       2020-03-17
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
@@ -1334,10 +1334,11 @@ var SMap = {
     },
 
     drawMarkers : function() {
-        var f, fn, html, i, icon_highlight, item, latLng, marker, panel, s, title, titleText;
+        var f, fn, html, i, icon_highlight, item, latLng, marker, mode, panel, s, title, titleText;
         if (!signals) {
             return;
         }
+        mode = (typeof listener === 'undefined' ? 'S' : 'LS');
         SMap.markerGroups=new google.maps.MVCObject();
         for(i in types) {
             SMap.markerGroups.set('type_' + types[i] + '_0', SMap.map);
@@ -1365,9 +1366,11 @@ var SMap = {
                 '<td class="text-nowrap">' +
                 '<a href="' + base_url + 'signals/' + s.id + '" class="' + (s.active ? '' : 'inactive') + '" data-popup="1">' + s.call + '</a>' +
                 '</td>' +
-                '<td>' + s.qth + '</td>' +
+                '<td class="clipped">' + s.qth + '</td>' +
                 '<td>' + s.sp + '</td>' +
                 '<td>' + s.itu + '</td>' +
+                ('LS' === mode ? '<td class="num">' + s.km + '</td>' : '') +
+                ('LS' === mode ? '<td class="num">' + s.mi + '</td>' : '') +
                 '</tr>';
 
             marker = new google.maps.Marker({
@@ -1401,7 +1404,7 @@ var SMap = {
     },
 
     drawQTH : function() {
-        if (typeof listener.lat === 'undefined') {
+        if (typeof listener === 'undefined') {
             return;
         }
         layers.qth = new google.maps.Marker({
