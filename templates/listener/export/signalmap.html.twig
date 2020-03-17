@@ -9,8 +9,14 @@ TODO: Remove this legacy code once the new system goes live
 <meta charset="utf-8">
 <title>{{ title }}</title>
 <link rel="stylesheet" href="{{ asset('css/style.min.css') }}" />
+<script>
+    var base_url = "{{ path('locale_system', { 'system' : system }) }}";
+    var base_image = "{{ asset('image') }}";
+    var base_js = "{{ asset('js') }}";
+</script>
 <script src="{{ asset('js/jquery-3.4.1.min.js') }}"></script>
 <script src="{{ asset('js/functions.min.js') }}"></script>
+{% include 'js_trans.html.twig' %}
 <script>
 //<![CDATA[
 var listener = {
@@ -24,6 +30,32 @@ var listener = {
 
 var types = [ {{ types|keys|join(', ') }} ];
 
+var signals = [
+{% for row in signals %}{% set type = typeRepository.TypeForCode(row.type) %}
+    { 'id':{{
+    row.id }}, 'khz':{{
+    row.khz }}, 'call':'{{
+    row.call }}', 'active':{{
+    row.active ? '1' : '0' }}, 'className':'{{
+    type.class|lower }} {{ row.active == '0' ? 'inactive' : 'active' }}', 'type':'{{
+    type.title|trans }}{% if row.active == 0 %} {% trans %}(inactive){% endtrans %}{% endif %}', 'typeId':{{
+    row.type }}, 'pwr':'{{
+    row.pwr }}', 'qth':'{{
+    row.qth }}', 'icon':'{{
+    type.class|lower }}', 'itu':'{{
+    row.itu }}', 'sp':'{{
+    row.sp }}', 'lat':{{
+    row.lat }}, 'lon':{{
+    row.lon }}, 'gsq':'{{
+    row.gsq }}', 'lsb':'{{
+    row.lsb }}', 'usb':'{{
+    row.usb }}', 'sec':'{{
+    row.sec }}', 'fmt':'{{
+    row.format }}', 'heard':'{{
+    row.latest }}', 'heard_in':'{{
+    row.heardIn }}' },
+{% endfor %}
+];
 //]]>
 </script>
 </head>
@@ -53,6 +85,6 @@ var types = [ {{ types|keys|join(', ') }} ];
 <div class="footer" id="footer">
     <p class="copyright"><strong>&copy;{{ "now"|date("Y") }} Martin Francis, showing data submitted to {{ system|upper }}</strong></p>
 </div>
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCmvsfY0bgnVB-gl_nMHGQ71rp1WTz9tGM&callback=LSMap.init"></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCmvsfY0bgnVB-gl_nMHGQ71rp1WTz9tGM&callback=SMap.init"></script>
 </body>
 </html>

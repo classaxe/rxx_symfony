@@ -47,10 +47,11 @@ class Signalmap extends Base
             );
         }
 
-        $isAdmin = $this->parameters['isAdmin'];
+        $signals = $listenerRepository->getSignalsForListener($id, [ 'sort' => 'khz', 'latlon' => true ]);
+
         $types = [];
-        foreach ($listenerRepository->getSignalTypesForListener($id) as $type) {
-            $types[$type] = $typeRepository->getTypeForCode($type);
+        foreach ($signals as $s) {
+            $types[$s['type']] = $typeRepository->getTypeForCode($s['type']);
         }
         uasort($types, [ $typeRepository, 'sortByOrder' ]);
         $parameters = [
@@ -59,9 +60,11 @@ class Signalmap extends Base
             'listener' =>           $listener,
             'logs' =>               $logRepository->getLogsForListener($id),
             'mode' =>               strToUpper($system).' Map of Signals received by '.$listener->getName(),
-            'types' =>              $types,
+            'signals' =>            $signals,
             'system' =>             $system,
-            'tabs' =>               $listenerRepository->getTabs($listener, $isAdmin)
+            'tabs' =>               $listenerRepository->getTabs($listener, $this->parameters['isAdmin']),
+            'types' =>              $types,
+            'typeRepository' =>     $typeRepository
         ];
         $parameters = array_merge($parameters, $this->parameters);
         $response = $this->render('listener/signalmap.html.twig', $parameters);

@@ -645,6 +645,7 @@ class ListenerRepository extends ServiceEntityRepository
             .'s.lat,'
             .'s.lon,'
             .'s.notes,'
+            .'s.heardIn,'
             .'l.dxKm,'
             .'l.dxMiles,'
             .'COUNT(l.signalid) AS logs,'
@@ -670,6 +671,11 @@ class ListenerRepository extends ServiceEntityRepository
                 ->setParameter('type', $args['type']);
         }
 
+        if (isset($args['latlon']) && $args['latlon'] === true) {
+            $qb
+                ->andWhere('(s.lat != 0 AND s.lon != 0)');
+        }
+
         if (isset($args['active']) && $args['active'] !== '') {
             $qb
                 ->andWhere('s.active = :active')
@@ -690,7 +696,7 @@ class ListenerRepository extends ServiceEntityRepository
             $qb
                 ->addOrderBy(
                     ($idx['sort']),
-                    ($args['order'] == 'd' ? 'DESC' : 'ASC')
+                    ($idx['order'] == 'd' ? 'DESC' : 'ASC')
                 );
             if (isset($idx['sort_2']) && isset($idx['order_2'])) {
                 $qb

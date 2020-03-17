@@ -25,6 +25,7 @@ var SMap = {
         SMap.infoWindow = new google.maps.InfoWindow();
         SMap.drawGrid();
         SMap.drawMarkers();
+        SMap.drawQTH();
         SMap.setActions();
         setExternalLinks();
         setClippedCellTitles();
@@ -34,7 +35,7 @@ var SMap = {
         return drawGrid(SMap.map, layers);
     },
 
-    drawMarkers: function() {
+    drawMarkers : function() {
         var f, fn, html, i, icon_highlight, item, latLng, marker, panel, s, title, titleText;
         if (!signals) {
             return;
@@ -57,7 +58,7 @@ var SMap = {
             s = signals[i];
             html +=
                 '<tr' +
-                ' class="' + 'type_' + s.className + (typeof s.logged !== 'undefined' ? (s.logged ? ' logged' : ' unlogged') : '') + '"' +
+                ' class="type_' + s.typeId + ' type_' + s.className + (typeof s.logged !== 'undefined' ? (s.logged ? ' logged' : ' unlogged') : '') + '"' +
                 ' id="signal_' + s.id + '"' +
                 ' data-gmap="' + s.lat + '|' + s.lon + '"' +
                 '>' +
@@ -101,6 +102,32 @@ var SMap = {
         $('.results').show();
     },
 
+    drawQTH : function() {
+        if (typeof listener.lat === 'undefined') {
+            return;
+        }
+        layers.qth = new google.maps.Marker({
+            position: { lat: listener.lat, lng: listener.lng },
+            map: SMap.map,
+            icon: {
+                scaledSize: new google.maps.Size(30,30),
+                url: "//maps.google.com/mapfiles/kml/pushpin/red-pushpin.png"
+            },
+            title: listener.name,
+            zIndex: 100
+        });
+
+        qthInfo = new google.maps.InfoWindow({
+            content:
+                "<h2>" + listener.name + "</h2>" +
+                "<p>" + listener.qth + "</p>"
+        });
+
+        layers.qth.addListener('click', function() {
+            qthInfo.open(SMap.map, layers.qth);
+        });
+    },
+
     markerClickFunction: function(s) {
         return function(e) {
             e.cancelBubble = true;
@@ -142,6 +169,10 @@ var SMap = {
             }
         });
 
+        $('#layer_qth').click(function() {
+            layers['qth'].setMap($('#layer_qth').prop('checked') ? SMap.map : null);
+        });
+
         $('#layer_active').click(function() {
             var i, type;
             for (i in types) {
@@ -150,6 +181,15 @@ var SMap = {
                     'type_' + type + '_1',
                     $('#layer_active').prop('checked') && $('#layer_' + type).prop('checked') ? SMap.map : null
                 );
+                if ($('#layer_' + type).prop('checked')) {
+                    if ($('#layer_active').prop('checked')) {
+                        $('.results tbody .type_' + type + '.active').show();
+                    } else {
+                        $('.results tbody .type_' + type + '.active').hide();
+                    }
+                } else {
+                    $('.results tbody .type_' + type + '.active').hide();
+                }
             }
         });
         $('#layer_inactive').click(function() {
@@ -160,6 +200,15 @@ var SMap = {
                     'type_' + type + '_0',
                     $('#layer_inactive').prop('checked') && $('#layer_' + type).prop('checked') ? SMap.map : null
                 );
+                if ($('#layer_' + type).prop('checked')) {
+                    if ($('#layer_inactive').prop('checked')) {
+                        $('.results tbody .type_' + type + '.inactive').show();
+                    } else {
+                        $('.results tbody .type_' + type + '.inactive').hide();
+                    }
+                } else {
+                    $('.results tbody .type_' + type + '.inactive').hide();
+                }
             }
         });
         types.forEach(function(type){
@@ -172,6 +221,20 @@ var SMap = {
                     'type_' + type + '_1',
                     $('#layer_active').prop('checked') && $('#layer_' + type).prop('checked') ? SMap.map : null
                 );
+                if ($('#layer_' + type).prop('checked')) {
+                    if ($('#layer_inactive').prop('checked')) {
+                        $('.results tbody .type_' + type +'.inactive').show();
+                    } else {
+                        $('.results tbody .type_' + type +'.inactive').hide();
+                    }
+                    if ($('#layer_active').prop('checked')) {
+                        $('.results tbody .type_' + type +'.active').show();
+                    } else {
+                        $('.results tbody .type_' + type +'.active').hide();
+                    }
+                } else {
+                    $('.results tbody .type_' + type).hide();
+                }
             });
         });
 

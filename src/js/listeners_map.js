@@ -58,13 +58,12 @@ var LMap = {
         for (i in listeners) {
             l = listeners[i];
             html +=
-                '<tr id="listener_' + l.id + '" data-gmap="' + l.lat + '|' + l.lon + '">' +
+                '<tr id="listener_' + l.id + '" class="qth_' + (l.pri ? 'pri' : 'sec') + '" data-gmap="' + l.lat + '|' + l.lon + '">' +
                 '<td class="text-nowrap">' +
                 '<img style="display:block;float: left" src="' + base_image + '/map_point' + (l.pri ? 3 : 4) + '.gif" alt="' + (l.pri ? msg.qth_pri : msg.qth_sec) + '" />' +
                 '<a href="' + base_url + 'listeners/' + l.id + '" class="' + (l.pri ? 'pri' : 'sec') + '" data-popup="1">' +
                 l.name +
-                '</a>' +
-                '</td>' +
+                '</a></td>' +
                 '<td>' + l.qth + '</td>' +
                 '<td>' + l.sp + '</td>' +
                 '<td>' + l.itu + '</td>' +
@@ -119,10 +118,20 @@ var LMap = {
 
         $('#layer_primary').click(function() {
             LMap.markerGroups.set('primary', $('#layer_primary').prop('checked') ? map : null);
+            if ($('#layer_primary').prop('checked')) {
+                $('#markerlist .qth_pri').show();
+            } else {
+                $('#markerlist .qth_pri').hide();
+            }
         });
 
         $('#layer_secondary').click(function() {
             LMap.markerGroups.set('secondary', $('#layer_secondary').prop('checked') ? map : null);
+            if ($('#layer_secondary').prop('checked')) {
+                $('#markerlist .qth_sec').show();
+            } else {
+                $('#markerlist .qth_sec').hide();
+            }
         });
     }
 };

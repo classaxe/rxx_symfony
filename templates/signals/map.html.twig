@@ -7,7 +7,7 @@ var signals = [
     row.khz }}, 'call':'{{
     row.call }}', 'active':{{
     row.active ? '1' : '0' }}, 'className':'{{
-    row.active == '0' ? 'inactive':type.class|lower }}', 'type':'{{
+    type.class|lower }} {{ row.active == '0' ? 'inactive' : 'active' }}', 'type':'{{
     type.title|trans }}{% if row.active == 0 %} {% trans %}(inactive){% endtrans %}{% endif %}', 'typeId':{{
     row.type }}, 'pwr':'{{
     row.pwr }}', 'qth':'{{

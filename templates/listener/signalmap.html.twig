@@ -9,25 +9,51 @@ var listener = {
     lat: {{ listener.lat }},
     lng: {{ listener.lon }},
     name: "{{ listener.name }}",
-    qth: "{{ listener.qth }}{% if (listener.sp) %}, {{ listener.sp }}{% endif %}, {{ listener.itu }}",
-    types: [ {{ types|keys|join(', ') }} ]
+    qth: "{{ listener.qth }}{% if (listener.sp) %}, {{ listener.sp }}{% endif %}, {{ listener.itu }}"
 };
 
 var types = [ {{ types|keys|join(', ') }} ];
 
+var signals = [
+{% for row in signals %}{% set type = typeRepository.TypeForCode(row.type) %}
+    { 'id':{{
+        row.id }}, 'khz':{{
+        row.khz }}, 'call':'{{
+        row.call }}', 'active':{{
+        row.active ? '1' : '0' }}, 'className':'{{
+        type.class|lower }} {{ row.active == '0' ? 'inactive' : 'active' }}', 'type':'{{
+        type.title|trans }}{% if row.active == 0 %} {% trans %}(inactive){% endtrans %}{% endif %}', 'typeId':{{
+        row.type }}, 'pwr':'{{
+        row.pwr }}', 'qth':'{{
+        row.qth }}', 'icon':'{{
+        type.class|lower }}', 'itu':'{{
+        row.itu }}', 'sp':'{{
+        row.sp }}', 'lat':{{
+        row.lat }}, 'lon':{{
+        row.lon }}, 'gsq':'{{
+        row.gsq }}', 'lsb':'{{
+        row.lsb }}', 'usb':'{{
+        row.usb }}', 'sec':'{{
+        row.sec }}', 'fmt':'{{
+        row.format }}', 'heard':'{{
+        row.latest }}', 'heard_in':'{{
+        row.heardIn }}' },
+{% endfor %} ];
 $(document).ready( function() {
     setExternalLinks();
     setColumnSortActions();
     setColumnSortedClass();
     setClippedCellTitles();
-    $('#map').height($(window).height() - 140);
+    $('#map').height($(window).height() - 120);
+    $('#scrollablelist').height($('#map').height() + 40);
     $(window).resize(function () {
-        $('#map').height($(window).height() - 140);
+        $('#map').height($(window).height() - 120);
+        $('#scrollablelist').height($('#map').height() + 40);
     });
     //]]>
 });
 </script>
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCmvsfY0bgnVB-gl_nMHGQ71rp1WTz9tGM&callback=LSMap.init"></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCmvsfY0bgnVB-gl_nMHGQ71rp1WTz9tGM&callback=SMap.init"></script>
 
 {% set form_class='listener_view' %}
 <div class="main fullwidth">
@@ -41,59 +67,73 @@ $(document).ready( function() {
                 </a>
             </div>
         </div>
-        <div class="content map" style="margin: 0;padding: 0.25em 0.5em 0.5em 0">
-            <div id="header">
-                <div class="form_layers">
-                    <div>
-                        <label>
-                            <strong>{% trans %}Show{% endtrans %}</strong>
-                        </label>
+        <table class="map_layout controlPanel content">
+            <tbody style="background:transparent">
+            <tr>
+                <td width="35%">
+                    <div class="scroll">
+                        <div id="scrollablelist">
+                            <table class="results" id="markerlist" style="display:none; margin: 0; max-width: 500px">
+                                <thead>
+                                <tr>
+                                    <th>{% trans %}KHz{% endtrans %}</th>
+                                    <th>{% trans %}ID{% endtrans %}</th>
+                                    <th>{% trans %}'Name' and Location{% endtrans %}</th>
+                                    <th>{% trans %}S/P{% endtrans %}</th>
+                                    <th>{% trans %}ITU{% endtrans %}</th>
+                                </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
                     </div>
-                    <div>
-                        <label title="{% trans %}Show listener's location{% endtrans %}">
-                            <input type="checkbox" id="layer_qth" checked="checked" />
-                            {% trans %}QTH{% endtrans %}
-                        </label>
+                    <p class="no-results">{% trans %}(No signals found matching your criteria){% endtrans %}</p>
+                </td>
+                <td>
+                    <div class="map">
+                        <div>
+                            <div id="header">
+                                <div class="form_layers">
+                                    <div>
+                                        <label title="{% trans %}Show listener's location{% endtrans %}">
+                                            <input type="checkbox" id="layer_qth" checked="checked" />
+                                            {% trans %}QTH{% endtrans %}
+                                        </label>
+                                    </div>
+                                    <div>
+                                        <label title="{% trans %}Show Maidenhead Locator Grid Squares{% endtrans %}">
+                                            <input type="checkbox" id="layer_grid" checked="checked" />
+                                            {% trans %}Grid{% endtrans %}
+                                        </label>
+                                    </div>
+                                    <div>
+                                        <label title="{% trans %}Show Active Signals{% endtrans %}">
+                                            <input type="checkbox" id="layer_active" checked="checked" />
+                                            {% trans %}Active{% endtrans %}
+                                            <img src="{{ asset('image/pins/ndb_1.png') }}" alt="{% trans %}Active Signal Marker{% endtrans %}" style="height:0.8em"/>
+                                        </label>
+                                    </div>
+                                    <div>
+                                        <label title="{% trans %}Show Inactive Signals{% endtrans %}">
+                                            <input type="checkbox" id="layer_inactive" checked="checked" />
+                                            {% trans %}Inactive{% endtrans %}
+                                            <img src="{{ asset('image/pins/ndb_0.png') }}" alt="{% trans %}Inactive Signal Marker{% endtrans %}" style="height:0.8em; opacity: 0.8" />
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form_layers">
+                                    {% for type, settings in types %}
+                                        <div class="{{ settings.type }}"><label><input type="checkbox" id="layer_{{ type }}" checked="checked" /> {{ settings.label }}</label></div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div id="map"></div>
+                        </div>
                     </div>
-                    <div>
-                        <label title="{% trans %}Show Maidenhead Locator Grid Squares{% endtrans %}">
-                            <input type="checkbox" id="layer_grid" checked="checked" />
-                            {% trans %}Grid{% endtrans %}
-                        </label>
-                    </div>
-                    <div>
-                        <label title="{% trans %}Show Active Signals{% endtrans %}">
-                            <input type="checkbox" id="layer_active" checked="checked" />
-                            {% trans %}Active{% endtrans %}
-                            <img src="{{ asset('image/pins/ndb_1.png') }}" alt="{% trans %}Active Signal Marker{% endtrans %}" style="height:0.8em"/>
-                        </label>
-                    </div>
-                    <div>
-                        <label title="{% trans %}Show Inactive signals{% endtrans %}">
-                            <input type="checkbox" id="layer_inactive" checked="checked" />
-                            {% trans %}Inactive{% endtrans %}
-                            <img src="{{ asset('image/pins/ndb_0.png') }}" alt="{% trans %}Inactive Signal Marker{% endtrans %}" style="height:0.8em; opacity: 0.8" />
-                        </label>
-                    </div>
-                </div>
-                <div class="form_layers">
-                    <div>
-                        <label>
-                            <strong>{% trans %}Signal Types:{% endtrans %}</strong>
-                        </label>
-                    </div>
-                    {% for type, settings in types %}
-                    <div class="{{ settings.type }}">
-                        <label>
-                            <input type="checkbox" id="layer_{{ type }}" checked="checked" />
-                            {{ settings.label }}
-                        </label>
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>
-            <div id="map"></div>
-        </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 </div>
 {% endblock %}

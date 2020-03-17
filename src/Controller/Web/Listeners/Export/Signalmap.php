@@ -45,19 +45,25 @@ class Signalmap extends Base
         if (!$listener = $this->getValidReportingListener($id, $listenerRepository)) {
             die();
         }
-        $listenerSignalTypes = [];
-        foreach ($listenerRepository->getSignalTypesForListener($id) as $type) {
-            $listenerSignalTypes[$type] = $typeRepository->getTypeForCode($type);
+
+        $signals = $listenerRepository->getSignalsForListener($id, [ 'latlon' => true ]);
+        // Don't bother sorting by anything - no list is shown in this mode
+
+        $types = [];
+        foreach ($signals as $s) {
+            $types[$s['type']] = $typeRepository->getTypeForCode($s['type']);
         }
-        uasort($listenerSignalTypes, array($typeRepository, 'sortByOrder'));
+        uasort($types, array($typeRepository, 'sortByOrder'));
         $parameters = [
             'id' =>                 $id,
             '_locale' =>            $_locale,
             'title' =>              strToUpper($system).' Signals received by '.$listener->getName(),
-            'types' =>              $listenerSignalTypes,
+            'types' =>              $types,
+            'signals' =>            $signals,
             'system' =>             $system,
             'listener' =>           $listener,
-            'logs' =>               $logRepository->getLogsForListener($id)
+            'logs' =>               $logRepository->getLogsForListener($id),
+            'typeRepository' =>     $typeRepository
         ];
         $parameters = array_merge($parameters, $this->parameters);
         $response = $this->render('listener/export/signalmap.html.twig', $parameters);

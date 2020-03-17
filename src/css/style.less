@@ -128,7 +128,7 @@
 #sysColor(rna);
 #sysColor(rww);
 
-.type_inactive, tr.inactive td { background-color: #d0d0d0 !important; }
+                tr.inactive td { text-decoration: line-through; color: #808080; }
 .type_ndb     , tr.ndb      td { background-color: #ffffff !important; }
 .type_dgps    , tr.dgps     td { background-color: #00d8ff !important; }
 .type_dsc     , tr.dsc      td { background-color: #ffb000 !important; }
@@ -1318,6 +1318,7 @@ fieldset#form_range_units {
 }
 div.scroll {
     padding: 0 0.5em;
+    margin: 0;
     display: flex;
     flex-direction: column;
     div {
@@ -1334,9 +1335,6 @@ div.scroll {
             tbody {
                 tr:hover, tr:hover td {
                     background: #ffff00 !important;
-                }
-                tr.type_inactive:hover, tr.type_inactive:hover td {
-                    background: #b0b040 !important;
                 }
             }
             img { margin: 0.5em 0.25em 0 0;}
@@ -1614,8 +1612,6 @@ body.map {
             display: inline-block;
             background: #ffffff;
             border: 1px solid #aaa;
-            margin: 0 5px;
-            padding: 0 3px 0 0;
             border-radius: 5px;
             div {
                 height: 1.8em;
@@ -1629,6 +1625,9 @@ body.map {
                 }
                 label {
                     padding: 0 0.25em;
+                }
+                &:last-child {
+                    border-radius: 0 5px 5px 0;
                 }
             }
         }
@@ -1766,6 +1765,8 @@ table.map_layout {
     tbody {
         border: none;
         td {
+            padding: 0.25em;
+            margin: 0;
             vertical-align: top;
         }
     }
