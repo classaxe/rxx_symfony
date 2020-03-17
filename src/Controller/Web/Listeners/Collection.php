@@ -110,6 +110,7 @@ class Collection extends Base
             'args' =>               $args,
             'box' =>                $box,
             'center' =>             $center,
+            'classic' =>            $this->systemRepository->getClassicUrl($system, 'listeners'),
             'columns' =>            $listenerRepository->getColumns(),
             'form' =>               $form->createView(),
             'listeners' =>          $listeners,

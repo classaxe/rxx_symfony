@@ -27,6 +27,7 @@ class Help extends Base
     public function helpController($_locale, $system) {
         $parameters = [
             '_locale' =>    $_locale,
+            'classic' =>    $this->systemRepository->getClassicUrl($system, 'help'),
             'mode' =>       'Help',
             'system' =>     $system,
         ];

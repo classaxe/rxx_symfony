@@ -115,6 +115,26 @@ class SystemRepository
         ]
     ];
 
+    public function getClassicUrl($system='', $mode='')
+    {
+        $base = "https://www.classaxe.com/dx/ndb/$system/";
+        switch ($mode) {
+            case 'cle':
+                return $base . 'cle';
+            case 'help':
+                return $base . 'help';
+            case 'listeners':
+                return $base . 'listener_list';
+            case 'logon':
+                return $base . 'logon';
+            case 'maps':
+                return $base . 'maps';
+            case 'signals':
+                return $base . 'signal_list';
+        }
+        return $base;
+    }
+
     public function get($code)
     {
         return self::SYSTEMS[$code];

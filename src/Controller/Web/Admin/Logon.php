@@ -72,6 +72,7 @@ class Logon extends Base
         }
         $parameters = [
             'args' =>       $args,
+            'classic' =>    $this->systemRepository->getClassicUrl($system, 'logon'),
             'form' =>       $form->createView(),
             'form_class' => 'logon',
             '_locale' =>    $_locale,

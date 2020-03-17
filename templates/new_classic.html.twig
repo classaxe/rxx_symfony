@@ -1,0 +1,7 @@
+{% if classic is defined %}
+<div class="version">
+    <strong>{% trans %}Version:{% endtrans %}</strong> [
+        <a href="{{ app.request.uri }}" class="active">{% trans %}New{% endtrans %}</a> |
+        <a href="{{ classic }}">{% trans %}Classic{% endtrans %}</a>
+    ]
+</div>{% endif %}
