@@ -803,6 +803,9 @@ button.tiny {
 #form fieldset legend.toggle:hover {
   color: #000080;
 }
+#form fieldset legend.sr-only {
+  width: auto;
+}
 #form fieldset legend span {
   float: none;
   margin: 0;
