@@ -36,7 +36,7 @@ class Cle extends Base
             '_locale' =>    $_locale,
             'mode' =>       $i18n->trans('CLE %NUMBER%', [ '%NUMBER%' => $cle->getCle() ]),
             'system' =>     $system,
-            'classic' =>    $this->systemRepository->getClassicUrl($system, 'cle'),
+            'classic' =>    $this->systemRepository->getClassicUrl('cle'),
             'cle' =>        $cle,
             'reu1' =>       $this->getUrlForRegion($cle, 'Europe', 1),
             'reu2' =>       $this->getUrlForRegion($cle, 'Europe', 2),

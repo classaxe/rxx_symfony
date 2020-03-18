@@ -1,6 +1,11 @@
 {# i18n template as base for translations #}
 {% trans %}<{% endtrans %}
 {% trans %}>{% endtrans %}
+{% if 'Version' %}
+    {% trans %}Version{% endtrans %}
+    {% trans %}Classic{% endtrans %}
+    {% trans %}New{% endtrans %}
+{% endif %}
 {% if 'Menu' %}
     {% trans %}Signals Received in Europe{% endtrans %}
     {% trans %}Signals Received in N & C America + Hawaii{% endtrans %}

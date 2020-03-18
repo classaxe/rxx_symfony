@@ -150,4 +150,49 @@ class Redirect extends AbstractController
         return $this->redirectToRoute('signals', $parameters);
     }
 
+    /**
+     * @Route(
+     *     "/{_locale}/{system}/signals/seeklist",
+     *     requirements={
+     *        "_locale": "de|en|es|fr",
+     *        "system": "reu|rna|rww"
+     *     },
+     *     name="signals_seeklist"
+     * )
+     * @param $_locale
+     * @param $system
+     * @return RedirectResponse
+     */
+    public function redirect_8($_locale, $system)
+    {
+        $parameters =[
+            '_locale' =>    $_locale,
+            'system' =>     $system,
+            'show' =>       'seeklist'
+        ];
+        return $this->redirectToRoute('signals', $parameters);
+    }
+
+    /**
+     * @Route(
+     *     "/{_locale}/{system}/signals/map",
+     *     requirements={
+     *        "_locale": "de|en|es|fr",
+     *        "system": "reu|rna|rww"
+     *     },
+     *     name="signals_map"
+     * )
+     * @param $_locale
+     * @param $system
+     * @return RedirectResponse
+     */
+    public function redirect_9($_locale, $system)
+    {
+        $parameters =[
+            '_locale' =>    $_locale,
+            'system' =>     $system,
+            'show' =>       'map'
+        ];
+        return $this->redirectToRoute('signals', $parameters);
+    }
 }

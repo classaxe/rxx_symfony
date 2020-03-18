@@ -3811,6 +3811,18 @@
         <source>Show Inactive signals</source>
         <target>Show Inactive signals</target>
       </trans-unit>
+      <trans-unit id="3RZ5Bd4" resname="Version">
+        <source>Version</source>
+        <target>Version</target>
+      </trans-unit>
+      <trans-unit id="riXWSB." resname="Classic">
+        <source>Classic</source>
+        <target>Classic</target>
+      </trans-unit>
+      <trans-unit id="GP3VSbL" resname="New">
+        <source>New</source>
+        <target>New</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

@@ -115,24 +115,34 @@ class SystemRepository
         ]
     ];
 
-    public function getClassicUrl($system='', $mode='')
+    public function getClassicUrl($mode='', $submode='')
     {
-        $base = "https://www.classaxe.com/dx/ndb/$system/";
+        $response = [ 'type' => 'url', 'value' => '' ];
         switch ($mode) {
             case 'cle':
-                return $base . 'cle';
             case 'help':
-                return $base . 'help';
-            case 'listeners':
-                return $base . 'listener_list';
             case 'logon':
-                return $base . 'logon';
             case 'maps':
-                return $base . 'maps';
+                $response['value'] = $mode;
+                break;
+            case 'listeners':
+                $response['value'] = 'listener_list';
+                break;
             case 'signals':
-                return $base . 'signal_list';
+                switch ($submode) {
+                    case 'map':
+                        $response['value'] = 'signal_list?show=map';
+                        break;
+                    case 'seeklist':
+                        $response['value'] = 'signal_seeklist';
+                        break;
+                    default:
+                        $response['value'] = 'signal_list';
+                        break;
+                }
+                break;
         }
-        return $base;
+        return $response;
     }
 
     public function get($code)

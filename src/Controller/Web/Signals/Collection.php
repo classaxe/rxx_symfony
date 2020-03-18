@@ -155,7 +155,7 @@ class Collection extends Base
         $parameters = [
             '_locale' =>            $_locale,
             'args' =>               $args,
-            'classic' =>            $this->systemRepository->getClassicUrl($system, 'signals'),
+            'classic' =>            $this->systemRepository->getClassicUrl('signals', $args['show']),
             'columns' =>            $signalRepository->getColumns(),
             'expanded' =>           $expanded,
             'form' =>               $form->createView(),

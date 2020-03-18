@@ -1,7 +1,14 @@
 {% if classic is defined %}
+{% set new_url = app.request.uri ~ (args['show'] is defined and args['show']!= '' ? '?show=' ~ args['show'] : '') %}
+{% set classic_base = ('dev' == app.environment ? 'http://dev.' : 'https://www.') ~ 'classaxe.com/dx/ndb/' ~ system ~ '/' %}
 <div class="version">
-    <strong>{% trans %}Version:{% endtrans %}</strong> [
-        <a href="{{ app.request.uri }}" class="active">{% trans %}New{% endtrans %}</a> |
-        <a href="{{ classic }}">{% trans %}Classic{% endtrans %}</a>
-    ]
-</div>{% endif %}
+    <strong>{% trans %}Version{% endtrans %}:</strong> [
+        <a href="{%
+            if classic.type == 'url'
+        %}{{ classic_base }}{{ classic.value }}{%
+            else
+        %}#" onclick="alert('{{ classic.value }}');return false{%
+            endif
+        %}">{% trans %}Classic{% endtrans %}</a> |
+        <a href="{{ new_url }}" class="active">{% trans %}New{% endtrans %}</a>
+]</div>{% endif %}
