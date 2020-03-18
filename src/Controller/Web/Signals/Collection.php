@@ -48,20 +48,20 @@ class Collection extends Base
     ) {
         $isAdmin = $this->parameters['isAdmin'];
         $args = [
-            'active' =>         0,
+            'active' =>         '',
             'admin_mode' =>     $_REQUEST['form']['admin_mode'] ?? 0,
             'call' =>           '',
             'channels' =>       '',
             'countries' =>      '',
             'gsq' =>            '',
             'heard_in' =>       '',
-            'heard_in_mod' =>   '',
+            'heard_in_mod' =>   'any',
             'isAdmin' =>        $isAdmin,
             'khz_1' =>          '',
             'khz_2' =>          '',
             'limit' =>          SignalRepository::defaultlimit,
             'listener' =>       [],
-            'listener_invert' => '',
+            'listener_invert' => '0',
             'logged_date_1' =>  '',
             'logged_date_2' =>  '',
             'logged_first_1' => '',
@@ -81,12 +81,14 @@ class Collection extends Base
             'rww_focus' =>      '',
             'show' =>           '',
             'sort' =>           SignalRepository::defaultSorting,
+            'sortby' =>         '',
             'sp_itu_clause' =>  '',
             'states' =>         '',
             'system' =>         $system,
             'types' =>          ['type_NDB'],
             'signalTypes' =>    [0],
-            'url' =>            $request->attributes->get('_route')
+            'url' =>            $request->attributes->get('_route'),
+            'za' =>             ''
         ];
 
         $args['total'] =        $signalRepository->getFilteredSignalsCount($system, $args); // forces paging - will be made accurate later on

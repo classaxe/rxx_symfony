@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    0.46.0
- * Date:       2020-03-17
+ * Version:    1.0.1
+ * Date:       2020-03-18
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
  */
@@ -179,8 +179,11 @@ body.rww .button.is-active {
   text-decoration: underline;
 }
 tr.inactive td {
-  text-decoration: line-through;
-  color: #808080;
+  color: #a0a0a0;
+  font-style: italic;
+}
+tr.inactive td a {
+  color: #6080b0;
 }
 .type_ndb,
 tr.ndb td {
@@ -478,7 +481,7 @@ table.seeklist tbody td div.sl_d.inactive {
   font-weight: normal;
 }
 .help a {
-  color: #0033a0;
+  color: #0044cc;
   text-decoration: none;
   font-weight: bold;
 }

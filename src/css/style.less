@@ -128,7 +128,13 @@
 #sysColor(rna);
 #sysColor(rww);
 
-                tr.inactive td { text-decoration: line-through; color: #808080; }
+tr.inactive td {
+    color: #a0a0a0;
+    font-style: italic;
+    a {
+        color: #6080b0;
+    }
+}
 .type_ndb     , tr.ndb      td { background-color: #ffffff !important; }
 .type_dgps    , tr.dgps     td { background-color: #00d8ff !important; }
 .type_dsc     , tr.dsc      td { background-color: #ffb000 !important; }
@@ -401,7 +407,7 @@ table.seeklist {
         font-weight: normal;
     }
     a {
-        color: #0033a0;
+        color: #0044cc;
         text-decoration: none;
         font-weight: bold;
         &:hover {
