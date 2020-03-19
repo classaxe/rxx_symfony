@@ -68,6 +68,7 @@ class LogRepository extends ServiceEntityRepository
             ->select(
                 'l.date,'
                 .'l.time,'
+                .'l.daytime,'
                 .'l.dxKm,'
                 .'l.dxMiles,'
                 .'s.khz,'

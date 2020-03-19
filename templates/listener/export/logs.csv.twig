@@ -1,7 +1,8 @@
-"{% trans %}YYYYMMDD{% endtrans %}","{% trans %}UTC{% endtrans %}","{% trans %}KHz{% endtrans %}","{% trans %}ID{% endtrans %}","{% trans %}Type{% endtrans %}","{% trans %}KM{% endtrans %}","{% trans %}Miles{% endtrans %}","{% trans %}PWR{% endtrans %}","{% trans %}GSQ{% endtrans %}","{% trans %}SP{% endtrans %}","{% trans %}ITU{% endtrans %}","{% trans %}Location{% endtrans %}"
+"{% trans %}YYYYMMDD{% endtrans %}","{% trans %}UTC{% endtrans %}","{% trans %}Daytime{% endtrans %}","{% trans %}KHz{% endtrans %}","{% trans %}ID{% endtrans %}","{% trans %}Type{% endtrans %}","{% trans %}KM{% endtrans %}","{% trans %}Miles{% endtrans %}","{% trans %}PWR{% endtrans %}","{% trans %}GSQ{% endtrans %}","{% trans %}SP{% endtrans %}","{% trans %}ITU{% endtrans %}","{% trans %}Location{% endtrans %}"
 {% for l in logs %}"{{
     l.date | date('Ymd') }}","{{
-    l.time }}",{{
+    l.time }}","{{
+    (l.daytime ? 'Y' : 'N') }}",{{
     0 + l.khz }},"{{
     l.call }}","{{
     typeRepository.typeForCode(l.type)['label']|trans }}",{{

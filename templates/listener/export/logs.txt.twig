@@ -1,12 +1,15 @@
 {{ title }}
 {{ subtitle }}
+DT - {% trans %}Logged between 10am and 2pm local time{% endtrans %}
+
 ---------------------------------------------------------------------------------------------------
-YYYYMMDD UTC  KHz      ID         Type           KM  Miles   PWR GSQ    SP ITU Location
+YYYYMMDD UTC  DT KHz      ID         Type           KM  Miles   PWR GSQ    SP ITU Location
 ---------------------------------------------------------------------------------------------------
 {% for l in logs %}
 {{
     l.date | date('Ymd') }} {{
     "% 4s"   | format(l.time) }} {{
+    "% 2s"   | format(l.daytime ? 'Y' : 'N') }} {{
     "% -8s"  | format((0 + l.khz)) }} {{
     "% -10s" | format(l.call) }} {{
     "% -10s" | format( typeRepository.typeForCode(l.type)['label']|trans) }} {{
