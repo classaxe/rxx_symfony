@@ -6,10 +6,10 @@
     <div class="controlPanel {{ form_class }}">
         <div class="header">{{ mode|raw }}
             <div class="export">{% trans %}Export{% endtrans %}
-                <a href="{{ url('listener_export_logs_csv', { 'system' : system, 'id': id }) }}">
+                <a href="{{ url('listener_logs_export_csv', { 'system' : system, 'id': id }) }}">
                     <span class='ui-icon ui-icon-document'></span>.csv
                 </a>
-                <a href="{{ url('listener_export_logs_txt', { 'system' : system, 'id': id }) }}">
+                <a href="{{ url('listener_logs_export_txt', { 'system' : system, 'id': id }) }}">
                     <span class='ui-icon ui-icon-document'></span>.txt
                 </a>
             </div>

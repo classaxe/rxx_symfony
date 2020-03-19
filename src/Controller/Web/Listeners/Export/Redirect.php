@@ -1,8 +1,8 @@
 <?php
 namespace App\Controller\Web\Listeners\Export;
 
-use App\Service\GeoService;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -33,5 +33,58 @@ class Redirect extends AbstractController
         ];
 
         return $this->redirectToRoute('listener_export_signalmap', $parameters );
+    }
+
+    /**
+     * @Route(
+     *     "/{_locale}/{system}/listeners/{id}/signals/export",
+     *     requirements={
+     *        "_locale": "de|en|es|fr",
+     *        "system": "reu|rna|rww"
+     *     },
+     *     defaults={"id"=""},
+     *     name="listener_signals_export"
+     * )
+     * @param $_locale
+     * @param $system
+     * @param $id
+     * @return RedirectResponse|Response
+     */
+    public function redirect_2 ($system, $id)
+    {
+        $parameters = [
+            '_locale' => $this->get('session')->get('_locale'),
+            'system' => $system,
+            'id' => $id
+        ];
+
+        return $this->redirectToRoute('listener_signals_export_csv', $parameters );
+    }
+
+
+    /**
+     * @Route(
+     *     "/{_locale}/{system}/listeners/{id}/logs/export",
+     *     requirements={
+     *        "_locale": "de|en|es|fr",
+     *        "system": "reu|rna|rww"
+     *     },
+     *     defaults={"id"=""},
+     *     name="listener_logs_export"
+     * )
+     * @param $_locale
+     * @param $system
+     * @param $id
+     * @return RedirectResponse|Response
+     */
+    public function redirect_3 ($system, $id)
+    {
+        $parameters = [
+            '_locale' => $this->get('session')->get('_locale'),
+            'system' => $system,
+            'id' => $id
+        ];
+
+        return $this->redirectToRoute('listener_logs_export_csv', $parameters );
     }
 }

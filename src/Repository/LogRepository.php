@@ -72,6 +72,7 @@ class LogRepository extends ServiceEntityRepository
                 .'l.dxMiles,'
                 .'s.khz,'
                 .'s.call,'
+                .'s.type,'
                 .'s.pwr,'
                 .'s.sp,'
                 .'s.itu,'

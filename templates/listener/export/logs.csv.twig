@@ -1,9 +1,10 @@
-"YYYYMMDD","UTC","KHz","ID","KM","Miles","PWR","GSQ","SP","ITU","Location"
+"{% trans %}YYYYMMDD{% endtrans %}","{% trans %}UTC{% endtrans %}","{% trans %}KHz{% endtrans %}","{% trans %}ID{% endtrans %}","{% trans %}Type{% endtrans %}","{% trans %}KM{% endtrans %}","{% trans %}Miles{% endtrans %}","{% trans %}PWR{% endtrans %}","{% trans %}GSQ{% endtrans %}","{% trans %}SP{% endtrans %}","{% trans %}ITU{% endtrans %}","{% trans %}Location{% endtrans %}"
 {% for l in logs %}"{{
     l.date | date('Ymd') }}","{{
     l.time }}",{{
     0 + l.khz }},"{{
-    l.call }}",{{
+    l.call }}","{{
+    typeRepository.typeForCode(l.type)['label']|trans }}",{{
     l.dxKm }},{{
     l.dxMiles }},"{{
     l.pwr ? l.pwr : '' }}","{{

@@ -8,6 +8,8 @@ use App\Repository\PaperRepository;
 use App\Repository\SignalRepository;
 use App\Repository\TypeRepository;
 use DateTime;
+use Exception;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 use Symfony\Component\HttpFoundation\Request;
 
@@ -33,8 +35,8 @@ class Collection extends Base
      * @param ListenerRepository $listenerRepository
      * @param SignalRepository $signalRepository
      * @param TypeRepository $typeRepository
-     * @return \Symfony\Component\HttpFoundation\Response
-     * @throws \Exception
+     * @return Response
+     * @throws Exception
      */
     public function controller(
         $_locale,

@@ -1,20 +1,21 @@
 {{ title }}
 {{ subtitle }}
 ---------------------------------------------------------------------------------------------------
-YYYYMMDD UTC  KHz      ID            KM     Miles PWR GSQ    SP ITU Location
+YYYYMMDD UTC  KHz      ID         Type           KM  Miles   PWR GSQ    SP ITU Location
 ---------------------------------------------------------------------------------------------------
-{% for log in logs %}
+{% for l in logs %}
 {{
-    log.date | date('Ymd') }} {{
-    "% 4s"   | format(log.time) }} {{
-    "% -8s"  | format((0 + log.khz)) }} {{
-    "% -10s" | format(log.call) }} {{
-    "% 6s"   | format(log.dxKm) }} {{
-    "% 6s"   | format(log.dxMiles) }} {{
-    "% 5s"   | format(log.pwr ? log.pwr : '') }} {{
-    "% 6s"   | format(log.gsq) }} {{
-    "% 2s"   | format(log.sp) }} {{
-    "% 3s"   | format(log.itu) }} {{
-    log.qth|raw
+    l.date | date('Ymd') }} {{
+    "% 4s"   | format(l.time) }} {{
+    "% -8s"  | format((0 + l.khz)) }} {{
+    "% -10s" | format(l.call) }} {{
+    "% -10s" | format( typeRepository.typeForCode(l.type)['label']|trans) }} {{
+    "% 6s"   | format(l.dxKm) }} {{
+    "% 6s"   | format(l.dxMiles) }} {{
+    "% 5s"   | format(l.pwr ? l.pwr : '') }} {{
+    "% 6s"   | format(l.gsq) }} {{
+    "% 2s"   | format(l.sp) }} {{
+    "% 3s"   | format(l.itu) }} {{
+    l.qth|raw
 }}
 {% endfor %}
