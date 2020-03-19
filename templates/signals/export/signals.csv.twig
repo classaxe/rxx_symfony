@@ -7,28 +7,29 @@
     trans %}USB{% endtrans %}","{%
     trans %}Sec{% endtrans %}","{%
     trans %}Fmt{% endtrans %}","{%
-    trans %}Location{% endtrans %}","{%
-    trans %}S/P{% endtrans %}","{%
+    trans %}'Name' and Location'{% endtrans %}","{%
+    trans %}SP{% endtrans %}","{%
     trans %}ITU{% endtrans %}","{%
     trans %}Region{% endtrans %}","{%
     trans %}GSQ{% endtrans %}","{%
     trans %}Lat{% endtrans %}","{%
     trans %}Lon{% endtrans %}","{%
-    trans %}PWR{% endtrans %}","{%
+    trans %}Pwr{% endtrans %}","{%
+    trans %}Notes{% endtrans %}","{%
+    trans %}Heard In{% endtrans %}","{%
     trans %}Logs{% endtrans %}","{%
-    trans %}Latest{% endtrans %}","{%
-    trans %}KM{% endtrans %}","{%
-    trans %}Miles{% endtrans %}","{%
-    trans %}Daytime{% endtrans %}"
+    trans %}First Logged{% endtrans %}","{%
+    trans %}Last Logged{% endtrans
+%}"
 {% for s in signals %}{{
     0 + s.khz }},"{{
     s.call }}","{{
     typeRepository.typeForCode(s.type)['label']|trans }}","{{
     s.active ? 'Y' : 'N' }}","{{
-    s.lsb }}","{{
-    s.usb }}","{{
-    s.secF }}","{{
-    s.format }}","{{
+    s.formattedLsbRel }}","{{
+    s.formattedUsbRel }}","{{
+    s.sec }}","{{
+    s.getFormat }}","{{
     s.qth|raw }}","{{
     s.sp }}","{{
     s.itu }}","{{
@@ -36,10 +37,10 @@
     s.gsq }}","{{
     s.lat }}","{{
     s.lon }}","{{
-    s.pwr }}","{{
+    s.pwr ? s.pwr : '' }}","{{
+    s.notes }}","{{
+    s.heardIn }}","{{
     s.logs }}","{{
-    s.latest }}","{{
-    s.dxKm }}","{{
-    s.dxMiles }}","{{
-    s.daytime ? 'Y' : 'N' }}"
+    s.firstHeard|date('Y-m-d') }}","{{
+    s.lastHeard|date('Y-m-d') }}"
 {% endfor %}

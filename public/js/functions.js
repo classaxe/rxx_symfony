@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    0.45.1
- * Date:       2020-03-17
+ * Version:    1.0.6
+ * Date:       2020-03-19
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
  */
@@ -169,41 +169,6 @@ function decodeHtmlEntities(value) {
     return $("<div/>").html(value).text();
 }
 
-function exportSignallistExcel() {
-    if (!confirm(
-            (msg.export + "\n\n" + msg.time + "\n\n" + msg.options + "\n\n" + msg.continue)
-            . replace('\:system', system.toUpperCase())
-            . replace('\:format', msg.excel)
-        )
-    ) {
-        return;
-    }
-    alert('OK');
-}
-
-function exportSignallistILG() {
-    if (!confirm(
-        (msg.export + "\n\n" + msg.nooptions + "\n\n" + msg.continue)
-            . replace('\:system', system.toUpperCase())
-            . replace('\:format', msg.ilg)
-    )
-    ) {
-        return;
-    }
-    alert('OK');
-}
-function exportSignallistPDF() {
-    if (!confirm(
-        (msg.export + "\n\n" + msg.time + "\n\n" + msg.options + "\n\n" + msg.continue)
-            . replace('\:system', system.toUpperCase())
-            . replace('\:format', msg.pdf)
-    )
-    ) {
-        return;
-    }
-    alert('OK');
-}
-
 function getLimitOptions(max, value, defaultLimit) {
     var values = [10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 100000, 20000, 50000, 100000];
     var out = "";
@@ -287,6 +252,7 @@ function initSignalsForm(pagingMsg, resultsCount) {
         setExternalLinks();
 
         setFormPagingStatus(pagingMsg, resultsCount);
+        setSignalActions();
         scrollToResults();
     });
 }
@@ -913,6 +879,21 @@ function setFormTypesDefault() {
 function setFormTypesAllAction() {
     $('fieldset#form_types div :checkbox[value=type_ALL]').click(function () {
         $('fieldset#form_types div :checkbox').prop('checked', $(this).prop("checked"));
+    });
+}
+
+function setSignalActions() {
+    $('#btn_prt').click(function () {
+        window.print();
+    });
+    $('#btn_csv').click(function () {
+        window.location.assign(window.location + '/export/csv');
+    });
+    $('#btn_txt').click(function () {
+        window.location.assign(window.location + '/export/txt');
+    });
+    $('#btn_kml').click(function () {
+        window.location.assign(window.location + '/export/kml');
     });
 }
 

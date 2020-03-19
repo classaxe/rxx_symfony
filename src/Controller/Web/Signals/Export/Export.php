@@ -12,16 +12,16 @@ use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
  * Class Collection
  * @package App\Controller\Web\Signals\Export
  */
-class Excel extends WebBase
+class Export extends WebBase
 {
     /**
      * @Route(
-     *     "/{_locale}/{system}/signals/export/excel",
+     *     "/{_locale}/{system}/signals/export/csv",
      *     requirements={
      *        "_locale": "de|en|es|fr",
      *        "system": "reu|rna|rww"
      *     },
-     *     name="signals_export_excel"
+     *     name="signals_export_csv"
      * )
      * @param $_locale
      * @param $system
@@ -30,9 +30,28 @@ class Excel extends WebBase
      * @return \Symfony\Component\HttpFoundation\Response
      * @throws \Exception
      */
-    public function controller(
+    public function csv(
         $_locale,
         $system,
+        SignalRepository $signalRepository,
+        TypeRepository $typeRepository
+    ) {
+        return $this->export($_locale, $system, 'csv', $signalRepository, $typeRepository);
+    }
+
+    /**
+     * @param $_locale
+     * @param $system
+     * @param $mode
+     * @param SignalRepository $signalRepository
+     * @param TypeRepository $typeRepository
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \Exception
+     */
+    private function export(
+        $_locale,
+        $system,
+        $mode,
         SignalRepository $signalRepository,
         TypeRepository $typeRepository
     ) {
@@ -66,6 +85,16 @@ class Excel extends WebBase
             'types' =>              $types,
             'typeRepository' =>     $typeRepository
         ];
-        return $this->render('signals/index.html.twig', $this->getMergedParameters($parameters));
+        switch ($mode) {
+            case 'csv':
+                $response = $this->render("signals/export/signals.csv.twig", $parameters);
+                break;
+            case 'txt':
+                $response = $this->render("signals/export/signals.txt.twig", $parameters);
+                break;
+        }
+        $response->headers->set('Content-Type', 'text/plain');
+        $response->headers->set('Content-Disposition',"attachment;filename={$system}_signals.{$mode}");
+        return $response;
     }
 }

@@ -1,16 +1,45 @@
-"{% trans %}YYYYMMDD{% endtrans %}","{% trans %}UTC{% endtrans %}","{% trans %}Daytime{% endtrans %}","{% trans %}KHz{% endtrans %}","{% trans %}ID{% endtrans %}","{% trans %}Type{% endtrans %}","{% trans %}KM{% endtrans %}","{% trans %}Miles{% endtrans %}","{% trans %}PWR{% endtrans %}","{% trans %}GSQ{% endtrans %}","{% trans %}SP{% endtrans %}","{% trans %}ITU{% endtrans %}","{% trans %}Location{% endtrans %}"
+"{%
+    trans %}YYYYMMDD{% endtrans %}","{%
+    trans %}UTC{% endtrans %}","{%
+    trans %}KHz{% endtrans %}","{%
+    trans %}ID{% endtrans %}","{%
+    trans %}Type{% endtrans %}","{%
+    trans %}Active{% endtrans %}","{%
+    trans %}'Name' and Location{% endtrans %}","{%
+    trans %}S/P{% endtrans %}","{%
+    trans %}ITU{% endtrans %}","{%
+    trans %}Region{% endtrans %}","{%
+    trans %}GSQ{% endtrans %}","{%
+    trans %}Lat{% endtrans %}","{%
+    trans %}Lon{% endtrans %}","{%
+    trans %}LSB{% endtrans %}","{%
+    trans %}USB{% endtrans %}","{%
+    trans %}Sec{% endtrans %}","{%
+    trans %}Fmt.{% endtrans %}","{%
+    trans %}PWR{% endtrans %}","{%
+    trans %}KM{% endtrans %}","{%
+    trans %}Miles{% endtrans %}","{%
+    trans %}Daytime{% endtrans%}"
 {% for l in logs %}"{{
     l.date | date('Ymd') }}","{{
     l.time }}","{{
-    (l.daytime ? 'Y' : 'N') }}",{{
-    0 + l.khz }},"{{
+    0 + l.khz }}","{{
     l.call }}","{{
-    typeRepository.typeForCode(l.type)['label']|trans }}",{{
-    l.dxKm }},{{
-    l.dxMiles }},"{{
-    l.pwr ? l.pwr : '' }}","{{
-    l.gsq }}","{{
+    typeRepository.typeForCode(l.type)['label']|trans }}","{{
+    l.active ? 'Y' : 'N' }}","{{
+    l.qth|raw }}","{{
     l.sp }}","{{
     l.itu }}","{{
-    l.qth|raw }}"
+    l.region }}","{{
+    l.gsq }}","{{
+    l.lat }}","{{
+    l.lon }}","{{
+    l.lsb }}","{{
+    l.usb }}","{{
+    l.sec }}","{{
+    l.format }}","{{
+    l.pwr ? l.pwr : '' }}","{{
+    l.dxKm }}","{{
+    l.dxMiles }}","{{
+    (l.daytime ? 'Y' : 'N') }}"
 {% endfor %}

@@ -51,7 +51,7 @@
                 elseif key == 'gsq'
                     %}{% if listener.gsq %}<a href="{{ url('listener_map', { 'system' : system, 'id' : listener.ID }) }}" data-popup="1">{{ listener.gsq }}</a>{% endif %}{%
                 elseif key == 'map'
-                    %}{% if listener.signalsMap %}<a href="{{ url('listener_signalmap', { 'system' : system, 'id' : listener.ID }) }}" data-popup="1">{% trans %}Map{% endtrans %}</a>{% endif %}{%
+                    %}{% if listener.signalsMap %}<a href="{{ url('listener_signalsmap', { 'system' : system, 'id' : listener.ID }) }}" data-popup="1">{% trans %}Map{% endtrans %}</a>{% endif %}{%
                 elseif key == 'mapPos'
                     %}{% if listener.region in ['ca','eu','na'] or listener.itu == 'HWA'%}<a href="{{ url('listener_locatormap', { 'system' : system, 'id' : listener.ID }) }}" data-popup="1">{{ listener.formattedMapPos }}</a>{% endif %}{%
                 elseif key == 'nwl'

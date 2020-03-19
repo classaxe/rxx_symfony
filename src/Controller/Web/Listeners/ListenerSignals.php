@@ -19,12 +19,11 @@ class ListenerSignals extends Base
 
     /**
      * @Route(
-     *     "/{_locale}/{system}/listeners/{id}/signals/{type}",
+     *     "/{_locale}/{system}/listeners/{id}/signals",
      *     requirements={
      *        "_locale": "de|en|es|fr",
      *        "system": "reu|rna|rww"
      *     },
-     *     defaults={"type"=""},
      *     name="listener_signals"
      * )
      */
@@ -32,7 +31,6 @@ class ListenerSignals extends Base
         $_locale,
         $system,
         $id,
-        $type,
         Request $request,
         Form $form,
         ListenerRepository $listenerRepository,
@@ -59,7 +57,6 @@ class ListenerSignals extends Base
             'page' =>           0,
             'sort' =>           static::defaultSorting,
             'total' =>          $totalSignals,
-            'type' =>           $type
         ];
         if ($form->isSubmitted() && $form->isValid()) {
             $args = $form->getData();

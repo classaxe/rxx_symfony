@@ -1,0 +1,24 @@
+{{ title }}
+{{ subtitle }}
+DT - {% trans %}Logged between 10am and 2pm local time{% endtrans %}
+
+----------------------------------------------------------------------------------------------------------------
+KHz      ID         Type         Logs Latest     DT    KM    Mi   PWR GSQ    SP ITU Location
+----------------------------------------------------------------------------------------------------------------
+{% for s in signals %}
+{{
+    "% -8s"  | format((0 + s.khz)) }} {{
+    "% -10s" | format(s.call) }} {{
+    "% -10s" | format( typeRepository.typeForCode(s.type)['label']|trans) }} {{
+    "% 6s"   | format(s.logs) }} {{
+    "% 10s"  | format(s.latest) }} {{
+    "% 2s"   | format(s.daytime ? 'Y' : 'N') }} {{
+    "% 5s"   | format(s.dxKm) }} {{
+    "% 5s"   | format(s.dxMiles) }} {{
+    "% 5s"   | format(s.pwr ? s.pwr : '') }} {{
+    "% 6s"   | format(s.gsq) }} {{
+    "% 2s"   | format(s.sp) }} {{
+    "% 3s"   | format(s.itu) }} {{
+    s.qth|raw
+}}
+{% endfor %}

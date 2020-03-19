@@ -22,7 +22,7 @@ class ListenerRepository extends ServiceEntityRepository
         ['listener_locatormap', 'Locator Map'],
         ['listener_logs', 'Logs (%%logs%%)'],
         ['listener_signals', 'Signals (%%signals%%)'],
-        ['listener_signalmap', 'Signals Map'],
+        ['listener_signalsmap', 'Signals Map'],
         ['listener_export', 'Export'],
         ['listener_weather', 'Weather'],
         ['listener_stats', 'Stats'],
@@ -367,7 +367,7 @@ class ListenerRepository extends ServiceEntityRepository
                         $out[] = $data;
                     }
                     break;
-                case 'listener_signalmap':
+                case 'listener_signalsmap':
                     if ($listener->getSignalsMap()) {
                         $out[] = $data;
                     }
@@ -566,7 +566,7 @@ class ListenerRepository extends ServiceEntityRepository
             .'s.region,'
             .'s.gsq,'
             .'s.type,'
-            .'s.pwr,'
+            .'(CASE when s.pwr = 0 THEN \'\' ELSE s.pwr END) AS pwr,'
             .'s.lat,'
             .'s.lon,'
             .'(CASE WHEN s.sp = \'\' THEN s.itu ELSE s.sp END) as place,'
@@ -634,14 +634,15 @@ class ListenerRepository extends ServiceEntityRepository
             .'s.qth,'
             .'s.sp,'
             .'s.itu,'
+            .'s.region,'
+            .'s.gsq,'
+            .'s.type,'
+            .'(CASE WHEN s.lsb = 0 THEN \'\' ELSE CONCAT(s.lsbApprox, s.lsb) END) AS lsb,'
+            .'(CASE WHEN s.usb = 0 THEN \'\' ELSE CONCAT(s.usbApprox, s.usb) END) AS usb,'
             .'trim(s.sec)+0 AS sec,'
             .'(CASE WHEN trim(s.sec)+0 = 0 THEN \'\' ELSE trim(s.sec)+0 END) AS secF,'
             .'s.format,'
-            .'s.gsq,'
-            .'s.type,'
-            .'s.lsb,'
-            .'s.usb,'
-            .'s.pwr,'
+            .'(CASE WHEN s.pwr = 0 THEN \'\' ELSE s.pwr END) AS pwr,'
             .'s.lat,'
             .'s.lon,'
             .'s.notes,'

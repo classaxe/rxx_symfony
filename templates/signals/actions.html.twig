@@ -1,10 +1,10 @@
 {% if (signals|length > 0 or isAdmin) %}
 <p class="report_actions">
 {% if signals|length > 0 %}
-    <input type="button" class="button small" value="{% trans %}Print...{% endtrans %}" onclick="window.print()" />
-    <input type="button" class="button small" value="{{ 'All %s > %s' |trans|format(system|upper, 'Excel')}}" onclick="exportSignallistExcel()" />
-    <input type="button" class="button small" value="{{ 'All %s > %s'   |trans|format(system|upper, 'PDF')}}" onclick="exportSignallistPDF()" />
-    <input type="button" class="button small" value="{{ 'All %s > %s'   |trans|format(system|upper, 'ILG')}}" onclick="exportSignallistILG()" />
+    <input type="button" id="btn_prt" class="button small" value="{% trans %}Print...{% endtrans %}" />
+    <input type="button" id="btn_csv" class="button small" value="{{ 'Export as %s' |trans|format('.csv')}}" />
+{#    <input type="button" id="btn_txt" class="button small" value="{{ 'Export as %s' |trans|format('.txt')}}" />#}
+{#    <input type="button" id="btn_kml" class="button small" value="{{ 'Export as %s' |trans|format('.kml')}}" />#}
 {% endif %}
 {% if isAdmin %}
     {% if isAdmin %}

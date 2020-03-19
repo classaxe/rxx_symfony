@@ -12,17 +12,17 @@ use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
  * Class Listeners
  * @package App\Controller\Web\Listener
  */
-class Signalmap extends Base
+class SignalsMap extends Base
 {
     /**
      * @Route(
-     *     "/{_locale}/{system}/listeners/{id}/signalsmap",
+     *     "/{_locale}/{system}/listeners/{id}/signals/map",
      *     requirements={
      *        "_locale": "de|en|es|fr",
      *        "system": "reu|rna|rww"
      *     },
      *     defaults={"id"=""},
-     *     name="listener_signalmap"
+     *     name="listener_signalsmap"
      * )
      * @param $_locale
      * @param $system
