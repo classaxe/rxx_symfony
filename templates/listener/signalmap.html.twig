@@ -4,8 +4,6 @@
 <script>
 //<![CDATA[
 var listener = {
-    source: '{{ url('listener_export_signals_kml', { 'system' : system, 'id' : id }) }}',
-    logLatest: {{ listener.logLatest|date("Ymd") }},
     lat: {{ listener.lat }},
     lng: {{ listener.lon }},
     name: "{{ listener.name }}",
@@ -47,11 +45,11 @@ $(document).ready( function() {
     setColumnSortedClass();
     setClippedCellTitles();
     $('#map').height($(window).height() - 120);
-    $('#map').width($(window).width() - 380);
+    $('#map').width($(window).width() - 420);
     $('#scrollablelist').height($('#map').height() + 40);
     $(window).resize(function () {
         $('#map').height($(window).height() - 120);
-        $('#map').width($(window).width() - 380);
+        $('#map').width($(window).width() - 420);
         $('#scrollablelist').height($('#map').height() + 40);
     });
     //]]>
@@ -66,7 +64,7 @@ $(document).ready( function() {
     <div class="controlPanel {{ form_class }}">
         <div class="header">{{ mode|raw }}
             <div class="export">{% trans %}Export{% endtrans %}
-                <a href="{{ url('listener_export_signals_kml', { 'system' : system, 'id': id }) }}">
+                <a href="{{ url('listener_signals_export_kml', { 'system' : system, 'id': id }) }}">
                     <span class='ui-icon ui-icon-document'></span>.kml
                 </a>
             </div>
