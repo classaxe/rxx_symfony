@@ -5,9 +5,10 @@
     {% set value = value | ireplace({ (repl) : '<em>' ~ repl|upper ~ '</em>' }) %}
     {% endfor %}
 {% endif %}
-<td {% if column.td_class %} class="{{ column.td_class }}"{% endif %}>{%
+<td {% if column.td_class %} class="{{ column.td_class }}"{% endif %}>
+    {%
     if (column.field == 'actions')
-        %}{% if isAdmin %}<a href="{{ url('signal_delete', { 'system' : system, 'id' : signal.id }) }}" onclick="return confirm(msg.delete)">{% trans %}Delete{% endtrans %}</a>{% endif %}{%
+        %}{% if isAdmin %}<a href="{{ url('signal_delete', { 'system' : system, 'id' : signal.id }) }}" class="delete" onclick="return confirm(msg.del_signal)">X</a>{% endif %}{%
     elseif (column.field == 'call')
         %}<a href="{{ url('signal', { 'system' : system, 'id' : signal.id }) }}" data-popup="1">{{ signal.call }}</a>{%
     elseif (column.field == 'GSQ')

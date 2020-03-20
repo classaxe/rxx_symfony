@@ -25,7 +25,7 @@ class SignalDelete extends Base
         if (!$this->parameters['isAdmin']) {
             return $this->redirectToRoute('signals', ['_locale' => $_locale, 'system' => $system]);
         }
-        $args =  ['_locale' => $_locale, 'system' => $system, 'admin_mode' => $_REQUEST['form']['admin_mode'] ?? ''];
+        $args =  [ '_locale' => $_locale, 'system' => $system ];
         if (!(int) $id) {
             return $this->redirectToRoute('signals', $args);
         }

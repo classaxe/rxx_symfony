@@ -96,7 +96,7 @@ function initSignalsForm(pagingMsg, resultsCount) {
 }
 
 function isValidEmail(text) {
-    var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+    var emailReg = /^([\w-.]+@([\w-]+\.)+[\w-]{2,4})?$/;
     return emailReg.test(text);
 }
 
@@ -217,7 +217,7 @@ function setExternalLinks() {
             field = window.opener.$(div);
             items = field.val().split(' ');
             if ($.inArray(abbr, items) !== -1) {
-                items = items.filter(function(elem){ return elem != abbr; });
+                items = items.filter(function(elem){ return elem !== abbr; });
             } else {
                 items.push(abbr);
             }
@@ -252,6 +252,11 @@ function setExternalLinks() {
             return false;
         })
         .attr('title', msg.data_set);
+
+    $('a.close')
+        .click(function() {
+            $(this).parent().hide();
+        });
 
     $('a[data-gsq]')
         .click(function() {

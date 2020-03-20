@@ -279,11 +279,11 @@ class Signals
                 'arg'       =>  '',
                 'field'     =>  'actions',
                 'highlight' =>  false,
-                'label'     =>  'Admin Actions',
+                'label'     =>  '<div>Admin</div>',
                 'order'     =>  '',
                 'sort'      =>  '',
                 'td_class'  =>  '',
-                'th_class'  =>  '',
+                'th_class'  =>  'txt_vertical',
                 'tooltip'   =>  '',
             ],
         ];

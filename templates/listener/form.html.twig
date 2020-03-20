@@ -20,9 +20,13 @@
                     {{ form_row(form.itu) }}
                     <div>
                         <label for="{{ form.gsq.vars.id }}">
+                            {% if l.id != '' %}
                             <a href="{{ url('listener_map', { 'system' : system, 'id' : id }) }}" data-popup="1">
                                 {{ form.gsq.vars.label|trans }}
                             </a>
+                            {% else %}
+                            {{ form.gsq.vars.label|trans }}
+                            {% endif %}
                         </label>
                         {{ form_widget(form.gsq) }}
                     </div>
@@ -31,9 +35,13 @@
                     {% if isAdmin%}
                     <div{% if l.region not in ['ca', 'eu', 'na'] and 'HWA' != l.itu %} style="display: none"{% endif %}>
                         <label for="{{ form.mapX.vars.id }}">
+                            {% if l.id != '' %}
                             <a href="{{ url('listener_locatormap', { 'system' : system, 'id' : id }) }}" data-popup="1">
                                 {{ form.mapX.vars.label|trans }}
                             </a>
+                            {% else %}
+                                {{ form.mapX.vars.label|trans }}
+                            {% endif %}
                         </label>
                         <div>{% trans %}X:{% endtrans %}</div>{{ form_widget(form.mapX) }}
                         <div>{% trans %}Y:{% endtrans %}</div>{{ form_widget(form.mapY) }}

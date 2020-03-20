@@ -193,6 +193,17 @@ class ListenerLogs
                 'th_class'  =>  '',
                 'tooltip'   =>  '',
             ],
+            'admin' => [
+                'admin'     =>  true,
+                'arg'       =>  '',
+                'field'     =>  'delete',
+                'label'     =>  '<div>Admin</div>',
+                'order'     =>  '',
+                'sort'      =>  '',
+                'td_class'  =>  '',
+                'th_class'  =>  'txt_vertical',
+                'tooltip'   =>  '',
+            ],
         ];
     }
 }

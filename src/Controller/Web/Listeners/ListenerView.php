@@ -109,9 +109,7 @@ class ListenerView extends Base
             }
 
             $em = $this->getDoctrine()->getManager();
-            if (!(int)$id) {
-                $em->persist($listener);
-            }
+            $em->persist($listener);
             $em->flush();
             $id = $listener->getId();
             return $this->redirectToRoute('listener', ['system' => $system, 'id' => $id]);

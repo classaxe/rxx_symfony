@@ -598,7 +598,7 @@
         {% trans %}Miles from GSQ{% endtrans %}
         {% trans %}Bearing relative to GSQ{% endtrans %}
         {% trans %}Deg{% endtrans %}
-        {% trans %}Admin Actions{% endtrans %}
+        {% trans %}<div>Admin</div>{% endtrans %}
         {% trans %}Delete{% endtrans %}
         {% trans %}Signal %s has %d logs and so cannot be deleted at this time.{% endtrans %}
         {% trans %}Signal %s has been deleted.{% endtrans %}
@@ -612,6 +612,7 @@
         {% trans %}Signals including <i>Inactive</i> stations{% endtrans %}
         {% trans %}For %s{% endtrans %}
         {% trans %}Updated %s{% endtrans %}
+        {% trans %}Link...{% endtrans %}
         {% trans %}(received %s of %s){% endtrans %}
         {% trans %}(total: %s){% endtrans %}
 {% endif %}
@@ -672,6 +673,18 @@
         {% trans %}Latest Log{% endtrans %}
         {% trans %}Number of NDBs received{% endtrans %}
         {% trans %}<div>NDB</div>{% endtrans %}
+        {% trans %}Number of DGPS stations received{% endtrans %}
+        {% trans %}<div>DGPS</div>{% endtrans %}
+        {% trans %}Number of DSC stations received{% endtrans %}
+        {% trans %}<div>DSC</div>{% endtrans %}
+        {% trans %}Number of Ham Beacons received{% endtrans %}
+        {% trans %}<div>HAMBCN</div>{% endtrans %}
+        {% trans %}Number of NAVTEX stations received{% endtrans %}
+        {% trans %}<div>NAVTEX</div>{% endtrans %}
+        {% trans %}Number of Time stations received{% endtrans %}
+        {% trans %}<div>TIME</div>{% endtrans %}
+        {% trans %}Number of Other signals received{% endtrans %}
+        {% trans %}<div>OTHER</div>{% endtrans %}
         {% trans %}Total number of signals of all types{% endtrans %}
         {% trans %}<div>All Signals</div>{% endtrans %}
         {% trans %}WWW{% endtrans %}
@@ -768,6 +781,11 @@
     {% trans %}Close{% endtrans %}
     {% trans %}Save{% endtrans %}
     {% trans %}Reset{% endtrans %}
+{% endif %}
+
+{% if 'Listener Logs' %}
+    {% trans %}Delete this Log entry?  Are you sure?{% endtrans %}
+    {% trans %}	Log entry has been deleted.{% endtrans %}
 {% endif %}
 
 {% if 'Listener Map' %}

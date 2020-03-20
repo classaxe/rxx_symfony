@@ -282,11 +282,11 @@ class Listeners
                 'admin'     =>  true,
                 'arg'       =>  '',
                 'field'     =>  'delete',
-                'label'     =>  'Admin',
+                'label'     =>  '<div>Admin</div>',
                 'order'     =>  '',
                 'sort'      =>  '',
                 'td_class'  =>  '',
-                'th_class'  =>  '',
+                'th_class'  =>  'txt_vertical',
                 'tooltip'   =>  '',
             ],
         ];

@@ -14,19 +14,22 @@
             </tr>
         </thead>
         <tbody>
-    {% for log in logs %}
-    {% set type = typeRepository.TypeForCode(log.type) %}
-            <tr class="{% if log.active == '0' %}inactive {% endif %}{% if log.daytime %}daytime {% endif %}type_{{ type.class|lower }}" title="{{ type.title }}{% if log.daytime %} {% trans %}Logged betweeen 10am and 2pm local time{% endtrans %}{% endif %}{% if log.active == '0' %} (inactive){% endif %}">
+    {% for l in logs %}
+    {% set type = typeRepository.TypeForCode(l.type) %}
+            <tr class="{% if l.active == '0' %}inactive {% endif %}{% if l.daytime %}daytime {% endif %}type_{{ type.class|lower }}" title="{{ type.title }}{% if l.daytime %} {% trans %}Logged betweeen 10am and 2pm local time{% endtrans %}{% endif %}{% if l.active == '0' %} (inactive){% endif %}">
     {% for key, column in columns %}
     {% if ((not column.admin or isAdmin) and (not column.arg or (column.arg and column.arg in args.types))) %}
                 <td{% if column.td_class %} class="{{ column.td_class }}"{% endif %}>
 
-    {% if key == 'call' %}
-                    <a href="{{ url('signal', { 'system' : system, 'id': log.id }) }}" data-popup="1">{{ attribute(log, column.field)|raw }}</a>
-    {% else %}
-                    {{ attribute(log, column.field)|raw }}
-    {% endif %}
-                </td>
+    {%
+        if key == 'call'
+    %}<a href="{{ url('signal', { 'system' : system, 'id': l.id }) }}" data-popup="1">{{ attribute(l, column.field)|raw }}</a>{%
+        elseif key == 'admin'
+    %}{% if isAdmin %}<a href="{{ url('listener_log_delete', { 'system' : system, 'id' : id, 'log_id' : l.log_id }) }}" class="delete" onclick="return confirm(msg.del_log);">X</a>{% endif %}{%
+        else
+    %}{{ attribute(l, column.field)|raw }}{%
+        endif
+    %}</td>
     {% endif %}
     {% endfor %}
             </tr>

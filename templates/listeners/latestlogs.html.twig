@@ -1,8 +1,10 @@
 {%  if isAdmin %}
     <div class="links_left row">
         <div class="small-12 medium-1"><strong>{{ "Latest Logs:" | trans }}</strong></div>
-        <div class="small-12 medium-11"><strong>{{ latestLogs['date'] }}</strong>
-        ({% for listener in latestLogs['listeners'] %}{{ listener.name|raw }}{% if not loop.last %}, {% endif %}{% endfor %})
+        <div class="small-12 medium-11">
+            {% for l in latestLogs['listeners'] %}
+                <a href="{{ url('listener_logs', { 'system' : system, 'id': l.id }) }}" data-popup="1">{{ l.name|raw }}</a> <em>({{ l.sp ? l.sp : l.itu }})</em>{% if not loop.last %} &nbsp; | &nbsp; {% endif %}
+            {% endfor %} &nbsp; <strong>({{ latestLogs['date'] }})</strong>
         </div>
     </div>
 {% endif %}

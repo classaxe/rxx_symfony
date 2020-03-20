@@ -1,9 +1,6 @@
+{% include 'js_trans.html.twig' %}
 <script>
     var system = '{{ system }}';
-    var msg = {
-        'delete'   : "{% trans %}Delete this Listener?  Are you sure?{% endtrans %}",
-    };
-
     $(document).ready( function() {
         setFormPagingActions();
         setFormTypesStyles();

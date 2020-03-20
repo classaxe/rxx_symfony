@@ -3823,6 +3823,102 @@
         <source>New</source>
         <target>New</target>
       </trans-unit>
+      <trans-unit id="zqGCyOo" resname="&lt;div&gt;Admin&lt;/div&gt;">
+        <source>&lt;div&gt;Admin&lt;/div&gt;</source>
+        <target><![CDATA[<div>Admin</div>]]></target>
+      </trans-unit>
+      <trans-unit id="AaMlYrl" resname="Link...">
+        <source>Link...</source>
+        <target>Link...</target>
+      </trans-unit>
+      <trans-unit id="jJXD8IN" resname="Delete this Log entry?  Are you sure?">
+        <source>Delete this Log entry?  Are you sure?</source>
+        <target>Delete this Log entry?  Are you sure?</target>
+      </trans-unit>
+      <trans-unit id="lTt8R_F" resname="Log entry has been deleted.">
+        <source>Log entry has been deleted.</source>
+        <target>Log entry has been deleted.</target>
+      </trans-unit>
+      <trans-unit id="jukAjCv" resname="PWR">
+        <source>PWR</source>
+        <target>PWR</target>
+      </trans-unit>
+      <trans-unit id="hzDTwgI" resname="Latest">
+        <source>Latest</source>
+        <target>Latest</target>
+      </trans-unit>
+      <trans-unit id="kriNvVb" resname="Daytime">
+        <source>Daytime</source>
+        <target>Daytime</target>
+      </trans-unit>
+      <trans-unit id="YSV4ey1" resname="Logged between 10am and 2pm local time">
+        <source>Logged between 10am and 2pm local time</source>
+        <target>Logged between 10am and 2pm local time</target>
+      </trans-unit>
+      <trans-unit id="qKZe1pI" resname="YYYYMMDD">
+        <source>YYYYMMDD</source>
+        <target>YYYYMMDD</target>
+      </trans-unit>
+      <trans-unit id="ICfaRlG" resname="'Name' and Location'">
+        <source>'Name' and Location'</source>
+        <target>'Name' and Location'</target>
+      </trans-unit>
+      <trans-unit id="9a6wtnm" resname="SP">
+        <source>SP</source>
+        <target>SP</target>
+      </trans-unit>
+      <trans-unit id="14VVxI1" resname="Export as %s">
+        <source>Export as %s</source>
+        <target>Export as %s</target>
+      </trans-unit>
+      <trans-unit id="0hlucmZ" resname="Number of DGPS stations received">
+        <source>Number of DGPS stations received</source>
+        <target>Number of DGPS stations received</target>
+      </trans-unit>
+      <trans-unit id="JEsN6wy" resname="&lt;div&gt;DGPS&lt;/div&gt;">
+        <source>&lt;div&gt;DGPS&lt;/div&gt;</source>
+        <target><![CDATA[<div>DGPS</div>]]></target>
+      </trans-unit>
+      <trans-unit id="ed81fDV" resname="Number of DSC stations received">
+        <source>Number of DSC stations received</source>
+        <target>Number of DSC stations received</target>
+      </trans-unit>
+      <trans-unit id=".i8x5vE" resname="&lt;div&gt;DSC&lt;/div&gt;">
+        <source>&lt;div&gt;DSC&lt;/div&gt;</source>
+        <target><![CDATA[<div>DSC</div>]]></target>
+      </trans-unit>
+      <trans-unit id="sH_uysw" resname="Number of Ham Beacons received">
+        <source>Number of Ham Beacons received</source>
+        <target>Number of Ham Beacons received</target>
+      </trans-unit>
+      <trans-unit id="Y4SNy69" resname="&lt;div&gt;HAMBCN&lt;/div&gt;">
+        <source>&lt;div&gt;HAMBCN&lt;/div&gt;</source>
+        <target><![CDATA[<div>HAMBCN</div>]]></target>
+      </trans-unit>
+      <trans-unit id="jcNLYwk" resname="Number of NAVTEX stations received">
+        <source>Number of NAVTEX stations received</source>
+        <target>Number of NAVTEX stations received</target>
+      </trans-unit>
+      <trans-unit id="N_D5OgL" resname="&lt;div&gt;NAVTEX&lt;/div&gt;">
+        <source>&lt;div&gt;NAVTEX&lt;/div&gt;</source>
+        <target><![CDATA[<div>NAVTEX</div>]]></target>
+      </trans-unit>
+      <trans-unit id="Lsr7EnC" resname="Number of Time stations received">
+        <source>Number of Time stations received</source>
+        <target>Number of Time stations received</target>
+      </trans-unit>
+      <trans-unit id="dlLbXJ_" resname="&lt;div&gt;TIME&lt;/div&gt;">
+        <source>&lt;div&gt;TIME&lt;/div&gt;</source>
+        <target><![CDATA[<div>TIME</div>]]></target>
+      </trans-unit>
+      <trans-unit id="vy857y5" resname="Number of Other signals received">
+        <source>Number of Other signals received</source>
+        <target>Number of Other signals received</target>
+      </trans-unit>
+      <trans-unit id="WXV5vWl" resname="&lt;div&gt;OTHER&lt;/div&gt;">
+        <source>&lt;div&gt;OTHER&lt;/div&gt;</source>
+        <target><![CDATA[<div>OTHER</div>]]></target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

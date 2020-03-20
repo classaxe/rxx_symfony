@@ -6,6 +6,7 @@ use App\Repository\LanguageRepository;
 use App\Repository\ModeRepository;
 use App\Repository\SystemRepository;
 use App\Utils\Rxx;
+use Exception;
 use Symfony\Component\HttpKernel\KernelInterface as Kernel;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -53,12 +54,18 @@ class Base extends AbstractController
      */
     protected $translator;
 
+    protected $languageRepository;
+
     /**
      * Base constructor.
+     * @param Kernel $kernel
      * @param ModeRepository $modeRepository
      * @param Rxx $rxx
      * @param SystemRepository $systemRepository
      * @param SessionInterface $session
+     * @param EntityManagerInterface $em
+     * @param TranslatorInterface $translator
+     * @param LanguageRepository $languageRepository
      */
     public function __construct(
         Kernel $kernel,
@@ -114,7 +121,7 @@ class Base extends AbstractController
         try {
             $em->getConnection()->connect();
             $connected = $em->getConnection()->isConnected();
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $connected  = false;
         }
         if (!$connected) {
@@ -169,7 +176,7 @@ class Base extends AbstractController
      *
      * @throws \InvalidArgumentException If the locale contains invalid characters
      */
-    public function i18n($id, array $parameters = array(), $domain = null, $_locale = null) {
+    public function i18n($id, array $parameters = [], $domain = null, $_locale = null) {
         return $this->translator->trans($id, $parameters, $domain, $_locale);
     }
 }

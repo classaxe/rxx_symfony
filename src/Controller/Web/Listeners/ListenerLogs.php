@@ -85,7 +85,6 @@ class ListenerLogs extends Base
             'tabs' =>               $listenerRepository->getTabs($listener, $isAdmin),
             'typeRepository' =>     $typeRepository
         ];
-        $parameters = array_merge($parameters, $this->parameters);
-        return $this->render('listener/logs.html.twig', $parameters);
+        return $this->render('listener/logs.html.twig', $this->getMergedParameters($parameters));
     }
 }

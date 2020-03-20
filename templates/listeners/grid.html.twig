@@ -57,9 +57,9 @@
                 elseif key == 'nwl'
                     %}{% if listener.ndbWebLog %}<a href="{{ url('listener_ndbweblog', { 'system' : system, 'id' : listener.ID }) }}" data-popup="1">{% trans %}NWL{% endtrans %}</a>{% endif %}{%
                 elseif key == 'website'
-                    %}{% if listener.website %}<a href="{{ listener.website }}" data-popup="www_{{ listener.id }}|width=640,height=480,status=1,scrollbars=1,resizable=1">{{ listener.website |replace({'http://' : '', 'https://' : ''})}}</a>{% endif %}{%
+                    %}{% if listener.website %}<a href="{{ listener.website }}" data-popup="www_{{ listener.id }}|width=640,height=480,status=1,scrollbars=1,resizable=1">{% trans %}Link...{% endtrans %}</a>{% endif %}{%
                 elseif key == 'admin'
-                    %}{% if isAdmin %}<a href="{{ url('listener_delete', { 'system' : system, 'id' : listener.ID }) }}" onclick="return confirm(msg.delete);">{% trans %}Delete{% endtrans %}</a>{% endif %}{%
+                    %}{% if isAdmin %}<a href="{{ url('listener_delete', { 'system' : system, 'id' : listener.ID }) }}" class="delete" onclick="return confirm(msg.del_listener);">X</a>{% endif %}{%
                 else
                     %}{{ attribute(listener, column.field) | raw }}{%
                 endif

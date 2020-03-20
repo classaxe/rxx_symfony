@@ -158,7 +158,7 @@ class SignalRepository extends ServiceEntityRepository
             $this->query['where'][] = "0 = 1 /* Showing 'All Listeners' but NOT logged by */";
             return $this;
         }
-        if ($this->args['listener'] ?? false && !in_array('', $this->args['listener'] ?? false)) {
+        if ($this->args['listener'] ?? false && !in_array('', $this->args['listener'])) {
             $in = $this->buildInParamsList('heard_by', $this->args['listener']);
             if ($this->args['listener_invert']) {
                 $this->query['where'][] =
@@ -436,7 +436,7 @@ class SignalRepository extends ServiceEntityRepository
 
     private function addSelectColumnRangeDeg()
     {
-        if ($this->args['range_gsq'] ?? false && $lat_lon = Rxx::convertGsqToDegrees($this->args['range_gsq'])) {
+        if (($this->args['range_gsq'] ?? false) && $lat_lon = Rxx::convertGsqToDegrees($this->args['range_gsq'])) {
             $this->query['select'][] =
                 "CAST(\n"
                 . "      COALESCE(\n"
@@ -462,7 +462,7 @@ class SignalRepository extends ServiceEntityRepository
     }
 
     private function addSelectColumnRangeKm() {
-        if ($this->args['range_gsq'] ?? false && $lat_lon = Rxx::convertGsqToDegrees($this->args['range_gsq'])) {
+        if (($this->args['range_gsq'] ?? false) && $lat_lon = Rxx::convertGsqToDegrees($this->args['range_gsq'])) {
             $this->query['select'][] =
                 "CAST(\n"
                 . "      COALESCE(\n"
@@ -487,7 +487,7 @@ class SignalRepository extends ServiceEntityRepository
 
     private function addSelectColumnRangeMiles()
     {
-        if ($this->args['range_gsq'] ?? false && $lat_lon = Rxx::convertGsqToDegrees($this->args['range_gsq'])) {
+        if (($this->args['range_gsq'] ?? false) && $lat_lon = Rxx::convertGsqToDegrees($this->args['range_gsq'])) {
             $this->query['select'][] =
                 "CAST(\n"
                 . "      COALESCE(\n"
@@ -700,13 +700,13 @@ class SignalRepository extends ServiceEntityRepository
             ->addFilterStatesAndCountries()
             ->addFilterTypes();
 
-        if ($args['show'] ?? false && $args['show'] === 'map') {
+        if (isset($args['show']) && $args['show'] === 'map') {
             $this->query['where'][] = '(s.lat != 0 OR s.lon !=0)';
         }
 
-        if ($args['isAdmin'] ?? false && $args['admin_mode'] === '1') {
+        if (isset($args['isAdmin']) && $args['isAdmin'] && $args['admin_mode'] === '1') {
             $this->addFilterUnlogged();
-        } elseif($args['isAdmin'] ?? false && $args['admin_mode'] === '2') {
+        } elseif(isset($args['isAdmin']) && $args['isAdmin'] && $args['admin_mode'] === '2') {
             // No filter
         } else {
             $this
@@ -780,6 +780,9 @@ class SignalRepository extends ServiceEntityRepository
             ->addFilterStatesAndCountries()
             ->addFilterTypes();
 
+        if (isset($args['show']) && $args['show'] === 'map') {
+            $this->query['where'][] = '(s.lat != 0 OR s.lon !=0)';
+        }
         if ($args['isAdmin'] && $args['admin_mode'] === '1') {
             $this->addFilterUnlogged();
         } elseif($args['isAdmin'] && $args['admin_mode'] === '2') {

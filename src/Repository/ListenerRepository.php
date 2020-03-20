@@ -350,6 +350,7 @@ class ListenerRepository extends ServiceEntityRepository
         foreach ($this->tabs as $idx => $data) {
             $route = $data[0];
             switch ($route) {
+                case 'listener_awards':
                 case 'listener_export':
                 case 'listener_logs':
                 case 'listener_signals':
@@ -503,7 +504,7 @@ class ListenerRepository extends ServiceEntityRepository
     {
         $qb = $this
             ->createQueryBuilder('l')
-            ->select('l.name');
+            ->select('l.id, l.name, l.sp');
         $this->addFilterSystem($qb, $system);
         $qb
             ->andWhere('(l.logLatest = :date)')
@@ -574,6 +575,7 @@ class ListenerRepository extends ServiceEntityRepository
             .'(CASE WHEN trim(l.sec)+0 = 0 THEN \'\' ELSE trim(l.sec)+0 END) as secF,'
             .'CONCAT(l.lsbApprox,l.lsb) AS lsb,'
             .'CONCAT(l.usbApprox,l.usb) AS usb,'
+            .'l.id AS log_id,'
             .'l.daytime,'
             .'l.format,'
             .'l.dxKm,'
@@ -622,6 +624,42 @@ class ListenerRepository extends ServiceEntityRepository
         $result = $qb->getQuery()->execute();
 //        print "<pre>".print_r($result, true)."</pre>";
         return $result;
+    }
+
+    public function getLogCountsForListener($listenerID)
+    {
+        $qb = $this
+            ->createQueryBuilder('li')
+            ->select('s.type as typeId, COUNT(distinct l.id) as count')
+            ->innerJoin('\App\Entity\Log', 'l')
+            ->andWhere('l.listenerid = li.id')
+
+            ->innerJoin('\App\Entity\Signal', 's')
+            ->andWhere('l.signalid = s.id')
+
+            ->andWhere('li.id = :listenerID')
+            ->setParameter('listenerID', $listenerID)
+
+            ->groupBy('s.type');
+
+        return $qb->getQuery()->execute();
+    }
+
+    public function getSignalCountsForListener($listenerID)
+    {
+        $qb = $this
+            ->createQueryBuilder('li')
+            ->select('COUNT(distinct s.id) as count')
+            ->innerJoin('\App\Entity\Log', 'l')
+            ->andWhere('l.listenerid = li.id')
+
+            ->innerJoin('\App\Entity\Signal', 's')
+            ->andWhere('l.signalid = s.id')
+
+            ->andWhere('li.id = :listenerID')
+            ->setParameter('listenerID', $listenerID);
+
+        return $qb->getQuery()->getSingleScalarResult();
     }
 
     public function getSignalsForListener($listenerID, array $args = [])
