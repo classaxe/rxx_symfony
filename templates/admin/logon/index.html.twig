@@ -2,6 +2,14 @@
 {% set form_title = 'Administrator Log On'|trans %}
 
 {% block body %}
+{% include 'js_trans.html.twig' %}
+<script>
+var system = '{{ system }}';
+$(document).ready( function() {
+    setExternalLinks();
+});
+</script>
+
 <div class="main">
     <div>{% include 'status.html.twig' %}</div>
     <h1>{% trans %}Log On{% endtrans %}</h1>

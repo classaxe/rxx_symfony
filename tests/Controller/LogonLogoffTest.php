@@ -45,7 +45,7 @@ class LogonLogoffTest extends Base
             $this->setYesRedirect();
 
             foreach ($this->getAdminUsers() as $user => $data) {
-                $this->myClient->request('GET', '/en/' . $system . '/admin/logoff');
+                $this->myClient->request('GET', "/en/{$system}/admin/logoff");
 
                 $form = $this
                     ->getMyCrawler()
@@ -63,10 +63,10 @@ class LogonLogoffTest extends Base
                     $data['valid'] ?
                         'You are now logged on as an Administrator and may perform administrative functions.'
                      :
-                        'Error: Incorrect Username and / or Password.'
+                        'Error: Incorrect Username and / or Password. X'
                     );
 
-                $errMsg =   $this->getMyCrawler()->filter('div#lastError');
+                $errMsg =   $this->getMyCrawler()->filter('span#lastError');
                 $okMsg =    $this->getMyCrawler()->filter('p#success');
 
                 $actual =   (

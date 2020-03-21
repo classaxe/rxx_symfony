@@ -504,7 +504,7 @@ class ListenerRepository extends ServiceEntityRepository
     {
         $qb = $this
             ->createQueryBuilder('l')
-            ->select('l.id, l.name, l.sp');
+            ->select('l.id, l.name, l.sp, l.itu');
         $this->addFilterSystem($qb, $system);
         $qb
             ->andWhere('(l.logLatest = :date)')
@@ -752,28 +752,5 @@ class ListenerRepository extends ServiceEntityRepository
             $row['notes'] = str_replace("\"", "\\\"", html_entity_decode($row['notes']));
         }
         return $result;
-    }
-
-    public function getSignalTypesForListener($listenerID) {
-        $qb = $this
-            ->createQueryBuilder('li')
-            ->select('s.type')
-            ->innerJoin('\App\Entity\Log', 'l')
-            ->andWhere('l.listenerid = li.id')
-
-            ->innerJoin('\App\Entity\Signal', 's')
-            ->andWhere('l.signalid = s.id')
-
-            ->andWhere('li.id = :listenerID')
-            ->setParameter('listenerID', $listenerID)
-
-            ->groupBy('s.type');
-
-        $results = $qb->getQuery()->execute();
-        $out = [];
-        foreach ($results as $result) {
-            $out[$result['type']] = $result['type'];
-        }
-        return $out;
     }
 }
