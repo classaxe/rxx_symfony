@@ -61,13 +61,13 @@ class LogonLogoffTest extends Base
 
                 $expected = (
                     $data['valid'] ?
-                        'You are now logged on as an Administrator and may perform administrative functions.'
+                        'Message: You have logged on as an Administrator. X'
                      :
                         'Error: Incorrect Username and / or Password. X'
                     );
 
                 $errMsg =   $this->getMyCrawler()->filter('span#lastError');
-                $okMsg =    $this->getMyCrawler()->filter('p#success');
+                $okMsg =    $this->getMyCrawler()->filter('span#lastMessage');
 
                 $actual =   (
                     $errMsg->count() ?

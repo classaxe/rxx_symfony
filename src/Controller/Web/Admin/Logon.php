@@ -50,25 +50,26 @@ class Logon extends Base
             $args = $form->getData();
             if ($args['user'] !== $this->username || $args['password'] !== $this->password) {
                 $this->session->set('lastError', 'Incorrect Username and / or Password.');
+                $this->session->set('lastMessage', '');
                 $parameters = [
                     '_locale' => $_locale,
                     'system' => $system
                 ];
-
                 return $this->redirectToRoute('logon', $parameters);
             }
             if (!$this->session->get('isAdmin', 0)) {
                 $this->session->set('isAdmin', 1);
                 $this->session->set('lastError', '');
+                $this->session->set('lastMessage', 'You have logged on as an Administrator.');
                 $parameters = [
                     '_locale' => $_locale,
                     'system' => $system
                 ];
-
                 return $this->redirectToRoute('logon', $parameters);
             }
         } else {
             $this->session->set('lastError', '');
+            $this->session->set('lastMessage', '');
         }
         $parameters = [
             'args' =>       $args,
