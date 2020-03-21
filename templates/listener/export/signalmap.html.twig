@@ -20,13 +20,12 @@ TODO: Remove this legacy code once the new system goes live
 <script>
 //<![CDATA[
 var listener = {
-    source: '{{ url('listener_export_signals_kml', { 'system' : system, 'id' : id }) }}',
     logLatest: {{ listener.logLatest|date("Ymd") }},
     lat: {{ listener.lat }},
     lng: {{ listener.lon }},
     name: "{{ listener.name }}",
     qth: "{{ listener.qth }}{% if (listener.sp) %}, {{ listener.sp }}{% endif %}, {{ listener.itu }}"
-}
+};
 
 var types = [ {{ types|keys|join(', ') }} ];
 
@@ -77,7 +76,7 @@ var signals = [
     </div>
     <div class="form_layers">
         <div><label><strong>Download</strong></label></div>
-        <div><a title="Download KML file for Google Earth" href="{{ url('listener_export_signals_kml', { 'system' : system, 'id' : id }) }}">KML File</a></div>
+        <div><a title="Download KML file for Google Earth" href="{{ url('listener_signals_export_kml', { 'system' : system, 'id' : id }) }}">KML File</a></div>
     </div>
     <br style="float: none; clear:both" />
 </div>

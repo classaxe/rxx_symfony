@@ -91,6 +91,7 @@ class Base extends AbstractController
             'languages' =>      $this->languageRepository->getAll(),
             'modes' =>          $this->modeRepository->getAll(),
             'systems' =>        $this->systemRepository->getAll(),
+            'tag' =>            $this->getGitTag()
         ];
         $dsn = getenv('DATABASE_URL');
         if (in_array($dsn, ['', 'mysql://db_user:db_password@127.0.0.1:3306/db_name'])) {
@@ -149,6 +150,11 @@ class Base extends AbstractController
                 .(php_sapi_name() == "cli" ? "" : "</pre>");
             die();
         }
+    }
+
+    private function getGitTag()
+    {
+        return exec('git describe --tags');
     }
 
     public function isAdmin()
