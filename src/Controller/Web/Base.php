@@ -91,6 +91,7 @@ class Base extends AbstractController
             'languages' =>      $this->languageRepository->getAll(),
             'modes' =>          $this->modeRepository->getAll(),
             'systems' =>        $this->systemRepository->getAll(),
+            'tag' =>            $this->getGitTag()
         ];
         $dsn = getenv('DATABASE_URL');
         if (in_array($dsn, ['', 'mysql://db_user:db_password@127.0.0.1:3306/db_name'])) {
@@ -151,6 +152,24 @@ class Base extends AbstractController
         }
     }
 
+    private function getGitTag()
+    {
+        $headsPath =    $this->kernel->getProjectDir() . '/.git/refs/heads/master';
+        $tagsPath =     $this->kernel->getProjectDir() . '/.git/refs/heads/tags';
+
+
+
+        $hash = file_get_contents($headsPath); // or branch x
+
+        $files = glob($tagsPath .'/*');
+        foreach(array_reverse($files) as $file) {
+            $contents = file_get_contents($file);
+            if ($hash === $contents) {
+                return basename($file);
+            }
+        }
+        return substr($hash, 0, 7);
+    }
     public function isAdmin()
     {
         return $this->parameters['isAdmin'];

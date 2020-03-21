@@ -156,11 +156,12 @@ tr.inactive td {
 /* [ General Styles ] */
 body { font-family: Arial, Helvetica, sans-serif; }
 .version {
-    text-align: right;
-    background-color: #ffff80;
-    padding: 0 0.5em;
-    border-bottom: 1px solid #ccc;
-    margin-bottom: 0.25em;
+    .version-switcher {
+        float: right;
+    }
+    .version-git {
+        float: left;
+    }
     a {
         color: #0000ff;
         &.active,

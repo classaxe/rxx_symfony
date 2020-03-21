@@ -2,7 +2,8 @@
 {% set new_url = app.request.uri ~ (args['show'] is defined and args['show']!= '' ? '?show=' ~ args['show'] : '') %}
 {% set classic_base = ('dev' == app.environment ? 'http://dev.' : 'https://www.') ~ 'classaxe.com/dx/ndb/' ~ system ~ '/' %}
 <div class="version">
-    <strong>{% trans %}Version{% endtrans %}:</strong> [
+    <div class="version-switcher">
+    <strong>{% trans %}Switch{% endtrans %}:</strong> [
         <a href="{%
             if classic.type == 'url'
         %}{{ classic_base }}{{ classic.value }}{%
@@ -11,4 +12,7 @@
             endif
         %}">{% trans %}Classic{% endtrans %}</a> |
         <a href="{{ new_url }}" class="active">{% trans %}New{% endtrans %}</a>
-]</div>{% endif %}
+    ]</div>
+    <div class="version-git"><strong>{% trans %}Version{% endtrans %}:</strong> {{ tag }}</div>
+</div>
+{% endif %}
