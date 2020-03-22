@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.0.0
- * Date:       2020-03-21
+ * Version:    2.0.6
+ * Date:       2020-03-22
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
  */
@@ -258,7 +258,7 @@ function initSignalsForm(pagingMsg, resultsCount) {
 }
 
 function isValidEmail(text) {
-    var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+    var emailReg = /^([\w-.]+@([\w-]+\.)+[\w-]{2,4})?$/;
     return emailReg.test(text);
 }
 
@@ -379,7 +379,7 @@ function setExternalLinks() {
             field = window.opener.$(div);
             items = field.val().split(' ');
             if ($.inArray(abbr, items) !== -1) {
-                items = items.filter(function(elem){ return elem != abbr; });
+                items = items.filter(function(elem){ return elem !== abbr; });
             } else {
                 items.push(abbr);
             }
@@ -464,6 +464,7 @@ function setFormCollapseSections() {
     $('#section_loggings legend').click(
         function() {
             $(this).parent().find('fieldset').toggle();
+            $(this).parent().find('fieldset fieldset').toggle();
             $(this).find('span').toggle();
         }
     );
@@ -888,17 +889,18 @@ function setFormTypesAllAction() {
 }
 
 function setSignalActions() {
-    $('#btn_prt').click(function () {
-        window.print();
-    });
-    $('#btn_csv').click(function () {
+    $('#btn_csv_all').click(function () {
         window.location.assign(window.location + '/export/csv');
     });
-    $('#btn_txt').click(function () {
-        window.location.assign(window.location + '/export/txt');
+    $('#btn_csv_fil').click(function () {
+        var show = $('#form_show').val();
+        $('#form_show').val('csv');
+        $('#form_submit').click();
+        $('#form_show').val(show);
+
     });
-    $('#btn_kml').click(function () {
-        window.location.assign(window.location + '/export/kml');
+    $('#btn_prt').click(function () {
+        window.print();
     });
 }
 

@@ -706,15 +706,8 @@
 {% endif %}
 {% if 'Actions' %}
     {% trans %}Print...{% endtrans %}
-    {% trans %}All %s > %s{% endtrans %}
-        {% trans %}Export entire :system listing to :format?{% endtrans %}
-            {% trans %}Excel{% endtrans %}
-            {% trans %}ILGRadio Database Format{% endtrans %}
-            {% trans %}PDF Document{% endtrans %}
-        {% trans %}This can be a time consuming process - typically a minute or more.{% endtrans %}
-        {% trans %}All options you selected in 'Customise Report' above will be ignored.{% endtrans %}
-        {% trans %}Signal types, 'offsets' setting and 'active' status will be taken from the options you selected in 'Customise Report' above, other options will be ignored.{% endtrans %}
-        {% trans %}Continue?{% endtrans %}
+    {% trans %}Export Results as %s{% endtrans %}
+    {% trans %}Export All %s as %s{% endtrans %}
 {% endif %}
 {% if 'Signal Types' %}
     {% trans %}DGPS{% endtrans %}

@@ -1,7 +1,7 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.0.5
+ * Version:    2.0.6
  * Date:       2020-03-22
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
@@ -1675,7 +1675,7 @@ fieldset#group_weather_report_details div label {
 .report_actions .button {
   margin: 0;
   padding: 0.5em 1em;
-  width: 120px;
+  width: 160px;
 }
 /* Hide display of URLs for each link caused by foundation class - wastes a lot of paper otherwise */
 @media print {

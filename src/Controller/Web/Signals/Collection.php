@@ -189,6 +189,12 @@ class Collection extends Base
             'types' =>              $types,
             'typeRepository' =>     $typeRepository
         ];
+        if (isset($args['show']) && $args['show'] === 'csv') {
+            $response = $this->render("signals/export/signals.csv.twig", $this->getMergedParameters($parameters));
+            $response->headers->set('Content-Type', 'text/plain');
+            $response->headers->set('Content-Disposition',"attachment;filename={$system}_signals.csv");
+            return $response;
+        }
         return $this->render('signals/index.html.twig', $this->getMergedParameters($parameters));
     }
 }

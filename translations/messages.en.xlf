@@ -3979,6 +3979,14 @@
         <source>RWW - South America</source>
         <target>RWW - South America</target>
       </trans-unit>
+      <trans-unit id="_N0eA1D" resname="Export Results as %s">
+        <source>Export Results as %s</source>
+        <target>Export Results as %s</target>
+      </trans-unit>
+      <trans-unit id="xqozRuT" resname="Export All %s as %s">
+        <source>Export All %s as %s</source>
+        <target>Export All %s as %s</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

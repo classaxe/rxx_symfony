@@ -740,9 +740,16 @@ class SignalRepository extends ServiceEntityRepository
 
                     ->addOrderPrioritizeExactCall()
                     ->addOrderPrioritizeActive()
-                    ->addOrderPrioritizeSelected()
-
-                    ->addLimit($args);
+                    ->addOrderPrioritizeSelected();
+                break;
+        }
+        switch ($this->args['show'] ?? false) {
+            case 'csv':
+            case 'map':
+            case 'seeklist':
+                break;
+            default:
+                $this->addLimit($args);
                 break;
         }
 

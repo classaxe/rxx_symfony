@@ -302,6 +302,7 @@ function setFormCollapseSections() {
     $('#section_loggings legend').click(
         function() {
             $(this).parent().find('fieldset').toggle();
+            $(this).parent().find('fieldset fieldset').toggle();
             $(this).find('span').toggle();
         }
     );
@@ -726,17 +727,18 @@ function setFormTypesAllAction() {
 }
 
 function setSignalActions() {
-    $('#btn_prt').click(function () {
-        window.print();
-    });
-    $('#btn_csv').click(function () {
+    $('#btn_csv_all').click(function () {
         window.location.assign(window.location + '/export/csv');
     });
-    $('#btn_txt').click(function () {
-        window.location.assign(window.location + '/export/txt');
+    $('#btn_csv_fil').click(function () {
+        var show = $('#form_show').val();
+        $('#form_show').val('csv');
+        $('#form_submit').click();
+        $('#form_show').val(show);
+
     });
-    $('#btn_kml').click(function () {
-        window.location.assign(window.location + '/export/kml');
+    $('#btn_prt').click(function () {
+        window.print();
     });
 }
 
