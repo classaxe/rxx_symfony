@@ -626,23 +626,30 @@ class ListenerRepository extends ServiceEntityRepository
         return $result;
     }
 
-    public function getLogCountsForListener($listenerID)
+    public function updateLogCountsForListener($listenerId = false)
     {
-        $qb = $this
-            ->createQueryBuilder('li')
-            ->select('s.type as typeId, COUNT(distinct l.id) as count')
-            ->innerJoin('\App\Entity\Log', 'l')
-            ->andWhere('l.listenerid = li.id')
+        $sql = <<< EOT
+UPDATE
+	listeners l
+SET    
+    count_logs =    (SELECT COUNT(*) FROM logs WHERE logs.listenerId = l.id),
+    count_signals = (SELECT COUNT(DISTINCT signalId) FROM logs WHERE logs.listenerId = l.id),
+    count_NDB =     (SELECT COUNT(*) FROM logs INNER JOIN signals s ON logs.signalId = s.id AND s.type = 0 WHERE logs.listenerId = l.id),
+    count_DGPS =    (SELECT COUNT(*) FROM logs INNER JOIN signals s ON logs.signalId = s.id AND s.type = 1 WHERE logs.listenerId = l.id),
+    count_TIME =    (SELECT COUNT(*) FROM logs INNER JOIN signals s ON logs.signalId = s.id AND s.type = 2 WHERE logs.listenerId = l.id),
+    count_NAVTEX =  (SELECT COUNT(*) FROM logs INNER JOIN signals s ON logs.signalId = s.id AND s.type = 3 WHERE logs.listenerId = l.id),
+    count_HAMBCN =  (SELECT COUNT(*) FROM logs INNER JOIN signals s ON logs.signalId = s.id AND s.type = 4 WHERE logs.listenerId = l.id),
+    count_OTHER =   (SELECT COUNT(*) FROM logs INNER JOIN signals s ON logs.signalId = s.id AND s.type = 5 WHERE logs.listenerId = l.id),
+    count_DSC =     (SELECT COUNT(*) FROM logs INNER JOIN signals s ON logs.signalId = s.id AND s.type = 6 WHERE logs.listenerId = l.id),
+    log_latest =    (SELECT MAX(date) FROM logs WHERE logs.listenerId = l.id)
+EOT;
+        if ($listenerId) {
+            $sql .= "\nWHERE\n    l.id = $listenerId";
+        }
+        $stmt = $this->connection->prepare($sql);
+        $stmt->execute();
 
-            ->innerJoin('\App\Entity\Signal', 's')
-            ->andWhere('l.signalid = s.id')
-
-            ->andWhere('li.id = :listenerID')
-            ->setParameter('listenerID', $listenerID)
-
-            ->groupBy('s.type');
-
-        return $qb->getQuery()->execute();
+        return $stmt->rowCount();
     }
 
     public function getSignalCountsForListener($listenerID)

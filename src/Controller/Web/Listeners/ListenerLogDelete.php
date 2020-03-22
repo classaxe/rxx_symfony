@@ -4,7 +4,6 @@ namespace App\Controller\Web\Listeners;
 use App\Controller\Web\Base;
 use App\Repository\ListenerRepository;
 use App\Repository\LogRepository;
-use App\Repository\TypeRepository;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 
@@ -29,7 +28,6 @@ class ListenerLogDelete extends Base
      * @param $log_id
      * @param ListenerRepository $listenerRepository
      * @param LogRepository $logRepository
-     * @param TypeRepository $typeRepository
      * @return RedirectResponse
      */
     public function controller(
@@ -38,8 +36,7 @@ class ListenerLogDelete extends Base
         $id,
         $log_id,
         ListenerRepository $listenerRepository,
-        LogRepository $logRepository,
-        TypeRepository $typeRepository
+        LogRepository $logRepository
     ) {
         if (!(int) $id) {
             return $this->redirectToRoute('listeners', ['_locale' => $_locale, 'system' => $system]);
@@ -61,25 +58,12 @@ class ListenerLogDelete extends Base
         $em->remove($log);
         $em->flush();
 
-        $counts = $listenerRepository->getLogCountsForListener((int) $id);
-        $total = 0;
-        foreach ($counts as &$count) {
-            $type = $typeRepository->getTypeForCode($count['typeId']);
-            $method = 'setCount' . ucfirst(strtolower($type['class']));
-            $total += $count['count'];
-            $listener->$method($count['count']);
-        }
-        $listener->setCountLogs($total);
-        $listener->setCountSignals($listenerRepository->getSignalCountsForListener((int) $id));
-
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($listener);
-        $em->flush();
+        $listenerRepository->updateLogCountsForListener((int) $id);
 
         $this->session->set(
             'lastMessage',
             sprintf(
-                $this->translator->trans("Log entry has been deleted."),
+                $this->translator->trans("Log entry has been deleted. Listener log counts have been updated."),
                 $listener->getName()
             )
         );

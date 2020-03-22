@@ -3919,6 +3919,38 @@
         <source>&lt;div&gt;OTHER&lt;/div&gt;</source>
         <target><![CDATA[__<div>OTHER</div>]]></target>
       </trans-unit>
+      <trans-unit id="OZIadAv" resname="Switch">
+        <source>Switch</source>
+        <target>__Switch</target>
+      </trans-unit>
+      <trans-unit id="e3zQGmV" resname="Log entry has been deleted. Listener log counts have been updated.">
+        <source>Log entry has been deleted. Listener log counts have been updated.</source>
+        <target>__Log entry has been deleted. Listener log counts have been updated.</target>
+      </trans-unit>
+      <trans-unit id="kCTBl9h" resname="Links">
+        <source>Links</source>
+        <target>__Links</target>
+      </trans-unit>
+      <trans-unit id="UdeXvp6" resname="RNA - North America">
+        <source>RNA - North America</source>
+        <target>__RNA - North America</target>
+      </trans-unit>
+      <trans-unit id="ecnqeVC" resname="%MIN% - %MAX%KHz">
+        <source>%MIN% - %MAX%KHz</source>
+        <target>__%MIN% - %MAX%KHz</target>
+      </trans-unit>
+      <trans-unit id="ky3xbsu" resname="REU - Europe">
+        <source>REU - Europe</source>
+        <target>__REU - Europe</target>
+      </trans-unit>
+      <trans-unit id="_rZpieY" resname="RWW - worldwide">
+        <source>RWW - worldwide</source>
+        <target>__RWW - worldwide</target>
+      </trans-unit>
+      <trans-unit id="6AS2LHO" resname="CLE Coordinators">
+        <source>CLE Coordinators</source>
+        <target>__CLE Coordinators</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

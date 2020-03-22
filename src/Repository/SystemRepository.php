@@ -22,10 +22,17 @@ class SystemRepository
     const AWARDS = [
         [
             'email' =>      'kj8o.ham@gmail.com',
-            'name' =>       'Joseph Miller, KJ8O',
+            'name' =>       'Joseph Miller - KJ80',
             'role' =>       'Awards Coordinator',
             'show_email' => false
+        ],
+        [
+            'email' =>      'ndbcle@gmail.com',
+            'name' =>       'Brian Keyte, Joachim Rabe',
+            'role' =>       'CLE Coordinators',
+            'show_email' => true
         ]
+
     ];
 
     const SYSTEMS = [
