@@ -1,9 +1,25 @@
 {% if classic is defined %}
 {% set new_url = app.request.uri ~ (args['show'] is defined and args['show']!= '' ? '?show=' ~ args['show'] : '') %}
 {% set classic_base = ('dev' == app.environment ? 'http://dev.' : 'https://www.') ~ 'classaxe.com/dx/ndb/' ~ system ~ '/' %}
-<div class="version">
+<div class="version show-for-large">
+    <div class="version-git"><strong>{% trans %}Version{% endtrans %}:</strong> {{ tag }}</div>
     <div class="version-switcher">
-    <strong>{% trans %}Switch{% endtrans %}:</strong> [
+        <strong>{% trans %}Switch{% endtrans %}:</strong> [
+            <a href="{%
+                if classic.type == 'url'
+            %}{{ classic_base }}{{ classic.value }}{%
+                else
+            %}#" onclick="alert('{{ classic.value }}');return false{%
+                endif
+            %}">{% trans %}Classic{% endtrans %}</a> |
+            <a href="{{ new_url }}" class="active">{% trans %}New{% endtrans %}</a>
+        ]
+    </div>
+</div>
+<div class="version hide-for-large">
+    <div class="version-combined">
+        <strong>{% trans %}Version{% endtrans %}:</strong> {{ tag }} |
+        <strong>{% trans %}Switch{% endtrans %}:</strong> [
         <a href="{%
             if classic.type == 'url'
         %}{{ classic_base }}{{ classic.value }}{%
@@ -12,7 +28,8 @@
             endif
         %}">{% trans %}Classic{% endtrans %}</a> |
         <a href="{{ new_url }}" class="active">{% trans %}New{% endtrans %}</a>
-    ]</div>
-    <div class="version-git"><strong>{% trans %}Version{% endtrans %}:</strong> {{ tag }}</div>
+        ]
+    </div>
 </div>
+
 {% endif %}
