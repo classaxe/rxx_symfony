@@ -1,0 +1,40 @@
+<div class="small-{{ link.span[0] }} medium-{{ link.span[1] }} columns">
+    <div class="{{ link.system }}">
+        <h3>{{ link.title }}</h3>
+        <strong>{% trans %}Signals List{% endtrans %}</strong>
+        <ul>
+            <li>
+                <a href="{{ path('signals', { 'system' : link.system } )}}?{% if link.focus %}rww_focus={{ link.focus }}&{% endif %}{{ link.r1.url }}">{%
+                    trans with { '%MIN%': link.r1.min, '%MAX%' : link.r1.max } %}%MIN% - %MAX%KHz{% endtrans
+                %}</a>{% if link.r2.min and link.r2.max %},
+                <a href="{{ path('signals', { 'system' : link.system }) }}?{% if link.focus %}rww_focus={{ link.focus }}&{% endif %}{{ link.r2.url }}">{%
+                    trans with { '%MIN%': link.r2.min, '%MAX%' : link.r2.max } %}%MIN% - %MAX%KHz{% endtrans
+                %}</a>{% endif %}
+            </li>
+        </ul>
+
+        <strong>{% trans %}Signals Map{% endtrans %}</strong>
+        <ul>
+            <li>
+                <a href="{{ path('signals', { 'system' : link.system } )}}?show=map&{% if link.focus %}rww_focus={{ link.focus }}&{% endif %}{{ link.r1.url }}">{%
+                        trans with { '%MIN%': link.r1.min, '%MAX%' : link.r1.max } %}%MIN% - %MAX%KHz{% endtrans
+                    %}</a>{% if link.r2.min and link.r2.max %},
+                <a href="{{ path('signals', { 'system' : link.system }) }}?show=map&{% if link.focus %}rww_focus={{ link.focus }}&{% endif %}{{ link.r2.url }}">{%
+                    trans with { '%MIN%': link.r2.min, '%MAX%' : link.r2.max } %}%MIN% - %MAX%KHz{% endtrans
+                %}</a>{% endif %}
+            </li>
+        </ul>
+
+        <strong>{% trans %}Seeklist{% endtrans %}</strong>
+        <ul>
+            <li>
+                <a href="{{ path('signals', { 'system' : link.system } )}}?show=seeklist&{% if link.focus %}rww_focus={{ link.focus }}&{% endif %}{{ link.r1.url }}">{%
+                        trans with { '%MIN%': link.r1.min, '%MAX%' : link.r1.max } %}%MIN% - %MAX%KHz{% endtrans
+                    %}</a>{% if link.r2.min and link.r2.max %},
+                <a href="{{ path('signals', { 'system' : link.system }) }}?show=seeklist&{% if link.focus %}rww_focus={{ link.focus }}&{% endif %}{{ link.r2.url }}">{%
+                    trans with { '%MIN%': link.r2.min, '%MAX%' : link.r2.max } %}%MIN% - %MAX%KHz{% endtrans
+                %}</a>{% endif %}
+            </li>
+        </ul>
+    </div>
+</div>

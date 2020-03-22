@@ -2,143 +2,94 @@
 {# This could use some work #}
 {% block body %}
 <div class="main">
-    <h1>{% trans %}CLE - Co-ordinated Listening Events{% endtrans %}</h1>
+    <h1>{% trans %}CLE Information{% endtrans %}</h1>
     <p>{% trans with {
-        '%URL1%' : '<a href="https://groups.io/g/ndblist" rel="external">NDB List</a>',
-        '%URL2%' : '<a href="https://groups.io/g/ndblist" rel="external">https://groups.io/g/ndblist</a>'
-    } %}'Co-ordinated Listening Events' take place several times a year and provide opportunities for listeners of all ranges of experience to practice our hobby and learn more about it. To learn more about the %URL1%, or to join (it's free!), visit %URL2%{% endtrans %}</p>
-    <hr />
-
+            '%URL1%' : '<a href="https://groups.io/g/ndblist" rel="external">NDB List</a>',
+            '%URL2%' : '<a href="https://groups.io/g/ndblist" rel="external">https://groups.io/g/ndblist</a>'
+            } %}Co-ordinated Listening Events (or 'CLEs') take place several times a year and provide opportunities for listeners of all ranges of experience to practice our hobby and learn more about it. To learn more about the %URL1%, or to join (it's free!), visit %URL2%{% endtrans %}
+    </p>
     <h2>{{ mode }}</h2>
-    <h2>{% trans %}Date Range:{% endtrans %}</h2>
-    <p>{% trans with {
+    <p><strong>{% trans %}Dates:{% endtrans %}</strong>
+        {% trans with {
         '%CLE%' : cle.cle,
         '%DATESTART%' : cle.dateStart|date('Y-m-d'),
         '%DATEEND%' : cle.dateEnd|date('Y-m-d')
-    } %}CLE %CLE% starts at midday %DATESTART% and ends at midday %DATEEND% LOCAL TIME at the receiver.{% endtrans %}</p>
-
-    <h2>{% trans %}Scope:{% endtrans %}</h2>
-    <p>{{ cle.scope }}</p>
-
-    <h2>{% trans %}Additional Information:{% endtrans %}</h2>
-    <p>{{ cle.additional|unescape|raw }}</p>
+    } %}CLE %CLE% starts at midday %DATESTART% and ends at midday %DATEEND% LOCAL TIME at the receiver.{% endtrans %}<br />
+    <strong>{% trans %}Scope:{% endtrans %}</strong> {{ cle.scope }}<br />
+    <strong>{% trans %}Details:{% endtrans %}</strong> {{ cle.additional|unescape|raw|replace({'<p>' : '', '</p>' : ''})|raw }}
 
     <h2>{% trans %}Links for Each Region{% endtrans %}</h2>
     <div class="row cle_links">
-        <div class="small-6 medium-4 large-2 columns">
-            <div class="rna">
-                <h3>{% trans %}RNA{% endtrans %}</h3>
-                <ul>
-                    <li>
-                        <a href="{{ path('signals', { 'system' : 'rna' } )}}?{{ rww1 }}">{%
-                            trans with {'%MIN%': cle.worldRange1Low, '%MAX%' : cle.worldRange1High} %}%MIN%KHz to %MAX%KHz{% endtrans
-                        %}</a>
-                    </li>
-                    {% if cle.worldRange2Low or cle.worldRange2High %}
-                    <li>
-                        <a href="{{ path('signals', { 'system' : 'rna' }) }}?{{ rww2 }}">{%
-                            trans with {'%MIN%': cle.worldRange2Low, '%MAX%' : cle.worldRange2High} %}%MIN%KHz to %MAX%KHz{% endtrans
-                        %}</a>
-                    </li>
-                    {% endif %}
-                </ul>
-            </div>
-        </div>
-        <div class="small-6 medium-4 large-2 columns">
-            <div class="reu">
-                <h3>{% trans %}REU{% endtrans %}</h3>
-                <ul>
-                    <li>
-                        <a href="{{ path('signals', { 'system' : 'reu' } )}}?{{ reu1 }}">{%
-                            trans with {'%MIN%': cle.europeRange1Low, '%MAX%' : cle.europeRange1High} %}%MIN%KHz to %MAX%KHz{% endtrans
-                        %}</a>
-                    </li>
-                    {% if cle.europeRange2Low or cle.europeRange2High %}
-                    <li>
-                        <a href="{{ path('signals', { 'system' : 'reu' } )}}?{{ reu2 }}">{%
-                            trans with {'%MIN%': cle.europeRange2Low, '%MAX%' : cle.europeRange2High} %}%MIN%KHz to %MAX%KHz{% endtrans
-                        %}</a>
-                    </li>
-                    {% endif %}
-                </ul>
-            </div>
-        </div>
-        <div class="small-6 medium-4 large-2 columns">
-            <div class="rww">
-                <h3>{% trans %}RWW - Africa{% endtrans %}</h3>
-                <ul>
-                    <li>
-                        <a href="{{ path('signals', { 'system' : 'rww' } )}}?rww_focus=af&{{ rww1 }}">{%
-                            trans with {'%MIN%': cle.worldRange1Low, '%MAX%' : cle.worldRange1High} %}%MIN%KHz to %MAX%KHz{% endtrans
-                        %}</a>
-                    </li>
-                    {% if cle.worldRange2Low or cle.worldRange2High %}
-                    <li>
-                        <a href="{{ path('signals', { 'system' : 'rww' } )}}?rww_focus=af&{{ rww2 }}">{%
-                            trans with {'%MIN%': cle.worldRange2Low, '%MAX%' : cle.worldRange2High} %}%MIN%KHz to %MAX%KHz{% endtrans
-                        %}</a>
-                    </li>
-                    {% endif %}
-                </ul>
-            </div>
-        </div>
-        <div class="small-6 medium-4 large-2 columns">
-            <div class="rww">
-                <h3>{% trans %}RWW - Asia{% endtrans %}</h3>
-                <ul>
-                    <li>
-                        <a href="{{ path('signals', { 'system' : 'rww'  } )}}?rww_focus=as&{{ rww1 }}">{%
-                            trans with {'%MIN%': cle.worldRange1Low, '%MAX%' : cle.worldRange1High} %}%MIN%KHz to %MAX%KHz{% endtrans
-                        %}</a>
-                    </li>
-                    {% if cle.worldRange2Low or cle.worldRange2High %}
-                    <li>
-                        <a href="{{ path('signals', { 'system' : 'rww'  } )}}?rww_focus=as&{{ rww2 }}">{%
-                            trans with {'%MIN%': cle.worldRange2Low, '%MAX%' : cle.worldRange2High} %}%MIN%KHz to %MAX%KHz{% endtrans
-                        %}</a>
-                    </li>
-                    {% endif %}
-                </ul>
-            </div>
-        </div>
-        <div class="small-6 medium-4 large-2 columns">
-            <div class="rww">
-                <h3>{% trans %}RWW - Pacific{% endtrans %}</h3>
-                <ul>
-                    <li>
-                        <a href="{{ path('signals', { 'system' : 'rww'  } )}}?rww_focus=oc&{{ rww1 }}">{%
-                            trans with {'%MIN%': cle.worldRange1Low, '%MAX%' : cle.worldRange1High} %}%MIN%KHz to %MAX%KHz{% endtrans
-                        %}</a>
-                    </li>
-                    {% if cle.worldRange2Low or cle.worldRange2High %}
-                    <li>
-                        <a href="{{ path('signals', { 'system' : 'rww'  } )}}?rww_focus=oc&{{ rww2 }}">{%
-                            trans with {'%MIN%': cle.worldRange2Low, '%MAX%' : cle.worldRange2High} %}%MIN%KHz to %MAX%KHz{% endtrans
-                        %}</a>
-                    </li>
-                    {% endif %}
-                </ul>
-            </div>
-        </div>
-        <div class="small-6 medium-4 large-2 columns">
-            <div class="rww">
-                <h3>{% trans %}RWW - S. America{% endtrans %}</h3>
-                <ul>
-                    <li>
-                        <a href="{{ path('signals', { 'system' : 'rww'  } )}}?rww_focus=sa&{{ rww1 }}">{%
-                            trans with {'%MIN%': cle.worldRange1Low, '%MAX%' : cle.worldRange1High} %}%MIN%KHz to %MAX%KHz{% endtrans
-                        %}</a>
-                    </li>
-                    {% if cle.worldRange2Low or cle.worldRange2High %}
-                    <li>
-                        <a href="{{ path('signals', { 'system' : 'rww'  } )}}?rww_focus=sa&{{ rww2 }}">{%
-                            trans with {'%MIN%': cle.worldRange2Low, '%MAX%' : cle.worldRange2High} %}%MIN%KHz to %MAX%KHz{% endtrans
-                        %}</a>
-                    </li>
-                    {% endif %}
-                </ul>
-            </div>
-        </div>
+        {% set link = {
+            'focus' : '',
+            'r1' : { 'min' : cle.worldRange1Low, 'max' : cle.worldRange1High, 'url' : rww1 },
+            'r2' : { 'min' : cle.worldRange2Low, 'max' : cle.worldRange2High, 'url' : rww2 },
+            'span' : [ 6, 4 ],
+            'system' : 'rna',
+            'title' : 'RNA - North America'|trans
+        }%}
+        {% include 'cle/links.html.twig' %}
+
+        {% set link = {
+            'focus' : '',
+            'r1' : { 'min' : cle.europeRange1Low, 'max' : cle.europeRange1High, 'url' : reu1 },
+            'r2' : { 'min' : cle.europeRange2Low, 'max' : cle.europeRange2High, 'url' : reu2 },
+            'span' : [ 6, 4 ],
+            'system' : 'reu',
+            'title' : 'REU - Europe'|trans
+        }%}
+        {% include 'cle/links.html.twig' %}
+
+        {% set link = {
+            'focus' : '',
+            'r1' : { 'min' : cle.worldRange1Low, 'max' : cle.worldRange1High, 'url' : rww1 },
+            'r2' : { 'min' : cle.worldRange2Low, 'max' : cle.worldRange2High, 'url' : rww2 },
+            'span' : [ 6, 4 ],
+            'system' : 'rww',
+            'title' : 'RWW - Worldwide'|trans
+        }%}
+        {% include 'cle/links.html.twig' %}
+
+        {% set link = {
+            'focus' : 'af',
+            'r1' : { 'min' : cle.worldRange1Low, 'max' : cle.worldRange1High, 'url' : rww1 },
+            'r2' : { 'min' : cle.worldRange2Low, 'max' : cle.worldRange2High, 'url' : rww2 },
+            'span' : [ 6, 3 ],
+            'system' : 'rww',
+            'title' : 'RWW - Africa'|trans
+        }%}
+        {% include 'cle/links.html.twig' %}
+
+        {% set link = {
+            'focus' : 'as',
+            'r1' : { 'min' : cle.worldRange1Low, 'max' : cle.worldRange1High, 'url' : rww1 },
+            'r2' : { 'min' : cle.worldRange2Low, 'max' : cle.worldRange2High, 'url' : rww2 },
+            'span' : [ 6, 3 ],
+            'system' : 'rww',
+            'title' : 'RWW - Asia'|trans
+        }%}
+        {% include 'cle/links.html.twig' %}
+
+        {% set link = {
+            'focus' : 'oc',
+            'r1' : { 'min' : cle.worldRange1Low, 'max' : cle.worldRange1High, 'url' : rww1 },
+            'r2' : { 'min' : cle.worldRange2Low, 'max' : cle.worldRange2High, 'url' : rww2 },
+            'span' : [ 6, 3 ],
+            'system' : 'rww',
+            'title' : 'RWW - Pacific'|trans
+        }%}
+        {% include 'cle/links.html.twig' %}
+
+        {% set link = {
+            'focus' : 'sa',
+            'r1' : { 'min' : cle.worldRange1Low, 'max' : cle.worldRange1High, 'url' : rww1 },
+            'r2' : { 'min' : cle.worldRange2Low, 'max' : cle.worldRange2High, 'url' : rww2 },
+            'span' : [ 6, 3 ],
+            'system' : 'rww',
+            'title' : 'RWW - South America'|trans
+        }%}
+        {% include 'cle/links.html.twig' %}
+
     </div>
 </div>
 {% endblock %}

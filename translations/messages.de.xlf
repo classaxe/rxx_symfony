@@ -3951,6 +3951,34 @@
         <source>CLE Coordinators</source>
         <target>__CLE Coordinators</target>
       </trans-unit>
+      <trans-unit id="vdkZ3Ja" resname="Co-ordinated Listening Events (or 'CLEs') take place several times a year and provide opportunities for listeners of all ranges of experience to practice our hobby and learn more about it. To learn more about the %URL1%, or to join (it's free!), visit %URL2%">
+        <source>Co-ordinated Listening Events (or 'CLEs') take place several times a year and provide opportunities for listeners of all ranges of experience to practice our hobby and learn more about it. To learn more about the %URL1%, or to join (it's free!), visit %URL2%</source>
+        <target>__Co-ordinated Listening Events (or 'CLEs') take place several times a year and provide opportunities for listeners of all ranges of experience to practice our hobby and learn more about it. To learn more about the %URL1%, or to join (it's free!), visit %URL2%</target>
+      </trans-unit>
+      <trans-unit id="1lVFiFr" resname="Dates:">
+        <source>Dates:</source>
+        <target>__Dates:</target>
+      </trans-unit>
+      <trans-unit id="pKYbeiR" resname="Details:">
+        <source>Details:</source>
+        <target>__Details:</target>
+      </trans-unit>
+      <trans-unit id="gCgrr1g" resname="RWW - Worldwide">
+        <source>RWW - Worldwide</source>
+        <target>__RWW - Worldwide</target>
+      </trans-unit>
+      <trans-unit id="I5ZfpEF" resname="%MIN%KHz - %MAX%KHz">
+        <source>%MIN%KHz - %MAX%KHz</source>
+        <target>__%MIN%KHz - %MAX%KHz</target>
+      </trans-unit>
+      <trans-unit id="VBA8ae6" resname="CLE Information">
+        <source>CLE Information</source>
+        <target>__CLE Information</target>
+      </trans-unit>
+      <trans-unit id="Bwcfe76" resname="RWW - South America">
+        <source>RWW - South America</source>
+        <target>__RWW - South America</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
