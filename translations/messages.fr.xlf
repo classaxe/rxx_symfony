@@ -3987,6 +3987,14 @@
         <source>Export All %s as %s</source>
         <target>__Export All %s as %s</target>
       </trans-unit>
+      <trans-unit id="vQAP_u6" resname="Daytime Log">
+        <source>Daytime Log</source>
+        <target>__Daytime Log</target>
+      </trans-unit>
+      <trans-unit id="tscJJsG" resname="Admins only">
+        <source>Admins only</source>
+        <target>__Admins only</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

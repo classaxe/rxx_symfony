@@ -79,257 +79,253 @@ class SignalView extends AbstractType
                 'id',
                 HiddenType::class,
                 [
-                    'data'          => $options['id']
+                    'data' =>       $options['id']
                 ]
             )
             ->add(
                 'call',
                 TextType::class,
                 [
-                    'data'          => $options['call'],
-                    'disabled'      => !$isAdmin,
-                    'empty_data'    => '',
-                    'label'         => 'ID',
-                    'required'      => false
+                    'data' =>       $options['call'],
+                    'empty_data' => '',
+                    'label' =>      'ID',
+                    'required' =>   false
                 ]
             )
             ->add(
                 'khz',
                 TextType::class,
                 [
-                    'attr'          => [
-                        'onchange'      => "try{setCustomValidity('')}catch(e){}",
-                        'oninvalid'     => "setCustomValidity('Please enter this signal\'s frequency')"
+                    'attr' => [
+                        'onchange' =>   "try{setCustomValidity('')}catch(e){}",
+                        'oninvalid' =>  "setCustomValidity('Please enter this signal\'s frequency')"
                     ],
-                    'data'          => $options['khz'],
-                    'disabled'      => !$isAdmin,
-                    'empty_data'    => '',
-                    'label'         => 'KHz',
+                    'data' =>       $options['khz'],
+                    'empty_data' => '',
+                    'label' =>      'KHz',
                 ]
             )
             ->add(
                 'pwr',
                 TextType::class,
                 [
-                    'data'          => $options['pwr'],
-                    'disabled'      => !$isAdmin,
-                    'empty_data'    => '',
-                    'label'         => 'Pwr',
-                    'required'      => false,
+                    'data' =>       $options['pwr'],
+                    'empty_data' => '',
+                    'label' =>      'Pwr',
+                    'required' =>   false,
                 ]
             )
             ->add(
                 'type',
                 ChoiceType::class,
                 [
-                    'choices'       => $this->type->getAllChoicesForKey(),
-                    'data'          => $options['type'],
-                    'disabled'      => !$isAdmin,
-                    'empty_data'    => '',
-                    'label'         => 'Type',
-                    'required'      => true
+                    'choices' =>    $this->type->getAllChoicesForKey(),
+                    'data' =>       $options['type'],
+                    'empty_data' => '',
+                    'label' =>      'Type',
+                    'required' =>   true
                 ]
             )
             ->add(
                 'notes',
                 TextareaType::class,
                 [
-                    'attr'          => [
-                        'cols'          => 80,
-                        'rows'          => 4,
+                    'attr' => [
+                        'cols' =>   80,
+                        'rows' =>   4,
                     ],
-                    'data'          => $options['notes'],
-                    'disabled'      => !$isAdmin,
-                    'empty_data'    => '',
-                    'label'         => 'Notes',
-                    'required'      => false
+                    'data' =>       $options['notes'],
+                    'empty_data' => '',
+                    'label' =>      'Notes',
+                    'required' =>   false
                 ]
             )
             ->add(
                 'qth',
                 TextType::class,
                 [
-                    'attr'          => [
-                        'onchange'      => "try{setCustomValidity('')}catch(e){}",
-                        'oninvalid'     => "setCustomValidity('Please enter this signals\'s approximate location')"
+                    'attr' => [
+                        'onchange' =>   "try{setCustomValidity('')}catch(e){}",
+                        'oninvalid' =>  "setCustomValidity('Please enter this signals\'s approximate location')"
                     ],
-                    'data'          => $options['qth'],
-                    'disabled'      => !$isAdmin,
-                    'empty_data'    => '',
-                    'label'         => '\'Name\' and QTH',
+                    'data' =>           $options['qth'],
+                    'empty_data' =>     '',
+                    'label' =>          "'Name' and QTH",
                 ]
             )
             ->add(
                 'sp',
                 ChoiceType::class,
                 [
-                    'choices'       => $this->sp->getMatchingOptions(),
-                    'data'          => $options['sp'],
-                    'disabled'      => !$isAdmin,
-                    'empty_data'    => null,
-                    'label'         => 'State / Prov',
-                    'required'      => false
+                    'choices' =>        $this->sp->getMatchingOptions(),
+                    'data' =>           $options['sp'],
+                    'empty_data' =>     null,
+                    'label' =>          'State / Prov',
+                    'required' =>       false
                 ]
             )
             ->add(
                 'itu',
                 ChoiceType::class,
                 [
-                    'choices'       => $this->country->getMatchingOptions(),
-                    'data'          => $options['itu'],
-                    'disabled'      => !$isAdmin,
-                    'label'         => 'Country',
+                    'choices' =>        $this->country->getMatchingOptions(),
+                    'data' =>           $options['itu'],
+                    'label' =>          'Country',
                 ]
             )
             ->add(
                 'gsq',
                 TextType::class,
                 [
-                    'attr'          => [
-                        'maxlength'     => 6,
-                        'size'          => 6,
-                        'style'         => "width: 6em"
+                    'attr' => [
+                        'maxlength' =>  6,
+                        'size' =>       6,
+                        'style' =>      "width: 6em"
                     ],
-                    'data'          => $options['gsq'],
-                    'disabled'      => !$isAdmin,
-                    'empty_data'    => '',
-                    'label'         => 'Grid Square',
-                    'required'     => false
+                    'data' =>           $options['gsq'],
+                    'empty_data' =>     '',
+                    'label' =>          'Grid Square',
+                    'required' =>       false
                 ]
             )
             ->add(
                 'lat',
                 TextType::class,
                 [
-                    'data'          => $options['lat'],
-                    'disabled'      => !$isAdmin,
-                    'empty_data'    => '',
-                    'label'         => 'Lat',
-                    'required'      => false
+                    'data' =>           $options['lat'],
+                    'empty_data' =>     '',
+                    'label' =>          'Lat',
+                    'required' =>       false
                 ]
             )
             ->add(
                 'lon',
                 TextType::class,
                 [
-                    'data'          => $options['lon'],
-                    'disabled'      => !$isAdmin,
-                    'empty_data'    => '',
-                    'label'         => 'Lon',
-                    'required'      => false
+                    'data' =>           $options['lon'],
+                    'empty_data' =>     '',
+                    'label' =>          'Lon',
+                    'required' =>       false
                 ]
             )
             ->add(
                 'lsb',
                 TextType::class,
                 [
-                    'data'          => $options['lsb'],
-                    'disabled'      => !$isAdmin,
-                    'empty_data'    => '',
-                    'label'         => 'LSB',
-                    'required'      => false
+                    'data' =>           $options['lsb'],
+                    'empty_data' =>     '',
+                    'label' =>          'LSB',
+                    'required' =>       false
                 ]
             )
             ->add(
                 'usb',
                 TextType::class,
                 [
-                    'data'          => $options['usb'],
-                    'disabled'      => !$isAdmin,
-                    'empty_data'    => '',
-                    'label'         => 'USB',
-                    'required'      => false
+                    'data' =>           $options['usb'],
+                    'empty_data' =>     '',
+                    'label' =>          'USB',
+                    'required' =>       false
                 ]
             )
             ->add(
                 'sec',
                 TextType::class,
                 [
-                    'data'          => $options['sec'],
-                    'disabled'      => !$isAdmin,
-                    'empty_data'    => '',
-                    'label'         => 'Cycle',
-                    'required'      => false
+                    'data' =>           $options['sec'],
+                    'empty_data' =>     '',
+                    'label' =>          'Cycle',
+                    'required' =>       false
                 ]
             )
             ->add(
                 'format',
                 TextType::class,
                 [
-                    'data'          => $options['format'],
-                    'disabled'      => !$isAdmin,
-                    'empty_data'    => '',
-                    'label'         => 'Format',
-                    'required'      => false
+                    'data' =>           $options['format'],
+                    'empty_data' =>     '',
+                    'label' =>          'Format',
+                    'required' =>       false
                 ]
             )
             ->add(
                 'active',
                 ChoiceType::class,
                 [
-                    'choices'       => [ 'Inactive' => 0, 'Active' => 1 ],
-                    'data'          => $options['active'],
-                    'disabled'      => !$isAdmin,
-                    'empty_data'    => '',
-                    'label'         => 'Status',
-                    'required'      => true
+                    'choices' => [
+                        'Inactive' =>   0,
+                        'Active' =>     1
+                    ],
+                    'data' =>           $options['active'],
+                    'empty_data' =>     '',
+                    'label' =>          'Status',
+                    'required' =>       true
                 ]
             )
             ->add(
                 'firstHeard',
                 TextType::class,
                 [
-                    'data'          => $options['firstHeard'],
-                    'disabled'      => !$isAdmin,
-                    'empty_data'    => '',
-                    'label'         => 'First Logged',
-                    'required'      => false
+                    'data' =>           $options['firstHeard'],
+                    'empty_data' =>     '',
+                    'label' =>          'First Logged',
+                    'required' =>       false
                 ]
             )
             ->add(
                 'lastHeard',
                 TextType::class,
                 [
-                    'data'          => $options['lastHeard'],
-                    'disabled'      => !$isAdmin,
-                    'empty_data'    => '',
-                    'label'         => 'Last Logged',
-                    'required'      => false
+                    'data' =>           $options['lastHeard'],
+                    'empty_data' =>     '',
+                    'label' =>          'Last Logged',
+                    'required' =>       false
                 ]
             )
             ->add(
                 'print',
                 ButtonType::class,
                 [
-                    'attr'          => [
-                        'class'         => 'button small',
-                        'onclick'       => 'window.print()'
+                    'attr' => [
+                        'class' =>      'button small',
+                        'onclick' =>    'window.print()'
                     ],
-                    'label'         => 'Print...',
+                    'label' =>          'Print...',
                 ]
             )
             ->add(
                 'close',
                 ButtonType::class,
                 [
-                    'attr'          => [
+                    'attr' => [
                         'class' =>      'button small',
                         'onclick' =>    'window.close()'
                     ],
-                    'label'         => 'Close',
+                    'label' =>          'Close',
                 ]
             )
             ->add(
                 'save',
                 SubmitType::class,
                 [
-                    'attr'          => [
-                        'class'         => 'button small'
+                    'attr' => [
+                        'class' =>      'button small'
                     ],
-                    'label'         => 'Save',
+                    'label' =>          'Save',
                 ]
             )
-        ;
+            ->add(
+                'save_disabled',
+                ButtonType::class,
+                [
+                    'attr' => [
+                        'class' =>      'button small',
+                        'disabled' =>   true,
+                        'title' =>      'Admins only'
+                    ],
+                    'label' =>          'Save',
+                ]
+            );
 
         return $formBuilder->getForm();
     }

@@ -118,7 +118,6 @@ class ListenerView extends Base
         $parameters = [
             '_locale' =>            $_locale,
             'id' =>                 $id,
-            'fieldGroups' =>        $listenerViewForm->getFieldGroups($isAdmin),
             'form' =>               $form->createView(),
             'l' =>                  $listener,
             'mode' =>               ($isAdmin && !$id ? 'Add Listener' : $listener->getName().' &gt; Profile'),

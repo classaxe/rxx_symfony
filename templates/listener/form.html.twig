@@ -58,7 +58,7 @@
                 <fieldset id="group_">
                     {{ form_row(form.print) }}
                     {{ form_row(form.close) }}
-                    {% if isAdmin %}{{ form_row(form.save) }}{% endif %}
+                    {% if isAdmin %}{{ form_row(form.save) }}{% else %}{{ form_row(form.save_disabled) }}{% endif %}
                 </fieldset>
             </div>
         {{ form_end(form, {'render_rest': true}) }}
