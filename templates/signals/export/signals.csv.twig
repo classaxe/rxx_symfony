@@ -1,4 +1,4 @@
-"{% if args.personalise %}{% trans %}Logged{% endtrans %}","{% endif %}{%
+"{% if args.personalise is defined and args.personalise %}{% trans %}Logged{% endtrans %}","{% endif %}{%
     trans %}KHz{% endtrans %}","{%
     trans %}ID{% endtrans %}","{%
     trans %}Type{% endtrans %}","{%
@@ -20,13 +20,13 @@
     trans %}Logs{% endtrans %}","{%
     trans %}First Logged{% endtrans %}","{%
     trans %}Last Logged{% endtrans %}"{%
-    if args.personalise %},"{%
+    if args.personalise is defined and args.personalise %},"{%
         trans %}KM{% endtrans %}","{%
         trans %}Miles{% endtrans %}","{%
         trans %}Deg{% endtrans
     %}"{% endif %}
 
-{% for s in signals %}{% if args.personalise %}"{{ s.personalise ? 'Y' : '' }}",{% endif %}{{
+{% for s in signals %}{% if args.personalise is defined and args.personalise %}"{{ s.personalise ? 'Y' : '' }}",{% endif %}{{
     0 + s.khz }},"{{
     s.call }}","{{
     typeRepository.typeForCode(s.type)['label']|trans }}","{{
@@ -47,6 +47,6 @@
     s.heardIn }}","{{
     s.logs }}","{{
     s.firstHeard|date('Y-m-d') }}","{{
-    s.lastHeard|date('Y-m-d') }}"{% if args.personalise %},"{{ s.range_km }}","{{ s.range_mi }}","{{ s.range_deg }}"{% endif %}
+    s.lastHeard|date('Y-m-d') }}"{% if args.personalise is defined and args.personalise %},"{{ s.range_km }}","{{ s.range_mi }}","{{ s.range_deg }}"{% endif %}
 
 {% endfor %}
