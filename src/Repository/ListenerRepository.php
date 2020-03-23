@@ -312,7 +312,7 @@ class ListenerRepository extends ServiceEntityRepository
                     . " "
                     . html_entity_decode($row->getName())
                     . ", "
-                    . $row->getQth()
+                    . html_entity_decode($row->getQth())
                     . ($row->getSp() ? " " . $row->getSp() : "")
                     . " "
                     . $row->getItu()
