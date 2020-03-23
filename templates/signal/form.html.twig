@@ -77,7 +77,7 @@
                             <div id="heardIn">
                                 {{ heardInHtml|raw }}
                                 {% if '<b>' in heardInHtml %}
-                                    <div class="text-nowrap float-right">(<a><b>XX</b></a> = {% trans %}Daytime Log{% endtrans %})</div>
+                                    <div id="heardInKey">(<a><b>XX</b></a> = {% trans %}Daytime Log{% endtrans %})</div>
                                 {% endif %}
                             </div>
                         </div>

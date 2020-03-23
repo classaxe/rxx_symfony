@@ -42,8 +42,36 @@
         >
 {% if args.personalise %}<th title="{% trans %}Logged by Personalised Listener{% endtrans %}">{{ signal.personalise ? '&#x2714;' : '' }}</th>{% endif %}
 {% for key, column in columns %}
-   {% include 'signals/field.html.twig' %}
-{% endfor %}
+    {% if ((not column.admin or isAdmin) and (not column.arg or (column.arg in args|keys and attribute(args, column.arg) != ''))) %}
+        {% set value = attribute(signal, column.field) %}
+        {% if (column.highlight and args[column.highlight] is not empty) %}
+            {% for repl in args[column.highlight] | split(' ') %}
+                {% set value = value | ireplace({ (repl) : '<em>' ~ repl|upper ~ '</em>' }) %}
+            {% endfor %}
+        {% endif %}
+        <td {% if column.td_class %} class="{{ column.td_class }}"{% endif %}>
+            {%
+                if (column.field == 'actions')
+            %}{% if isAdmin %}<a href="{{ url('signal_delete', { 'system' : system, 'id' : signal.id }) }}" class="delete" onclick="return confirm(msg.del_signal)">X</a>{% endif %}{%
+                elseif (column.field == 'call')
+            %}<a href="{{ url('signal', { 'system' : system, 'id' : signal.id }) }}" data-popup="1">{{ signal.call }}</a>{%
+                elseif (column.field == 'GSQ')
+            %}{% if signal.GSQ %}<a data-gsq="{{ signal.id }}">{{ value | raw }}</a>{% endif %}{%
+                elseif (column.field == 'ITU')
+            %}{% if signal.itu %}<a data-set="itu">{{ value | raw }}</a>{% endif %}{%
+                elseif (column.field == 'khz')
+            %}<a data-set="khz">{{ value | raw }}</a>{%
+                elseif (column.field == 'logs')
+            %}{% if signal.logs %}<a href="{{ url('signal_logs', { 'system' : system, 'id' : signal.id }) }}" data-popup="1">{{ signal.logs }}</a>{% endif %}{%
+                elseif (column.field == 'LSB' or column.field == 'USB')
+            %}{%  if value != 0 %}{% if (args.offsets == '1') %}{{ value | number_format(3) }}{% else %}{{ value }}{% endif %}{% endif %}{%
+                elseif (column.field == 'SP')
+            %}{% if signal.sp %}<a data-set="sp">{{ value | raw }}</a>{% endif %}{%
+                else
+            %}{{ value | raw }}{%
+                endif
+            %}</td>
+    {% endif %}{% endfor %}
         </tr>
 {% endfor %}
     </tbody>
