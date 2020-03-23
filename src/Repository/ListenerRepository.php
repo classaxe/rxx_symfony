@@ -308,9 +308,9 @@ class ListenerRepository extends ServiceEntityRepository
         foreach ($result as $row) {
             if ($simple) {
                 $out[
-                    ($row->getPrimaryQth() ? '*' : '---')
+                    ($row->getPrimaryQth() ? '' : html_entity_decode('&nbsp; '))
                     . " "
-                    . $row->getName()
+                    . html_entity_decode($row->getName())
                     . ", "
                     . $row->getQth()
                     . ($row->getSp() ? " " . $row->getSp() : "")
