@@ -16,6 +16,7 @@ class SignalRepository extends ServiceEntityRepository
     const collapsable_sections = [
         'loggings' => [
             'listener',
+            'listener_invert',
             'heard_in',
             'logged_date_1',
             'logged_date_2',
@@ -153,30 +154,35 @@ class SignalRepository extends ServiceEntityRepository
 
     private function addFilterListeners()
     {
-        // Special case: selected 'all' listeners, and 'not heard by'
-        if ($this->args['listener_invert'] ?? false && !$this->args['listener'] ?? false) {
+        if (!isset($this->args['listener']) || !isset($this->args['listener_invert'])) {
+            // Params not available
+            return $this;
+        }
+        if ((!$this->args['listener'] || in_array('', $this->args['listener'])) && !$this->args['listener_invert']) {
+            // 'Logged by' and 'Anyone'
+            return $this;
+        }
+        if ((!$this->args['listener'] || in_array('', $this->args['listener'])) && $this->args['listener_invert']) {
+            // 'Not Logged by' and 'Anyone'
             $this->query['where'][] = "0 = 1 /* Showing 'All Listeners' but NOT logged by */";
             return $this;
         }
-        if ($this->args['listener'] ?? false && !in_array('', $this->args['listener'])) {
-            $in = $this->buildInParamsList('heard_by', $this->args['listener']);
-            if ($this->args['listener_invert']) {
-                $this->query['where'][] =
-                    "s.id NOT IN(
-        SELECT
-           DISTINCT s2.id
-        FROM
-           signals s2
-        INNER JOIN logs l2 ON
-           s2.id = l2.signalID
-        WHERE
-           l2.listenerID IN(" . implode(',', $in) . ")
-    )";
-            } else {
-                $this->query['where'][] =
-                    "l.listenerId IN (" . implode(',', $in) . ")";
-            }
+        $in = $this->buildInParamsList('heard_by', $this->args['listener']);
+        if (!$this->args['listener_invert']) {
+            $this->query['where'][] = "l.listenerId IN (" . implode(',', $in) . ")";
+            return $this;
         }
+        $this->query['where'][] =
+            "s.id NOT IN(
+                SELECT
+                   DISTINCT s2.id
+                FROM
+                   signals s2
+                INNER JOIN logs l2 ON
+                   s2.id = l2.signalID
+                WHERE
+                   l2.listenerID IN(" . implode(',', $in) . ")
+            )";
         return $this;
     }
 
@@ -689,7 +695,6 @@ EOD;
 
     public function getFilteredSignals($system, $args)
     {
-//        print("<pre>".print_r($args, true)."</pre>");
         $this
             ->setArgs($system, $args)
             ->addFromTables()
