@@ -45,11 +45,11 @@ $(document).ready( function() {
     setColumnSortedClass();
     setClippedCellTitles();
     $('#map').height($(window).height() - 120);
-    $('#map').width($(window).width() - 420);
+    $('#map').width($(window).width() - 450);
     $('#scrollablelist').height($('#map').height() + 40);
     $(window).resize(function () {
         $('#map').height($(window).height() - 120);
-        $('#map').width($(window).width() - 420);
+        $('#map').width($(window).width() - 450);
         $('#scrollablelist').height($('#map').height() + 40);
     });
     //]]>
@@ -72,10 +72,10 @@ $(document).ready( function() {
         <table class="map_layout controlPanel content">
             <tbody style="background:transparent">
             <tr>
-                <td width="250">
+                <td>
                     <div class="scroll">
                         <div id="scrollablelist">
-                            <table class="results" id="markerlist" style="display:none; margin: 0;">
+                            <table class="results" id="markerlist" style="display:none; margin: 0;width: 390px">
                                 <thead>
                                 <tr>
                                     <th>{% trans %}KHz{% endtrans %}</th>
