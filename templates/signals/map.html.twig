@@ -23,7 +23,7 @@ var signals = [
     row.sec }}', 'fmt':'{{
     row.format }}', 'heard':'{{
     row.formattedLastHeard }}', 'heard_in':'{{
-    row.heardIn }}'{% if args.personalise %},'logged':{{ row.personalise }}, {% endif %} },
+    row.heardIn }}'{% if args.personalise %},'logged':{{ row.personalise ? 1 : 0 }}, {% endif %} },
 {% endfor %}
 ];
 

@@ -814,7 +814,7 @@ class Signal
                 $this->{$method}($value);
             }
             if (in_array($key, ['personalise', 'range_km', 'range_mi', 'range_deg'])) {
-                $this->$key = $array['GSQ'] ? $value : '';
+                $this->$key = isset($array['gsq']) || isset($array['GSQ']) ? $value : '';
             }
         }
     }
