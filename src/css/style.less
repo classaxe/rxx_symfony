@@ -1680,7 +1680,6 @@ pre.log {
 }
 
 #tabs {
-    padding: 0 0 0 20px;
     .button {
         margin: 0;
         border-radius: 5px 5px 0 0;
@@ -1691,6 +1690,31 @@ pre.log {
         }
     }
 }
+
+#actions {
+    float: right;
+    .frame {
+        border: 1px solid #888;
+        border-bottom: none;
+        border-radius: 5px 5px 0 0;
+        background: #eee;
+        padding: 4px;
+        margin: 0;
+        line-height: 1em;
+        font-size: 0.9rem;
+        div {
+            float: left;
+            border: 1px solid #000;
+            border-radius: 3px;
+            background-color: #ffffa0;
+            padding: 2px;
+            &:not(:last-child){
+                margin: 0 4px 0 0;
+            }
+        }
+    }
+}
+
 
 /* [ Google Map Pages ] */
 html,

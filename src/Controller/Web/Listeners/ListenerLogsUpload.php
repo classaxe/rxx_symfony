@@ -18,7 +18,7 @@ class ListenerLogsUpload extends Base
      *        "_locale": "de|en|es|fr",
      *        "system": "reu|rna|rww"
      *     },
-     *     name="listener_logs_upload"
+     *     name="listener_logsupload"
      * )
      * @param $_locale
      * @param $system

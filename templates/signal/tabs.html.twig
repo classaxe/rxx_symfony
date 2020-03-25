@@ -1,4 +1,4 @@
-<div id="tabs">
+<div id="tabs" class="padding-horizontal-1">
     {% for tab in tabs %}
         <a class="button small{% if app.request.get('_route') == tab[0] %} is-active{% endif %}"
            href="{{ path(tab[0], { 'system' : system, 'id' : id}) }}">{{ tab[1] }}</a>

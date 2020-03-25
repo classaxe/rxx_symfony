@@ -21,7 +21,7 @@ class ListenerRepository extends ServiceEntityRepository
         ['listener_signals', 'Signals (%%signals%%)'],
         ['listener_signalsmap', 'Signals Map'],
         ['listener_logs', 'Logs (%%logs%%)'],
-        ['listener_logs_upload', 'Upload'],
+        ['listener_logsupload', 'Upload'],
         ['listener_map', 'Map'],
         ['listener_locatormap', 'Locator'],
         ['listener_weather', 'Weather'],
@@ -51,6 +51,59 @@ class ListenerRepository extends ServiceEntityRepository
         $this->listenerSignalsColumns = $listenerSignalsColumns->getColumns();
         $this->logRepository = $logRepository;
         $this->regionRepository = $regionRepository;
+    }
+
+    public function getTabs($listener = false, $isAdmin = false)
+    {
+        if (!$listener->getId()) {
+            return [];
+        }
+        $logs =     $listener->getCountLogs();
+        $signals =  $listener->getCountSignals();
+        $knownQth = ($listener->getLat() || $listener->getLon());
+        $out = [];
+        foreach ($this->tabs as $idx => $data) {
+            $route = $data[0];
+            switch ($route) {
+                case 'listener_awards':
+                case 'listener_logs':
+                case 'listener_signals':
+                case 'listener_stats':
+                    if ($logs) {
+                        $out[] = str_replace(
+                            ['%%logs%%', '%%signals%%'],
+                            [$logs, $signals],
+                            $data
+                        );
+                    }
+                    break;
+                case 'listener_map':
+                    if ($knownQth) {
+                        $out[] = $data;
+                    }
+                    break;
+                case 'listener_signalsmap':
+                    if ($listener->getSignalsMap()) {
+                        $out[] = $data;
+                    }
+                    break;
+                case 'listener_logsupload':
+                case 'listener_locatormap':
+                    if ($isAdmin) {
+                        $out[] = $data;
+                    }
+                    break;
+                case 'listener_weather':
+                    if ($knownQth) {
+                        $out[] = $data;
+                    }
+                    break;
+                default:
+                    $out[] = $data;
+                    break;
+            }
+        }
+        return $out;
     }
 
     private function addFilterCountry($qb, $args)
@@ -333,59 +386,6 @@ class ListenerRepository extends ServiceEntityRepository
                     . " "
                     . $row->getItu()
                 ] = $row->getId();
-            }
-        }
-        return $out;
-    }
-
-    public function getTabs($listener = false, $isAdmin = false)
-    {
-        if (!$listener->getId()) {
-            return [];
-        }
-        $logs =     $listener->getCountLogs();
-        $signals =  $listener->getCountSignals();
-        $knownQth = ($listener->getLat() || $listener->getLon());
-        $out = [];
-        foreach ($this->tabs as $idx => $data) {
-            $route = $data[0];
-            switch ($route) {
-                case 'listener_awards':
-                case 'listener_logs':
-                case 'listener_signals':
-                case 'listener_stats':
-                    if ($logs) {
-                        $out[] = str_replace(
-                            ['%%logs%%', '%%signals%%'],
-                            [$logs, $signals],
-                            $data
-                        );
-                    }
-                    break;
-                case 'listener_map':
-                    if ($knownQth) {
-                        $out[] = $data;
-                    }
-                    break;
-                case 'listener_signalsmap':
-                    if ($listener->getSignalsMap()) {
-                        $out[] = $data;
-                    }
-                    break;
-                case 'listener_logsupload':
-                case 'listener_locatormap':
-                    if ($isAdmin) {
-                        $out[] = $data;
-                    }
-                    break;
-                case 'listener_weather':
-                    if ($knownQth) {
-                        $out[] = $data;
-                    }
-                    break;
-                default:
-                    $out[] = $data;
-                    break;
             }
         }
         return $out;

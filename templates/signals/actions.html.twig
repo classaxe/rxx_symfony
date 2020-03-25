@@ -1,16 +1,19 @@
-{% if (signals|length > 0 or isAdmin) %}
-<p class="report_actions">
-{% if signals|length > 0 %}
-    <input type="button" id="btn_prt" class="button small" value="{% trans %}Print...{% endtrans %}" />
-    <input type="button" id="btn_csv_fil" class="button small" value="{{ 'Export Results as %s'|trans|format('.csv') }}" />
-    <input type="button" id="btn_csv_all" class="button small" value="{{ 'Export All %s as %s'|trans|format(system|upper, '.csv') }}" />
-{% endif %}
+<div id="actions" class="hide-for-print">
+    <div class="frame clearfix">
+        <div><strong>{% trans %}Export{% endtrans %}:</strong>
+            <a id="btn_csv_fil" title="{% trans %}Export Matched Results{% endtrans %}"><span class='ui-icon ui-icon-document'></span>.csv</a>
+            <a id="btn_csv_all" title="{% trans with { '%SYSTEM%' : system|upper } %}Export Entire %SYSTEM% Database{% endtrans %}"><span class='ui-icon ui-icon-document'></span>{{ system }}.csv</a>
+        </div>
+        <div>
+            <a id="btn_link" onclick="alert('Coming soon')"><span class='ui-icon ui-icon-link'></span>{% trans %}Share{% endtrans %}</a>
+            <a id="btn_prt"><span class='ui-icon ui-icon-print'></span>{% trans %}Print{% endtrans %}</a>
+        </div>
 {% if isAdmin %}
-    {% if isAdmin %}
-        <input type="button" class="button small" value="{{ 'Add Signal...' | trans }}"
-           onclick="window.open('{{ path('signal', { 'system' : system, 'id' : 'new'})}}', 'signal_new', popWinSpecs['signals_[id]'])"
-        >
-    {% endif %}
+    <div>
+            <a id="btn_new" onclick="window.open('{{ path('signal', { 'system' : system, 'id' : 'new'})}}', 'signal_new', popWinSpecs['signals_[id]'])">
+                <span class='ui-icon ui-icon-newwin'></span>{% trans %}New...{% endtrans %}
+            </a>
+    </div>
 {% endif %}
-</p>
-{% endif %}
+    </div>
+</div>

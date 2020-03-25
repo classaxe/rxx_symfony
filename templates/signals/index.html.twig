@@ -12,13 +12,16 @@
             {% include 'signals/form.html.twig' %}
         </div>
 
-        {% include 'signals/tabs.html.twig' %}
+        <div class="row">
+            <div class="small-6 column">{% include 'signals/tabs.html.twig' %}</div>
+            <div class="small-6 column">{% include 'signals/actions.html.twig' %}</div>
+        </div>
+
         <div class="signals_container">
             {% if args['show'] in ['', 'list'] %}{% include 'signals/list.html.twig' %}{% endif %}
             {% if args['show'] == 'map' %}{% include 'signals/map.html.twig' %}{% endif %}
             {% if args['show'] == 'seeklist' %}{% include 'signals/seeklist.html.twig' %}{% endif %}
         </div>
-        {% include 'signals/actions.html.twig' %}
      </div>
 {% include 'js_trans.html.twig' %}
 <script>

@@ -1,7 +1,7 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.1.1
+ * Version:    2.1.2
  * Date:       2020-03-25
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
@@ -1712,9 +1712,6 @@ pre.log {
   padding: 0 5px;
   display: inline-block;
 }
-#tabs {
-  padding: 0 0 0 20px;
-}
 #tabs .button {
   margin: 0;
   border-radius: 5px 5px 0 0;
@@ -1723,6 +1720,29 @@ pre.log {
 }
 #tabs .button.is-active {
   color: yellow !important;
+}
+#actions {
+  float: right;
+}
+#actions .frame {
+  border: 1px solid #888;
+  border-bottom: none;
+  border-radius: 5px 5px 0 0;
+  background: #eee;
+  padding: 4px;
+  margin: 0;
+  line-height: 1em;
+  font-size: 0.9rem;
+}
+#actions .frame div {
+  float: left;
+  border: 1px solid #000;
+  border-radius: 3px;
+  background-color: #ffffa0;
+  padding: 2px;
+}
+#actions .frame div:not(:last-child) {
+  margin: 0 4px 0 0;
 }
 /* [ Google Map Pages ] */
 html,
