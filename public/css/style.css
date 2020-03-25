@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.0.8
- * Date:       2020-03-23
+ * Version:    2.1.0
+ * Date:       2020-03-25
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
  */
@@ -753,16 +753,22 @@ table.seeklist tbody td div.sl_d.inactive {
   font-weight: bold;
   box-shadow: #777 2px 2px 5px;
 }
-.controlPanel .header div.export {
+.controlPanel .header div {
   border-radius: 3px;
   border: 1px solid #000000;
   color: #000;
   background: #ffffa0;
-  float: right;
   padding: 0 0.5em;
+}
+.controlPanel .header div.visit {
+  float: right;
   margin-right: 0.5em;
 }
-.controlPanel .header div.export a {
+.controlPanel .header div.export {
+  float: left;
+  margin-left: 0.5em;
+}
+.controlPanel .header div a {
   color: #00f;
 }
 .controlPanel .content {

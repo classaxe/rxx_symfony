@@ -4,7 +4,13 @@
 {% set form_class='listener_signals' %}
     {% include 'listener/tabs.html.twig' %}
     <div class="controlPanel {{ form_class }}">
-        <div class="header">{{ mode|raw }}
+        <div class="header">
+            <div class="visit">{% trans %}Use{% endtrans %}
+                <a href="{{ url('listener_ndbweblog', { 'system' : system, 'id': id }) }}" rel="external">
+                    NDBWebLog
+                </a>
+            </div>
+            {{ mode|raw }}
             <div class="export">{% trans %}Export{% endtrans %}
                 <a href="{{ url('listener_signals_export_csv', { 'system' : system, 'id': id }) }}">
                     <span class='ui-icon ui-icon-document'></span>.csv

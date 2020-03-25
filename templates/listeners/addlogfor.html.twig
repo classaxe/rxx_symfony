@@ -4,7 +4,7 @@
         <div class="small-12 medium-11">
 {% for l in latestListeners %}
             <div class="display-inline text-nowrap">
-                <a href="{{ url('listener', { 'system' : system, 'id': l.id }) }}" data-popup="1">{{ l.name|raw }}</a> ({{ l.sp ? l.sp : l.itu }}){% if not loop.last %} &nbsp; | &nbsp; {% endif %}
+                <a href="{{ url('listener_logs_upload', { 'system' : system, 'id': l.id }) }}" data-popup="1">{{ l.name|raw }}</a> ({{ l.sp ? l.sp : l.itu }}){% if not loop.last %} &nbsp; | &nbsp; {% endif %}
 
             </div>
 {% endfor %}

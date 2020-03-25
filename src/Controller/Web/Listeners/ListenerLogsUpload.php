@@ -8,18 +8,23 @@ use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
  * Class Listeners
  * @package App\Controller\Web
  */
-class ListenerExport extends Base
+class ListenerLogsUpload extends Base
 {
 
     /**
      * @Route(
-     *     "/{_locale}/{system}/listeners/{id}/export",
+     *     "/{_locale}/{system}/listeners/{id}/logsupload",
      *     requirements={
      *        "_locale": "de|en|es|fr",
      *        "system": "reu|rna|rww"
      *     },
-     *     name="listener_export"
+     *     name="listener_logs_upload"
      * )
+     * @param $_locale
+     * @param $system
+     * @param $id
+     * @param ListenerRepository $listenerRepository
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function controller(
         $_locale,
@@ -38,13 +43,13 @@ class ListenerExport extends Base
         $parameters = [
             'id' =>                 $id,
             '_locale' =>            $_locale,
-            'mode' =>               'Export Loggings for '.$listener->getFormattedNameAndLocation(),
+            'mode' =>               'Upload Loggings for '.$listener->getFormattedNameAndLocation(),
             'logs' =>               $listener->getCountLogs(),
             'signals' =>            $listener->getCountSignals(),
             'system' =>             $system,
             'tabs' =>               $listenerRepository->getTabs($listener, $isAdmin)
         ];
         $parameters = array_merge($parameters, $this->parameters);
-        return $this->render('listener/export/export.html.twig', $parameters);
+        return $this->render('listener/upload.html.twig', $parameters);
     }
 }

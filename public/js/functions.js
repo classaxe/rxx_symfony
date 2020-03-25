@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.0.6
- * Date:       2020-03-22
+ * Version:    2.1.0
+ * Date:       2020-03-25
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
  */
@@ -26,6 +26,7 @@ var popWinSpecs = {
     'countries_sa' :                'width=320,height=600,resizable=1',
     'listeners_[id]' :              'width=880,height=760,status=1,scrollbars=1,resizable=1',
     'listeners_[id]_logs' :         'width=880,height=760,status=1,scrollbars=1,resizable=1',
+    'listeners_[id]_logsupload' :   'width=880,height=760,status=1,scrollbars=1,resizable=1',
     'listeners_[id]_signals' :      'width=880,height=760,status=1,scrollbars=1,resizable=1',
     'listeners_[id]_map' :          'width=880,height=760,status=1,scrollbars=1,resizable=1',
     'listeners_[id]_locatormap' :   'width=880,height=760,status=1,scrollbars=1,resizable=1',

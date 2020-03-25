@@ -4,21 +4,8 @@
 // * Project:   NDB Web Log                  *
 // * Filename:  functions.js                 *
 // * Created:   01/09/2003 (MF)              *
-// * Revised:   30/07/2006 (MF)              *
 // *******************************************
-version = "1.1.28";
-/*
-  1.1.28 (2018-08-18)
-    1) Minor changes for new symfony-based RXX system
-  1.1.27 (2013-12-21)
-    1) Path for RWW popup now fully qualified
-    2) Now automatically adjusts path for css include for local / RXX modes
-  1.1.26
-    Fix for path of css file
-    Change to path for RWW popup
-    Updated countries.js file includes MNE and SRB
-*/
-
+version = "1.1.29";
 // ###########################################
 // # Inline code:                            #
 // ###########################################
@@ -3392,7 +3379,9 @@ function list(yyyy, mm) {
         "This <a href='http://www.classaxe.com/dx' target='_blank'" + msg_dl + " title='NDB WebLog is free - get it here!'><b>NDB WebLog</b></a>\r\n" +
         "is configured as a <b>" + ((monthly) ? ("Monthly") : ("Lifetime")) + " list</b>,\r\n" +
         "all <b>times</b> are in <a href='http://www.timeanddate.com/worldclock' target='_blank'" + msg_utc + " title='View world clock'><b>UTC</b></a>,\r\n" +
-        "and the <b>last log entry</b> was recorded on <b>" + format_date(stats.last_date) + " at " + stats.last_time + " UTC</b></small><br>\r\n";
+        "and the <b>last log entry</b> was recorded on <b>" + format_date(stats.last_date) + " at " + stats.last_time + " UTC</b></small></p>\r\n" +
+        "<p><small>Download Files: [ <a href='" + urls.package + "' target='_blank'>NDBWebLog</a> | <a href='" + urls.config + "'>config.js</a> | " +
+        "<a href='" + urls.logs + "'>logs.js</a> | <a href='" + urls.stations + "'>stations.js</a> ]</small></p>";
 
     // Add year selection buttons
     if (monthly) {	// Find out if more than 1 years log results are recorded - if so, put year selector links on page:

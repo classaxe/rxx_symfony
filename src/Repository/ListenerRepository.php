@@ -18,12 +18,12 @@ class ListenerRepository extends ServiceEntityRepository
 
     private $tabs = [
         ['listener', 'Profile'],
-        ['listener_map', 'Map'],
-        ['listener_locatormap', 'Locator Map'],
-        ['listener_logs', 'Logs (%%logs%%)'],
         ['listener_signals', 'Signals (%%signals%%)'],
         ['listener_signalsmap', 'Signals Map'],
-        ['listener_export', 'Export'],
+        ['listener_logs', 'Logs (%%logs%%)'],
+        ['listener_logs_upload', 'Upload'],
+        ['listener_map', 'Map'],
+        ['listener_locatormap', 'Locator'],
         ['listener_weather', 'Weather'],
         ['listener_stats', 'Stats'],
         ['listener_awards', 'Awards'],
@@ -351,7 +351,6 @@ class ListenerRepository extends ServiceEntityRepository
             $route = $data[0];
             switch ($route) {
                 case 'listener_awards':
-                case 'listener_export':
                 case 'listener_logs':
                 case 'listener_signals':
                 case 'listener_stats':
@@ -373,6 +372,7 @@ class ListenerRepository extends ServiceEntityRepository
                         $out[] = $data;
                     }
                     break;
+                case 'listener_logsupload':
                 case 'listener_locatormap':
                     if ($isAdmin) {
                         $out[] = $data;
