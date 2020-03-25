@@ -3995,6 +3995,34 @@
         <source>Admins only</source>
         <target>Admins only</target>
       </trans-unit>
+      <trans-unit id="jeyb7J_" resname="Export Matched Results">
+        <source>Export Matched Results</source>
+        <target>Export Matched Results</target>
+      </trans-unit>
+      <trans-unit id="NBAlBvI" resname="Export Entire %SYSTEM% Database">
+        <source>Export Entire %SYSTEM% Database</source>
+        <target>Export Entire %SYSTEM% Database</target>
+      </trans-unit>
+      <trans-unit id="KYh6X.m" resname="Share">
+        <source>Share</source>
+        <target>Share</target>
+      </trans-unit>
+      <trans-unit id="3w.nmJj" resname="Print">
+        <source>Print</source>
+        <target>Print</target>
+      </trans-unit>
+      <trans-unit id="w22Bnnv" resname="Use">
+        <source>Use</source>
+        <target>Use</target>
+      </trans-unit>
+      <trans-unit id="XGBI1mo" resname="New...">
+        <source>New...</source>
+        <target>New...</target>
+      </trans-unit>
+      <trans-unit id="WrO7oE0" resname="Signals Export">
+        <source>Signals Export</source>
+        <target>Signals Export</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
