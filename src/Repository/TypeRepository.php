@@ -21,7 +21,7 @@ class TypeRepository
                 ]
             ],
             'title' =>  'DGPS Station',
-            'type' =>   'type_dgps'
+            'type' =>   'dgps'
         ],
         6 => [
             'bbggrr' => '00b0ff',
@@ -31,7 +31,7 @@ class TypeRepository
             'order' =>  1,
             'refs'  =>  [],
             'title' =>  'DSC Station',
-            'type' =>   'type_dsc'
+            'type' =>   'dsc'
         ],
         4 => [
             'bbggrr' => 'c0ffb8',
@@ -57,7 +57,7 @@ class TypeRepository
                 ]
             ],
             'title' =>  'Amateur Radio Beacon',
-            'type' =>   'type_hambcn'
+            'type' =>   'hambcn'
         ],
         3 => [
             'bbggrr' => 'd8b8ff',
@@ -79,7 +79,7 @@ class TypeRepository
                 ],
             ],
             'title' =>  'NavTex Station',
-            'type' =>   'type_navtex'
+            'type' =>   'navtex'
         ],
         0 => [
             'bbggrr' => 'ffffff',
@@ -97,7 +97,7 @@ class TypeRepository
                 'title' =>  'Additional NDB Info:'
             ],
             'title' =>  'NDB Beacon',
-            'type' =>   'type_ndb'
+            'type' =>   'ndb'
         ],
         2 => [
             'bbggrr' => 'b0e0ff',
@@ -107,7 +107,7 @@ class TypeRepository
             'order' =>  5,
             'refs'  =>  [],
             'title' =>  'Time Signal Station',
-            'type' =>   'type_time'
+            'type' =>   'time'
         ],
         5 => [
             'bbggrr' => 'fff8b8',
@@ -117,7 +117,7 @@ class TypeRepository
             'order' =>  6,
             'refs'  =>  [],
             'title' =>  'Other form of transmission',
-            'type' =>   'type_other'
+            'type' =>   'other'
         ],
     ];
 
@@ -130,10 +130,10 @@ class TypeRepository
     {
         $out = [];
         foreach (static::types as $key => $type) {
-            $out[$type['label']] = 'type_'.$type['class'];
+            $out[$type['label']] = $type['class'];
         }
         if ($withAllOption) {
-            $out['(All)'] = 'type_ALL';
+            $out['(All)'] = 'ALL';
         }
         return $out;
     }
@@ -160,7 +160,7 @@ class TypeRepository
     {
         $out = [];
         foreach (static::types as $key=>$type) {
-            if (in_array('type_'.$type['class'], $types)){
+            if (in_array($type['class'], $types)){
                 $out[] = $key;
             }
         }

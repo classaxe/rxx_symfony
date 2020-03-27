@@ -607,7 +607,7 @@ function setFormResetAction(form) {
 
                 $('#form_show').val('');
                 $('#form_types div :checkbox').prop('checked', false);
-                $('#form_types div :checkbox[value=type_NDB]').prop('checked', true);
+                $('#form_types div :checkbox[value=NDB]').prop('checked', true);
                 $('#form_call').val('');
                 $('#form_khz_1').val('');
                 $('#form_khz_2').val('');
@@ -654,7 +654,7 @@ function setFormResetAction(form) {
         case 'listeners':
             $('button[type="reset"]').click(function () {
                 $('fieldset#form_types div :checkbox').prop('checked', false);
-                $('fieldset#form_types div :checkbox[value=type_NDB]').prop('checked', true);
+                $('fieldset#form_types div :checkbox[value=NDB]').prop('checked', true);
                 $('#form_filter').val('');
                 setFormCountryAction(false);
                 setFormRegionAction(false);
@@ -708,20 +708,20 @@ function setFormSortZaAction() {
 /* [ Set css styles for signal type checkboxes ] */
 function setFormTypesStyles() {
     $("fieldset#form_types div input").each(function() {
-        $(this).parent().attr('class', $(this).attr('class'));
+        $(this).parent().attr('class', 'type_' + $(this).attr('class'));
     });
 }
 
 /* [ Ensure that at least one option is checked for signal type checkboxes ] */
 function setFormTypesDefault() {
     if ($('fieldset#form_types div :checkbox:checked').length === 0) {
-        $('fieldset#form_types div :checkbox[value=type_NDB]').prop('checked', true);
+        $('fieldset#form_types div :checkbox[value=NDB]').prop('checked', true);
     }
 }
 
 /* [ Enable 'All' checkbox to select / unselect all signal types ] */
 function setFormTypesAllAction() {
-    $('fieldset#form_types div :checkbox[value=type_ALL]').click(function () {
+    $('fieldset#form_types div :checkbox[value=ALL]').click(function () {
         $('fieldset#form_types div :checkbox').prop('checked', $(this).prop("checked"));
     });
 }

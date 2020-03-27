@@ -79,7 +79,7 @@ class Collection extends Base
             $args = $form->getData();
         }
         if (empty($args['types'])) {
-            $args['types'][] = 'type_NDB';
+            $args['types'][] = 'NDB';
         }
         $listeners =    $listenerRepository->getFilteredListeners($system, $args);
         $total =        $listenerRepository->getFilteredListenersCount($system, $args);

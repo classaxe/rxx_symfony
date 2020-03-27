@@ -136,7 +136,7 @@ class Listeners
             ],
             'countDgps' => [
                 'admin'     =>  false,
-                'arg'       =>  'type_DGPS',
+                'arg'       =>  'DGPS',
                 'field'     =>  'countDgps',
                 'label'     =>  '<div>DGPS</div>',
                 'order'     =>  'd',
@@ -147,7 +147,7 @@ class Listeners
             ],
             'countDsc' => [
                 'admin'     =>  false,
-                'arg'       =>  'type_DSC',
+                'arg'       =>  'DSC',
                 'field'     =>  'countDsc',
                 'label'     =>  '<div>DSC</div>',
                 'order'     =>  'd',
@@ -158,7 +158,7 @@ class Listeners
             ],
             'countHambcn' => [
                 'admin'     =>  false,
-                'arg'       =>  'type_HAMBCN',
+                'arg'       =>  'HAMBCN',
                 'field'     =>  'countHambcn',
                 'label'     =>  '<div>HAMBCN</div>',
                 'order'     =>  'd',
@@ -169,7 +169,7 @@ class Listeners
             ],
             'countNavtex' => [
                 'admin'     =>  false,
-                'arg'       =>  'type_NAVTEX',
+                'arg'       =>  'NAVTEX',
                 'field'     =>  'countNavtex',
                 'label'     =>  '<div>NAVTEX</div>',
                 'order'     =>  'd',
@@ -180,7 +180,7 @@ class Listeners
             ],
             'countNdb' => [
                 'admin'     =>  false,
-                'arg'       =>  'type_NDB',
+                'arg'       =>  'NDB',
                 'field'     =>  'countNdb',
                 'label'     =>  '<div>NDB</div>',
                 'order'     =>  'd',
@@ -191,7 +191,7 @@ class Listeners
             ],
             'countTime' => [
                 'admin'     =>  false,
-                'arg'       =>  'type_TIME',
+                'arg'       =>  'TIME',
                 'field'     =>  'countTime',
                 'label'     =>  '<div>TIME</div>',
                 'order'     =>  'd',
@@ -202,7 +202,7 @@ class Listeners
             ],
             'countOther' => [
                 'admin'     =>  false,
-                'arg'       =>  'type_OTHER',
+                'arg'       =>  'OTHER',
                 'field'     =>  'countOther',
                 'label'     =>  '<div>OTHER</div>',
                 'order'     =>  'd',

@@ -67,7 +67,7 @@ class Cle extends Base
             $params[] = 'channels=' . $val;
         }
         if ($val = $cle->{ $prefix . 'Type'}()) {
-            $types = explode('&amp;', str_replace('=1', '', $val));
+            $types = explode('&amp;', str_replace([ 'type_', '=1' ], '', $val));
             foreach ($types as $t) {
                 $params[] = 'types[]=' . $t;
             }

@@ -87,7 +87,7 @@ class Collection extends Base
             'sp_itu_clause' =>  '',
             'states' =>         '',
             'system' =>         $system,
-            'types' =>          ['type_NDB'],
+            'types' =>          ['NDB'],
             'signalTypes' =>    [0],
             'url' =>            $request->attributes->get('_route'),
             'za' =>             ''
@@ -100,6 +100,8 @@ class Collection extends Base
                 $args[$key] = $request->query->get($key);
             }
         }
+        // http://rxx.classaxe.com/en/rww/signals?types[]=type_NAVTEX&types[]=type_DGPS&logged_date_1=2003-01-01&logged_date_2=2005-12-31&listener[]=388&listener[]=11&listener[]=102&listener[]=254&listener[]=287&listener[]=288&listener[]=289&listener[]=336&listener[]=356
+//        if ($request->query->get())
         foreach (['logged_date_1', 'logged_date_2', 'logged_first_1', 'logged_first_2', 'logged_last_1', 'logged_last_2'] as $arg) {
             $args[$arg] = $args[$arg] ? new DateTime($args[$arg]) : null;
         }
@@ -112,7 +114,7 @@ class Collection extends Base
             $args['listener'] = [];
         }
         if (empty($args['types'])) {
-            $args['types'][] = 'type_NDB';
+            $args['types'][] = 'NDB';
         }
         $args['isAdmin'] =      $isAdmin;
         $args['signalTypes'] =  $typeRepository->getSignalTypesSearched($args['types']);
