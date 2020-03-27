@@ -1,7 +1,7 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.1.5
+ * Version:    2.2.0
  * Date:       2020-03-27
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
@@ -870,22 +870,22 @@ function setFormSortZaAction() {
 
 /* [ Set css styles for signal type checkboxes ] */
 function setFormTypesStyles() {
-    $("fieldset#form_types div input").each(function() {
+    $("fieldset#form_type div input").each(function() {
         $(this).parent().attr('class', 'type_' + $(this).attr('class'));
     });
 }
 
 /* [ Ensure that at least one option is checked for signal type checkboxes ] */
 function setFormTypesDefault() {
-    if ($('fieldset#form_types div :checkbox:checked').length === 0) {
-        $('fieldset#form_types div :checkbox[value=NDB]').prop('checked', true);
+    if ($('fieldset#form_type div :checkbox:checked').length === 0) {
+        $('fieldset#form_type div :checkbox[value=NDB]').prop('checked', true);
     }
 }
 
 /* [ Enable 'All' checkbox to select / unselect all signal types ] */
 function setFormTypesAllAction() {
-    $('fieldset#form_types div :checkbox[value=ALL]').click(function () {
-        $('fieldset#form_types div :checkbox').prop('checked', $(this).prop("checked"));
+    $('fieldset#form_type div :checkbox[value=ALL]').click(function () {
+        $('fieldset#form_type div :checkbox').prop('checked', $(this).prop("checked"));
     });
 }
 

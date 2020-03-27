@@ -1,29 +1,20 @@
 <?php
 namespace App\Controller\Web\States;
 
+use App\Controller\Web\Base;
 use App\Repository\CountryRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 
 /**
  * Class States
  * @package App\Controller\Web
  */
-class States extends AbstractController
+class States extends Base
 {
     /**
      * @var CountryRepository
      */
     private $country;
-
-    /**
-     * States constructor.
-     * @param CountryRepository $countryService
-     */
-    public function __construct(CountryRepository $country)
-    {
-        $this->country = $country;
-    }
 
     /**
      * @Route(
@@ -36,8 +27,9 @@ class States extends AbstractController
      *     name="states"
      * )
      */
-    public function stateLocatorController($_locale, $system, $filter)
+    public function stateLocatorController($_locale, $system, $filter, CountryRepository $country)
     {
+        $this->country = $country;
         $parameters = [
             '_locale' =>    $_locale,
             'countries' =>  $this->country->getCountriesAndStates($filter),
@@ -46,6 +38,7 @@ class States extends AbstractController
             'system' =>     $system,
         ];
 
+        $parameters = array_merge($parameters, $this->parameters);
         return $this->render('states/index.html.twig', $parameters);
     }
 }

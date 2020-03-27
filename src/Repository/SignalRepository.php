@@ -329,7 +329,7 @@ class SignalRepository extends ServiceEntityRepository
 
     private function addFilterTypes()
     {
-        $in = $this->buildInParamsList('types', $this->args['signalTypes'] ?? false, '', '');
+        $in = $this->buildInParamsList('type', $this->args['signalTypes'] ?? false, '', '');
         $this->query['where'][] = "s.type IN(" . implode(',', $in).")";
         return $this;
     }

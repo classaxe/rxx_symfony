@@ -68,9 +68,7 @@ class Cle extends Base
         }
         if ($val = $cle->{ $prefix . 'Type'}()) {
             $types = explode('&amp;', str_replace([ 'type_', '=1' ], '', $val));
-            foreach ($types as $t) {
-                $params[] = 'types[]=' . $t;
-            }
+            $params[] = 'types=' . implode(',', $types);
         }
         if ($val = $cle->{ $prefix . 'Locator'}()) {
             $params[] = 'gsq=' . urlencode($val);

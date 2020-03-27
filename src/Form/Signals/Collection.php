@@ -133,13 +133,13 @@ class Collection extends Base
                 ]
             )
             ->add(
-                'types',
+                'type',
                 ChoiceType::class,
                 [
                     'attr' =>           [ 'legend' => 'Signal Types' ],
                     'choices' =>        $this->type->getAllChoices(true),
                     'choice_attr' =>    function ($value) { return ['class' => strToLower($value)]; },
-                    'data' =>           $options['types'],
+                    'data' =>           $options['type'],
                     'expanded' =>       true,
                     'label' =>          false,
                     'multiple' =>       true

@@ -1,6 +1,6 @@
 <div class="refs hide-for-print margin-bottom-2">
 <p>
-    {% for type in typeRepository.SignalTypesSearched(args.types) %}
+    {% for type in typeRepository.SignalTypesSearched(args.type) %}
         {% set refs = typeRepository.TypeForCode(type).refs %}
         {% if refs %}
             <strong>{{ refs.title | trans }}</strong>

@@ -3,6 +3,7 @@ namespace App\Controller\Web\Maps;
 
 use App\Controller\Web\Base;
 use App\Repository\MapRepository;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 
 /**
@@ -23,7 +24,7 @@ class Maps extends Base
      * @param $_locale
      * @param $system
      * @param MapRepository $mapRepository
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function mapsController($_locale, $system, MapRepository $mapRepository)
     {
@@ -56,7 +57,7 @@ class Maps extends Base
      * @param $system
      * @param $area
      * @param MapRepository $mapRepository
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function map($_locale, $system, $area, MapRepository $mapRepository)
     {
@@ -64,6 +65,7 @@ class Maps extends Base
         $parameters['_locale'] = $_locale;
         $parameters['system'] = $system;
 
+        $parameters = array_merge($parameters, $this->parameters);
         return $this->render('maps/map.html.twig', $parameters);
     }
 }

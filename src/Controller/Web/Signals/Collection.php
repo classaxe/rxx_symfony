@@ -87,24 +87,21 @@ class Collection extends Base
             'sp_itu_clause' =>  '',
             'states' =>         '',
             'system' =>         $system,
-            'types' =>          ['NDB'],
+            'type' =>           [],
             'signalTypes' =>    [0],
             'url' =>            $request->attributes->get('_route'),
             'za' =>             ''
         ];
 
-        $args['total'] =        $signalRepository->getFilteredSignalsCount($system, $args); // forces paging - will be made accurate later on
+        $this->setArgsFromRequest($args, $request);
 
-        foreach (array_keys($args) as $key) {
-            if ($request->query->get($key)) {
-                $args[$key] = $request->query->get($key);
-            }
+        if (empty($args['type'])) {
+            $args['type'][] = 'NDB';
         }
-        // http://rxx.classaxe.com/en/rww/signals?types[]=type_NAVTEX&types[]=type_DGPS&logged_date_1=2003-01-01&logged_date_2=2005-12-31&listener[]=388&listener[]=11&listener[]=102&listener[]=254&listener[]=287&listener[]=288&listener[]=289&listener[]=336&listener[]=356
-//        if ($request->query->get())
         foreach (['logged_date_1', 'logged_date_2', 'logged_first_1', 'logged_first_2', 'logged_last_1', 'logged_last_2'] as $arg) {
             $args[$arg] = $args[$arg] ? new DateTime($args[$arg]) : null;
         }
+        $args['total'] =        $signalRepository->getFilteredSignalsCount($system, $args); // forces paging - will be made accurate later on
         $form = $form->buildForm($this->createFormBuilder(), $args);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -113,11 +110,8 @@ class Collection extends Base
         if ([''] === $args['listener']) {
             $args['listener'] = [];
         }
-        if (empty($args['types'])) {
-            $args['types'][] = 'NDB';
-        }
         $args['isAdmin'] =      $isAdmin;
-        $args['signalTypes'] =  $typeRepository->getSignalTypesSearched($args['types']);
+        $args['signalTypes'] =  $typeRepository->getSignalTypesSearched($args['type']);
         if ($isAdmin && $args['admin_mode'] !== '') {
             $args['show'] = 'list';
         }
@@ -198,5 +192,39 @@ class Collection extends Base
             return $response;
         }
         return $this->render('signals/index.html.twig', $this->getMergedParameters($parameters));
+    }
+
+    private function setArgsFromRequest(&$args, $request)
+    {
+        $sets = [ 'type', 'listener' ];
+        $pairs = [ 'khz', 'logged_date', 'logged_first', 'logged_last' ];
+        foreach (array_keys($args) as $key) {
+            if ($request->query->get($key)) {
+                $args[$key] = $request->query->get($key);
+            }
+        }
+        foreach ($sets as $set) {
+            if ($request->query->get($set . 's')) {
+                $args[$set] = [];
+                $values = explode(',', $request->query->get($set . 's'));
+                foreach ($values as $v) {
+                    $args[$set][] = $v;
+                }
+            }
+        }
+        foreach ($pairs as $pair) {
+            if ($request->query->get($pair)) {
+                $values = explode(',', $request->query->get($pair));
+                switch (count($values)) {
+                    case 1:
+                        $args[$pair . '_1'] = $values[0];
+                        break;
+                    case 2:
+                        $args[$pair . '_1'] = min($values);
+                        $args[$pair . '_2'] = max($values);
+                        break;
+                }
+            }
+        }
     }
 }

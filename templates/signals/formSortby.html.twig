@@ -1,7 +1,7 @@
 {{ form_label(form.sortby) }}
 <select name="form_sortby" id="form_sortby">
     {% for key, column in columns %}
-        {% if ((not column.admin or isAdmin) and (not column.arg or (column.arg and column.arg in args.types))) %}
+        {% if ((not column.admin or isAdmin) and (not column.arg or (column.arg and column.arg in args.type))) %}
             {% if key and column.order %}
                 <option value="{{ key }}|{{ column.order }}"{% if args['sort'] == key %} selected="selected"{% endif %}>
                     {{ column.labelSort ? column.labelSort : column.label | trans | raw }}{% if column.tooltip %} - {{ column.tooltip }}{% endif %}
