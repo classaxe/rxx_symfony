@@ -19,6 +19,9 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class Collection extends Base
 {
+    private $listenerRepository;
+    private $paperRepository;
+    private $signalRepository;
     private $typeRepository;
 
     /**
@@ -35,6 +38,7 @@ class Collection extends Base
      * @param Request $request
      * @param Form $form
      * @param ListenerRepository $listenerRepository
+     * @param PaperRepository $paperRepository
      * @param SignalRepository $signalRepository
      * @param TypeRepository $typeRepository
      * @return Response
@@ -45,12 +49,16 @@ class Collection extends Base
         $system,
         Request $request,
         Form $form,
-        PaperRepository $paperRepository,
         ListenerRepository $listenerRepository,
+        PaperRepository $paperRepository,
         SignalRepository $signalRepository,
         TypeRepository $typeRepository
     ) {
+        $this->listenerRepository = $listenerRepository;
+        $this->paperRepository = $paperRepository;
+        $this->signalRepository = $signalRepository;
         $this->typeRepository = $typeRepository;
+
         $isAdmin = $this->parameters['isAdmin'];
         $args = [
             'active' =>         '',
@@ -211,12 +219,17 @@ class Collection extends Base
                 $args[$set] = [];
                 $values = explode(',', $request->query->get($set . 's'));
                 foreach ($values as $v) {
-                    if ('type' === $set) {
-                        if ($this->typeRepository->getSignalTypesSearched([$v])){
-                            $args[$set][] = $v;
-                        }
-                    } else {
-                        $args[$set][] = $v;
+                    switch ($set) {
+                        case 'listener':
+                            if ($this->listenerRepository->find((int) $v)) {
+                                $args[$set][] = $v;
+                            }
+                            break;
+                        case 'type':
+                            if ($this->typeRepository->getSignalTypesSearched([$v])){
+                                $args[$set][] = $v;
+                            }
+                            break;
                     }
                 }
             }
