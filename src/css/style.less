@@ -60,7 +60,7 @@
         .menu-centered {
             .header {
                 background: @@rmode[panelBg];
-                border: 3px solid @@rmode[menuActiveBg];
+                border-color: @@rmode[menuActiveBg];
                 h2 {
                     color: @@rmode[titleColor];
                 }
@@ -68,7 +68,9 @@
             .system,
             .mode,
             .language {
-                border: 1px solid @@rmode[menuActiveBg];
+                border-color: @@rmode[menuActiveBg];
+                border-width: 1px;
+                border-style: solid;
                 li:not(:last-child) {
                     a {
                         border-right: 1px solid @@rmode[menuActiveBg];
@@ -168,6 +170,8 @@ tr.inactive td {
 
 /* [ General Styles ] */
 body { font-family: Arial, Helvetica, sans-serif; }
+
+/* [ Version Switcher ] */
 .version {
     .version-combined {
         padding: 0 0.5em;
@@ -195,6 +199,90 @@ body { font-family: Arial, Helvetica, sans-serif; }
         }
     }
 }
+/* [ Menu ] */
+.menu-centered {
+    @media (max-width:39.9375em) {
+        width: @width[menuSysBtn];
+        .header {
+            h2 {
+                font-size: 100%;
+            }
+        }
+        .system,
+        .mode,
+        .language {
+            border-top-width: 1px;
+            margin-bottom: 0.25em;
+        }
+        .system {
+            a {
+                width: @width[menuSysBtn]/3;
+            }
+        }
+        .mode,
+        .language {
+            a {
+                width: @width[menuSysBtn];
+                border-width: 0 0 1px 0 !important;
+            }
+        }
+    }
+    @media (min-width:40em) {
+        width: 3 * @width[menuSysBtn] + 1 + 1;
+        .header {
+            h2 {
+                font-size: 130%;
+            }
+        }
+        a { font-size: 80%; }
+        .language {
+            margin: 0.5em 0 0 (((3 * @width[menuSysBtn] + 1 + 1) - (4 * @width[menuLangBtn] + 1 + 1))/2);
+            width: 4 * @width[menuLangBtn] + 1 + 1;
+            a {
+                width: @width[menuLangBtn];
+            }
+        }
+    }
+
+    margin: auto;
+    .header {
+        border-width: 3px;
+        border-style: solid;
+        h2 {
+            text-align: center;
+            margin: 0.25em 0;
+        }
+    }
+    .system {
+        a {
+            width: @width[menuSysBtn];
+        }
+    }
+    .system,
+    .mode,
+    .language {
+        background: @white;
+        a {
+            padding: 0.25em 1em;
+            text-align: center;
+            &:hover {
+                text-decoration: underline;
+            }
+            @media print {
+                color: #a0a0a0;
+            }
+        }
+        .is-active > a {
+            font-weight: 900;
+            color: #ffff00;
+            text-decoration: underline;
+            @media print {
+                border-width: 2px 1px;
+            }
+        }
+    }
+}
+
 .txt_r {
     text-align: right;
 }
@@ -246,62 +334,6 @@ pre {
 a.hover:hover {
     background-color: #ffff00;
 }
-/* [ Menu ] */
-body {
-    .menu-centered {
-        width: 3 * @width[menuSysBtn] + 1 + 1;
-        margin: auto;
-        .header {
-            h2 {
-                font-size: 130%;
-                margin: 0.25em 0;
-            }
-        }
-        .system {
-            a {
-                width: @width[menuSysBtn];
-            }
-        }
-        .system,
-        .mode {
-            border-top: none !important;
-        }
-        .system,
-        .mode,
-        .language {
-            background: @white;
-            a {
-                padding: 0.25em 1em;
-                font-size: 80%;
-                text-align: center;
-                &:hover {
-                    text-decoration: underline;
-                }
-                @media print {
-                    color: #a0a0a0;
-                }
-            }
-            .is-active > a {
-                font-weight: 900;
-                color: #ffff00;
-                text-decoration: underline;
-                @media print {
-                    border-width: 2px 1px;
-                }
-            }
-        }
-        .language {
-            margin: 0.5em 0 0 (((3 * @width[menuSysBtn] + 1 + 1) - (4 * @width[menuLangBtn] + 1 + 1))/2);
-            width: 4 * @width[menuLangBtn] + 1 + 1;
-            li {
-                a {
-                    width: @width[menuLangBtn];
-                }
-            }
-        }
-    }
-}
-
 /* [ Footer ] */
 .footer {
     text-align: center;

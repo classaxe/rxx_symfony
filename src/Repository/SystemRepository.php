@@ -60,7 +60,9 @@ class SystemRepository
                 ],
             ],
             'menu' =>       'North America (RNA)',
+            'menu_s' =>     'RNA',
             'title' =>      'Signals Received in N & C America + Hawaii',
+            'title_s' =>    'Received in N America'
         ],
         'reu' =>    [
             'authors' =>    self::AUTHORS,
@@ -92,7 +94,9 @@ class SystemRepository
                 ],
             ],
             'menu' =>       'Europe (REU)',
+            'menu_s' =>     'REU',
             'title' =>      'Signals Received in Europe',
+            'title_s' =>    'Received in Europe',
         ],
         'rww' =>    [
             'authors' =>    self::AUTHORS,
@@ -118,7 +122,9 @@ class SystemRepository
                 ],
             ],
             'menu' =>       'Worldwide (RWW)',
+            'menu_s' =>     'RWW',
             'title' =>      'Signals Received Worldwide',
+            'title_s' =>    'Received Worldwide',
         ]
     ];
 

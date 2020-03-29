@@ -86,6 +86,7 @@ class Base extends AbstractController
         $this->session =            $session;
         $this->parameters = [
             'isAdmin' =>        $this->session->get('isAdmin', 0),
+            'isDev' =>          getEnv('APP_ENV') === 'dev',
             'lastError' =>      $this->session->get('lastError', ''),
             'lastMessage' =>    $this->session->get('lastMessage', ''),
             'languages' =>      $this->languageRepository->getAll(),

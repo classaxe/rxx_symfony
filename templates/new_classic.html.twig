@@ -1,6 +1,5 @@
-{% if classic is defined %}
 {% set new_url = app.request.uri ~ (args['show'] is defined and args['show']!= '' ? '?show=' ~ args['show'] : '') %}
-{% set classic_base = ('dev' == app.environment ? 'http://dev.' : 'https://www.') ~ 'classaxe.com/dx/ndb/' ~ system ~ '/' %}
+{% set classic_base = (isDev ? 'http://dev.' : 'https://www.') ~ 'classaxe.com/dx/ndb/' ~ system ~ '/' %}
 <div class="version show-for-large">
     <div class="version-git"><strong>{% trans %}Version{% endtrans %}:</strong> {{ tag }}</div>
     <div class="version-switcher">
@@ -31,5 +30,3 @@
         ]
     </div>
 </div>
-
-{% endif %}
