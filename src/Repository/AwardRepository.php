@@ -28,7 +28,7 @@ class AwardRepository
             'ITU' => [ 'DEU' ],
             'QTY' => [ 20, 30, 60, 100 ]
         ],
-        'country_scandanavia' => [
+        'country_scandinavia' => [
             'ALL' => false,
             'ITU' => [ 'SWE', 'NOR', 'FIN', 'DNK' ],
             'QTY' => [ 25, 100, 200, 300 ]

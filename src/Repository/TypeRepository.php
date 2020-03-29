@@ -178,7 +178,7 @@ class TypeRepository
 
     public function getTypeForCode($code)
     {
-        return static::types[$code];
+        return static::types[$code] ?? false;
     }
 
     public function sortByOrder($a, $b) {

@@ -19,6 +19,8 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class Collection extends Base
 {
+    private $typeRepository;
+
     /**
      * @Route(
      *     "/{_locale}/{system}/signals",
@@ -48,6 +50,7 @@ class Collection extends Base
         SignalRepository $signalRepository,
         TypeRepository $typeRepository
     ) {
+        $this->typeRepository = $typeRepository;
         $isAdmin = $this->parameters['isAdmin'];
         $args = [
             'active' =>         '',
@@ -95,9 +98,6 @@ class Collection extends Base
 
         $this->setArgsFromRequest($args, $request);
 
-        if (empty($args['type'])) {
-            $args['type'][] = 'NDB';
-        }
         foreach (['logged_date_1', 'logged_date_2', 'logged_first_1', 'logged_first_2', 'logged_last_1', 'logged_last_2'] as $arg) {
             $args[$arg] = $args[$arg] ? new DateTime($args[$arg]) : null;
         }
@@ -106,6 +106,9 @@ class Collection extends Base
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $args = $form->getData();
+        }
+        if (empty($args['type'])) {
+            $args['type'][] = 'NDB';
         }
         if ([''] === $args['listener']) {
             $args['listener'] = [];
@@ -208,7 +211,13 @@ class Collection extends Base
                 $args[$set] = [];
                 $values = explode(',', $request->query->get($set . 's'));
                 foreach ($values as $v) {
-                    $args[$set][] = $v;
+                    if ('type' === $set) {
+                        if ($this->typeRepository->getSignalTypesSearched([$v])){
+                            $args[$set][] = $v;
+                        }
+                    } else {
+                        $args[$set][] = $v;
+                    }
                 }
             }
         }
