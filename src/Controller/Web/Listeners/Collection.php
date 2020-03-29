@@ -71,15 +71,15 @@ class Collection extends Base
             'show' =>       '',
             'sort' =>       static::defaultSorting,
             'system' =>     $system,
-            'types' =>      [],
+            'type' =>       [],
         ];
         $form = $form->buildForm($this->createFormBuilder(), $args);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $args = $form->getData();
         }
-        if (empty($args['types'])) {
-            $args['types'][] = 'NDB';
+        if (empty($args['type'])) {
+            $args['type'][] = 'NDB';
         }
         $listeners =    $listenerRepository->getFilteredListeners($system, $args);
         $total =        $listenerRepository->getFilteredListenersCount($system, $args);

@@ -4,7 +4,7 @@
     <thead>
         <tr>
 {% for key, column in columns %}
-{% if ((not column.admin or isAdmin) and (not column.arg or (column.arg and column.arg in args.types))) %}
+{% if ((not column.admin or isAdmin) and (not column.arg or (column.arg and column.arg in args.type))) %}
             <th{%
                 if key and column.order
             %} id="{{ key }}|{{ column.order }}"{%
@@ -30,7 +30,7 @@
 {% for listener in listeners %}
         <tr>
 {% for key, column in columns %}
-{% if ((not column.admin or isAdmin) and (not column.arg or (column.arg and column.arg in args.types))) %}
+{% if ((not column.admin or isAdmin) and (not column.arg or (column.arg and column.arg in args.type))) %}
             <td{%
                 if key == 'name'
                     %} title="{{ listener.primaryQth ? 'Primary Location' | trans : 'Secondary Location' | trans }}" class="{{ listener.primaryQth ? 'primaryQth' : 'secondaryQth' }}"{%

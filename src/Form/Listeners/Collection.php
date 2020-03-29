@@ -89,7 +89,7 @@ class Collection extends Base
                 ]
             )
             ->add(
-                'types',
+                'type',
                 ChoiceType::class,
                 [
                     'choices' =>    $this->type->getAllChoices(true),
