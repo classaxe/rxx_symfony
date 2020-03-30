@@ -1,0 +1,43 @@
+.cle_links {
+    margin: 0;
+    div {
+        padding: 0;
+        div {
+            border: 1px solid #444;
+            border-radius: 5px;
+            margin: 2px;
+            padding: 5px;
+            a {
+                white-space: nowrap;
+                color: inherit;
+                font-weight: normal;
+                &:hover {
+                    font-weight: bold;
+                }
+            }
+            &.rna {
+                background: @rna[panelBg];
+                color: @rna[titleColor];
+            }
+            &.reu {
+                background: @reu[panelBg];
+                color: @reu[titleColor];
+            }
+            &.rww {
+                background: @rww[panelBg];
+                color: @rww[titleColor];
+            }
+            h3 {
+                display: block;
+                width: 100%;
+                white-space: nowrap;
+                margin: 2px auto;
+                font-weight: bold;
+                text-align: center !important;
+            }
+            ul {
+                margin-bottom: 0.25em;
+            }
+        }
+    }
+}

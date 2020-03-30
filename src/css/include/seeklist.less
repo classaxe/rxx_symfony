@@ -1,0 +1,89 @@
+label[for="seeklist_paper"] {
+    font-weight: bold;
+    display: inline-block;
+    margin-right: 1em;
+}
+select#seeklist_paper {
+    width: 300px;
+}
+table.seeklist {
+    page-break-inside: avoid;
+    page-break-before: auto;
+    border-collapse: collapse;
+    border: 1px solid #000000;
+    thead {
+        tr.sl_1 {
+            td {
+                background-color: #777 !important;
+                div {
+                    color: #ffffff !important;
+                }
+                h2, h3, h4 {
+                    color: #ffffff !important;
+                    font-weight: bold;
+                    margin: 0;
+                    font-size: 100%;
+                    a {
+                        color: #ffffff;
+                        &:hover {
+                            background: #ffffff;
+                            color: #0000ff;
+                        }
+                    }
+                }
+            }
+        }
+        tr.sl_2 {
+            td {
+                i {
+                    background-color: #e0e0e0 !important;
+                    padding: 0 0.125em;
+                }
+            }
+        }
+        td {
+            border: 1px solid #000000;
+            margin: 0;
+            padding: 0 0.25em;
+        }
+    }
+    tbody {
+        td {
+            border: 1px solid #000000;
+            .head {
+                padding: 0 0.25em !important;
+            }
+            div.sl_h,
+            div.sl_d {
+                white-space: nowrap;
+                span {
+                    font-family: "Courier New bold", Courier, monospace;
+                    white-space: nowrap;
+                    display: inline-block;
+                    width: 5em;
+                    float: left;
+                }
+                em {
+                    display: inline-block;
+                    float: right;
+                }
+            }
+            div.sl_d + div.sl_h {
+                margin-top: 1.15em;
+            }
+            div.sl_d {
+                margin-left: 0.5em;
+                line-height: 1.15em;
+                em {
+                    font-family: "Courier New bold", Courier, monospace;
+                    font-weight: bold;
+                    font-style: normal;
+                }
+                &.inactive {
+                    font-style: italic !important;
+                    background-color: #e0e0e0 !important;
+                }
+            }
+        }
+    }
+}

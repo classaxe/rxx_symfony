@@ -1,0 +1,87 @@
+.menu-centered {
+    margin: auto;
+
+    @media (max-width:39.9375em) {
+        width: @width[menuSysBtn];
+        h2 {
+            font-size: 100%;
+        }
+        .system,
+        .mode,
+        .language {
+            border-top-width: 1px;
+            margin-bottom: 0.25em;
+        }
+        .system {
+            a {
+                width: @width[menuSysBtn]/3;
+            }
+        }
+        .mode,
+        .language {
+            a {
+                width: @width[menuSysBtn];
+                border-width: 0 0 1px 0 !important;
+            }
+        }
+    }
+    @media (min-width:40em) {
+        width: 3 * @width[menuSysBtn] + 1 + 1;
+        h2 {
+            font-size: 130%;
+        }
+        a {
+            font-size: 80%;
+        }
+        .system,
+        .mode {
+            border-width: 0 1px 1px 1px !important;
+        }
+        .language {
+            border-width: 1px !important;
+            margin: 0.5em 0 0 (((3 * @width[menuSysBtn] + 1 + 1) - (4 * @width[menuLangBtn] + 1 + 1))/2);
+            width: 4 * @width[menuLangBtn] + 1 + 1;
+            a {
+                width: @width[menuLangBtn];
+            }
+        }
+    }
+
+    .header {
+        border-width: 3px;
+        border-style: solid;
+        h2 {
+            text-align: center;
+            margin: 0.25em 0;
+        }
+    }
+
+    .system {
+        a {
+            width: @width[menuSysBtn];
+        }
+    }
+    .system,
+    .mode,
+    .language {
+        background: @white;
+        a {
+            padding: 0.25em 1em;
+            text-align: center;
+            &:hover {
+                text-decoration: underline;
+            }
+            @media print {
+                color: #a0a0a0;
+            }
+        }
+        .is-active > a {
+            font-weight: 900;
+            color: #ffff00;
+            text-decoration: underline;
+            @media print {
+                border-width: 2px 1px;
+            }
+        }
+    }
+}

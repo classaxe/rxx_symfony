@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.2.2
- * Date:       2020-03-29
+ * Version:    2.3.2
+ * Date:       2020-03-30
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
  */
@@ -47,7 +47,7 @@ body.reu .controlPanel .content {
   background: #fff0f0;
 }
 body.reu .footer {
-  border-top: 3px solid #d03333;
+  border-color: #d03333;
 }
 body.reu .footer a {
   color: #0000ff;
@@ -106,7 +106,7 @@ body.rna .controlPanel .content {
   background: #e0e0ff;
 }
 body.rna .footer {
-  border-top: 3px solid #3333ff;
+  border-color: #3333ff;
 }
 body.rna .footer a {
   color: #0000ff;
@@ -165,7 +165,7 @@ body.rww .controlPanel .content {
   background: #f2fff2;
 }
 body.rww .footer {
-  border-top: 3px solid #198019;
+  border-color: #198019;
 }
 body.rww .footer a {
   color: #0000ff;
@@ -240,27 +240,35 @@ tr.other td {
   font-style: italic;
   font-weight: bold !important;
 }
-/* [ General Styles ] */
-body {
-  font-family: Arial, Helvetica, sans-serif;
+@media (max-width: 63.9375em) {
+  .version {
+    text-align: center;
+    padding: 0 0.5em;
+    background-color: #ffff80;
+    border: 1px solid #eee;
+  }
+  .version div {
+    display: inline;
+    padding: 0 1em;
+    white-space: nowrap;
+  }
 }
-/* [ Version Switcher ] */
-.version .version-combined {
-  padding: 0 0.5em;
-  background-color: #ffff80;
-  text-align: center;
+@media (min-width: 64em) {
+  .version div {
+    padding: 0 0.5em;
+    background-color: #ffff80;
+    border: 1px solid #eee;
+  }
 }
-.version .version-switcher {
-  padding: 0 0.5em;
-  background-color: #ffff80;
-  border: 1px solid #eee;
-  float: right;
+@media (min-width: 64em) {
+  .version .version-switcher {
+    float: right;
+  }
 }
-.version .version-git {
-  padding: 0 0.5em;
-  background-color: #ffff80;
-  border: 1px solid #eee;
-  float: left;
+@media (min-width: 64em) {
+  .version .version-git {
+    float: left;
+  }
 }
 .version a {
   color: #0000ff;
@@ -270,7 +278,6 @@ body {
   font-weight: bold;
   text-decoration: underline;
 }
-/* [ Menu ] */
 .menu-centered {
   margin: auto;
 }
@@ -278,7 +285,7 @@ body {
   .menu-centered {
     width: 190px;
   }
-  .menu-centered .header h2 {
+  .menu-centered h2 {
     font-size: 100%;
   }
   .menu-centered .system,
@@ -300,13 +307,18 @@ body {
   .menu-centered {
     width: 572px;
   }
-  .menu-centered .header h2 {
+  .menu-centered h2 {
     font-size: 130%;
   }
   .menu-centered a {
     font-size: 80%;
   }
+  .menu-centered .system,
+  .menu-centered .mode {
+    border-width: 0 1px 1px 1px !important;
+  }
   .menu-centered .language {
+    border-width: 1px !important;
     margin: 0.5em 0 0 125px;
     width: 322px;
   }
@@ -362,62 +374,55 @@ body {
     border-width: 2px 1px;
   }
 }
-.txt_r {
-  text-align: right;
+.cle_links {
+  margin: 0;
 }
-.monospace {
-  font-family: "Courier New bold", Courier, monospace;
+.cle_links div {
+  padding: 0;
 }
-.clipped {
-  max-width: 100px;
-  overflow: hidden;
-  text-overflow: ellipsis;
+.cle_links div div {
+  border: 1px solid #444;
+  border-radius: 5px;
+  margin: 2px;
+  padding: 5px;
 }
-.txt_vertical {
-  vertical-align: bottom;
-  text-align: center;
-}
-.txt_vertical div {
-  -ms-writing-mode: tb-rl;
-  -webkit-writing-mode: vertical-rl;
-  writing-mode: vertical-rl;
+.cle_links div div a {
   white-space: nowrap;
-  padding-bottom: 0.5em;
-  display: table;
-  border-spacing: 0;
+  color: inherit;
+  font-weight: normal;
 }
-#lastError,
-#lastMessage {
-  padding: 0.25em 0.5em;
-  margin: 0.5em 0;
-  display: inline-block;
+.cle_links div div a:hover {
+  font-weight: bold;
 }
-#lastError {
-  border: 1px solid #ff0000;
-  background: #ffe0e0;
-  color: #ff0000;
+.cle_links div div.rna {
+  background: #e0e0ff;
+  color: #3333ff;
 }
-#lastMessage {
-  border: 1px solid #008000;
-  background: #e0ffe0;
-  color: #008000;
+.cle_links div div.reu {
+  background: #fff0f0;
+  color: #d03333;
 }
-pre {
-  border: 1px dashed #ccc;
-  background: #eee;
-  padding: 0.25em 1em !important;
-  margin: 0.5em !important;
-  font-size: 8pt !important;
-  display: inline-block;
+.cle_links div div.rww {
+  background: #f2fff2;
+  color: #198019;
 }
-a.hover:hover {
-  background-color: #ffff00;
+.cle_links div div h3 {
+  display: block;
+  width: 100%;
+  white-space: nowrap;
+  margin: 2px auto;
+  font-weight: bold;
+  text-align: center !important;
 }
-/* [ Footer ] */
+.cle_links div div ul {
+  margin-bottom: 0.25em;
+}
 .footer {
   text-align: center;
   margin: 1em 0.5em;
   padding: 0.25em 0;
+  border-style: solid;
+  border-width: 3px 0 0 0;
 }
 .footer p {
   margin: 0 0 1em 0;
@@ -426,17 +431,6 @@ a.hover:hover {
 }
 .footer p.preamble {
   margin: 1em 0 0 0;
-}
-/* [ Screen Reader Support ] */
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  border: 0;
 }
 label[for="seeklist_paper"] {
   font-weight: bold;
@@ -524,6 +518,71 @@ table.seeklist tbody td div.sl_d em {
 table.seeklist tbody td div.sl_d.inactive {
   font-style: italic !important;
   background-color: #e0e0e0 !important;
+}
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+.txt_r {
+  text-align: right;
+}
+.monospace {
+  font-family: "Courier New bold", Courier, monospace;
+}
+.clipped {
+  max-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.txt_vertical {
+  vertical-align: bottom;
+  text-align: center;
+}
+.txt_vertical div {
+  -ms-writing-mode: tb-rl;
+  -webkit-writing-mode: vertical-rl;
+  writing-mode: vertical-rl;
+  white-space: nowrap;
+  padding-bottom: 0.5em;
+  display: table;
+  border-spacing: 0;
+}
+#lastError,
+#lastMessage {
+  padding: 0.25em 0.5em;
+  margin: 0.5em 0;
+  display: inline-block;
+}
+#lastError {
+  border: 1px solid #ff0000;
+  background: #ffe0e0;
+  color: #ff0000;
+}
+#lastMessage {
+  border: 1px solid #008000;
+  background: #e0ffe0;
+  color: #008000;
+}
+pre {
+  border: 1px dashed #ccc;
+  background: #eee;
+  padding: 0.25em 1em !important;
+  margin: 0.5em !important;
+  font-size: 8pt !important;
+  display: inline-block;
+}
+a.hover:hover {
+  background-color: #ffff00;
+}
+/* [ Screen Reader Support ] */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
 }
 /* [ Help dialogs ] */
 .help {
@@ -993,13 +1052,6 @@ button.tiny {
   display: none;
 }
 /* [ Form Dimensions ] */
-.listener_list {
-  width: 570px;
-}
-.listener_list input[type='text'],
-.listener_list select {
-  width: 435px;
-}
 .signal_list {
   width: 570px;
 }
@@ -1193,7 +1245,14 @@ fieldset#form_range_units legend {
 fieldset#form_range_units div label {
   margin: 0 0.25em;
 }
-/* [ Form logon ] */
+/* [ Forms ] */
+.listener_list {
+  width: 570px;
+}
+.listener_list input[type='text'],
+.listener_list select {
+  width: 435px;
+}
 .logon #form {
   width: 300px;
 }
@@ -1208,7 +1267,6 @@ fieldset#form_range_units div label {
   margin: 0 30%;
   width: 10em;
 }
-/* [ Form listener_view ] */
 .listener_view #form label {
   width: 20%;
   min-width: 120px;
@@ -1220,7 +1278,39 @@ fieldset#form_range_units div label {
   padding: 0.125em 0.25em;
   margin: 0 0 0.25em 0;
 }
-/* [ Form signal_view ] */
+.listener_stats div.stats {
+  clear: both;
+  border: 1px solid #ccc;
+  background: #ffffff;
+  padding: 0.25em 0.25em 0 0.25em;
+  margin: 0.25em 0;
+  width: 18em;
+}
+.listener_stats div.signal_stat {
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+  width: 20em;
+  line-height: initial;
+}
+.listener_stats div.signal_stat label {
+  font-weight: bold;
+  width: 15em;
+  margin: 0;
+  padding: 0.25em;
+  border: 1px solid #ccc;
+  float: left;
+  line-height: initial;
+}
+.listener_stats div.signal_stat div {
+  display: inline-block;
+  float: left;
+  margin: 0 0.25em;
+  padding: 0.25em;
+  width: 4em;
+  text-align: right;
+  line-height: initial;
+}
 .signal_view #form label {
   width: 25%;
   min-width: 120px;
@@ -1390,6 +1480,76 @@ fieldset#form_range_units div label {
 .signal_view #form fieldset {
   margin-top: 0.75em;
 }
+.listener_weather #form fieldset#group_weather_report_details div *,
+.signal_weather #form fieldset#group_weather_report_details div * {
+  line-height: 1.8em;
+  padding: 0;
+  margin: 0;
+}
+.listener_weather #form fieldset#group_weather_report_details div label,
+.signal_weather #form fieldset#group_weather_report_details div label {
+  width: auto;
+  line-height: unset;
+  margin: 0 0.5em;
+}
+.listener_weather #form div,
+.signal_weather #form div {
+  display: inline-block;
+}
+.listener_weather #form div button,
+.signal_weather #form div button {
+  width: 8.5em;
+}
+.listener_weather #form_icao,
+.signal_weather #form_icao {
+  width: 20em;
+  font-size: 10pt;
+  font-family: 'Courier New', monospace;
+  font-weight: bold;
+}
+.listener_weather #form_hours,
+.signal_weather #form_hours {
+  width: 3.5em;
+  text-align: right;
+}
+.listener_weather #weather,
+.signal_weather #weather {
+  height: 25em;
+  font-size: 10pt;
+  font-family: 'Courier New', monospace;
+}
+.listener_locator_map #form {
+  margin: 0 0 0 1em;
+  border: 1px solid #000;
+  border-radius: 5px;
+  padding: 0.5em 0.5em 0 0.5em;
+  background-color: #fff;
+}
+.listener_locator_map #form label {
+  width: 1em;
+}
+.listener_locator_map #form button {
+  margin: 0;
+  width: 4em;
+  float: none;
+}
+.listener_locator_map #form button#x_sub,
+.listener_locator_map #form button#x_add,
+.listener_locator_map #form button#y_sub,
+.listener_locator_map #form button#y_add {
+  height: 1.5em;
+  width: 1.5em;
+}
+.listener_locator_map #form table tbody {
+  border: 1px solid #aaa;
+}
+.listener_locator_map #form table tbody tr {
+  background-color: #f0f0f0 !important;
+}
+.listener_locator_map #form table tbody th {
+  padding: 0;
+  margin: 0;
+}
 a.close,
 a.delete {
   display: block;
@@ -1529,109 +1689,6 @@ div.scroll div table.results tbody tr:hover td {
 }
 div.scroll div table.results img {
   margin: 0.5em 0.25em 0 0;
-}
-/* [ Form listener_weather, signal_weather ] */
-.listener_weather #form div,
-.signal_weather #form div {
-  display: inline-block;
-}
-.listener_weather #form div button,
-.signal_weather #form div button {
-  width: 8.5em;
-}
-.listener_weather #form_icao,
-.signal_weather #form_icao {
-  width: 20em;
-  font-size: 10pt;
-  font-family: 'Courier New', monospace;
-  font-weight: bold;
-}
-.listener_weather #form_hours,
-.signal_weather #form_hours {
-  width: 3.5em;
-  text-align: right;
-}
-.listener_weather #weather,
-.signal_weather #weather {
-  height: 25em;
-  font-size: 10pt;
-  font-family: 'Courier New', monospace;
-}
-.listener_locator_map #form {
-  margin: 0 0 0 1em;
-  border: 1px solid #000;
-  border-radius: 5px;
-  padding: 0.5em 0.5em 0 0.5em;
-  background-color: #fff;
-}
-.listener_locator_map #form label {
-  width: 1em;
-}
-.listener_locator_map #form button {
-  margin: 0;
-  width: 4em;
-  float: none;
-}
-.listener_locator_map #form button#x_sub,
-.listener_locator_map #form button#x_add,
-.listener_locator_map #form button#y_sub,
-.listener_locator_map #form button#y_add {
-  height: 1.5em;
-  width: 1.5em;
-}
-.listener_locator_map #form table tbody {
-  border: 1px solid #aaa;
-}
-.listener_locator_map #form table tbody tr {
-  background-color: #f0f0f0 !important;
-}
-.listener_locator_map #form table tbody th {
-  padding: 0;
-  margin: 0;
-}
-fieldset#group_weather_report_details div * {
-  line-height: 1.8em;
-  padding: 0;
-  margin: 0;
-}
-fieldset#group_weather_report_details div label {
-  width: auto;
-  line-height: unset;
-  margin: 0 0.5em;
-}
-/* [ Listener Stats ] */
-.listener_stats div.stats {
-  clear: both;
-  border: 1px solid #ccc;
-  background: #ffffff;
-  padding: 0.25em 0.25em 0 0.25em;
-  margin: 0.25em 0;
-  width: 18em;
-}
-.listener_stats div.signal_stat {
-  margin: 0;
-  padding: 0;
-  display: inline-block;
-  width: 20em;
-  line-height: initial;
-}
-.listener_stats div.signal_stat label {
-  font-weight: bold;
-  width: 15em;
-  margin: 0;
-  padding: 0.25em;
-  border: 1px solid #ccc;
-  float: left;
-  line-height: initial;
-}
-.listener_stats div.signal_stat div {
-  display: inline-block;
-  float: left;
-  margin: 0 0.25em;
-  padding: 0.25em;
-  width: 4em;
-  text-align: right;
-  line-height: initial;
 }
 /* [ Grid CSS ] */
 .results {
@@ -2012,47 +2069,4 @@ a.sec {
 }
 .fa-info-circle {
   color: #00f;
-}
-.cle_links {
-  margin: 0;
-}
-.cle_links div {
-  padding: 0;
-}
-.cle_links div div {
-  border: 1px solid #444;
-  border-radius: 5px;
-  margin: 2px;
-  padding: 5px;
-}
-.cle_links div div a {
-  white-space: nowrap;
-  color: inherit;
-  font-weight: normal;
-}
-.cle_links div div a:hover {
-  font-weight: bold;
-}
-.cle_links div div.rna {
-  background: #e0e0ff;
-  color: #3333ff;
-}
-.cle_links div div.reu {
-  background: #fff0f0;
-  color: #d03333;
-}
-.cle_links div div.rww {
-  background: #f2fff2;
-  color: #198019;
-}
-.cle_links div div h3 {
-  display: block;
-  width: 100%;
-  white-space: nowrap;
-  margin: 2px auto;
-  font-weight: bold;
-  text-align: center !important;
-}
-.cle_links div div ul {
-  margin-bottom: 0.25em;
 }

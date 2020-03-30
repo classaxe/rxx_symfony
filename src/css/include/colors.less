@@ -1,0 +1,160 @@
+// Global Settings
+@white:             #ffffff;
+@sortedBg:          #665d4b;
+@sortedTxt:         #ffe4b3;
+@sortedBorder:      #FCC247;
+@infoColor:         #008000;
+@infoBg:            #e0ffe0;
+@errorColor:        #ff0000;
+@errorBg:           #ffe0e0;
+
+// System Colour Schemes
+#brands {
+    @reu: {
+        bodyBg:         #fffafa;
+        panelBg:        #fff0f0;
+        menuActiveBg:   #d03333;
+        titleColor:     #d03333;
+        btnBg:          #b35959;
+        btnActiveColor: #ffff40;
+        btnBorder:      #800000;
+        btnHover:       #cc2929;
+        btnActive:      #e63030;
+    };
+    @rna: {
+        bodyBg:         #f8f8ff;
+        panelBg:        #e0e0ff;
+        menuActiveBg:   #3333ff;
+        titleColor:     #3333ff;
+        btnBg:          #6666cc;
+        btnActiveColor: #ffff40;
+        btnBorder:      #3333ff;
+        btnHover:       #5252cc;
+        btnActive:      #4545e6;
+    };
+    @rww: {
+        bodyBg:         #fafffa;
+        panelBg:        #f2fff2;
+        menuActiveBg:   #198019;
+        titleColor:     #198019;
+        btnBg:          #2d802d;
+        btnActiveColor: #ffff40;
+        btnBorder:      #4d804d;
+        btnHover:       #40a040;
+        btnActive:      #208020;
+    };
+}
+// Colours
+#sysColor(@rmode) {
+    body.@{rmode} {
+        background: @@rmode[bodyBg];
+        .menu-centered {
+            .header {
+                background: @@rmode[panelBg];
+                border-color: @@rmode[menuActiveBg];
+                h2 {
+                    color: @@rmode[titleColor];
+                }
+            }
+            .system,
+            .mode,
+            .language {
+                border-color: @@rmode[menuActiveBg];
+                border-width: 1px;
+                border-style: solid;
+                li:not(:last-child) {
+                    a {
+                        border-right: 1px solid @@rmode[menuActiveBg];
+                    }
+                }
+            }
+        }
+        .menu {
+            a {
+                color: @@rmode[menuActiveBg];
+            }
+            .is-active > a {
+                background: @@rmode[menuActiveBg];
+                color: @white;
+            }
+        }
+        h1,
+        h2 {
+            color: @@rmode[titleColor];
+        }
+        fieldset {
+            legend {
+                color: @@rmode[titleColor];
+            }
+        }
+        .controlPanel {
+            .content {
+                background: @@rmode[panelBg];
+            }
+        }
+        .footer {
+            border-color: @@rmode[menuActiveBg];
+            a {
+                color: #0000ff;
+            }
+        }
+        .button {
+            border-color: @@rmode[btnBorder];
+            background: @@rmode[btnBg];
+            color: @white;
+            &:hover {
+                background: @@rmode[btnHover];
+                color: @@rmode[btnActiveColor];
+            }
+            &.is-active {
+                background: @@rmode[btnActive];
+                color: @@rmode[btnActiveColor];
+                text-decoration: underline;
+            }
+        }
+    }
+}
+
+/* [ System Colours ] */
+#brands;
+#sysColor(reu);
+#sysColor(rna);
+#sysColor(rww);
+
+&.rna-system {
+    background: @rna[panelBg];
+    color: @rna[titleColor];
+}
+&.reu-system {
+    background: @reu[panelBg];
+    color: @reu[titleColor];
+}
+&.rww-system {
+    background: @rww[panelBg];
+    color: @rww[titleColor];
+}
+
+tr.inactive td {
+    color: #a0a0a0;
+    font-style: italic;
+    a {
+        color: #6080b0;
+    }
+}
+.type_ndb     , tr.ndb      td { background-color: #ffffff !important; }
+.type_dgps    , tr.dgps     td { background-color: #00d8ff !important; }
+.type_dsc     , tr.dsc      td { background-color: #ffb000 !important; }
+.type_time    , tr.time     td { background-color: #ffe0b0 !important; }
+.type_navtex  , tr.navtex   td { background-color: #ffb8d8 !important; }
+.type_hambcn  , tr.hambcn   td { background-color: #b8ffc0 !important; }
+.type_other   , tr.other    td { background-color: #b8f8ff !important; }
+
+.type_all {
+    background-color: #d03333;
+    color: #ffffff;
+    label {
+        color: #fff;
+        font-style:italic;
+        font-weight: bold !important;
+    }
+}
