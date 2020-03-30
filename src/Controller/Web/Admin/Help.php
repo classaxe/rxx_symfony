@@ -29,6 +29,7 @@ class Help extends Base
         }
         $parameters = [
             '_locale' =>    $_locale,
+            'classic' =>    $this->systemRepository->getClassicUrl('admin/help'),
             'mode' =>       'Admin Help',
             'system' =>     $system,
         ];

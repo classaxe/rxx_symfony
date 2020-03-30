@@ -132,6 +132,12 @@ class SystemRepository
     {
         $response = [ 'type' => 'url', 'value' => '' ];
         switch ($mode) {
+            case 'admin/help':
+                $response['value'] = 'admin_help';
+                break;
+            case 'admin/info':
+                $response['value'] = 'sys_info';
+                break;
             case 'cle':
             case 'help':
             case 'logon':

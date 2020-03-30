@@ -1,7 +1,7 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.3.2
+ * Version:    2.3.3
  * Date:       2020-03-30
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
@@ -21,13 +21,11 @@ body.reu .menu-centered .system,
 body.reu .menu-centered .mode,
 body.reu .menu-centered .language {
   border-color: #d03333;
-  border-width: 1px;
-  border-style: solid;
 }
-body.reu .menu-centered .system li:not(:last-child) a,
-body.reu .menu-centered .mode li:not(:last-child) a,
-body.reu .menu-centered .language li:not(:last-child) a {
-  border-right: 1px solid #d03333;
+body.reu .menu-centered .system li a,
+body.reu .menu-centered .mode li a,
+body.reu .menu-centered .language li a {
+  border-color: #d03333;
 }
 body.reu .menu a {
   color: #d03333;
@@ -80,13 +78,11 @@ body.rna .menu-centered .system,
 body.rna .menu-centered .mode,
 body.rna .menu-centered .language {
   border-color: #3333ff;
-  border-width: 1px;
-  border-style: solid;
 }
-body.rna .menu-centered .system li:not(:last-child) a,
-body.rna .menu-centered .mode li:not(:last-child) a,
-body.rna .menu-centered .language li:not(:last-child) a {
-  border-right: 1px solid #3333ff;
+body.rna .menu-centered .system li a,
+body.rna .menu-centered .mode li a,
+body.rna .menu-centered .language li a {
+  border-color: #3333ff;
 }
 body.rna .menu a {
   color: #3333ff;
@@ -139,13 +135,11 @@ body.rww .menu-centered .system,
 body.rww .menu-centered .mode,
 body.rww .menu-centered .language {
   border-color: #198019;
-  border-width: 1px;
-  border-style: solid;
 }
-body.rww .menu-centered .system li:not(:last-child) a,
-body.rww .menu-centered .mode li:not(:last-child) a,
-body.rww .menu-centered .language li:not(:last-child) a {
-  border-right: 1px solid #198019;
+body.rww .menu-centered .system li a,
+body.rww .menu-centered .mode li a,
+body.rww .menu-centered .language li a {
+  border-color: #198019;
 }
 body.rww .menu a {
   color: #198019;
@@ -291,8 +285,15 @@ tr.other td {
   .menu-centered .system,
   .menu-centered .mode,
   .menu-centered .language {
-    border-top-width: 1px;
+    border-style: solid;
+    border-width: 1px;
     margin-bottom: 0.25em;
+  }
+  .menu-centered .system li:not(:last-child) a,
+  .menu-centered .mode li:not(:last-child) a,
+  .menu-centered .language li:not(:last-child) a {
+    border-style: solid;
+    border-width: 0 0 1px 0;
   }
   .menu-centered .system a {
     width: 63.33333333px;
@@ -300,7 +301,6 @@ tr.other td {
   .menu-centered .mode a,
   .menu-centered .language a {
     width: 190px;
-    border-width: 0 0 1px 0 !important;
   }
 }
 @media (min-width: 40em) {
@@ -315,10 +315,23 @@ tr.other td {
   }
   .menu-centered .system,
   .menu-centered .mode {
-    border-width: 0 1px 1px 1px !important;
+    border-width: 0 1px 1px 1px;
   }
   .menu-centered .language {
-    border-width: 1px !important;
+    border-width: 1px 1px 1px 1px;
+  }
+  .menu-centered .system,
+  .menu-centered .mode,
+  .menu-centered .language {
+    border-style: solid;
+  }
+  .menu-centered .system li:not(:last-child) a,
+  .menu-centered .mode li:not(:last-child) a,
+  .menu-centered .language li:not(:last-child) a {
+    border-style: solid;
+    border-width: 0 1px 0 0;
+  }
+  .menu-centered .language {
     margin: 0.5em 0 0 125px;
     width: 322px;
   }

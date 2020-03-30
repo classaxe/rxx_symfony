@@ -33,6 +33,7 @@ class Info extends Base
         $parameters = [
             '_locale' =>        $_locale,
             'changelog' =>      "<p>".implode("</p><p></p>", $this->getGitInfo())."</p>",
+            'classic' =>        $this->systemRepository->getClassicUrl('admin/info'),
             'mode' =>           'System Info',
             'info' =>           $this->getPhpInfo(),
             'php_version' =>    phpversion(),
