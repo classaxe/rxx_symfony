@@ -17,8 +17,8 @@ class ListenersTest extends Base
         7 =>    "Test 7:\nRequested %s as %s with query matching nothing:\nExpected message '%s', saw '%s'.",
     ];
 
-    const COLS_MIN =    15;     // Only NDBs selected
-    const COLS_MAX =    21;     // All types selected
+    const COLS_MIN =    16;     // Only NDBs selected
+    const COLS_MAX =    22;     // All types selected
     const COLS_ADMIN =  4;      // Additional colunms for admin users
 
     public function testAllSystemsPublic()
@@ -70,7 +70,7 @@ class ListenersTest extends Base
             $form = $this
                 ->getMyCrawler()
                 ->filter('button#form_submit')
-                ->form(['form[types]' =>    array_values((new TypeRepository)->getAllChoices())], 'POST');
+                ->form(['form[type]' =>    array_values((new TypeRepository)->getAllChoices())], 'POST');
             $this->myClient->submit($form);
 
             $headRow =      $this->getMyCrawler()->filter('table.listener.results thead tr')->eq(0);
