@@ -199,6 +199,13 @@ class Signal
     /**
      * @var int|null
      *
+     * @ORM\Column(name="listeners", type="integer", nullable=true, options={"unsigned"=true})
+     */
+    private $listeners;
+
+    /**
+     * @var int|null
+     *
      * @ORM\Column(name="logs", type="integer", nullable=true, options={"unsigned"=true})
      */
     private $logs;
@@ -547,6 +554,18 @@ class Signal
         return $this;
     }
 
+    public function getListeners(): ?int
+    {
+        return $this->listeners;
+    }
+
+    public function setListeners(?int $listeners): self
+    {
+        $this->listeners = $listeners;
+
+        return $this;
+    }
+
     public function getLogs(): ?int
     {
         return $this->logs;
@@ -723,7 +742,7 @@ class Signal
         if (!$this->lsb) {
             return '';
         }
-        return $this->lsbApprox . ($this->khz - number_format($this->lsb / 1000, 3, '.'));
+        return $this->lsbApprox . ((float)$this->khz - number_format($this->lsb / 1000, 3, '.'));
     }
 
     public function getFormattedLsbRel(): ?string {
@@ -737,7 +756,7 @@ class Signal
         if (!$this->usb) {
             return '';
         }
-        return $this->usbApprox . ($this->khz + number_format($this->usb / 1000, 3, '.'));
+        return $this->usbApprox . ((float)$this->khz + number_format($this->usb / 1000, 3, '.'));
     }
 
     public function getFormattedUsbRel(): ?string {

@@ -4055,6 +4055,30 @@
         <source>Log entry has been deleted. Stats for %s have been updated.</source>
         <target>__Log entry has been deleted. Stats for %s have been updated.</target>
       </trans-unit>
+      <trans-unit id="sfVyEj3" resname="HAMBCN">
+        <source>HAMBCN</source>
+        <target>__HAMBCN</target>
+      </trans-unit>
+      <trans-unit id="6IoxZt4" resname="NAVTEX">
+        <source>NAVTEX</source>
+        <target>__NAVTEX</target>
+      </trans-unit>
+      <trans-unit id="WIhnXZm" resname="TIME">
+        <source>TIME</source>
+        <target>__TIME</target>
+      </trans-unit>
+      <trans-unit id="HFXZuCb" resname="OTHER">
+        <source>OTHER</source>
+        <target>__OTHER</target>
+      </trans-unit>
+      <trans-unit id="DBkq2tm" resname="All Signals">
+        <source>All Signals</source>
+        <target>__All Signals</target>
+      </trans-unit>
+      <trans-unit id="MZmG_Rs" resname="Map Pos">
+        <source>Map Pos</source>
+        <target>__Map Pos</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

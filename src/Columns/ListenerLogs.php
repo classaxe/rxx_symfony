@@ -197,7 +197,7 @@ class ListenerLogs
                 'admin'     =>  true,
                 'arg'       =>  '',
                 'field'     =>  'delete',
-                'label'     =>  '<div>Admin</div>',
+                'label'     =>  'Admin',
                 'order'     =>  '',
                 'sort'      =>  '',
                 'td_class'  =>  '',

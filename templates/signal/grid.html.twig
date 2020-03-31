@@ -6,8 +6,12 @@
     {% if ((not column.admin or isAdmin) and (not column.arg or (column.arg and column.arg in args.types))) %}
                 <th{%  if key and column.order %} id="{{ key }}|{{ column.order }}"{% endif %}
     {% if column.th_class or column.sort%} class="{{ column.th_class }}{% if column.sort %} sort{% endif %}"{% endif %}
-    {% if column.tooltip %} title="{{ column.tooltip|trans }}"{% endif %}
-    >{{ column.label|trans|raw }}</th>
+    {% if column.tooltip %} title="{{ column.tooltip|trans }}"{% endif %}>{%
+        if column.th_class == 'txt_vertical'
+            %}<div>{{ column.label | trans | raw }}</div>{%
+        else
+            %}{{ column.label | trans | raw }}{%
+        endif %}</th>
     {% endif %}
     {% endfor %}
             </tr>

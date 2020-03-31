@@ -21,7 +21,7 @@
                 if column.tooltip
             %} title="{{ column.tooltip | trans }}"{%
                 endif
-            %}>{{ column.label | trans | raw }}</th>
+            %}>{% if column.th_class == 'txt_vertical' %}<div>{{ column.label | trans | raw }}</div>{% else %}{{ column.label | trans | raw }}{% endif %}</th>
 {% endif %}
 {% endfor %}
         </tr>

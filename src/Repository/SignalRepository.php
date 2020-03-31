@@ -10,6 +10,7 @@ use App\Utils\Rxx;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\DBAL\Driver\Connection;
 use Doctrine\Persistence\ManagerRegistry;
+use PDO;
 
 class SignalRepository extends ServiceEntityRepository
 {
@@ -1145,96 +1146,197 @@ EOD;
         return $qb->getQuery()->getSingleScalarResult();
     }
 
-    public function updateSignalStats($signalId = false)
-    {
-        return;
-// Old code for Signal->updateHeardInList() in RXX1
-        /*
-        $sql =
-            "SELECT DISTINCT\n"
-            ."    `heard_in`,\n"
-            ."     MAX(`daytime`) as `daytime`,\n"
-            ."    `region`\n"
-            ."FROM\n"
-            ."    `logs`\n"
-            ."WHERE\n"
-            ."    `signalID` = ".$this->getID()."\n"
-            ."GROUP BY\n"
-            ."    `heard_in`\n"
-            ."ORDER BY\n"
-            ."    (`region`='na' OR `region`='ca' OR (`region`='oc' AND `heard_in`='HI')),\n"
-            ."    `region`,\n"
-            ."    `heard_in`";
-        $rows = $this->getRecordsForSql($sql);
-        $arr =          array();
-        $html_arr =     array();
-        $region =       "";
-        $old_link =     false;
-        $link =         false;
-        $eu_link =      "<a data-signal-map-eu='".$this->getID()."'>";
-        $na_link =      "<a data-signal-map-na='".$this->getID()."'>";
-        foreach ($rows as $row) {
-            $heard_in = $row["heard_in"];
-            $daytime =  $row["daytime"];
-            $region =   $row["region"];
-            $link =     false;
-            switch ($region) {
-                case "ca":
-                case "na":
-                    $link = $na_link;
-                    break;
-                case "oc":
-                    if ($heard_in=='HI') {
-                        $link = $na_link;
-                    }
-                    break;
-                case "eu":
-                    $link = $eu_link;
-                    break;
+    public function array_group_by($key, $data) {
+        $result = [];
+        foreach ($data as $val) {
+            if (array_key_exists($key, $val)) {
+                $result[$val[$key]][] = $val;
+            } else {
+                $result[''][] = $val;
             }
-            $html_arr[] =
-                ($old_link !==false && $link !== $old_link ? "</a> " : " ")
-                .($link !==false     && $link !== $old_link ? $link : "")
-                .($daytime ? "<b>".$heard_in."</b>" : $heard_in);
-            $arr[] =        htmlentities($heard_in);
-            $old_link =     $link;
         }
-        if ($link !== false) {
-            $html_arr[] = "</a>";
-        }
-        $data = array(
-            'heard_in' =>       implode(" ", $arr),
-            'heard_in_html' =>  implode("", $html_arr)
-        );
-        $this->update($data);
-        return $this->getAffectedRows();
-*/
+        return $result;
+    }
 
-// Code from ListenerRepository->updateListenerStats()
-/*
-        $sql = <<< EOT
-UPDATE
-	signals s
-SET    
-    count_logs =    (SELECT COUNT(*) FROM logs WHERE logs.listenerId = l.id),
-    count_signals = (SELECT COUNT(DISTINCT signalId) FROM logs WHERE logs.listenerId = l.id),
-    count_NDB =     (SELECT COUNT(*) FROM logs INNER JOIN signals s ON logs.signalId = s.id AND s.type = 0 WHERE logs.listenerId = l.id),
-    count_DGPS =    (SELECT COUNT(*) FROM logs INNER JOIN signals s ON logs.signalId = s.id AND s.type = 1 WHERE logs.listenerId = l.id),
-    count_TIME =    (SELECT COUNT(*) FROM logs INNER JOIN signals s ON logs.signalId = s.id AND s.type = 2 WHERE logs.listenerId = l.id),
-    count_NAVTEX =  (SELECT COUNT(*) FROM logs INNER JOIN signals s ON logs.signalId = s.id AND s.type = 3 WHERE logs.listenerId = l.id),
-    count_HAMBCN =  (SELECT COUNT(*) FROM logs INNER JOIN signals s ON logs.signalId = s.id AND s.type = 4 WHERE logs.listenerId = l.id),
-    count_OTHER =   (SELECT COUNT(*) FROM logs INNER JOIN signals s ON logs.signalId = s.id AND s.type = 5 WHERE logs.listenerId = l.id),
-    count_DSC =     (SELECT COUNT(*) FROM logs INNER JOIN signals s ON logs.signalId = s.id AND s.type = 6 WHERE logs.listenerId = l.id),
-    log_latest =    (SELECT MAX(date) FROM logs WHERE logs.listenerId = l.id)
-EOT;
+    private function getLogsLatestSpec($signalId = false)
+    {
+        $sql = <<<EOD
+SELECT
+    signalID,
+    (SELECT LSB    FROM logs l WHERE l.signalID = logs.signalID AND (l.LSB    IS NOT NULL AND l.LSB    != 0) AND (l.LSB_approx IS NULL OR l.LSB_approx = '') ORDER BY l.date DESC LIMIT 1) as LSB,
+    (SELECT USB    FROM logs l WHERE l.signalID = logs.signalID AND (l.USB    IS NOT NULL AND l.USB    != 0) AND (l.USB_approx IS NULL OR l.USB_approx = '') ORDER BY l.date DESC LIMIT 1) as USB,
+    (SELECT format FROM logs l WHERE l.signalID = logs.signalID AND (l.format IS NOT NULL AND l.format != '') ORDER BY l.date DESC LIMIT 1) as format,
+    (SELECT sec    FROM logs l WHERE l.signalID = logs.signalID AND (l.sec    IS NOT NULL AND l.sec    != '') ORDER BY l.date DESC LIMIT 1) as sec
+FROM
+    logs
+GROUP BY
+    signalID
+EOD;
         if ($signalId) {
-            $sql .= "\nWHERE\n    s.id = $signalId";
+            $sql = str_replace('GROUP BY', "WHERE\n    logs.signalID = $signalId\nGROUP BY", $sql);
         }
         $stmt = $this->connection->prepare($sql);
         $stmt->execute();
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $out = [];
+        foreach ($results as $r) {
+            $out[$r['signalID']] = [
+                'LSB' =>    $r['LSB'],
+                'USB' =>    $r['USB'],
+                'format' => $r['format'],
+                'sec' =>    $r['sec']
+            ];
+        }
+        return $out;
+    }
+
+    private function getLogsHeardIn($signalId = false)
+    {
+        $WHERE = ($signalId ? "WHERE\n    signalID = $signalId" : '');
+        $sql = <<<EOD
+            SELECT
+                signalID,
+                heard_in,
+                MAX(daytime) AS daytime,
+                region
+            FROM
+                logs
+            $WHERE
+            GROUP BY
+                heard_in,
+                region,
+                signalID
+            ORDER BY
+                signalID,
+                (region='na' OR region='ca' OR (region='oc' AND heard_in='HI')),
+                region,
+                heard_in
+EOD;
+        $stmt = $this->connection->prepare($sql);
+        $stmt->execute();
+
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $this->array_group_by('signalID', $results);
+    }
+
+    private function getLogsStats($signalId = false)
+    {
+        $WHERE = ($signalId ? "WHERE\n    signalID = $signalId" : '');
+        $sql = <<<EOD
+            SELECT
+                signalID,
+                COUNT(*) AS count_logs,
+                COUNT(DISTINCT listenerID) as count_listeners,
+                MIN(`date`) as first_heard,
+                MAX(`date`) as last_heard
+            FROM
+                logs
+            $WHERE
+            GROUP BY
+                signalID
+EOD;
+        $stmt = $this->connection->prepare($sql);
+        $stmt->execute();
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $out = [];
+        foreach ($results as $r) {
+            $out[$r['signalID']] = [
+                'first_heard' =>    $r['first_heard'],
+                'last_heard' =>     $r['last_heard'],
+                'logs' =>           $r['count_logs'],
+                'listeners' =>      $r['count_listeners']
+            ];
+        }
+        return $out;
+    }
+
+    public function updateSignalStats($signalId = false)
+    {
+        $logsHeardIn =      $this->getLogsHeardIn($signalId);
+        $logsStats =        $this->getLogsStats($signalId);
+        $logsLatestSpec =   $this->getLogsLatestSpec($signalId);
+
+        $data =         [];
+        foreach ($logsHeardIn as $signalID => $result) {
+            $heardIn =      [];
+            $old_link =     false;
+            $link =         false;
+            foreach ($result as $row) {
+                switch ($row["region"]) {
+                    case "ca":
+                    case "na":
+                        $link = "<a data-signal-map-na='%s'>";
+                        break;
+                    case "oc":
+                        if ('HI' === $row["heard_in"]) {
+                            $link = "<a data-signal-map-na='%s'>";
+                        }
+                        break;
+                    case "eu":
+                        $link = "<a data-signal-map-eu='%s'>";
+                        break;
+                    default:
+                        $link = false;
+                }
+                $heardIn[] =
+                    ($old_link && ($link !== $old_link) ? '</a>' : ' ')
+                    . ($link && ($link !== $old_link) ? sprintf($link, $row['signalID']) : '')
+                    . ($row["daytime"] ? sprintf("<b>%s</b>", $row["heard_in"]) : $row["heard_in"]);
+                $old_link = $link;
+            }
+            if ($link !== false) {
+                $heardIn[] = "</a>";
+            }
+            $data[$row['signalID']] = [
+                'id' =>             $row['signalID'],
+                'heard_in' =>       trim(strip_tags(implode('', $heardIn))),
+                'heard_in_html' =>  trim(implode('', $heardIn))
+            ];
+        }
+        foreach ($logsStats as $signalID => $stats) {
+            $data[$signalID] = array_merge($data[$signalID], $stats);
+        }
+        foreach ($logsLatestSpec as $signalID => $spec) {
+            $data[$signalID] = array_merge($data[$signalID], $spec);
+        }
+        foreach ($data as $signalID => $s) {
+            $sql = <<<EOD
+                UPDATE
+                    signals
+                SET
+                    `first_heard` =     :first_heard,
+                    `format` =          :format,
+                    `heard_in` =        :heard_in,
+                    `heard_in_html` =   :heard_in_html,
+                    `last_heard` =      :last_heard,
+                    `logs` =            :logs,
+                    `listeners` =       :listeners,
+                    `LSB` =             :LSB,
+                    `sec` =             :sec,
+                    `USB` =             :USB
+                WHERE
+                    ID =                :signalID                    
+EOD;
+            $params = [
+                ':signalID' =>      $signalID,
+                ':first_heard' =>   $s['first_heard'],
+                ':format' =>        $s['format'],
+                ':heard_in' =>      $s['heard_in'],
+                ':heard_in_html' => $s['heard_in_html'],
+                ':last_heard' =>    $s['last_heard'],
+                ':logs' =>          $s['logs'],
+                ':listeners' =>     $s['listeners'],
+                ':LSB' =>           $s['LSB'],
+                ':sec' =>           $s['sec'],
+                ':USB' =>           $s['USB']
+            ];
+        }
+        $stmt = $this->connection->prepare($sql);
+        $stmt->execute($params);
 
         return $stmt->rowCount();
-*/
     }
 
 }
