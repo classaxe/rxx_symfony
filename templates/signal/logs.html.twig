@@ -6,6 +6,7 @@
     <div class="controlPanel {{ form_class }}">
         <div class="header">{{ mode|raw }}</div>
         <div class="content scroll" id="list">
+            {% include 'status.html.twig' %}
 {{ form_start(form) }}
             {% include 'forms/paging.html.twig' %}
 {{ form_end(form) }}

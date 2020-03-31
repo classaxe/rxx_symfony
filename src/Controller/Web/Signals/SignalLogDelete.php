@@ -1,10 +1,12 @@
 <?php
-namespace App\Controller\Web\Listeners;
+namespace App\Controller\Web\Signals;
 
 use App\Controller\Web\Base;
+
 use App\Repository\ListenerRepository;
 use App\Repository\LogRepository;
 use App\Repository\SignalRepository;
+
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 
@@ -12,16 +14,16 @@ use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
  * Class Listeners
  * @package App\Controller\Web
  */
-class ListenerLogDelete extends Base
+class SignalLogDelete extends Base
 {
     /**
      * @Route(
-     *     "/{_locale}/{system}/listeners/{id}/logs/{log_id}/delete",
+     *     "/{_locale}/{system}/signals/{id}/logs/{log_id}/delete",
      *     requirements={
      *        "_locale": "de|en|es|fr",
      *        "system": "reu|rna|rww"
      *     },
-     *     name="listener_log_delete"
+     *     name="signal_log_delete"
      * )
      * @param $_locale
      * @param $system
@@ -42,19 +44,19 @@ class ListenerLogDelete extends Base
         SignalRepository $signalRepository
     ) {
         if (!(int) $id) {
-            return $this->redirectToRoute('listeners', ['_locale' => $_locale, 'system' => $system]);
+            return $this->redirectToRoute('signals', ['_locale' => $_locale, 'system' => $system]);
         }
-        $listener = $listenerRepository->find((int) $id);
-        if (!$listener) {
-            return $this->redirectToRoute('listeners', ['_locale' => $_locale, 'system' => $system]);
+        $signal = $signalRepository->find((int) $id);
+        if (!$signal) {
+            return $this->redirectToRoute('signals', ['_locale' => $_locale, 'system' => $system]);
         }
 
         $log = $logRepository->find((int) $log_id);
         if (!$log) {
-            return $this->redirectToRoute('listener_logs', ['_locale' => $_locale, 'system' => $system, 'id' => $id]);
+            return $this->redirectToRoute('signal_logs', ['_locale' => $_locale, 'system' => $system, 'id' => $id]);
         }
         if (!$this->parameters['isAdmin']) {
-            return $this->redirectToRoute('listener_logs', ['_locale' => $_locale, 'system' => $system, 'id' => $id]);
+            return $this->redirectToRoute('signal_logs', ['_locale' => $_locale, 'system' => $system, 'id' => $id]);
         }
 
         $em = $this->getDoctrine()->getManager();
@@ -68,9 +70,9 @@ class ListenerLogDelete extends Base
             'lastMessage',
             sprintf(
                 $this->translator->trans("Log entry has been deleted. Stats for %s have been updated."),
-                $listener->getName()
+                $signal->getFormattedIdent()
             )
         );
-        return $this->redirectToRoute('listener_logs', ['_locale' => $_locale, 'system' => $system, 'id' => $id]);
+        return $this->redirectToRoute('signal_logs', ['_locale' => $_locale, 'system' => $system, 'id' => $id]);
     }
 }

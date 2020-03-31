@@ -137,6 +137,12 @@ class Listener
     public $lat = '0';
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="log_earliest", type="date", nullable=false, options={"default"="0000-00-00"})
+     */
+    private $logEarliest = '0000-00-00';
+    /**
      * @var string
      *
      * @ORM\Column(name="log_format", type="string", length=128, nullable=false)
@@ -521,6 +527,25 @@ class Listener
     }
 
     /**
+     * @return DateTimeInterface|null
+     */
+    public function getLogEarliest(): ?DateTimeInterface
+    {
+        return $this->logEarliest;
+    }
+
+    /**
+     * @param DateTimeInterface $logEarliest
+     * @return Listener
+     */
+    public function setLogEarliest(DateTimeInterface $logEarliest): self
+    {
+        $this->logEarliest = $logEarliest;
+
+        return $this;
+    }
+
+    /**
      * @return null|string
      */
     public function getLogFormat(): ?string
@@ -776,6 +801,17 @@ class Listener
     }
 
     /* Custom getters for column display */
+
+    /**
+     * @return null|string
+     */
+    public function getFormattedLogEarliest(): ?string
+    {
+        if ($this->logEarliest->format("Y-m-d") < '1900-01-01') {
+            return '';
+        }
+        return $this->logEarliest->format("Y-m-d");
+    }
 
     /**
      * @return null|string

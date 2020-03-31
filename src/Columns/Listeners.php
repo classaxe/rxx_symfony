@@ -123,6 +123,17 @@ class Listeners
                 'th_class'  =>  'txt_vertical',
                 'tooltip'   =>  'Total number of logs for all signals',
             ],
+            'logEarliest' => [
+                'admin'     =>  false,
+                'arg'       =>  '',
+                'field'     =>  'formattedLogEarliest',
+                'label'     =>  'Earliest Log',
+                'order'     =>  'a',
+                'sort'      =>  'l.logEarliest',
+                'td_class'  =>  'text-nowrap txt_r monospace',
+                'th_class'  =>  '',
+                'tooltip'   =>  '',
+            ],
             'logLatest' => [
                 'admin'     =>  false,
                 'arg'       =>  '',

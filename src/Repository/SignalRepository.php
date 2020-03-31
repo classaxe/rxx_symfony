@@ -1026,6 +1026,7 @@ EOD;
             . 'li.itu,'
             . 'CONCAT(COALESCE(l.lsbApprox, \'\'), l.lsb) AS lsb,'
             . 'CONCAT(COALESCE(l.usbApprox, \'\'), l.usb) AS usb,'
+            . 'l.id AS log_id,'
             . 'l.format,'
             . 'l.sec,'
             . 'l.dxKm,'
@@ -1143,4 +1144,97 @@ EOD;
             ->setParameter('signalid', $signalid);
         return $qb->getQuery()->getSingleScalarResult();
     }
+
+    public function updateSignalStats($signalId = false)
+    {
+        return;
+// Old code for Signal->updateHeardInList() in RXX1
+        /*
+        $sql =
+            "SELECT DISTINCT\n"
+            ."    `heard_in`,\n"
+            ."     MAX(`daytime`) as `daytime`,\n"
+            ."    `region`\n"
+            ."FROM\n"
+            ."    `logs`\n"
+            ."WHERE\n"
+            ."    `signalID` = ".$this->getID()."\n"
+            ."GROUP BY\n"
+            ."    `heard_in`\n"
+            ."ORDER BY\n"
+            ."    (`region`='na' OR `region`='ca' OR (`region`='oc' AND `heard_in`='HI')),\n"
+            ."    `region`,\n"
+            ."    `heard_in`";
+        $rows = $this->getRecordsForSql($sql);
+        $arr =          array();
+        $html_arr =     array();
+        $region =       "";
+        $old_link =     false;
+        $link =         false;
+        $eu_link =      "<a data-signal-map-eu='".$this->getID()."'>";
+        $na_link =      "<a data-signal-map-na='".$this->getID()."'>";
+        foreach ($rows as $row) {
+            $heard_in = $row["heard_in"];
+            $daytime =  $row["daytime"];
+            $region =   $row["region"];
+            $link =     false;
+            switch ($region) {
+                case "ca":
+                case "na":
+                    $link = $na_link;
+                    break;
+                case "oc":
+                    if ($heard_in=='HI') {
+                        $link = $na_link;
+                    }
+                    break;
+                case "eu":
+                    $link = $eu_link;
+                    break;
+            }
+            $html_arr[] =
+                ($old_link !==false && $link !== $old_link ? "</a> " : " ")
+                .($link !==false     && $link !== $old_link ? $link : "")
+                .($daytime ? "<b>".$heard_in."</b>" : $heard_in);
+            $arr[] =        htmlentities($heard_in);
+            $old_link =     $link;
+        }
+        if ($link !== false) {
+            $html_arr[] = "</a>";
+        }
+        $data = array(
+            'heard_in' =>       implode(" ", $arr),
+            'heard_in_html' =>  implode("", $html_arr)
+        );
+        $this->update($data);
+        return $this->getAffectedRows();
+*/
+
+// Code from ListenerRepository->updateListenerStats()
+/*
+        $sql = <<< EOT
+UPDATE
+	signals s
+SET    
+    count_logs =    (SELECT COUNT(*) FROM logs WHERE logs.listenerId = l.id),
+    count_signals = (SELECT COUNT(DISTINCT signalId) FROM logs WHERE logs.listenerId = l.id),
+    count_NDB =     (SELECT COUNT(*) FROM logs INNER JOIN signals s ON logs.signalId = s.id AND s.type = 0 WHERE logs.listenerId = l.id),
+    count_DGPS =    (SELECT COUNT(*) FROM logs INNER JOIN signals s ON logs.signalId = s.id AND s.type = 1 WHERE logs.listenerId = l.id),
+    count_TIME =    (SELECT COUNT(*) FROM logs INNER JOIN signals s ON logs.signalId = s.id AND s.type = 2 WHERE logs.listenerId = l.id),
+    count_NAVTEX =  (SELECT COUNT(*) FROM logs INNER JOIN signals s ON logs.signalId = s.id AND s.type = 3 WHERE logs.listenerId = l.id),
+    count_HAMBCN =  (SELECT COUNT(*) FROM logs INNER JOIN signals s ON logs.signalId = s.id AND s.type = 4 WHERE logs.listenerId = l.id),
+    count_OTHER =   (SELECT COUNT(*) FROM logs INNER JOIN signals s ON logs.signalId = s.id AND s.type = 5 WHERE logs.listenerId = l.id),
+    count_DSC =     (SELECT COUNT(*) FROM logs INNER JOIN signals s ON logs.signalId = s.id AND s.type = 6 WHERE logs.listenerId = l.id),
+    log_latest =    (SELECT MAX(date) FROM logs WHERE logs.listenerId = l.id)
+EOT;
+        if ($signalId) {
+            $sql .= "\nWHERE\n    s.id = $signalId";
+        }
+        $stmt = $this->connection->prepare($sql);
+        $stmt->execute();
+
+        return $stmt->rowCount();
+*/
+    }
+
 }

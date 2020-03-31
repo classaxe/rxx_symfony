@@ -158,6 +158,17 @@ class SignalLogs
                 'th_class'  =>  '',
                 'tooltip'   =>  'Distance in Miles',
             ],
+            'admin' => [
+                'admin'     =>  true,
+                'arg'       =>  '',
+                'field'     =>  'delete',
+                'label'     =>  '<div>Admin</div>',
+                'order'     =>  '',
+                'sort'      =>  '',
+                'td_class'  =>  '',
+                'th_class'  =>  'txt_vertical',
+                'tooltip'   =>  '',
+            ],
         ];
     }
 }

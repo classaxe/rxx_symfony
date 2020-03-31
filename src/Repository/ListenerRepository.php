@@ -626,32 +626,6 @@ class ListenerRepository extends ServiceEntityRepository
         return $result;
     }
 
-    public function updateLogCountsForListener($listenerId = false)
-    {
-        $sql = <<< EOT
-UPDATE
-	listeners l
-SET    
-    count_logs =    (SELECT COUNT(*) FROM logs WHERE logs.listenerId = l.id),
-    count_signals = (SELECT COUNT(DISTINCT signalId) FROM logs WHERE logs.listenerId = l.id),
-    count_NDB =     (SELECT COUNT(*) FROM logs INNER JOIN signals s ON logs.signalId = s.id AND s.type = 0 WHERE logs.listenerId = l.id),
-    count_DGPS =    (SELECT COUNT(*) FROM logs INNER JOIN signals s ON logs.signalId = s.id AND s.type = 1 WHERE logs.listenerId = l.id),
-    count_TIME =    (SELECT COUNT(*) FROM logs INNER JOIN signals s ON logs.signalId = s.id AND s.type = 2 WHERE logs.listenerId = l.id),
-    count_NAVTEX =  (SELECT COUNT(*) FROM logs INNER JOIN signals s ON logs.signalId = s.id AND s.type = 3 WHERE logs.listenerId = l.id),
-    count_HAMBCN =  (SELECT COUNT(*) FROM logs INNER JOIN signals s ON logs.signalId = s.id AND s.type = 4 WHERE logs.listenerId = l.id),
-    count_OTHER =   (SELECT COUNT(*) FROM logs INNER JOIN signals s ON logs.signalId = s.id AND s.type = 5 WHERE logs.listenerId = l.id),
-    count_DSC =     (SELECT COUNT(*) FROM logs INNER JOIN signals s ON logs.signalId = s.id AND s.type = 6 WHERE logs.listenerId = l.id),
-    log_latest =    (SELECT MAX(date) FROM logs WHERE logs.listenerId = l.id)
-EOT;
-        if ($listenerId) {
-            $sql .= "\nWHERE\n    l.id = $listenerId";
-        }
-        $stmt = $this->connection->prepare($sql);
-        $stmt->execute();
-
-        return $stmt->rowCount();
-    }
-
     public function getSignalCountsForListener($listenerID)
     {
         $qb = $this
@@ -759,5 +733,32 @@ EOT;
             $row['notes'] = str_replace("\"", "\\\"", html_entity_decode($row['notes']));
         }
         return $result;
+    }
+
+    public function updateListenerStats($listenerId = false)
+    {
+        $sql = <<< EOT
+UPDATE
+	listeners l
+SET    
+    count_logs =    (SELECT COUNT(*) FROM logs WHERE logs.listenerId = l.id),
+    count_signals = (SELECT COUNT(DISTINCT signalId) FROM logs WHERE logs.listenerId = l.id),
+    count_NDB =     (SELECT COUNT(*) FROM logs INNER JOIN signals s ON logs.signalId = s.id AND s.type = 0 WHERE logs.listenerId = l.id),
+    count_DGPS =    (SELECT COUNT(*) FROM logs INNER JOIN signals s ON logs.signalId = s.id AND s.type = 1 WHERE logs.listenerId = l.id),
+    count_TIME =    (SELECT COUNT(*) FROM logs INNER JOIN signals s ON logs.signalId = s.id AND s.type = 2 WHERE logs.listenerId = l.id),
+    count_NAVTEX =  (SELECT COUNT(*) FROM logs INNER JOIN signals s ON logs.signalId = s.id AND s.type = 3 WHERE logs.listenerId = l.id),
+    count_HAMBCN =  (SELECT COUNT(*) FROM logs INNER JOIN signals s ON logs.signalId = s.id AND s.type = 4 WHERE logs.listenerId = l.id),
+    count_OTHER =   (SELECT COUNT(*) FROM logs INNER JOIN signals s ON logs.signalId = s.id AND s.type = 5 WHERE logs.listenerId = l.id),
+    count_DSC =     (SELECT COUNT(*) FROM logs INNER JOIN signals s ON logs.signalId = s.id AND s.type = 6 WHERE logs.listenerId = l.id),
+    log_earliest =  (SELECT MIN(date) FROM logs WHERE logs.listenerId = l.id),
+    log_latest =    (SELECT MAX(date) FROM logs WHERE logs.listenerId = l.id)
+EOT;
+        if ($listenerId) {
+            $sql .= "\nWHERE\n    l.id = $listenerId";
+        }
+        $stmt = $this->connection->prepare($sql);
+        $stmt->execute();
+
+        return $stmt->rowCount();
     }
 }

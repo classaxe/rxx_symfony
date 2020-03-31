@@ -1,7 +1,7 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.3.3
+ * Version:    2.3.4
  * Date:       2020-03-30
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
@@ -287,7 +287,7 @@ tr.other td {
   .menu-centered .language {
     border-style: solid;
     border-width: 1px;
-    margin-bottom: 0.25em;
+    margin-bottom: 0.375em;
   }
   .menu-centered .system li:not(:last-child) a,
   .menu-centered .mode li:not(:last-child) a,
@@ -332,7 +332,7 @@ tr.other td {
     border-width: 0 1px 0 0;
   }
   .menu-centered .language {
-    margin: 0.5em 0 0 125px;
+    margin: 0.375em 0 0 125px;
     width: 322px;
   }
   .menu-centered .language a {

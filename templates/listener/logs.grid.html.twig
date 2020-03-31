@@ -5,11 +5,16 @@
             <tr>
     {% for key, column in columns %}
     {% if ((not column.admin or isAdmin) and (not column.arg or (column.arg and column.arg in args.types))) %}
-                <th{%  if key and column.order %} id="{{ key }}|{{ column.order }}"{% endif %}
-    {% if column.th_class or column.sort%} class="{{ column.th_class }}{% if column.sort %} sort{% endif %}"{% endif %}
-    {% if column.tooltip %} title="{{ column.tooltip }}"{% endif %}
-    >{{ column.label|raw }}</th>
-    {% endif %}
+                <th{% if key and column.order %} id="{{ key }}|{{ column.order }}"{% endif
+    %}{%
+        if column.th_class or column.sort
+    %} class="{{ column.th_class }}{% if column.sort %} sort{% endif %}"{% endif %}{%
+        if column.tooltip
+    %} title="{{ column.tooltip }}"{%
+        endif
+    %}>{{ column.label|raw }}</th>{%
+        endif
+    %}
     {% endfor %}
             </tr>
         </thead>

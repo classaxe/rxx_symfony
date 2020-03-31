@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -142,24 +143,24 @@ class Log
         return $this->id;
     }
 
-    public function getSignalid(): ?int
+    public function getSignalId(): ?int
     {
         return $this->signalid;
     }
 
-    public function setSignalid(int $signalid): self
+    public function setSignalId(int $signalid): self
     {
         $this->signalid = $signalid;
 
         return $this;
     }
 
-    public function getDate(): ?\DateTimeInterface
+    public function getDate(): ?DateTimeInterface
     {
         return $this->date;
     }
 
-    public function setDate(?\DateTimeInterface $date): self
+    public function setDate(?DateTimeInterface $date): self
     {
         $this->date = $date;
 
@@ -214,12 +215,12 @@ class Log
         return $this;
     }
 
-    public function getListenerid(): ?int
+    public function getListenerId(): ?int
     {
         return $this->listenerid;
     }
 
-    public function setListenerid(?int $listenerid): self
+    public function setListenerId(?int $listenerid): self
     {
         $this->listenerid = $listenerid;
 

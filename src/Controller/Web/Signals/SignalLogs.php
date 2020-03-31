@@ -86,7 +86,6 @@ class SignalLogs extends Base
             'tabs' =>               $signalRepository->getTabs($signal),
             'typeRepository' =>     $typeRepository
         ];
-        $parameters = array_merge($parameters, $this->parameters);
-        return $this->render('signal/logs.html.twig', $parameters);
+        return $this->render('signal/logs.html.twig', $this->getMergedParameters($parameters));
     }
 }

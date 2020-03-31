@@ -4023,6 +4023,38 @@
         <source>Signals Export</source>
         <target>__Signals Export</target>
       </trans-unit>
+      <trans-unit id="uLYo4gB" resname="Received in Europe">
+        <source>Received in Europe</source>
+        <target>__Received in Europe</target>
+      </trans-unit>
+      <trans-unit id="AZ8G7MP" resname="Received in N America">
+        <source>Received in N America</source>
+        <target>__Received in N America</target>
+      </trans-unit>
+      <trans-unit id="cHHsrS9" resname="Received Worldwide">
+        <source>Received Worldwide</source>
+        <target>__Received Worldwide</target>
+      </trans-unit>
+      <trans-unit id="EoJIFiB" resname="Earliest Log">
+        <source>Earliest Log</source>
+        <target>__Earliest Log</target>
+      </trans-unit>
+      <trans-unit id="CVaRhKb" resname="RNA - N America">
+        <source>RNA - N America</source>
+        <target>__RNA - N America</target>
+      </trans-unit>
+      <trans-unit id="7AWjHoF" resname="RWW - S America">
+        <source>RWW - S America</source>
+        <target>__RWW - S America</target>
+      </trans-unit>
+      <trans-unit id="fo73V2x" resname="Export .csv">
+        <source>Export .csv</source>
+        <target>__Export .csv</target>
+      </trans-unit>
+      <trans-unit id="prRTNhh" resname="Log entry has been deleted. Stats for %s have been updated.">
+        <source>Log entry has been deleted. Stats for %s have been updated.</source>
+        <target>__Log entry has been deleted. Stats for %s have been updated.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
