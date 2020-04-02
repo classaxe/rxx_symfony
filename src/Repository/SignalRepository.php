@@ -1165,7 +1165,6 @@ SELECT
     signalID,
     (SELECT LSB    FROM logs l WHERE l.signalID = logs.signalID AND (l.LSB    IS NOT NULL AND l.LSB    != 0) AND (l.LSB_approx IS NULL OR l.LSB_approx = '') ORDER BY l.date DESC LIMIT 1) as LSB,
     (SELECT USB    FROM logs l WHERE l.signalID = logs.signalID AND (l.USB    IS NOT NULL AND l.USB    != 0) AND (l.USB_approx IS NULL OR l.USB_approx = '') ORDER BY l.date DESC LIMIT 1) as USB,
-    (SELECT format FROM logs l WHERE l.signalID = logs.signalID AND (l.format IS NOT NULL AND l.format != '') ORDER BY l.date DESC LIMIT 1) as format,
     (SELECT sec    FROM logs l WHERE l.signalID = logs.signalID AND (l.sec    IS NOT NULL AND l.sec    != '') ORDER BY l.date DESC LIMIT 1) as sec
 FROM
     logs
@@ -1184,7 +1183,6 @@ EOD;
             $out[$r['signalID']] = [
                 'LSB' =>    $r['LSB'],
                 'USB' =>    $r['USB'],
-                'format' => $r['format'],
                 'sec' =>    $r['sec']
             ];
         }
@@ -1252,19 +1250,24 @@ EOD;
         return $out;
     }
 
-    public function updateSignalStats($signalId = false)
+    public function updateSignalStats($signalId = false, $updateSpecs = false)
     {
+        $all_regions =      ['af', 'an', 'as', 'ca', 'eu', 'iw', 'na', 'oc', 'sa'];
         $logsHeardIn =      $this->getLogsHeardIn($signalId);
         $logsStats =        $this->getLogsStats($signalId);
-        $logsLatestSpec =   $this->getLogsLatestSpec($signalId);
+        if ($updateSpecs) {
+            $logsLatestSpec = $this->getLogsLatestSpec($signalId);
+        }
 
         $data =         [];
         foreach ($logsHeardIn as $signalID => $result) {
             $heardIn =      [];
+            $regions =      [];
             $old_link =     false;
-            $link =         false;
             foreach ($result as $row) {
-                switch ($row["region"]) {
+                $region = $row['region'];
+                $regions[$region] = $region;
+                switch ($region) {
                     case "ca":
                     case "na":
                         $link = "<a data-signal-map-na='%s'>";
@@ -1289,54 +1292,64 @@ EOD;
             if ($link !== false) {
                 $heardIn[] = "</a>";
             }
-            $data[$row['signalID']] = [
+            $entry = [
                 'id' =>             $row['signalID'],
                 'heard_in' =>       trim(strip_tags(implode('', $heardIn))),
                 'heard_in_html' =>  trim(implode('', $heardIn))
             ];
+            foreach($all_regions as $r) {
+                $entry['heard_in_' . $r] = (isset($regions[$r]) ? 1 : 0);
+            }
+            $data[$row['signalID']] = $entry;
         }
         foreach ($logsStats as $signalID => $stats) {
             $data[$signalID] = array_merge($data[$signalID], $stats);
         }
-        foreach ($logsLatestSpec as $signalID => $spec) {
-            $data[$signalID] = array_merge($data[$signalID], $spec);
+        if ($updateSpecs) {
+            foreach ($logsLatestSpec as $signalID => $spec) {
+                $data[$signalID] = array_merge($data[$signalID], $spec);
+            }
         }
+        $affected = 0;
         foreach ($data as $signalID => $s) {
-            $sql = <<<EOD
-                UPDATE
-                    signals
-                SET
-                    `first_heard` =     :first_heard,
-                    `format` =          :format,
-                    `heard_in` =        :heard_in,
-                    `heard_in_html` =   :heard_in_html,
-                    `last_heard` =      :last_heard,
-                    `logs` =            :logs,
-                    `listeners` =       :listeners,
-                    `LSB` =             :LSB,
-                    `sec` =             :sec,
-                    `USB` =             :USB
-                WHERE
-                    ID =                :signalID                    
-EOD;
-            $params = [
-                ':signalID' =>      $signalID,
-                ':first_heard' =>   $s['first_heard'],
-                ':format' =>        $s['format'],
-                ':heard_in' =>      $s['heard_in'],
-                ':heard_in_html' => $s['heard_in_html'],
-                ':last_heard' =>    $s['last_heard'],
-                ':logs' =>          $s['logs'],
-                ':listeners' =>     $s['listeners'],
-                ':LSB' =>           $s['LSB'],
-                ':sec' =>           $s['sec'],
-                ':USB' =>           $s['USB']
-            ];
+            $sql = "
+UPDATE
+    signals
+SET "
+    . ($updateSpecs && $s['LSB'] !== null ?
+              "\n    `LSB_approx` =      '',"
+            . "\n    `LSB` =             '" . addslashes($s['LSB']) . "',"
+    : '')
+    . ($updateSpecs && $s['USB'] !== null ?
+              "\n    `USB_approx` =      '',"
+            . "\n    `USB` =             '" . addslashes($s['USB']) . "',"
+    : '')
+    . ($updateSpecs && $s['sec'] !== null ? "\n    `sec` =             '" . addslashes($s['sec']) . "'," : '')
+. "
+    `first_heard` =     '" . addslashes($s['first_heard']) . "',
+    `heard_in` =        '" . addslashes($s['heard_in']) . "',
+    `heard_in_html` =   '" . addslashes($s['heard_in_html']) . "',
+    `heard_in_af` =     '" . $s['heard_in_af'] . "',
+    `heard_in_an` =     '" . $s['heard_in_an'] . "',
+    `heard_in_as` =     '" . $s['heard_in_as'] . "',
+    `heard_in_ca` =     '" . $s['heard_in_ca'] . "',
+    `heard_in_eu` =     '" . $s['heard_in_eu'] . "',
+    `heard_in_iw` =     '" . $s['heard_in_iw'] . "',
+    `heard_in_na` =     '" . $s['heard_in_na'] . "',
+    `heard_in_oc` =     '" . $s['heard_in_oc'] . "',
+    `heard_in_sa` =     '" . $s['heard_in_sa'] . "',
+    `last_heard` =      '" . addslashes($s['last_heard']) . "',
+    `logs` =            '" . addslashes($s['logs']) . "',
+    `listeners` =       '" . addslashes($s['listeners']) . "'
+WHERE
+    ID =                $signalID";
+//            print "<pre>$sql</pre>"; die;
+            $stmt = $this->connection->prepare($sql);
+            $stmt->execute();
+            $affected += $stmt->rowCount();
         }
-        $stmt = $this->connection->prepare($sql);
-        $stmt->execute($params);
 
-        return $stmt->rowCount();
+        return $affected;
     }
 
 }
