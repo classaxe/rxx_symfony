@@ -1,24 +1,33 @@
 {{ title }}
 {{ subtitle }}
-DT - {% trans %}Logged between 10am and 2pm local time{% endtrans %}
+A - {% trans %}Active{% endtrans %}
+D - {% trans %}Logged between 10am and 2pm local time{% endtrans %}
 
----------------------------------------------------------------------------------------------------
-YYYYMMDD UTC  DT KHz      ID         Type           KM  Miles   PWR GSQ    SP ITU Location
----------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+YYYYMMDD UTC  KHz      ID         Type   A   LSB   USB    Sec  Format     PWR     KM  Miles GSQ         Lat      Lon D SP ITU Location
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
 {% for l in logs %}
 {{
     l.date | date('Ymd') }} {{
     "% 4s"   | format(l.time) }} {{
-    "% 2s"   | format(l.daytime ? 'Y' : 'N') }} {{
     "% -8s"  | format((0 + l.khz)) }} {{
     "% -10s" | format(l.call) }} {{
-    "% -10s" | format( typeRepository.typeForCode(l.type)['label']|trans) }} {{
+    "% -6s"  | format( typeRepository.typeForCode(l.type)['label']|trans) }} {{
+    "% -1s"  | format(l.active ? 'Y' : 'N') }} {{
+    "% 5s"   | format(l.lsb ? l.lsb : '') }} {{
+    "% 5s"   | format(l.usb ? l.usb : '') }} {{
+    "% 6s"   | format(l.sec ? l.sec : '') }} {{
+    "% 10s"  | format(l.format ? l.format : '') }} {{
+    "% 4s"   | format(l.pwr ? l.pwr : '') }} {{
     "% 6s"   | format(l.dxKm) }} {{
     "% 6s"   | format(l.dxMiles) }} {{
-    "% 5s"   | format(l.pwr ? l.pwr : '') }} {{
     "% 6s"   | format(l.gsq) }} {{
+    "% 8s"   | format(l.lat) }} {{
+    "% 8s"   | format(l.lon) }} {{
+    "% 1s"   | format(l.daytime ? 'Y' : 'N') }} {{
     "% 2s"   | format(l.sp) }} {{
     "% 3s"   | format(l.itu) }} {{
-    l.qth|raw
+    l.qth|raw|replace({'  ': ' '})
 }}
 {% endfor %}
+---------------------------------------------------------------------------------------------------------------------------------------------------------------

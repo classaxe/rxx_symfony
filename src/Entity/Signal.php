@@ -738,34 +738,6 @@ class Signal
         return $this->lastHeard->format("Y-m-d");
     }
 
-    public function getFormattedLsbAbs(): ?string {
-        if (!$this->lsb) {
-            return '';
-        }
-        return $this->lsbApprox . ((float)$this->khz - number_format($this->lsb / 1000, 3, '.'));
-    }
-
-    public function getFormattedLsbRel(): ?string {
-        if (!$this->lsb) {
-            return '';
-        }
-        return $this->lsbApprox . $this->lsb;
-    }
-
-    public function getFormattedUsbAbs(): ?string {
-        if (!$this->usb) {
-            return '';
-        }
-        return $this->usbApprox . ((float)$this->khz + number_format($this->usb / 1000, 3, '.'));
-    }
-
-    public function getFormattedUsbRel(): ?string {
-        if (!$this->usb) {
-            return '';
-        }
-        return $this->usbApprox . $this->usb;
-    }
-
     /**
      * @return null|string
      */

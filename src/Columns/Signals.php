@@ -43,7 +43,7 @@ class Signals
             'LSB' => [
                 'admin'     =>  false,
                 'arg'       =>  '',
-                'field'     =>  'LSB',
+                'field'     =>  'lsb',
                 'highlight' =>  false,
                 'label'     =>  'LSB',
                 'labelSort' =>  '',
@@ -56,7 +56,7 @@ class Signals
             'USB' => [
                 'admin'     =>  false,
                 'arg'       =>  '',
-                'field'     =>  'USB',
+                'field'     =>  'usb',
                 'highlight' =>  false,
                 'label'     =>  'USB',
                 'labelSort' =>  '',
