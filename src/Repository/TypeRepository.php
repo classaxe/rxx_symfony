@@ -126,6 +126,11 @@ class TypeRepository
         return static::types;
     }
 
+    public function getAllTypesAsCsv()
+    {
+        return implode(',', array_column(static::getAll(), 'class'));
+    }
+
     public function getAllChoices($withAllOption = false)
     {
         $out = [];

@@ -3,6 +3,7 @@ namespace App\Controller\Web\Listeners;
 
 use App\Form\Listeners\Collection as Form;
 use App\Repository\ListenerRepository;
+use App\Repository\TypeRepository;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 use Symfony\Component\HttpFoundation\Request;
 
@@ -12,7 +13,8 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class Collection extends Base
 {
-    const defaultlimit =     100;
+    const defaultPage =     0;
+    const defaultLimit =    100;
     const defaultSorting =  'name';
     const defaultOrder =    'a';
 
@@ -46,33 +48,44 @@ class Collection extends Base
      *     },
      *     name="listeners"
      * )
+     * @param $_locale
+     * @param $system
+     * @param Request $request
+     * @param Form $form
+     * @param ListenerRepository $listenerRepository
+     * @param TypeRepository $typeRepository
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function controller(
         $_locale,
         $system,
         Request $request,
         Form $form,
-        ListenerRepository $listenerRepository
+        ListenerRepository $listenerRepository,
+        TypeRepository $typeRepository
     ) {
+        $this->listenerRepository = $listenerRepository;
+        $this->typeRepository = $typeRepository;
+
         $isAdmin = $this->parameters['isAdmin'];
         $args = [
-            'country' =>    '',
-            'dx_gsq' =>     '',
-            'dx_min' =>     '',
-            'dx_max' =>     '',
-            'dx_units' =>   'km',
-            'filter' =>     '',
             'isAdmin' =>    $isAdmin,
-            'limit' =>      static::defaultlimit,
-            'has_map_pos' => '',
-            'order' =>      static::defaultOrder,
-            'page' =>       0,
-            'region' =>     $_REQUEST['form']['region'] ?? '',
-            'show' =>       '',
-            'sort' =>       static::defaultSorting,
             'system' =>     $system,
             'type' =>       [],
+
+            // Setable via GET
+            'limit' =>      static::defaultLimit,
+            'order' =>      static::defaultOrder,
+            'page' =>       static::defaultPage,
+            'sort' =>       static::defaultSorting,
+
+            'country' =>    '',
+            'has_map_pos' => '',
+            'q' =>          '',
+            'region' =>     '',
+            'show' =>       '',
         ];
+        $this->setArgsFromRequest($args, $request);
         $form = $form->buildForm($this->createFormBuilder(), $args);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -83,10 +96,12 @@ class Collection extends Base
         }
         $listeners =    $listenerRepository->getFilteredListeners($system, $args);
         $total =        $listenerRepository->getFilteredListenersCount($system, $args);
-
+        if (empty($listeners)) {
+            $args['show'] = 'list';
+        }
         $box =          false;
         $center =       false;
-        if ($listeners) {
+        if ('map' === $args['show'] && $listeners) {
             $lats =     array_column($listeners, 'lat');
             $lons =     array_column($listeners, 'lon');
             $lat_min =  min($lats);
@@ -129,5 +144,16 @@ class Collection extends Base
             $parameters['latestLogs'] =         $listenerRepository->getLatestLogs($system);
         }
         return $this->render('listeners/index.html.twig', $this->getMergedParameters($parameters));
+    }
+
+    private function setArgsFromRequest(&$args, $request)
+    {
+        $this->setPagingFromRequest($args, $request);
+        $this->setTypeFromRequest($args, $request);
+        $this->setHasMapPosFromRequest($args, $request);
+        $this->setRegionFromRequest($args, $request);
+        $this->setValueFromRequest($args, $request, 'show', ['list', 'map'], 'a');
+        $this->setValueFromRequest($args, $request, 'country', false, 'A');
+        $this->setValueFromRequest($args, $request, 'q');
     }
 }

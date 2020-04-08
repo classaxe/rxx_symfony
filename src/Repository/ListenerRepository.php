@@ -179,12 +179,12 @@ class ListenerRepository extends ServiceEntityRepository
 
     private function addFilterSearch($qb, $args)
     {
-        if (empty($args['filter'])) {
+        if (empty($args['q'])) {
             return;
         }
         $qb
             ->andWhere('(l.name like :filter or l.qth like :filter or l.callsign like :filter)')
-            ->setParameter('filter', '%'.$args['filter'].'%');
+            ->setParameter('filter', '%' . $args['q'] . '%');
     }
 
     private function addFilterSystem(&$qb, $system)
@@ -397,7 +397,7 @@ class ListenerRepository extends ServiceEntityRepository
             ->createQueryBuilder('l')
             ->select('l');
 
-        if (isset($args['sort']) && $this->listenersColumns[$args['sort']]['sort']) {
+        if (isset($args['sort']) && ($this->listenersColumns[$args['sort']]['sort'] ?? false)) {
             $qb->addSelect(
                 "(CASE WHEN (".$this->listenersColumns[$args['sort']]['sort'].") = '' THEN 1 ELSE 0 END) AS _blank"
             );
@@ -420,7 +420,7 @@ class ListenerRepository extends ServiceEntityRepository
                 ->setMaxResults($args['limit']);
         }
 
-        if (isset($args['sort']) && $this->listenersColumns[$args['sort']]['sort']) {
+        if (isset($args['sort']) && ($this->listenersColumns[$args['sort']]['sort'] ?? false)) {
             if ($args['sort'] === 'name') {
                 $qb
                     ->addOrderBy(
@@ -448,9 +448,11 @@ class ListenerRepository extends ServiceEntityRepository
         // Necessary to resolve extra nesting in results caused by extra select to ignore empty fields in sort order
         $out = [];
         foreach ($result as $key => $value) {
-            $out[] = $value[0];
+            if (is_array($value)) {
+                $out[] = $value[0];
+            }
         }
-        return $out;
+        return $out ? $out : $result;
     }
 
     public function getFilteredListenersCount($system, $args)

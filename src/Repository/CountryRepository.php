@@ -12,7 +12,7 @@ class CountryRepository extends ServiceEntityRepository
 
     const RECEIVED_IN_EUROPE = "reu";
 
-    const RECIEVED_IN_NORTH_AMERICA = "rna";
+    const RECEIVED_IN_NORTH_AMERICA = "rna";
 
     public function __construct(
         ManagerRegistry $registry,
@@ -41,7 +41,7 @@ class CountryRepository extends ServiceEntityRepository
                         )
                         ->setParameter('eu', 'eu');
                     break;
-                case self::RECIEVED_IN_NORTH_AMERICA:
+                case self::RECEIVED_IN_NORTH_AMERICA:
                     $qb
                         ->where(
                             $qb->expr()->orX(
@@ -92,7 +92,7 @@ class CountryRepository extends ServiceEntityRepository
                 case self::RECEIVED_IN_EUROPE:
                     $extra = ' where s.heardInEu=1';
                     break;
-                case self::RECIEVED_IN_NORTH_AMERICA:
+                case self::RECEIVED_IN_NORTH_AMERICA:
                     $extra = ' where (s.heardInNa=1 or s.heardInCa=1)';
                     break;
                 default:

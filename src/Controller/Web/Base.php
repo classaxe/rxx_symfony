@@ -18,43 +18,19 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 class Base extends AbstractController
 {
-
-    /**
-     * @var array
-     */
-    protected $parameters = [];
-
-    /**
-     * @var ModeRepository
-     */
-    protected $modeRepository;
-
-    /**
-     * @var Kernel
-     */
-    protected $kernel;
-
-    /**
-     * @var Rxx
-     */
-    protected $rxx;
-
-    /**
-     * @var SessionInterface
-     */
-    protected $session;
-
-    /**
-     * @var SystemRepository
-     */
-    protected $systemRepository;
-
-    /**
-     * @var TranslatorInterface
-     */
-    protected $translator;
-
     protected $languageRepository;
+    protected $listenerRepository;
+    protected $modeRepository;
+    protected $paperRepository;
+    protected $signalRepository;
+    protected $systemRepository;
+    protected $typeRepository;
+
+    protected $kernel;
+    protected $parameters = [];
+    protected $rxx;
+    protected $session;
+    protected $translator;
 
     /**
      * Base constructor.
@@ -185,5 +161,99 @@ class Base extends AbstractController
      */
     public function i18n($id, array $parameters = [], $domain = null, $_locale = null) {
         return $this->translator->trans($id, $parameters, $domain, $_locale);
+    }
+
+    protected function setValueFromRequest(&$args, $request, $field, $options = false, $letterCase = false)
+    {
+        if ($value = $request->query->get($field)) {
+            switch($letterCase) {
+                case 'a':
+                    $value = strtolower($value);
+                    break;
+                case 'A':
+                    $value = strtoupper($value);
+                    break;
+            }
+            if (false === $options || in_array($value, $options)) {
+                $args[$field] = addslashes($value);
+            }
+        }
+    }
+
+    protected function setHasMapPosFromRequest(&$args, $request)
+    {
+        $this->setValueFromRequest($args, $request, 'has_map_pos', ['', 'N', 'Y'], 'A');
+    }
+
+    protected function setListenersFromRequest(&$args, $request)
+    {
+        if ($request->query->get('listeners')) {
+            $args['listener'] = [];
+            $values = explode(',', $request->query->get('listeners'));
+            foreach ($values as $v) {
+                if ($this->listenerRepository->find((int) $v)) {
+                    $args['listener'][] = $v;
+                }
+            }
+        }
+    }
+
+    protected function setPairFromRequest(&$args, $request, $field)
+    {
+        if ($request->query->get($field)) {
+            $values = explode(',', $request->query->get($field));
+            switch (count($values)) {
+                case 1:
+                    $args[$field . '_1'] = addslashes($values[0]);
+                    break;
+                case 2:
+                    $args[$field . '_1'] = addslashes(min($values));
+                    $args[$field . '_2'] = addslashes(max($values));
+                    break;
+            }
+        }
+
+    }
+    protected function setPagingFromRequest(&$args, $request)
+    {
+        $limits = [ 10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 100000, 20000, 50000, 100000 ];
+        $this->setValueFromRequest($args, $request, 'limit', $limits);
+
+        $orders = [ 'a', 'd' ];
+        $this->setValueFromRequest($args, $request, 'order', $orders, 'A');
+
+        if ($page = (int)$request->query->get('page')) {
+            if ($page >= 0) {
+                $args['page'] = $page;
+            }
+        }
+        $this->setValueFromRequest($args, $request, 'sort');
+    }
+
+    protected function setRegionFromRequest(&$args, $request)
+    {
+        $regions = ['af', 'an', 'as', 'ca', 'eu', 'iw', 'na', 'oc', 'sa', 'xx'];
+        $this->setValueFromRequest($args, $request, 'region', $regions, 'a');
+    }
+
+    protected function setRwwFocusFromRequest(&$args, $request)
+    {
+        $regions = ['af', 'an', 'as', 'ca', 'eu', 'iw', 'na', 'oc', 'sa', 'xx'];
+        $this->setValueFromRequest($args, $request, 'rww_focus', $regions, 'a');
+    }
+
+    protected function setTypeFromRequest(&$args, $request)
+    {
+        if ($request->query->get('types')) {
+            $types =        strtoupper($request->query->get('types'));
+            $types =        'ALL' === $types ? $this->typeRepository->getAllTypesAsCsv() : $types;
+            $values =       explode(',', $types);
+            $args['type'] = [];
+            foreach ($values as $v) {
+                if ($this->typeRepository->getSignalTypesSearched([$v])){
+                    $args['type'][] = $v;
+                }
+            }
+        }
     }
 }

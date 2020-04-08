@@ -19,10 +19,6 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class Collection extends Base
 {
-    private $listenerRepository;
-    private $paperRepository;
-    private $signalRepository;
-    private $typeRepository;
 
     /**
      * @Route(
@@ -135,6 +131,20 @@ class Collection extends Base
             $seeklistStats =    SignalRepository::getSeeklistStats($signals);
             $seeklistColumns =  SignalRepository::getSeeklistColumns($signals, $paper);
         }
+        $box =          false;
+        $center =       false;
+        if ('map' === $args['show'] && $signals) {
+            $lats =     array_column($signals, 'lat');
+            $lons =     array_column($signals, 'lon');
+            $lat_min =  min($lats);
+            $lat_max =  max($lats);
+            $lon_min =  min($lons);
+            $lon_max =  max($lons);
+            $lat_cen =  $lat_min + (($lat_max - $lat_min) / 2);
+            $lon_cen =  $lon_min + (($lon_max - $lon_min) / 2);
+            $box =      [[$lat_min, $lon_min], [$lat_max, $lon_max]];
+            $center =   [$lat_cen, $lon_cen];
+        }
         $signalEntities = [];
         $signalTypes = [];
         foreach ($signals as $signal) {
@@ -147,6 +157,7 @@ class Collection extends Base
             $signalEntities[] = $s;
             $signalTypes[] = $signal['type'];
         }
+
         $types = [];
         foreach ($signalTypes as $type) {
             $types[$type] = $typeRepository->getTypeForCode($type);
@@ -166,6 +177,8 @@ class Collection extends Base
         $parameters = [
             '_locale' =>            $_locale,
             'args' =>               $args,
+            'box' =>                $box,
+            'center' =>             $center,
             'classic' =>            $this->systemRepository->getClassicUrl('signals', $args['show']),
             'columns' =>            $signalRepository->getColumns(),
             'expanded' =>           $expanded,
@@ -207,45 +220,22 @@ class Collection extends Base
 
     private function setArgsFromRequest(&$args, $request)
     {
-        $sets = [ 'type', 'listener' ];
-        $pairs = [ 'khz', 'logged_date', 'logged_first', 'logged_last' ];
+        $this->setPagingFromRequest($args, $request);
+        $this->setListenersFromRequest($args, $request);
+        $this->setRegionFromRequest($args, $request);
+        $this->setTypeFromRequest($args, $request);
+
+        $this->setPairFromRequest($args, $request, 'khz');
+        $this->setPairFromRequest($args, $request, 'logged_date');
+        $this->setPairFromRequest($args, $request, 'logged_first');
+        $this->setPairFromRequest($args, $request, 'logged_last');
+
+        $this->setValueFromRequest($args, $request, 'show', ['list', 'map'], 'a');
+
+        $whitelist = [ 'call', 'countries', 'gsq', 'sp_itu_clause', 'states' ];
         foreach (array_keys($args) as $key) {
-            if ($request->query->get($key)) {
+            if (in_array($key, $whitelist) && $request->query->get($key)) {
                 $args[$key] = $request->query->get($key);
-            }
-        }
-        foreach ($sets as $set) {
-            if ($request->query->get($set . 's')) {
-                $args[$set] = [];
-                $values = explode(',', $request->query->get($set . 's'));
-                foreach ($values as $v) {
-                    switch ($set) {
-                        case 'listener':
-                            if ($this->listenerRepository->find((int) $v)) {
-                                $args[$set][] = $v;
-                            }
-                            break;
-                        case 'type':
-                            if ($this->typeRepository->getSignalTypesSearched([$v])){
-                                $args[$set][] = $v;
-                            }
-                            break;
-                    }
-                }
-            }
-        }
-        foreach ($pairs as $pair) {
-            if ($request->query->get($pair)) {
-                $values = explode(',', $request->query->get($pair));
-                switch (count($values)) {
-                    case 1:
-                        $args[$pair . '_1'] = $values[0];
-                        break;
-                    case 2:
-                        $args[$pair . '_1'] = min($values);
-                        $args[$pair . '_2'] = max($values);
-                        break;
-                }
             }
         }
     }

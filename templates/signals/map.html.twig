@@ -1,5 +1,8 @@
 <script>
 //<!--
+var box = [{ lat: {{ box[0][0] }}, lon: {{ box[0][1] }}}, { lat: {{ box[1][0] }}, lon: {{ box[1][1] }} }];
+var center = { lat: {{ center[0] }}, lon: {{ center[1] }} };
+
 var signals = [
 {% for row in signals %}
     {% set type = typeRepository.TypeForCode(row.type) %}{ 'id':{{

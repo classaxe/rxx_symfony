@@ -57,11 +57,8 @@ class Cle extends Base
     private function getUrlForRegion($cle, $region, $range) {
         $params = [];
         $prefix = "get{$region}Range$range";
-        if ($val = $cle->{ $prefix . 'Low'}()) {
-            $params[] = 'khz_1=' . $val;
-        }
-        if ($val = $cle->{ $prefix . 'High'}()) {
-            $params[] = 'khz_2=' . $val;
+        if (($val1 = $cle->{ $prefix . 'Low'}()) && ($val2 = $cle->{ $prefix . 'High'}())) {
+            $params[] = 'khz=' . $val1 . ',' . $val2;
         }
         if ($val = $cle->{ $prefix . 'Channels'}()) {
             $params[] = 'channels=' . $val;

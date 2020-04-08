@@ -21,7 +21,6 @@ class ListenerAwards extends Base
 {
     private $awardRepository;
     private $listener;
-    private $listenerRepository;
     private $signals;
 
     /**

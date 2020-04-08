@@ -45,6 +45,7 @@ class Collection extends Base
      * Listeners constructor.
      * @param CountryRepository $country
      * @param RegionRepository $region
+     * @param TypeRepository $type
      */
     public function __construct(
         CountryRepository $country,
@@ -81,25 +82,25 @@ class Collection extends Base
                 ]
             )
             ->add(
-                'filter',
+                'q',
                 TextType::class,
                 [
-                    'label' =>      'Search For',
-                    'required' =>   false
+                    'data' =>           $options['q'],
+                    'label' =>          'Search For',
+                    'required' =>       false
                 ]
             )
             ->add(
                 'type',
                 ChoiceType::class,
                 [
-                    'choices' =>    $this->type->getAllChoices(true),
-                    'choice_attr' => function ($value) {
-                        return ['class' => strToLower($value)];
-                    },
-                    'expanded' =>   true,
-                    'label' =>      false,
-                    'multiple' =>   true,
-                    'attr' =>       [ 'legend' => 'Show Counts' ],
+                    'attr' =>           [ 'legend' => 'Signal Types' ],
+                    'choices' =>        $this->type->getAllChoices(true),
+                    'choice_attr' =>    function ($value) { return ['class' => strToLower($value)]; },
+                    'data' =>           $options['type'],
+                    'expanded' =>       true,
+                    'label' =>          false,
+                    'multiple' =>       true,
                 ]
             )
             ->add(
@@ -107,30 +108,27 @@ class Collection extends Base
                 ChoiceType::class,
                 [
                     'choices' => $this->country->getMatchingOptions(
-                        $system,
-                        $region,
-                        true,
-                        false,
-                        true
+                        $system, $region, true, false,true
                     ),
-                    'label' => 'Country',
-                    'required' => false
+                    'data' =>           $options['country'],
+                    'label' =>          'Country',
+                    'required' =>       false
                 ]
             )
             ->add(
                 'submit',
                 SubmitType::class,
                 [
-                    'label'         => 'Go',
-                    'attr'          => [ 'class' => 'button small']
+                    'label' =>          'Go',
+                    'attr' =>           [ 'class' => 'button small']
                 ]
             )
             ->add(
                 'clear',
                 ResetType::class,
                 [
-                    'label'         => 'Clear',
-                    'attr'          => [ 'class' => 'button small' ]
+                    'label' =>          'Clear',
+                    'attr' =>           [ 'class' => 'button small' ]
                 ]
             );
 
@@ -141,9 +139,10 @@ class Collection extends Base
                     'region',
                     ChoiceType::class,
                     [
-                        'choices' => $this->region->getAllOptions(),
-                        'label' => 'Region',
-                        'required' =>   false
+                        'choices' =>        $this->region->getAllOptions(),
+                        'data' =>           $options['region'],
+                        'label' =>          'Region',
+                        'required' =>       false
                     ]
                 );
         }

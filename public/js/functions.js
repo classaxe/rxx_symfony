@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.2.0
- * Date:       2020-03-27
+ * Version:    2.5.0
+ * Date:       2020-04-08
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
  */
@@ -931,15 +931,17 @@ var LMap = {
             center: { lat: center.lat, lng: center.lon },
             scaleControl: true,
             zoomControl: true,
-            zoom: 2
+            zoom: 7
         });
 
-        map.fitBounds(
-            new google.maps.LatLngBounds(
-                new google.maps.LatLng( box[0].lat, box[0].lon), //sw
-                new google.maps.LatLng( box[1].lat, box[1].lon) //ne
-            )
-        );
+        if (box[0].lat !== box[1].lat || box[0].lon !== box[1].lon) {
+            map.fitBounds(
+                new google.maps.LatLngBounds(
+                    new google.maps.LatLng(box[0].lat, box[0].lon), //sw
+                    new google.maps.LatLng(box[1].lat, box[1].lon) //ne
+                )
+            );
+        }
         LMap.drawGrid();
         LMap.drawMarkers();
         LMap.setActions();
@@ -1304,11 +1306,20 @@ var SMap = {
             }
         }
         SMap.options = {
-            'zoom': 2,
-            'center': new google.maps.LatLng(20, 0),
+            'zoom': 7,
+            'center': new google.maps.LatLng(center.lat, center.lon),
             'mapTypeId': google.maps.MapTypeId.ROADMAP
         };
         SMap.map = new google.maps.Map($('#map').get(0), SMap.options);
+        if (box[0].lat !== box[1].lat || box[0].lon !== box[1].lon) {
+            SMap.map.fitBounds(
+                new google.maps.LatLngBounds(
+                    new google.maps.LatLng(box[0].lat, box[0].lon), //sw
+                    new google.maps.LatLng(box[1].lat, box[1].lon) //ne
+                )
+            );
+        }
+
         SMap.infoWindow = new google.maps.InfoWindow();
         SMap.drawGrid();
         SMap.drawMarkers();

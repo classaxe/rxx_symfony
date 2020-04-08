@@ -17,11 +17,20 @@ var SMap = {
             }
         }
         SMap.options = {
-            'zoom': 2,
-            'center': new google.maps.LatLng(20, 0),
+            'zoom': 7,
+            'center': new google.maps.LatLng(center.lat, center.lon),
             'mapTypeId': google.maps.MapTypeId.ROADMAP
         };
         SMap.map = new google.maps.Map($('#map').get(0), SMap.options);
+        if (box[0].lat !== box[1].lat || box[0].lon !== box[1].lon) {
+            SMap.map.fitBounds(
+                new google.maps.LatLngBounds(
+                    new google.maps.LatLng(box[0].lat, box[0].lon), //sw
+                    new google.maps.LatLng(box[1].lat, box[1].lon) //ne
+                )
+            );
+        }
+
         SMap.infoWindow = new google.maps.InfoWindow();
         SMap.drawGrid();
         SMap.drawMarkers();

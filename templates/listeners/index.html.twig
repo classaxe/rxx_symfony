@@ -1,6 +1,7 @@
 {% extends 'main.html.twig' %}
 
 {% block body %}
+{% include 'listeners/js.html.twig' %}
 <div class="main">
     <div class="text-center center-block">
         <h1>{{ mode | trans }}</h1>
@@ -25,6 +26,5 @@
         {% if args['show'] == 'map' %}{% include 'listeners/map.html.twig' %}{% endif %}
     </div>
     {% include 'listeners/actions.html.twig' %}
-    {% include 'listeners/js.html.twig' %}
 </div>
 {% endblock %}

@@ -10,15 +10,17 @@ var LMap = {
             center: { lat: center.lat, lng: center.lon },
             scaleControl: true,
             zoomControl: true,
-            zoom: 2
+            zoom: 7
         });
 
-        map.fitBounds(
-            new google.maps.LatLngBounds(
-                new google.maps.LatLng( box[0].lat, box[0].lon), //sw
-                new google.maps.LatLng( box[1].lat, box[1].lon) //ne
-            )
-        );
+        if (box[0].lat !== box[1].lat || box[0].lon !== box[1].lon) {
+            map.fitBounds(
+                new google.maps.LatLngBounds(
+                    new google.maps.LatLng(box[0].lat, box[0].lon), //sw
+                    new google.maps.LatLng(box[1].lat, box[1].lon) //ne
+                )
+            );
+        }
         LMap.drawGrid();
         LMap.drawMarkers();
         LMap.setActions();
