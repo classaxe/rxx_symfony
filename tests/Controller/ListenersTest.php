@@ -82,7 +82,7 @@ class ListenersTest extends Base
             $form = $this
                 ->getMyCrawler()
                 ->filter('button#form_submit')
-                ->form(['form[filter]' =>    'AAAA'], 'POST');
+                ->form(['form[q]' =>    'AAAA'], 'POST');
             $this->myClient->submit($form);
 
             $noResults =    $this->getMyCrawler()->filter('p.no-results')->eq(0);
