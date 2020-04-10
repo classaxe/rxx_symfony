@@ -4079,6 +4079,22 @@
         <source>Map Pos</source>
         <target>Map Pos</target>
       </trans-unit>
+      <trans-unit id="g6cRW9l" resname="Shareable Links">
+        <source>Shareable Links</source>
+        <target>Shareable Links</target>
+      </trans-unit>
+      <trans-unit id="gqHv1mD" resname="&lt;b&gt;Left-click&lt;/b&gt; on a link to visit.">
+        <source>&lt;b&gt;Left-click&lt;/b&gt; on a link to visit.</source>
+        <target><![CDATA[<b>Left-click</b> on a link to visit.]]></target>
+      </trans-unit>
+      <trans-unit id="o8gG4Et" resname="&lt;b&gt;Right-click&lt;/b&gt; to copy link address.">
+        <source>&lt;b&gt;Right-click&lt;/b&gt; to copy link address.</source>
+        <target><![CDATA[<b>Right-click</b> to copy link address.]]></target>
+      </trans-unit>
+      <trans-unit id="xgw8OZd" resname="Export as .csv">
+        <source>Export as .csv</source>
+        <target>Export as .csv</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

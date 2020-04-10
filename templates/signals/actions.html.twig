@@ -5,15 +5,15 @@
             <a id="btn_csv_all" title="{% trans with { '%SYSTEM%' : system|upper } %}Export Entire %SYSTEM% Database{% endtrans %}"><span class='ui-icon ui-icon-document'></span>{{ system }}.csv</a>
         </div>
         <div>
-            <a id="btn_link" onclick="alert('Coming soon')"><span class='ui-icon ui-icon-link'></span>{% trans %}Share{% endtrans %}</a>
+            <a id="btn_share"><span class='ui-icon ui-icon-link'></span>{% trans %}Share{% endtrans %}</a>
             <a id="btn_prt"><span class='ui-icon ui-icon-print'></span>{% trans %}Print{% endtrans %}</a>
         </div>
 {% if isAdmin %}
-    <div>
+        <div>
             <a id="btn_new" onclick="window.open('{{ path('signal', { 'system' : system, 'id' : 'new'})}}', 'signal_new', popWinSpecs['signals_[id]'])">
                 <span class='ui-icon ui-icon-newwin'></span>{% trans %}New...{% endtrans %}
             </a>
-    </div>
+        </div>
 {% endif %}
     </div>
 </div>

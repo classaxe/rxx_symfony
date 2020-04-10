@@ -4,16 +4,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{% block title %}{{ system|upper }} &gt; {{ mode|raw }}{% endblock %}</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 <link rel="stylesheet prefetch" href="{{ asset('css/foundation.min.css') }}" />
 <link rel="stylesheet prefetch" href="{{ asset('css/jquery-ui.min.css') }}" />
 <link rel="stylesheet" href="{{ asset('css/style' ~ (isDev ? '' : '.min') ~ '.css') }}?v={{ tag }}" />
 {% block stylesheets %}{% endblock %}
 <script>
+var base_host = window.location.protocol + '//' + window.location.host;
 var base_image = "{{ asset('image') }}";
 var base_js = "{{ asset('js') }}";
 var base_url = "{{ path('locale_system', { 'system' : system }) }}";
 </script>
+{% include 'js_trans.html.twig' %}
 <script src="{{ asset('js/jquery-3.4.1.min.js') }}"></script>
 <script src="{{ asset('js/jquery-ui.min.js') }}"></script>
 <script src="{{ asset('js/functions' ~ (isDev ? '' : '.min') ~ '.js') }}?v={{ tag }}"></script>
@@ -24,5 +25,6 @@ var base_url = "{{ path('locale_system', { 'system' : system }) }}";
 <main id="main">{% block body %}{% endblock %}</main>
 {% block body_footer %}{% endblock %}
 {% block javascripts %}{% endblock %}
+<div id="dialog"></div>
 </body>
 </html>

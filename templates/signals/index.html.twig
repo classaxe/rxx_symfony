@@ -23,7 +23,6 @@
             {% if args['show'] == 'seeklist' %}{% include 'signals/seeklist.html.twig' %}{% endif %}
         </div>
      </div>
-{% include 'js_trans.html.twig' %}
 <script>
     initSignalsForm(msg.paging, {{ results.total }});
 </script>

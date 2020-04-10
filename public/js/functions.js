@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.5.0
- * Date:       2020-04-08
+ * Version:    2.6.0
+ * Date:       2020-04-10
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
  */
@@ -50,7 +50,7 @@ var popWinSpecs = {
     'states_*' :                    'width=720,height=760,resizable=1',
     'states_aus' :                  'width=720,height=240,resizable=1',
     'states_can_usa' :              'width=680,height=690,resizable=1',
-};;
+};
 
 var awards = {
     all_sections : [],
@@ -98,7 +98,7 @@ var awards = {
             p.find('img').toggle();
         });
         $('#form_submit').click(function() {
-            var message = msg.cart_conf_1 + '\n' + msg.cart_conf_2 + '\n\n' + msg.cart_conf_3 + '\n' + msg.cart_conf_4
+            var message = msg.cart_conf_1 + '\n' + msg.cart_conf_2 + '\n\n' + msg.cart_conf_3 + '\n' + msg.cart_conf_4;
             if (!confirm(message)) {
                 alert(msg.cancelled);
                 return false;
@@ -106,7 +106,7 @@ var awards = {
         });
     },
     toggleAward : function(id) {
-        var awards, i, idx, len, message, url;
+        var awards, i, idx, len, message;
         len = 8;
         idx = $.inArray(id, cart);
         if (idx === -1) {
@@ -159,7 +159,7 @@ var awards = {
             }
         }
     }
-};;
+};
 
 function changeShowMode(mode) {
     $('#form_show').val(mode);
@@ -168,27 +168,6 @@ function changeShowMode(mode) {
 
 function decodeHtmlEntities(value) {
     return $("<div/>").html(value).text();
-}
-
-function getLimitOptions(max, value, defaultLimit) {
-    var values = [10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 100000, 20000, 50000, 100000];
-    var out = "";
-    for (var i in values) {
-        if (values[i] > max && values[i] > defaultLimit) {
-            continue;
-        }
-        out +=
-            "<option value=\"" + values[i] + "\"" +
-            (parseInt(value) === values[i] ? " selected=\"selected\"" : "") +
-            ">" +
-            values[i] + ' results' +
-            "</option>";
-    }
-    out +=
-        "<option value=\"" + (max > values[0] ? -1 : defaultLimit) + "\"" +
-        (parseInt(value) === -1 ? " selected=\"selected\"" : "") +
-        ">All results</option>";
-    return out;
 }
 
 function getMetar(decoded) {
@@ -201,61 +180,6 @@ function getMetar(decoded) {
         'popMETAR'+decoded,
         'scrollbars=1,resizable=1,location=1'
     );
-}
-
-function getPagingOptions(total, limit, page) {
-    var out = "";
-    pages = total/limit;
-    for (var i=0; i < pages; i++) {
-        out +=
-            "<option value=\"" + i + "\"" +
-            (parseInt(page) === i ? " selected=\"selected\"" : "") +
-            ">" +
-            (1 + (i*limit)) +
-            '-' +
-            (((i+1) * limit) > total ? total : ((i+1) * limit)) +
-            "</option>";
-    }
-    return out;
-}
-
-function initSignalsForm(pagingMsg, resultsCount) {
-    $(document).ready( function() {
-        setFormPagingActions();
-
-        setFormPersonaliseAction();
-        setFormOffsetsAction();
-        setFormRangeAction();
-        setFormRangeUnitsDefault();
-        setFormSortbyAction();
-        setFormSortZaAction();
-        setFormShowModeAction();
-
-        setFormTypesStyles();
-        setFormTypesDefault();
-        setFormTypesAllAction();
-        setFormCountryAction();
-        setFormAdminAction();
-        setFormRegionAction();
-        setFormRwwFocusAction();
-        setFormStatesLabelLink();
-        setFormCountriesLabelLink();
-
-        setFormListenerInvertDefault();
-        setFormHeardInModDefault();
-        setFormListenerOptionsStyle();
-        setFormDatePickers();
-        setFormCollapseSections();
-
-        setFormResetAction('signals');
-        setColumnSortActions();
-        setColumnSortedClass();
-        setExternalLinks();
-
-        setFormPagingStatus(pagingMsg, resultsCount);
-        setSignalActions();
-        scrollToResults();
-    });
 }
 
 function isValidEmail(text) {
@@ -472,6 +396,7 @@ function setFormCollapseSections() {
     $('#section_customise legend').click(
         function() {
             $(this).parent().find('fieldset').toggle();
+            $(this).parent().find('fieldset fieldset').toggle();
             $(this).find('span').toggle();
         }
     );
@@ -656,6 +581,14 @@ function setFormPagingActions() {
             form.submit();
         }
     );
+}
+
+function copyToClipboard(text) {
+    var temp = $("<input>");
+    $("body").append(temp);
+    temp.val(text).select();
+    document.execCommand("copy");
+    temp.remove();
 }
 
 function setFormPagingStatus(string, value) {
@@ -917,7 +850,7 @@ function strip_tags(input, allowed) {
                 return allowed.indexOf('<' + $1.toLowerCase() + '>') > -1 ? $0 : '';
             }
         );
-};
+}
 
 // Used here: http://rxx.classaxe.com/en/rna/listeners/56/map
 // Global vars:
@@ -1057,7 +990,7 @@ var LMap = {
             }
         });
     }
-};;
+};
 
 // Used here: http://rxx.classaxe.com/en/rna/listeners/323/locatormap
 var LocatorMap = {
@@ -1072,17 +1005,17 @@ var LocatorMap = {
             $('#form_mapX').val(x);
             $('#form_mapY').val(y);
         });
-        $('#form_mapX').change(function(e) {
+        $('#form_mapX').change(function() {
             xpos = parseInt($('#form_mapX').val());
             ypos = parseInt($('#form_mapY').val());
             LocatorMap.setPos(xpos, ypos);
         });
-        $('#form_mapY').change(function(e) {
+        $('#form_mapY').change(function() {
             xpos = parseInt($('#form_mapX').val());
             ypos = parseInt($('#form_mapY').val());
             LocatorMap.setPos(xpos, ypos);
         });
-        $('#x_sub').click(function(e) {
+        $('#x_sub').click(function() {
             var val = parseInt($('#form_mapX').val());
             if (val > 0) {
                 $('#form_mapX')
@@ -1090,13 +1023,13 @@ var LocatorMap = {
                     .trigger('change');
             }
         });
-        $('#x_add').click(function(e) {
+        $('#x_add').click(function() {
             var val = parseInt($('#form_mapX').val());
             $('#form_mapX')
                 .val(val + 1)
                 .trigger('change');
         });
-        $('#y_sub').click(function(e) {
+        $('#y_sub').click(function() {
             var val = parseInt($('#form_mapY').val());
             if (val > 0) {
                 $('#form_mapY')
@@ -1104,7 +1037,7 @@ var LocatorMap = {
                     .trigger('change');
             }
         });
-        $('#y_add').click(function(e) {
+        $('#y_add').click(function() {
             var val = parseInt($('#form_mapY').val());
             $('#form_mapY')
                 .val(val + 1)
@@ -1132,7 +1065,7 @@ var LocatorMap = {
             display: 'block'
         });
     }
-};;
+};
 
 function drawGrid(map, layers) {
     TxtOverlay =    initMapsTxtOverlay();
@@ -1220,7 +1153,172 @@ function initMapsTxtOverlay() {
     };
 
     return TxtOverlay;
+}
+
+function getLimitOptions(max, value, defaultLimit) {
+    var values = [10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 100000, 20000, 50000, 100000];
+    var out = "";
+    for (var i in values) {
+        if (values[i] > max && values[i] > defaultLimit) {
+            continue;
+        }
+        out +=
+            "<option value=\"" + values[i] + "\"" +
+            (parseInt(value) === values[i] ? " selected=\"selected\"" : "") +
+            ">" +
+            values[i] + ' results' +
+            "</option>";
+    }
+    out +=
+        "<option value=\"" + (max > values[0] ? -1 : defaultLimit) + "\"" +
+        (parseInt(value) === -1 ? " selected=\"selected\"" : "") +
+        ">All results</option>";
+    return out;
+}
+
+function getPagingOptions(total, limit, page) {
+    var out = "";
+    pages = total/limit;
+    for (var i=0; i < pages; i++) {
+        out +=
+            "<option value=\"" + i + "\"" +
+            (parseInt(page) === i ? " selected=\"selected\"" : "") +
+            ">" +
+            (1 + (i*limit)) +
+            '-' +
+            (((i+1) * limit) > total ? total : ((i+1) * limit)) +
+            "</option>";
+    }
+    return out;
+}
+
+var shareableLink = {
+    getBaseUrl: function(mode) {
+        return base_host + base_url + mode;
+    },
+    getFromField: function(field, options) {
+        var f1 = $('#form_' + field);
+        if ('undefined' === typeof f1.val() || '' === f1.val()) {
+            return '';
+        }
+        if ('undefined' === typeof options || -1 !== $.inArray(f1.val(), options)) {
+            return '&' + field + '=' + encodeURI(f1.val());
+        }
+        return '';
+    },
+    getFromListeners: function() {
+        var f1 = $('#form_listener');
+        if ('undefined' === typeof f1.val() || '' === encodeURI(f1.val())) {
+            return '';
+        }
+        return '&listeners=' + encodeURI(f1.val());
+    },
+    getFromPagingControls: function(defaultLimit) {
+        var f1 = $('#form_limit');
+        var f2 = $('#form_page');
+        return (defaultLimit !== parseInt(f1.val()) ? '&limit=' + f1.val() : '') +
+            (0 !== parseInt(f2.val()) ? '&page=' + f2.val() : '');
+    },
+    getFromPair: function(field) {
+        var f1 = $('#form_' + field + '_1');
+        var f2 = $('#form_' + field + '_2');
+        return (f1.val() || f2.val() ?
+                '&' + field + '=' + encodeURI(f1.val()) +
+                (f1.val() !== f2.val() ? ',' + encodeURI(f2.val()) : '')
+                : ''
+        );
+    },
+    getFromRadioGroup: function(field, options) {
+        var f1 = $("input[name='form[" + field + "]']:checked");
+        if ('undefined' === typeof f1.val() || '' === f1.val()) {
+            return '';
+        }
+        if ('undefined' === typeof options || -1 !== $.inArray(f1.val(), options)) {
+            return '&' + field + '=' + encodeURI(f1.val());
+        }
+        return '';
+    },
+    getFromSortingControls: function(defaultSorting) {
+        var f1 = $('#form_sort');
+        var f2 = $('#form_order');
+        return (defaultSorting !== f1.val() ? '&sort=' + f1.val() : '') +
+            (f2.val() ? '&order=' + f2.val() : '');
+    },
+    getFromTypes: function() {
+        var types = [];
+        $("fieldset#form_type div input").each(function() {
+            if ($(this).is(':checked') && 'ALL' !== $(this).prop('value')) {
+                types.push($(this).prop('value'));
+            }
+            if (0 === types.length) {
+                types = ['NDB'];
+            }
+            if (7 === types.length) {
+                types = ['ALL'];
+            }
+        });
+        return '?types=' + $.uniqueSort(types).join(',');
+    },
+    signalUrl: function() {
+        return this.getBaseUrl('signals') +
+            this.getFromTypes() +
+            this.getFromField('call') +
+            this.getFromPair('khz') +
+            this.getFromField('channels') +
+            this.getFromField('states') +
+            this.getFromField('sp_itu_clause', ['or']) +
+            this.getFromField('countries') +
+            this.getFromField('region') +
+            this.getFromField('gsq') +
+            this.getFromField('active') +
+
+            this.getFromListeners() +
+            this.getFromRadioGroup('listener_invert', ['1']) +
+            this.getFromField('heard_in') +
+            this.getFromRadioGroup('heard_in_mod', ['all']) +
+            this.getFromPair('logged_date') +
+            this.getFromPair('logged_first') +
+            this.getFromPair('logged_last') +
+
+            this.getFromPagingControls(50) +
+            this.getFromSortingControls('khz') +
+            this.getFromField('personalise') +
+            this.getFromField('offsets', ['1']) +
+            this.getFromField('range_gsq') +
+            this.getFromField('range_min') +
+            this.getFromField('range_max') +
+            this.getFromRadioGroup('range_units');
+    }
 };
+
+function shareSignals() {
+    var url = shareableLink.signalUrl();
+    var dialog = $('#dialog');
+    dialog
+        .html(
+            '<p>' + msg.share.signals.text1 +'<br>' + msg.share.signals.text2 +'</p>' +
+            '<ul>' +
+            '<li><a style="color:#0000ff" href="' + url + '&show=list">' + msg.share.signals.links.list + '</a></li>' +
+            '<li><a style="color:#0000ff" href="' + url + '&show=seeklist">' + msg.share.signals.links.seeklist + '</a></li>' +
+            '<li><a style="color:#0000ff" href="' + url + '&show=map">' + msg.share.signals.links.map + '</a></li>' +
+            '<li><a style="color:#0000ff" href="' + url + '&show=csv">' + msg.share.signals.links.export + '</a></li>' +
+            '</ul>')
+        .dialog({
+            buttons: [{
+                text: msg.close ,
+                click: function() {
+                    $( this ).dialog( "close" );
+                }
+            }],
+            open: function() {
+                $('.ui-dialog-buttonpane button').focus();
+            },
+            modal: true,
+            title: msg.share.signals.title
+        });
+//    alert(url);
+//    copyToClipboard(url);
+}
 
 var SLMap = {
     init : function() {
@@ -1285,7 +1383,6 @@ var SLMap = {
             });
     }
 };
-;
 
 // Globals: signals, types
 var SMap = {
@@ -1334,7 +1431,7 @@ var SMap = {
     },
 
     drawMarkers : function() {
-        var f, fn, html, i, icon_highlight, item, latLng, marker, mode, panel, s, title, titleText;
+        var html, i, icon_highlight, marker, mode, panel, s, title, titleText;
         if (!signals) {
             return;
         }
@@ -1540,4 +1637,64 @@ var SMap = {
         });
 
     }
-};
+};;
+
+function initSignalsForm(pagingMsg, resultsCount) {
+    $(document).ready( function() {
+        setFormPagingActions();
+
+        setFormPersonaliseAction();
+        setFormOffsetsAction();
+        setFormRangeAction();
+        setFormRangeUnitsDefault();
+        setFormSortbyAction();
+        setFormSortZaAction();
+        setFormShowModeAction();
+
+        setFormTypesStyles();
+        setFormTypesDefault();
+        setFormTypesAllAction();
+        setFormCountryAction();
+        setFormAdminAction();
+        setFormRegionAction();
+        setFormRwwFocusAction();
+        setFormStatesLabelLink();
+        setFormCountriesLabelLink();
+
+        setFormListenerInvertDefault();
+        setFormHeardInModDefault();
+        setFormListenerOptionsStyle();
+        setFormDatePickers();
+        setFormCollapseSections();
+
+        setFormResetAction('signals');
+        setColumnSortActions();
+        setColumnSortedClass();
+        setExternalLinks();
+
+        setFormPagingStatus(pagingMsg, resultsCount);
+        setSignalActions();
+        scrollToResults();
+    });
+}
+
+function setSignalActions() {
+    $('#btn_csv_all').click(function () {
+        window.location.assign(window.location + '/export/csv');
+    });
+    $('#btn_csv_fil').click(function () {
+        var show = $('#form_show').val();
+        $('#form_show').val('csv');
+        $('#form_submit').click();
+        $('#form_show').val(show);
+
+    });
+    $('#btn_prt').click(function () {
+        window.print();
+        return false;
+    });
+    $('#btn_share').click(function() {
+        shareSignals();
+        return false;
+    })
+}

@@ -7,27 +7,6 @@ function decodeHtmlEntities(value) {
     return $("<div/>").html(value).text();
 }
 
-function getLimitOptions(max, value, defaultLimit) {
-    var values = [10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 100000, 20000, 50000, 100000];
-    var out = "";
-    for (var i in values) {
-        if (values[i] > max && values[i] > defaultLimit) {
-            continue;
-        }
-        out +=
-            "<option value=\"" + values[i] + "\"" +
-            (parseInt(value) === values[i] ? " selected=\"selected\"" : "") +
-            ">" +
-            values[i] + ' results' +
-            "</option>";
-    }
-    out +=
-        "<option value=\"" + (max > values[0] ? -1 : defaultLimit) + "\"" +
-        (parseInt(value) === -1 ? " selected=\"selected\"" : "") +
-        ">All results</option>";
-    return out;
-}
-
 function getMetar(decoded) {
     window.open('https://www.aviationweather.gov/metar/data' +
         '?ids='+$('#form_icao').val() +
@@ -38,61 +17,6 @@ function getMetar(decoded) {
         'popMETAR'+decoded,
         'scrollbars=1,resizable=1,location=1'
     );
-}
-
-function getPagingOptions(total, limit, page) {
-    var out = "";
-    pages = total/limit;
-    for (var i=0; i < pages; i++) {
-        out +=
-            "<option value=\"" + i + "\"" +
-            (parseInt(page) === i ? " selected=\"selected\"" : "") +
-            ">" +
-            (1 + (i*limit)) +
-            '-' +
-            (((i+1) * limit) > total ? total : ((i+1) * limit)) +
-            "</option>";
-    }
-    return out;
-}
-
-function initSignalsForm(pagingMsg, resultsCount) {
-    $(document).ready( function() {
-        setFormPagingActions();
-
-        setFormPersonaliseAction();
-        setFormOffsetsAction();
-        setFormRangeAction();
-        setFormRangeUnitsDefault();
-        setFormSortbyAction();
-        setFormSortZaAction();
-        setFormShowModeAction();
-
-        setFormTypesStyles();
-        setFormTypesDefault();
-        setFormTypesAllAction();
-        setFormCountryAction();
-        setFormAdminAction();
-        setFormRegionAction();
-        setFormRwwFocusAction();
-        setFormStatesLabelLink();
-        setFormCountriesLabelLink();
-
-        setFormListenerInvertDefault();
-        setFormHeardInModDefault();
-        setFormListenerOptionsStyle();
-        setFormDatePickers();
-        setFormCollapseSections();
-
-        setFormResetAction('signals');
-        setColumnSortActions();
-        setColumnSortedClass();
-        setExternalLinks();
-
-        setFormPagingStatus(pagingMsg, resultsCount);
-        setSignalActions();
-        scrollToResults();
-    });
 }
 
 function isValidEmail(text) {
@@ -309,6 +233,7 @@ function setFormCollapseSections() {
     $('#section_customise legend').click(
         function() {
             $(this).parent().find('fieldset').toggle();
+            $(this).parent().find('fieldset fieldset').toggle();
             $(this).find('span').toggle();
         }
     );
@@ -493,6 +418,14 @@ function setFormPagingActions() {
             form.submit();
         }
     );
+}
+
+function copyToClipboard(text) {
+    var temp = $("<input>");
+    $("body").append(temp);
+    temp.val(text).select();
+    document.execCommand("copy");
+    temp.remove();
 }
 
 function setFormPagingStatus(string, value) {

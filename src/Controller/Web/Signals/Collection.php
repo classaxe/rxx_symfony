@@ -221,22 +221,34 @@ class Collection extends Base
     private function setArgsFromRequest(&$args, $request)
     {
         $this->setPagingFromRequest($args, $request);
-        $this->setListenersFromRequest($args, $request);
-        $this->setRegionFromRequest($args, $request);
-        $this->setTypeFromRequest($args, $request);
 
+        $this->setTypeFromRequest($args, $request);
+        $this->setValueFromRequest($args, $request, 'call');
         $this->setPairFromRequest($args, $request, 'khz');
+        $this->setValueFromRequest($args, $request, 'channels', ['1', '2']);
+        $this->setValueFromRequest($args, $request, 'states');
+        $this->setValueFromRequest($args, $request, 'sp_itu_clause', ['OR']);
+        $this->setValueFromRequest($args, $request, 'countries');
+        $this->setRegionFromRequest($args, $request);
+        $this->setValueFromRequest($args, $request, 'gsq');
+        $this->setValueFromRequest($args, $request, 'active', ['1', '2']);
+
+        $this->setListenersFromRequest($args, $request);
+        $this->setValueFromRequest($args, $request, 'listener_invert', ['0', '1']);
+        $this->setValueFromRequest($args, $request, 'heard_in');
+        $this->setValueFromRequest($args, $request, 'heard_in_mod', ['any', 'all'], 'a');
         $this->setPairFromRequest($args, $request, 'logged_date');
         $this->setPairFromRequest($args, $request, 'logged_first');
         $this->setPairFromRequest($args, $request, 'logged_last');
 
-        $this->setValueFromRequest($args, $request, 'show', ['list', 'map'], 'a');
+        $this->setPersonaliseFromRequest($args, $request);
+        $this->setValueFromRequest($args, $request, 'offsets', ['1']);
+        $this->setValueFromRequest($args, $request, 'range_gsq');
+        $this->setValueFromRequest($args, $request, 'range_min');
+        $this->setValueFromRequest($args, $request, 'range_max');
+        $this->setValueFromRequest($args, $request, 'range_units', ['km', 'mi']);
 
-        $whitelist = [ 'call', 'countries', 'gsq', 'sp_itu_clause', 'states' ];
-        foreach (array_keys($args) as $key) {
-            if (in_array($key, $whitelist) && $request->query->get($key)) {
-                $args[$key] = $request->query->get($key);
-            }
-        }
+        $this->setValueFromRequest($args, $request, 'show', ['csv', 'list', 'map'], 'a');
+
     }
 }

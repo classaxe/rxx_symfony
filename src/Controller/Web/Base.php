@@ -205,10 +205,11 @@ class Base extends AbstractController
             switch (count($values)) {
                 case 1:
                     $args[$field . '_1'] = addslashes($values[0]);
+                    $args[$field . '_2'] = addslashes($values[0]);
                     break;
                 case 2:
-                    $args[$field . '_1'] = addslashes(min($values));
-                    $args[$field . '_2'] = addslashes(max($values));
+                    $args[$field . '_1'] = addslashes($values[0]);
+                    $args[$field . '_2'] = addslashes($values[1]);
                     break;
             }
         }
@@ -220,14 +221,23 @@ class Base extends AbstractController
         $this->setValueFromRequest($args, $request, 'limit', $limits);
 
         $orders = [ 'a', 'd' ];
-        $this->setValueFromRequest($args, $request, 'order', $orders, 'A');
+        $this->setValueFromRequest($args, $request, 'order', $orders, 'a');
 
-        if ($page = (int)$request->query->get('page')) {
+        if ($page = (int) $request->query->get('page')) {
             if ($page >= 0) {
                 $args['page'] = $page;
             }
         }
         $this->setValueFromRequest($args, $request, 'sort');
+    }
+
+    protected function setPersonaliseFromRequest(&$args, $request)
+    {
+        if ($listenerID = (int) $request->query->get('personalise')) {
+            if ($this->listenerRepository->find($listenerID)) {
+                $args['personalise'] = $listenerID;
+            }
+        }
     }
 
     protected function setRegionFromRequest(&$args, $request)
