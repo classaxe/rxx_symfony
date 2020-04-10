@@ -44,7 +44,7 @@ var awards = {
             p.find('img').toggle();
         });
         $('#form_submit').click(function() {
-            var message = msg.cart_conf_1 + '\n' + msg.cart_conf_2 + '\n\n' + msg.cart_conf_3 + '\n' + msg.cart_conf_4
+            var message = msg.cart_conf_1 + '\n' + msg.cart_conf_2 + '\n\n' + msg.cart_conf_3 + '\n' + msg.cart_conf_4;
             if (!confirm(message)) {
                 alert(msg.cancelled);
                 return false;
@@ -52,7 +52,7 @@ var awards = {
         });
     },
     toggleAward : function(id) {
-        var awards, i, idx, len, message, url;
+        var awards, i, idx, len, message;
         len = 8;
         idx = $.inArray(id, cart);
         if (idx === -1) {
@@ -92,16 +92,18 @@ var awards = {
         }
     },
     toggleSections : function(show) {
-        var i;
+        var i, section, sectionToggle;
         for (i in awards.all_sections) {
+            section = $('#' + awards.all_sections[i]);
+            sectionToggle = $('#toggle_' + awards.all_sections[i]);
             if (show) {
-                $('#' + awards.all_sections[i]).show();
-                $('#toggle_' + awards.all_sections[i]).find('span:eq(0)').hide();
-                $('#toggle_' + awards.all_sections[i]).find('span:eq(1)').show();
+                section.show();
+                sectionToggle.find('span:eq(0)').hide();
+                sectionToggle.find('span:eq(1)').show();
             } else {
-                $('#' + awards.all_sections[i]).hide();
-                $('#toggle_' + awards.all_sections[i]).find('span:eq(0)').show();
-                $('#toggle_' + awards.all_sections[i]).find('span:eq(1)').hide();
+                section.hide();
+                $sectionToggle.find('span:eq(0)').show();
+                sectionToggle.find('span:eq(1)').hide();
             }
         }
     }

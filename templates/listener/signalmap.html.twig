@@ -45,12 +45,12 @@ $(document).ready( function() {
     setClippedCellTitles();
     var mapDiv = $('#map');
     mapDiv.height($(window).height() - 120);
-    mapDiv.width($(window).width() - 450);
+    mapDiv.width($(window).width() - 410);
     $('#scrollablelist').height(mapDiv.height() + 40);
     $(window).resize(function () {
         var mapDiv = $('#map');
         mapDiv.height($(window).height() - 120);
-        mapDiv.width($(window).width() - 450);
+        mapDiv.width($(window).width() - 410);
         $('#scrollablelist').height(mapDiv.height() + 40);
     });
     //]]>
@@ -76,7 +76,7 @@ $(document).ready( function() {
                 <td>
                     <div class="scroll">
                         <div id="scrollablelist">
-                            <table class="results" id="markerlist" style="display:none; margin: 0;width: 390px">
+                            <table class="results" id="markerlist" style="display:none; margin: 0;width: 320px">
                                 <thead>
                                 <tr>
                                     <th>{% trans %}KHz{% endtrans %}</th>

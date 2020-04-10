@@ -1,7 +1,7 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.6.0
+ * Version:    2.6.2
  * Date:       2020-04-10
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
@@ -24,13 +24,13 @@ var popWinSpecs = {
     'countries_na' :                'width=640,height=220,resizable=1',
     'countries_oc' :                'width=680,height=500,resizable=1',
     'countries_sa' :                'width=320,height=600,resizable=1',
-    'listeners_[id]' :              'width=880,height=760,status=1,scrollbars=1,resizable=1',
-    'listeners_[id]_logs' :         'width=880,height=760,status=1,scrollbars=1,resizable=1',
-    'listeners_[id]_logsupload' :   'width=880,height=760,status=1,scrollbars=1,resizable=1',
-    'listeners_[id]_signals' :      'width=880,height=760,status=1,scrollbars=1,resizable=1',
-    'listeners_[id]_map' :          'width=880,height=760,status=1,scrollbars=1,resizable=1',
-    'listeners_[id]_locatormap' :   'width=880,height=760,status=1,scrollbars=1,resizable=1',
-    'listeners_[id]_signalsmap' :   'width=880,height=760,status=1,scrollbars=1,resizable=1',
+    'listeners_[id]' :              'width=1000,height=760,status=1,scrollbars=1,resizable=1',
+    'listeners_[id]_logs' :         'width=1000,height=760,status=1,scrollbars=1,resizable=1',
+    'listeners_[id]_logsupload' :   'width=1000,height=760,status=1,scrollbars=1,resizable=1',
+    'listeners_[id]_signals' :      'width=1000,height=760,status=1,scrollbars=1,resizable=1',
+    'listeners_[id]_map' :          'width=1000,height=760,status=1,scrollbars=1,resizable=1',
+    'listeners_[id]_locatormap' :   'width=1000,height=760,status=1,scrollbars=1,resizable=1',
+    '[id]_signals_map' :            'width=1000,height=760,status=1,scrollbars=1,resizable=1',
     'listeners_[id]_ndbweblog' :    'status=1,scrollbars=1,resizable=1',
     'maps_af' :                     'width=646,height=652,resizable=1',
     'maps_alaska' :                 'width=600,height=620,resizable=1',
@@ -146,16 +146,18 @@ var awards = {
         }
     },
     toggleSections : function(show) {
-        var i;
+        var i, section, sectionToggle;
         for (i in awards.all_sections) {
+            section = $('#' + awards.all_sections[i]);
+            sectionToggle = $('#toggle_' + awards.all_sections[i]);
             if (show) {
-                $('#' + awards.all_sections[i]).show();
-                $('#toggle_' + awards.all_sections[i]).find('span:eq(0)').hide();
-                $('#toggle_' + awards.all_sections[i]).find('span:eq(1)').show();
+                section.show();
+                sectionToggle.find('span:eq(0)').hide();
+                sectionToggle.find('span:eq(1)').show();
             } else {
-                $('#' + awards.all_sections[i]).hide();
-                $('#toggle_' + awards.all_sections[i]).find('span:eq(0)').show();
-                $('#toggle_' + awards.all_sections[i]).find('span:eq(1)').hide();
+                section.hide();
+                $sectionToggle.find('span:eq(0)').show();
+                sectionToggle.find('span:eq(1)').hide();
             }
         }
     }
@@ -248,11 +250,12 @@ function setColumnSortActions() {
         $(this).click(function () {
             var column = this.id.split('|')[0];
             var dir = this.id.split('|')[1];
+            var form_order = $('#form_order');
             if ($(this).hasClass('sorted')) {
-                dir = ($('#form_order').val() === 'a' ? 'd' : 'a');
+                dir = (form_order.val() === 'a' ? 'd' : 'a');
             }
             $('#form_sort').val(column);
-            $('#form_order').val(dir);
+            form_order.val(dir);
             $('form[name="form"]').submit();
         });
     });
@@ -465,6 +468,7 @@ function setFormPagingActions() {
     var prev =      $('#form_prev');
     var next =      $('#form_next');
     var limit =     $('#form_limit');
+    var page =      $('#form_page');
     if (limit.length) {
         limit[0].outerHTML =
             "<select id=\"form_limit\" name=\"form[limit]\" required=\"required\">" +
@@ -473,7 +477,6 @@ function setFormPagingActions() {
         limit =     $('#form_limit');
     }
 
-    var page =  $('#form_page');
     if (page.length) {
         page[0].outerHTML =
             "<label class=\"sr-only\" for=\"form_page\">Page Control</label>\n" +
@@ -603,8 +606,9 @@ function setFormPersonaliseAction(enable) {
         $('#form_personalise').change(function () {
             var lbl = $('#form_personalise option:selected').text();
             var gsq = (lbl.split('|').length === 2 ? lbl.split('|')[1] : '').trim();
-            $('#form_range_gsq').val(gsq);
-            $('#form_range_gsq').trigger('keyup');
+            var form_range_gsq = $('#form_range_gsq');
+            form_range_gsq.val(gsq);
+            form_range_gsq.trigger('keyup');
             $('form[name="form"]').submit();
         });
     } else {
@@ -624,12 +628,14 @@ function setFormOffsetsAction(enable) {
 }
 
 function setFormRangeAction() {
-    $('#form_range_gsq').on('keyup', function() {
+    var form_range_gsq = $('#form_range_gsq');
+    var form_range_min = $('#form_range_min');
+    form_range_gsq.on('keyup', function() {
         var disabled = ($('#form_range_gsq').val().length < 6);
         $('#form_range_min').attr('disabled', disabled);
         $('#form_range_max').attr('disabled', disabled);
     });
-    $('#form_range_min').on('keyup', function() {
+    form_range_min.on('keyup', function() {
         var disabled = ($('#form_range_min').val().length === 0 && $('#form_range_max').val().length === 0);
         $('#form_range_units').attr('disabled', disabled);
     });
@@ -637,8 +643,8 @@ function setFormRangeAction() {
         var disabled = ($('#form_range_min').val().length === 0 && $('#form_range_max').val().length === 0);
         $('#form_range_units').attr('disabled', disabled);
     });
-    $('#form_range_gsq').trigger('keyup');
-    $('#form_range_min').trigger('keyup');
+    form_range_gsq.trigger('keyup');
+    form_range_min.trigger('keyup');
 }
 
 function setFormRangeUnitsDefault() {
@@ -692,9 +698,12 @@ function setFormRwwFocusAction(enable) {
 }
 
 function setFormResetAction(form) {
+    var button_reset = $('button[type="reset"]');
     switch (form) {
         case 'signals':
-            $('button[type="reset"]').click(function () {
+            button_reset.click(function () {
+                var form_range_gsq = $('#form_range_gsq');
+                var form_range_min = $('#form_range_min');
                 setFormAdminAction(false);
                 setFormRegionAction(false);
                 setFormRwwFocusAction(false);
@@ -718,12 +727,12 @@ function setFormResetAction(form) {
                 $('#form_region').prop('selectedIndex', 0);
                 $('#form_rww_focus').prop('selectedIndex', 0);
                 $('#form_gsq').val('');
-                $('#form_range_gsq').val('');
-                $('#form_range_min').val('');
+                form_range_gsq.val('');
+                form_range_min.val('');
                 $('#form_range_max').val('');
                 $('#form_range_units_0').prop('checked', 1);
-                $('#form_range_gsq').trigger('keyup');
-                $('#form_range_min').trigger('keyup');
+                form_range_gsq.trigger('keyup');
+                form_range_min.trigger('keyup');
 
                 $('#form_listener').val([]);
                 $('#form_listener_invert_0').prop('checked', 1);
@@ -748,7 +757,7 @@ function setFormResetAction(form) {
             });
             break;
         case 'listeners':
-            $('button[type="reset"]').click(function () {
+            button_reset.click(function () {
                 $('fieldset#form_types div :checkbox').prop('checked', false);
                 $('fieldset#form_types div :checkbox[value=NDB]').prop('checked', true);
                 $('#form_filter').val('');
@@ -819,22 +828,6 @@ function setFormTypesDefault() {
 function setFormTypesAllAction() {
     $('fieldset#form_type div :checkbox[value=ALL]').click(function () {
         $('fieldset#form_type div :checkbox').prop('checked', $(this).prop("checked"));
-    });
-}
-
-function setSignalActions() {
-    $('#btn_csv_all').click(function () {
-        window.location.assign(window.location + '/export/csv');
-    });
-    $('#btn_csv_fil').click(function () {
-        var show = $('#form_show').val();
-        $('#form_show').val('csv');
-        $('#form_submit').click();
-        $('#form_show').val(show);
-
-    });
-    $('#btn_prt').click(function () {
-        window.print();
     });
 }
 
@@ -973,8 +966,9 @@ var LMap = {
         });
 
         $('#layer_primary').click(function() {
-            LMap.markerGroups.set('primary', $('#layer_primary').prop('checked') ? map : null);
-            if ($('#layer_primary').prop('checked')) {
+            var layer_primary = $('#layer_primary');
+            LMap.markerGroups.set('primary', layer_primary.prop('checked') ? map : null);
+            if (layer_primary.prop('checked')) {
                 $('#markerlist .qth_pri').show();
             } else {
                 $('#markerlist .qth_pri').hide();
@@ -982,8 +976,9 @@ var LMap = {
         });
 
         $('#layer_secondary').click(function() {
-            LMap.markerGroups.set('secondary', $('#layer_secondary').prop('checked') ? map : null);
-            if ($('#layer_secondary').prop('checked')) {
+            var layer_secondary = $('#layer_secondary');
+            LMap.markerGroups.set('secondary', layer_secondary.prop('checked') ? map : null);
+            if (layer_secondary.prop('checked')) {
                 $('#markerlist .qth_sec').show();
             } else {
                 $('#markerlist .qth_sec').hide();
@@ -995,10 +990,11 @@ var LMap = {
 // Used here: http://rxx.classaxe.com/en/rna/listeners/323/locatormap
 var LocatorMap = {
     init : function(xpos, ypos) {
-        if (!$('#rx_map').height()) {
+        var rx_map = $('#rx_map');
+        if (!rx_map.height()) {
             return window.setTimeout(function(){ LocatorMap.init(xpos, ypos); }, 100);
         }
-        $('#rx_map').on('click', function (e) {
+        rx_map.on('click', function () {
             var x = parseInt(e.pageX - $(this).offset().left);
             var y = parseInt(e.pageY - $(this).offset().top);
             LocatorMap.setPos(x, y);
@@ -1016,30 +1012,34 @@ var LocatorMap = {
             LocatorMap.setPos(xpos, ypos);
         });
         $('#x_sub').click(function() {
-            var val = parseInt($('#form_mapX').val());
+            var form_mapX = $('#form_mapX');
+            var val = parseInt(form_mapX.val());
             if (val > 0) {
-                $('#form_mapX')
+                form_mapX
                     .val(val - 1)
                     .trigger('change');
             }
         });
         $('#x_add').click(function() {
-            var val = parseInt($('#form_mapX').val());
-            $('#form_mapX')
+            var form_mapX = $('#form_mapX');
+            var val = parseInt(form_mapX.val());
+            form_mapX
                 .val(val + 1)
                 .trigger('change');
         });
         $('#y_sub').click(function() {
-            var val = parseInt($('#form_mapY').val());
+            var form_mapY = $('#form_mapY');
+            var val = parseInt(form_mapY.val());
             if (val > 0) {
-                $('#form_mapY')
+                form_mapY
                     .val(val - 1)
                     .trigger('change');
             }
         });
         $('#y_add').click(function() {
-            var val = parseInt($('#form_mapY').val());
-            $('#form_mapY')
+            var form_mapY = $('#form_mapY');
+            var val = parseInt(form_mapY.val());
+            form_mapY
                 .val(val + 1)
                 .trigger('change');
         });
@@ -1192,6 +1192,8 @@ function getPagingOptions(total, limit, page) {
     return out;
 }
 
+
+
 var shareableLink = {
     getBaseUrl: function(mode) {
         return base_host + base_url + mode;
@@ -1320,6 +1322,7 @@ function shareSignals() {
 //    copyToClipboard(url);
 }
 
+
 var SLMap = {
     init : function() {
         var html = '', i, imgmap = '', l;
@@ -1360,7 +1363,8 @@ var SLMap = {
         $('tr[data-map]')
             .mouseover(function() {
                 var coords = $(this).data('map').split('|');
-                var scale = $('#rx_map').width() / $('#rx_map')[0].naturalWidth;
+                var rx_map = $('#rx_map');
+                var scale = rx_map.width() / rx_map[0].naturalWidth;
                 $('#point_here')
                     .show()
                     .css({left: ((coords[0] * scale) - 5) + 'px', top: ((coords[1] * scale) - 5) + 'px'})
@@ -1383,6 +1387,7 @@ var SLMap = {
             });
     }
 };
+
 
 // Globals: signals, types
 var SMap = {
@@ -1431,7 +1436,7 @@ var SMap = {
     },
 
     drawMarkers : function() {
-        var html, i, icon_highlight, marker, mode, panel, s, title, titleText;
+        var html, i, icon_highlight, marker, mode;
         if (!signals) {
             return;
         }
@@ -1572,15 +1577,17 @@ var SMap = {
         });
 
         $('#layer_active').click(function() {
-            var i, type;
+            var i, layer_active, layer_type, type;
             for (i in types) {
                 type = types[i];
+                layer_active = $('#layer_active');
+                layer_type = $('#layer_' + type);
                 SMap.markerGroups.set(
                     'type_' + type + '_1',
-                    $('#layer_active').prop('checked') && $('#layer_' + type).prop('checked') ? SMap.map : null
+                    layer_active.prop('checked') && layer_type.prop('checked') ? SMap.map : null
                 );
-                if ($('#layer_' + type).prop('checked')) {
-                    if ($('#layer_active').prop('checked')) {
+                if (layer_type.prop('checked')) {
+                    if (layer_active.prop('checked')) {
                         $('.results tbody .type_' + type + '.active').show();
                     } else {
                         $('.results tbody .type_' + type + '.active').hide();
@@ -1591,15 +1598,17 @@ var SMap = {
             }
         });
         $('#layer_inactive').click(function() {
-            var i, type;
+            var i, layer_inactive, layer_type, type;
             for (i in types) {
                 type = types[i];
+                layer_inactive = $('#layer_inactive');
+                layer_type = $('#layer_' + type);
                 SMap.markerGroups.set(
                     'type_' + type + '_0',
-                    $('#layer_inactive').prop('checked') && $('#layer_' + type).prop('checked') ? SMap.map : null
+                    layer_inactive.prop('checked') && layer_type.prop('checked') ? SMap.map : null
                 );
-                if ($('#layer_' + type).prop('checked')) {
-                    if ($('#layer_inactive').prop('checked')) {
+                if (layer_type.prop('checked')) {
+                    if (layer_inactive.prop('checked')) {
                         $('.results tbody .type_' + type + '.inactive').show();
                     } else {
                         $('.results tbody .type_' + type + '.inactive').hide();
@@ -1611,15 +1620,16 @@ var SMap = {
         });
         types.forEach(function(type){
             $('#layer_' + type).click(function() {
+                var layer_type = $('#layer_' + type);
                 SMap.markerGroups.set(
                     'type_' + type + '_0',
-                    $('#layer_inactive').prop('checked') && $('#layer_' + type).prop('checked') ? SMap.map : null
+                    $('#layer_inactive').prop('checked') && layer_type.prop('checked') ? SMap.map : null
                 );
                 SMap.markerGroups.set(
                     'type_' + type + '_1',
-                    $('#layer_active').prop('checked') && $('#layer_' + type).prop('checked') ? SMap.map : null
+                    $('#layer_active').prop('checked') && layer_type.prop('checked') ? SMap.map : null
                 );
-                if ($('#layer_' + type).prop('checked')) {
+                if (layer_type.prop('checked')) {
                     if ($('#layer_inactive').prop('checked')) {
                         $('.results tbody .type_' + type +'.inactive').show();
                     } else {
@@ -1637,7 +1647,7 @@ var SMap = {
         });
 
     }
-};;
+};
 
 function initSignalsForm(pagingMsg, resultsCount) {
     $(document).ready( function() {
@@ -1683,11 +1693,11 @@ function setSignalActions() {
         window.location.assign(window.location + '/export/csv');
     });
     $('#btn_csv_fil').click(function () {
-        var show = $('#form_show').val();
-        $('#form_show').val('csv');
+        var form_show = $('#form_show');
+        var show = form_show.val();
+        form_show.val('csv');
         $('#form_submit').click();
-        $('#form_show').val(show);
-
+        form_show.val(show);
     });
     $('#btn_prt').click(function () {
         window.print();

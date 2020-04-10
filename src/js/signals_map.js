@@ -45,7 +45,7 @@ var SMap = {
     },
 
     drawMarkers : function() {
-        var f, fn, html, i, icon_highlight, item, latLng, marker, mode, panel, s, title, titleText;
+        var html, i, icon_highlight, marker, mode;
         if (!signals) {
             return;
         }
@@ -186,15 +186,17 @@ var SMap = {
         });
 
         $('#layer_active').click(function() {
-            var i, type;
+            var i, layer_active, layer_type, type;
             for (i in types) {
                 type = types[i];
+                layer_active = $('#layer_active');
+                layer_type = $('#layer_' + type);
                 SMap.markerGroups.set(
                     'type_' + type + '_1',
-                    $('#layer_active').prop('checked') && $('#layer_' + type).prop('checked') ? SMap.map : null
+                    layer_active.prop('checked') && layer_type.prop('checked') ? SMap.map : null
                 );
-                if ($('#layer_' + type).prop('checked')) {
-                    if ($('#layer_active').prop('checked')) {
+                if (layer_type.prop('checked')) {
+                    if (layer_active.prop('checked')) {
                         $('.results tbody .type_' + type + '.active').show();
                     } else {
                         $('.results tbody .type_' + type + '.active').hide();
@@ -205,15 +207,17 @@ var SMap = {
             }
         });
         $('#layer_inactive').click(function() {
-            var i, type;
+            var i, layer_inactive, layer_type, type;
             for (i in types) {
                 type = types[i];
+                layer_inactive = $('#layer_inactive');
+                layer_type = $('#layer_' + type);
                 SMap.markerGroups.set(
                     'type_' + type + '_0',
-                    $('#layer_inactive').prop('checked') && $('#layer_' + type).prop('checked') ? SMap.map : null
+                    layer_inactive.prop('checked') && layer_type.prop('checked') ? SMap.map : null
                 );
-                if ($('#layer_' + type).prop('checked')) {
-                    if ($('#layer_inactive').prop('checked')) {
+                if (layer_type.prop('checked')) {
+                    if (layer_inactive.prop('checked')) {
                         $('.results tbody .type_' + type + '.inactive').show();
                     } else {
                         $('.results tbody .type_' + type + '.inactive').hide();
@@ -225,15 +229,16 @@ var SMap = {
         });
         types.forEach(function(type){
             $('#layer_' + type).click(function() {
+                var layer_type = $('#layer_' + type);
                 SMap.markerGroups.set(
                     'type_' + type + '_0',
-                    $('#layer_inactive').prop('checked') && $('#layer_' + type).prop('checked') ? SMap.map : null
+                    $('#layer_inactive').prop('checked') && layer_type.prop('checked') ? SMap.map : null
                 );
                 SMap.markerGroups.set(
                     'type_' + type + '_1',
-                    $('#layer_active').prop('checked') && $('#layer_' + type).prop('checked') ? SMap.map : null
+                    $('#layer_active').prop('checked') && layer_type.prop('checked') ? SMap.map : null
                 );
-                if ($('#layer_' + type).prop('checked')) {
+                if (layer_type.prop('checked')) {
                     if ($('#layer_inactive').prop('checked')) {
                         $('.results tbody .type_' + type +'.inactive').show();
                     } else {

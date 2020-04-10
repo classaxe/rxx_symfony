@@ -1,51 +1,56 @@
 // Used here: http://rxx.classaxe.com/en/rna/listeners/323/locatormap
 var LocatorMap = {
     init : function(xpos, ypos) {
-        if (!$('#rx_map').height()) {
+        var rx_map = $('#rx_map');
+        if (!rx_map.height()) {
             return window.setTimeout(function(){ LocatorMap.init(xpos, ypos); }, 100);
         }
-        $('#rx_map').on('click', function (e) {
+        rx_map.on('click', function () {
             var x = parseInt(e.pageX - $(this).offset().left);
             var y = parseInt(e.pageY - $(this).offset().top);
             LocatorMap.setPos(x, y);
             $('#form_mapX').val(x);
             $('#form_mapY').val(y);
         });
-        $('#form_mapX').change(function(e) {
+        $('#form_mapX').change(function() {
             xpos = parseInt($('#form_mapX').val());
             ypos = parseInt($('#form_mapY').val());
             LocatorMap.setPos(xpos, ypos);
         });
-        $('#form_mapY').change(function(e) {
+        $('#form_mapY').change(function() {
             xpos = parseInt($('#form_mapX').val());
             ypos = parseInt($('#form_mapY').val());
             LocatorMap.setPos(xpos, ypos);
         });
-        $('#x_sub').click(function(e) {
-            var val = parseInt($('#form_mapX').val());
+        $('#x_sub').click(function() {
+            var form_mapX = $('#form_mapX');
+            var val = parseInt(form_mapX.val());
             if (val > 0) {
-                $('#form_mapX')
+                form_mapX
                     .val(val - 1)
                     .trigger('change');
             }
         });
-        $('#x_add').click(function(e) {
-            var val = parseInt($('#form_mapX').val());
-            $('#form_mapX')
+        $('#x_add').click(function() {
+            var form_mapX = $('#form_mapX');
+            var val = parseInt(form_mapX.val());
+            form_mapX
                 .val(val + 1)
                 .trigger('change');
         });
-        $('#y_sub').click(function(e) {
-            var val = parseInt($('#form_mapY').val());
+        $('#y_sub').click(function() {
+            var form_mapY = $('#form_mapY');
+            var val = parseInt(form_mapY.val());
             if (val > 0) {
-                $('#form_mapY')
+                form_mapY
                     .val(val - 1)
                     .trigger('change');
             }
         });
-        $('#y_add').click(function(e) {
-            var val = parseInt($('#form_mapY').val());
-            $('#form_mapY')
+        $('#y_add').click(function() {
+            var form_mapY = $('#form_mapY');
+            var val = parseInt(form_mapY.val());
+            form_mapY
                 .val(val + 1)
                 .trigger('change');
         });

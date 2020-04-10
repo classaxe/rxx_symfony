@@ -38,7 +38,8 @@ var SLMap = {
         $('tr[data-map]')
             .mouseover(function() {
                 var coords = $(this).data('map').split('|');
-                var scale = $('#rx_map').width() / $('#rx_map')[0].naturalWidth;
+                var rx_map = $('#rx_map');
+                var scale = rx_map.width() / rx_map[0].naturalWidth;
                 $('#point_here')
                     .show()
                     .css({left: ((coords[0] * scale) - 5) + 'px', top: ((coords[1] * scale) - 5) + 'px'})

@@ -85,11 +85,12 @@ function setColumnSortActions() {
         $(this).click(function () {
             var column = this.id.split('|')[0];
             var dir = this.id.split('|')[1];
+            var form_order = $('#form_order');
             if ($(this).hasClass('sorted')) {
-                dir = ($('#form_order').val() === 'a' ? 'd' : 'a');
+                dir = (form_order.val() === 'a' ? 'd' : 'a');
             }
             $('#form_sort').val(column);
-            $('#form_order').val(dir);
+            form_order.val(dir);
             $('form[name="form"]').submit();
         });
     });
@@ -302,6 +303,7 @@ function setFormPagingActions() {
     var prev =      $('#form_prev');
     var next =      $('#form_next');
     var limit =     $('#form_limit');
+    var page =      $('#form_page');
     if (limit.length) {
         limit[0].outerHTML =
             "<select id=\"form_limit\" name=\"form[limit]\" required=\"required\">" +
@@ -310,7 +312,6 @@ function setFormPagingActions() {
         limit =     $('#form_limit');
     }
 
-    var page =  $('#form_page');
     if (page.length) {
         page[0].outerHTML =
             "<label class=\"sr-only\" for=\"form_page\">Page Control</label>\n" +
@@ -440,8 +441,9 @@ function setFormPersonaliseAction(enable) {
         $('#form_personalise').change(function () {
             var lbl = $('#form_personalise option:selected').text();
             var gsq = (lbl.split('|').length === 2 ? lbl.split('|')[1] : '').trim();
-            $('#form_range_gsq').val(gsq);
-            $('#form_range_gsq').trigger('keyup');
+            var form_range_gsq = $('#form_range_gsq');
+            form_range_gsq.val(gsq);
+            form_range_gsq.trigger('keyup');
             $('form[name="form"]').submit();
         });
     } else {
@@ -461,12 +463,14 @@ function setFormOffsetsAction(enable) {
 }
 
 function setFormRangeAction() {
-    $('#form_range_gsq').on('keyup', function() {
+    var form_range_gsq = $('#form_range_gsq');
+    var form_range_min = $('#form_range_min');
+    form_range_gsq.on('keyup', function() {
         var disabled = ($('#form_range_gsq').val().length < 6);
         $('#form_range_min').attr('disabled', disabled);
         $('#form_range_max').attr('disabled', disabled);
     });
-    $('#form_range_min').on('keyup', function() {
+    form_range_min.on('keyup', function() {
         var disabled = ($('#form_range_min').val().length === 0 && $('#form_range_max').val().length === 0);
         $('#form_range_units').attr('disabled', disabled);
     });
@@ -474,8 +478,8 @@ function setFormRangeAction() {
         var disabled = ($('#form_range_min').val().length === 0 && $('#form_range_max').val().length === 0);
         $('#form_range_units').attr('disabled', disabled);
     });
-    $('#form_range_gsq').trigger('keyup');
-    $('#form_range_min').trigger('keyup');
+    form_range_gsq.trigger('keyup');
+    form_range_min.trigger('keyup');
 }
 
 function setFormRangeUnitsDefault() {
@@ -529,9 +533,12 @@ function setFormRwwFocusAction(enable) {
 }
 
 function setFormResetAction(form) {
+    var button_reset = $('button[type="reset"]');
     switch (form) {
         case 'signals':
-            $('button[type="reset"]').click(function () {
+            button_reset.click(function () {
+                var form_range_gsq = $('#form_range_gsq');
+                var form_range_min = $('#form_range_min');
                 setFormAdminAction(false);
                 setFormRegionAction(false);
                 setFormRwwFocusAction(false);
@@ -555,12 +562,12 @@ function setFormResetAction(form) {
                 $('#form_region').prop('selectedIndex', 0);
                 $('#form_rww_focus').prop('selectedIndex', 0);
                 $('#form_gsq').val('');
-                $('#form_range_gsq').val('');
-                $('#form_range_min').val('');
+                form_range_gsq.val('');
+                form_range_min.val('');
                 $('#form_range_max').val('');
                 $('#form_range_units_0').prop('checked', 1);
-                $('#form_range_gsq').trigger('keyup');
-                $('#form_range_min').trigger('keyup');
+                form_range_gsq.trigger('keyup');
+                form_range_min.trigger('keyup');
 
                 $('#form_listener').val([]);
                 $('#form_listener_invert_0').prop('checked', 1);
@@ -585,7 +592,7 @@ function setFormResetAction(form) {
             });
             break;
         case 'listeners':
-            $('button[type="reset"]').click(function () {
+            button_reset.click(function () {
                 $('fieldset#form_types div :checkbox').prop('checked', false);
                 $('fieldset#form_types div :checkbox[value=NDB]').prop('checked', true);
                 $('#form_filter').val('');
@@ -656,22 +663,6 @@ function setFormTypesDefault() {
 function setFormTypesAllAction() {
     $('fieldset#form_type div :checkbox[value=ALL]').click(function () {
         $('fieldset#form_type div :checkbox').prop('checked', $(this).prop("checked"));
-    });
-}
-
-function setSignalActions() {
-    $('#btn_csv_all').click(function () {
-        window.location.assign(window.location + '/export/csv');
-    });
-    $('#btn_csv_fil').click(function () {
-        var show = $('#form_show').val();
-        $('#form_show').val('csv');
-        $('#form_submit').click();
-        $('#form_show').val(show);
-
-    });
-    $('#btn_prt').click(function () {
-        window.print();
     });
 }
 

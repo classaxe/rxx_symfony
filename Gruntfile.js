@@ -16,7 +16,7 @@ module.exports = function(grunt) {
         concat: {
             options: {
                 banner: '<%= banner %>\n',
-                separator: ';\n\n'
+                separator: '\n\n'
             },
             dist: {
                 src: ['src/js/*.js'],

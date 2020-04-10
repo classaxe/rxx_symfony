@@ -42,11 +42,11 @@ function setSignalActions() {
         window.location.assign(window.location + '/export/csv');
     });
     $('#btn_csv_fil').click(function () {
-        var show = $('#form_show').val();
-        $('#form_show').val('csv');
+        var form_show = $('#form_show');
+        var show = form_show.val();
+        form_show.val('csv');
         $('#form_submit').click();
-        $('#form_show').val(show);
-
+        form_show.val(show);
     });
     $('#btn_prt').click(function () {
         window.print();

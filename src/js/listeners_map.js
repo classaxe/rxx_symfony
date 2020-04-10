@@ -119,8 +119,9 @@ var LMap = {
         });
 
         $('#layer_primary').click(function() {
-            LMap.markerGroups.set('primary', $('#layer_primary').prop('checked') ? map : null);
-            if ($('#layer_primary').prop('checked')) {
+            var layer_primary = $('#layer_primary');
+            LMap.markerGroups.set('primary', layer_primary.prop('checked') ? map : null);
+            if (layer_primary.prop('checked')) {
                 $('#markerlist .qth_pri').show();
             } else {
                 $('#markerlist .qth_pri').hide();
@@ -128,8 +129,9 @@ var LMap = {
         });
 
         $('#layer_secondary').click(function() {
-            LMap.markerGroups.set('secondary', $('#layer_secondary').prop('checked') ? map : null);
-            if ($('#layer_secondary').prop('checked')) {
+            var layer_secondary = $('#layer_secondary');
+            LMap.markerGroups.set('secondary', layer_secondary.prop('checked') ? map : null);
+            if (layer_secondary.prop('checked')) {
                 $('#markerlist .qth_sec').show();
             } else {
                 $('#markerlist .qth_sec').hide();
