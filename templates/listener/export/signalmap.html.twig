@@ -18,6 +18,8 @@ TODO: Remove this legacy code once the new system goes live
 <script src="{{ asset('js/functions.min.js') }}"></script>
 <script>
 //<![CDATA[
+var box = [{ lat: {{ box[0][0] }}, lon: {{ box[0][1] }}}, { lat: {{ box[1][0] }}, lon: {{ box[1][1] }} }];
+var center = { lat: {{ center[0] }}, lon: {{ center[1] }} };
 var listener = {
     logLatest: {{ listener.logLatest|date("Ymd") }},
     lat: {{ listener.lat }},
@@ -25,9 +27,7 @@ var listener = {
     name: "{{ listener.name }}",
     qth: "{{ listener.qth }}{% if (listener.sp) %}, {{ listener.sp }}{% endif %}, {{ listener.itu }}"
 };
-
 var types = [ {{ types|keys|join(', ') }} ];
-
 var signals = [
 {% for row in signals %}{% set type = typeRepository.TypeForCode(row.type) %}
     { 'id':{{

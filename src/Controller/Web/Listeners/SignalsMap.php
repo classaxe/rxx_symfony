@@ -49,6 +49,17 @@ class SignalsMap extends Base
 
         $signals = $listenerRepository->getSignalsForListener($id, [ 'sort' => 'khz', 'latlon' => true ]);
 
+        $lats =     array_column($signals, 'lat');
+        $lons =     array_column($signals, 'lon');
+        $lat_min =  min($lats);
+        $lat_max =  max($lats);
+        $lon_min =  min($lons);
+        $lon_max =  max($lons);
+        $lat_cen =  $lat_min + (($lat_max - $lat_min) / 2);
+        $lon_cen =  $lon_min + (($lon_max - $lon_min) / 2);
+        $box =      [[$lat_min, $lon_min], [$lat_max, $lon_max]];
+        $center =   [$lat_cen, $lon_cen];
+
         $types = [];
         foreach ($signals as $s) {
             $types[$s['type']] = $typeRepository->getTypeForCode($s['type']);
@@ -57,6 +68,8 @@ class SignalsMap extends Base
         $parameters = [
             'id' =>                 $id,
             '_locale' =>            $_locale,
+            'box' =>                $box,
+            'center' =>             $center,
             'listener' =>           $listener,
             'logs' =>               $logRepository->getLogsForListener($id),
             'mode' =>               strToUpper($system).' Map of Signals received by '.$listener->getName(),

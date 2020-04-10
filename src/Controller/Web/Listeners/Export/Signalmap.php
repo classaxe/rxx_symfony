@@ -49,14 +49,27 @@ class Signalmap extends Base
         $signals = $listenerRepository->getSignalsForListener($id, [ 'latlon' => true ]);
         // Don't bother sorting by anything - no list is shown in this mode
 
+        $lats =     array_column($signals, 'lat');
+        $lons =     array_column($signals, 'lon');
+        $lat_min =  min($lats);
+        $lat_max =  max($lats);
+        $lon_min =  min($lons);
+        $lon_max =  max($lons);
+        $lat_cen =  $lat_min + (($lat_max - $lat_min) / 2);
+        $lon_cen =  $lon_min + (($lon_max - $lon_min) / 2);
+        $box =      [[$lat_min, $lon_min], [$lat_max, $lon_max]];
+        $center =   [$lat_cen, $lon_cen];
         $types = [];
         foreach ($signals as $s) {
             $types[$s['type']] = $typeRepository->getTypeForCode($s['type']);
         }
+
         uasort($types, array($typeRepository, 'sortByOrder'));
         $parameters = [
             'id' =>                 $id,
             '_locale' =>            $_locale,
+            'box' =>                $box,
+            'center' =>             $center,
             'title' =>              strToUpper($system).' Signals received by '.$listener->getName(),
             'types' =>              $types,
             'signals' =>            $signals,

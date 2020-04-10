@@ -2,15 +2,15 @@
 {% block body %}
 <script>
 //<![CDATA[
+var box = [{ lat: {{ box[0][0] }}, lon: {{ box[0][1] }}}, { lat: {{ box[1][0] }}, lon: {{ box[1][1] }} }];
+var center = { lat: {{ center[0] }}, lon: {{ center[1] }} };
 var listener = {
     lat: {{ listener.lat }},
     lng: {{ listener.lon }},
     name: "{{ listener.name }}",
     qth: "{{ listener.qth }}{% if (listener.sp) %}, {{ listener.sp }}{% endif %}, {{ listener.itu }}"
 };
-
 var types = [ {{ types|keys|join(', ') }} ];
-
 var signals = [
 {% for row in signals %}{% set type = typeRepository.TypeForCode(row.type) %}
     { 'id':{{
@@ -43,13 +43,15 @@ $(document).ready( function() {
     setColumnSortActions();
     setColumnSortedClass();
     setClippedCellTitles();
-    $('#map').height($(window).height() - 120);
-    $('#map').width($(window).width() - 450);
-    $('#scrollablelist').height($('#map').height() + 40);
+    var mapDiv = $('#map');
+    mapDiv.height($(window).height() - 120);
+    mapDiv.width($(window).width() - 450);
+    $('#scrollablelist').height(mapDiv.height() + 40);
     $(window).resize(function () {
-        $('#map').height($(window).height() - 120);
-        $('#map').width($(window).width() - 450);
-        $('#scrollablelist').height($('#map').height() + 40);
+        var mapDiv = $('#map');
+        mapDiv.height($(window).height() - 120);
+        mapDiv.width($(window).width() - 450);
+        $('#scrollablelist').height(mapDiv.height() + 40);
     });
     //]]>
 });
