@@ -55,5 +55,10 @@ function setSignalActions() {
     $('#btn_share').click(function() {
         shareSignals();
         return false;
-    })
+    });
+    $('#btn_new').click(function() {
+        window.open('./signals/new', 'signal_new', popWinSpecs['signals_[id]']);
+        return false;
+    });
+
 }

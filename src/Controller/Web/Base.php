@@ -180,11 +180,6 @@ class Base extends AbstractController
         }
     }
 
-    protected function setHasMapPosFromRequest(&$args, $request)
-    {
-        $this->setValueFromRequest($args, $request, 'has_map_pos', ['', 'N', 'Y'], 'A');
-    }
-
     protected function setListenersFromRequest(&$args, $request)
     {
         if ($request->query->get('listeners')) {
@@ -248,8 +243,10 @@ class Base extends AbstractController
 
     protected function setRwwFocusFromRequest(&$args, $request)
     {
-        $regions = ['af', 'an', 'as', 'ca', 'eu', 'iw', 'na', 'oc', 'sa', 'xx'];
-        $this->setValueFromRequest($args, $request, 'rww_focus', $regions, 'a');
+        if ('rww' === $args['system']) {
+            $regions = ['af', 'an', 'as', 'ca', 'eu', 'iw', 'na', 'oc', 'sa', 'xx'];
+            $this->setValueFromRequest($args, $request, 'rww_focus', $regions, 'a');
+        }
     }
 
     protected function setTypeFromRequest(&$args, $request)

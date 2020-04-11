@@ -57,18 +57,25 @@ class Collection extends Base
 
         $isAdmin = $this->parameters['isAdmin'];
         $args = [
-            'active' =>         '',
             'admin_mode' =>     $_REQUEST['form']['admin_mode'] ?? 0,
+            'isAdmin' =>        $isAdmin,
+            'sortby' =>         '',
+            'za' =>             '',
+
+            'limit' =>          $signalRepository::defaultlimit,
+            'order' =>          $signalRepository::defaultOrder,
+            'page' =>           $signalRepository::defaultPage,
+            'sort' =>           $signalRepository::defaultSorting,
+
+            'active' =>         '',
             'call' =>           '',
             'channels' =>       '',
             'countries' =>      '',
             'gsq' =>            '',
             'heard_in' =>       '',
             'heard_in_mod' =>   'any',
-            'isAdmin' =>        $isAdmin,
             'khz_1' =>          '',
             'khz_2' =>          '',
-            'limit' =>          SignalRepository::defaultlimit,
             'listener' =>       [],
             'listener_invert' => '0',
             'logged_date_1' =>  '',
@@ -78,8 +85,6 @@ class Collection extends Base
             'logged_last_1' =>  '',
             'logged_last_2' =>  '',
             'offsets' =>        '',
-            'order' =>          SignalRepository::defaultOrder,
-            'page' =>           0,
             'paper' =>          $paperRepository::getDefaultForSystem($system),
             'personalise' =>    '',
             'range_gsq' =>      '',
@@ -89,15 +94,12 @@ class Collection extends Base
             'region' =>         $_REQUEST['form']['region'] ?? '',
             'rww_focus' =>      '',
             'show' =>           '',
-            'sort' =>           SignalRepository::defaultSorting,
-            'sortby' =>         '',
             'sp_itu_clause' =>  '',
             'states' =>         '',
             'system' =>         $system,
             'type' =>           [],
             'signalTypes' =>    [0],
-            'url' =>            $request->attributes->get('_route'),
-            'za' =>             ''
+            'url' =>            $request->attributes->get('_route')
         ];
 
         $this->setArgsFromRequest($args, $request);
@@ -223,6 +225,7 @@ class Collection extends Base
         $this->setPagingFromRequest($args, $request);
 
         $this->setTypeFromRequest($args, $request);
+        $this->setRwwFocusFromRequest($args, $request);
         $this->setValueFromRequest($args, $request, 'call');
         $this->setPairFromRequest($args, $request, 'khz');
         $this->setValueFromRequest($args, $request, 'channels', ['1', '2']);
@@ -249,6 +252,7 @@ class Collection extends Base
         $this->setValueFromRequest($args, $request, 'range_units', ['km', 'mi']);
 
         $this->setValueFromRequest($args, $request, 'show', ['csv', 'list', 'map'], 'a');
+        $this->setValueFromRequest($args, $request, 'paper', [ 'a4', 'a4_l', 'lgl', 'lgl_l', 'ltr', 'ltr_l' ], 'a');
 
     }
 }

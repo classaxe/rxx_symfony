@@ -13,11 +13,6 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class Collection extends Base
 {
-    const defaultPage =     0;
-    const defaultLimit =    100;
-    const defaultSorting =  'name';
-    const defaultOrder =    'a';
-
     /**
      * @Route(
      *     "/{system}/listeners",
@@ -74,12 +69,13 @@ class Collection extends Base
             'type' =>       [],
 
             // Setable via GET
-            'limit' =>      static::defaultLimit,
-            'order' =>      static::defaultOrder,
-            'page' =>       static::defaultPage,
-            'sort' =>       static::defaultSorting,
+            'limit' =>      $listenerRepository::defaultLimit,
+            'order' =>      $listenerRepository::defaultOrder,
+            'page' =>       $listenerRepository::defaultPage,
+            'sort' =>       $listenerRepository::defaultSorting,
 
             'country' =>    '',
+            'has_logs' =>   '',
             'has_map_pos' => '',
             'q' =>          '',
             'region' =>     '',
@@ -132,8 +128,8 @@ class Collection extends Base
             '_locale' =>            $_locale,
             'mode' =>               'Listeners List',
             'results' => [
-                'limit' =>              isset($args['limit']) ? $args['limit'] : static::defaultlimit,
-                'page' =>               isset($args['page']) ? $args['page'] : 0,
+                'limit' =>              isset($args['limit']) ? $args['limit'] : $listenerRepository::defaultLimit,
+                'page' =>               isset($args['page']) ? $args['page'] : $listenerRepository::defaultPage,
                 'total' =>              $total
             ],
             'system' =>             $system,
@@ -150,8 +146,11 @@ class Collection extends Base
     {
         $this->setPagingFromRequest($args, $request);
         $this->setTypeFromRequest($args, $request);
-        $this->setHasMapPosFromRequest($args, $request);
         $this->setRegionFromRequest($args, $request);
+        if ($args['isAdmin']) {
+            $this->setValueFromRequest($args, $request, 'has_logs', ['', 'N', 'Y'], 'A');
+            $this->setValueFromRequest($args, $request, 'has_map_pos', ['', 'N', 'Y'], 'A');
+        }
         $this->setValueFromRequest($args, $request, 'show', ['list', 'map'], 'a');
         $this->setValueFromRequest($args, $request, 'country', false, 'A');
         $this->setValueFromRequest($args, $request, 'q');

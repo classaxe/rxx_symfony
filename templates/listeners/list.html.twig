@@ -31,6 +31,12 @@
         <tr>
 {% for key, column in columns %}
 {% if ((not column.admin or isAdmin) and (not column.arg or (column.arg and column.arg in args.type))) %}
+    {% set value = attribute(listener, column.field) %}
+    {% if (column.highlight and args[column.highlight] is defined and args[column.highlight] is not empty) %}
+        {% for repl in args[column.highlight] | split(' ') %}
+            {% set value = value | ireplace({ (repl) : '<em>' ~ repl|upper ~ '</em>' }) %}
+        {% endfor %}
+    {% endif %}
             <td{%
                 if key == 'name'
                     %} title="{{ listener.primaryQth ? 'Primary Location' | trans : 'Secondary Location' | trans }}" class="{{ listener.primaryQth ? 'primaryQth' : 'secondaryQth' }}"{%
@@ -39,17 +45,17 @@
                 endif
             %}>{%
                 if key == 'name'
-                    %}<a href="{{ url('listener', { 'system' : system, 'id' : listener.ID }) }}" data-popup="1">{{ listener.name|raw }}</a>{%
+                    %}<a href="{{ url('listener', { 'system' : system, 'id' : listener.ID }) }}" data-popup="1">{{ value|raw }}</a>{%
                 elseif key == 'addlog'
                     %}{% if isAdmin %}<a href="#" onclick="alert('soon'); return false;">{% trans %}Add...{% endtrans %}</a>{% endif %}{%
                 elseif key == 'callsign'
-                    %}{% if listener.callsign %}<a href="https://hamcall.net/call?callsign={{ listener.callsign }}" rel="external">{{ listener.callsign }}</a>{% endif %}{%
+                    %}{% if listener.callsign %}<a href="https://hamcall.net/call?callsign={{ listener.callsign }}" rel="external">{{ value|raw }}</a>{% endif %}{%
                 elseif key == 'countLogs'
-                    %}{% if listener.countLogs %}<a href="{{ url('listener_logs', { 'system' : system, 'id' : listener.ID }) }}" data-popup="1">{{ listener.countLogs }}</a>{% endif %}{%
+                    %}{% if listener.countLogs %}<a href="{{ url('listener_logs', { 'system' : system, 'id' : listener.ID }) }}" data-popup="1">{{ value }}</a>{% endif %}{%
                 elseif key == 'countSignals'
-                    %}{% if listener.countSignals %}<a href="{{ url('listener_signals', { 'system' : system, 'id' : listener.ID }) }}" data-popup="1">{{ listener.countSignals }}</a>{% endif %}{%
+                    %}{% if listener.countSignals %}<a href="{{ url('listener_signals', { 'system' : system, 'id' : listener.ID }) }}" data-popup="1">{{ value }}</a>{% endif %}{%
                 elseif key == 'gsq'
-                    %}{% if listener.gsq %}<a href="{{ url('listener_map', { 'system' : system, 'id' : listener.ID }) }}" data-popup="1">{{ listener.gsq }}</a>{% endif %}{%
+                    %}{% if listener.gsq %}<a href="{{ url('listener_map', { 'system' : system, 'id' : listener.ID }) }}" data-popup="1">{{ value }}</a>{% endif %}{%
                 elseif key == 'map'
                     %}{% if listener.signalsMap %}<a href="{{ url('listener_signalsmap', { 'system' : system, 'id' : listener.ID }) }}" data-popup="1">{% trans %}Map{% endtrans %}</a>{% endif %}{%
                 elseif key == 'mapPos'
@@ -61,7 +67,7 @@
                 elseif key == 'admin'
                     %}{% if isAdmin %}<a href="{{ url('listener_delete', { 'system' : system, 'id' : listener.ID }) }}" class="delete" onclick="return confirm(msg.del_listener);">X</a>{% endif %}{%
                 else
-                    %}{{ attribute(listener, column.field) | raw }}{%
+                    %}{{ value|raw }}{%
                 endif
             %}</td>
 {% endif %}

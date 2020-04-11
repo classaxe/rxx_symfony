@@ -135,7 +135,7 @@ class Signals
                 'admin'     =>  false,
                 'arg'       =>  '',
                 'field'     =>  'region',
-                'highlight' =>  false,
+                'highlight' =>  'region',
                 'label'     =>  'Region',
                 'labelSort' =>  'Region',
                 'order'     =>  'a',

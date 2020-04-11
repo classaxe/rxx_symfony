@@ -148,6 +148,23 @@ class Collection extends Base
         }
 
         if ($options['isAdmin']) {
+            if ($system=='rww') {
+                $formBuilder
+                    ->add(
+                        'has_logs',
+                        ChoiceType::class,
+                        [
+                            'choices' => [
+                                '' => '',
+                                'No' => 'N',
+                                'Yes' => 'Y'
+                            ],
+                            'data' => $options['has_logs'],
+                            'label' => 'Has Logs',
+                            'required' => false
+                        ]
+                    );
+            }
             $formBuilder
                 ->add(
                     'has_map_pos',

@@ -1,12 +1,15 @@
-{% if (listeners|length > 0 or isAdmin) %}
-    <p class="report_actions">
-    {% if (listeners|length > 0) %}
-        <input type="button" class="button small" value="{{ 'Print...' | trans }}" onclick="window.print()">
-    {% endif %}
-    {% if isAdmin %}
-        <input type="button" class="button small" value="{{ 'Add Listener...' | trans }}"
-           onclick="window.open('{{ path('listener', { 'system' : system, 'id' : 'new'})}}', 'listener_new', popWinSpecs['listeners_[id]'])"
-        >
-    {% endif %}
-    </p>
-{% endif %}
+<div id="actions" class="hide-for-print">
+    <div class="frame clearfix">
+        <div>
+            <a id="btn_share"><span class='ui-icon ui-icon-link'></span>{% trans %}Share{% endtrans %}</a>
+            <a id="btn_prt"><span class='ui-icon ui-icon-print'></span>{% trans %}Print{% endtrans %}</a>
+        </div>
+        {% if isAdmin %}
+            <div>
+                <a id="btn_new">
+                    <span class='ui-icon ui-icon-newwin'></span>{% trans %}New...{% endtrans %}
+                </a>
+            </div>
+        {% endif %}
+    </div>
+</div>

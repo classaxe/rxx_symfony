@@ -44,7 +44,7 @@
 {% for key, column in columns %}
     {% if ((not column.admin or isAdmin) and (not column.arg or (column.arg in args|keys and attribute(args, column.arg) != ''))) %}
         {% set value = attribute(signal, column.field) %}
-        {% if (column.highlight and args[column.highlight] is not empty) %}
+        {% if (column.highlight and args[column.highlight] is defined and args[column.highlight] is not empty) %}
             {% for repl in args[column.highlight] | split(' ') %}
                 {% set value = value | ireplace({ (repl) : '<em>' ~ repl|upper ~ '</em>' }) %}
             {% endfor %}

@@ -14,6 +14,11 @@ use PDO;
 
 class SignalRepository extends ServiceEntityRepository
 {
+    const defaultlimit =    50;
+    const defaultOrder =    'a';
+    const defaultPage =     0;
+    const defaultSorting =  'khz';
+
     const collapsable_sections = [
         'loggings' => [
             'listener',
@@ -34,9 +39,6 @@ class SignalRepository extends ServiceEntityRepository
             'range_max'
         ]
     ];
-    const defaultlimit =     50;
-    const defaultSorting =  'khz';
-    const defaultOrder =    'a';
 
     private $args;
     private $connection;
@@ -278,7 +280,7 @@ class SignalRepository extends ServiceEntityRepository
 
     private function addFilterRwwFocus()
     {
-        if ('rww' === $this->system && $this->args['rww_focus']) {
+        if ('rww' === $this->system && isset($this->args['rww_focus']) && $this->args['rww_focus']) {
             $this->query['where'][] ='s.heard_in_' . $this->args['rww_focus']. ' = 1';
         }
     }

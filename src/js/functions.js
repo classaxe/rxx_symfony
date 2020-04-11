@@ -499,6 +499,17 @@ function setFormAdminAction(enable) {
     }
 }
 
+function setFormHasLogsAction(enable) {
+    enable = typeof enable !== 'undefined' ? enable : true;
+    if (enable) {
+        $('select#form_has_logs').change(function () {
+            formSubmit();
+        });
+    } else {
+        $('select#form_has_logs').off('change');
+    }
+}
+
 function setFormHasMapPosAction(enable) {
     enable = typeof enable !== 'undefined' ? enable : true;
     if (enable) {
@@ -599,6 +610,7 @@ function setFormResetAction(form) {
                 setFormCountryAction(false);
                 setFormRegionAction(false);
                 setFormRwwFocusAction(false);
+                setFormHasLogsAction(false);
                 setFormHasMapPosAction(false);
                 $('select#form_region').prop('selectedIndex', 0);
                 $('select#form_country').prop('selectedIndex', 0);
@@ -606,6 +618,7 @@ function setFormResetAction(form) {
                 setFormCountryAction(true);
                 setFormRegionAction(true);
                 setFormRwwFocusAction(true);
+                setFormHasLogsAction(true);
                 setFormHasMapPosAction(true);
                 formSubmit();
                 return false;

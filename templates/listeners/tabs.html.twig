@@ -1,4 +1,4 @@
-<div id="tabs" class="hide-for-print padding-horizontal-1">
+<div id="tabs" class="hide-for-print">
     {% for idx, tab in tabs %}
         <a class="button{% if (args['show'] == tab[0] or (idx == 0 and args['show'] == '')) %} is-active{% endif %}"
         id="show_{{ tab[0] }}" onclick="changeShowMode('{{ tab[0] }}')">{{ tab[1]|trans }}</a>

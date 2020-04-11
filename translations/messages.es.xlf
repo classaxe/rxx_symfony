@@ -4095,6 +4095,10 @@
         <source>Export as .csv</source>
         <target>__Export as .csv</target>
       </trans-unit>
+      <trans-unit id="5jJF.l3" resname="Has Logs">
+        <source>Has Logs</source>
+        <target>__Has Logs</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

@@ -14,6 +14,11 @@ use Doctrine\Persistence\ManagerRegistry;
 
 class ListenerRepository extends ServiceEntityRepository
 {
+    const defaultLimit =    100;
+    const defaultOrder =    'a';
+    const defaultPage =     0;
+    const defaultSorting =  'name';
+
     private $connection;
 
     private $tabs = [
@@ -114,6 +119,21 @@ class ListenerRepository extends ServiceEntityRepository
         $qb
             ->andWhere('(l.itu = :country)')
             ->setParameter('country', $args['country']);
+    }
+
+    private function addFilterHasLogs($qb, $args)
+    {
+        if (!isset($args['has_logs'])) {
+            return;
+        }
+        switch ($args['has_logs']) {
+            case 'N':
+                $qb->andWhere('(l.countLogs = 0)');
+                break;
+            case 'Y':
+                $qb->andWhere('(l.countLogs != 0)');
+                break;
+        }
     }
 
     private function addFilterHasMapPos($qb, $args)
@@ -404,6 +424,7 @@ class ListenerRepository extends ServiceEntityRepository
         }
 
         $this->addFilterSystem($qb, $system);
+        $this->addFilterHasLogs($qb, $args);
         $this->addFilterHasMapPos($qb, $args);
         $this->addFilterSearch($qb, $args);
         $this->addFilterCountry($qb, $args);
@@ -462,6 +483,7 @@ class ListenerRepository extends ServiceEntityRepository
             ->select('COUNT(l.id) as count');
 
         $this->addFilterSystem($qb, $system);
+        $this->addFilterHasLogs($qb, $args);
         $this->addFilterHasMapPos($qb, $args);
         $this->addFilterSearch($qb, $args);
         $this->addFilterCountry($qb, $args);
