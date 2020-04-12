@@ -756,9 +756,10 @@ EOD;
         }
         switch ($this->args['show'] ?? false) {
             case 'csv':
-            case 'map':
             case 'seeklist':
                 break;
+            case 'list':
+            case 'map':
             default:
                 $this->addLimit($args);
                 break;

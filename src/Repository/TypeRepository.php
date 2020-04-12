@@ -96,7 +96,7 @@ class TypeRepository
                 ],
                 'title' =>  'Additional NDB Info:'
             ],
-            'title' =>  'NDB Beacon',
+            'title' =>  'NDB',
             'type' =>   'ndb'
         ],
         2 => [

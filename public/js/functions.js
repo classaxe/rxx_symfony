@@ -1,7 +1,7 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.6.3
+ * Version:    2.7.0
  * Date:       2020-04-11
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
@@ -1244,6 +1244,53 @@ function getPagingOptions(total, limit, page) {
 
 
 
+var responsive_table = {
+    init: function(source, destination) {
+        this.source = source;
+        this.destination = destination;
+        this.drawResponsive();
+    },
+    drawResponsive: function() {
+        var classes, fields, html, i, rows, titles;
+        classes = [];
+        html = '';
+        rows = [];
+        fields = [];
+        titles = [];
+        this.source.find('thead tr th').each(function(){
+            var header = $(this);
+            fields.push(header.html().trim().replace(/\<br\>/ig, ' '));
+            classes.push(header.prop('title').trim());
+            titles.push(header.prop('title').trim());
+        });
+//        alert(fields[13].text + ' and ' + fields[13].title);
+        this.source.find('tbody tr').each(function(){
+            var body = $(this);
+            var row = {
+                class : body.prop('class'),
+                title : body.prop('title')
+            };
+            i = 0;
+            body.find('td').each(function(){
+                row[fields[i++]] = $(this).html().trim();
+            });
+            rows.push(row);
+        });
+        for (i in rows) {
+            html += '<table class="responsive"><tbody>\n';
+            for (j in fields) {
+                html +=
+                    '<tr title="' + titles[i] + '">' +
+                    '<th>' + fields[j] + '</th>' +
+                    '<td>' + rows[i][fields[j]] + '</td>' +
+                    '</tr>\n';
+            }
+            html += '</tbody></table>\n\n';
+        }
+        this.destination.append(html);
+    }
+};
+
 var shareableLink = {
     getBaseUrl: function(mode) {
         return base_host + base_url + mode;
@@ -1779,6 +1826,8 @@ function initSignalsForm(pagingMsg, resultsCount) {
         setFormPagingStatus(pagingMsg, resultsCount);
         setSignalActions();
         scrollToResults();
+
+        responsive_table.init($('#wide'), $('#narrow'));
     });
 }
 
@@ -1800,7 +1849,7 @@ function setSignalActions() {
     $('#btn_share').click(function() {
         shareSignals();
         return false;
-    })
+    });
     $('#btn_new').click(function() {
         window.open('./signals/new', 'signal_new', popWinSpecs['signals_[id]']);
         return false;

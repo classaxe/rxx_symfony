@@ -19,7 +19,7 @@
     </div>
 
 {% if signals|length > 0 %}
-    <table class="signal results">
+    <table id="wide" class="signal results">
     <thead>
         <tr>
             {% if args.personalise %}<th class="txt_vertical nosort"><div>{% trans %}Logged{% endtrans %}</div></th>{% endif %}
@@ -55,6 +55,8 @@
             %}{% if isAdmin %}<a href="{{ url('signal_delete', { 'system' : system, 'id' : signal.id }) }}" class="delete" onclick="return confirm(msg.del_signal)">X</a>{% endif %}{%
                 elseif (column.field == 'call')
             %}<a href="{{ url('signal', { 'system' : system, 'id' : signal.id }) }}" data-popup="1">{{ signal.call }}</a>{%
+                elseif (column.field == 'type')
+            %}{{ type.title }}</a>{%
                 elseif (column.field == 'GSQ')
             %}{% if signal.GSQ %}<a data-gsq="{{ signal.id }}">{{ value | raw }}</a>{% endif %}{%
                 elseif (column.field == 'ITU')
@@ -78,6 +80,7 @@
 {% endfor %}
     </tbody>
 </table>
+<div id="narrow"></div>
 {% else %}
     <p class="no-results">{% trans %}(No signals found matching your criteria){% endtrans %}</p>
 {% endif %}
