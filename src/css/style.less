@@ -971,6 +971,7 @@ div.scroll {
     }
     tbody {
         th {
+            padding: 0.125em 0.25em;
             vertical-align: top;
             background: #95de95;
             color: #008000;
@@ -991,6 +992,28 @@ div.scroll {
         td {
             color: #A00000 !important;
         }
+    }
+    tr.l2_alt td{
+        padding: 0;
+        table {
+            margin: 0;
+            tbody tr {
+                th {
+                    width: 12em;
+                    white-space: nowrap;
+                    text-align: right;
+                    color: #000;
+                }
+                td, th {
+                    font-size: 100%;
+                    margin: 0;
+                    padding: 0 0.25em;
+                    border: none;
+                    background: #fff;
+                }
+            }
+        }
+
     }
     td {
         border: 1px solid #808080;
@@ -1064,10 +1087,19 @@ pre.log {
     .button {
         margin: 0;
         border-radius: 5px 5px 0 0;
-        padding: 0.5em 1em 0.5em 1em;
+        padding: 0.5em 0.75em;
         border-bottom: none;
         &.is-active {
             color: yellow !important;
+        }
+        a {
+            &:hover,
+            &.is-active {
+                text-decoration: underline;
+                .tabicon {
+                    text-decoration: none;
+                }
+            }
         }
     }
 }

@@ -110,10 +110,10 @@ class Collection extends Base
             $center =   [$lat_cen, $lon_cen];
         }
 
-        $tabs =[[ 'list', 'Listing' ]];
+        $tabs =[[ 'list', 'Listing', '&#x1F5D2;' ]];
         foreach ($listeners as $l) {
             if ($l->getSignalsMap()) {
-                $tabs[] = [ 'map', 'Map'];
+                $tabs[] = [ 'map', 'Map', '&#x1F310;' ];
                 break;
             }
         }

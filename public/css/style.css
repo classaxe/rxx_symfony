@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.7.0
- * Date:       2020-04-11
+ * Version:    2.7.1
+ * Date:       2020-04-12
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
  */
@@ -62,7 +62,9 @@ body.reu .button:hover {
 body.reu .button.is-active {
   background: #e63030;
   color: #ffff40;
-  text-decoration: underline;
+}
+body.reu .button.is-inactive {
+  background: #cc7a7a;
 }
 body.rna {
   background: #f8f8ff;
@@ -119,7 +121,9 @@ body.rna .button:hover {
 body.rna .button.is-active {
   background: #4545e6;
   color: #ffff40;
-  text-decoration: underline;
+}
+body.rna .button.is-inactive {
+  background: #7d7db3;
 }
 body.rww {
   background: #fafffa;
@@ -176,7 +180,9 @@ body.rww .button:hover {
 body.rww .button.is-active {
   background: #208020;
   color: #ffff40;
-  text-decoration: underline;
+}
+body.rww .button.is-inactive {
+  background: #7db37d;
 }
 .rna-system {
   background: #e0e0ff;
@@ -532,41 +538,74 @@ table.seeklist tbody td div.sl_d.inactive {
   font-style: italic !important;
   background-color: #e0e0e0 !important;
 }
-@media screen and (max-width: 960px) {
-  #narrow {
-    display: block;
+@media screen and (max-width: 719px) {
+  .tabtext {
+    display: none;
   }
+}
+@media screen and (max-width: 619px) {
   #wide {
     display: none;
+  }
+}
+@media screen and (max-width: 960px) and (min-width: 620px) {
+  table tbody td.rowspan2,
+  table tbody th.rowspan2 {
+    border-bottom: 1px solid transparent !important;
+  }
+  #narrow {
+    display: none;
+  }
+  .l2 {
+    display: none;
+  }
+  #wide {
+    width: 100%;
   }
 }
 @media screen and (min-width: 961px) {
   #narrow {
     display: none;
   }
+  .l2_alt {
+    display: none;
+  }
   #wide {
-    display: block;
+    width: 100%;
   }
 }
 table.responsive {
   padding: 0;
-  margin: 0.5em 0;
+  margin: 0.5em 0 1em 0;
   border-radius: 5px;
 }
 table.responsive tbody {
   border: 1px solid #888;
 }
 table.responsive tbody tr th {
-  padding: 0 0.5em;
+  vertical-align: top;
+  padding: 0 0.25em;
   line-height: 1.5em;
-  white-space: nowrap;
-  width: 200px;
+  width: 12em;
   text-align: right;
   border-right: 1px solid #888;
 }
+table.responsive tbody tr th b {
+  background: #ffffa0;
+  color: #0000ff;
+  border: 1px solid #b0b000;
+  border-radius: 2px;
+}
 table.responsive tbody tr td {
-  padding: 0 0 0 0.5em;
+  vertical-align: top;
+  padding: 0 0 0 0.25em;
   line-height: 1.5em;
+}
+table.responsive tbody tr td b {
+  background: #ffffa0;
+  color: #0000ff;
+  border: 1px solid #b0b000;
+  border-radius: 2px;
 }
 body {
   font-family: Arial, Helvetica, sans-serif;
@@ -1780,6 +1819,7 @@ div.scroll div table.results img {
   border-radius: 2px;
 }
 .results tbody th {
+  padding: 0.125em 0.25em;
   vertical-align: top;
   background: #95de95;
   color: #008000;
@@ -1793,6 +1833,26 @@ div.scroll div table.results img {
 }
 .results tr.unlogged td {
   color: #A00000 !important;
+}
+.results tr.l2_alt td {
+  padding: 0;
+}
+.results tr.l2_alt td table {
+  margin: 0;
+}
+.results tr.l2_alt td table tbody tr th {
+  width: 12em;
+  white-space: nowrap;
+  text-align: right;
+  color: #000;
+}
+.results tr.l2_alt td table tbody tr td,
+.results tr.l2_alt td table tbody tr th {
+  font-size: 100%;
+  margin: 0;
+  padding: 0 0.25em;
+  border: none;
+  background: #fff;
 }
 .results td {
   border: 1px solid #808080;
@@ -1865,11 +1925,19 @@ pre.log {
 #tabs .button {
   margin: 0;
   border-radius: 5px 5px 0 0;
-  padding: 0.5em 1em 0.5em 1em;
+  padding: 0.5em 0.75em;
   border-bottom: none;
 }
 #tabs .button.is-active {
   color: yellow !important;
+}
+#tabs .button a:hover,
+#tabs .button a.is-active {
+  text-decoration: underline;
+}
+#tabs .button a:hover .tabicon,
+#tabs .button a.is-active .tabicon {
+  text-decoration: none;
 }
 #actions {
   float: right;

@@ -19,9 +19,9 @@
         {% set form_class='listener_list' %}
         {% include 'listeners/form.html.twig' %}
     </div>
-    <div class="row">
-        <div class="small-6 column">{% include 'listeners/tabs.html.twig' %}</div>
-        <div class="small-6 column">{% include 'listeners/actions.html.twig' %}</div>
+    <div class="clearfix">
+        <div class="float-left margin-left-1">{% include 'listeners/tabs.html.twig' %}</div>
+        <div class="float-right margin-right-1">{% include 'listeners/actions.html.twig' %}</div>
     </div>
     <div class="listeners_container">
         {% if args['show'] in ['', 'list'] %}{% include 'listeners/list.html.twig' %}{% endif %}

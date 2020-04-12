@@ -17,6 +17,7 @@
         titleColor:     #d03333;
         btnBg:          #b35959;
         btnActiveColor: #ffff40;
+        btnInactiveBg:  #cc7a7a;
         btnBorder:      #800000;
         btnHover:       #cc2929;
         btnActive:      #e63030;
@@ -28,6 +29,7 @@
         titleColor:     #3333ff;
         btnBg:          #6666cc;
         btnActiveColor: #ffff40;
+        btnInactiveBg:  #7d7db3;
         btnBorder:      #3333ff;
         btnHover:       #5252cc;
         btnActive:      #4545e6;
@@ -39,6 +41,7 @@
         titleColor:     #198019;
         btnBg:          #2d802d;
         btnActiveColor: #ffff40;
+        btnInactiveBg:  #7db37d;
         btnBorder:      #4d804d;
         btnHover:       #40a040;
         btnActive:      #208020;
@@ -107,7 +110,9 @@
             &.is-active {
                 background: @@rmode[btnActive];
                 color: @@rmode[btnActiveColor];
-                text-decoration: underline;
+            }
+            &.is-inactive {
+                background: @@rmode[btnInactiveBg];
             }
         }
     }

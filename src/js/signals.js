@@ -35,7 +35,7 @@ function initSignalsForm(pagingMsg, resultsCount) {
         setSignalActions();
         scrollToResults();
 
-        responsive_table.init($('#wide'), $('#narrow'));
+        RT.init($('#wide'), $('#narrow'));
     });
 }
 

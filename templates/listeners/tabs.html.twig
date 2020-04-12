@@ -1,6 +1,6 @@
 <div id="tabs" class="hide-for-print">
     {% for idx, tab in tabs %}
-        <a class="button{% if (args['show'] == tab[0] or (idx == 0 and args['show'] == '')) %} is-active{% endif %}"
-        id="show_{{ tab[0] }}" onclick="changeShowMode('{{ tab[0] }}')">{{ tab[1]|trans }}</a>
+        <a class="button {% if (args['show'] == tab[0] or (idx == 0 and args['show'] == '')) %}is-active{% else %}is-inactive{% endif %}"
+        id="show_{{ tab[0] }}" onclick="changeShowMode('{{ tab[0] }}')"><span class="tabicon">{{ tab[2]|raw }}</span> <span class="tabtext">{{ tab[1]|trans }}</span></a>
     {% endfor %}
 </div>
