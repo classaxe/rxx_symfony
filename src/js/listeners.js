@@ -16,6 +16,7 @@ function initListenersForm(pagingMsg, resultsCount) {
         setFormPagingStatus(pagingMsg, resultsCount);
         setListenerActions();
         scrollToResults();
+        RT.init($('#wide'), $('#narrow'));
     })
 }
 

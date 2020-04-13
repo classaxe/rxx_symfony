@@ -1,6 +1,6 @@
 <h2>{{ system|upper }} {% trans %}Listeners List{% endtrans %}</h2>
 {% if listeners|length > 0 %}
-<table class="listener results">
+<table id="wide" class="listener results">
     <thead>
         <tr>
 {% for key, column in columns %}
@@ -21,7 +21,7 @@
                 if column.tooltip
             %} title="{{ column.tooltip | trans }}"{%
                 endif
-            %}>{% if column.th_class == 'txt_vertical' %}<div>{{ column.label | trans | raw }}</div>{% else %}{{ column.label | trans | raw }}{% endif %}</th>
+            %}>{% if 'txt_vertical' in column.th_class %}<div>{{ column.label | trans | raw }}</div>{% else %}{{ column.label | trans | raw }}{% endif %}</th>
 {% endif %}
 {% endfor %}
         </tr>
@@ -39,7 +39,7 @@
     {% endif %}
             <td{%
                 if key == 'name'
-                    %} title="{{ listener.primaryQth ? 'Primary Location' | trans : 'Secondary Location' | trans }}" class="{{ listener.primaryQth ? 'primaryQth' : 'secondaryQth' }}"{%
+                    %} title="{{ listener.primaryQth ? 'Primary Location' | trans : 'Secondary Location' | trans }}" class="{{ listener.primaryQth ? 'primaryQth' : 'secondaryQth' }} {{ column.td_class }}"{%
                 elseif column.td_class
                     %} class="{{ column.td_class }}"{%
                 endif
@@ -76,6 +76,7 @@
 {% endfor %}
     </tbody>
 </table>
+<div id="narrow"></div>
 {% else %}
     <p class="no-results">{% trans %}(No listeners found matching your criteria){% endtrans %}</p>
 {% endif %}

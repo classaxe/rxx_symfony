@@ -204,9 +204,9 @@ class Collection extends Base
             'system' =>             $system,
             'sortbyOptions' =>      $signalRepository->getColumns(),
             'tabs' => [
-                [ 'list', 'Listing', '&#x1F5D2;' ],
-                [ 'seeklist', 'Seeklist', '&#128269;'],
-                [ 'map', 'Map', '&#x1F310;' ],
+                [ 'list', 'Listing' ],
+                [ 'seeklist', 'Seeklist'],
+                [ 'map', 'Map' ],
             ],
             'types' =>              $types,
             'typeRepository' =>     $typeRepository

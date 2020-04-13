@@ -1,11 +1,11 @@
 <div id="tabs" class="hide-for-print">
-    {% for idx, tab in tabs %}
-        <a title="{{ tab[1]|trans }}" class="button {%
-            if (args['show'] == tab[0] or (idx == 0 and args['show'] == '')) %}is-active{% else %}is-inactive{% endif
-        %}{%
-                if (idx != 0 and isAdmin and args.admin_mode != '0' and args.admin_mode != '' ) %} disabled{% endif
-        %}" id="show_{{ tab[0] }}"{%
-                if (idx != 0 and isAdmin and args.admin_mode != '0' and args.admin_mode != '' ) %} onclick="return false"{% else %} onclick="changeShowMode('{{ tab[0] }}')"{% endif
-        %}><span class="tabicon">{{ tab[2]|raw }}</span> <span class="tabtext">{{ tab[1]|trans }}</span></a>
-    {% endfor %}
+{% for idx, tab in tabs %}
+    <a title="{{ tab[1]|trans }}" class="button {%
+        if (args['show'] == tab[0] or (idx == 0 and args['show'] == '')) %}is-active{% else %}is-inactive{% endif
+    %}{%
+        if (idx != 0 and isAdmin and args.admin_mode != '0' and args.admin_mode != '' ) %} disabled{% endif
+    %}" id="show_{{ tab[0] }}"{%
+        if (idx != 0 and isAdmin and args.admin_mode != '0' and args.admin_mode != '' ) %} onclick="return false"{% else %} onclick="changeShowMode('{{ tab[0] }}')"{% endif
+    %}><img class="tabicon" src="{{ asset('image/icon_' ~ tab[0] ~ '.png') }}" alt="{{ tab[0] }}" /><span class="tabtext">{{ tab[1]|trans }}</span></a>
+{% endfor %}
 </div>

@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.7.1
- * Date:       2020-04-12
+ * Version:    2.7.2
+ * Date:       2020-04-13
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
  */
@@ -543,12 +543,12 @@ table.seeklist tbody td div.sl_d.inactive {
     display: none;
   }
 }
-@media screen and (max-width: 619px) {
+@media screen and (max-width: 639px) {
   #wide {
     display: none;
   }
 }
-@media screen and (max-width: 960px) and (min-width: 620px) {
+@media screen and (max-width: 960px) and (min-width: 640px) {
   table tbody td.rowspan2,
   table tbody th.rowspan2 {
     border-bottom: 1px solid transparent !important;
@@ -1668,6 +1668,9 @@ a.delete:hover {
 #lastMessage a.close:hover {
   background: #0a0;
 }
+.results.listener tbody tr {
+  background: #ffffff !important;
+}
 .results.short thead tr th,
 .signal_rx_map.short thead tr th {
   height: 3em !important;
@@ -1838,21 +1841,33 @@ div.scroll div table.results img {
   padding: 0;
 }
 .results tr.l2_alt td table {
+  background: transparent;
   margin: 0;
+  border: none;
+}
+.results tr.l2_alt td table tbody {
+  background: transparent !important;
+}
+.results tr.l2_alt td table tbody tr {
+  background: transparent !important;
 }
 .results tr.l2_alt td table tbody tr th {
-  width: 12em;
+  width: 8em;
   white-space: nowrap;
   text-align: right;
   color: #000;
 }
 .results tr.l2_alt td table tbody tr td,
 .results tr.l2_alt td table tbody tr th {
+  background: transparent !important;
   font-size: 100%;
   margin: 0;
   padding: 0 0.25em;
   border: none;
-  background: #fff;
+}
+.results tr.l2_alt td table tbody tr td div,
+.results tr.l2_alt td table tbody tr th div {
+  display: inline;
 }
 .results td {
   border: 1px solid #808080;
@@ -1925,18 +1940,24 @@ pre.log {
 #tabs .button {
   margin: 0;
   border-radius: 5px 5px 0 0;
-  padding: 0.5em 0.75em;
+  padding: 0.25em 0.75em;
   border-bottom: none;
 }
 #tabs .button.is-active {
   color: yellow !important;
 }
-#tabs .button a:hover,
-#tabs .button a.is-active {
+#tabs .button .tabicon {
+  width: 1.5em;
+  height: 1.5em;
+  margin: 0 0.25em 0 0;
+  text-decoration: none;
+}
+#tabs .button:hover,
+#tabs .button.is-active {
   text-decoration: underline;
 }
-#tabs .button a:hover .tabicon,
-#tabs .button a.is-active .tabicon {
+#tabs .button:hover .tabicon,
+#tabs .button.is-active .tabicon {
   text-decoration: none;
 }
 #actions {

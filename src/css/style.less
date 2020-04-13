@@ -806,6 +806,13 @@ a.delete {
     }
 }
 
+.results.listener {
+    tbody {
+        tr {
+            background: #ffffff !important;
+        }
+    }
+}
 .results.short,
 .signal_rx_map.short {
     thead {
@@ -996,20 +1003,29 @@ div.scroll {
     tr.l2_alt td{
         padding: 0;
         table {
+            background: transparent;
             margin: 0;
-            tbody tr {
-                th {
-                    width: 12em;
-                    white-space: nowrap;
-                    text-align: right;
-                    color: #000;
-                }
-                td, th {
-                    font-size: 100%;
-                    margin: 0;
-                    padding: 0 0.25em;
-                    border: none;
-                    background: #fff;
+            border: none;
+            tbody {
+                background: transparent !important;
+                tr {
+                    background: transparent !important;
+                    th {
+                        width: 8em;
+                        white-space: nowrap;
+                        text-align: right;
+                        color: #000;
+                    }
+                    td, th {
+                        background: transparent !important;
+                        font-size: 100%;
+                        margin: 0;
+                        padding: 0 0.25em;
+                        border: none;
+                        div {
+                            display: inline;
+                        }
+                    }
                 }
             }
         }
@@ -1087,18 +1103,22 @@ pre.log {
     .button {
         margin: 0;
         border-radius: 5px 5px 0 0;
-        padding: 0.5em 0.75em;
+        padding: 0.25em 0.75em;
         border-bottom: none;
         &.is-active {
             color: yellow !important;
         }
-        a {
-            &:hover,
-            &.is-active {
-                text-decoration: underline;
-                .tabicon {
-                    text-decoration: none;
-                }
+        .tabicon {
+            width: 1.5em;
+            height: 1.5em;
+            margin: 0 0.25em 0 0;
+            text-decoration: none;
+        }
+        &:hover,
+        &.is-active {
+            text-decoration: underline;
+            .tabicon {
+                text-decoration: none;
             }
         }
     }

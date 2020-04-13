@@ -14,7 +14,7 @@ use Doctrine\Persistence\ManagerRegistry;
 
 class ListenerRepository extends ServiceEntityRepository
 {
-    const defaultLimit =    100;
+    const defaultLimit =    500;
     const defaultOrder =    'a';
     const defaultPage =     0;
     const defaultSorting =  'name';
