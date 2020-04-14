@@ -46,8 +46,6 @@
             %}>{%
                 if key == 'name'
                     %}<a href="{{ url('listener', { 'system' : system, 'id' : listener.ID }) }}" data-popup="1">{{ value|raw }}</a>{%
-                elseif key == 'addlog'
-                    %}{% if isAdmin %}<a href="#" onclick="alert('soon'); return false;">{% trans %}Add...{% endtrans %}</a>{% endif %}{%
                 elseif key == 'callsign'
                     %}{% if listener.callsign %}<a href="https://hamcall.net/call?callsign={{ listener.callsign }}" rel="external">{{ value|raw }}</a>{% endif %}{%
                 elseif key == 'countLogs'
@@ -64,7 +62,9 @@
                     %}{% if listener.ndbWebLog %}<a href="{{ url('listener_ndbweblog', { 'system' : system, 'id' : listener.ID }) }}" data-popup="1">{% trans %}NWL{% endtrans %}</a>{% endif %}{%
                 elseif key == 'website'
                     %}{% if listener.website %}<a href="{{ listener.website }}" data-popup="www_{{ listener.id }}|width=640,height=480,status=1,scrollbars=1,resizable=1">{% trans %}Link...{% endtrans %}</a>{% endif %}{%
-                elseif key == 'admin'
+                elseif key == 'addlog'
+                    %}{% if isAdmin %}<a href="#" onclick="alert('soon'); return false;" class="add" >+</a>{% endif %}{%
+                elseif key == 'delete'
                     %}{% if isAdmin %}<a href="{{ url('listener_delete', { 'system' : system, 'id' : listener.ID }) }}" class="delete" onclick="return confirm(msg.del_listener);">X</a>{% endif %}{%
                 else
                     %}{{ value|raw }}{%

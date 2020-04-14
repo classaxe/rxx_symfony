@@ -1,6 +1,6 @@
 <div id="tabs" class="hide-for-print">
 {% for idx, tab in tabs %}
-    <a title="{{ tab[1]|trans }}" class="button {%
+    <a title="{{ tab[1]|trans }}" class="button icon {%
         if (args['show'] == tab[0] or (idx == 0 and args['show'] == '')) %}is-active{% else %}is-inactive{% endif
     %}{%
         if (idx != 0 and isAdmin and args.admin_mode != '0' and args.admin_mode != '' ) %} disabled{% endif

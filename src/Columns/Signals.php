@@ -300,12 +300,12 @@ class Signals
                 'th_class'  =>  '',
                 'tooltip'   =>  'Bearing relative to GSQ',
             ],
-            'actions' => [
+            'delete' => [
                 'admin'     =>  true,
                 'arg'       =>  '',
                 'field'     =>  'actions',
                 'highlight' =>  false,
-                'label'     =>  'Admin',
+                'label'     =>  'Delete',
                 'order'     =>  '',
                 'sort'      =>  '',
                 'td_class'  =>  '',

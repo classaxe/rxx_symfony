@@ -772,16 +772,29 @@ fieldset#form_range_units {
 @import (less) 'include/form/weather.less';
 @import (less) 'include/listener/locator.less';
 
+a.add,
 a.close,
 a.delete {
     display: block;
-    float: right;
     font-style: normal;
     font-size: 80%;
+    margin: 0.25em;
     padding: 0;
     width: 1.5em;
     text-align: center;
     border-radius: 3px;
+}
+a.add {
+    background: #080;
+    color: #fff !important;
+    border: 1px solid #040;
+    &:hover {
+        background: #0a0;
+    }
+}
+
+a.close,
+a.delete {
     background: #c00;
     color: #fff !important;
     border: 1px solid #800;
@@ -789,13 +802,17 @@ a.delete {
         background: #f00;
     }
 }
+
+
 #lastError {
     a.close {
+        float: right;
         margin-left: 1em;
     }
 }
 #lastMessage {
     a.close {
+        float: right;
         margin-left: 1em;
         background: #080;
         color: #fff !important;
@@ -1011,7 +1028,7 @@ div.scroll {
                 tr {
                     background: transparent !important;
                     th {
-                        width: 8em;
+                        width: 6em;
                         white-space: nowrap;
                         text-align: right;
                         color: #000;
@@ -1103,8 +1120,9 @@ pre.log {
     .button {
         margin: 0;
         border-radius: 5px 5px 0 0;
-        padding: 0.25em 0.75em;
+        padding: 0.5em 0.75em;
         border-bottom: none;
+
         &.is-active {
             color: yellow !important;
         }
@@ -1122,7 +1140,11 @@ pre.log {
             }
         }
     }
+    .button.icon {
+        padding: 0.25em 0.75em;
+    }
 }
+
 
 #actions {
     float: right;

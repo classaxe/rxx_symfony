@@ -69,7 +69,7 @@ var RT = {
             var header = $(this);
             RT.fields.push({
                 idx: idx++,
-                html: header.html().trim().replace(/<br>/ig, ' '),
+                html: header.html().trim().split('<br>')[0],
                 l2: header.hasClass('l2'),
                 rowspan2: header.hasClass('rowspan2'),
                 type: (header.hasClass('th') ? 'th' : 'td')

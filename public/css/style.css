@@ -1,7 +1,7 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.7.2
+ * Version:    2.7.3
  * Date:       2020-04-13
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
@@ -544,34 +544,45 @@ table.seeklist tbody td div.sl_d.inactive {
   }
 }
 @media screen and (max-width: 639px) {
-  #wide {
+  .signals_container #wide {
     display: none;
   }
 }
-@media screen and (max-width: 960px) and (min-width: 640px) {
-  table tbody td.rowspan2,
-  table tbody th.rowspan2 {
+@media screen and (min-width: 640px) and (max-width: 979px) {
+  .signals_container table tbody td.rowspan2,
+  .signals_container table tbody th.rowspan2 {
     border-bottom: 1px solid transparent !important;
   }
-  #narrow {
+  .signals_container #narrow,
+  .signals_container .l2 {
     display: none;
-  }
-  .l2 {
-    display: none;
-  }
-  #wide {
-    width: 100%;
   }
 }
-@media screen and (min-width: 961px) {
-  #narrow {
+@media screen and (min-width: 980px) {
+  .signals_container #narrow,
+  .signals_container .l2_alt {
     display: none;
   }
-  .l2_alt {
+}
+@media screen and (max-width: 799px) {
+  .listeners_container #wide {
     display: none;
   }
-  #wide {
-    width: 100%;
+}
+@media screen and (min-width: 800px) and (max-width: 1199px) {
+  .listeners_container table tbody td.rowspan2,
+  .listeners_container table tbody th.rowspan2 {
+    border-bottom: 1px solid transparent !important;
+  }
+  .listeners_container #narrow,
+  .listeners_container .l2 {
+    display: none;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .listeners_container #narrow,
+  .listeners_container .l2_alt {
+    display: none;
   }
 }
 table.responsive {
@@ -1638,16 +1649,28 @@ fieldset#form_range_units div label {
   padding: 0;
   margin: 0;
 }
+a.add,
 a.close,
 a.delete {
   display: block;
-  float: right;
   font-style: normal;
   font-size: 80%;
+  margin: 0.25em;
   padding: 0;
   width: 1.5em;
   text-align: center;
   border-radius: 3px;
+}
+a.add {
+  background: #080;
+  color: #fff !important;
+  border: 1px solid #040;
+}
+a.add:hover {
+  background: #0a0;
+}
+a.close,
+a.delete {
   background: #c00;
   color: #fff !important;
   border: 1px solid #800;
@@ -1657,9 +1680,11 @@ a.delete:hover {
   background: #f00;
 }
 #lastError a.close {
+  float: right;
   margin-left: 1em;
 }
 #lastMessage a.close {
+  float: right;
   margin-left: 1em;
   background: #080;
   color: #fff !important;
@@ -1852,7 +1877,7 @@ div.scroll div table.results img {
   background: transparent !important;
 }
 .results tr.l2_alt td table tbody tr th {
-  width: 8em;
+  width: 6em;
   white-space: nowrap;
   text-align: right;
   color: #000;
@@ -1940,7 +1965,7 @@ pre.log {
 #tabs .button {
   margin: 0;
   border-radius: 5px 5px 0 0;
-  padding: 0.25em 0.75em;
+  padding: 0.5em 0.75em;
   border-bottom: none;
 }
 #tabs .button.is-active {
@@ -1959,6 +1984,9 @@ pre.log {
 #tabs .button:hover .tabicon,
 #tabs .button.is-active .tabicon {
   text-decoration: none;
+}
+#tabs .button.icon {
+  padding: 0.25em 0.75em;
 }
 #actions {
   float: right;
