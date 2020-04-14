@@ -22,7 +22,7 @@ var RT = {
         }
         i = 0;
         this.source.find('tbody tr').each(function () {
-            var ele = $(this), html;
+            var classname, ele = $(this), html;
 
             html = '<table>';
             for (j in RT.fields) {
@@ -32,7 +32,8 @@ var RT = {
                 if (!RT.rows[i][RT.fields[j].idx].html) {
                     continue;
                 }
-                html += '<tr><th>' + RT.fields[j].html + ':</th><td>' + RT.rows[i][RT.fields[j].idx].html + '</td></tr>';
+                classname = RT.rows[i][RT.fields[j].idx].class.replace(/( )*l2/ig, '');
+                html += '<tr><th>' + RT.fields[j].html + ':</th><td class="' + classname + '">' + RT.rows[i][RT.fields[j].idx].html + '</td></tr>';
             }
             html += '</table>';
 
@@ -56,7 +57,7 @@ var RT = {
                 html +=
                     '<tr title="' + this.titles[i] + '">' +
                     '<th>' + this.fields[j].html + '</th>' +
-                    '<td>' + this.rows[i][this.fields[j].idx].html + '</td>' +
+                    '<td class="' + this.rows[i][this.fields[j].idx].class + '">' + this.rows[i][this.fields[j].idx].html + '</td>' +
                     '</tr>\n';
             }
             html += '</tbody></table>\n\n';
@@ -87,6 +88,7 @@ var RT = {
             ele.find('th,td').each(function () {
                 var ele = $(this);
                 row[RT.fields[i++].idx] = {
+                    'class' : ele.prop('class'),
                     'l2' : ele.hasClass('l2'),
                     'html' : ele.html().trim()
                 };

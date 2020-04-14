@@ -33,8 +33,8 @@ class Listeners
                 'label' =>      'Callsign',
                 'order' =>      'a',
                 'sort' =>       'l.callsign',
-                'td_class' =>   'rowspan2',
-                'th_class' =>   'rowspan2',
+                'td_class' =>   'l2',
+                'th_class' =>   'l2',
                 'tooltip' =>    'Ham Radio Callsign',
             ],
             'qth' => [
@@ -201,8 +201,8 @@ class Listeners
                 'label' =>      'NDB',
                 'order' =>      'd',
                 'sort' =>       'l.countNdb',
-                'td_class' =>   'txt_r type_ndb',
-                'th_class' =>   'txt_vertical',
+                'td_class' =>   'txt_r type_ndb l2',
+                'th_class' =>   'txt_vertical l2',
                 'tooltip' =>    'Number of NDBs received',
             ],
             'countTime' => [
