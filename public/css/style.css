@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.7.4
- * Date:       2020-04-13
+ * Version:    2.7.5
+ * Date:       2020-04-14
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
  */
@@ -1658,6 +1658,7 @@ a.delete {
   font-size: 80%;
   margin: 0.25em;
   padding: 0;
+  line-height: 1.5em;
   width: 1.5em;
   text-align: center;
   border-radius: 3px;
