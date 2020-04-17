@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.7.4
- * Date:       2020-04-13
+ * Version:    2.7.7
+ * Date:       2020-04-17
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
  */
@@ -675,6 +675,17 @@ function setFormHasLogsAction(enable) {
     }
 }
 
+function setFormTimezoneAction(enable) {
+    enable = typeof enable !== 'undefined' ? enable : true;
+    if (enable) {
+        $('#form_timezone').on('selectmenuchange', function () {
+            formSubmit();
+        });
+    } else {
+        $('#form_timezone').off('selectmenuchange');
+    }
+}
+
 function setFormHasMapPosAction(enable) {
     enable = typeof enable !== 'undefined' ? enable : true;
     if (enable) {
@@ -777,14 +788,17 @@ function setFormResetAction(form) {
                 setFormRwwFocusAction(false);
                 setFormHasLogsAction(false);
                 setFormHasMapPosAction(false);
+                setFormTimezoneAction(false);
                 $('select#form_region').prop('selectedIndex', 0);
                 $('select#form_country').prop('selectedIndex', 0);
                 $('select#form_has_map_pos').prop('selectedIndex', 0);
+                $('select#form_timezone').val('').selectmenu('refresh');
                 setFormCountryAction(true);
                 setFormRegionAction(true);
                 setFormRwwFocusAction(true);
                 setFormHasLogsAction(true);
                 setFormHasMapPosAction(true);
+                setFormTimezoneAction(true);
                 formSubmit();
                 return false;
             });
@@ -1005,12 +1019,14 @@ function initListenersForm(pagingMsg, resultsCount) {
         setFormPagingActions();
         setFormTypesStyles();
         setFormTypesDefault();
+        $('#form_timezone').selectmenu();
         setFormTypesAllAction();
         setFormCountryAction();
         setFormRegionAction();
         setFormHasLogsAction();
         setFormHasLogsAction();
         setFormHasMapPosAction();
+        setFormTimezoneAction();
         setFormResetAction('listeners');
         setColumnSortActions();
         setColumnSortedClass();

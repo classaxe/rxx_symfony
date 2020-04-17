@@ -28,25 +28,6 @@ class RegionRepository extends ServiceEntityRepository
             ->getSingleResult();
     }
 
-    public function getRegions($regions = null)
-    {
-        $qb = $this
-            ->createQueryBuilder('r');
-        if ($regions) {
-            $qb
-                ->andWhere(
-                    $qb->expr()->in('r.region', ':region')
-                )
-                ->setParameter('region', explode(',', $regions))
-            ;
-        }
-        return
-            $qb
-                ->orderBy('r.name', 'ASC')
-                ->getQuery()
-                ->execute();
-    }
-
     public function getAllOptions()
     {
         $regions = $this->getRegions();
@@ -65,5 +46,24 @@ class RegionRepository extends ServiceEntityRepository
             $region->countries =    $this->country->getMatching(false, $code);
         }
         return $regions;
+    }
+
+    public function getRegions($regions = null)
+    {
+        $qb = $this
+            ->createQueryBuilder('r');
+        if ($regions) {
+            $qb
+                ->andWhere(
+                    $qb->expr()->in('r.region', ':region')
+                )
+                ->setParameter('region', explode(',', $regions))
+            ;
+        }
+        return
+            $qb
+                ->orderBy('r.name', 'ASC')
+                ->getQuery()
+                ->execute();
     }
 }

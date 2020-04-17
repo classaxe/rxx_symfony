@@ -732,6 +732,34 @@ button.tiny {
         float: left;
     }
 }
+// Timezone selector is JQuery UI so we can style options properly
+#form_timezone-button {
+    padding: 0.125em;
+    border-radius: 5px;
+    background: #ffffff;
+    margin: -0.125em 0 0 -0.35em;
+    .ui-selectmenu-text {
+        font-size: 75%;
+        white-space: pre;
+        font-family: "Courier New bold", Courier, monospace;
+        color: #000;
+    }
+}
+#form_timezone-menu {
+    height: 6em;
+    overflow: -moz-scrollbars-vertical;
+    .ui-menu-item {
+        padding: 0.125em;
+        font-size: 75%;
+        white-space: pre;
+        font-family: "Courier New bold", Courier, monospace;
+        line-height: 1em;
+        .ui-menu-item-wrapper {
+            padding: 0;
+            line-height: 1em;
+        }
+    }
+}
 
 fieldset#form_type,
 fieldset#form_range_units {

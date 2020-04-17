@@ -3,12 +3,14 @@ function initListenersForm(pagingMsg, resultsCount) {
         setFormPagingActions();
         setFormTypesStyles();
         setFormTypesDefault();
+        $('#form_timezone').selectmenu();
         setFormTypesAllAction();
         setFormCountryAction();
         setFormRegionAction();
         setFormHasLogsAction();
         setFormHasLogsAction();
         setFormHasMapPosAction();
+        setFormTimezoneAction();
         setFormResetAction('listeners');
         setColumnSortActions();
         setColumnSortedClass();

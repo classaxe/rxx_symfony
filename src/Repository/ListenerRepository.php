@@ -225,6 +225,16 @@ class ListenerRepository extends ServiceEntityRepository
         }
     }
 
+    private function addFilterTimezone(&$qb, $args)
+    {
+        if (!isset($args['timezone']) || '' === $args['timezone']) {
+            return;
+        }
+        $qb
+            ->andWhere('(l.timezone = :timezone)')
+            ->setParameter('timezone', $args['timezone']);
+    }
+
     public function getColumns()
     {
         return $this->listenersColumns;
@@ -429,6 +439,7 @@ class ListenerRepository extends ServiceEntityRepository
         $this->addFilterSearch($qb, $args);
         $this->addFilterCountry($qb, $args);
         $this->addFilterRegion($qb, $args);
+        $this->addFilterTimezone($qb, $args);
 
         if (isset($args['show']) && $args['show'] === 'map') {
             $qb
@@ -488,6 +499,7 @@ class ListenerRepository extends ServiceEntityRepository
         $this->addFilterSearch($qb, $args);
         $this->addFilterCountry($qb, $args);
         $this->addFilterRegion($qb, $args);
+        $this->addFilterTimezone($qb, $args);
         return $qb->getQuery()->getSingleScalarResult();
     }
 

@@ -13,6 +13,10 @@
                 {{ form_row(form.region) }}
             {% endif %}
             {{ form_row(form.country) }}
+            <div>
+                {{ form_label(form.timezone) }}
+                {{ form_widget(form.timezone) }}
+            </div>
             {% if isAdmin %}
                 {% if system == 'rww' %}
                     {{ form_row(form.has_logs) }}

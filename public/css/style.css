@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.7.5
- * Date:       2020-04-14
+ * Version:    2.7.7
+ * Date:       2020-04-17
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
  */
@@ -1324,6 +1324,33 @@ button.tiny {
   margin: 0 0.25em;
   float: left;
 }
+#form_timezone-button {
+  padding: 0.125em;
+  border-radius: 5px;
+  background: #ffffff;
+  margin: -0.125em 0 0 -0.35em;
+}
+#form_timezone-button .ui-selectmenu-text {
+  font-size: 75%;
+  white-space: pre;
+  font-family: "Courier New bold", Courier, monospace;
+  color: #000;
+}
+#form_timezone-menu {
+  height: 6em;
+  overflow: -moz-scrollbars-vertical;
+}
+#form_timezone-menu .ui-menu-item {
+  padding: 0.125em;
+  font-size: 75%;
+  white-space: pre;
+  font-family: "Courier New bold", Courier, monospace;
+  line-height: 1em;
+}
+#form_timezone-menu .ui-menu-item .ui-menu-item-wrapper {
+  padding: 0;
+  line-height: 1em;
+}
 fieldset#form_type legend,
 fieldset#form_range_units legend {
   line-height: 1.8em;
@@ -1353,6 +1380,9 @@ fieldset#form_range_units div label {
 .listener_list select {
   width: 435px;
 }
+.listener_list #form_timezone-button {
+  width: 435px;
+}
 .logon #form {
   width: 300px;
 }
@@ -1369,7 +1399,13 @@ fieldset#form_range_units div label {
 }
 .listener_view #form label {
   width: 20%;
-  min-width: 120px;
+}
+.listener_view #form label[for="form_timezone"],
+.listener_view #form label[for="form_timezone-button"] {
+  width: 10%;
+  min-width: auto;
+  text-align: right;
+  padding-right: 0.75em;
 }
 .listener_view #form input[type='text'],
 .listener_view #form textarea,
@@ -1377,6 +1413,12 @@ fieldset#form_range_units div label {
   width: 75%;
   padding: 0.125em 0.25em;
   margin: 0 0 0.25em 0;
+}
+.listener_view #form textarea {
+  height: 6em;
+}
+.listener_view #form #form_timezone-button {
+  width: 55%;
 }
 .listener_stats div.stats {
   clear: both;

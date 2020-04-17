@@ -50,8 +50,12 @@
                 </fieldset>
                 <fieldset id="group_receiving_station_details">
                     <legend>{% trans %}Receiving Station Details{% endtrans %}</legend>
-                    {{ form_row(form.primaryQth) }}
-                    {{ form_row(form.timezone) }}
+                    <div>
+                        {{ form_label(form.primaryQth) }}
+                        {{ form_widget(form.primaryQth) }}
+                        {{ form_label(form.timezone) }}
+                        {{ form_widget(form.timezone) }}
+                    </div>
                     {{ form_row(form.equipment) }}
                     {{ form_row(form.notes) }}
                 </fieldset>
@@ -64,3 +68,8 @@
         {{ form_end(form, {'render_rest': true}) }}
         </div>
     </div>
+<script>
+$(document).ready(function () {
+    $('#form_timezone').selectmenu();
+});
+</script>

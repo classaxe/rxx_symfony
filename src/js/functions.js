@@ -510,6 +510,17 @@ function setFormHasLogsAction(enable) {
     }
 }
 
+function setFormTimezoneAction(enable) {
+    enable = typeof enable !== 'undefined' ? enable : true;
+    if (enable) {
+        $('#form_timezone').on('selectmenuchange', function () {
+            formSubmit();
+        });
+    } else {
+        $('#form_timezone').off('selectmenuchange');
+    }
+}
+
 function setFormHasMapPosAction(enable) {
     enable = typeof enable !== 'undefined' ? enable : true;
     if (enable) {
@@ -612,14 +623,17 @@ function setFormResetAction(form) {
                 setFormRwwFocusAction(false);
                 setFormHasLogsAction(false);
                 setFormHasMapPosAction(false);
+                setFormTimezoneAction(false);
                 $('select#form_region').prop('selectedIndex', 0);
                 $('select#form_country').prop('selectedIndex', 0);
                 $('select#form_has_map_pos').prop('selectedIndex', 0);
+                $('select#form_timezone').val('').selectmenu('refresh');
                 setFormCountryAction(true);
                 setFormRegionAction(true);
                 setFormRwwFocusAction(true);
                 setFormHasLogsAction(true);
                 setFormHasMapPosAction(true);
+                setFormTimezoneAction(true);
                 formSubmit();
                 return false;
             });

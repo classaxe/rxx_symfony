@@ -11,6 +11,7 @@ namespace App\Form\Listeners;
 use App\Form\Base;
 use App\Repository\CountryRepository;
 use App\Repository\RegionRepository;
+use App\Repository\TimeRepository;
 use App\Repository\TypeRepository;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -18,6 +19,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\ResetType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormInterface;
 
 /**
  * Class Listeners
@@ -30,12 +32,15 @@ class Collection extends Base
      */
     private $country;
 
-    private $options;
     /**
      * @var RegionRepository
      */
     private $region;
 
+    /**
+     * @var TimeRepository
+     */
+    private $timeRepository;
     /**
      * @var TypeRepository
      */
@@ -45,28 +50,30 @@ class Collection extends Base
      * Listeners constructor.
      * @param CountryRepository $country
      * @param RegionRepository $region
+     * @param TimeRepository $timeRepository
      * @param TypeRepository $type
      */
     public function __construct(
         CountryRepository $country,
         RegionRepository $region,
+        TimeRepository $timeRepository,
         TypeRepository $type
     ) {
         $this->country = $country;
         $this->region = $region;
+        $this->timeRepository = $timeRepository;
         $this->type = $type;
     }
 
     /**
      * @param FormBuilderInterface $formBuilder
      * @param array $options
-     * @return \Symfony\Component\Form\FormInterface|void
+     * @return FormInterface|void
      */
     public function buildForm(
         FormBuilderInterface $formBuilder,
         array $options
     ) {
-        $this->options = $options;
         $system =   $options['system'];
         $region =   $options['region'];
 
@@ -112,6 +119,17 @@ class Collection extends Base
                     ),
                     'data' =>           $options['country'],
                     'label' =>          'Country',
+                    'required' =>       false
+                ]
+            )
+            ->add(
+                'timezone',
+                ChoiceType::class,
+                [
+                    'choices' =>        $this->timeRepository->getAllOptions(),
+                    'choice_translation_domain' => false,
+                    'data' =>           $options['timezone'],
+                    'label' =>          'Timezone',
                     'required' =>       false
                 ]
             )

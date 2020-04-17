@@ -4,6 +4,7 @@ namespace App\Form\Listeners;
 use App\Repository\CountryRepository;
 use App\Repository\RegionRepository;
 use App\Repository\StateRepository;
+use App\Repository\TimeRepository;
 use App\Repository\TypeRepository;
 
 use Symfony\Component\Form\AbstractType;
@@ -37,6 +38,11 @@ class ListenerView extends AbstractType
     private $sp;
 
     /**
+     * @var TimeRepository
+     */
+    private $timeRepository;
+
+    /**
      * @var TypeRepository
      */
     private $type;
@@ -45,16 +51,21 @@ class ListenerView extends AbstractType
      * Listeners constructor.
      * @param CountryRepository $country
      * @param RegionRepository $region
+     * @param StateRepository $sp
+     * @param TimeRepository $timeRepository
+     * @param TypeRepository $type
      */
     public function __construct(
         CountryRepository $country,
         RegionRepository $region,
         StateRepository $sp,
+        TimeRepository $timeRepository,
         TypeRepository $type
     ) {
         $this->country =    $country;
         $this->region =     $region;
         $this->sp =         $sp;
+        $this->timeRepository = $timeRepository;
         $this->type =       $type;
     }
 
@@ -171,18 +182,12 @@ class ListenerView extends AbstractType
         )
         ->add(
             'timezone',
-            TextType::class,
+            ChoiceType::class,
             [
-                'attr' => [
-                    'maxlength' =>  3,
-                    'onchange' =>   "try{setCustomValidity('')}catch(e){}",
-                    'oninvalid' =>  "setCustomValidity('Please provide the hours ahead or behind UTC (use -n for timezones west of london)')",
-                    'size' =>       3,
-                    'style' =>      "width: 4em"
-                ],
+                'choices' =>        $this->timeRepository->getAllOptions(),
                 'data' =>           $options['timezone'],
-                'empty_data' =>     '',
                 'label' =>          'Timezone',
+                'required' =>       false
             ]
         )
         ->add(
@@ -191,7 +196,7 @@ class ListenerView extends AbstractType
             [
                 'attr' => [
                     'cols' =>       80,
-                    'rows' =>       3,
+                    'rows' =>       5,
                 ],
                 'data' =>           html_entity_decode($options['equipment']),
                 'empty_data' =>     '',
@@ -205,7 +210,7 @@ class ListenerView extends AbstractType
             [
                 'attr' => [
                     'cols' =>       80,
-                    'rows' =>       3,
+                    'rows' =>       5,
                 ],
                 'data' =>           $options['notes'],
                 'empty_data' =>     '',

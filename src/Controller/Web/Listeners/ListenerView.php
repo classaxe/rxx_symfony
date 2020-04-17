@@ -37,6 +37,7 @@ class ListenerView extends Base
      * @param CountryRepository $countryRepository
      * @param ListenerViewForm $listenerViewForm
      * @param ListenerRepository $listenerRepository
+     * @param TimeRepository $timeRepository
      * @return RedirectResponse|Response
      */
     public function controller(
@@ -69,7 +70,7 @@ class ListenerView extends Base
             'id' =>         $listener->getId(),
             'gsq' =>        $listener->getGsq(),
             'lat' =>        $listener->getLat(),
-            'lon' =>        $listener->getLon()
+            'lon' =>        $listener->getLon(),
         ];
         foreach (static::EDITABLE_FIELDS as $f) {
             $options[$f] = $listener->{'get' . ucfirst($f)}();

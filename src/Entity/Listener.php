@@ -224,7 +224,7 @@ class Listener
      *
      * @ORM\Column(name="timezone", type="string", length=5, nullable=false)
      */
-    private $timezone = '';
+    private $timezone = '0';
 
     /**
      * @var string
