@@ -32,6 +32,7 @@ class TimeRepository
         [  6.5, '+06:30', 'Myanmar ST',         'Rangoon' ],
         [    7, '+07:00', 'SE Asia ST',         'Bangkok, Hanoi, Jakarta' ],
         [    8, '+08:00', 'W Australia ST',     'Beijing, Perth' ],
+        [ 8.75, '+08:45', 'CW Australia ST',    'Cocklebiddy' ],
         [    9, '+09:00', 'Tokyo ST',           'Seoul, Tokyo' ],
         [  9.5, '+09:30', 'C Australian ST',    'Darwin, Adelaide' ],
         [   10, '+10:00', 'E Australia ST',     'Canberra, Sydney, Brisbane' ],
