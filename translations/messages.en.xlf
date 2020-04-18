@@ -4099,6 +4099,10 @@
         <source>Has Logs</source>
         <target>Has Logs</target>
       </trans-unit>
+      <trans-unit id="VLyJd6g" resname="This certificate recognises really long distance reception of NDBs particularly at night when skywave propagation is possible.">
+        <source>This certificate recognises really long distance reception of NDBs particularly at night when skywave propagation is possible.</source>
+        <target>This certificate recognises really long distance reception of NDBs particularly at night when skywave propagation is possible.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

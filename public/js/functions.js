@@ -1,7 +1,7 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.7.7
+ * Version:    2.7.9
  * Date:       2020-04-17
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
@@ -1439,6 +1439,7 @@ var shareableLink = {
             this.getFromField('country') +
             this.getFromField('has_logs', [ 'N', 'Y' ], 'A') +
             this.getFromField('has_map_pos', [ 'N', 'Y' ], 'A') +
+            this.getFromField('timezone') +
             this.getFromPagingControls(100) +
             this.getFromSortingControls('name', 'a');
     },

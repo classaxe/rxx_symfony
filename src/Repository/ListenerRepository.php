@@ -243,8 +243,8 @@ class ListenerRepository extends ServiceEntityRepository
     public function getDaytimeHours($timezone)
     {
         return [
-            'start' =>  str_pad((1000 + $timezone * 100 % 2400), 4, '0', STR_PAD_LEFT),
-            'end' =>    str_pad((1400 + $timezone * 100 % 2400), 4, '0', STR_PAD_LEFT)
+            'start' =>  str_pad((1000 + $timezone * -100 % 2400), 4, '0', STR_PAD_LEFT),
+            'end' =>    str_pad((1400 + $timezone * -100 % 2400), 4, '0', STR_PAD_LEFT)
         ];
     }
 
@@ -453,26 +453,40 @@ class ListenerRepository extends ServiceEntityRepository
         }
 
         if (isset($args['sort']) && ($this->listenersColumns[$args['sort']]['sort'] ?? false)) {
-            if ($args['sort'] === 'name') {
-                $qb
-                    ->addOrderBy(
-                        'l.name',
-                        ($args['order'] == 'd' ? 'DESC' : 'ASC')
-                    )
-                    ->addOrderBy('l.primaryQth', 'DESC')
-                    ->addOrderBy('l.sp', 'ASC')
-                    ->addOrderBy('l.itu', 'ASC')
-                    ->addOrderBy('l.qth', 'ASC');
-            } else {
-                $qb
-                    ->addOrderBy(
-                        '_blank',
-                        'ASC'
-                    )
-                    ->addOrderBy(
-                        ($this->listenersColumns[$args['sort']]['sort']),
-                        ($args['order'] == 'd' ? 'DESC' : 'ASC')
-                    );
+            switch ($args['sort']) {
+                case 'name':
+                    $qb
+                        ->addOrderBy(
+                            'l.name',
+                            ($args['order'] == 'd' ? 'DESC' : 'ASC')
+                        )
+                        ->addOrderBy('l.primaryQth', 'DESC')
+                        ->addOrderBy('l.sp', 'ASC')
+                        ->addOrderBy('l.itu', 'ASC')
+                        ->addOrderBy('l.qth', 'ASC');
+                    break;
+                case 'timezone':
+                    $qb
+                        ->addOrderBy(
+                            '_blank',
+                            'ASC'
+                        )
+                        ->addOrderBy(
+                            'CAST(l.timezone AS DECIMAL(4,2))',
+                            ($args['order'] == 'd' ? 'DESC' : 'ASC')
+                        );
+                    break;
+                default:
+                    $qb
+                        ->addOrderBy(
+                            '_blank',
+                            'ASC'
+                        )
+                        ->addOrderBy(
+                            ($this->listenersColumns[$args['sort']]['sort']),
+                            ($args['order'] == 'd' ? 'DESC' : 'ASC')
+                        );
+                    break;
             }
         }
         $result = $qb->getQuery()->execute();

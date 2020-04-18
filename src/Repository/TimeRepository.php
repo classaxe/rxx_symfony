@@ -43,17 +43,9 @@ class TimeRepository
 
     public function getAllOptions()
     {
-        /*
-         * TODO:
-         * Fix 'Daytime' calculations to operate in conventional order
-         * Update DB to multiply all timezone values by -1
-         * Remove the modifier code here and in RXX1
-        */
-
-        $modifier = -1;
         $out = [];
         foreach (static::TIMEZONES as $tz) {
-            $out[$tz[1] . ' ' . str_pad($tz[2], 20, ' ') . ' | ' . $tz[3]] = $tz[0] * $modifier;
+            $out[$tz[1] . ' ' . str_pad($tz[2], 20, ' ') . ' | ' . $tz[3]] = $tz[0] ;
         }
         return $out;
     }
