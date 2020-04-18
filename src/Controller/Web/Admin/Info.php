@@ -3,7 +3,7 @@ namespace App\Controller\Web\Admin;
 
 use App\Controller\Web\Base;
 use DOMDocument;
-use DOMElement;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -21,19 +21,23 @@ class Info extends Base
      *     },
      *     name="admin/info"
      * )
+     * @param $_locale
+     * @param $system
+     * @return Response
      */
-    public function adminInfoController(
+    public function controller(
         $_locale,
         $system
     ) {
         if (!$this->parameters['isAdmin']) {
             throw $this->createAccessDeniedException('You must be an Administrator to access this resource');
         }
-
+        $entries = $this->getGitInfo();
         $parameters = [
             '_locale' =>        $_locale,
-            'changelog' =>      "<p>".implode("</p><p></p>", $this->getGitInfo())."</p>",
+            'changelog' =>      "<p>".implode("</p><p></p>", $entries)."</p>",
             'classic' =>        $this->systemRepository->getClassicUrl('admin/info'),
+            'countEntries' =>   count($entries),
             'mode' =>           'System Info',
             'info' =>           $this->getPhpInfo(),
             'php_version' =>    phpversion(),
@@ -57,7 +61,7 @@ class Info extends Base
         return $entries;
     }
 
-    private function getPhpInfo()
+    private function getPhpInfo() : string
     {
         $doc = new DOMDocument();
         ob_start();
@@ -69,7 +73,7 @@ class Info extends Base
         );
     }
 
-    private function innerHTML(DOMElement $element)
+    private function innerHTML($element) : string
     {
         $doc = $element->ownerDocument;
         $html = '';

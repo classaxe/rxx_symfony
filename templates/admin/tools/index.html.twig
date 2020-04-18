@@ -1,0 +1,52 @@
+{% extends 'main.html.twig' %}
+{% block body %}
+    <div class="main">
+        <div>{% include 'status.html.twig' %}</div>
+        <h1>{{ mode | trans }}</h1>
+        <ol class="admin_tools">
+            <li>{% trans %}Signals{% endtrans %}:
+                <ul>
+                    <li><a class="button" href="{{ url('admin/tools', {'system' : system, 'tool' : 'signalsLatLon'}) }}">{% trans %}Go{% endtrans %}</a>
+                        {% trans %}Update Lat and Lon values from GSQ (use after importing new signals using phpMyAdmin){% endtrans %}</li>
+                    <li><a class="button" href="{{ url('admin/tools', {'system' : system, 'tool' : 'signalsStats'}) }}">{% trans %}Go{% endtrans %}</a>
+                        {% trans %}Update listeners, logs and Heard In from latest log data (run if problems are seen){% endtrans %}</li>
+                </ul>
+            </li>
+            <li>{% trans %}Logs{% endtrans %}:
+                <ul>
+                    <li><a class="button" href="{{ url('admin/tools', {'system' : system, 'tool' : 'logsDx'}) }}">{% trans %}Go{% endtrans %}</a>
+                        {% trans %}Recalculate all distances (use after adding GSQs for existing logging or function above){% endtrans %}</li>
+                    <li><a class="button" href="{{ url('admin/tools', {'system' : system, 'tool' : 'logsDaytime'}) }}">{% trans %}Go{% endtrans %}</a>
+                        {% trans %}Mark daytime loggings (run periodically){% endtrans %}</li>
+                </ul>
+            </li>
+            <li>{% trans %}Listeners{% endtrans %}:
+                <ul>
+                    <li><a class="button" href="{{ url('admin/tools', {'system' : system, 'tool' : 'listenersStats'}) }}">{% trans %}Go{% endtrans %}</a>
+                        {% trans %}Update log counts (run periodically){% endtrans %}</li>
+                </ul>
+            </li>
+
+            <li>{% trans %}ICAO Data{% endtrans %}:
+                <ul>
+                    <li><a class="button" href="{{ url('admin/tools', {'system' : system, 'tool' : 'icaoImport'}) }}">{% trans %}Go{% endtrans %}</a>
+                        {% trans %}Get latest data (run once a month){% endtrans %}</li>
+                </ul>
+            </li>
+
+            <li>{% trans %}System{% endtrans %}:
+                <ul>
+                    <li><a class="button" href="{{ url('admin/tools', {'system' : system, 'tool' : 'systemExportDb'}) }}">{% trans %}Go{% endtrans %}</a>
+                        {% trans %}Export Database (run periodically){% endtrans %}</li>
+                    <li><a class="button" href="{{ url('admin/tools', {'system' : system, 'tool' : 'systemEmailTest'}) }}">{% trans %}Go{% endtrans %}</a>
+                        {% trans %}Send Test Email to:{% endtrans %} <label class="sr-only" for="email">Email Address</label><input type="text" name="email" id="email" /></li>
+                </ul>
+            </li>
+        </ol>
+    </div>
+    <script>
+        $(document).ready( function() {
+            setExternalLinks();
+        });
+    </script>
+{% endblock %}

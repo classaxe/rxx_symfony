@@ -138,6 +138,9 @@ class SystemRepository
             case 'admin/info':
                 $response['value'] = 'sys_info';
                 break;
+            case 'admin/tools':
+                $response['value'] = 'admin_manage';
+                break;
             case 'cle':
             case 'help':
             case 'logon':

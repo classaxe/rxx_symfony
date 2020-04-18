@@ -6,61 +6,93 @@ class ModeRepository
 {
     const MODES = [
         [
-            'signals' =>    [
+            'signals' => [
                 'admin' =>  true,
                 'guest' =>  true,
                 'menu' =>   'Signals',
-                'title' =>  'Signals List'
+                'title' =>  'Signals List',
+                'url'=>     false
             ],
-            'listeners' =>    [
+            'listeners' => [
                 'admin' =>  true,
                 'guest' =>  true,
                 'menu' =>   'Listeners',
-                'title' =>  'Listeners List'
+                'title' =>  'Listeners List',
+                'url'=>     false
             ],
-            'cle' =>    [
+            'cle' => [
                 'admin' =>  true,
                 'guest' =>  true,
                 'menu' =>   'CLE',
-                'title' =>  'CLE'
+                'title' =>  'CLE',
+                'url'=>     false
             ],
-            'maps' =>    [
+            'maps' => [
                 'admin' =>  true,
                 'guest' =>  true,
                 'menu' =>   'Maps',
-                'title' =>  'Maps'
+                'title' =>  'Maps',
+                'url'=>     false
             ],
-            'logon' =>    [
+            'logon' => [
                 'admin' =>  false,
                 'guest' =>  true,
                 'menu' =>   'Log On',
-                'title' =>  'Logon'
+                'title' =>  'Logon',
+                'url'=>     false
             ],
-            'logoff' =>    [
+            'logoff' => [
                 'admin' =>  true,
                 'guest' =>  false,
                 'menu' =>   'Log Off',
-                'title' =>  'Log Off'
+                'title' =>  'Log Off',
+                'url'=>     false
             ],
-            'help' =>    [
+            'help' => [
                 'admin' =>  true,
                 'guest' =>  true,
                 'menu' =>   'Help',
-                'title' =>  'Help'
+                'title' =>  'Help',
+                'url'=>     false
             ],
         ],
         [
-            'admin/help' =>    [
+            'ndblistWebsite' => [
+                'admin' =>  true,
+                'guest' =>  true,
+                'menu' =>   'NDB List - Website',
+                'title' =>  'NDB List - Group Information Website',
+                'url'=>     'http://ndblist.info/'
+            ],
+            'ndblistGroup' => [
+                'admin' =>  true,
+                'guest' =>  true,
+                'menu' =>   'NDB List - Group',
+                'title' =>  'NDB List - Group Discussion Site',
+                'url'=>     'https://groups.io/g/ndblist'
+            ],
+        ],
+        [
+            'admin/tools' => [
                 'admin' =>  true,
                 'guest' =>  false,
-                'menu' =>   'Admin Help',
-                'title' =>  'Admin Help'
+                'menu' =>   'Admin Tools',
+                'title' =>  'Tools to help Admins Manage this system',
+                'url'=>     false
             ],
-            'admin/info' =>    [
+            'admin/info' => [
                 'admin' =>  true,
                 'guest' =>  false,
                 'menu' =>   'System Info',
-                'title' =>  'System Info'
+                'title' =>  'System Info',
+                'url'=>     false
+            ],
+            'admin/help' => [
+                'admin' =>  true,
+                'guest' =>  false,
+                'menu' =>   'Admin Help',
+                'title' =>  'Admin Help',
+                'url'=>     false
             ],
         ]
     ];

@@ -4103,6 +4103,70 @@
         <source>This certificate recognises really long distance reception of NDBs particularly at night when skywave propagation is possible.</source>
         <target>This certificate recognises really long distance reception of NDBs particularly at night when skywave propagation is possible.</target>
       </trans-unit>
+      <trans-unit id="PriDOnM" resname="NDB List - Website">
+        <source>NDB List - Website</source>
+        <target>NDB List - Website</target>
+      </trans-unit>
+      <trans-unit id="XEyFdy7" resname="NDB List - Group">
+        <source>NDB List - Group</source>
+        <target>NDB List - Group</target>
+      </trans-unit>
+      <trans-unit id="rww7pqL" resname="Admin Tools">
+        <source>Admin Tools</source>
+        <target>Admin Tools</target>
+      </trans-unit>
+      <trans-unit id="f3sp2Fb" resname="Administrator Management Tools">
+        <source>Administrator Management Tools</source>
+        <target>Administrator Management Tools</target>
+      </trans-unit>
+      <trans-unit id="LwGZT8G" resname="Update Lat and Lon values from GSQ (use after importing new signals using phpMyAdmin)">
+        <source>Update Lat and Lon values from GSQ (use after importing new signals using phpMyAdmin)</source>
+        <target>Update Lat and Lon values from GSQ (use after importing new signals using phpMyAdmin)</target>
+      </trans-unit>
+      <trans-unit id="kicIQ8V" resname="Update listeners, logs and Heard In from latest log data (run if problems are seen)">
+        <source>Update listeners, logs and Heard In from latest log data (run if problems are seen)</source>
+        <target>Update listeners, logs and Heard In from latest log data (run if problems are seen)</target>
+      </trans-unit>
+      <trans-unit id="HcyOrTN" resname="Recalculate all distances (use after adding GSQs for existing logging or function above)">
+        <source>Recalculate all distances (use after adding GSQs for existing logging or function above)</source>
+        <target>Recalculate all distances (use after adding GSQs for existing logging or function above)</target>
+      </trans-unit>
+      <trans-unit id="EFwibEE" resname="Mark daytime loggings (run periodically)">
+        <source>Mark daytime loggings (run periodically)</source>
+        <target>Mark daytime loggings (run periodically)</target>
+      </trans-unit>
+      <trans-unit id="VEwX1Aj" resname="Update log counts (run periodically)">
+        <source>Update log counts (run periodically)</source>
+        <target>Update log counts (run periodically)</target>
+      </trans-unit>
+      <trans-unit id="tlfvWBv" resname="ICAO Data">
+        <source>ICAO Data</source>
+        <target>ICAO Data</target>
+      </trans-unit>
+      <trans-unit id="3m3hgLH" resname="Get latest data (run once a month)">
+        <source>Get latest data (run once a month)</source>
+        <target>Get latest data (run once a month)</target>
+      </trans-unit>
+      <trans-unit id="ZyXnu80" resname="System">
+        <source>System</source>
+        <target>System</target>
+      </trans-unit>
+      <trans-unit id="U.G1zi_" resname="Export Database (run periodically)">
+        <source>Export Database (run periodically)</source>
+        <target>Export Database (run periodically)</target>
+      </trans-unit>
+      <trans-unit id="uTnecO3" resname="Send Test Email to:">
+        <source>Send Test Email to:</source>
+        <target>Send Test Email to:</target>
+      </trans-unit>
+      <trans-unit id="tkoFV.5" resname="Change Log (%COUNT% entries)">
+        <source>Change Log (%COUNT% entries)</source>
+        <target>Change Log (%COUNT% entries)</target>
+      </trans-unit>
+      <trans-unit id="gpO1bWl" resname="Not yet implemented">
+        <source>Not yet implemented</source>
+        <target>Not yet implemented</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

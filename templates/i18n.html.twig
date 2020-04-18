@@ -23,8 +23,11 @@
     {% trans %}Log On{% endtrans %}
     {% trans %}Log Off{% endtrans %}
     {% trans %}Help{% endtrans %}
-    {% trans %}Admin Help{% endtrans %}
+    {% trans %}NDB List - Website{% endtrans %}
+    {% trans %}NDB List - Group{% endtrans %}
+    {% trans %}Admin Tools{% endtrans %}
     {% trans %}System Info{% endtrans %}
+    {% trans %}Admin Help{% endtrans %}
 {% endif %}
 {% if 'Log On' %}
     {% trans %}Administrator Log On{% endtrans %}
@@ -38,6 +41,23 @@
     {% trans %}Incorrect Username and / or Password.{% endtrans %}
     {% trans %}Please provide a valid Username{% endtrans %}
     {% trans %}Please provide a valid Password{% endtrans %}
+{% endif %}
+{% if 'Admin Tools' %}
+    {% trans %}Administrator Management Tools{% endtrans %}
+    {% trans %}Update Lat and Lon values from GSQ (use after importing new signals using phpMyAdmin){% endtrans %}
+    {% trans %}Update listeners, logs and Heard In from latest log data (run if problems are seen){% endtrans %}
+    {% trans %}Recalculate all distances (use after adding GSQs for existing logging or function above){% endtrans %}
+    {% trans %}Mark daytime loggings (run periodically){% endtrans %}
+    {% trans %}Update log counts (run periodically){% endtrans %}
+    {% trans %}ICAO Data{% endtrans %}
+    {% trans %}Get latest data (run once a month){% endtrans %}
+    {% trans %}System{% endtrans %}
+    {% trans %}Export Database (run periodically){% endtrans %}
+    {% trans %}Send Test Email to:{% endtrans %}
+    {% trans %}Not yet implemented{% endtrans %}
+{% endif %}
+{% if 'System Info' %}
+    {% trans %}Change Log (%COUNT% entries){% endtrans %}
 {% endif %}
 {% if 'Footer' %}
     {% trans %}Your %s Editors are:{% endtrans %}
