@@ -2,8 +2,6 @@
 namespace App\Controller\Web\Listeners\Ndbweblog;
 
 use App\Controller\Web\Listeners\Base;
-use App\Repository\ListenerRepository;
-use App\Repository\LogRepository;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -27,18 +25,14 @@ class Logs extends Base
      * @param $_locale
      * @param $system
      * @param $id
-     * @param ListenerRepository $listenerRepository
-     * @param LogRepository $logRepository
      * @return RedirectResponse|Response
      */
     public function controller(
         $_locale,
         $system,
-        $id,
-        ListenerRepository $listenerRepository,
-        LogRepository $logRepository
+        $id
     ) {
-        if (!$listener = $this->getValidReportingListener($id, $listenerRepository)) {
+        if (!$listener = $this->getValidReportingListener($id)) {
             return $this->redirectToRoute(
                 'listeners',
                 ['system' => $system]
@@ -49,7 +43,7 @@ class Logs extends Base
             'title' =>              'NDB Weblog logs for '.$listener->getName(),
             'system' =>             $system,
             'listener' =>           $listener,
-            'logs' =>               $logRepository->getLogsForListener($id)
+            'logs' =>               $this->logRepository->getLogsForListener($id)
         ];
         $parameters = array_merge($parameters, $this->parameters);
         $response = $this->render('listener/ndbweblog/logs.js.twig', $parameters);

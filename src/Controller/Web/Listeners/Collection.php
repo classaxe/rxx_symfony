@@ -2,7 +2,6 @@
 namespace App\Controller\Web\Listeners;
 
 use App\Form\Listeners\Collection as Form;
-use App\Repository\ListenerRepository;
 use App\Repository\TypeRepository;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 use Symfony\Component\HttpFoundation\Request;
@@ -47,7 +46,6 @@ class Collection extends Base
      * @param $system
      * @param Request $request
      * @param Form $form
-     * @param ListenerRepository $listenerRepository
      * @param TypeRepository $typeRepository
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -56,10 +54,8 @@ class Collection extends Base
         $system,
         Request $request,
         Form $form,
-        ListenerRepository $listenerRepository,
         TypeRepository $typeRepository
     ) {
-        $this->listenerRepository = $listenerRepository;
         $this->typeRepository = $typeRepository;
 
         $isAdmin = $this->parameters['isAdmin'];
@@ -69,10 +65,10 @@ class Collection extends Base
             'type' =>       [],
 
             // Setable via GET
-            'limit' =>      $listenerRepository::defaultLimit,
-            'order' =>      $listenerRepository::defaultOrder,
-            'page' =>       $listenerRepository::defaultPage,
-            'sort' =>       $listenerRepository::defaultSorting,
+            'limit' =>      $this->listenerRepository::defaultLimit,
+            'order' =>      $this->listenerRepository::defaultOrder,
+            'page' =>       $this->listenerRepository::defaultPage,
+            'sort' =>       $this->listenerRepository::defaultSorting,
 
             'country' =>    '',
             'has_logs' =>   '',
@@ -91,8 +87,8 @@ class Collection extends Base
         if (empty($args['type'])) {
             $args['type'][] = 'NDB';
         }
-        $listeners =    $listenerRepository->getFilteredListeners($system, $args);
-        $total =        $listenerRepository->getFilteredListenersCount($system, $args);
+        $listeners =    $this->listenerRepository->getFilteredListeners($system, $args);
+        $total =        $this->listenerRepository->getFilteredListenersCount($system, $args);
         if (empty($listeners)) {
             $args['show'] = 'list';
         }
@@ -123,22 +119,22 @@ class Collection extends Base
             'box' =>                $box,
             'center' =>             $center,
             'classic' =>            $this->systemRepository->getClassicUrl('listeners'),
-            'columns' =>            $listenerRepository->getColumns(),
+            'columns' =>            $this->listenerRepository->getColumns(),
             'form' =>               $form->createView(),
             'listeners' =>          $listeners,
             '_locale' =>            $_locale,
             'mode' =>               'Listeners List',
             'results' => [
-                'limit' =>              isset($args['limit']) ? $args['limit'] : $listenerRepository::defaultLimit,
-                'page' =>               isset($args['page']) ? $args['page'] : $listenerRepository::defaultPage,
+                'limit' =>              isset($args['limit']) ? $args['limit'] : $this->listenerRepository::defaultLimit,
+                'page' =>               isset($args['page']) ? $args['page'] : $this->listenerRepository::defaultPage,
                 'total' =>              $total
             ],
             'system' =>             $system,
             'tabs' =>               $tabs
         ];
         if ($this->parameters['isAdmin']) {
-            $parameters['latestListeners'] =    $listenerRepository->getLatestLoggedListeners($system);
-            $parameters['latestLogs'] =         $listenerRepository->getLatestLogs($system);
+            $parameters['latestListeners'] =    $this->listenerRepository->getLatestLoggedListeners($system);
+            $parameters['latestLogs'] =         $this->listenerRepository->getLatestLogs($system);
         }
         return $this->render('listeners/index.html.twig', $this->getMergedParameters($parameters));
     }

@@ -1,9 +1,6 @@
 <?php
 namespace App\Controller\Web\Listeners;
 
-use App\Repository\ListenerRepository;
-use App\Repository\LogRepository;
-use App\Repository\TypeRepository;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
@@ -27,27 +24,21 @@ class SignalsMap extends Base
      * @param $_locale
      * @param $system
      * @param $id
-     * @param ListenerRepository $listenerRepository
-     * @param LogRepository $logRepository
-     * @param TypeRepository $typeRepository
      * @return RedirectResponse|Response
      */
     public function controller(
         $_locale,
         $system,
-        $id,
-        ListenerRepository $listenerRepository,
-        LogRepository $logRepository,
-        TypeRepository $typeRepository
+        $id
     ) {
-        if (!$listener = $this->getValidReportingListener($id, $listenerRepository)) {
+        if (!$listener = $this->getValidReportingListener($id)) {
             return $this->redirectToRoute(
                 'listeners',
                 ['_locale' => $_locale, 'system' => $system]
             );
         }
 
-        $signals = $listenerRepository->getSignalsForListener($id, [ 'sort' => 'khz', 'latlon' => true ]);
+        $signals = $this->listenerRepository->getSignalsForListener($id, [ 'sort' => 'khz', 'latlon' => true ]);
 
         $lats =     array_column($signals, 'lat');
         $lons =     array_column($signals, 'lon');
@@ -62,22 +53,22 @@ class SignalsMap extends Base
 
         $types = [];
         foreach ($signals as $s) {
-            $types[$s['type']] = $typeRepository->getTypeForCode($s['type']);
+            $types[$s['type']] = $this->typeRepository->getTypeForCode($s['type']);
         }
-        uasort($types, [ $typeRepository, 'sortByOrder' ]);
+        uasort($types, [ $this->typeRepository, 'sortByOrder' ]);
         $parameters = [
             'id' =>                 $id,
             '_locale' =>            $_locale,
             'box' =>                $box,
             'center' =>             $center,
             'listener' =>           $listener,
-            'logs' =>               $logRepository->getLogsForListener($id),
+            'logs' =>               $this->logRepository->getLogsForListener($id),
             'mode' =>               strToUpper($system).' Map of Signals received by '.$listener->getName(),
             'signals' =>            $signals,
             'system' =>             $system,
-            'tabs' =>               $listenerRepository->getTabs($listener, $this->parameters['isAdmin']),
+            'tabs' =>               $this->listenerRepository->getTabs($listener, $this->parameters['isAdmin']),
             'types' =>              $types,
-            'typeRepository' =>     $typeRepository
+            'typeRepository' =>     $this->typeRepository
         ];
         $parameters = array_merge($parameters, $this->parameters);
         $response = $this->render('listener/signalmap.html.twig', $parameters);

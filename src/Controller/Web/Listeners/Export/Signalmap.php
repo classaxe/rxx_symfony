@@ -2,9 +2,6 @@
 namespace App\Controller\Web\Listeners\Export;
 
 use App\Controller\Web\Listeners\Base;
-use App\Repository\ListenerRepository;
-use App\Repository\LogRepository;
-use App\Repository\TypeRepository;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
@@ -15,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
  */
 class Signalmap extends Base
 {
-    // TODO: Remove this legacy code once the new system goes live
+    // Exists only to support legacy listener maps
     /**
      * @Route(
      *     "/{_locale}/{system}/listeners/{id}/signalmap",
@@ -29,24 +26,18 @@ class Signalmap extends Base
      * @param $_locale
      * @param $system
      * @param $id
-     * @param ListenerRepository $listenerRepository
-     * @param LogRepository $logRepository
-     * @param TypeRepository $typeRepository
      * @return RedirectResponse|Response
      */
     public function controller(
         $_locale,
         $system,
-        $id,
-        ListenerRepository $listenerRepository,
-        LogRepository $logRepository,
-        TypeRepository $typeRepository
+        $id
     ) {
-        if (!$listener = $this->getValidReportingListener($id, $listenerRepository)) {
+        if (!$listener = $this->getValidReportingListener($id)) {
             die();
         }
 
-        $signals = $listenerRepository->getSignalsForListener($id, [ 'latlon' => true ]);
+        $signals = $this->listenerRepository->getSignalsForListener($id, [ 'latlon' => true ]);
         // Don't bother sorting by anything - no list is shown in this mode
 
         $lats =     array_column($signals, 'lat');
@@ -61,10 +52,10 @@ class Signalmap extends Base
         $center =   [$lat_cen, $lon_cen];
         $types = [];
         foreach ($signals as $s) {
-            $types[$s['type']] = $typeRepository->getTypeForCode($s['type']);
+            $types[$s['type']] = $this->typeRepository->getTypeForCode($s['type']);
         }
 
-        uasort($types, array($typeRepository, 'sortByOrder'));
+        uasort($types, [ $this->typeRepository, 'sortByOrder' ]);
         $parameters = [
             'id' =>                 $id,
             '_locale' =>            $_locale,
@@ -75,12 +66,11 @@ class Signalmap extends Base
             'signals' =>            $signals,
             'system' =>             $system,
             'listener' =>           $listener,
-            'logs' =>               $logRepository->getLogsForListener($id),
-            'typeRepository' =>     $typeRepository
+            'logs' =>               $this->logRepository->getLogsForListener($id),
+            'typeRepository' =>     $this->typeRepository
         ];
         $parameters = array_merge($parameters, $this->parameters);
-        $response = $this->render('listener/export/signalmap.html.twig', $parameters);
 
-        return $response;
+        return $this->render('listener/export/signalmap.html.twig', $parameters);
     }
 }

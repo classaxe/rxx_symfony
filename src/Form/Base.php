@@ -13,6 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormInterface;
 
 /**
  * Class ListenerLogs
@@ -23,7 +24,7 @@ class Base extends AbstractType
     /**
      * @param FormBuilderInterface $formBuilder
      * @param array $options
-     * @return FormBuilderInterface
+     * @return FormInterface
      */
     public function buildForm(FormBuilderInterface $formBuilder, array $options)
     {
@@ -76,6 +77,7 @@ class Base extends AbstractType
 
     /**
      * @param FormBuilderInterface $formBuilder
+     * @param array $options
      */
     protected function addSorting(FormBuilderInterface &$formBuilder, array $options)
     {

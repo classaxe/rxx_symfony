@@ -3,7 +3,6 @@ namespace App\Controller\Web\Signals;
 
 use App\Entity\Signal as SignalEntity;
 use App\Form\Signals\Collection as Form;
-use App\Repository\ListenerRepository;
 use App\Repository\PaperRepository;
 use App\Repository\SignalRepository;
 use App\Repository\TypeRepository;
@@ -33,9 +32,7 @@ class Collection extends Base
      * @param $system
      * @param Request $request
      * @param Form $form
-     * @param ListenerRepository $listenerRepository
      * @param PaperRepository $paperRepository
-     * @param SignalRepository $signalRepository
      * @param TypeRepository $typeRepository
      * @return Response
      * @throws Exception
@@ -45,14 +42,10 @@ class Collection extends Base
         $system,
         Request $request,
         Form $form,
-        ListenerRepository $listenerRepository,
         PaperRepository $paperRepository,
-        SignalRepository $signalRepository,
         TypeRepository $typeRepository
     ) {
-        $this->listenerRepository = $listenerRepository;
         $this->paperRepository = $paperRepository;
-        $this->signalRepository = $signalRepository;
         $this->typeRepository = $typeRepository;
 
         $isAdmin = $this->parameters['isAdmin'];
@@ -62,10 +55,10 @@ class Collection extends Base
             'sortby' =>         '',
             'za' =>             '',
 
-            'limit' =>          $signalRepository::defaultlimit,
-            'order' =>          $signalRepository::defaultOrder,
-            'page' =>           $signalRepository::defaultPage,
-            'sort' =>           $signalRepository::defaultSorting,
+            'limit' =>          $this->signalRepository::defaultlimit,
+            'order' =>          $this->signalRepository::defaultOrder,
+            'page' =>           $this->signalRepository::defaultPage,
+            'sort' =>           $this->signalRepository::defaultSorting,
 
             'active' =>         '',
             'call' =>           '',
@@ -107,7 +100,7 @@ class Collection extends Base
         foreach (['logged_date_1', 'logged_date_2', 'logged_first_1', 'logged_first_2', 'logged_last_1', 'logged_last_2'] as $arg) {
             $args[$arg] = $args[$arg] ? new DateTime($args[$arg]) : null;
         }
-        $args['total'] =        $signalRepository->getFilteredSignalsCount($system, $args); // forces paging - will be made accurate later on
+        $args['total'] =        $this->signalRepository->getFilteredSignalsCount($system, $args); // forces paging - will be made accurate later on
         $form = $form->buildForm($this->createFormBuilder(), $args);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -125,8 +118,8 @@ class Collection extends Base
             $args['show'] = 'list';
         }
         $paper =                isset($args['paper']) ? $paperRepository->getSpecifications($args['paper']) : false;
-        $signals =              $signalRepository->getFilteredSignals($system, $args);
-        $total =                $signalRepository->getFilteredSignalsCount($system, $args);
+        $signals =              $this->signalRepository->getFilteredSignals($system, $args);
+        $total =                $this->signalRepository->getFilteredSignalsCount($system, $args);
         $seeklistStats =        [];
         $seeklistColumns =      [];
         if ('seeklist' === $args['show']) {
@@ -182,14 +175,14 @@ class Collection extends Base
             'box' =>                $box,
             'center' =>             $center,
             'classic' =>            $this->systemRepository->getClassicUrl('signals', $args['show']),
-            'columns' =>            $signalRepository->getColumns(),
+            'columns' =>            $this->signalRepository->getColumns(),
             'expanded' =>           $expanded,
             'form' =>               $form->createView(),
             'isAdmin' =>            $isAdmin,
             'mode' =>               $this->translator->trans('Signals'),
             'paper' =>              $paper,
             'paperChoices' =>       $paperRepository->getAllChoices(),
-            'personalised' =>       isset($args['personalise']) ? $listenerRepository->getDescription($args['personalise']) : false,
+            'personalised' =>       isset($args['personalise']) ? $this->listenerRepository->getDescription($args['personalise']) : false,
             'results' => [
                 'limit' =>              isset($args['limit']) ? $args['limit'] : SignalRepository::defaultlimit,
                 'page' =>               isset($args['page']) ? $args['page'] : 0,
@@ -199,10 +192,10 @@ class Collection extends Base
             'seeklistStats' =>      $seeklistStats,
             'signals' =>            $signalEntities,
             'stats' =>
-                $signalRepository->getStats() +
-                $listenerRepository->getStats($system, $args['rww_focus']),
+                $this->signalRepository->getStats() +
+                $this->listenerRepository->getStats($system, $args['rww_focus']),
             'system' =>             $system,
-            'sortbyOptions' =>      $signalRepository->getColumns(),
+            'sortbyOptions' =>      $this->signalRepository->getColumns(),
             'tabs' => [
                 [ 'list', 'Listing' ],
                 [ 'seeklist', 'Seeklist'],

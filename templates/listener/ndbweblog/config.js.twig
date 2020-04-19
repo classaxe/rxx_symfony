@@ -11,8 +11,8 @@
 
 qth_lat    = {{ listener.lat }};
 qth_lon    = {{ listener.lon }};
-qth_name   = "{{ listener.name }}, {{ listener.qth }}, {% if (listener.sp) %}{{ listener.sp }}, {% endif %}{{ listener.itu }}";
-qth_email  = "{{ listener.email }}";
+qth_name   = "{{ listener.name|raw }}, {{ listener.qth|raw }}, {% if (listener.sp) %}{{ listener.sp }}, {% endif %}{{ listener.itu }}";
+qth_email  = "{{ listener.email|raw }}";
 qth_home   = "";
 monthly    = 1;
-utc_offset = {{ listener.timezone }};
+utc_offset = {{ listener.timezone|raw }};

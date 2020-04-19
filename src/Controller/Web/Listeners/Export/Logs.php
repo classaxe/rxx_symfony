@@ -2,9 +2,7 @@
 namespace App\Controller\Web\Listeners\Export;
 
 use App\Controller\Web\Listeners\Base;
-use App\Repository\ListenerRepository;
-use App\Repository\LogRepository;
-use App\Repository\TypeRepository;
+
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
@@ -28,20 +26,14 @@ class Logs extends Base
      * @param $_locale
      * @param $system
      * @param $id
-     * @param ListenerRepository $listenerRepository
-     * @param LogRepository $logRepository
-     * @param TypeRepository $typeRepository
      * @return RedirectResponse|Response
      */
     public function csv(
         $_locale,
         $system,
-        $id,
-        ListenerRepository $listenerRepository,
-        LogRepository $logRepository,
-        TypeRepository $typeRepository
+        $id
     ) {
-        return $this->export($_locale, $system, $id, 'csv', $listenerRepository, $logRepository, $typeRepository);
+        return $this->export($_locale, $system, $id, 'csv');
     }
 
     /**
@@ -57,20 +49,14 @@ class Logs extends Base
      * @param $_locale
      * @param $system
      * @param $id
-     * @param ListenerRepository $listenerRepository
-     * @param LogRepository $logRepository
-     * @param TypeRepository $typeRepository
      * @return RedirectResponse|Response
      */
     public function txt(
         $_locale,
         $system,
-        $id,
-        ListenerRepository $listenerRepository,
-        LogRepository $logRepository,
-        TypeRepository $typeRepository
+        $id
     ) {
-        return $this->export($_locale, $system, $id, 'txt', $listenerRepository, $logRepository, $typeRepository);
+        return $this->export($_locale, $system, $id, 'txt');
     }
 
     /**
@@ -78,27 +64,21 @@ class Logs extends Base
      * @param $system
      * @param $id
      * @param $mode
-     * @param ListenerRepository $listenerRepository
-     * @param LogRepository $logRepository
-     * @param TypeRepository $typeRepository
      * @return RedirectResponse|Response
      */
     private function export(
         $_locale,
         $system,
         $id,
-        $mode,
-        ListenerRepository $listenerRepository,
-        LogRepository $logRepository,
-        TypeRepository $typeRepository
+        $mode
     ) {
-        if (!$listener = $this->getValidReportingListener($id, $listenerRepository)) {
+        if (!$listener = $this->getValidReportingListener($id)) {
             return $this->redirectToRoute(
                 'listeners',
                 ['system' => $system]
             );
         }
-        $logs = $logRepository->getLogsForListener($id);
+        $logs = $this->logRepository->getLogsForListener($id);
         $parameters = [
             '_locale' =>            $_locale,
             'title' =>              strToUpper($system) . ' log for '.$listener->getName() . " on " . date('Y-m-d'),
@@ -106,7 +86,7 @@ class Logs extends Base
             'system' =>             $system,
             'listener' =>           $listener,
             'logs' =>               $logs,
-            'typeRepository' =>     $typeRepository
+            'typeRepository' =>     $this->typeRepository
         ];
         $parameters = array_merge($parameters, $this->parameters);
         switch ($mode) {

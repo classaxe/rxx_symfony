@@ -1,7 +1,6 @@
 <?php
 namespace App\Controller\Web\Listeners;
 
-use App\Repository\ListenerRepository;
 use App\Form\Listeners\ListenerLocatorMap as ListenerLocatorMapForm;
 use App\Repository\MapRepository;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -28,7 +27,6 @@ class ListenerLocatorMap extends Base
      * @param $system
      * @param $id
      * @param Request $request
-     * @param ListenerRepository $listenerRepository
      * @param ListenerLocatorMapForm $ListenerLocatorMapForm
      * @return RedirectResponse|Response
      */
@@ -37,12 +35,11 @@ class ListenerLocatorMap extends Base
         $system,
         $id,
         Request $request,
-        ListenerRepository $listenerRepository,
         ListenerLocatorMapForm $ListenerLocatorMapForm
     ) {
         $isAdmin = $this->parameters['isAdmin'];
 
-        if (!$isAdmin || !$listener = $this->getValidListener($id, $listenerRepository)) {
+        if (!$isAdmin || !$listener = $this->getValidListener($id)) {
             return $this->redirectToRoute('listener', ['system' => $system, 'id' => $id]);
         }
         $map = ('HWA' === $listener->getItu() ? 'na' : 'ca' === $listener->getRegion() ? 'na' : $listener->getRegion());
@@ -84,7 +81,7 @@ class ListenerLocatorMap extends Base
             'map' =>                $map,
             'mode' =>               sprintf($title, $listener->getFormattedNameAndLocation()),
             'system' =>             $system,
-            'tabs' =>               $listenerRepository->getTabs($listener, $isAdmin),
+            'tabs' =>               $this->listenerRepository->getTabs($listener, $isAdmin),
         ];
         $parameters = array_merge($parameters, $this->parameters);
         return $this->render('listener/locatormap.html.twig', $parameters);
@@ -102,19 +99,17 @@ class ListenerLocatorMap extends Base
      * )
      * @param $id
      * @param $map
-     * @param ListenerRepository $listenerRepository,
      * @param MapRepository $mapRepository,
      * @return RedirectResponse|Response
      */
     public function image(
         $id,
         $map,
-        ListenerRepository $listenerRepository,
         MapRepository $mapRepository
     ) {
         $isAdmin = $this->parameters['isAdmin'];
 
-        if (!$isAdmin || !$listener = $this->getValidListener($id, $listenerRepository)) {
+        if (!$isAdmin || !$listener = $this->getValidListener($id)) {
             throw $this->createNotFoundException('The listener does not exist');
         }
 

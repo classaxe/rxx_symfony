@@ -185,6 +185,7 @@ class ListenerView extends AbstractType
             ChoiceType::class,
             [
                 'choices' =>        $this->timeRepository->getAllOptions(),
+                'choice_translation_domain' => false,
                 'data' =>           $options['timezone'],
                 'label' =>          'Timezone',
                 'required' =>       false

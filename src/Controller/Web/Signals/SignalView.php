@@ -3,7 +3,9 @@ namespace App\Controller\Web\Signals;
 
 use App\Entity\Signal as SignalEntity;
 use App\Form\Signals\SignalView as SignalViewForm;
-use App\Repository\SignalRepository;
+
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 use Symfony\Component\HttpFoundation\Request;
 use App\Utils\Rxx;
@@ -23,20 +25,25 @@ class SignalView extends Base
      *     },
      *     name="signal"
      * )
+     * @param $_locale
+     * @param $system
+     * @param $id
+     * @param Request $request
+     * @param SignalViewForm $signalViewForm
+     * @return RedirectResponse|Response
      */
     public function controller(
         $_locale,
         $system,
         $id,
         Request $request,
-        SignalViewForm $signalViewForm,
-        SignalRepository $signalRepository
+        SignalViewForm $signalViewForm
     ) {
         if ($id === 'new') {
             $id = false;
         }
         if ((int) $id) {
-            if (!$signal = $this->getValidSignal($id, $signalRepository)) {
+            if (!$signal = $this->getValidSignal($id)) {
                 return $this->redirectToRoute('signals', ['system' => $system]);
             }
         } else {
@@ -69,7 +76,7 @@ class SignalView extends Base
             $form_data = $form->getData();
             $data['form'] = $form_data;
             if ((int)$id) {
-                $signal = $signalRepository->find($id);
+                $signal = $this->signalRepository->find($id);
             } else {
                 $signal = new SignalEntity();
             }
@@ -133,7 +140,7 @@ class SignalView extends Base
                     )
                 ),
             'system' =>             $system,
-            'tabs' =>               $signalRepository->getTabs($signal),
+            'tabs' =>               $this->signalRepository->getTabs($signal),
         ];
         $parameters = array_merge($parameters, $this->parameters);
         return $this->render('signal/profile.html.twig', $parameters);

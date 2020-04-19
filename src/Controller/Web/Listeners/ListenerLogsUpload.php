@@ -1,7 +1,8 @@
 <?php
 namespace App\Controller\Web\Listeners;
 
-use App\Repository\ListenerRepository;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 
 /**
@@ -23,17 +24,15 @@ class ListenerLogsUpload extends Base
      * @param $_locale
      * @param $system
      * @param $id
-     * @param ListenerRepository $listenerRepository
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @return RedirectResponse|Response
      */
     public function controller(
         $_locale,
         $system,
-        $id,
-        ListenerRepository $listenerRepository
+        $id
     ) {
         if ((int) $id) {
-            if (!$listener = $this->getValidReportingListener($id, $listenerRepository)) {
+            if (!$listener = $this->getValidReportingListener($id)) {
                 return $this->redirectToRoute('listeners', ['system' => $system]);
             }
         }
@@ -47,7 +46,7 @@ class ListenerLogsUpload extends Base
             'logs' =>               $listener->getCountLogs(),
             'signals' =>            $listener->getCountSignals(),
             'system' =>             $system,
-            'tabs' =>               $listenerRepository->getTabs($listener, $isAdmin)
+            'tabs' =>               $this->listenerRepository->getTabs($listener, $isAdmin)
         ];
         $parameters = array_merge($parameters, $this->parameters);
         return $this->render('listener/upload.html.twig', $parameters);

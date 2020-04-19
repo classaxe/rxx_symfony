@@ -2,8 +2,7 @@
 namespace App\Controller\Web\Signals;
 
 use App\Form\Signals\SignalListeners as Form;
-use App\Repository\SignalRepository;
-use App\Repository\TypeRepository;
+
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -33,8 +32,6 @@ class SignalListeners extends Base
      * @param $id
      * @param Request $request
      * @param Form $form
-     * @param SignalRepository $signalRepository
-     * @param TypeRepository $typeRepository
      * @return RedirectResponse|Response
      */
     public function controller(
@@ -42,11 +39,9 @@ class SignalListeners extends Base
         $system,
         $id,
         Request $request,
-        Form $form,
-        SignalRepository $signalRepository,
-        TypeRepository $typeRepository
+        Form $form
     ) {
-        if (!$signal = $this->getValidSignal($id, $signalRepository)) {
+        if (!$signal = $this->getValidSignal($id)) {
             return $this->redirectToRoute('signals', ['system' => $system]);
         }
 
@@ -55,7 +50,7 @@ class SignalListeners extends Base
             'order' =>          static::defaultOrder,
             'page' =>           0,
             'sort' =>           static::defaultSorting,
-            'total' =>          $signalRepository->getListenersCount($id)
+            'total' =>          $this->signalRepository->getListenersCount($id)
         ];
         $form = $form->buildForm($this->createFormBuilder(), $options);
         $form->handleRequest($request);
@@ -71,20 +66,19 @@ class SignalListeners extends Base
         $parameters = [
             'args' =>               $args,
             'id' =>                 $id,
-            'columns' =>            $signalRepository->getListenersColumns(),
+            'columns' =>            $this->signalRepository->getListenersColumns(),
             'form' =>               $form->createView(),
             '_locale' =>            $_locale,
             'matched' =>            sprintf($this->translator->trans('of %s Listeners'), $options['total']),
             'mode' =>               sprintf($this->translator->trans('Listeners for %s'), $signal->getFormattedIdent()),
-            'records' =>            $signalRepository->getListenersForSignal($id, $args),
+            'records' =>            $this->signalRepository->getListenersForSignal($id, $args),
             'results' => [
                 'limit' =>              isset($args['limit']) ? $args['limit'] : static::defaultlimit,
                 'page' =>               isset($args['page']) ? $args['page'] : 0,
                 'total' =>              $options['total']
             ],
             'system' =>             $system,
-            'tabs' =>               $signalRepository->getTabs($signal),
-            'typeRepository' =>     $typeRepository
+            'tabs' =>               $this->signalRepository->getTabs($signal)
         ];
         $parameters = array_merge($parameters, $this->parameters);
         return $this->render('signal/listeners.html.twig', $parameters);

@@ -2,7 +2,6 @@
 namespace App\Controller\Web\Admin;
 
 use App\Controller\Web\Base;
-use App\Repository\SignalRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -25,16 +24,13 @@ class Tools extends Base
      * @param $_locale
      * @param $system
      * @param $tool
-     * @param SignalRepository $signalRepository
      * @return Response
      */
     public function controller(
         $_locale,
         $system,
-        $tool,
-        SignalRepository $signalRepository
+        $tool
     ) {
-        $this->signalRepository = $signalRepository;
         if (!$this->parameters['isAdmin']) {
             $this->session->set('route', 'admin/tools');
             return $this->redirectToRoute('logon', ['system' => $system]);
@@ -92,7 +88,9 @@ class Tools extends Base
     }
 
     private function signalsStats() {
-        $this->session->set('lastError', 'Not yet implemented');
+        $affected = $this->signalRepository->updateSignalStats(false, true);
+        $message = sprintf($this->translator->trans('Operation complete - %d record(s) were updated'), $affected);
+        $this->session->set('lastMessage', $message);
     }
 
     private function systemExportDb() {

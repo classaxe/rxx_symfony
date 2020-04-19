@@ -2,9 +2,10 @@
 namespace App\Controller\Web\Listeners;
 
 use App\Form\Listeners\ListenerSignals as Form;
-use App\Repository\ListenerRepository;
-use App\Repository\TypeRepository;
+
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 
 /**
@@ -26,17 +27,21 @@ class ListenerSignals extends Base
      *     },
      *     name="listener_signals"
      * )
+     * @param $_locale
+     * @param $system
+     * @param $id
+     * @param Request $request
+     * @param Form $form
+     * @return RedirectResponse|Response
      */
     public function controller(
         $_locale,
         $system,
         $id,
         Request $request,
-        Form $form,
-        ListenerRepository $listenerRepository,
-        TypeRepository $typeRepository
+        Form $form
     ) {
-        if (!$listener = $this->getValidReportingListener($id, $listenerRepository)) {
+        if (!$listener = $this->getValidReportingListener($id)) {
             return $this->redirectToRoute('listeners', ['system' => $system]);
         }
 
@@ -65,7 +70,7 @@ class ListenerSignals extends Base
         $parameters = [
             'args' =>               $args,
             'id' =>                 $id,
-            'columns' =>            $listenerRepository->getSignalsColumns(),
+            'columns' =>            $this->listenerRepository->getSignalsColumns(),
             'form' =>               $form->createView(),
             '_locale' =>            $_locale,
             'matched' =>            'of '.$options['total'].' signals',
@@ -75,10 +80,10 @@ class ListenerSignals extends Base
                 'page' =>               isset($args['page']) ? $args['page'] : 0,
                 'total' =>              $options['total']
             ],
-            'signals' =>            $listenerRepository->getSignalsForListener($id, $args),
+            'signals' =>            $this->listenerRepository->getSignalsForListener($id, $args),
             'system' =>             $system,
-            'tabs' =>               $listenerRepository->getTabs($listener, $isAdmin),
-            'typeRepository' =>     $typeRepository
+            'tabs' =>               $this->listenerRepository->getTabs($listener, $isAdmin),
+            'typeRepository' =>     $this->typeRepository
         ];
         $parameters = array_merge($parameters, $this->parameters);
         return $this->render('listener/signals.html.twig', $parameters);

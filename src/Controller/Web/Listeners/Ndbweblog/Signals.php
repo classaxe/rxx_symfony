@@ -2,7 +2,6 @@
 namespace App\Controller\Web\Listeners\Ndbweblog;
 
 use App\Controller\Web\Listeners\Base;
-use App\Repository\ListenerRepository;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -26,16 +25,14 @@ class Signals extends Base
      * @param $_locale
      * @param $system
      * @param $id
-     * @param ListenerRepository $listenerRepository
      * @return RedirectResponse|Response
      */
     public function controller(
         $_locale,
         $system,
-        $id,
-        ListenerRepository $listenerRepository
+        $id
     ) {
-        if (!$listener = $this->getValidReportingListener($id, $listenerRepository)) {
+        if (!$listener = $this->getValidReportingListener($id)) {
             return $this->redirectToRoute('listeners', ['system' => $system]);
         }
         $parameters = [
@@ -43,7 +40,7 @@ class Signals extends Base
             'title' =>              'NDB Weblog stations for '.$listener->getName(),
             'system' =>             $system,
             'listener' =>           $listener,
-            'signals' =>            $listenerRepository->getSignalsForListener($id)
+            'signals' =>            $this->listenerRepository->getSignalsForListener($id)
         ];
         $parameters =   array_merge($parameters, $this->parameters);
         $response =     $this->render('listener/ndbweblog/stations.js.twig', $parameters);

@@ -2,9 +2,9 @@
 namespace App\Controller\Web\Listeners;
 
 use App\Form\Listeners\ListenerLogs as Form;
-use App\Repository\ListenerRepository;
-use App\Repository\TypeRepository;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 
 /**
@@ -31,20 +31,16 @@ class ListenerLogs extends Base
      * @param $id
      * @param Request $request
      * @param Form $form
-     * @param ListenerRepository $listenerRepository
-     * @param TypeRepository $typeRepository
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @return RedirectResponse|Response
      */
     public function controller(
         $_locale,
         $system,
         $id,
         Request $request,
-        Form $form,
-        ListenerRepository $listenerRepository,
-        TypeRepository $typeRepository
+        Form $form
     ) {
-        if (!$listener = $this->getValidReportingListener($id, $listenerRepository)) {
+        if (!$listener = $this->getValidReportingListener($id)) {
             return $this->redirectToRoute('listeners', ['system' => $system]);
         }
 
@@ -70,20 +66,20 @@ class ListenerLogs extends Base
         $parameters = [
             'args' =>               $args,
             'id' =>                 $id,
-            'columns' =>            $listenerRepository->getLogsColumns(),
+            'columns' =>            $this->listenerRepository->getLogsColumns(),
             'form' =>               $form->createView(),
             '_locale' =>            $_locale,
             'matched' =>            'of '.$options['total']. ' log records.',
             'mode' =>               'Logs for '.$listener->getFormattedNameAndLocation(),
-            'logs' =>               $listenerRepository->getLogsForListener($id, $args),
+            'logs' =>               $this->listenerRepository->getLogsForListener($id, $args),
             'results' => [
                 'limit' =>              isset($args['limit']) ? $args['limit'] : static::defaultlimit,
                 'page' =>               isset($args['page']) ? $args['page'] : 0,
                 'total' =>              $options['total']
             ],
             'system' =>             $system,
-            'tabs' =>               $listenerRepository->getTabs($listener, $isAdmin),
-            'typeRepository' =>     $typeRepository
+            'tabs' =>               $this->listenerRepository->getTabs($listener, $isAdmin),
+            'typeRepository' =>     $this->typeRepository
         ];
         return $this->render('listener/logs.html.twig', $this->getMergedParameters($parameters));
     }

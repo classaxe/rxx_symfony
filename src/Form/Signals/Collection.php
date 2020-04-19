@@ -64,8 +64,9 @@ class Collection extends Base
      * Collection constructor.
      * @param CountryRepository $country
      * @param ListenerRepository $listener
-     * @param PaperRepository $paperRepository
+     * @param PaperRepository $paper
      * @param RegionRepository $region
+     * @param TranslatorInterface $translator
      * @param TypeRepository $type
      * @package ListenerRepository $listener
      */

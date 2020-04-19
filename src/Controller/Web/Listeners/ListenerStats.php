@@ -1,9 +1,6 @@
 <?php
 namespace App\Controller\Web\Listeners;
 
-use App\Repository\ListenerRepository;
-use App\Repository\TypeRepository;
-
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 
 /**
@@ -12,7 +9,6 @@ use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
  */
 class ListenerStats extends Base
 {
-
     /**
      * @Route(
      *     "/{_locale}/{system}/listeners/{id}/stats",
@@ -26,11 +22,9 @@ class ListenerStats extends Base
     public function controller(
         $_locale,
         $system,
-        $id,
-        ListenerRepository $listenerRepository,
-        TypeRepository $typeRepository
+        $id
     ) {
-        if (!$listener = $this->getValidListener($id, $listenerRepository)) {
+        if (!$listener = $this->getValidListener($id)) {
             return $this->redirectToRoute('listeners', ['system' => $system]);
         }
 
@@ -41,8 +35,8 @@ class ListenerStats extends Base
             'mode' =>               $listener->getName().' &gt; Stats',
             'listener' =>           $listener,
             'system' =>             $system,
-            'tabs' =>               $listenerRepository->getTabs($listener, $isAdmin),
-            'typeRepository' =>     $typeRepository
+            'tabs' =>               $this->listenerRepository->getTabs($listener, $isAdmin),
+            'typeRepository' =>     $this->typeRepository
         ];
         $parameters = array_merge($parameters, $this->parameters);
 

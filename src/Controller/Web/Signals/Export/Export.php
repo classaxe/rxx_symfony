@@ -1,18 +1,19 @@
 <?php
 namespace App\Controller\Web\Signals\Export;
 
-use App\Controller\Web\Base as WebBase;
+use App\Controller\Web\Base as Base;
 use App\Entity\Signal as SignalEntity;
-use App\Repository\SignalRepository;
-use App\Repository\TypeRepository;
+
 use DateTime;
+use Exception;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 
 /**
  * Class Collection
  * @package App\Controller\Web\Signals\Export
  */
-class Export extends WebBase
+class Export extends Base
 {
     /**
      * @Route(
@@ -25,44 +26,38 @@ class Export extends WebBase
      * )
      * @param $_locale
      * @param $system
-     * @param SignalRepository $signalRepository
-     * @param TypeRepository $typeRepository
-     * @return \Symfony\Component\HttpFoundation\Response
-     * @throws \Exception
+     * @return Response
+     * @throws Exception
      */
     public function csv(
         $_locale,
-        $system,
-        SignalRepository $signalRepository,
-        TypeRepository $typeRepository
+        $system
     ) {
-        return $this->export($_locale, $system, 'csv', $signalRepository, $typeRepository);
+        return $this->export($_locale, $system, 'csv');
     }
 
     /**
      * @param $_locale
      * @param $system
      * @param $mode
-     * @param SignalRepository $signalRepository
-     * @param TypeRepository $typeRepository
-     * @return \Symfony\Component\HttpFoundation\Response
-     * @throws \Exception
+     * @return Response
+     * @throws Exception
      */
     private function export(
         $_locale,
         $system,
-        $mode,
-        SignalRepository $signalRepository,
-        TypeRepository $typeRepository
+        $mode
     ) {
         $args = [
             'limit' =>          -1,
-            'order' =>          SignalRepository::defaultOrder,
+            'order' =>          $this->signalRepository::defaultOrder,
             'signalTypes' =>    [0],
-            'sort' =>           SignalRepository::defaultSorting,
+            'sort' =>           $this->signalRepository::defaultSorting,
             'system' =>         $system,
         ];
-        $signals = $signalRepository->getFilteredSignals($system, $args);
+        $signals = $this->signalRepository->getFilteredSignals($system, $args);
+        $signalEntities = [];
+        $signalTypes = [];
         foreach ($signals as $signal) {
             $signal['first_heard'] =    $signal['first_heard'] ? new DateTime($signal['first_heard']) : null;
             $signal['last_heard'] =     $signal['last_heard'] ? new DateTime($signal['last_heard']) : null;
@@ -73,17 +68,17 @@ class Export extends WebBase
         }
         $types = [];
         foreach ($signalTypes as $type) {
-            $types[$type] = $typeRepository->getTypeForCode($type);
+            $types[$type] = $this->typeRepository->getTypeForCode($type);
         }
         $parameters = [
             '_locale' =>            $_locale,
             'args' =>               $args,
-            'columns' =>            $signalRepository->getColumns(),
+            'columns' =>            $this->signalRepository->getColumns(),
             'mode' =>               $this->translator->trans('Signals'),
             'signals' =>            $signalEntities,
             'system' =>             $system,
             'types' =>              $types,
-            'typeRepository' =>     $typeRepository
+            'typeRepository' =>     $this->typeRepository
         ];
         switch ($mode) {
             case 'csv':

@@ -1,9 +1,8 @@
 <?php
 namespace App\Controller\Web\Signals;
 
-use App\Repository\ListenerRepository;
 use App\Repository\MapRepository;
-use App\Repository\SignalRepository;
+
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
@@ -27,19 +26,17 @@ class SignalMap extends Base
      * @param $_locale
      * @param $system
      * @param $id
-     * @param SignalRepository $signalRepository,
      * @return RedirectResponse|Response
      */
     public function controllerMap(
         $_locale,
         $system,
-        $id,
-        SignalRepository $signalRepository
+        $id
     ) {
         $i18n =     $this->translator;
         $title =    $i18n->trans('Map for %s');
 
-        if (!$signal = $this->getValidSignal($id, $signalRepository)) {
+        if (!$signal = $this->getValidSignal($id)) {
             return $this->redirectToRoute('signals', ['system' => $system]);
         }
         $parameters = [
@@ -49,7 +46,7 @@ class SignalMap extends Base
             'lon' =>                $signal->getLon(),
             'mode' =>               sprintf($title, $signal->getFormattedIdent()),
             'system' =>             $system,
-            'tabs' =>               $signalRepository->getTabs($signal),
+            'tabs' =>               $this->signalRepository->getTabs($signal),
         ];
         $parameters = array_merge($parameters, $this->parameters);
         return $this->render('signal/map.html.twig', $parameters);
@@ -67,22 +64,18 @@ class SignalMap extends Base
      * @param $_locale
      * @param $system
      * @param $id
-     * @param ListenerRepository $listenerRepository,
-     * @param SignalRepository $signalRepository,
      * @return RedirectResponse|Response
      */
     public function controllerRxMapEu(
         $_locale,
         $system,
-        $id,
-        ListenerRepository $listenerRepository,
-        SignalRepository $signalRepository
+        $id
     ) {
         $map =      'eu';
         $i18n =     $this->translator;
         $title =    $i18n->trans('European Reception Map for %s');
 
-        return $this->controllerRxMapHandler($_locale, $system, $id, $map, $title, $listenerRepository, $signalRepository);
+        return $this->controllerRxMapHandler($_locale, $system, $id, $map, $title);
     }
 
     /**
@@ -97,22 +90,18 @@ class SignalMap extends Base
      * @param $_locale
      * @param $system
      * @param $id
-     * @param ListenerRepository $listenerRepository,
-     * @param SignalRepository $signalRepository,
      * @return RedirectResponse|Response
      */
     public function controllerRxMapNa(
         $_locale,
         $system,
-        $id,
-        ListenerRepository $listenerRepository,
-        SignalRepository $signalRepository
+        $id
     ) {
         $map =      'na';
         $i18n =     $this->translator;
         $title =    $i18n->trans('North American Reception Map for %s');
 
-        return $this->controllerRxMapHandler($_locale, $system, $id, $map, $title, $listenerRepository, $signalRepository);
+        return $this->controllerRxMapHandler($_locale, $system, $id, $map, $title);
     }
 
     private function controllerRxMapHandler(
@@ -120,14 +109,12 @@ class SignalMap extends Base
         $system,
         $id,
         $map,
-        $title,
-        ListenerRepository $listenerRepository,
-        SignalRepository $signalRepository
+        $title
     ) {
-        if (!$signal = $this->getValidSignal($id, $signalRepository)) {
+        if (!$signal = $this->getValidSignal($id)) {
             return $this->redirectToRoute('signals', ['system' => $system]);
         }
-        $listeners =    $listenerRepository->getSignalListenersMapDetails($map, $id);
+        $listeners =    $this->listenerRepository->getSignalListenersMapDetails($map, $id);
 
         $parameters = [
             'id' =>                 $id,
@@ -136,7 +123,7 @@ class SignalMap extends Base
             'map' =>                $map,
             'mode' =>               sprintf($title, $signal->getFormattedIdent()),
             'system' =>             $system,
-            'tabs' =>               $signalRepository->getTabs($signal),
+            'tabs' =>               $this->signalRepository->getTabs($signal),
         ];
         $parameters = array_merge($parameters, $this->parameters);
         return $this->render('signal/rx_map.html.twig', $parameters);
@@ -155,23 +142,19 @@ class SignalMap extends Base
      * )
      * @param $id
      * @param $map
-     * @param ListenerRepository $listenerRepository,
-     * @param MapRepository $mapRepository,
-     * @param SignalRepository $signalRepository,
-     * @return RedirectResponse|Response
+     * @param MapRepository $mapRepository
+     * @return void
      */
     public function controllerRxMapImage(
         $id,
         $map,
-        ListenerRepository $listenerRepository,
-        MapRepository $mapRepository,
-        SignalRepository $signalRepository
+        MapRepository $mapRepository
     ) {
-        if (!$signal = $this->getValidSignal($id, $signalRepository)) {
+        if (!$signal = $this->getValidSignal($id)) {
            throw $this->createNotFoundException('The signal does not exist');
         }
-        $listenerSpItus =     $listenerRepository->getSignalListenersSpItus($map);
-        $listenerMapCoords =  $listenerRepository->getSignalListenersMapCoords($map, $id);
+        $listenerSpItus =     $this->listenerRepository->getSignalListenersSpItus($map);
+        $listenerMapCoords =  $this->listenerRepository->getSignalListenersMapCoords($map, $id);
 
         $basedIn = $signal->getSp() ?? $signal->getItu();
         $heardIn = $signal->getHeardInArr();

@@ -2,8 +2,7 @@
 namespace App\Controller\Web\Signals;
 
 use App\Form\Signals\SignalLogs as Form;
-use App\Repository\SignalRepository;
-use App\Repository\TypeRepository;
+
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -33,8 +32,6 @@ class SignalLogs extends Base
      * @param $id
      * @param Request $request
      * @param Form $form
-     * @param SignalRepository $signalRepository
-     * @param TypeRepository $typeRepository
      * @return RedirectResponse|Response
      */
     public function controller(
@@ -42,11 +39,9 @@ class SignalLogs extends Base
         $system,
         $id,
         Request $request,
-        Form $form,
-        SignalRepository $signalRepository,
-        TypeRepository $typeRepository
+        Form $form
     ) {
-        if (!$signal = $this->getValidSignal($id, $signalRepository)) {
+        if (!$signal = $this->getValidSignal($id)) {
             return $this->redirectToRoute('signals', ['system' => $system]);
         }
 
@@ -71,20 +66,19 @@ class SignalLogs extends Base
         $parameters = [
             'args' =>               $args,
             'id' =>                 $id,
-            'columns' =>            $signalRepository->getLogsColumns(),
+            'columns' =>            $this->signalRepository->getLogsColumns(),
             'form' =>               $form->createView(),
             '_locale' =>            $_locale,
             'matched' =>            sprintf($this->translator->trans('of %s Log Records'), $options['total']),
             'mode' =>               sprintf($this->translator->trans('Logs for %s'), $signal->getFormattedIdent()),
-            'records' =>            $signalRepository->getLogsForSignal($id, $args),
+            'records' =>            $this->signalRepository->getLogsForSignal($id, $args),
             'results' => [
                 'limit' =>              isset($args['limit']) ? $args['limit'] : static::defaultlimit,
                 'page' =>               isset($args['page']) ? $args['page'] : 0,
                 'total' =>              $options['total']
             ],
             'system' =>             $system,
-            'tabs' =>               $signalRepository->getTabs($signal),
-            'typeRepository' =>     $typeRepository
+            'tabs' =>               $this->signalRepository->getTabs($signal)
         ];
         return $this->render('signal/logs.html.twig', $this->getMergedParameters($parameters));
     }

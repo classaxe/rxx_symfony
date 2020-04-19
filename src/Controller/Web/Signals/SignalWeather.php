@@ -2,7 +2,6 @@
 namespace App\Controller\Web\Signals;
 
 use App\Form\Signals\SignalWeather as SignalWeatherForm;
-use App\Repository\SignalRepository;
 use App\Repository\IcaoRepository;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -31,7 +30,6 @@ class SignalWeather extends Base
      * @param Request $request
      * @param IcaoRepository $icaoRepository
      * @param SignalWeatherForm $signalWeatherForm
-     * @param SignalRepository $signalRepository
      * @return RedirectResponse|Response
      */
     public function controller(
@@ -40,10 +38,9 @@ class SignalWeather extends Base
         $id,
         Request $request,
         IcaoRepository $icaoRepository,
-        SignalWeatherForm $signalWeatherForm,
-        SignalRepository $signalRepository
+        SignalWeatherForm $signalWeatherForm
     ) {
-        if (!$signal = $this->getValidSignal($id, $signalRepository)) {
+        if (!$signal = $this->getValidSignal($id)) {
             return $this->redirectToRoute('signals', ['system' => $system]);
         }
         $weather = false;
@@ -98,7 +95,7 @@ class SignalWeather extends Base
             '_locale' =>            $_locale,
             'mode' =>               sprintf($this->translator->trans('Weather for %s'), $signal->getFormattedIdent()),
             'system' =>             $system,
-            'tabs' =>               $signalRepository->getTabs($signal),
+            'tabs' =>               $this->signalRepository->getTabs($signal),
             'weather' =>            $weather
         ];
         $parameters = array_merge($parameters, $this->parameters);

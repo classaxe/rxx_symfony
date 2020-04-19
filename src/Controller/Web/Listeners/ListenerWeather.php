@@ -2,9 +2,10 @@
 namespace App\Controller\Web\Listeners;
 
 use App\Form\Listeners\ListenerWeather as ListenerWeatherForm;
-use App\Repository\ListenerRepository;
 use App\Repository\IcaoRepository;
 
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 use Symfony\Component\HttpFoundation\Request;
 
@@ -24,6 +25,13 @@ class ListenerWeather extends Base
      *     },
      *     name="listener_weather"
      * )
+     * @param $_locale
+     * @param $system
+     * @param $id
+     * @param Request $request
+     * @param IcaoRepository $icaoRepository
+     * @param ListenerWeatherForm $listenerWeatherForm
+     * @return RedirectResponse|Response
      */
     public function controller(
         $_locale,
@@ -31,10 +39,9 @@ class ListenerWeather extends Base
         $id,
         Request $request,
         IcaoRepository $icaoRepository,
-        ListenerWeatherForm $listenerWeatherForm,
-        ListenerRepository $listenerRepository
+        ListenerWeatherForm $listenerWeatherForm
     ) {
-        if (!$listener = $this->getValidListener($id, $listenerRepository)) {
+        if (!$listener = $this->getValidListener($id)) {
             return $this->redirectToRoute('listeners', ['system' => $system]);
         }
 
@@ -91,7 +98,7 @@ class ListenerWeather extends Base
             '_locale' =>            $_locale,
             'mode' =>               $listener->getName().' &gt; Weather',
             'system' =>             $system,
-            'tabs' =>               $listenerRepository->getTabs($listener, $isAdmin),
+            'tabs' =>               $this->listenerRepository->getTabs($listener, $isAdmin),
             'weather' =>            $weather
         ];
         $parameters = array_merge($parameters, $this->parameters);

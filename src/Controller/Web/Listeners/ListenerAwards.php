@@ -3,8 +3,7 @@ namespace App\Controller\Web\Listeners;
 
 use App\Form\Listeners\ListenerAward as ListenerAwardForm;
 use App\Repository\AwardRepository;
-use App\Repository\ListenerRepository;
-use App\Repository\SystemRepository;
+
 use Swift_Mailer;
 use Swift_Message;
 use Swift_Transport_EsmtpTransport;
@@ -40,9 +39,7 @@ class ListenerAwards extends Base
      * @param Request $request
      * @param AwardRepository $awardRepository
      * @param ListenerAwardForm $listenerAwardForm
-     * @param ListenerRepository $listenerRepository
      * @param Swift_Mailer $mailer
-     * @param SystemRepository $systemRepositiory
      * @return RedirectResponse|Response
      */
     public function controller(
@@ -53,14 +50,11 @@ class ListenerAwards extends Base
         Request $request,
         AwardRepository $awardRepository,
         ListenerAwardForm $listenerAwardForm,
-        ListenerRepository $listenerRepository,
-        Swift_Mailer $mailer,
-        SystemRepository $systemRepository
+        Swift_Mailer $mailer
     ) {
         $this->awardRepository = $awardRepository;
-        $this->listenerRepository = $listenerRepository;
         if ((int) $id) {
-            if (!$this->listener = $this->getValidReportingListener($id, $this->listenerRepository)) {
+            if (!$this->listener = $this->getValidReportingListener($id)) {
                 return $this->redirectToRoute('listeners', ['system' => $system]);
             }
         }
@@ -77,8 +71,8 @@ class ListenerAwards extends Base
         if ($form->isSubmitted() && $form->isValid()) {
             $form_data = $form->getData();
             $data['form'] = $form_data;
-            $admin = $systemRepository::AWARDS[0];
-            $cc =    $systemRepository::AUTHORS[0];
+            $admin = $this->systemRepository::AWARDS[0];
+            $cc =    $this->systemRepository::AUTHORS[0];
             $html =  $this->renderView('emails/admin/award.html.twig', [
                 'admin' => $admin['name'] . ' ' . $admin['role'],
                 'awards' => explode(',', $form_data['awards']),
@@ -159,7 +153,7 @@ class ListenerAwards extends Base
             }
         }
 
-        $daytime = $listenerRepository->getDaytimeHours($this->listener->getTimezone());
+        $daytime = $this->listenerRepository->getDaytimeHours($this->listener->getTimezone());
         $parameters = [
             'id' =>                 $id,
             '_locale' =>            $_locale,
@@ -170,12 +164,12 @@ class ListenerAwards extends Base
             'daytime_end' =>        $daytime['end'],
             'form' =>               $form->createView(),
             'l' =>                  $this->listener,
-            'repo' =>               $listenerRepository,
+            'repo' =>               $this->listenerRepository,
             'logs' =>               $this->listener->getCountLogs(),
             'message' =>            $html ?? '',
             'signals' =>            $this->listener->getCountSignals(),
             'system' =>             $system,
-            'tabs' =>               $listenerRepository->getTabs($this->listener, $isAdmin)
+            'tabs' =>               $this->listenerRepository->getTabs($this->listener, $isAdmin)
         ];
         $parameters = array_merge($parameters, $this->parameters);
         return $this->render('listener/awards/awards.html.twig', $parameters);

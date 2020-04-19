@@ -2,11 +2,6 @@
 namespace App\Controller\Web\Signals;
 
 use App\Controller\Web\Base;
-
-use App\Repository\ListenerRepository;
-use App\Repository\LogRepository;
-use App\Repository\SignalRepository;
-
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 
@@ -29,29 +24,23 @@ class SignalLogDelete extends Base
      * @param $system
      * @param $id
      * @param $log_id
-     * @param ListenerRepository $listenerRepository
-     * @param LogRepository $logRepository
-     * @param SignalRepository $signalRepository
      * @return RedirectResponse
      */
     public function controller(
         $_locale,
         $system,
         $id,
-        $log_id,
-        ListenerRepository $listenerRepository,
-        LogRepository $logRepository,
-        SignalRepository $signalRepository
+        $log_id
     ) {
         if (!(int) $id) {
             return $this->redirectToRoute('signals', ['_locale' => $_locale, 'system' => $system]);
         }
-        $signal = $signalRepository->find((int) $id);
+        $signal = $this->signalRepository->find((int) $id);
         if (!$signal) {
             return $this->redirectToRoute('signals', ['_locale' => $_locale, 'system' => $system]);
         }
 
-        $log = $logRepository->find((int) $log_id);
+        $log = $this->logRepository->find((int) $log_id);
         if (!$log) {
             return $this->redirectToRoute('signal_logs', ['_locale' => $_locale, 'system' => $system, 'id' => $id]);
         }
@@ -63,8 +52,8 @@ class SignalLogDelete extends Base
         $em->remove($log);
         $em->flush();
 
-        $signalRepository->updateSignalStats($log->getSignalId(), true);
-        $listenerRepository->updateListenerStats($log->getListenerId());
+        $this->signalRepository->updateSignalStats($log->getSignalId(), true);
+        $this->listenerRepository->updateListenerStats($log->getListenerId());
 
         $this->session->set(
             'lastMessage',

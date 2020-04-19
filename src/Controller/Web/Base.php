@@ -1,11 +1,16 @@
 <?php
 namespace App\Controller\Web;
 
-use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\LanguageRepository;
+use App\Repository\ListenerRepository;
+use App\Repository\LogRepository;
 use App\Repository\ModeRepository;
+use App\Repository\SignalRepository;
 use App\Repository\SystemRepository;
+use App\Repository\TypeRepository;
+
 use App\Utils\Rxx;
+use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Symfony\Component\HttpKernel\KernelInterface as Kernel;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,8 +25,9 @@ class Base extends AbstractController
 {
     protected $languageRepository;
     protected $listenerRepository;
+    protected $logRepository;
     protected $modeRepository;
-    protected $paperRepository;
+    protected $paperRepository; // Only autowire where needed
     protected $signalRepository;
     protected $systemRepository;
     protected $typeRepository;
@@ -34,32 +40,48 @@ class Base extends AbstractController
 
     /**
      * Base constructor.
-     * @param Kernel $kernel
-     * @param ModeRepository $modeRepository
-     * @param Rxx $rxx
-     * @param SystemRepository $systemRepository
-     * @param SessionInterface $session
      * @param EntityManagerInterface $em
+     * @param Kernel $kernel
+     * @param Rxx $rxx
+     * @param SessionInterface $session
      * @param TranslatorInterface $translator
+     *
+     * Auto-wire these repositories:
      * @param LanguageRepository $languageRepository
+     * @param ListenerRepository $listenerRepository
+     * @param LogRepository $logRepository
+     * @param ModeRepository $modeRepository
+     * @param SignalRepository $signalRepository
+     * @param SystemRepository $systemRepository
+     * @param TypeRepository $typeRepository
      */
     public function __construct(
-        Kernel $kernel,
-        ModeRepository $modeRepository,
-        Rxx $rxx,
-        SystemRepository $systemRepository,
-        SessionInterface $session,
         EntityManagerInterface $em,
+        Kernel $kernel,
+        Rxx $rxx,
+        SessionInterface $session,
+        LanguageRepository $languageRepository,
+        ListenerRepository $listenerRepository,
+        LogRepository $logRepository,
+        ModeRepository $modeRepository,
+        SignalRepository $signalRepository,
+        SystemRepository $systemRepository,
         TranslatorInterface $translator,
-        LanguageRepository $languageRepository
+        TypeRepository $typeRepository
     ) {
         $this->kernel =             $kernel;
-        $this->languageRepository = $languageRepository;
-        $this->modeRepository =     $modeRepository;
         $this->rxx =                $rxx;
-        $this->systemRepository =   $systemRepository;
-        $this->translator =         $translator;
         $this->session =            $session;
+        $this->translator =         $translator;
+
+        $this->languageRepository = $languageRepository;
+        $this->listenerRepository = $listenerRepository;
+        $this->logRepository =      $logRepository;
+        $this->modeRepository =     $modeRepository;
+        $this->signalRepository =   $signalRepository;
+        $this->systemRepository =   $systemRepository;
+        $this->typeRepository =     $typeRepository;
+
         $this->parameters = [
             'isAdmin' =>        $this->session->get('isAdmin', 0),
             'isDev' =>          getEnv('APP_ENV') === 'dev',

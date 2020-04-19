@@ -4,7 +4,6 @@ namespace App\Controller\Web\Listeners;
 use App\Entity\Listener as ListenerEntity;
 use App\Form\Listeners\ListenerView as ListenerViewForm;
 use App\Repository\CountryRepository;
-use App\Repository\ListenerRepository;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
@@ -36,8 +35,6 @@ class ListenerView extends Base
      * @param Request $request
      * @param CountryRepository $countryRepository
      * @param ListenerViewForm $listenerViewForm
-     * @param ListenerRepository $listenerRepository
-     * @param TimeRepository $timeRepository
      * @return RedirectResponse|Response
      */
     public function controller(
@@ -46,14 +43,13 @@ class ListenerView extends Base
         $id,
         Request $request,
         CountryRepository $countryRepository,
-        ListenerViewForm $listenerViewForm,
-        ListenerRepository $listenerRepository
+        ListenerViewForm $listenerViewForm
     ) {
         if ($id === 'new') {
             $id = false;
         }
         if ((int) $id) {
-            if (!$listener = $this->getValidListener($id, $listenerRepository)) {
+            if (!$listener = $this->getValidListener($id)) {
                 return $this->redirectToRoute('listeners', ['system' => $system]);
             }
         } else {
@@ -84,7 +80,7 @@ class ListenerView extends Base
             $form_data = $form->getData();
             $data['form'] = $form_data;
             if ((int)$id) {
-                $listener = $listenerRepository->find($id);
+                $listener = $this->listenerRepository->find($id);
             } else {
                 $listener = new ListenerEntity();
                 $listener
@@ -123,7 +119,7 @@ class ListenerView extends Base
             'l' =>                  $listener,
             'mode' =>               ($isAdmin && !$id ? 'Add Listener' : $listener->getName().' &gt; Profile'),
             'system' =>             $system,
-            'tabs' =>               $listenerRepository->getTabs($listener, $isAdmin),
+            'tabs' =>               $this->listenerRepository->getTabs($listener, $isAdmin),
         ];
         $parameters = array_merge($parameters, $this->parameters);
         return $this->render('listener/profile.html.twig', $parameters);

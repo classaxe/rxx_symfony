@@ -2,7 +2,6 @@
 namespace App\Controller\Web\Listeners;
 
 use App\Entity\Listener as ListenerEntity;
-use App\Repository\ListenerRepository;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
@@ -26,20 +25,18 @@ class ListenerMap extends Base
      * @param $_locale
      * @param $system
      * @param $id
-     * @param ListenerRepository $listenerRepository
      * @return RedirectResponse|Response
      */
     public function controller(
         $_locale,
         $system,
-        $id,
-        ListenerRepository $listenerRepository
+        $id
     ) {
         $i18n =     $this->translator;
         $title =    $i18n->trans('Map for %s (GSQ: %s)');
 
         if ((int) $id) {
-            if (!$listener = $this->getValidListener($id, $listenerRepository)) {
+            if (!$listener = $this->getValidListener($id)) {
                 return $this->redirectToRoute('listeners', ['system' => $system]);
             }
         } else {
@@ -54,7 +51,7 @@ class ListenerMap extends Base
             'lon' =>                $listener->getLon(),
             'mode' =>               sprintf($title, $listener->getFormattedNameAndLocation(), $listener->getGsq()),
             'system' =>             $system,
-            'tabs' =>               $listenerRepository->getTabs($listener, $isAdmin),
+            'tabs' =>               $this->listenerRepository->getTabs($listener, $isAdmin),
         ];
         $parameters = array_merge($parameters, $this->parameters);
         return $this->render('listener/map.html.twig', $parameters);

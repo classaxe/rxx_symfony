@@ -1,7 +1,7 @@
 <?php
 namespace App\Controller\Web\Signals;
 
-use App\Repository\SignalRepository;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 
 class SignalDelete extends Base
@@ -15,12 +15,15 @@ class SignalDelete extends Base
      *     },
      *     name="signal_delete"
      * )
+     * @param $_locale
+     * @param $system
+     * @param $id
+     * @return RedirectResponse
      */
     public function controller(
         $_locale,
         $system,
-        $id,
-        SignalRepository $signalRepository
+        $id
     ) {
         if (!$this->parameters['isAdmin']) {
             return $this->redirectToRoute('signals', ['_locale' => $_locale, 'system' => $system]);
@@ -29,7 +32,7 @@ class SignalDelete extends Base
         if (!(int) $id) {
             return $this->redirectToRoute('signals', $args);
         }
-        if (!$signal = $this->getValidSignal($id, $signalRepository)) {
+        if (!$signal = $this->getValidSignal($id)) {
             return $this->redirectToRoute('signals', $args);
         }
         if ($signal->getLogs() > 0) {
