@@ -66,7 +66,7 @@ class ListenerLogs extends Base
         $parameters = [
             'args' =>               $args,
             'id' =>                 $id,
-            'columns' =>            $this->listenerRepository->getLogsColumns(),
+            'columns' =>            $this->listenerRepository->getColumns('logs'),
             'form' =>               $form->createView(),
             '_locale' =>            $_locale,
             'matched' =>            'of '.$options['total']. ' log records.',

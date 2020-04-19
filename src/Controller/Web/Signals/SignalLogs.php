@@ -66,7 +66,7 @@ class SignalLogs extends Base
         $parameters = [
             'args' =>               $args,
             'id' =>                 $id,
-            'columns' =>            $this->signalRepository->getLogsColumns(),
+            'columns' =>            $this->signalRepository->getColumns('logs'),
             'form' =>               $form->createView(),
             '_locale' =>            $_locale,
             'matched' =>            sprintf($this->translator->trans('of %s Log Records'), $options['total']),

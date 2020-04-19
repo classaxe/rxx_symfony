@@ -74,7 +74,9 @@ class Tools extends Base
     }
 
     private function logsDx() {
-        $this->session->set('lastError', 'Not yet implemented');
+        $affected = $this->logRepository->updateDx();
+        $message = sprintf($this->translator->trans('Operation complete - %d record(s) were updated'), $affected);
+        $this->session->set('lastMessage', $message);
     }
 
     private function logsDaytime() {

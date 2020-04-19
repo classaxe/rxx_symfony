@@ -3,14 +3,27 @@
 namespace App\Repository;
 
 use App\Entity\Log;
+use App\Utils\Rxx;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\DBAL\Driver\Connection;
 use Doctrine\Persistence\ManagerRegistry;
+use PDO;
 
 class LogRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
-    {
+    private $connection;
+
+    /**
+     * LogRepository constructor.
+     * @param ManagerRegistry $registry
+     * @param Connection $connection
+     */
+    public function __construct(
+        ManagerRegistry $registry,
+        Connection $connection
+    ) {
         parent::__construct($registry, Log::class);
+        $this->connection = $connection;
     }
 
     public function getFilteredLogsCount($system, $region = '')
@@ -105,5 +118,81 @@ class LogRepository extends ServiceEntityRepository
             $row['qth'] = str_replace("\"", "\\\"", html_entity_decode($row['qth']));
         }
         return $result;
+    }
+
+    public function updateDx($listenerId = false, $signalId = false)
+    {
+        set_time_limit(600);    // Extend maximum execution time to 10 mins
+        $chunksize = 200000;
+
+        $WHERE = ($listenerId || $signalId ?
+            "WHERE\n"
+            . ($listenerId ? "    `logs`.`listenerID` = $listenerId" : '')
+            . ($listenerId && $signalId ? " AND\n" : "\n")
+            . ($signalId ? "    `logs`.`signalID` = $signalId" : '')
+            : ''
+        );
+        $sql = <<< EOD
+            SELECT
+                count(*)
+            FROM
+                `logs`
+            INNER JOIN `signals` `s` ON
+                `logs`.`signalID` = `s`.`ID`
+            INNER JOIN `listeners` `l` ON
+                `logs`.`listenerID` = `l`.`ID`
+            $WHERE
+EOD;
+
+        $stmt =     $this->connection->prepare($sql);
+        $stmt->execute();
+        $count =    $stmt->fetchColumn();
+        $affected = 0;
+
+        for ($offset = 0; $offset < $count; $offset += $chunksize) {
+            $sql = <<< EOD
+                SELECT
+                    `logs`.`ID`,
+                    `logs`.`dx_km`,
+                    `logs`.`dx_miles`,
+                    `s`.`lat` AS `s_lat`,
+                    `s`.`lon` AS `s_lon`,
+                    `l`.`lat` AS `l_lat`,
+                    `l`.`lon` AS `l_lon`
+                FROM
+                    `logs`
+                INNER JOIN `signals` `s` ON
+                    `logs`.`signalID` = `s`.`ID`
+                INNER JOIN `listeners` `l` ON
+                    `logs`.`listenerID` = `l`.`ID`
+                $WHERE
+                LIMIT $chunksize OFFSET $offset
+EOD;
+            $stmt = $this->connection->prepare($sql);
+            $stmt->execute();
+            $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            foreach ($results as $r) {
+                $dx = Rxx::getDx($r['l_lat'], $r['l_lon'], $r['s_lat'], $r['s_lon']);
+                if (!$dx) {
+                    continue;
+                }
+                if (($dx['km'] === (int)$r['dx_km']) && ($dx['miles'] === (int)$r['dx_miles'])) {
+                    continue;
+                }
+                $sql =  <<< EOD
+                    UPDATE
+                        `logs`
+                    SET
+                        `dx_km` = {$dx['km']},
+                        `dx_miles` = {$dx['miles']}
+                    WHERE
+                        `ID` = {$r['ID']};
+EOD;
+                $stmt = $this->connection->prepare($sql);
+                $stmt->execute();
+                $affected += $stmt->rowCount();
+            }
+        }
+        return $affected;
     }
 }

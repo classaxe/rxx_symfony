@@ -175,7 +175,7 @@ class Collection extends Base
             'box' =>                $box,
             'center' =>             $center,
             'classic' =>            $this->systemRepository->getClassicUrl('signals', $args['show']),
-            'columns' =>            $this->signalRepository->getColumns(),
+            'columns' =>            $this->signalRepository->getColumns('signals'),
             'expanded' =>           $expanded,
             'form' =>               $form->createView(),
             'isAdmin' =>            $isAdmin,
@@ -195,7 +195,7 @@ class Collection extends Base
                 $this->signalRepository->getStats() +
                 $this->listenerRepository->getStats($system, $args['rww_focus']),
             'system' =>             $system,
-            'sortbyOptions' =>      $this->signalRepository->getColumns(),
+            'sortbyOptions' =>      $this->signalRepository->getColumns('signals'),
             'tabs' => [
                 [ 'list', 'Listing' ],
                 [ 'seeklist', 'Seeklist'],

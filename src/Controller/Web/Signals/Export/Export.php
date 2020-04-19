@@ -73,7 +73,7 @@ class Export extends Base
         $parameters = [
             '_locale' =>            $_locale,
             'args' =>               $args,
-            'columns' =>            $this->signalRepository->getColumns(),
+            'columns' =>            $this->signalRepository->getColumns('signals'),
             'mode' =>               $this->translator->trans('Signals'),
             'signals' =>            $signalEntities,
             'system' =>             $system,

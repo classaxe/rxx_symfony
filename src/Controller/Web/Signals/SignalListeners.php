@@ -50,7 +50,7 @@ class SignalListeners extends Base
             'order' =>          static::defaultOrder,
             'page' =>           0,
             'sort' =>           static::defaultSorting,
-            'total' =>          $this->signalRepository->getListenersCount($id)
+            'total' =>          $signal->getListeners()
         ];
         $form = $form->buildForm($this->createFormBuilder(), $options);
         $form->handleRequest($request);
@@ -66,7 +66,7 @@ class SignalListeners extends Base
         $parameters = [
             'args' =>               $args,
             'id' =>                 $id,
-            'columns' =>            $this->signalRepository->getListenersColumns(),
+            'columns' =>            $this->signalRepository->getColumns('listeners'),
             'form' =>               $form->createView(),
             '_locale' =>            $_locale,
             'matched' =>            sprintf($this->translator->trans('of %s Listeners'), $options['total']),

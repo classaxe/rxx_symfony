@@ -8,6 +8,8 @@
 
 namespace App\Utils;
 
+use DateTime;
+use DateTimeZone;
 use Symfony\Component\HttpFoundation\Response;
 
 class Rxx
@@ -59,11 +61,34 @@ class Rxx
         return "<pre>".str_replace("Array\n(", "Array (", print_r($var, true))."</pre>";
     }
 
+    public static function getDx($qth_lat, $qth_lon, $dx_lat, $dx_lon)
+    {
+        if (($qth_lat==0 && $qth_lon==0) || ($dx_lat==0 && $dx_lon==0)) {
+            return false;
+        }
+        if ($qth_lat == $dx_lat && $qth_lon==$dx_lon) {
+            return ['km' => 0, 'miles' => 0];
+        }
+        $dlon = ($dx_lon - $qth_lon);
+        if (abs($dlon) > 180) {
+            $dlon = (360 - abs($dlon))*(0-($dlon/abs($dlon)));
+        }
+        $rinlat =       $qth_lat * 0.01745;    // convert to radians
+        $rfnlat =       $dx_lat * 0.01745;
+        $rdlon =        $dlon * 0.01745;
+        $rgcdist =      acos(sin($rinlat)*sin($rfnlat)+cos($rinlat)*cos($rfnlat)*cos($rdlon));
+
+        return [
+            'km' =>     (int)round(abs($rgcdist) * 6370.614),
+            'miles' =>  (int)round(abs($rgcdist) * 3958.284)
+        ];
+    }
+
     public static function getUtcDateTime($yyyymmdd)
     {
         $bits = explode('-', $yyyymmdd);
-        $dateTime = new \DateTime();
-        $dateTime->setTimezone(new \DateTimeZone('UTC'));
+        $dateTime = new DateTime();
+        $dateTime->setTimezone(new DateTimeZone('UTC'));
         $dateTime->setDate($bits[0], $bits[1], $bits[2]);
         return $dateTime;
     }

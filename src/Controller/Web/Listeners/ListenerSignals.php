@@ -70,7 +70,7 @@ class ListenerSignals extends Base
         $parameters = [
             'args' =>               $args,
             'id' =>                 $id,
-            'columns' =>            $this->listenerRepository->getSignalsColumns(),
+            'columns' =>            $this->listenerRepository->getColumns('signals'),
             'form' =>               $form->createView(),
             '_locale' =>            $_locale,
             'matched' =>            'of '.$options['total'].' signals',

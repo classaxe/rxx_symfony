@@ -68,6 +68,15 @@ class SignalRepository extends ServiceEntityRepository
         [ 'signal_weather', 'Weather' ],
     ];
 
+    /**
+     * SignalRepository constructor.
+     * @param ManagerRegistry $registry
+     * @param Connection $connection
+     * @param LogRepository $logRepository
+     * @param SignalsColumns $signalsColumns
+     * @param SignalListenersColumns $signalListenersColumns
+     * @param SignalLogsColumns $signalLogsColumns
+     */
     public function __construct(
         ManagerRegistry $registry,
         Connection $connection,
@@ -84,7 +93,7 @@ class SignalRepository extends ServiceEntityRepository
         $this->signalLogsColumns = $signalLogsColumns->getColumns();
     }
 
-    private function addFilterActive()
+    private function _addFilterActive()
     {
         if (in_array($this->args['active'] ?? false, ['1', '2'])) {
             $this->query['where'][] ='(s.active = :active)';
@@ -93,7 +102,7 @@ class SignalRepository extends ServiceEntityRepository
         return $this;
     }
 
-    private function addFilterCall()
+    private function _addFilterCall()
     {
         if ($this->args['call'] ?? false) {
             $this->query['where'][] ='s.call LIKE :like_call';
@@ -102,7 +111,7 @@ class SignalRepository extends ServiceEntityRepository
         return $this;
     }
 
-    private function addFilterChannels()
+    private function _addFilterChannels()
     {
         switch ($this->args['channels'] ?? false) {
             case 1:
@@ -115,7 +124,7 @@ class SignalRepository extends ServiceEntityRepository
         return $this;
     }
 
-    private function addFilterFreq()
+    private function _addFilterFreq()
     {
         $khz_1 = (float)($this->args['khz_1'] ?? 0) ? (float)$this->args['khz_1'] : 0;
         $khz_2 = (float)($this->args['khz_2'] ?? 0) ? (float)$this->args['khz_2'] : 1000000;
@@ -128,26 +137,26 @@ class SignalRepository extends ServiceEntityRepository
         return $this;
     }
 
-    private function addFilterGsq()
+    private function _addFilterGsq()
     {
         if ($this->args['gsq'] ?? false) {
             $gsq = explode(" ", str_replace('*', '%', $this->args['gsq']));
-            $in = $this->buildInParamsList('gsq', $gsq, '', '%');
+            $in = $this->_buildInParamsList('gsq', $gsq, '', '%');
             $this->query['where'][] = "s.gsq LIKE " . implode($in, " OR s.gsq LIKE ");
         }
         return $this;
     }
 
-    private function addFilterHeardIn()
+    private function _addFilterHeardIn()
     {
         if ($this->args['heard_in'] ?? false) {
             $heard_in_arr = explode(' ', $this->args['heard_in']);
             if ($this->args['heard_in_mod'] === 'any') {
-                $in = $this->buildInParamsList('heard_in', $heard_in_arr);
+                $in = $this->_buildInParamsList('heard_in', $heard_in_arr);
                 $this->query['where'][] =
                     "l.heard_in IN (" . implode(', ', $in) . ")";
             } else {
-                $in = $this->buildInParamsList('heard_in', $heard_in_arr, '%', '%');
+                $in = $this->_buildInParamsList('heard_in', $heard_in_arr, '%', '%');
                 $this->query['where'][] =
                     "s.heard_in LIKE " . implode(' AND s.heard_in LIKE ', $in);
             }
@@ -155,7 +164,7 @@ class SignalRepository extends ServiceEntityRepository
         return $this;
     }
 
-    private function addFilterListeners()
+    private function _addFilterListeners()
     {
         if (!isset($this->args['listener']) || !isset($this->args['listener_invert'])) {
             // Params not available
@@ -170,7 +179,7 @@ class SignalRepository extends ServiceEntityRepository
             $this->query['where'][] = "0 = 1 /* Showing 'All Listeners' but NOT logged by */";
             return $this;
         }
-        $in = $this->buildInParamsList('heard_by', $this->args['listener']);
+        $in = $this->_buildInParamsList('heard_by', $this->args['listener']);
         if (!$this->args['listener_invert']) {
             $this->query['where'][] = "l.listenerId IN (" . implode(',', $in) . ")";
             return $this;
@@ -189,7 +198,7 @@ class SignalRepository extends ServiceEntityRepository
         return $this;
     }
 
-    private function addFilterLoggedDate()
+    private function _addFilterLoggedDate()
     {
         if (($this->args['logged_date_1'] ?? false) || ($this->args['logged_date_2'] ?? false)) {
             $this->query['where'][] =
@@ -205,7 +214,7 @@ class SignalRepository extends ServiceEntityRepository
         return $this;
     }
 
-    private function addFilterLoggedFirst()
+    private function _addFilterLoggedFirst()
     {
         if (($this->args['logged_first_1'] ?? false) || ($this->args['logged_first_2'] ?? false)) {
             $this->query['where'][] = "s.first_heard between :logged_first_1 AND :logged_first_2";
@@ -219,7 +228,7 @@ class SignalRepository extends ServiceEntityRepository
         return $this;
     }
 
-    private function addFilterLoggedLast()
+    private function _addFilterLoggedLast()
     {
         if (($this->args['logged_last_1'] ?? false) || ($this->args['logged_last_2'] ?? false)) {
             $this->query['where'][] = "s.last_heard between :logged_last_1 AND :logged_last_2";
@@ -233,7 +242,7 @@ class SignalRepository extends ServiceEntityRepository
         return $this;
     }
 
-    private function addFilterRange()
+    private function _addFilterRange()
     {
         if ($this->args['range_gsq'] ?? '' && $lat_lon = Rxx::convertGsqToDegrees($this->args['range_gsq'])) {
             $min = (float)$this->args['range_min'] ? (float)$this->args['range_min'] : 0;
@@ -269,7 +278,7 @@ class SignalRepository extends ServiceEntityRepository
         return $this;
     }
 
-    private function addFilterRegion()
+    private function _addFilterRegion()
     {
         if ($this->args['region'] ?? false) {
             $this->query['where'][] = '(s.region = :region)';
@@ -278,24 +287,24 @@ class SignalRepository extends ServiceEntityRepository
         return $this;
     }
 
-    private function addFilterRwwFocus()
+    private function _addFilterRwwFocus()
     {
         if ('rww' === $this->system && isset($this->args['rww_focus']) && $this->args['rww_focus']) {
             $this->query['where'][] ='s.heard_in_' . $this->args['rww_focus']. ' = 1';
         }
     }
 
-    private function addFilterStatesAndCountries()
+    private function _addFilterStatesAndCountries()
     {
         $clauses = [];
         if ($this->args['countries'] ?? false) {
             $countries = explode(" ", str_replace('*', '%', $this->args['countries']));
-            $in = $this->buildInParamsList('countries', $countries);
+            $in = $this->_buildInParamsList('countries', $countries);
             $clauses[] = "(s.itu LIKE " . implode($in, " OR s.itu LIKE ") . ")";
         }
         if ($this->args['states'] ?? false) {
             $states = explode(" ", str_replace('*', '%', $this->args['states']));
-            $in = $this->buildInParamsList('states', $states);
+            $in = $this->_buildInParamsList('states', $states);
             $clauses[] = "(s.sp LIKE " . implode($in, " OR s.sp LIKE ") . ")";
         }
         switch (count($clauses)) {
@@ -314,7 +323,7 @@ class SignalRepository extends ServiceEntityRepository
         return $this;
     }
 
-    private function addFilterSystem()
+    private function _addFilterSystem()
     {
         switch ($this->system) {
             case "reu":
@@ -330,21 +339,21 @@ class SignalRepository extends ServiceEntityRepository
         return $this;
     }
 
-    private function addFilterTypes()
+    private function _addFilterTypes()
     {
-        $in = $this->buildInParamsList('type', $this->args['signalTypes'] ?? false, '', '');
+        $in = $this->_buildInParamsList('type', $this->args['signalTypes'] ?? false, '', '');
         $this->query['where'][] = "s.type IN(" . implode(',', $in).")";
         return $this;
     }
 
-    private function addFilterUnlogged()
+    private function _addFilterUnlogged()
     {
         $this->query['where'][] =
             '(s.heard_in_af = 0 AND s.heard_in_an = 0 AND s.heard_in_as = 0 AND s.heard_in_ca = 0 AND s.heard_in_eu = 0 AND s.heard_in_iw = 0 AND s.heard_in_na = 0 AND s.heard_in_oc = 0 AND s.heard_in_sa = 0)';
         return $this;
     }
 
-    private function addFromTables()
+    private function _addFromTables()
     {
         if (
             ($this->args['listener'] ?? false) ||
@@ -367,7 +376,7 @@ class SignalRepository extends ServiceEntityRepository
         return $this;
     }
 
-    private function addLimit($args)
+    private function _addLimit($args)
     {
         if ((int)$args['limit'] !== -1) {
             $limit =    $args['limit'];
@@ -377,52 +386,52 @@ class SignalRepository extends ServiceEntityRepository
         return $this;
     }
 
-    private function addOrder($field, $dir)
+    private function _addOrder($field, $dir)
     {
         $this->query['order'][] = "{$field} {$dir}";
         return $this;
     }
 
-    private function addOrderForSeeklist()
+    private function _addOrderForSeeklist()
     {
         $this
-            ->addOrder('s.itu','ASC')
-            ->addOrder('s.sp', 'ASC')
-            ->addOrder('s.khz', 'ASC')
-            ->addOrder('s.call', 'ASC');
+            ->_addOrder('s.itu','ASC')
+            ->_addOrder('s.sp', 'ASC')
+            ->_addOrder('s.khz', 'ASC')
+            ->_addOrder('s.call', 'ASC');
         return $this;
     }
 
-    private function addOrderPrioritizeActive()
+    private function _addOrderPrioritizeActive()
     {
         if (!($this->args['active'] ?? false)) {
-            $this->addOrder('_active','ASC');
+            $this->_addOrder('_active','ASC');
         }
         return $this;
     }
 
-    private function addOrderPrioritizeExactCall()
+    private function _addOrderPrioritizeExactCall()
     {
         if ($this->args['call'] ?? false) {
-            $this->addOrder('_call','DESC');
+            $this->_addOrder('_call','DESC');
         }
         return $this;
     }
 
-    private function addOrderPrioritizeSelected()
+    private function _addOrderPrioritizeSelected()
     {
         if ($this->signalsColumns[$this->args['sort']]['sort']) {
-            $this->addOrder(
+            $this->_addOrder(
                 '_empty',
                 'ASC'
             );
             if (in_array($this->args['sort'], ['LSB', 'USB']) && $this->args['offsets'] === '1') {
-                $this->addOrder(
+                $this->_addOrder(
                     ('s.khz ' . ($this->args['sort'] === 'USB' ? '+' : '-') . ' (s.' . $this->args['sort'].'/1000)'),
                     ($this->args['order'] === 'd' ? 'DESC' : 'ASC')
                 );
             } else {
-                $this->addOrder(
+                $this->_addOrder(
                     ($this->signalsColumns[$this->args['sort']]['sort']),
                     ($this->args['order'] === 'd' ? 'DESC' : 'ASC')
                 );
@@ -431,7 +440,7 @@ class SignalRepository extends ServiceEntityRepository
         return $this;
     }
 
-    private function addSelectColumnPersonalise()
+    private function _addSelectColumnPersonalise()
     {
         if ($this->args['personalise'] ?? false) {
             $this->query['select'][] =
@@ -443,7 +452,7 @@ class SignalRepository extends ServiceEntityRepository
         return $this;
     }
 
-    private function addSelectColumnRangeDeg()
+    private function _addSelectColumnRangeDeg()
     {
         if (($this->args['range_gsq'] ?? false) && $lat_lon = Rxx::convertGsqToDegrees($this->args['range_gsq'])) {
             $this->query['select'][] = <<< EOD
@@ -469,7 +478,7 @@ EOD;
         return $this;
     }
 
-    private function addSelectColumnRangeKm() {
+    private function _addSelectColumnRangeKm() {
         if (($this->args['range_gsq'] ?? false) && $lat_lon = Rxx::convertGsqToDegrees($this->args['range_gsq'])) {
             $this->query['select'][] = <<< EOD
                 CAST(
@@ -495,7 +504,7 @@ EOD;
         return $this;
     }
 
-    private function addSelectColumnRangeMiles()
+    private function _addSelectColumnRangeMiles()
     {
         if (($this->args['range_gsq'] ?? false) && $lat_lon = Rxx::convertGsqToDegrees($this->args['range_gsq'])) {
             $this->query['select'][] = <<< EOD
@@ -522,7 +531,7 @@ EOD;
         return $this;
     }
 
-    private function addSelectColumnsOffsets()
+    private function _addSelectColumnsOffsets()
     {
         if ($this->args['offsets'] ?? false === '1') {
             $this->query['select'][] = "IF(s.LSB != 0, CONCAT(COALESCE(s.LSB_approx, ''), ROUND(s.khz - (s.LSB/1000), 3)), '') as LSB";
@@ -534,7 +543,7 @@ EOD;
         return $this;
     }
 
-    private function addSelectPriotitizeActive()
+    private function _addSelectPriotitizeActive()
     {
         if (!($this->args['active'] ?? false)) {
             $this->query['select'][] =
@@ -543,7 +552,7 @@ EOD;
         return $this;
     }
 
-    private function addSelectPriotitizeExactCall()
+    private function _addSelectPriotitizeExactCall()
     {
         if ($this->args['call'] ?? false) {
             $this->query['select'][] =
@@ -553,7 +562,7 @@ EOD;
         return $this;
     }
 
-    private function addSelectPrioritizeNonEmpty()
+    private function _addSelectPrioritizeNonEmpty()
     {
         $column = $this->signalsColumns[$this->args['sort']]['sort'];
         switch($column) {
@@ -573,7 +582,7 @@ EOD;
         return $this;
     }
 
-    private function addSelectColumnsAllSignal()
+    private function _addSelectColumnsAllSignal()
     {
         $distinct = (
             ($this->args['listener'] ?? false) ||
@@ -585,7 +594,7 @@ EOD;
         return $this;
     }
 
-    private function addSelectColumnsAllSignalSeeklist()
+    private function _addSelectColumnsAllSignalSeeklist()
     {
         $distinct = (
             ($this->args['listener'] ?? false) ||
@@ -599,7 +608,7 @@ EOD;
         return $this;
     }
 
-    private function addSelectColumnCountSignal()
+    private function _addSelectColumnCountSignal()
     {
         $distinct = (
             ($this->args['listener'] ?? false) ||
@@ -611,7 +620,7 @@ EOD;
         return $this;
     }
 
-    private function buildInParamsList($key, $values, $prefix = '', $suffix = '')
+    private function _buildInParamsList($key, $values, $prefix = '', $suffix = '')
     {
         $in = [];
         if (!$values) {
@@ -625,7 +634,7 @@ EOD;
         return $in;
     }
 
-    private function buildQuery()
+    private function _buildQuery()
     {
         $sql =
             "SELECT\n"
@@ -672,7 +681,7 @@ EOD;
         return $sql;
     }
 
-    public function debugQuery($sql, $params)
+    private function _debugQuery($sql, $params)
     {
         $sql_view = $sql;
         foreach ($params as $key => $value) {
@@ -681,77 +690,68 @@ EOD;
         return "<pre>" . $sql_view . "</pre>";
     }
 
-    public function getColumns()
+    private function _setArgs($system, $args)
     {
-        return $this->signalsColumns;
-    }
-
-    public function getListenersColumns()
-    {
-        return $this->signalListenersColumns;
-    }
-
-    public function getLogsColumns()
-    {
-        return $this->signalLogsColumns;
+        $this->system = $system;
+        $this->args = $args;
+        return $this;
     }
 
     public function getFilteredSignals($system, $args)
     {
         $this
-            ->setArgs($system, $args)
-            ->addFromTables()
-            ->addFilterActive()
-            ->addFilterCall()
-            ->addFilterChannels()
-            ->addFilterFreq()
-            ->addFilterGsq()
-            ->addFilterRange()
-            ->addFilterRegion()
-            ->addFilterStatesAndCountries()
-            ->addFilterTypes();
+            ->_setArgs($system, $args)
+            ->_addFromTables()
+            ->_addFilterActive()
+            ->_addFilterCall()
+            ->_addFilterChannels()
+            ->_addFilterFreq()
+            ->_addFilterGsq()
+            ->_addFilterRange()
+            ->_addFilterRegion()
+            ->_addFilterStatesAndCountries()
+            ->_addFilterTypes();
 
         if (isset($args['show']) && $args['show'] === 'map') {
             $this->query['where'][] = '(s.lat != 0 OR s.lon !=0)';
         }
-
         if (isset($args['isAdmin']) && $args['isAdmin'] && $args['admin_mode'] === '1') {
-            $this->addFilterUnlogged();
+            $this->_addFilterUnlogged();
         } elseif(isset($args['isAdmin']) && $args['isAdmin'] && $args['admin_mode'] === '2') {
             // No filter
         } else {
             $this
-                ->addFilterHeardIn()
-                ->addFilterListeners()
-                ->addFilterLoggedDate()
-                ->addFilterLoggedFirst()
-                ->addFilterLoggedLast()
-                ->addFilterSystem()
-                ->addFilterRwwFocus();
+                ->_addFilterHeardIn()
+                ->_addFilterListeners()
+                ->_addFilterLoggedDate()
+                ->_addFilterLoggedFirst()
+                ->_addFilterLoggedLast()
+                ->_addFilterSystem()
+                ->_addFilterRwwFocus();
         }
 
         switch ($this->args['show'] ?? false) {
             case 'seeklist':
                 $this
-                    ->addSelectColumnsAllSignalSeeklist()
-                    ->addSelectColumnPersonalise()
-                    ->addOrderForSeeklist();
+                    ->_addSelectColumnsAllSignalSeeklist()
+                    ->_addSelectColumnPersonalise()
+                    ->_addOrderForSeeklist();
                 break;
             default:
                 $this
-                    ->addSelectColumnsAllSignal()
-                    ->addSelectColumnPersonalise()
-                    ->addSelectColumnsOffsets()
-                    ->addSelectColumnRangeDeg()
-                    ->addSelectColumnRangeKm()
-                    ->addSelectColumnRangeMiles()
-                    ->addSelectPrioritizeNonEmpty()
-                    ->addSelectPriotitizeActive()
-                    ->addSelectPriotitizeExactCall()
+                    ->_addSelectColumnsAllSignal()
+                    ->_addSelectColumnPersonalise()
+                    ->_addSelectColumnsOffsets()
+                    ->_addSelectColumnRangeDeg()
+                    ->_addSelectColumnRangeKm()
+                    ->_addSelectColumnRangeMiles()
+                    ->_addSelectPrioritizeNonEmpty()
+                    ->_addSelectPriotitizeActive()
+                    ->_addSelectPriotitizeExactCall()
 
-                    ->addOrderPrioritizeExactCall()
-                    ->addOrderPrioritizeActive()
-                    ->addOrderPrioritizeSelected();
+                    ->_addOrderPrioritizeExactCall()
+                    ->_addOrderPrioritizeActive()
+                    ->_addOrderPrioritizeSelected();
                 break;
         }
         switch ($this->args['show'] ?? false) {
@@ -761,16 +761,16 @@ EOD;
             case 'list':
             case 'map':
             default:
-                $this->addLimit($args);
+                $this->_addLimit($args);
                 break;
         }
 
-        $sql = $this->buildQuery();
+        $sql = $this->_buildQuery();
 
         $stmt = $this->connection->prepare($sql);
 
         if ($this->debug) {
-            print $this->debugQuery($sql, $this->query['param']);
+            print $this->_debugQuery($sql, $this->query['param']);
         }
 
         foreach ($this->query['param'] as $key => $value) {
@@ -783,43 +783,48 @@ EOD;
         return $stmt->fetchAll();
     }
 
+    /**
+     * @param $system
+     * @param $args
+     * @return false|integer
+     */
     public function getFilteredSignalsCount($system, $args)
     {
         $this
-            ->setArgs($system, $args)
-            ->addSelectColumnCountSignal()
-            ->addFromTables()
-            ->addFilterActive()
-            ->addFilterCall()
-            ->addFilterChannels()
-            ->addFilterFreq()
-            ->addFilterGsq()
-            ->addFilterRange()
-            ->addFilterRegion()
-            ->addFilterStatesAndCountries()
-            ->addFilterTypes();
+            ->_setArgs($system, $args)
+            ->_addSelectColumnCountSignal()
+            ->_addFromTables()
+            ->_addFilterActive()
+            ->_addFilterCall()
+            ->_addFilterChannels()
+            ->_addFilterFreq()
+            ->_addFilterGsq()
+            ->_addFilterRange()
+            ->_addFilterRegion()
+            ->_addFilterStatesAndCountries()
+            ->_addFilterTypes();
 
         if (isset($args['show']) && $args['show'] === 'map') {
             $this->query['where'][] = '(s.lat != 0 OR s.lon !=0)';
         }
         if ($args['isAdmin'] && $args['admin_mode'] === '1') {
-            $this->addFilterUnlogged();
+            $this->_addFilterUnlogged();
         } elseif($args['isAdmin'] && $args['admin_mode'] === '2') {
             // No filter
         } else {
             $this
-                ->addFilterHeardIn()
-                ->addFilterListeners()
-                ->addFilterLoggedDate()
-                ->addFilterLoggedFirst()
-                ->addFilterLoggedLast()
-                ->addFilterSystem()
-                ->addFilterRwwFocus();
+                ->_addFilterHeardIn()
+                ->_addFilterListeners()
+                ->_addFilterLoggedDate()
+                ->_addFilterLoggedFirst()
+                ->_addFilterLoggedLast()
+                ->_addFilterSystem()
+                ->_addFilterRwwFocus();
         }
-        $sql = $this->buildQuery();
+        $sql = $this->_buildQuery();
 
         if ($this->debug) {
-            print $this->debugQuery($sql, $this->query['param']);
+            print $this->_debugQuery($sql, $this->query['param']);
         }
 
         $stmt = $this->connection->prepare($sql);
@@ -832,15 +837,79 @@ EOD;
         return $stmt->fetchColumn();
     }
 
+    /**
+     * @param string $mode
+     * @return false|array
+     */
+    public function getColumns($mode = '')
+    {
+        switch ($mode) {
+            case 'listeners':
+                return $this->signalListenersColumns;
+                break;
+            case 'logs':
+                return $this->signalLogsColumns;
+                break;
+            case 'signals':
+                return $this->signalsColumns;
+                break;
+        }
+        return false;
+    }
+
+    /**
+     * @return array
+     */
     public function getStats()
     {
-        return [ 'signals' => [
-            'RNA Only' =>     number_format($this->getCountSignalsRNAOnly()),
-            'REU Only' =>     number_format($this->getCountSignalsREUOnly()),
-            'RNA + REU' =>    number_format($this->getCountSignalsRNAAndREU()),
-            'RWW' =>          number_format($this->getCountSignalsRWW()),
-            'Unlogged' =>     $this->getCountSignalsUnlogged()
-        ]];
+        $sql = <<< EOD
+            SELECT
+                'REU Only' AS stat,
+                COUNT(*) AS count
+            FROM
+                `signals`
+            WHERE
+                `heard_in_af`=0 AND `heard_in_an`=0 AND `heard_in_as`=0 AND `heard_in_ca`=0 AND `heard_in_eu`=1 AND
+                `heard_in_iw`=0 AND `heard_in_na`=0 AND `heard_in_oc`=0 AND `heard_in_sa`=0
+            UNION SELECT
+                'RNA Only',
+                COUNT(*)
+            FROM
+                `signals`
+            WHERE
+                `heard_in_af`=0 AND `heard_in_an`=0 AND `heard_in_as`=0 AND `heard_in_ca`=0 AND `heard_in_eu`=0 AND
+                `heard_in_iw`=0 AND `heard_in_na`=1 AND `heard_in_oc`=0 AND `heard_in_sa`=0
+            UNION SELECT
+                'RNA + REU',
+                COUNT(*)
+            FROM
+                `signals`
+            WHERE
+                `heard_in_eu`=1 AND `heard_in_na`=1
+            UNION SELECT
+                'RWW',
+                COUNT(*)
+            FROM
+                `signals`
+            WHERE
+                `logs` > 0
+            UNION SELECT
+                'Unlogged',
+                COUNT(*)
+            FROM
+                `signals`
+            WHERE
+                `heard_in_af`=0 AND `heard_in_an`=0 AND `heard_in_as`=0 AND `heard_in_ca`=0 AND `heard_in_eu`=0 AND
+                `heard_in_iw`=0 AND `heard_in_na`=0 AND `heard_in_oc`=0 AND `heard_in_sa`=0;
+EOD;
+        $stmt = $this->connection->prepare($sql);
+        $stmt->execute();
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $out = [];
+        foreach ($results as $r) {
+            $out[$r['stat']] = number_format($r['count']);
+        }
+        return [ 'signals' => $out ];
     }
 
     public static function getSeeklistColumns($signals, $paper)
@@ -887,118 +956,14 @@ EOD;
         return $itu_sp;
     }
 
-    private function getCountSignalsREUOnly()
-    {
-        $sql =
-            "SELECT\n"
-            ."    COUNT(*)\n"
-            ."FROM\n"
-            ."    `signals`\n"
-            ."WHERE (\n"
-            ."    `heard_in_af`=0 AND\n"
-            ."    `heard_in_an`=0 AND\n"
-            ."    `heard_in_as`=0 AND\n"
-            ."    `heard_in_ca`=0 AND\n"
-            ."    `heard_in_eu`=1 AND\n"
-            ."    `heard_in_iw`=0 AND\n"
-            ."    `heard_in_na`=0 AND\n"
-            ."    `heard_in_oc`=0 AND\n"
-            ."    `heard_in_sa`=0\n"
-            .")";
-        $stmt = $this->connection->prepare($sql);
-        $stmt->execute();
-        return $stmt->fetchColumn();
-    }
-
-    private function getCountSignalsRNAOnly()
-    {
-        $sql =
-            "SELECT\n"
-            ."    COUNT(*)\n"
-            ."FROM\n"
-            ."    `signals`\n"
-            ."WHERE (\n"
-            ."    `heard_in_af`=0 AND\n"
-            ."    `heard_in_an`=0 AND\n"
-            ."    `heard_in_as`=0 AND\n"
-            ."    `heard_in_ca`=0 AND\n"
-            ."    `heard_in_eu`=0 AND\n"
-            ."    `heard_in_iw`=0 AND\n"
-            ."    `heard_in_na`=1 AND\n"
-            ."    `heard_in_oc`=0 AND\n"
-            ."    `heard_in_sa`=0\n"
-            .")";
-        $stmt = $this->connection->prepare($sql);
-        $stmt->execute();
-        return $stmt->fetchColumn();
-    }
-
-    private function getCountSignalsRNAAndREU()
-    {
-        $sql =
-            "SELECT\n"
-            ."    COUNT(*)\n"
-            ."FROM\n"
-            ."    `signals`\n"
-            ."WHERE (\n"
-            ."    `heard_in_eu`=1 AND\n"
-            ."    `heard_in_na`=1\n"
-            .")";
-        $stmt = $this->connection->prepare($sql);
-        $stmt->execute();
-        return $stmt->fetchColumn();
-    }
-
-    private function getCountSignalsRWW()
-    {
-        $sql =
-            "SELECT\n"
-            ."    COUNT(*)\n"
-            ."FROM\n"
-            ."    `signals`\n"
-            ."WHERE\n"
-            ."    `logs` > 0";
-        $stmt = $this->connection->prepare($sql);
-        $stmt->execute();
-        return $stmt->fetchColumn();
-    }
-
-    private function getCountSignalsUnlogged()
-    {
-        $sql =
-            "SELECT\n"
-            ."    COUNT(*)\n"
-            ."FROM\n"
-            ."    `signals`\n"
-            ."WHERE (\n"
-            ."    `heard_in_af`=0 AND\n"
-            ."    `heard_in_an`=0 AND\n"
-            ."    `heard_in_as`=0 AND\n"
-            ."    `heard_in_ca`=0 AND\n"
-            ."    `heard_in_eu`=0 AND\n"
-            ."    `heard_in_iw`=0 AND\n"
-            ."    `heard_in_na`=0 AND\n"
-            ."    `heard_in_oc`=0 AND\n"
-            ."    `heard_in_sa`=0\n"
-            .")";
-        $stmt = $this->connection->prepare($sql);
-        $stmt->execute();
-        return $stmt->fetchColumn();
-    }
-
     public function getListenersForSignal($signalID, array $args)
     {
-        $columns =
-             'li.id,'
-            . 'li.name,'
-            . 'li.qth,'
-            . 'li.gsq,'
-            . 'li.sp,'
-            . 'li.itu,'
-            . 'COUNT(l.id) AS countLogs,'
-            . 'MAX(l.daytime) AS daytime,'
-            . 'l.dxKm,'
-            . 'l.dxMiles';
+        $columns = <<< EOD
+            li.id, li.gsq, li.itu, li.name, li.qth, li.sp,
+            l.dxKm, l.dxMiles,
+            COUNT(l.id) AS countLogs,
+            MAX(l.daytime) AS daytime
+EOD;
 
         $qb = $this
             ->createQueryBuilder('s')
@@ -1019,23 +984,18 @@ EOD;
 
     public function getLogsForSignal($signalID, array $args)
     {
-        $columns =
-            'l.date,'
-            . 'l.time,'
-            . 'li.id,'
-            . 'li.name,'
-            . 'li.qth,'
-            . 'li.gsq,'
-            . 'li.sp,'
-            . 'li.itu,'
-            . 'CONCAT(COALESCE(l.lsbApprox, \'\'), l.lsb) AS lsb,'
-            . 'CONCAT(COALESCE(l.usbApprox, \'\'), l.usb) AS usb,'
-            . 'l.id AS log_id,'
-            . 'l.format,'
-            . 'l.sec,'
-            . 'l.dxKm,'
-            . 'l.dxMiles,'
-            . 'MAX(l.daytime) AS daytime';
+        $columns = <<< EOD
+            l.id AS log_id, l.date, l.dxKm, l.dxMiles, l.format, l.sec, l.time,
+            li.id,
+            li.name,
+            li.qth,
+            li.gsq,
+            li.sp,
+            li.itu,
+            CONCAT(COALESCE(l.lsbApprox, ''), l.lsb) AS lsb,
+            CONCAT(COALESCE(l.usbApprox, ''), l.usb) AS usb,
+            MAX(l.daytime) AS daytime
+EOD;
 
         $qb = $this
             ->createQueryBuilder('s')
@@ -1078,13 +1038,6 @@ EOD;
         }
     }
 
-    private function setArgs($system, $args)
-    {
-        $this->system = $system;
-        $this->args = $args;
-        return $this;
-    }
-
     public function getTabs(Signal $signal): array
     {
         $out = [];
@@ -1092,7 +1045,7 @@ EOD;
             return $out;
         }
         $logs =         $signal->getLogs();
-        $listeners =    $this->getListenersCount($signal->getId());
+        $listeners =    $signal->getListeners();
         $knownQth =     ($signal->getLat() || $signal->getLon());
         foreach ($this->tabs as $idx => $data) {
             $route = $data[0];
@@ -1136,17 +1089,6 @@ EOD;
             }
         }
         return $out;
-    }
-
-    public function getListenersCount($signalid)
-    {
-        $qb = $this
-            ->logRepository
-            ->createQueryBuilder('l')
-            ->select('COUNT(distinct l.listenerid)')
-            ->andWhere('l.signalid = :signalid')
-            ->setParameter('signalid', $signalid);
-        return $qb->getQuery()->getSingleScalarResult();
     }
 
     public function array_group_by($key, $data) {

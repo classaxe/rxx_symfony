@@ -47,6 +47,9 @@
     <script>
         $(document).ready( function() {
             setExternalLinks();
+            $('.admin_tools a').on('click', function() {
+                $('.admin_tools a.button').attr('disabled', 'disabled');
+            });
         });
     </script>
 {% endblock %}

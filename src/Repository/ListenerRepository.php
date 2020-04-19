@@ -235,9 +235,24 @@ class ListenerRepository extends ServiceEntityRepository
             ->setParameter('timezone', $args['timezone']);
     }
 
-    public function getColumns()
+    /**
+     * @param string $mode
+     * @return bool|array
+     */
+    public function getColumns($mode = '')
     {
-        return $this->listenersColumns;
+        switch ($mode) {
+            case 'listeners':
+                return $this->listenersColumns;
+                break;
+            case 'logs':
+                return $this->listenerLogsColumns;
+                break;
+            case 'signals':
+                return $this->listenerSignalsColumns;
+                break;
+        }
+        return false;
     }
 
     public function getDaytimeHours($timezone)
@@ -332,11 +347,6 @@ class ListenerRepository extends ServiceEntityRepository
         return $qb->getQuery()->execute();
     }
 
-    public function getLogsColumns()
-    {
-        return $this->listenerLogsColumns;
-    }
-
     public function getStats($system, $region)
     {
         $listeners =    $this->getFilteredListenersCount($system, [ 'region' => $region ]);
@@ -356,11 +366,6 @@ class ListenerRepository extends ServiceEntityRepository
             $stats['Last log'] = date('j M Y', strtotime($dates['last' ]));
         }
         return [ 'listeners' => $stats ];
-    }
-
-    public function getSignalsColumns()
-    {
-        return $this->listenerSignalsColumns;
     }
 
     public function getAllOptions(
