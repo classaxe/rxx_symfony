@@ -2,6 +2,7 @@
 namespace App\Controller\Web\Admin;
 
 use App\Controller\Web\Base;
+use App\Repository\SignalRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -24,16 +25,21 @@ class Tools extends Base
      * @param $_locale
      * @param $system
      * @param $tool
+     * @param SignalRepository $signalRepository
      * @return Response
      */
     public function controller(
         $_locale,
         $system,
-        $tool
+        $tool,
+        SignalRepository $signalRepository
     ) {
+        $this->signalRepository = $signalRepository;
         if (!$this->parameters['isAdmin']) {
-            throw $this->createAccessDeniedException('You must be an Administrator to access this resource');
+            $this->session->set('route', 'admin/tools');
+            return $this->redirectToRoute('logon', ['system' => $system]);
         }
+        $this->session->set('route', '');
         switch ($tool) {
             case 'icaoImport':
             case 'listenersStats':
@@ -80,7 +86,9 @@ class Tools extends Base
     }
 
     private function signalsLatLon() {
-        $this->session->set('lastError', 'Not yet implemented');
+        $affected = $this->signalRepository->updateSignalLatLonFromGSQ();
+        $message = sprintf($this->translator->trans('Operation complete - %d record(s) were updated'), $affected);
+        $this->session->set('lastMessage', $message);
     }
 
     private function signalsStats() {

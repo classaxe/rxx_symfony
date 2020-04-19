@@ -4167,6 +4167,14 @@
         <source>Not yet implemented</source>
         <target>Not yet implemented</target>
       </trans-unit>
+      <trans-unit id="CiOLtiu" resname="You have logged on as an Administrator.">
+        <source>You have logged on as an Administrator.</source>
+        <target>You have logged on as an Administrator.</target>
+      </trans-unit>
+      <trans-unit id="7qWg2QA" resname="Operation complete - %d record(s) were updated">
+        <source>Operation complete - %d record(s) were updated</source>
+        <target>Operation complete - %d record(s) were updated</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

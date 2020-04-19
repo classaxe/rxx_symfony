@@ -1253,6 +1253,54 @@ EOD;
         return $out;
     }
 
+    public function updateSignalLatLonFromGSQ($signalId = false)
+    {
+        $affected = 0;
+        $errors = [];
+        $WHERE = ($signalId ? "WHERE\n    signalID = $signalId" : '');
+        $sql = <<< EOD
+            SELECT
+                `ID`,
+                `call`,
+                `GSQ`,
+                `khz`,
+                `lat`,
+                `lon`
+            FROM
+                `signals`
+            $WHERE
+EOD;
+        $stmt = $this->connection->prepare($sql);
+        $stmt->execute();
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        foreach ($results as $r) {
+            $latlon = Rxx::convertGsqToDegrees($r['GSQ']);
+            if (!$latlon) {
+                $errors[] = "{$r['call']}-{$r['khz']} has invalid GSQ {$r['GSQ']}";
+                continue;
+            }
+            if ((round($r['lat'], 3) === round($latlon['lat'], 3)) &&
+                (round($r['lon'], 3) === round($latlon['lon'], 3))
+            ) {
+                continue;
+            }
+            $sql = <<< EOD
+                UPDATE
+                    `signals`
+                SET
+                    `GSQ` = '{$latlon['GSQ']}',
+                    `lat` = {$latlon['lat']},
+                    `lon` = {$latlon['lon']}
+                WHERE
+                    `ID` = {$r['ID']}
+EOD;
+            $stmt = $this->connection->prepare($sql);
+            $stmt->execute();
+            $affected += $stmt->rowCount();
+        }
+        return $affected;
+    }
+
     public function updateSignalStats($signalId = false, $updateSpecs = false)
     {
         $all_regions =      ['af', 'an', 'as', 'ca', 'eu', 'iw', 'na', 'oc', 'sa'];

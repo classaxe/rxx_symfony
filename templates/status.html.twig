@@ -1,6 +1,6 @@
 {% if lastError %}
-    <span id="lastError"><strong>{% trans %}Error:{% endtrans %}</strong> {{ lastError|raw|trans }} <a class="close">X</a></span>
+    <span id="lastError"><strong>{% trans %}Error:{% endtrans %}</strong> {{ lastError|raw }} <a class="close">X</a></span>
 {% endif %}
 {% if lastMessage %}
-    <span id="lastMessage"><strong>{% trans %}Message:{% endtrans %}</strong> {{ lastMessage|raw|trans }} <a class="close">X</a></span>
+    <span id="lastMessage"><strong>{% trans %}Message:{% endtrans %}</strong> {{ lastMessage|raw }} <a class="close">X</a></span>
 {% endif %}

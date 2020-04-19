@@ -65,6 +65,9 @@ class Logon extends Base
                     '_locale' => $_locale,
                     'system' => $system
                 ];
+                if ($this->session->get('route')) {
+                    return $this->redirectToRoute($this->session->get('route'), $parameters);
+                }
                 return $this->redirectToRoute('logon', $parameters);
             }
         } else {

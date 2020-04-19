@@ -30,7 +30,8 @@ class Info extends Base
         $system
     ) {
         if (!$this->parameters['isAdmin']) {
-            throw $this->createAccessDeniedException('You must be an Administrator to access this resource');
+            $this->session->set('route', 'admin/info');
+            return $this->redirectToRoute('logon', ['system' => $system]);
         }
         $entries = $this->getGitInfo();
         $parameters = [
