@@ -119,7 +119,7 @@ class Collection extends Base
             'box' =>                $box,
             'center' =>             $center,
             'classic' =>            $this->systemRepository->getClassicUrl('listeners'),
-            'columns' =>            $this->listenerRepository->getColumns(),
+            'columns' =>            $this->listenerRepository->getColumns('listeners'),
             'form' =>               $form->createView(),
             'listeners' =>          $listeners,
             '_locale' =>            $_locale,
