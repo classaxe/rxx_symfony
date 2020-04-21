@@ -210,6 +210,12 @@ class Collection extends Base
             $response->headers->set('Content-Disposition',"attachment;filename={$system}_signals.csv");
             return $response;
         }
+        if (isset($args['show']) && $args['show'] === 'txt') {
+            $response = $this->render("signals/export/signals.txt.twig", $this->getMergedParameters($parameters));
+            $response->headers->set('Content-Type', 'text/plain');
+            $response->headers->set('Content-Disposition',"attachment;filename={$system}_signals.txt");
+            return $response;
+        }
         return $this->render('signals/index.html.twig', $this->getMergedParameters($parameters));
     }
 

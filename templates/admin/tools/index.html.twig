@@ -8,7 +8,7 @@
                 <ul>
                     <li><a class="button" href="{{ url('admin/tools', {'system' : system, 'tool' : 'signalsLatLon'}) }}">{% trans %}Go{% endtrans %}</a>
                         {% trans %}Update Lat and Lon values from GSQ (use after importing new signals using phpMyAdmin){% endtrans %}</li>
-                    <li><a class="button" disabled='disabled' href="{{ url('admin/tools', {'system' : system, 'tool' : 'signalsStats'}) }}">{% trans %}Go{% endtrans %}</a>
+                    <li><a class="button" href="{{ url('admin/tools', {'system' : system, 'tool' : 'signalsStats'}) }}">{% trans %}Go{% endtrans %}</a>
                         {% trans %}Update listeners, logs and Heard In from latest log data (run if problems are seen){% endtrans %}</li>
                 </ul>
             </li>

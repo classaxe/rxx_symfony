@@ -103,10 +103,9 @@ class Tools extends Base
     }
 
     private function signalsStats() {
-        $this->session->set('lastError', 'Not yet implemented');
-//        $start = time();
-//        $affected = $this->signalRepository->updateSignalStats(false, true);
-//        $this->setMessage($affected, $start);
+        $start = time();
+        $affected = $this->signalRepository->updateSignalStats(false, false);
+        $this->setMessage($affected, $start);
     }
 
     private function systemExportDb() {

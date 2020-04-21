@@ -43,10 +43,20 @@ function setSignalActions() {
     $('#btn_csv_all').click(function () {
         window.location.assign(window.location + '/export/csv');
     });
+    $('#btn_txt_all').click(function () {
+        window.location.assign(window.location + '/export/txt');
+    });
     $('#btn_csv_fil').click(function () {
         var form_show = $('#form_show');
         var show = form_show.val();
         form_show.val('csv');
+        $('#form_submit').click();
+        form_show.val(show);
+    });
+    $('#btn_txt_fil').click(function () {
+        var form_show = $('#form_show');
+        var show = form_show.val();
+        form_show.val('txt');
         $('#form_submit').click();
         form_show.val(show);
     });

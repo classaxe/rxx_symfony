@@ -1277,7 +1277,7 @@ EOD;
                         $link = false;
                 }
                 $heardIn[] =
-                    ($old_link && ($link !== $old_link) ? '</a>' : ' ')
+                    ($old_link && ($link !== $old_link) ? '</a> ' : ' ')
                     . ($link && ($link !== $old_link) ? sprintf($link, $row['signalID']) : '')
                     . ($row["daytime"] ? sprintf("<b>%s</b>", $row["heard_in"]) : $row["heard_in"]);
                 $old_link = $link;
@@ -1286,12 +1286,12 @@ EOD;
                 $heardIn[] = "</a>";
             }
             $entry = [
-                'id' =>             $row['signalID'],
+                'ID' =>             $row['signalID'],
                 'heard_in' =>       trim(strip_tags(implode('', $heardIn))),
-                'heard_in_html' =>  trim(implode('', $heardIn))
+                'heard_in_html' =>  str_replace('> ','>', trim(implode('', $heardIn)))
             ];
             foreach($all_regions as $r) {
-                $entry['heard_in_' . $r] = (isset($regions[$r]) ? 1 : 0);
+                $entry['heard_in_' . $r] = (isset($regions[$r]) ? '1' : '0');
             }
             $data[$row['signalID']] = $entry;
         }
@@ -1303,37 +1303,65 @@ EOD;
                 $data[$signalID] = array_merge($data[$signalID], $spec);
             }
         }
+        $sql = "SELECT * FROM `signals`";
+        $stmt = $this->connection->prepare($sql);
+        $stmt->execute();
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $signals = $this->array_group_by('ID', $results);
+
+
         $affected = 0;
-        foreach ($data as $signalID => $s) {
+        $fields = [
+            'first_heard', 'heard_in', 'heard_in_html', 'last_heard', 'logs', 'listeners',
+            'heard_in_af', 'heard_in_an', 'heard_in_as', 'heard_in_ca', 'heard_in_eu',
+            'heard_in_iw', 'heard_in_na', 'heard_in_oc', 'heard_in_sa'
+        ];
+        foreach ($data as $signalID => $new) {
+            $old = $signals[$signalID][0];
+            $update = false;
+            if ($updateSpecs) {
+                $update = true;
+            } else {
+                foreach ($fields as $f) {
+                    if ($old[$f] !== $new[$f]) {
+                        $update = true;
+                        break;
+                    }
+                }
+            }
+            if (!$update) {
+                continue;
+            }
             $sql = "
 UPDATE
     signals
 SET "
-    . ($updateSpecs && $s['LSB'] !== null ?
-              "\n    `LSB_approx` =      '',"
-            . "\n    `LSB` =             '" . addslashes($s['LSB']) . "',"
+    . ($updateSpecs && $new['LSB'] !== null ?
+          "\n    `LSB_approx` =      '',"
+        . "\n    `LSB` =             '" . addslashes($new['LSB']) . "',"
     : '')
-    . ($updateSpecs && $s['USB'] !== null ?
-              "\n    `USB_approx` =      '',"
-            . "\n    `USB` =             '" . addslashes($s['USB']) . "',"
+    . ($updateSpecs && $new['USB'] !== null ?
+          "\n    `USB_approx` =      '',"
+        . "\n    `USB` =             '" . addslashes($new['USB']) . "',"
     : '')
-    . ($updateSpecs && $s['sec'] !== null ? "\n    `sec` =             '" . addslashes($s['sec']) . "'," : '')
-. "
-    `first_heard` =     '" . addslashes($s['first_heard']) . "',
-    `heard_in` =        '" . addslashes($s['heard_in']) . "',
-    `heard_in_html` =   '" . addslashes($s['heard_in_html']) . "',
-    `heard_in_af` =     '" . $s['heard_in_af'] . "',
-    `heard_in_an` =     '" . $s['heard_in_an'] . "',
-    `heard_in_as` =     '" . $s['heard_in_as'] . "',
-    `heard_in_ca` =     '" . $s['heard_in_ca'] . "',
-    `heard_in_eu` =     '" . $s['heard_in_eu'] . "',
-    `heard_in_iw` =     '" . $s['heard_in_iw'] . "',
-    `heard_in_na` =     '" . $s['heard_in_na'] . "',
-    `heard_in_oc` =     '" . $s['heard_in_oc'] . "',
-    `heard_in_sa` =     '" . $s['heard_in_sa'] . "',
-    `last_heard` =      '" . addslashes($s['last_heard']) . "',
-    `logs` =            '" . addslashes($s['logs']) . "',
-    `listeners` =       '" . addslashes($s['listeners']) . "'
+    . ($updateSpecs && $new['sec'] !== null ?
+        "\n    `sec` =             '" . addslashes($new['sec']) . "',"
+    : '') . "
+    `first_heard` =     '" . addslashes($new['first_heard']) . "',
+    `heard_in` =        '" . addslashes($new['heard_in']) . "',
+    `heard_in_html` =   '" . addslashes($new['heard_in_html']) . "',
+    `heard_in_af` =     '" . $new['heard_in_af'] . "',
+    `heard_in_an` =     '" . $new['heard_in_an'] . "',
+    `heard_in_as` =     '" . $new['heard_in_as'] . "',
+    `heard_in_ca` =     '" . $new['heard_in_ca'] . "',
+    `heard_in_eu` =     '" . $new['heard_in_eu'] . "',
+    `heard_in_iw` =     '" . $new['heard_in_iw'] . "',
+    `heard_in_na` =     '" . $new['heard_in_na'] . "',
+    `heard_in_oc` =     '" . $new['heard_in_oc'] . "',
+    `heard_in_sa` =     '" . $new['heard_in_sa'] . "',
+    `last_heard` =      '" . addslashes($new['last_heard']) . "',
+    `logs` =            '" . addslashes($new['logs']) . "',
+    `listeners` =       '" . addslashes($new['listeners']) . "'
 WHERE
     ID =                $signalID";
 //            print "<pre>$sql</pre>"; die;

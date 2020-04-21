@@ -227,7 +227,7 @@ class ListenerRepository extends ServiceEntityRepository
 
     private function addFilterTimezone(&$qb, $args)
     {
-        if (!isset($args['timezone']) || '' === $args['timezone']) {
+        if (!isset($args['timezone']) || 'ALL' === $args['timezone']) {
             return;
         }
         $qb

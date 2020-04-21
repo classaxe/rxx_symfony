@@ -37,6 +37,27 @@ class Export extends Base
     }
 
     /**
+     * @Route(
+     *     "/{_locale}/{system}/signals/export/txt",
+     *     requirements={
+     *        "_locale": "de|en|es|fr",
+     *        "system": "reu|rna|rww"
+     *     },
+     *     name="signals_export_txt"
+     * )
+     * @param $_locale
+     * @param $system
+     * @return Response
+     * @throws Exception
+     */
+    public function txt(
+        $_locale,
+        $system
+    ) {
+        return $this->export($_locale, $system, 'txt');
+    }
+
+    /**
      * @param $_locale
      * @param $system
      * @param $mode

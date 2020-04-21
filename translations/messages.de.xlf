@@ -4179,6 +4179,14 @@
         <source>%d records updated in %s (Used %s)</source>
         <target>__%d records updated in %s (Used %s)</target>
       </trans-unit>
+      <trans-unit id="NTTI8r7" resname="(All Timezones)">
+        <source>(All Timezones)</source>
+        <target>__(All Timezones)</target>
+      </trans-unit>
+      <trans-unit id="DWNG4GC" resname="Matched">
+        <source>Matched</source>
+        <target>__Matched</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

@@ -187,20 +187,18 @@ class Base extends AbstractController
 
     protected function setValueFromRequest(&$args, $request, $field, $options = false, $letterCase = false)
     {
-        $value = $request->query->get($field);
-        if ($value === '') {
-            return;
-        }
-        switch($letterCase) {
-            case 'a':
-                $value = strtolower($value);
-                break;
-            case 'A':
-                $value = strtoupper($value);
-                break;
-        }
-        if (false === $options || in_array($value, $options)) {
-            $args[$field] = addslashes($value);
+        if (($value = $request->query->get($field)) && $value !== '') {
+            switch ($letterCase) {
+                case 'a':
+                    $value = strtolower($value);
+                    break;
+                case 'A':
+                    $value = strtoupper($value);
+                    break;
+            }
+            if (false === $options || in_array($value, $options)) {
+                $args[$field] = addslashes($value);
+            }
         }
     }
 
@@ -273,6 +271,14 @@ class Base extends AbstractController
         }
     }
 
+    protected function setTimezoneFromRequest(&$args, $request)
+    {
+        $value = $request->query->get('timezone', false);
+        if ($value !== false) {
+            $args['timezone'] = addslashes($value);
+        }
+
+    }
     protected function setTypeFromRequest(&$args, $request)
     {
         if ($request->query->get('types')) {

@@ -2,8 +2,12 @@
 
 namespace App\Repository;
 
+use Symfony\Contracts\Translation\TranslatorInterface;
+
 class TimeRepository
 {
+    private $translator;
+
     const TIMEZONES = [
         [  -12, '-12:00', 'Dateline ST',        '' ],
         [  -11, '-11:00', 'Samoa ST',           'Midway Island, Samoa' ],
@@ -41,9 +45,17 @@ class TimeRepository
         [   13, '+13:00', 'Tonga ST',           'Tonga' ]
     ];
 
-    public function getAllOptions()
+    public function __construct(TranslatorInterface $translator)
+    {
+        $this->translator = $translator;
+    }
+
+    public function getAllOptions($withAllOption = false)
     {
         $out = [];
+        if ($withAllOption) {
+            $out = [ $this->translator->trans('(All Timezones)') => 'ALL' ];
+        }
         foreach (static::TIMEZONES as $tz) {
             $out[$tz[1] . ' ' . str_pad($tz[2], 20, ' ') . ' | ' . $tz[3]] = $tz[0] ;
         }

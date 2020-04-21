@@ -76,7 +76,7 @@ class Collection extends Base
             'q' =>          '',
             'region' =>     '',
             'show' =>       '',
-            'timezone' =>   '',
+            'timezone' =>   'ALL',
         ];
         $this->setArgsFromRequest($args, $request);
         $form = $form->buildForm($this->createFormBuilder(), $args);
@@ -149,7 +149,7 @@ class Collection extends Base
             $this->setValueFromRequest($args, $request, 'has_map_pos', ['', 'N', 'Y'], 'A');
         }
         $this->setValueFromRequest($args, $request, 'show', ['list', 'map'], 'a');
-        $this->setValueFromRequest($args, $request, 'timezone');
+        $this->setTimezoneFromRequest($args, $request);
         $this->setValueFromRequest($args, $request, 'country', false, 'A');
         $this->setValueFromRequest($args, $request, 'q');
     }

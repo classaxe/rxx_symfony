@@ -126,11 +126,11 @@ class Collection extends Base
                 'timezone',
                 ChoiceType::class,
                 [
-                    'choices' =>        $this->timeRepository->getAllOptions(),
+                    'choices' =>        $this->timeRepository->getAllOptions(true),
                     'choice_translation_domain' => false,
                     'data' =>           $options['timezone'],
                     'label' =>          'Timezone',
-                    'required' =>       false
+                    'required' =>       true
                 ]
             )
             ->add(
