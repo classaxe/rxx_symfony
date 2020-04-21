@@ -2,6 +2,7 @@
 namespace App\Controller\Web\Admin;
 
 use App\Controller\Web\Base;
+use App\Utils\Rxx;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -65,6 +66,18 @@ class Tools extends Base
         return $this->render('admin/tools/index.html.twig', $parameters);
     }
 
+    private function setMessage($affected, $start) {
+        $duration = gmdate("H:i:s", time() - $start);
+        $memory = Rxx::formatBytes(memory_get_peak_usage(),1);
+        $message = sprintf(
+            $this->translator->trans('%d records updated in %s (Used %s)'),
+            $affected,
+            $duration,
+            $memory
+        );
+        $this->session->set('lastMessage', $message);
+    }
+
     private function icaoImport() {
         $this->session->set('lastError', 'Not yet implemented');
     }
@@ -74,9 +87,9 @@ class Tools extends Base
     }
 
     private function logsDx() {
+        $start = time();
         $affected = $this->logRepository->updateDx();
-        $message = sprintf($this->translator->trans('Operation complete - %d record(s) were updated'), $affected);
-        $this->session->set('lastMessage', $message);
+        $this->setMessage($affected, $start);
     }
 
     private function logsDaytime() {
@@ -84,15 +97,16 @@ class Tools extends Base
     }
 
     private function signalsLatLon() {
+        $start = time();
         $affected = $this->signalRepository->updateSignalLatLonFromGSQ();
-        $message = sprintf($this->translator->trans('Operation complete - %d record(s) were updated'), $affected);
-        $this->session->set('lastMessage', $message);
+        $this->setMessage($affected, $start);
     }
 
     private function signalsStats() {
-        $affected = $this->signalRepository->updateSignalStats(false, true);
-        $message = sprintf($this->translator->trans('Operation complete - %d record(s) were updated'), $affected);
-        $this->session->set('lastMessage', $message);
+        $this->session->set('lastError', 'Not yet implemented');
+//        $start = time();
+//        $affected = $this->signalRepository->updateSignalStats(false, true);
+//        $this->setMessage($affected, $start);
     }
 
     private function systemExportDb() {

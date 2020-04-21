@@ -4175,6 +4175,10 @@
         <source>Operation complete - %d record(s) were updated</source>
         <target>__Operation complete - %d record(s) were updated</target>
       </trans-unit>
+      <trans-unit id="3Aeetzj" resname="%d records updated in %s (Used %s)">
+        <source>%d records updated in %s (Used %s)</source>
+        <target>__%d records updated in %s (Used %s)</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

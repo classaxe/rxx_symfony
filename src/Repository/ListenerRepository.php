@@ -237,7 +237,7 @@ class ListenerRepository extends ServiceEntityRepository
 
     /**
      * @param string $mode
-     * @return bool|array
+     * @return false|array
      */
     public function getColumns($mode = '')
     {

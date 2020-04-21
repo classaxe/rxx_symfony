@@ -61,6 +61,16 @@ class Rxx
         return "<pre>".str_replace("Array\n(", "Array (", print_r($var, true))."</pre>";
     }
 
+    public static function formatBytes($bytes, $precision = 3)
+    {
+        $units = array('B', 'KB', 'MB', 'GB', 'TB');
+        $bytes = max($bytes, 0);
+        $pow = floor(($bytes ? log($bytes) : 0) / log(1024));
+        $pow = min($pow, count($units) - 1);
+        $bytes /= pow(1024, $pow);
+        return round($bytes, $precision) . ' ' . $units[$pow];
+    }
+
     public static function getDx($qth_lat, $qth_lon, $dx_lat, $dx_lon)
     {
         if (($qth_lat==0 && $qth_lon==0) || ($dx_lat==0 && $dx_lon==0)) {
