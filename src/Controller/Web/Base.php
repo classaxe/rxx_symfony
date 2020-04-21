@@ -187,18 +187,20 @@ class Base extends AbstractController
 
     protected function setValueFromRequest(&$args, $request, $field, $options = false, $letterCase = false)
     {
-        if ($value = $request->query->get($field)) {
-            switch($letterCase) {
-                case 'a':
-                    $value = strtolower($value);
-                    break;
-                case 'A':
-                    $value = strtoupper($value);
-                    break;
-            }
-            if (false === $options || in_array($value, $options)) {
-                $args[$field] = addslashes($value);
-            }
+        $value = $request->query->get($field);
+        if ($value === '') {
+            return;
+        }
+        switch($letterCase) {
+            case 'a':
+                $value = strtolower($value);
+                break;
+            case 'A':
+                $value = strtoupper($value);
+                break;
+        }
+        if (false === $options || in_array($value, $options)) {
+            $args[$field] = addslashes($value);
         }
     }
 
