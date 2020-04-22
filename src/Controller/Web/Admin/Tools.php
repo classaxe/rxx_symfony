@@ -104,7 +104,7 @@ class Tools extends Base
 
     private function signalsStats() {
         $start = time();
-        $affected = $this->signalRepository->updateSignalStats(false, false);
+        $affected = $this->signalRepository->updateSignalStats(false, true);
         $this->setMessage($affected, $start);
     }
 

@@ -1319,14 +1319,21 @@ EOD;
         foreach ($data as $signalID => $new) {
             $old = $signals[$signalID][0];
             $update = false;
+            foreach ($fields as $f) {
+                if ($old[$f] !== $new[$f]) {
+                    $update = true;
+                    break;
+                }
+            }
             if ($updateSpecs) {
-                $update = true;
-            } else {
-                foreach ($fields as $f) {
-                    if ($old[$f] !== $new[$f]) {
-                        $update = true;
-                        break;
-                    }
+                if ($new['LSB'] !== null && $new['LSB'] !== $old['LSB']) {
+                    $update = true;
+                }
+                if ($new['USB'] !== null && $new['USB'] !== $old['USB']) {
+                    $update = true;
+                }
+                if ($new['sec'] !== null && $new['sec'] !== $old['sec']) {
+                    $update = true;
                 }
             }
             if (!$update) {
