@@ -116,6 +116,15 @@ class SignalView extends Base
                 $em->persist($signal);
             }
             $em->flush();
+
+            if ($form_data['_close']) {
+                return new Response(
+                    '<script>window.close();</script>',
+                    Response::HTTP_OK,
+                    ['content-type' => 'text/html']
+                );
+            }
+
             $id = $signal->getId();
             return $this->redirectToRoute(
                 'signal',

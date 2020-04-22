@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.8.0
- * Date:       2020-04-18
+ * Version:    2.8.7
+ * Date:       2020-04-22
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
  */
@@ -1149,7 +1149,8 @@ button.tiny {
 #form div button {
   float: left;
   clear: none !important;
-  width: 6em;
+  padding: 0.25em 0;
+  width: 8em;
 }
 #form div p {
   margin: 0;

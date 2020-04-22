@@ -77,11 +77,19 @@ class ListenerView extends AbstractType
     public function buildForm(FormBuilderInterface $formBuilder, array $options)
     {
         $isAdmin = $options['isAdmin'];
-        $formBuilder->add(
+        $formBuilder
+        ->add(
             'id',
             HiddenType::class,
             [
                 'data' =>           $options['id']
+            ]
+        )
+        ->add(
+            '_close',
+            HiddenType::class,
+            [
+                'data' =>       0
             ]
         )
         ->add(
@@ -291,6 +299,16 @@ class ListenerView extends AbstractType
                         'class' => 'button small'
                     ],
                     'label' => 'Save',
+                ]
+            )
+            ->add(
+                'saveClose',
+                SubmitType::class,
+                [
+                    'attr' => [
+                        'class' => 'button small'
+                    ],
+                    'label' => 'Save + Close',
                 ]
             );
         } else {

@@ -4,6 +4,7 @@
         {{ form_start(form) }}
             <div id="form">
                 {{ form_row(form.id)  }}
+                {{ form_row(form._close)  }}
                 <fieldset id="group_profile">
                     <div>
                         {{ form_label(form.call) }}
@@ -93,9 +94,17 @@
                     {{ form_row(form.print) }}
                     {{ form_row(form.close) }}
                     {% if isAdmin %}{{ form_row(form.save) }}{% else %}{{ form_row(form.save_disabled) }}{% endif %}
+                    {% if isAdmin %}{{ form_row(form.saveClose) }}{% endif %}
                 </fieldset>
 
             </div>
         {{ form_end(form, {'render_rest': false}) }}
         </div>
     </div>
+    <script>
+        $(document).ready(function () {
+            $('#form_saveClose').on('click', function(){
+                $('#form__close').val(1);
+            })
+        });
+    </script>

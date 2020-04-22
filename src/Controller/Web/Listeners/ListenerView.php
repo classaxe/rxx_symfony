@@ -108,6 +108,15 @@ class ListenerView extends Base
             $em = $this->getDoctrine()->getManager();
             $em->persist($listener);
             $em->flush();
+
+            if ($form_data['_close']) {
+                return new Response(
+                    '<script>window.close();</script>',
+                    Response::HTTP_OK,
+                    ['content-type' => 'text/html']
+                );
+            }
+
             $id = $listener->getId();
             return $this->redirectToRoute('listener', ['system' => $system, 'id' => $id]);
         }

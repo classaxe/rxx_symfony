@@ -1279,7 +1279,7 @@ EOD;
                 $heardIn[] =
                     ($old_link && ($link !== $old_link) ? '</a> ' : ' ')
                     . ($link && ($link !== $old_link) ? sprintf($link, $row['signalID']) : '')
-                    . ($row["daytime"] ? sprintf("<b>%s</b>", $row["heard_in"]) : $row["heard_in"]);
+                    . ' '. ($row["daytime"] ? sprintf("<b>%s</b>", $row["heard_in"]) : $row["heard_in"]);
                 $old_link = $link;
             }
             if ($link !== false) {
@@ -1288,7 +1288,7 @@ EOD;
             $entry = [
                 'ID' =>             $row['signalID'],
                 'heard_in' =>       trim(strip_tags(implode('', $heardIn))),
-                'heard_in_html' =>  str_replace('> ','>', trim(implode('', $heardIn)))
+                'heard_in_html' =>  preg_replace('/\s+/', ' ', trim(implode('', $heardIn)))
             ];
             foreach($all_regions as $r) {
                 $entry['heard_in_' . $r] = (isset($regions[$r]) ? '1' : '0');
