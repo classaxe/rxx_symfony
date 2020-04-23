@@ -103,8 +103,10 @@ class Tools extends Base
     }
 
     private function signalsStats() {
+        $mysql = $this->systemRepository->getMySQLVersion();
         $start = time();
-        $affected = $this->signalRepository->updateSignalStats(false, true);
+        $updateStats = (float)substr($mysql,0,3) > 5.5;
+        $affected = $this->signalRepository->updateSignalStats(false, $updateStats);
         $this->setMessage($affected, $start);
     }
 

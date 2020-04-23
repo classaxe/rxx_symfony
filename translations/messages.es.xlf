@@ -4187,6 +4187,10 @@
         <source>Matched</source>
         <target>__Matched</target>
       </trans-unit>
+      <trans-unit id="OM8OWpu" resname="MySQL Version">
+        <source>MySQL Version</source>
+        <target>__MySQL Version</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

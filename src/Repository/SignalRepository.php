@@ -1105,12 +1105,13 @@ EOD;
 
     private function getLogsLatestSpec($signalId = false)
     {
+        // This takes WAY longer for mysql 5.5 so don't use for all signals on that server
         $sql = <<<EOD
 SELECT
     signalID,
-    (SELECT LSB    FROM logs l WHERE l.signalID = logs.signalID AND (l.LSB    IS NOT NULL AND l.LSB    != 0) AND (l.LSB_approx IS NULL OR l.LSB_approx = '') ORDER BY l.date DESC, l.time DESC LIMIT 1) as LSB,
-    (SELECT USB    FROM logs l WHERE l.signalID = logs.signalID AND (l.USB    IS NOT NULL AND l.USB    != 0) AND (l.USB_approx IS NULL OR l.USB_approx = '') ORDER BY l.date DESC, l.time DESC LIMIT 1) as USB,
-    (SELECT sec    FROM logs l WHERE l.signalID = logs.signalID AND (l.sec    IS NOT NULL AND l.sec    != '') ORDER BY l.date DESC LIMIT 1) as sec
+    (SELECT LSB FROM logs l WHERE l.signalID = logs.signalID AND (l.LSB IS NOT NULL AND l.LSB != 0) AND (l.LSB_approx IS NULL OR l.LSB_approx = '') ORDER BY l.date DESC, l.time DESC LIMIT 1) as LSB,
+    (SELECT USB FROM logs l WHERE l.signalID = logs.signalID AND (l.USB IS NOT NULL AND l.USB != 0) AND (l.USB_approx IS NULL OR l.USB_approx = '') ORDER BY l.date DESC, l.time DESC LIMIT 1) as USB,
+    (SELECT sec FROM logs l WHERE l.signalID = logs.signalID AND (l.sec IS NOT NULL AND l.sec != '') ORDER BY l.date DESC LIMIT 1) as sec
 FROM
     logs
 GROUP BY

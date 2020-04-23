@@ -41,6 +41,7 @@ class Info extends Base
             'countEntries' =>   count($entries),
             'mode' =>           'System Info',
             'info' =>           $this->getPhpInfo(),
+            'mysql_version' =>  $this->systemRepository->getMySQLVersion(),
             'php_version' =>    phpversion(),
             'system' =>         $system,
         ];

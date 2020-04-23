@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Repository;
+use Doctrine\DBAL\Driver\Connection;
 
 class SystemRepository
 {
@@ -128,6 +129,16 @@ class SystemRepository
         ]
     ];
 
+    private $connection;
+    /**
+     * SystemRepository constructor.
+     * @param Connection $connection
+     */
+    public function __construct(Connection $connection)
+    {
+        $this->connection = $connection;
+    }
+
     public function getClassicUrl($mode='', $submode='')
     {
         $response = [ 'type' => 'url', 'value' => '' ];
@@ -175,5 +186,12 @@ class SystemRepository
     public function getAll()
     {
         return self::SYSTEMS;
+    }
+
+    public function getMySQLVersion()
+    {
+        $stmt = $this->connection->prepare('SELECT VERSION()');
+        $stmt->execute();
+        return $stmt->fetchColumn();
     }
 }
