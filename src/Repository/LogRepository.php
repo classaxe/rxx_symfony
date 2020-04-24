@@ -74,32 +74,63 @@ class LogRepository extends ServiceEntityRepository
         }
     }
 
+    private function getLogWhereClause($listenerId = false, $signalId = false)
+    {
+        return ($listenerId || $signalId ?
+            "WHERE\n"
+            . ($listenerId ? "    `logs`.`listenerID` = $listenerId" : '')
+            . ($listenerId && $signalId ? " AND\n" : "\n")
+            . ($signalId ? "    `logs`.`signalID` = $signalId" : '')
+            : ''
+        );
+    }
+
+    public function getLogCount($listenerId = false, $signalId = false)
+    {
+        $where = $this->getLogWhereClause($listenerId, $signalId);
+        $sql = <<< EOD
+            SELECT
+                count(*)
+            FROM
+                `logs`
+            INNER JOIN `signals` `s` ON
+                `logs`.`signalID` = `s`.`ID`
+            INNER JOIN `listeners` `l` ON
+                `logs`.`listenerID` = `l`.`ID`
+            $where
+EOD;
+
+        $stmt = $this->connection->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchColumn();
+    }
+
     public function getLogsForListener($listenerID)
     {
         $qb = $this
             ->createQueryBuilder('l')
             ->select(
                 'l.date,'
-                .'l.time,'
-                .'l.daytime,'
-                .'l.dxKm,'
-                .'l.dxMiles,'
-                .'CONCAT(l.lsbApprox, l.lsb) AS lsb,'
-                .'CONCAT(l.usbApprox, l.usb) AS usb,'
-                .'l.sec,'
-                .'l.format,'
-                .'s.khz,'
-                .'s.call,'
-                .'s.type,'
-                .'s.active,'
-                .'(CASE WHEN s.pwr = 0 THEN \'\' ELSE s.pwr END) AS pwr,'
-                .'s.sp,'
-                .'s.itu,'
-                .'s.region,'
-                .'s.gsq,'
-                .'s.lat,'
-                .'s.lon,'
-                .'s.qth'
+                . 'l.time,'
+                . 'l.daytime,'
+                . 'l.dxKm,'
+                . 'l.dxMiles,'
+                . 'CONCAT(l.lsbApprox, l.lsb) AS lsb,'
+                . 'CONCAT(l.usbApprox, l.usb) AS usb,'
+                . 'l.sec,'
+                . 'l.format,'
+                . 's.khz,'
+                . 's.call,'
+                . 's.type,'
+                . 's.active,'
+                . '(CASE WHEN s.pwr = 0 THEN \'\' ELSE s.pwr END) AS pwr,'
+                . 's.sp,'
+                . 's.itu,'
+                . 's.region,'
+                . 's.gsq,'
+                . 's.lat,'
+                . 's.lon,'
+                . 's.qth'
             )
             ->andWhere('l.listenerid = :listenerID')
             ->setParameter('listenerID', $listenerID)
@@ -124,30 +155,10 @@ class LogRepository extends ServiceEntityRepository
     {
         set_time_limit(600);    // Extend maximum execution time to 10 mins
         $chunksize = 200000;
-
-        $WHERE = ($listenerId || $signalId ?
-            "WHERE\n"
-            . ($listenerId ? "    `logs`.`listenerID` = $listenerId" : '')
-            . ($listenerId && $signalId ? " AND\n" : "\n")
-            . ($signalId ? "    `logs`.`signalID` = $signalId" : '')
-            : ''
-        );
-        $sql = <<< EOD
-            SELECT
-                count(*)
-            FROM
-                `logs`
-            INNER JOIN `signals` `s` ON
-                `logs`.`signalID` = `s`.`ID`
-            INNER JOIN `listeners` `l` ON
-                `logs`.`listenerID` = `l`.`ID`
-            $WHERE
-EOD;
-
-        $stmt =     $this->connection->prepare($sql);
-        $stmt->execute();
-        $count =    $stmt->fetchColumn();
         $affected = 0;
+
+        $count = $this->getLogCount($listenerId, $signalId);
+        $where = $this->getLogWhereClause($listenerId, $signalId);
 
         for ($offset = 0; $offset < $count; $offset += $chunksize) {
             $sql = <<< EOD
@@ -165,7 +176,7 @@ EOD;
                     `logs`.`signalID` = `s`.`ID`
                 INNER JOIN `listeners` `l` ON
                     `logs`.`listenerID` = `l`.`ID`
-                $WHERE
+                $where
                 LIMIT $chunksize OFFSET $offset
 EOD;
             $stmt = $this->connection->prepare($sql);
@@ -179,7 +190,7 @@ EOD;
                 if (($dx['km'] === (int)$r['dx_km']) && ($dx['miles'] === (int)$r['dx_miles'])) {
                     continue;
                 }
-                $sql =  <<< EOD
+                $sql = <<< EOD
                     UPDATE
                         `logs`
                     SET
@@ -194,5 +205,24 @@ EOD;
             }
         }
         return $affected;
+    }
+
+    public function updateDaytime()
+    {
+        $sql = <<< EOD
+        UPDATE
+            logs
+        INNER JOIN listeners l ON
+            logs.listenerID = l.ID
+        SET
+            daytime = IF(
+                (logs.time + 2400 >= 3400 + (l.timezone * -100)) AND
+                (logs.time + 2400 < 3800 + (l.timezone * -100)),
+                1, 0
+            )
+EOD;
+        $stmt = $this->connection->prepare($sql);
+        $stmt->execute();
+        return $stmt->rowCount();
     }
 }

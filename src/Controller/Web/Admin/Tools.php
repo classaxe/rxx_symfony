@@ -93,7 +93,9 @@ class Tools extends Base
     }
 
     private function logsDaytime() {
-        $this->session->set('lastError', 'Not yet implemented');
+        $start = time();
+        $affected = $this->logRepository->updateDaytime();
+        $this->setMessage($affected, $start);
     }
 
     private function signalsLatLon() {

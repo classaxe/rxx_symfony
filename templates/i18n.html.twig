@@ -45,18 +45,22 @@
 {% endif %}
 {% if 'Admin Tools' %}
     {% trans %}Administrator Management Tools{% endtrans %}
-    {% trans %}Update Lat and Lon values from GSQ (use after importing new signals using phpMyAdmin){% endtrans %}
-    {% trans %}%d records updated in %s (Used %s){% endtrans %}
-    {% trans %}Update listeners, logs and Heard In from latest log data (run if problems are seen){% endtrans %}
-    {% trans %}Recalculate all distances (use after adding GSQs for existing logging or function above){% endtrans %}
-    {% trans %}Mark daytime loggings (run periodically){% endtrans %}
-    {% trans %}Update log counts (run periodically){% endtrans %}
+    {% trans %}Update Lat and Lon values from GSQ{% endtrans %}
+    {% trans %}Update log and listener counts and 'Heard In' lists from latest log data{% endtrans %}
+    {% trans %}Recalculate all distances{% endtrans %}
+    {% trans %}Mark daytime loggings{% endtrans %}
+    {% trans %}Update log counts{% endtrans %}
     {% trans %}ICAO Data{% endtrans %}
-    {% trans %}Get latest data (run once a month){% endtrans %}
+    {% trans %}Get latest data{% endtrans %}
     {% trans %}System{% endtrans %}
-    {% trans %}Export Database (run periodically){% endtrans %}
+    {% trans %}Export Database{% endtrans %}
     {% trans %}Send Test Email to:{% endtrans %}
+    {% trans %}(run if problems are seen){% endtrans %}
+    {% trans %}(run after updating GSQ values for listeners or signals){% endtrans %}
+    {% trans %}(run once a month){% endtrans %}
+    {% trans %}(run as needed){% endtrans %}
     {% trans %}Not yet implemented{% endtrans %}
+    {% trans %}%d records updated in %s (Used %s){% endtrans %}
 {% endif %}
 {% if 'System Info' %}
     {% trans %}MySQL Version{% endtrans %}

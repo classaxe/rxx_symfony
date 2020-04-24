@@ -4191,6 +4191,50 @@
         <source>MySQL Version</source>
         <target>MySQL Version</target>
       </trans-unit>
+      <trans-unit id="ZXXpti5" resname="Update Lat and Lon values from GSQ">
+        <source>Update Lat and Lon values from GSQ</source>
+        <target>Update Lat and Lon values from GSQ</target>
+      </trans-unit>
+      <trans-unit id="zPkrDtd" resname="Update log and listener counts and 'Heard In' lists from latest log data">
+        <source>Update log and listener counts and 'Heard In' lists from latest log data</source>
+        <target>Update log and listener counts and 'Heard In' lists from latest log data</target>
+      </trans-unit>
+      <trans-unit id="gRFxUl4" resname="Recalculate all distances">
+        <source>Recalculate all distances</source>
+        <target>Recalculate all distances</target>
+      </trans-unit>
+      <trans-unit id="oMw5B.P" resname="Mark daytime loggings">
+        <source>Mark daytime loggings</source>
+        <target>Mark daytime loggings</target>
+      </trans-unit>
+      <trans-unit id="xyOLqnU" resname="Update log counts">
+        <source>Update log counts</source>
+        <target>Update log counts</target>
+      </trans-unit>
+      <trans-unit id=".b1z_b." resname="Get latest data">
+        <source>Get latest data</source>
+        <target>Get latest data</target>
+      </trans-unit>
+      <trans-unit id="60Kv9fL" resname="Export Database">
+        <source>Export Database</source>
+        <target>Export Database</target>
+      </trans-unit>
+      <trans-unit id="mWSadZT" resname="(run if problems are seen)">
+        <source>(run if problems are seen)</source>
+        <target>(run if problems are seen)</target>
+      </trans-unit>
+      <trans-unit id="UWsj6uY" resname="(run after updating GSQ values for listeners or signals)">
+        <source>(run after updating GSQ values for listeners or signals)</source>
+        <target>(run after updating GSQ values for listeners or signals)</target>
+      </trans-unit>
+      <trans-unit id="uzC0TWV" resname="(run once a month)">
+        <source>(run once a month)</source>
+        <target>(run once a month)</target>
+      </trans-unit>
+      <trans-unit id="Qgcp9zi" resname="(run as needed)">
+        <source>(run as needed)</source>
+        <target>(run as needed)</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

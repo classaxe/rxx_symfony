@@ -7,39 +7,55 @@
             <li>{% trans %}Signals{% endtrans %}:
                 <ul>
                     <li><a class="button" href="{{ url('admin/tools', {'system' : system, 'tool' : 'signalsLatLon'}) }}">{% trans %}Go{% endtrans %}</a>
-                        {% trans %}Update Lat and Lon values from GSQ (use after importing new signals using phpMyAdmin){% endtrans %}</li>
+                        <strong>{% trans %}Update Lat and Lon values from GSQ{% endtrans %}</strong>
+                        {% trans %}(run if problems are seen){% endtrans %}
+                    </li>
                     <li><a class="button" href="{{ url('admin/tools', {'system' : system, 'tool' : 'signalsStats'}) }}">{% trans %}Go{% endtrans %}</a>
-                        {% trans %}Update listeners, logs and Heard In from latest log data (run if problems are seen){% endtrans %}</li>
+                        <strong>{% trans %}Update log and listener counts and 'Heard In' lists from latest log data{% endtrans %}</strong>
+                        {% trans %}(run if problems are seen){% endtrans %}
+                    </li>
                 </ul>
             </li>
             <li>{% trans %}Logs{% endtrans %}:
                 <ul>
                     <li><a class="button" href="{{ url('admin/tools', {'system' : system, 'tool' : 'logsDx'}) }}">{% trans %}Go{% endtrans %}</a>
-                        {% trans %}Recalculate all distances (use after adding GSQs for existing logging or function above){% endtrans %}</li>
-                    <li><a class="button" disabled='disabled' href="{{ url('admin/tools', {'system' : system, 'tool' : 'logsDaytime'}) }}">{% trans %}Go{% endtrans %}</a>
-                        {% trans %}Mark daytime loggings (run periodically){% endtrans %}</li>
+                        <strong>{% trans %}Recalculate all distances{% endtrans %}</strong>
+                        {% trans %}(run after updating GSQ values for listeners or signals){% endtrans %}
+                    </li>
+                    <li><a class="button" href="{{ url('admin/tools', {'system' : system, 'tool' : 'logsDaytime'}) }}">{% trans %}Go{% endtrans %}</a>
+                        <strong>{% trans %}Mark daytime loggings{% endtrans %}</strong>
+                        {% trans %}(run if problems are seen){% endtrans %}
+                    </li>
                 </ul>
             </li>
             <li>{% trans %}Listeners{% endtrans %}:
                 <ul>
                     <li><a class="button" disabled='disabled' href="{{ url('admin/tools', {'system' : system, 'tool' : 'listenersStats'}) }}">{% trans %}Go{% endtrans %}</a>
-                        {% trans %}Update log counts (run periodically){% endtrans %}</li>
+                        <strong>{% trans %}Update log counts{% endtrans %}</strong>
+                        {% trans %}(run if problems are seen){% endtrans %}
+                    </li>
                 </ul>
             </li>
 
             <li>{% trans %}ICAO Data{% endtrans %}:
                 <ul>
                     <li><a class="button" disabled='disabled' href="{{ url('admin/tools', {'system' : system, 'tool' : 'icaoImport'}) }}">{% trans %}Go{% endtrans %}</a>
-                        {% trans %}Get latest data (run once a month){% endtrans %}</li>
+                        <strong>{% trans %}Get latest data{% endtrans %}</strong>
+                        {% trans %}(run once a month){% endtrans %}
+                    </li>
                 </ul>
             </li>
 
             <li>{% trans %}System{% endtrans %}:
                 <ul>
                     <li><a class="button" disabled='disabled' href="{{ url('admin/tools', {'system' : system, 'tool' : 'systemExportDb'}) }}">{% trans %}Go{% endtrans %}</a>
-                        {% trans %}Export Database (run periodically){% endtrans %}</li>
+                        <strong>{% trans %}Export Database{% endtrans %}</strong>
+                        {% trans %}(run as needed){% endtrans %}
+                    </li>
                     <li><a class="button" disabled='disabled' href="{{ url('admin/tools', {'system' : system, 'tool' : 'systemEmailTest'}) }}">{% trans %}Go{% endtrans %}</a>
-                        {% trans %}Send Test Email to:{% endtrans %} <label class="sr-only" for="email">Email Address</label><input type="text" name="email" id="email" /></li>
+                        <strong>{% trans %}Send Test Email to:{% endtrans %}</strong>
+                        <label class="sr-only" for="email">Email Address</label><input type="text" name="email" id="email" />
+                    </li>
                 </ul>
             </li>
         </ol>
