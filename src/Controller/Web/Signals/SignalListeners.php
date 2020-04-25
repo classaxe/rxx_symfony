@@ -69,8 +69,8 @@ class SignalListeners extends Base
             'columns' =>            $this->signalRepository->getColumns('listeners'),
             'form' =>               $form->createView(),
             '_locale' =>            $_locale,
-            'matched' =>            sprintf($this->translator->trans('of %s Listeners'), $options['total']),
-            'mode' =>               sprintf($this->translator->trans('Listeners for %s'), $signal->getFormattedIdent()),
+            'matched' =>            sprintf($this->i18n('of %s Listeners'), $options['total']),
+            'mode' =>               sprintf($this->i18n('Listeners for %s'), $signal->getFormattedIdent()),
             'records' =>            $this->signalRepository->getListenersForSignal($id, $args),
             'results' => [
                 'limit' =>              isset($args['limit']) ? $args['limit'] : static::defaultlimit,

@@ -179,7 +179,7 @@ class Collection extends Base
             'expanded' =>           $expanded,
             'form' =>               $form->createView(),
             'isAdmin' =>            $isAdmin,
-            'mode' =>               $this->translator->trans('Signals'),
+            'mode' =>               $this->i18n('Signals'),
             'paper' =>              $paper,
             'paperChoices' =>       $paperRepository->getAllChoices(),
             'personalised' =>       isset($args['personalise']) ? $this->listenerRepository->getDescription($args['personalise']) : false,

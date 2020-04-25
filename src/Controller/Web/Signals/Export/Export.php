@@ -95,7 +95,7 @@ class Export extends Base
             '_locale' =>            $_locale,
             'args' =>               $args,
             'columns' =>            $this->signalRepository->getColumns('signals'),
-            'mode' =>               $this->translator->trans('Signals'),
+            'mode' =>               $this->i18n('Signals'),
             'signals' =>            $signalEntities,
             'system' =>             $system,
             'types' =>              $types,

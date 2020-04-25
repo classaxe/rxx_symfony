@@ -69,8 +69,8 @@ class SignalLogs extends Base
             'columns' =>            $this->signalRepository->getColumns('logs'),
             'form' =>               $form->createView(),
             '_locale' =>            $_locale,
-            'matched' =>            sprintf($this->translator->trans('of %s Log Records'), $options['total']),
-            'mode' =>               sprintf($this->translator->trans('Logs for %s'), $signal->getFormattedIdent()),
+            'matched' =>            sprintf($this->i18n('of %s Log Records'), $options['total']),
+            'mode' =>               sprintf($this->i18n('Logs for %s'), $signal->getFormattedIdent()),
             'records' =>            $this->signalRepository->getLogsForSignal($id, $args),
             'results' => [
                 'limit' =>              isset($args['limit']) ? $args['limit'] : static::defaultlimit,

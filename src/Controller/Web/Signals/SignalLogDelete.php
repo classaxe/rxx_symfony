@@ -58,7 +58,7 @@ class SignalLogDelete extends Base
         $this->session->set(
             'lastMessage',
             sprintf(
-                $this->translator->trans("Log entry has been deleted. Stats for %s have been updated."),
+                $this->i18n("Log entry has been deleted. Stats for %s have been updated."),
                 $signal->getFormattedIdent()
             )
         );

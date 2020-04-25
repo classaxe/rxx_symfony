@@ -140,12 +140,12 @@ class SignalView extends Base
             '_locale' =>            $_locale,
             'mode' =>
                 ($isAdmin && !$id ?
-                    $this->translator->trans('Add Signal')
+                    $this->i18n('Add Signal')
                 :
                     sprintf($signal->getActive() ?
-                        $this->translator->trans('Details for %s (Active)')
+                        $this->i18n('Details for %s (Active)')
                     :
-                        $this->translator->trans('Details for %s (Inctive)'),  $signal->getFormattedIdent()
+                        $this->i18n('Details for %s (Inctive)'),  $signal->getFormattedIdent()
                     )
                 ),
             'system' =>             $system,

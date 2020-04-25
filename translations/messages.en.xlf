@@ -4235,6 +4235,22 @@
         <source>(run as needed)</source>
         <target>(run as needed)</target>
       </trans-unit>
+      <trans-unit id="YprP..w" resname="Update Lat and Lon from GSQ">
+        <source>Update Lat and Lon from GSQ</source>
+        <target>Update Lat and Lon from GSQ</target>
+      </trans-unit>
+      <trans-unit id="2Zvh8he" resname="Update info from latest log data">
+        <source>Update info from latest log data</source>
+        <target>Update info from latest log data</target>
+      </trans-unit>
+      <trans-unit id="AlKq4ou" resname="Update stats">
+        <source>Update stats</source>
+        <target>Update stats</target>
+      </trans-unit>
+      <trans-unit id="ZbtCeML" resname="Send Test Email">
+        <source>Send Test Email</source>
+        <target>Send Test Email</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

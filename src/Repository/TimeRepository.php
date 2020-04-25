@@ -45,11 +45,19 @@ class TimeRepository
         [   13, '+13:00', 'Tonga ST',           'Tonga' ]
     ];
 
+    /**
+     * TimeRepository constructor.
+     * @param TranslatorInterface $translator
+     */
     public function __construct(TranslatorInterface $translator)
     {
         $this->translator = $translator;
     }
 
+    /**
+     * @param bool $withAllOption
+     * @return array|string[]
+     */
     public function getAllOptions($withAllOption = false)
     {
         $out = [];

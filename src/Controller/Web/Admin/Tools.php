@@ -12,6 +12,8 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class Tools extends Base
 {
+    private $system;
+
     /**
      * @Route(
      *     "/{_locale}/{system}/admin/tools/{tool}",
@@ -32,6 +34,7 @@ class Tools extends Base
         $system,
         $tool
     ) {
+        $this->system = $system;
         if (!$this->parameters['isAdmin']) {
             $this->session->set('route', 'admin/tools');
             return $this->redirectToRoute('logon', ['system' => $system]);
@@ -39,22 +42,24 @@ class Tools extends Base
         $this->session->set('route', '');
         switch ($tool) {
             case 'icaoImport':
+                return $this->icaoImport();
             case 'listenersStats':
+                return $this->listenersStats();
             case 'logsDx':
+                return $this->logsDx();
             case 'logsDaytime':
+                return $this->logsDaytime();
             case 'signalsLatLon':
+                return $this->signalsLatLon();
             case 'signalsStats':
+                return $this->signalsStats();
             case 'systemExportDb':
+                return $this->systemExportDb();
             case 'systemEmailTest':
-                $this->{$tool}();
-                return $this->redirectToRoute('admin/tools', ['system' => $system]);
-
-            break;
-            default:
-                $this->session->set('lastError', '');
-                $this->session->set('lastMessage', '');
-                break;
+                return $this->systemEmailTest();
         }
+        $this->session->set('lastError', '');
+        $this->session->set('lastMessage', '');
 
         $parameters = [
             '_locale' =>        $_locale,
@@ -66,11 +71,22 @@ class Tools extends Base
         return $this->render('admin/tools/index.html.twig', $parameters);
     }
 
-    private function setMessage($affected, $start) {
+    private function setError($mode, $submode) {
+        $message = sprintf(
+            $this->i18n('<br /><strong>%s / %s</strong> is not yet implemented'),
+            $this->i18n($mode),
+            $this->i18n($submode)
+        );
+        $this->session->set('lastError', $message);
+    }
+
+    private function setMessage($mode, $submode, $affected, $start) {
         $duration = gmdate("H:i:s", time() - $start);
         $memory = Rxx::formatBytes(memory_get_peak_usage(),1);
         $message = sprintf(
-            $this->translator->trans('%d records updated in %s (Used %s)'),
+            $this->i18n('<strong>%s / %s</strong><br />Updated %d records in %s (Used %s)'),
+            $mode,
+            $submode,
             $affected,
             $duration,
             $memory
@@ -79,44 +95,62 @@ class Tools extends Base
     }
 
     private function icaoImport() {
-        $this->session->set('lastError', 'Not yet implemented');
+        $this->setError('ICAO Data', 'Get latest data');
+
+        return $this->redirectToRoute('admin/tools', [ 'system' => $this->system ]);
     }
 
     private function listenersStats() {
-        $this->session->set('lastError', 'Not yet implemented');
+        $start =    time();
+        $affected = $this->listenerRepository->updateListenerStats();
+        $this->setMessage('Listeners', 'Update log counts', $affected, $start);
+
+        return $this->redirectToRoute('admin/tools', [ 'system' => $this->system ]);
     }
 
     private function logsDx() {
-        $start = time();
+        $start =    time();
         $affected = $this->logRepository->updateDx();
-        $this->setMessage($affected, $start);
+        $this->setMessage('Logs', 'Recalculate all distances', $affected, $start);
+
+        return $this->redirectToRoute('admin/tools', [ 'system' => $this->system ]);
     }
 
     private function logsDaytime() {
-        $start = time();
+        $start =    time();
         $affected = $this->logRepository->updateDaytime();
-        $this->setMessage($affected, $start);
+        $this->setMessage('Logs', 'Mark daytime loggings', $affected, $start);
+
+        return $this->redirectToRoute('admin/tools', [ 'system' => $this->system ]);
     }
 
     private function signalsLatLon() {
         $start = time();
         $affected = $this->signalRepository->updateSignalLatLonFromGSQ();
-        $this->setMessage($affected, $start);
+        $this->setMessage('Signals', 'Update Lat and Lon from GSQ', $affected, $start);
+
+        return $this->redirectToRoute('admin/tools', [ 'system' => $this->system ]);
     }
 
     private function signalsStats() {
-        $mysql = $this->systemRepository->getMySQLVersion();
         $start = time();
+        $mysql = $this->systemRepository->getMySQLVersion();
         $updateStats = (float)substr($mysql,0,3) > 5.5;
         $affected = $this->signalRepository->updateSignalStats(false, $updateStats);
-        $this->setMessage($affected, $start);
+        $this->setMessage('Signals', 'Update info from latest log data', $affected, $start);
+
+        return $this->redirectToRoute('admin/tools', [ 'system' => $this->system ]);
     }
 
     private function systemExportDb() {
-        $this->session->set('lastError', 'Not yet implemented');
+        $this->setError('System', 'Export Database');
+
+        return $this->redirectToRoute('admin/tools', [ 'system' => $this->system ]);
     }
 
     private function systemEmailTest() {
-        $this->session->set('lastError', 'Not yet implemented');
+        $this->setError('System', 'Send Test Email');
+
+        return $this->redirectToRoute('admin/tools', [ 'system' => $this->system ]);
     }
 }

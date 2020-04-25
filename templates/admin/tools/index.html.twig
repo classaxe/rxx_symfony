@@ -7,11 +7,11 @@
             <li>{% trans %}Signals{% endtrans %}:
                 <ul>
                     <li><a class="button" href="{{ url('admin/tools', {'system' : system, 'tool' : 'signalsLatLon'}) }}">{% trans %}Go{% endtrans %}</a>
-                        <strong>{% trans %}Update Lat and Lon values from GSQ{% endtrans %}</strong>
+                        <strong>{% trans %}Update Lat and Lon from GSQ{% endtrans %}</strong>
                         {% trans %}(run if problems are seen){% endtrans %}
                     </li>
                     <li><a class="button" href="{{ url('admin/tools', {'system' : system, 'tool' : 'signalsStats'}) }}">{% trans %}Go{% endtrans %}</a>
-                        <strong>{% trans %}Update log and listener counts and 'Heard In' lists from latest log data{% endtrans %}</strong>
+                        <strong>{% trans %}Update info from latest log data{% endtrans %}</strong>
                         {% trans %}(run if problems are seen){% endtrans %}
                     </li>
                 </ul>
@@ -30,8 +30,8 @@
             </li>
             <li>{% trans %}Listeners{% endtrans %}:
                 <ul>
-                    <li><a class="button" disabled='disabled' href="{{ url('admin/tools', {'system' : system, 'tool' : 'listenersStats'}) }}">{% trans %}Go{% endtrans %}</a>
-                        <strong>{% trans %}Update log counts{% endtrans %}</strong>
+                    <li><a class="button" href="{{ url('admin/tools', {'system' : system, 'tool' : 'listenersStats'}) }}">{% trans %}Go{% endtrans %}</a>
+                        <strong>{% trans %}Update stats{% endtrans %}</strong>
                         {% trans %}(run if problems are seen){% endtrans %}
                     </li>
                 </ul>

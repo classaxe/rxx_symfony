@@ -39,7 +39,7 @@ class SignalDelete extends Base
             $this->session->set(
                 'lastError',
                 sprintf(
-                    $this->translator->trans("Signal %s has %d logs and so cannot be deleted at this time."),
+                    $this->i18n("Signal %s has %d logs and so cannot be deleted at this time."),
                     $signal->getFormattedIdent(),
                     $signal->getLogs()
                 )
@@ -53,7 +53,7 @@ class SignalDelete extends Base
         $this->session->set(
             'lastMessage',
             sprintf(
-                $this->translator->trans("Signal %s has been deleted."),
+                $this->i18n("Signal %s has been deleted."),
                 $signal->getFormattedIdent()
             )
         );

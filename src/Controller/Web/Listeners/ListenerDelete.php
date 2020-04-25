@@ -41,7 +41,7 @@ class ListenerDelete extends Base
             $this->session->set(
                 'lastError',
                 sprintf(
-                    $this->translator->trans("Listener %s has %d logs and so cannot be deleted at this time."),
+                    $this->i18n("Listener %s has %d logs and so cannot be deleted at this time."),
                     $listener->getName(),
                     $listener->getCountLogs()
                 )
@@ -55,7 +55,7 @@ class ListenerDelete extends Base
         $this->session->set(
             'lastMessage',
             sprintf(
-                $this->translator->trans("Listener %s has been deleted."),
+                $this->i18n("Listener %s has been deleted."),
                 $listener->getName()
             )
         );

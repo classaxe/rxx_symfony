@@ -93,7 +93,7 @@ class SignalWeather extends Base
             'fieldGroups' =>        $signalWeatherForm->getFieldGroups(),
             'form' =>               $form->createView(),
             '_locale' =>            $_locale,
-            'mode' =>               sprintf($this->translator->trans('Weather for %s'), $signal->getFormattedIdent()),
+            'mode' =>               sprintf($this->i18n('Weather for %s'), $signal->getFormattedIdent()),
             'system' =>             $system,
             'tabs' =>               $this->signalRepository->getTabs($signal),
             'weather' =>            $weather
