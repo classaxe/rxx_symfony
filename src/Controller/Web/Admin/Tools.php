@@ -2,6 +2,7 @@
 namespace App\Controller\Web\Admin;
 
 use App\Controller\Web\Base;
+use App\Repository\BackupRepository;
 use App\Utils\Rxx;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -12,6 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class Tools extends Base
 {
+    private $backupRepository;
     private $system;
 
     /**
@@ -27,14 +29,16 @@ class Tools extends Base
      * @param $_locale
      * @param $system
      * @param $tool
-     * @return Response
+     * @return Response|void
      */
     public function controller(
         $_locale,
         $system,
-        $tool
+        $tool,
+        BackupRepository $backupRepository
     ) {
         $this->system = $system;
+        $this->backupRepository = $backupRepository;
         if (!$this->parameters['isAdmin']) {
             $this->session->set('route', 'admin/tools');
             return $this->redirectToRoute('logon', ['system' => $system]);
@@ -143,9 +147,7 @@ class Tools extends Base
     }
 
     private function systemExportDb() {
-        $this->setError('System', 'Export Database');
-
-        return $this->redirectToRoute('admin/tools', [ 'system' => $this->system ]);
+        $this->backupRepository->generate();
     }
 
     private function systemEmailTest() {

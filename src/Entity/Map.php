@@ -13,11 +13,19 @@ use Doctrine\ORM\Mapping as ORM;
 class Map
 {
     /**
+     * @var int
+     *
+     * @ORM\Column(name="ID", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="SP", type="string", length=2, nullable=false, options={"fixed"=true})
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $sp = '';
 
@@ -90,6 +98,11 @@ class Map
      * @ORM\Column(name="ITU", type="string", length=3, nullable=false, options={"fixed"=true})
      */
     private $itu = '';
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
 
     public function getSp(): ?string
     {

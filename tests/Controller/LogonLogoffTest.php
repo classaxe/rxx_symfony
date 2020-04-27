@@ -61,9 +61,9 @@ class LogonLogoffTest extends Base
 
                 $expected = (
                     $data['valid'] ?
-                        'Message: You have logged on as an Administrator. X'
+                        'XYou have logged on as an Administrator.'
                      :
-                        'Error: Incorrect Username and / or Password. X'
+                        'XError: Incorrect Username and / or Password.'
                     );
 
                 $errMsg =   $this->getMyCrawler()->filter('span#lastError');

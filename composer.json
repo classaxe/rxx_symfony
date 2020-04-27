@@ -6,6 +6,7 @@
         "ext-dom": "*",
         "ext-gd": "*",
         "ext-iconv": "*",
+        "ext-mysqli": "*",
         "ext-pdo": "*",
         "ext-posix": "*",
         "beberlei/doctrineextensions": "^1.2.0",

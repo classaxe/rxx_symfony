@@ -48,7 +48,7 @@
 
             <li>{% trans %}System{% endtrans %}:
                 <ul>
-                    <li><a class="button" disabled='disabled' href="{{ url('admin/tools', {'system' : system, 'tool' : 'systemExportDb'}) }}">{% trans %}Go{% endtrans %}</a>
+                    <li><a class="button no-disable" href="{{ url('admin/tools', {'system' : system, 'tool' : 'systemExportDb'}) }}">{% trans %}Go{% endtrans %}</a>
                         <strong>{% trans %}Export Database{% endtrans %}</strong>
                         {% trans %}(run as needed){% endtrans %}
                     </li>
@@ -64,6 +64,9 @@
         $(document).ready( function() {
             setExternalLinks();
             $('.admin_tools a').on('click', function() {
+                if ($(this).hasClass('no-disable')) {
+                    return;
+                }
                 $('.admin_tools a.button').attr('disabled', 'disabled');
             });
         });
