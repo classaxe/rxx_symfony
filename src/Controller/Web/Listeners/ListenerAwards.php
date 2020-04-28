@@ -73,7 +73,7 @@ class ListenerAwards extends Base
             $data['form'] = $form_data;
             $admin = $this->systemRepository::AWARDS[0];
             $cc =    $this->systemRepository::AUTHORS[0];
-            $html =  $this->renderView('emails/admin/award.html.twig', [
+            $html =  $this->renderView('emails/listener/award.html.twig', [
                 'admin' => $admin['name'] . ' ' . $admin['role'],
                 'awards' => explode(',', $form_data['awards']),
                 'filter' => $form_data['filter'],
@@ -81,7 +81,7 @@ class ListenerAwards extends Base
                 'name' => $this->listener->getName(),
                 'system' => $system
             ]);
-            $text = $this->renderView('emails/admin/award.txt.twig', [
+            $text = $this->renderView('emails/listener/award.txt.twig', [
                 'admin' => $admin['name'] . ' ' . $admin['role'],
                 'awards' => explode(',', $form_data['awards']),
                 'filter' => $form_data['filter'],

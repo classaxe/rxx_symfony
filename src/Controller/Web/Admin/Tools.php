@@ -4,6 +4,9 @@ namespace App\Controller\Web\Admin;
 use App\Controller\Web\Base;
 use App\Repository\BackupRepository;
 use App\Utils\Rxx;
+use Swift_Mailer;
+use Swift_Message;
+use Swift_Transport_EsmtpTransport;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -14,6 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class Tools extends Base
 {
     private $backupRepository;
+    private $mailer;
     private $system;
 
     /**
@@ -29,16 +33,20 @@ class Tools extends Base
      * @param $_locale
      * @param $system
      * @param $tool
+     * @param BackupRepository $backupRepository
+     * @param Swift_Mailer $mailer
      * @return Response|void
      */
     public function controller(
         $_locale,
         $system,
         $tool,
-        BackupRepository $backupRepository
+        BackupRepository $backupRepository,
+        Swift_Mailer $mailer
     ) {
         $this->system = $system;
         $this->backupRepository = $backupRepository;
+        $this->mailer = $mailer;
         if (!$this->parameters['isAdmin']) {
             $this->session->set('route', 'admin/tools');
             return $this->redirectToRoute('logon', ['system' => $system]);
@@ -60,7 +68,7 @@ class Tools extends Base
             case 'systemExportDb':
                 return $this->systemExportDb();
             case 'systemEmailTest':
-                return $this->systemEmailTest();
+                return $this->systemEmailTest($mailer);
         }
         $this->session->set('lastError', '');
         $this->session->set('lastMessage', '');
@@ -89,8 +97,8 @@ class Tools extends Base
         $memory = Rxx::formatBytes(memory_get_peak_usage(),1);
         $message = sprintf(
             $this->i18n('<strong>%s / %s</strong><br />Updated %d records in %s (Used %s)'),
-            $mode,
-            $submode,
+            $this->i18n($mode),
+            $this->i18n($submode),
             $affected,
             $duration,
             $memory
@@ -150,8 +158,51 @@ class Tools extends Base
         $this->backupRepository->generate();
     }
 
-    private function systemEmailTest() {
-        $this->setError('System', 'Send Test Email');
+    private function systemEmailTest(Swift_Mailer $mailer)
+    {
+        $email = $_REQUEST['email'] ?? '';
+        if ('' === $email) {
+            $message = sprintf(
+                $this->i18n('<strong>%s / %s</strong><br />No valid email was provided'),
+                $this->i18n('System'),
+                $this->i18n('Send Test Email')
+            );
+            $this->session->set('lastError', $message);
+
+            return $this->redirectToRoute('admin/tools', [ 'system' => $this->system ]);
+        }
+
+        $admin =    $this->systemRepository::AUTHORS[0];
+        $html =  $this->renderView('emails/admin/test.html.twig', [
+            'admin' => $admin['name'],
+            'system' => $this->system
+        ]);
+        $text = $this->renderView('emails/admin/test.txt.twig', [
+            'admin' => $admin['name'] . ' ' . $admin['role'],
+            'system' => $this->system
+        ]);
+        $message = (new Swift_Message('RNA / REU / RWW Test Message'))
+            ->setFrom('rxx@classaxe.com')
+            ->setReplyTo( [ $admin['email'] =>  $admin['name'] ] )
+            ->setTo($email)
+            ->setBody($html,'text/html')
+            ->addPart($text,'text/plain');
+
+        $transport = $mailer->getTransport();
+        if ($transport instanceof Swift_Transport_EsmtpTransport){
+            $transport->setStreamOptions([
+                'ssl' => ['allow_self_signed' => true, 'verify_peer' => false, 'verify_peer_name' => false]
+            ]);
+        }
+        $mailer->send($message);
+
+        $message = sprintf(
+            $this->i18n('<strong>%s / %s</strong><br />Sent test email message to %s'),
+            $this->i18n('System'),
+            $this->i18n('Send Test Email'),
+            "&lt;<a href='mailto:$email'>$email</a>&gt;"
+        );
+        $this->session->set('lastMessage', $message);
 
         return $this->redirectToRoute('admin/tools', [ 'system' => $this->system ]);
     }

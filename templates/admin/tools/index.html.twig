@@ -52,7 +52,7 @@
                         <strong>{% trans %}Export Database{% endtrans %}</strong>
                         {% trans %}(run as needed){% endtrans %}
                     </li>
-                    <li><a class="button" disabled='disabled' href="{{ url('admin/tools', {'system' : system, 'tool' : 'systemEmailTest'}) }}">{% trans %}Go{% endtrans %}</a>
+                    <li><a class="button no-disable email" href="{{ url('admin/tools', {'system' : system, 'tool' : 'systemEmailTest'}) }}">{% trans %}Go{% endtrans %}</a>
                         <strong>{% trans %}Send Test Email to:{% endtrans %}</strong>
                         <label class="sr-only" for="email">Email Address</label><input type="text" name="email" id="email" />
                     </li>
@@ -63,7 +63,18 @@
     <script>
         $(document).ready( function() {
             setExternalLinks();
-            $('.admin_tools a').on('click', function() {
+            $('.admin_tools a').on('click', function(e) {
+                if ($(this).hasClass('email')) {
+                    var email, href;
+                    e.preventDefault();
+                    email = $('#email').val();
+                    if ('' === email) {
+                        alert(msg.email_needed);
+                        return false;
+                    }
+                    href=($(this).attr('href').split('?')[0]) + '?email=' + email;
+                    window.location.href = href;
+                }
                 if ($(this).hasClass('no-disable')) {
                     return;
                 }
