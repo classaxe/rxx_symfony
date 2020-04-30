@@ -3,6 +3,7 @@ namespace App\Controller\Web\Admin;
 
 use App\Controller\Web\Base;
 use App\Repository\BackupRepository;
+use App\Repository\IcaoRepository;
 use App\Utils\Rxx;
 use Swift_Mailer;
 use Swift_Message;
@@ -17,6 +18,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class Tools extends Base
 {
     private $backupRepository;
+    private $icaoRepository;
     private $mailer;
     private $system;
 
@@ -34,6 +36,7 @@ class Tools extends Base
      * @param $system
      * @param $tool
      * @param BackupRepository $backupRepository
+     * @param IcaoRepository $icaoRepository
      * @param Swift_Mailer $mailer
      * @return Response|void
      */
@@ -42,10 +45,12 @@ class Tools extends Base
         $system,
         $tool,
         BackupRepository $backupRepository,
+        IcaoRepository $icaoRepository,
         Swift_Mailer $mailer
     ) {
         $this->system = $system;
         $this->backupRepository = $backupRepository;
+        $this->icaoRepository = $icaoRepository;
         $this->mailer = $mailer;
         if (!$this->parameters['isAdmin']) {
             $this->session->set('route', 'admin/tools');
@@ -68,7 +73,7 @@ class Tools extends Base
             case 'systemExportDb':
                 return $this->systemExportDb();
             case 'systemEmailTest':
-                return $this->systemEmailTest($mailer);
+                return $this->systemEmailTest();
         }
         $this->session->set('lastError', '');
         $this->session->set('lastMessage', '');
@@ -81,15 +86,6 @@ class Tools extends Base
         ];
         $parameters = array_merge($parameters, $this->parameters);
         return $this->render('admin/tools/index.html.twig', $parameters);
-    }
-
-    private function setError($mode, $submode) {
-        $message = sprintf(
-            $this->i18n('<br /><strong>%s / %s</strong> is not yet implemented'),
-            $this->i18n($mode),
-            $this->i18n($submode)
-        );
-        $this->session->set('lastError', $message);
     }
 
     private function setMessage($mode, $submode, $affected, $start) {
@@ -107,8 +103,13 @@ class Tools extends Base
     }
 
     private function icaoImport() {
-        $this->setError('ICAO Data', 'Get latest data');
-
+        $start =    time();
+        $result = $this->icaoRepository->updateIcaoList();
+        if ($result['error']) {
+            $this->session->set('lastError', $result['error']);
+        } else {
+            $this->setMessage('ICAO Data', 'Get latest data', $result['affected'], $start);
+        }
         return $this->redirectToRoute('admin/tools', [ 'system' => $this->system ]);
     }
 
@@ -158,7 +159,7 @@ class Tools extends Base
         $this->backupRepository->generate();
     }
 
-    private function systemEmailTest(Swift_Mailer $mailer)
+    private function systemEmailTest()
     {
         $email = $_REQUEST['email'] ?? '';
         if ('' === $email) {
@@ -188,13 +189,13 @@ class Tools extends Base
             ->setBody($html,'text/html')
             ->addPart($text,'text/plain');
 
-        $transport = $mailer->getTransport();
+        $transport = $this->mailer->getTransport();
         if ($transport instanceof Swift_Transport_EsmtpTransport){
             $transport->setStreamOptions([
                 'ssl' => ['allow_self_signed' => true, 'verify_peer' => false, 'verify_peer_name' => false]
             ]);
         }
-        $mailer->send($message);
+        $this->mailer->send($message);
 
         $message = sprintf(
             $this->i18n('<strong>%s / %s</strong><br />Sent test email message to %s'),

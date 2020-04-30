@@ -39,7 +39,7 @@
 
             <li>{% trans %}ICAO Data{% endtrans %}:
                 <ul>
-                    <li><a class="button" disabled='disabled' href="{{ url('admin/tools', {'system' : system, 'tool' : 'icaoImport'}) }}">{% trans %}Go{% endtrans %}</a>
+                    <li><a class="button" href="{{ url('admin/tools', {'system' : system, 'tool' : 'icaoImport'}) }}">{% trans %}Go{% endtrans %}</a>
                         <strong>{% trans %}Get latest data{% endtrans %}</strong>
                         {% trans %}(run once a month){% endtrans %}
                     </li>
@@ -52,7 +52,7 @@
                         <strong>{% trans %}Export Database{% endtrans %}</strong>
                         {% trans %}(run as needed){% endtrans %}
                     </li>
-                    <li><a class="button no-disable email" href="{{ url('admin/tools', {'system' : system, 'tool' : 'systemEmailTest'}) }}">{% trans %}Go{% endtrans %}</a>
+                    <li><a class="button email" href="{{ url('admin/tools', {'system' : system, 'tool' : 'systemEmailTest'}) }}">{% trans %}Go{% endtrans %}</a>
                         <strong>{% trans %}Send Test Email to:{% endtrans %}</strong>
                         <label class="sr-only" for="email">Email Address</label><input type="text" name="email" id="email" />
                     </li>
@@ -63,22 +63,24 @@
     <script>
         $(document).ready( function() {
             setExternalLinks();
+            var buttons = $('.admin_tools a.button');
             $('.admin_tools a').on('click', function(e) {
                 if ($(this).hasClass('email')) {
                     var email, href;
                     e.preventDefault();
                     email = $('#email').val();
-                    if ('' === email) {
+                    if (-1 === email.indexOf('@')) {
                         alert(msg.email_needed);
                         return false;
                     }
+                    buttons.attr('disabled', 'disabled');
                     href=($(this).attr('href').split('?')[0]) + '?email=' + email;
                     window.location.href = href;
                 }
                 if ($(this).hasClass('no-disable')) {
                     return;
                 }
-                $('.admin_tools a.button').attr('disabled', 'disabled');
+                buttons.attr('disabled', 'disabled');
             });
         });
     </script>

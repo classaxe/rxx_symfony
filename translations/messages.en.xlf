@@ -4251,6 +4251,18 @@
         <source>Send Test Email</source>
         <target>Send Test Email</target>
       </trans-unit>
+      <trans-unit id="bsv5mwA" resname="Please provide an email address">
+        <source>Please provide an email address</source>
+        <target>Please provide an email address</target>
+      </trans-unit>
+      <trans-unit id="AfN3djs" resname="&lt;strong&gt;%s / %s&lt;/strong&gt;&lt;br /&gt;Sent test email message to %s">
+        <source>&lt;strong&gt;%s / %s&lt;/strong&gt;&lt;br /&gt;Sent test email message to %s</source>
+        <target><![CDATA[<strong>%s / %s</strong><br />Sent test email message to %s]]></target>
+      </trans-unit>
+      <trans-unit id="lYgTfYj" resname="Unable to download ICAO data from %s">
+        <source>Unable to download ICAO data from %s</source>
+        <target>Unable to download ICAO data from %s</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

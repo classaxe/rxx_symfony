@@ -17,6 +17,25 @@ class Rxx
     const DEG_MI_MULTIPLIER = 69;
     const DEG_KM_MULTIPLIER = 111.05;
 
+    public static function convertDegreesToGSQ($lat, $lon)
+    {
+        $letters = "abcdefghijklmnopqrstuvwxyz";
+        if ($lat==""||$lon=="") {
+            return false;
+        }
+
+        $lat =      (float) $lat + 90;
+        $lat_a =    strtoUpper(substr($letters, floor($lat/10), 1));
+        $lat_b =    floor($lat%10);
+        $lat_c =    substr($letters, 24*($lat-(int)$lat), 1);
+
+        $lon =      ((float) $lon + 180)/2;
+        $lon_a =    strtoUpper(substr($letters, floor($lon/10), 1));
+        $lon_b =    floor($lon%10);
+        $lon_c =    substr($letters, 24*($lon-(int)$lon), 1);
+        return      $lon_a . $lat_a . $lon_b . $lat_b . $lon_c . $lat_c;
+    }
+
     public static function convertGsqToDegrees($GSQ)
     {
         $GSQ =      strToUpper($GSQ);
