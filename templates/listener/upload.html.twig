@@ -1,18 +1,35 @@
 {% extends 'popup.html.twig' %}
 {% block body %}
-    <div class="main fullwidth">
-        {% set form_class='listener_export' %}
-        {% include 'listener/tabs.html.twig' %}
-        <div class="controlPanel">
-            <div class="header">{{ mode|raw }}</div>
-            <div class="content">
-                Coming soon...
+<div class="main fullwidth">
+    {% set form_class='listener_export' %}
+    {% include 'listener/tabs.html.twig' %}
+    <div class="controlPanel logUpload">
+        <div class="header">{{ mode|raw }}</div>
+        <div class="content">
+            {{ form_start(form) }}
+            <div id="form">
+                {{ form_row(form.id)  }}
+                {{ form_row(form._close)  }}
+                <div>
+                    {{ form_widget(form.format) }}
+                </div>
+                <div>
+                    {{ form_widget(form.logs) }}
+                </div>
+                <fieldset id="group_">
+                    {{ form_row(form.print) }}
+                    {{ form_row(form.close) }}
+                    {% if isAdmin %}{{ form_row(form.save) }}{% else %}{{ form_row(form.save_disabled) }}{% endif %}
+                </fieldset>
+
             </div>
+            {{ form_end(form, {'render_rest': true}) }}
         </div>
     </div>
-    <script>
-        $(document).ready( function() {
-            setExternalLinks();
-        });
-    </script>
+</div>
+<script>
+$(document).ready( function() {
+    setExternalLinks();
+});
+</script>
 {% endblock %}

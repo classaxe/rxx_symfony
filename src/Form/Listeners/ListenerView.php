@@ -15,6 +15,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormInterface;
 
 /**
  * Class Listeners
@@ -72,7 +73,7 @@ class ListenerView extends AbstractType
     /**
      * @param FormBuilderInterface $formBuilder
      * @param array $options
-     * @return \Symfony\Component\Form\FormInterface|void
+     * @return FormInterface|void
      */
     public function buildForm(FormBuilderInterface $formBuilder, array $options)
     {

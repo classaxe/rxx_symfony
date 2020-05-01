@@ -1,7 +1,9 @@
 <?php
 namespace App\Controller\Web\Listeners;
 
+use App\Form\Listeners\LogUpload as LogUploadForm;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 
@@ -14,7 +16,7 @@ class ListenerLogsUpload extends Base
 
     /**
      * @Route(
-     *     "/{_locale}/{system}/listeners/{id}/logsupload",
+     *     "/{_locale}/{system}/listeners/{id}/upload",
      *     requirements={
      *        "_locale": "de|en|es|fr",
      *        "system": "reu|rna|rww"
@@ -24,25 +26,41 @@ class ListenerLogsUpload extends Base
      * @param $_locale
      * @param $system
      * @param $id
+     *
+     * @param LogUploadForm $logUploadForm
      * @return RedirectResponse|Response
      */
     public function controller(
         $_locale,
         $system,
-        $id
+        $id,
+        Request $request,
+        LogUploadForm $logUploadForm
     ) {
-        if ((int) $id) {
-            if (!$listener = $this->getValidReportingListener($id)) {
-                return $this->redirectToRoute('listeners', ['system' => $system]);
-            }
-        }
-
         $isAdmin = $this->parameters['isAdmin'];
+
+        if (!$isAdmin || !$listener = $this->getValidListener($id)) {
+            return $this->redirectToRoute('listener', ['system' => $system, 'id' => $id]);
+        }
+        $options = [
+            'id' =>         $listener->getId(),
+            'format' =>     $listener->getLogFormat()
+        ];
+
+        $form = $logUploadForm->buildForm(
+            $this->createFormBuilder(),
+            $options
+        );
+        $form->handleRequest($request);
+        if ($isAdmin && $form->isSubmitted() && $form->isValid()) {
+            $form_data = $form->getData();
+        }
 
         $parameters = [
             'id' =>                 $id,
             '_locale' =>            $_locale,
             'mode' =>               'Upload Loggings for '.$listener->getFormattedNameAndLocation(),
+            'form' =>               $form->createView(),
             'logs' =>               $listener->getCountLogs(),
             'signals' =>            $listener->getCountSignals(),
             'system' =>             $system,
