@@ -61,35 +61,33 @@ class LogUpload extends AbstractType
             ]
         )
         ->add(
-            'print',
+            'tabs2spaces',
             ButtonType::class,
             [
                 'attr' => [
-                    'class' =>      'button small',
-                    'onclick' =>    'window.print()'
+                    'class' =>      'button small'
                 ],
-                'label' =>          'Print...',
+                'label' =>          'Tabs > Spaces',
             ]
         )
         ->add(
-            'close',
+            'lineUp',
             ButtonType::class,
             [
                 'attr' => [
-                    'class' =>      'button small',
-                    'onclick' =>    'window.close()'
+                    'class' =>      'button small'
                 ],
-                'label' =>          'Close',
+                'label' =>          'Line Up',
             ]
         )
         ->add(
-            'save',
+            'parseLog',
             SubmitType::class,
             [
                 'attr' => [
                     'class' => 'button small'
                 ],
-                'label' => 'Save',
+                'label' => 'Parse Log',
             ]
         );
 

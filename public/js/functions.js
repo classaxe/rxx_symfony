@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.8.6
- * Date:       2020-04-21
+ * Version:    2.8.20
+ * Date:       2020-05-02
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
  */
@@ -26,7 +26,7 @@ var popWinSpecs = {
     'countries_sa' :                'width=320,height=600,resizable=1',
     'listeners_[id]' :              'width=1000,height=760,status=1,scrollbars=1,resizable=1',
     'listeners_[id]_logs' :         'width=1000,height=760,status=1,scrollbars=1,resizable=1',
-    'listeners_[id]_logsupload' :   'width=1000,height=760,status=1,scrollbars=1,resizable=1',
+    'listeners_[id]_upload' :       'width=1000,height=760,status=1,scrollbars=1,resizable=1',
     'listeners_[id]_signals' :      'width=1000,height=760,status=1,scrollbars=1,resizable=1',
     'listeners_[id]_map' :          'width=1000,height=760,status=1,scrollbars=1,resizable=1',
     'listeners_[id]_locatormap' :   'width=1000,height=760,status=1,scrollbars=1,resizable=1',
@@ -870,6 +870,53 @@ function strip_tags(input, allowed) {
                 return allowed.indexOf('<' + $1.toLowerCase() + '>') > -1 ? $0 : '';
             }
         );
+}
+
+function initListenersLogUploadForm() {
+    $('#form_tabs2spaces').on('click', function() {
+        var logs = $('#form_logs');
+        logs.val(logs.val().replace(/\t/g, '     '));
+    });
+
+    $('#form_lineUp').on('click', function() {
+        var i, idx, line, log_arr, logs, max_words, word, word_num, word_len_arr, words;
+        format = $('#form_format');
+        logs = $('#form_logs');
+        log_arr = logs.val().split('\n');
+        max_words = 0;
+        word_len_arr = [];
+        for (idx in log_arr) {
+            line = log_arr[idx].replace(/^\s+|\s+$/g,'').replace(/\s+/g,' ');
+            words = line.split(' ').length;
+            if (words > max_words) {
+                max_words = words;
+            }
+            log_arr[idx] = line;
+        }
+        for (i = 0; i < max_words; i++) {
+            word_len_arr[i] = 0;
+        }
+        for (idx in log_arr) {
+            line = log_arr[idx];
+            words = line.split(' ');
+            for (word_num in words) {
+                word = words[word_num];
+                if (word.length > word_len_arr[word_num]) {
+                    word_len_arr[word_num] = word.length;
+                }
+            }
+        }
+        for (idx in log_arr) {
+            line = log_arr[idx];
+            words = line.split(' ');
+            for (word_num in words) {
+                word = words[word_num];
+                words[word_num] = word.padEnd(word_len_arr[word_num]+1, ' ');
+            }
+            log_arr[idx] = words.join('');
+        }
+        logs.val(log_arr.join('\r\n'));
+    })
 }
 
 // Used here: http://rxx.classaxe.com/en/rna/listeners/56/map

@@ -17,9 +17,9 @@
                     {{ form_widget(form.logs) }}
                 </div>
                 <fieldset id="group_">
-                    {{ form_row(form.print) }}
-                    {{ form_row(form.close) }}
-                    {% if isAdmin %}{{ form_row(form.save) }}{% else %}{{ form_row(form.save_disabled) }}{% endif %}
+                    {{ form_row(form.tabs2spaces) }}
+                    {{ form_row(form.lineUp) }}
+                    {{ form_row(form.parseLog) }}
                 </fieldset>
 
             </div>
@@ -29,6 +29,7 @@
 </div>
 <script>
 $(document).ready( function() {
+    initListenersLogUploadForm();
     setExternalLinks();
 });
 </script>

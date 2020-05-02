@@ -4263,6 +4263,18 @@
         <source>Unable to download ICAO data from %s</source>
         <target>__Unable to download ICAO data from %s</target>
       </trans-unit>
+      <trans-unit id="bds.zGa" resname="Tabs &gt; Spaces">
+        <source>Tabs &gt; Spaces</source>
+        <target><![CDATA[__Tabs > Spaces]]></target>
+      </trans-unit>
+      <trans-unit id="znDxr9i" resname="Line Up">
+        <source>Line Up</source>
+        <target>__Line Up</target>
+      </trans-unit>
+      <trans-unit id="biN6NXr" resname="Parse Log">
+        <source>Parse Log</source>
+        <target>__Parse Log</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
