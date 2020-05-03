@@ -23,73 +23,87 @@ class LogUpload extends AbstractType
     public function buildForm(FormBuilderInterface $formBuilder, array $options)
     {
         $formBuilder
-        ->add(
-            'id',
-            HiddenType::class,
-            [
-                'data' =>           $options['id']
-            ]
-        )
-        ->add(
-            '_close',
-            HiddenType::class,
-            [
-                'data' =>       0
-            ]
-        )
-        ->add(
-            'format',
-            TextType::class,
-            [
-                'data' =>           $options['format'],
-                'empty_data' =>     '',
-                'label' =>          'Format',
-            ]
-        )
-        ->add(
-            'logs',
-            TextareaType::class,
-            [
-                'attr' => [
-                    'cols' =>       80,
-                    'rows' =>       30
-                ],
-                'data' =>           '',
-                'empty_data' =>     '',
-                'label' =>          'Logs',
-                'required' =>       true
-            ]
-        )
-        ->add(
-            'tabs2spaces',
-            ButtonType::class,
-            [
-                'attr' => [
-                    'class' =>      'button small'
-                ],
-                'label' =>          'Tabs > Spaces',
-            ]
-        )
-        ->add(
-            'lineUp',
-            ButtonType::class,
-            [
-                'attr' => [
-                    'class' =>      'button small'
-                ],
-                'label' =>          'Line Up',
-            ]
-        )
-        ->add(
-            'parseLog',
-            SubmitType::class,
-            [
-                'attr' => [
-                    'class' => 'button small'
-                ],
-                'label' => 'Parse Log',
-            ]
-        );
+            ->add(
+                'id',
+                HiddenType::class,
+                [
+                    'data' =>           $options['id']
+                ]
+            )
+            ->add(
+                'step',
+                HiddenType::class,
+                [
+                    'data' =>       $options['step']
+                ]
+            )
+            ->add(
+                'format',
+                TextType::class,
+                [
+                    'attr' => [
+                        'style' => 'float: left'
+                    ],
+                    'data' =>           $options['format'],
+                    'empty_data' =>     '',
+                    'label' =>          'Format'
+                ]
+            )
+            ->add(
+                'saveFormat',
+                SubmitType::class,
+                [
+                    'attr' => [
+                        'class' => 'button small',
+                        'disabled' => 'disabled'
+                    ],
+                    'label' =>          'Save',
+                ]
+            )
+            ->add(
+                'logs',
+                TextareaType::class,
+                [
+                    'attr' => [
+                        'cols' =>       80,
+                        'rows' =>       30
+                    ],
+                    'data' =>           '',
+                    'empty_data' =>     '',
+                    'label' =>          'Logs',
+                    'required' =>       false
+                ]
+            )
+            ->add(
+                'tabs2spaces',
+                ButtonType::class,
+                [
+                    'attr' => [
+                        'class' =>      'button small'
+                    ],
+                    'label' =>          'Tabs > Spaces',
+                ]
+            )
+            ->add(
+                'lineUp',
+                ButtonType::class,
+                [
+                    'attr' => [
+                        'class' =>      'button small'
+                    ],
+                    'label' =>          'Line Up',
+                ]
+            )
+            ->add(
+                'parseLog',
+                SubmitType::class,
+                [
+                    'attr' => [
+                        'class' => 'button small'
+                    ],
+                    'label' => 'Parse Log',
+                ]
+            );
 
         return $formBuilder->getForm();
     }

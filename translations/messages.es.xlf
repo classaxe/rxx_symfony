@@ -4275,6 +4275,26 @@
         <source>Parse Log</source>
         <target>__Parse Log</target>
       </trans-unit>
+      <trans-unit id="VKDowX6" resname="Error">
+        <source>Error</source>
+        <target>__Error</target>
+      </trans-unit>
+      <trans-unit id="SXkPvXL" resname="Upload Loggings for %s | Step %d">
+        <source>Upload Loggings for %s | Step %d</source>
+        <target>__Upload Loggings for %s | Step %d</target>
+      </trans-unit>
+      <trans-unit id="Zwac60W" resname="Your should paste the log entries into the box shown.">
+        <source>Your should paste the log entries into the box shown.</source>
+        <target>__Your should paste the log entries into the box shown.</target>
+      </trans-unit>
+      <trans-unit id=".61dLfG" resname="&lt;- Enter the log entries here">
+        <source>&lt;- Enter the log entries here</source>
+        <target><![CDATA[__<- Enter the log entries here]]></target>
+      </trans-unit>
+      <trans-unit id="jigWL5D" resname="Save this format for future logs by this listener?">
+        <source>Save this format for future logs by this listener?</source>
+        <target>__Save this format for future logs by this listener?</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

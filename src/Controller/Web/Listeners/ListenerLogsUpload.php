@@ -13,6 +13,8 @@ use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
  */
 class ListenerLogsUpload extends Base
 {
+    private $listener;
+    private $system;
 
     /**
      * @Route(
@@ -38,13 +40,15 @@ class ListenerLogsUpload extends Base
         LogUploadForm $logUploadForm
     ) {
         $isAdmin = $this->parameters['isAdmin'];
-
-        if (!$isAdmin || !$listener = $this->getValidListener($id)) {
-            return $this->redirectToRoute('listener', ['system' => $system, 'id' => $id]);
+        $this->system = $system;
+        if (!$isAdmin || !$this->listener = $this->getValidListener($id)) {
+            return $this->redirectToRoute('listener', ['system' => $this->system, 'id' => $id]);
         }
+        $step = $request->get('step', 1);
         $options = [
-            'id' =>         $listener->getId(),
-            'format' =>     $listener->getLogFormat()
+            'id' =>         $this->listener->getId(),
+            'step' =>       $step,
+            'format' =>     $this->listener->getLogFormat()
         ];
 
         $form = $logUploadForm->buildForm(
@@ -53,20 +57,48 @@ class ListenerLogsUpload extends Base
         );
         $form->handleRequest($request);
         if ($isAdmin && $form->isSubmitted() && $form->isValid()) {
-            $form_data = $form->getData();
+            $data = $form->getData();
+            $step = $data['step'];
+            switch ($step) {
+                case '1b':
+                    $this->saveFormat($data);
+                    $step = '1';
+                    break;
+                case '2':
+                    print "<pre>" . print_r($data, true) . "</pre>";
+                    break;
+            }
         }
-
+        $title = sprintf(
+            $this->i18n('Upload Loggings for %s | Step %d'),
+            $this->listener->getFormattedNameAndLocation(),
+            $step
+        );
         $parameters = [
             'id' =>                 $id,
             '_locale' =>            $_locale,
-            'mode' =>               'Upload Loggings for '.$listener->getFormattedNameAndLocation(),
+            'mode' =>               $title,
             'form' =>               $form->createView(),
-            'logs' =>               $listener->getCountLogs(),
-            'signals' =>            $listener->getCountSignals(),
-            'system' =>             $system,
-            'tabs' =>               $this->listenerRepository->getTabs($listener, $isAdmin)
+            'formatOld' =>          $this->listener->getLogFormat(),
+            'logs' =>               $this->listener->getCountLogs(),
+            'signals' =>            $this->listener->getCountSignals(),
+            'step' =>               $options['step'],
+            'system' =>             $this->system,
+            'tabs' =>               $this->listenerRepository->getTabs($this->listener, $isAdmin)
         ];
         $parameters = array_merge($parameters, $this->parameters);
         return $this->render('listener/upload.html.twig', $parameters);
+    }
+
+    private function saveFormat($data) {
+        $this->listener->setLogFormat($data['format']);
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($this->listener);
+        $em->flush();
+        $parameters  = [
+            'system' => $this->system,
+            'id' =>     $this->listener->getId()
+        ];
+        $this->redirectToRoute('listener_logsupload', $parameters);
     }
 }

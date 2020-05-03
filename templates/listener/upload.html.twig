@@ -6,12 +6,14 @@
     <div class="controlPanel logUpload">
         <div class="header">{{ mode|raw }}</div>
         <div class="content">
-            {{ form_start(form) }}
             <div id="form">
+            {{ form_start(form) }}
                 {{ form_row(form.id)  }}
-                {{ form_row(form._close)  }}
-                <div>
+                {{ form_row(form.step)  }}
+                <div id="format">
+                    <div id="formatOld">{{ formatOld }}</div>
                     {{ form_widget(form.format) }}
+                    {{ form_widget(form.saveFormat)  }}
                 </div>
                 <div>
                     {{ form_widget(form.logs) }}
@@ -22,8 +24,8 @@
                     {{ form_row(form.parseLog) }}
                 </fieldset>
 
-            </div>
             {{ form_end(form, {'render_rest': true}) }}
+            </div>
         </div>
     </div>
 </div>

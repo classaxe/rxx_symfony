@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.8.20
- * Date:       2020-05-02
+ * Version:    2.8.21
+ * Date:       2020-05-03
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
  */
@@ -873,6 +873,23 @@ function strip_tags(input, allowed) {
 }
 
 function initListenersLogUploadForm() {
+    $('#form_format').on('keyup', function(e) {
+        $('#form_saveFormat').attr('disabled', $(this).val() === $('#formatOld').text());
+    });
+
+    // Detect if we reloaded the page dure to back button being pressed
+    if (window.performance && window.performance.navigation.type === window.performance.navigation.TYPE_BACK_FORWARD) {
+        $('#form_format').trigger('keyup');
+    }
+
+    $('#form_saveFormat').on('click', function(e) {
+        if (confirm(msg.log_upload_1) === false) {
+            e.preventDefault();
+            return;
+        }
+        $('#form_step').val('1b');
+    });
+
     $('#form_tabs2spaces').on('click', function() {
         var logs = $('#form_logs');
         logs.val(logs.val().replace(/\t/g, '     '));
@@ -916,7 +933,19 @@ function initListenersLogUploadForm() {
             log_arr[idx] = words.join('');
         }
         logs.val(log_arr.join('\r\n'));
-    })
+    });
+
+    $('#form_parseLog').on('click', function(e) {
+        var logs = $('#form_logs');
+        if (logs.val() === '' || logs.val() === msg.log_upload_4) {
+            e.preventDefault();
+            logs.val(msg.log_upload_4);
+            alert(msg.error.toUpperCase() + "\n\n" + msg.log_upload_3);
+            logs.focus().select();
+            return false;
+        }
+        $('#form_step').val(2);
+    });
 }
 
 // Used here: http://rxx.classaxe.com/en/rna/listeners/56/map
