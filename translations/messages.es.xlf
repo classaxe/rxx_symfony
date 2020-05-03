@@ -4295,6 +4295,34 @@
         <source>Save this format for future logs by this listener?</source>
         <target>__Save this format for future logs by this listener?</target>
       </trans-unit>
+      <trans-unit id="uNmd8QZ" resname="Go Back">
+        <source>Go Back</source>
+        <target>__Go Back</target>
+      </trans-unit>
+      <trans-unit id="Zcn.I1U" resname="Submit Log">
+        <source>Submit Log</source>
+        <target>__Submit Log</target>
+      </trans-unit>
+      <trans-unit id="zjyJY6P" resname="This listener's Log Format should contain AT LEAST an ID field to help identify each signal.">
+        <source>This listener's Log Format should contain AT LEAST an ID field to help identify each signal.</source>
+        <target>__This listener's Log Format should contain AT LEAST an ID field to help identify each signal.</target>
+      </trans-unit>
+      <trans-unit id="Sf6Plrg" resname="&lt;- Enter the log format here">
+        <source>&lt;- Enter the log format here</source>
+        <target><![CDATA[__<- Enter the log format here]]></target>
+      </trans-unit>
+      <trans-unit id="U6qgOcj" resname="The following details are also required:">
+        <source>The following details are also required:</source>
+        <target>__The following details are also required:</target>
+      </trans-unit>
+      <trans-unit id="ifaDJWD" resname="Year">
+        <source>Year</source>
+        <target>__Year</target>
+      </trans-unit>
+      <trans-unit id="MQylA_8" resname="Month">
+        <source>Month</source>
+        <target>__Month</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

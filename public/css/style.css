@@ -1,7 +1,7 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.8.21
+ * Version:    2.8.22
  * Date:       2020-05-03
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
@@ -1743,6 +1743,30 @@ fieldset#form_range_units div label {
   width: 4em;
   margin: 0 0 0 0.5em;
   float: right;
+}
+.logUpload #form #dateFields legend {
+  width: auto;
+  color: #000;
+  text-align: left;
+  float: left;
+  margin: 0 1em 0 0;
+}
+.logUpload #form #dateFields div {
+  clear: none;
+  float: left;
+  display: inline;
+}
+.logUpload #form #dateFields div label {
+  width: 4em;
+  text-align: right;
+  margin: 0 0.25em 0 0.5em;
+}
+.logUpload #form #dateFields div input {
+  width: 4em;
+}
+.logUpload #form #dateFields div input#form_MM,
+.logUpload #form #dateFields div input#form_DD {
+  width: 2.5em;
 }
 .logUpload #form #form_logs {
   width: 100%;

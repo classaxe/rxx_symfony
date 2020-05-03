@@ -41,9 +41,6 @@ class LogUpload extends AbstractType
                 'format',
                 TextType::class,
                 [
-                    'attr' => [
-                        'style' => 'float: left'
-                    ],
                     'data' =>           $options['format'],
                     'empty_data' =>     '',
                     'label' =>          'Format'
@@ -69,8 +66,40 @@ class LogUpload extends AbstractType
                         'rows' =>       30
                     ],
                     'data' =>           '',
-                    'empty_data' =>     '',
                     'label' =>          'Logs',
+                    'required' =>       false
+                ]
+            )
+            ->add(
+                'YYYY',
+                TextType::class,
+                [
+                    'attr' => [
+                        'maxlength' => 4
+                    ],
+                    'label' =>          'Year',
+                    'required' =>       false
+                ]
+            )
+            ->add(
+                'MM',
+                TextType::class,
+                [
+                    'attr' => [
+                        'maxlength' => 2
+                    ],
+                    'label' =>          'Month',
+                    'required' =>       false
+                ]
+            )
+            ->add(
+                'DD',
+                TextType::class,
+                [
+                    'attr' => [
+                        'maxlength' => 2
+                    ],
+                    'label' =>          'Date',
                     'required' =>       false
                 ]
             )
@@ -102,6 +131,26 @@ class LogUpload extends AbstractType
                         'class' => 'button small'
                     ],
                     'label' => 'Parse Log',
+                ]
+            )
+            ->add(
+                'back',
+                ButtonType::class,
+                [
+                    'attr' => [
+                        'class' => 'button small'
+                    ],
+                    'label' => 'Go Back',
+                ]
+            )
+            ->add(
+                'submitLog',
+                SubmitType::class,
+                [
+                    'attr' => [
+                        'class' => 'button small'
+                    ],
+                    'label' => 'Submit Log',
                 ]
             );
 

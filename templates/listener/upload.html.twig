@@ -7,24 +7,41 @@
         <div class="header">{{ mode|raw }}</div>
         <div class="content">
             <div id="form">
-            {{ form_start(form) }}
+                {{ form_start(form) }}
                 {{ form_row(form.id)  }}
                 {{ form_row(form.step)  }}
-                <div id="format">
+                <div id="format"{% if (step != 1) %} style="display:none"{% endif %}>
                     <div id="formatOld">{{ formatOld }}</div>
                     {{ form_widget(form.format) }}
                     {{ form_widget(form.saveFormat)  }}
                 </div>
-                <div>
+                <div{% if (step != 1) %} style="display:none"{% endif %}>
                     {{ form_widget(form.logs) }}
                 </div>
-                <fieldset id="group_">
-                    {{ form_row(form.tabs2spaces) }}
-                    {{ form_row(form.lineUp) }}
-                    {{ form_row(form.parseLog) }}
+                <fieldset id="dateFields"{% if (has.YYYY and has.MM and has.DD) %} style="display:none"{% endif %}>
+                    <legend>{% trans %}The following details are also required:{% endtrans %}</legend>
+                    <div{% if (has.YYYY) %} style="display:none"{% endif %}>
+                        {{ form_label(form.YYYY) }}{{ form_widget(form.YYYY) }}
+                    </div>
+                    <div{% if (has.MM) %} style="display:none"{% endif %}>
+                        {{ form_label(form.MM) }}{{ form_widget(form.MM) }}
+                    </div>
+                    <div{% if (has.DD) %} style="display:none"{% endif %}>
+                        {{ form_label(form.DD) }}{{ form_widget(form.DD) }}
+                    </div>
                 </fieldset>
-
-            {{ form_end(form, {'render_rest': true}) }}
+                <fieldset id="group_">
+                    <span{% if (step != 1) %} style="display:none"{% endif %}>
+                        {{ form_row(form.tabs2spaces) }}
+                        {{ form_row(form.lineUp) }}
+                        {{ form_row(form.parseLog) }}
+                    </span>
+                    <span{% if (step != 2) %} style="display:none"{% endif %}>
+                        {{ form_row(form.submitLog) }}
+                        {{ form_row(form.back) }}
+                    </span>
+                </fieldset>
+                {{ form_end(form, {'render_rest': true}) }}
             </div>
         </div>
     </div>

@@ -13,6 +13,42 @@ class LogRepository extends ServiceEntityRepository
 {
     private $connection;
 
+    const TOKENS = [
+        'SINGLE' => [
+            'D',   'DD',  'M',    'MM',   'MMM',   'YY',    'YYYY',   'hh:mm', 'hhmm',
+            'KHZ', 'ID',  'GSQ',  'PWR',  'QTH',   'SP',    'ITU',    'sec',   'fmt',
+            'LSB', 'USB', '~LSB', '~USB', '+SB-',  '+~SB-', '+K-',    'ABS',   '~ABS',
+            'x',   'X'
+        ],
+
+        'MMDD' => [
+            'DM',        'D.M',         'DDM',       'DD.M',
+            'DMM',       'D.MM',        'DDMM',      'DD.MM',
+            'DMMM',      'D.MMM',       'DDMMM',     'DD.MMM',
+
+            'MD',        'M.D',         'MDD',       'M.DD',
+            'MMD',       'MM.D',        'MMDD',      'MM.DD',
+            'MMMD',      'MMM.D',       'MMMDD',     'MMM.DD'
+        ],
+
+        'YYYYMMDD' => [
+            'DDMMYY',    'DD.MM.YY',    'DDYYMM',    'DD.YY.MM',
+            'DDMMMYY',   'DD.MMM.YY',   'DDYYMMM',   'DD.YY.MMM',
+            'DDMMYYYY',  'DD.MM.YYYY',  'DDYYYYMM',  'DD.YYYY.MM',
+            'DDMMMYYYY', 'DD.MMM.YYYY', 'DDYYYYMMM', 'DD.YYYY.MMM',
+
+            'MMDDYY',    'MM.DD.YY',    'MMYYDD',    'MM.YY.DD',
+            'MMMDDYY',   'MMM.DD.YY',   'MMMYYDD',   'MMM.YY.DD',
+            'MMDDYYYY',  'MM.DD.YYYY',  'MMYYYYDD',  'MM.YYYY.DD',
+            'MMMDDYYYY', 'MMM.DD.YYYY', 'MMMYYYYDD', 'MMM.YYYY.DD',
+
+            'YYDDMM',    'YY.DD.MM',    'YYMMDD',    'YY.MM.DD',
+            'YYDDMMM',   'YY.DD.MMM',   'YYMMMDD',   'YY.MMM.DD',
+            'YYYYDDMM',  'YYYY.DD.MM',  'YYYYMMDD',  'YYYY.MM.DD',
+            'YYYYDDMMM', 'YYYY.DD.MMM', 'YYYYMMMDD', 'YYYY.MMM.DD'
+        ]
+    ];
+
     /**
      * LogRepository constructor.
      * @param ManagerRegistry $registry
