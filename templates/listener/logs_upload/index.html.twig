@@ -2,15 +2,20 @@
 {% block body %}
 <div class="main fullwidth">
     {% set form_class='listener_export' %}
+    {% set form_logs_height = 420
+        - (errors ? 90 + (23 * errors|length) : 0)
+        - (has and has.errors ? 28 : 0)
+    %}
     {% include 'listener/tabs.html.twig' %}
     <div class="controlPanel logUpload">
         <div class="header">{{ mode|raw }}</div>
         <div class="content">
-            <div id="form">
+        {% include 'listener/logs_upload/errors.html.twig' %}
+            <div id="form"{% if (errors) %} class='formatErrors'{% endif %}>
                 {{ form_start(form) }}
-                {{ form_row(form.id)  }}
+                {{ form_row(form.id) }}
                 {{ form_row(form.step)  }}
-                <div id="format"{% if (step != 1) %} style="display:none"{% endif %}>
+                <div id="format"{% if (step != 1) %} class="hidden"{% endif %}>
                     <div id="formatOld">{{ formatOld }}</div>
                     {{ form_widget(form.format) }}
                     {{ form_widget(form.saveFormat)  }}
@@ -18,18 +23,7 @@
                 <div{% if (step != 1) %} style="display:none"{% endif %}>
                     {{ form_widget(form.logs) }}
                 </div>
-                <fieldset id="dateFields"{% if (has.YYYY and has.MM and has.DD) %} style="display:none"{% endif %}>
-                    <legend>{% trans %}The following details are also required:{% endtrans %}</legend>
-                    <div{% if (has.YYYY) %} style="display:none"{% endif %}>
-                        {{ form_label(form.YYYY) }}{{ form_widget(form.YYYY) }}
-                    </div>
-                    <div{% if (has.MM) %} style="display:none"{% endif %}>
-                        {{ form_label(form.MM) }}{{ form_widget(form.MM) }}
-                    </div>
-                    <div{% if (has.DD) %} style="display:none"{% endif %}>
-                        {{ form_label(form.DD) }}{{ form_widget(form.DD) }}
-                    </div>
-                </fieldset>
+                {% include('listener/logs_upload/datefields.html.twig') %}
                 <fieldset id="group_">
                     <span{% if (step != 1) %} style="display:none"{% endif %}>
                         {{ form_row(form.tabs2spaces) }}
@@ -46,6 +40,10 @@
         </div>
     </div>
 </div>
+{% if (form_logs_height != 420) %}
+<style>.logUpload #form #form_logs { height: {{ form_logs_height }}px; }</style>
+{% endif %}
+
 <script>
 $(document).ready( function() {
     initListenersLogUploadForm();

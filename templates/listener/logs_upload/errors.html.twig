@@ -1,0 +1,25 @@
+{% if (errors) %}
+    {% set format_line = format %}
+    {% for key, data in errors %}
+        {% set format_line = format_line | replace({ (key) : '<span class="' ~ data.class ~ '" title="' ~ data.msg ~ '">' ~ key ~ '</span>' })|raw %}
+    {% endfor %}
+    {% include 'listener/logs_upload/tokens_help.html.twig' %}
+    <h2>{% trans %}Log Format errors{% endtrans %} <small>[ <a href="#" class="trigger" title="Click for help">Help</a> ]</small></h2>
+    <table class="results very-short tokenErrors">
+        <thead>
+        <tr>
+            <th>{% trans %}Token{% endtrans %}</th>
+            <th>{% trans %}Problem{% endtrans %}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for key, data in errors %}
+            <tr>
+                <td>{{ key }}</td>
+                <td><span class="{{ data.class }}">{{ data.msg }}</span></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div id="format_errors" class="tokenErrors">{{ format_line|raw }}</div>
+{% endif %}

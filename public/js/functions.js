@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.8.22
- * Date:       2020-05-03
+ * Version:    2.8.23
+ * Date:       2020-05-06
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
  */
@@ -955,8 +955,32 @@ function initListenersLogUploadForm() {
     });
 
     $('#form_back').on('click', function(e) {
-        history.location.back();
-    });}
+        window.history.back();
+    });
+
+    $(document).on('click', '.trigger', function () {
+        $(this).addClass("on");
+        $(this).tooltip({
+            content: $('#tokensHelp').html(),
+            items: '.trigger.on',
+            position: {
+                my: "left+15 top-20",
+                at: "right center",
+            },
+            tooltipClass: "toolTipDetails",
+        });
+        $(this).trigger('mouseenter');
+    });
+    //hide
+    $(document).on('click', '.trigger.on', function () {
+        $(this).tooltip('close');
+        $(this).removeClass("on");
+    });
+    //prevent mouseout and other related events from firing their handlers
+    $(".trigger").on('mouseout', function (e) {
+        e.stopImmediatePropagation();
+    });
+}
 
 // Used here: http://rxx.classaxe.com/en/rna/listeners/56/map
 // Global vars:

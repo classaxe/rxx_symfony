@@ -35,6 +35,6 @@ class Help extends Base
         ];
         $parameters = array_merge($parameters, $this->parameters);
 
-        return $this->render('help/index.html.twig', $parameters);
+        return $this->render('admin/help/index.html.twig', $parameters);
     }
 }

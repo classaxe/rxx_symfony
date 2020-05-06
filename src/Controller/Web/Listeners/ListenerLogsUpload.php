@@ -13,9 +13,10 @@ use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
  */
 class ListenerLogsUpload extends Base
 {
+    private $errors = [];
     private $listener;
     private $logHas;
-    private $tokens;
+    private $tokens = [];
     private $system;
 
     /**
@@ -63,18 +64,24 @@ class ListenerLogsUpload extends Base
             $data = $form->getData();
             $step = $data['step'];
             $format = $data['format'];
+            $this->parseFormat($format);
+            $this->checkLogDateTokens();
             switch ($step) {
                 case '1b':
-                    $this->saveFormat($data);
+                    if (!$this->errors && !$this->logHas['errors']) {
+                        $this->saveFormat($data);
+                    }
                     $step = '1';
                     break;
                 case '2':
-                    $this->parseLog($data);
+                    if ($this->errors || $this->logHas['errors']) {
+                        $step = '1';
+                    } else {
+                        $this->parseLog($data);
+                    }
                     break;
             }
         }
-        $this->parseFormat($format);
-        $this->checkLogDateTokens();
         $title = sprintf(
             $this->i18n('Upload Loggings for %s | Step %d'),
             $this->listener->getFormattedNameAndLocation(),
@@ -84,17 +91,21 @@ class ListenerLogsUpload extends Base
             'id' =>                 $id,
             '_locale' =>            $_locale,
             'mode' =>               $title,
+            'errors' =>             $this->errors,
             'form' =>               $form->createView(),
+            'format' =>             $format,
             'formatOld' =>          $this->listener->getLogFormat(),
+
             'has' =>                $this->logHas,
             'logs' =>               $this->listener->getCountLogs(),
             'signals' =>            $this->listener->getCountSignals(),
             'step' =>               $step,
             'system' =>             $this->system,
-            'tabs' =>               $this->listenerRepository->getTabs($this->listener, $isAdmin)
+            'tabs' =>               $this->listenerRepository->getTabs($this->listener, $isAdmin),
+            'tokens' =>             $this->tokens
         ];
         $parameters = array_merge($parameters, $this->parameters);
-        return $this->render('listener/upload.html.twig', $parameters);
+        return $this->render('listener/logs_upload/index.html.twig', $parameters);
     }
 
     private function parseFormat($format) {
@@ -103,57 +114,41 @@ class ListenerLogsUpload extends Base
             $this->logRepository::TOKENS['MMDD'],
             $this->logRepository::TOKENS['YYYYMMDD']
         );
-        $this->tokens = [];
-        $tokens =       [];
-        $flags =        [];
+        $log_format_parse = $format . ' ';
         $start = 0;
-        $log_format_parse =     $format . ' ';
-        $log_format_errors =    '';
-        while (substr($log_format_parse, $start, 1) === " ") {
+        while (substr($log_format_parse, $start, 1) === ' ') {
             $start++;
         }
-        while ($start<strlen($log_format_parse)) {
-            $len =        strpos(substr($log_format_parse, $start), " ");
-            $param_name =    substr($log_format_parse, $start, $len);
+        while ($start < strlen($log_format_parse)) {
+            $len =  strpos(substr($log_format_parse, $start), ' ');
+            $key =  substr($log_format_parse, $start, $len);
             if ($len) {
-                while (substr($log_format_parse, $start+$len, 1)==" ") {
+                while (substr($log_format_parse, $start + $len, 1) === ' ') {
                     $len++;
                 }
-                if ($param_name=="X" || !isset($this->tokens[$param_name])) {
-                    $this->tokens[$param_name] = array($start,$len+1);
-                    if (!in_array($param_name, $valid)) {
-                        $tokens[] = $param_name;
-                        $flags[] =
-                            "<span style='color:#ff0000;font-weight:bold;cursor:pointer'"
-                            ." title='Token not recognised'>"
-                            .$param_name
-                            ."</span>";
-                        $log_format_errors.=
-                            "<tr class='rownormal'>\n"
-                            ."  <th align='left'>".$param_name."</th>\n"
-                            ."  <td><span style='color:#ff0000;'>Token not recognised</span></td>\n"
-                            ."</tr>\n";
-
+                if ($key === 'X' || !isset($this->tokens[$key])) {
+                    $this->tokens[$key] = [ $start, $len + 1 ];
+                    if (!in_array($key, $valid)) {
+                        $this->errors[$key] = [
+                            'class' =>  'unknown',
+                            'msg' =>    'Token not recognised'
+                        ];
                     }
                 } else {
-                    $tokens[] = $param_name;
-                    $flags[] =
-                        "<span style='color:#ff00ff;font-weight:bold;cursor:pointer'"
-                        ." title='Token occurs more than once'>".$param_name."</span>";
-                    $log_format_errors.=
-                        "<tr class='rownormal'>\n"
-                        ."  <th align='left'>".$param_name."</th>\n"
-                        ."  <td><span style='color:#ff00ff;'>Token occurs more than once</span></td>\n"
-                        ."</tr>\n";
+                    $this->errors[$key] = [
+                        'class' =>  'duplicate',
+                        'msg' =>    'Token occurs more than once'
+                    ];
                 }
             }
-            $start = $start+$len;
+            $start += $len;
         }
     }
 
     protected function checkLogDateTokens()
     {
         $this->logHas = [
+            'errors' => false,
             'YYYY' =>   false,
             'MM' =>     false,
             'DD' =>     false
@@ -181,6 +176,9 @@ class ListenerLogsUpload extends Base
         }
         if (isset($this->tokens["DD"]) || isset($this->tokens["D"])) {
             $this->logHas['DD'] =   true;
+        }
+        if (!$this->logHas['YYYY'] || !$this->logHas['MM'] || $this->logHas['DD']) {
+            $this->logHas['errors'] =   true;
         }
     }
 

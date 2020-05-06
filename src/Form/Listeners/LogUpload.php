@@ -41,6 +41,9 @@ class LogUpload extends AbstractType
                 'format',
                 TextType::class,
                 [
+                    'attr' => [
+                        'placeholder' => 'Log format goes here'
+                    ],
                     'data' =>           $options['format'],
                     'empty_data' =>     '',
                     'label' =>          'Format'
@@ -63,6 +66,7 @@ class LogUpload extends AbstractType
                 [
                     'attr' => [
                         'cols' =>       80,
+                        'placeholder' => 'Paste log entries here',
                         'rows' =>       30
                     ],
                     'data' =>           '',
@@ -75,7 +79,8 @@ class LogUpload extends AbstractType
                 TextType::class,
                 [
                     'attr' => [
-                        'maxlength' => 4
+                        'maxlength' => 4,
+                        'placeholder' => 'YYYY'
                     ],
                     'label' =>          'Year',
                     'required' =>       false
@@ -86,7 +91,8 @@ class LogUpload extends AbstractType
                 TextType::class,
                 [
                     'attr' => [
-                        'maxlength' => 2
+                        'maxlength' => 2,
+                        'placeholder' => 'MM'
                     ],
                     'label' =>          'Month',
                     'required' =>       false
@@ -97,7 +103,8 @@ class LogUpload extends AbstractType
                 TextType::class,
                 [
                     'attr' => [
-                        'maxlength' => 2
+                        'maxlength' => 2,
+                        'placeholder' => 'DD'
                     ],
                     'label' =>          'Date',
                     'required' =>       false
