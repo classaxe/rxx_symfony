@@ -1,6 +1,6 @@
 <div id="tokensHelp" style="display:none">
     <div class="tokensHelp">
-        <strong>Valid Tokens</strong> <em>(Click 'Help' again to close)</em>
+        <strong>Valid Tokens</strong> <em>(Click any token to copy it, click 'Help' again to close panel)</em>
         <label>Signal Information</label>
         <p><b>KHZ</b> <b>ID</b> <b>GSQ</b> <b>PWR</b> <b>QTH</b> <b>SP</b> <b>ITU</b></p>
         <label>Date and Time Fields:</label>
@@ -14,11 +14,17 @@
             <b>DD.MM.YY</b> <b>DD.YY.MM</b> <b>DD.MMM.YY</b> <b>DD.YY.MMM</b> <b>DD.MM.YYYY</b> <b>DD.YYYY.MM</b> <b>DD.MMM.YYYY</b> <b>DD.YYYY.MMM</b><br />
             <b>MM.DD.YY</b> <b>MM.YY.DD</b> <b>MMM.DD.YY</b> <b>MMM.YY.DD</b> <b>MM.DD.YYYY</b> <b>MM.YYYY.DD</b> <b>MMM.DD.YYYY</b> <b>MMM.YYYY.DD</b><br />
             <b>YY.DD.MM</b> <b>YY.MM.DD</b> <b>YY.DD.MMM</b> <b>YY.MMM.DD</b> <b>YYYY.DD.MM</b> <b>YYYY.MM.DD</b> <b>YYYY.DD.MMM</b> <b>YYYY.MMM.DD</b><br />
+            <em>(The <span>.</span> character will match any of these valid delimiters: <span>.,;:/|\+-*#$%^~</span> )</em><br />
+        </p>
+        <label>Sideband Offsets</label>
+        <p>
+            <b>LSB</b> <b>USB</b> <b>~LSB</b> <b>~USB</b> <b>+SB-</b> <b>+~SB-</b> <b>+K-</b> <b>ABS</b> <b>~ABS</b><br />
+            <em>(The <span>~</span> character indicates approximate values not used to update signal details)</em>
         </p>
         <label>Other loggable fields</label>
         <p>
-            <b>LSB</b> <b>USB</b> <b>~LSB</b> <b>~USB</b> <b>+SB-</b> <b>+~SB-</b> <b>+K-</b> <b>ABS</b> <b>~ABS</b> <b>sec</b> <b>fmt</b><br />
-            <em>(use <b>X</b> for any extra details to be ignored)</em>
+            <b>sec</b> <b>fmt</b> <b>X</b><br />
+            <em>(Use <span>X</span> to skip any extra details not processed by the importer)</em>
         </p>
     </div>
 </div>

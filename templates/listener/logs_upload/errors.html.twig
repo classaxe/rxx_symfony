@@ -4,7 +4,7 @@
         {% set format_line = format_line | replace({ (key) : '<span class="' ~ data.class ~ '" title="' ~ data.msg ~ '">' ~ key ~ '</span>' })|raw %}
     {% endfor %}
     {% include 'listener/logs_upload/tokens_help.html.twig' %}
-    <h2>{% trans %}Log Format errors{% endtrans %} <small>[ <a href="#" class="trigger" title="Click for help">Help</a> ]</small></h2>
+    <h2>{% trans %}Log Format errors{% endtrans %} <small>[ <a href="#" class="tokensHelpLink" title="Click for help">Help</a> ]</small></h2>
     <table class="results very-short tokenErrors">
         <thead>
         <tr>

@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.8.23
- * Date:       2020-05-06
+ * Version:    2.8.24
+ * Date:       2020-05-07
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
  */
@@ -1830,6 +1830,19 @@ fieldset#form_range_units div label {
 .toolTipDetails b {
   color: #0000ff;
   background: #e0e0ff;
+  font-family: "Courier New", Courier, monospace;
+  cursor: pointer;
+}
+.toolTipDetails b:hover {
+  text-decoration: underline;
+}
+.toolTipDetails span {
+  background: #eee;
+  padding: 0 0.25em;
+  border: 1px dashed #888;
+  border-radius: 3px;
+  white-space: pre;
+  font-weight: bold;
   font-family: "Courier New", Courier, monospace;
 }
 a.add,

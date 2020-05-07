@@ -1,4 +1,4 @@
-<fieldset id="dateFields"{% if (not (has and has.errors)) %} style="display:none"{% endif %}>
+<fieldset id="dateFields"{% if (not (has and has.partial)) %} style="display:none"{% endif %}>
     <legend>{% trans %}The following details are also required:{% endtrans %}</legend>
     <div{% if (has and has.YYYY) %} style="display:none"{% endif %}>
         {{ form_label(form.YYYY) }}{{ form_widget(form.YYYY) }}

@@ -1,16 +1,12 @@
 {% extends 'popup.html.twig' %}
 {% block body %}
 <div class="main fullwidth">
-    {% set form_class='listener_export' %}
-    {% set form_logs_height = 420
-        - (errors ? 90 + (23 * errors|length) : 0)
-        - (has and has.errors ? 28 : 0)
-    %}
+    {% set form_class='listener_logs' %}
     {% include 'listener/tabs.html.twig' %}
     <div class="controlPanel logUpload">
         <div class="header">{{ mode|raw }}</div>
         <div class="content">
-        {% include 'listener/logs_upload/errors.html.twig' %}
+            {% include 'listener/logs_upload/errors.html.twig' %}
             <div id="form"{% if (errors) %} class='formatErrors'{% endif %}>
                 {{ form_start(form) }}
                 {{ form_row(form.id) }}

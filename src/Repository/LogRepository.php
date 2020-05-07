@@ -187,6 +187,83 @@ EOD;
         return $result;
     }
 
+    public function checkLogDateTokens($tokens) {
+        $result = [
+            'partial' =>    false,
+            'YYYY' =>       false,
+            'MM' =>         false,
+            'DD' =>         false
+        ];
+        foreach (static::TOKENS['YYYYMMDD'] as $token) {
+            if (isset($tokens[$token])) {
+                $result['YYYY'] = true;
+                $result['MM'] =   true;
+                $result['DD'] =   true;
+                return $result;
+            }
+        }
+        foreach (static::TOKENS['MMDD'] as $token) {
+            if (isset($tokens[$token])) {
+                $result['MM'] =   true;
+                $result['DD'] =   true;
+                break;
+            }
+        }
+        if (isset($tokens["YYYY"]) || isset($tokens["YY"])) {
+            $result['YYYY'] = true;
+        }
+        if (isset($tokens["MMM"]) || isset($tokens["MM"]) || isset($tokens["M"])) {
+            $result['MM'] =   true;
+        }
+        if (isset($tokens["DD"]) || isset($tokens["D"])) {
+            $result['DD'] =   true;
+        }
+        if (!$result['YYYY'] || !$result['MM'] || !$result['DD']) {
+            $result['partial'] =   true;
+        }
+        return $result;
+    }
+
+    public function parseFormat($format) {
+        $valid = array_merge(
+            static::TOKENS['SINGLE'],
+            static::TOKENS['MMDD'],
+            static::TOKENS['YYYYMMDD']
+        );
+        $log_format_parse = $format . ' ';
+        $start = 0;
+        while (substr($log_format_parse, $start, 1) === ' ') {
+            $start++;
+        }
+        $errors = [];
+        $tokens = [];
+        while ($start < strlen($log_format_parse)) {
+            $len =  strpos(substr($log_format_parse, $start), ' ');
+            $key =  substr($log_format_parse, $start, $len);
+            if ($len) {
+                while (substr($log_format_parse, $start + $len, 1) === ' ') {
+                    $len++;
+                }
+                if ($key === 'X' || !isset($tokens[$key])) {
+                    $tokens[$key] = [ $start, $len + 1 ];
+                    if (!in_array($key, $valid)) {
+                        $errors[$key] = [
+                            'class' =>  'unknown',
+                            'msg' =>    'Token not recognised'
+                        ];
+                    }
+                } else {
+                    $errors[$key] = [
+                        'class' =>  'duplicate',
+                        'msg' =>    'Token occurs more than once'
+                    ];
+                }
+            }
+            $start += $len;
+        }
+        return [ $tokens, $errors ];
+    }
+
     public function updateDx($listenerId = false, $signalId = false)
     {
         set_time_limit(600);    // Extend maximum execution time to 10 mins

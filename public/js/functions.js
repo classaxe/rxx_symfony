@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.8.23
- * Date:       2020-05-06
+ * Version:    2.8.24
+ * Date:       2020-05-07
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
  */
@@ -873,16 +873,17 @@ function strip_tags(input, allowed) {
 }
 
 function initListenersLogUploadForm() {
-    $('#form_format').on('keyup', function(e) {
+    var formFormat = $('#form_format');
+    formFormat.on('keyup', function() {
         $('#form_saveFormat').attr('disabled', $(this).val() === $('#formatOld').text());
     });
 
     // Detect if we reloaded the page dure to back button being pressed
     if (window.performance && window.performance.navigation.type === window.performance.navigation.TYPE_BACK_FORWARD) {
-        $('#form_format').trigger('keyup');
+        formFormat.trigger('keyup');
     }
 
-    $('#form_saveFormat').on('click', function(e) {
+    $('#form_saveFormat').on('click', function() {
         if (confirm(msg.log_upload_1) === false) {
             e.preventDefault();
             return;
@@ -954,30 +955,37 @@ function initListenersLogUploadForm() {
         $('#form_step').val(2);
     });
 
-    $('#form_back').on('click', function(e) {
+    $('#form_back').on('click', function() {
         window.history.back();
     });
 
-    $(document).on('click', '.trigger', function () {
-        $(this).addClass("on");
+    $(document).on('click', '.tokensHelpLink', function() {
+        $(this).addClass('on');
         $(this).tooltip({
             content: $('#tokensHelp').html(),
-            items: '.trigger.on',
+            items: '.tokensHelpLink.on',
             position: {
-                my: "left+15 top-20",
-                at: "right center",
+                my: 'left+15 top-20',
+                at: 'right center',
             },
-            tooltipClass: "toolTipDetails",
+            tooltipClass: 'toolTipDetails',
         });
         $(this).trigger('mouseenter');
+        $('.tokensHelp b').on('click', function() {
+            var txt = $(this).text();
+            copyToClipboard(txt);
+            alert(msg.copied.replace('%s', txt));
+        }).attr('title', msg.copy_token);
+        return false;
     });
     //hide
-    $(document).on('click', '.trigger.on', function () {
+    $(document).on('click', '.tokensHelpLink.on', function () {
+        $(this).removeClass('on');
         $(this).tooltip('close');
-        $(this).removeClass("on");
+        return false;
     });
     //prevent mouseout and other related events from firing their handlers
-    $(".trigger").on('mouseout', function (e) {
+    $('.tokensHelpLink').on('mouseout', function (e) {
         e.stopImmediatePropagation();
     });
 }
