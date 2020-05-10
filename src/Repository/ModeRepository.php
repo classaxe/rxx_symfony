@@ -60,16 +60,37 @@ class ModeRepository
             'ndblistWebsite' => [
                 'admin' =>  true,
                 'guest' =>  true,
-                'menu' =>   'NDB List - Website',
-                'title' =>  'NDB List - Group Information Website',
+                'menu' =>   'NDB List Website',
+                'title' =>  'NDB List Group Information Website',
                 'url'=>     'http://ndblist.info/'
             ],
-            'ndblistGroup' => [
+            'NdbGroup' => [
                 'admin' =>  true,
                 'guest' =>  true,
-                'menu' =>   'NDB List - Group',
-                'title' =>  'NDB List - Group Discussion Site',
+                'menu' =>   'NDB Group',
+                'title' =>  'NDB at Groups.io',
                 'url'=>     'https://groups.io/g/ndblist'
+            ],
+            'DscGroup' => [
+                'admin' =>  true,
+                'guest' =>  true,
+                'menu' =>   'DSC Group',
+                'title' =>  'DSC at Groups.io',
+                'url'=>     'https://groups.io/g/dsc-list'
+            ],
+            'DgpsGroup' => [
+                'admin' =>  true,
+                'guest' =>  true,
+                'menu' =>   'DGPS Group',
+                'title' =>  'DGPS at Groups.io',
+                'url'=>     'https://groups.io/g/dgpslist'
+            ],
+            'NavtexGroup' => [
+                'admin' =>  true,
+                'guest' =>  true,
+                'menu' =>   'NAVTEX Group',
+                'title' =>  'Navtex at Groups.io',
+                'url'=>     'https://groups.io/g/navtexdx'
             ],
         ],
         [
