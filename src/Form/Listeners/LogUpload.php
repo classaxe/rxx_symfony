@@ -46,7 +46,8 @@ class LogUpload extends AbstractType
                     ],
                     'data' =>           $options['format'],
                     'empty_data' =>     '',
-                    'label' =>          'Format'
+                    'label' =>          'Format',
+                    'trim' =>           false
                 ]
             )
             ->add(
@@ -71,7 +72,8 @@ class LogUpload extends AbstractType
                     ],
                     'data' =>           '',
                     'label' =>          'Logs',
-                    'required' =>       false
+                    'required' =>       false,
+                    'trim' =>           false
                 ]
             )
             ->add(

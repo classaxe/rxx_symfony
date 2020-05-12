@@ -65,15 +65,21 @@ function initListenersLogUploadForm() {
     $('#form_parseLog').on('click', function(e) {
         var f, field, fields;
         fields = [
-            [ '#form_format', msg.log_upload_3, msg.log_upload_4 ],
-            [ '#form_logs',   msg.log_upload_5, msg.log_upload_6 ]
+            [ '#form_format', 3, 4 ],
+            [ '#form_logs',   5, 6 ],
+            [ '#form_YYYY',   7, 8 ],
+            [ '#form_MM',     9, 10 ],
+            [ '#form_DD',    11, 12 ]
         ];
         for (f in fields) {
             field = $(fields[f][0]);
-            if (field.val() === '' || field.val() === fields[f][2]) {
+            if (!field.is(':visible')) {
+                continue;
+            }
+            if (field.val() === '' || field.val() === msg['log_upload_' + fields[f][2]]) {
                 e.preventDefault();
-                field.val(fields[f][2]);
-                alert(msg.error.toUpperCase() + "\n\n" + fields[f][1]);
+                field.val(msg['log_upload_' + fields[f][2]]);
+                alert(msg.error.toUpperCase() + "\n\n" + msg['log_upload_' + fields[f][1]]);
                 field.focus().select();
                 return false;
             }

@@ -65,6 +65,16 @@ class Rxx
         ];
     }
 
+    public static function convertMMMtoMM($value) {
+        $months = explode(',', 'JAN,FEB,MAR,APR,MAY,JUN,JUL,AUG,SEP,OCT,NOV,DEC');
+        $idx = array_search(strToUpper($value), $months);
+        if (false === $idx) {
+            return $idx;
+        }
+        return str_pad((1 + $idx), 2, '0', STR_PAD_LEFT);
+    }
+
+
     public static function debug($var)
     {
         return new Response(static::y($var));

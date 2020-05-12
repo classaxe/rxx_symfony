@@ -1,181 +1,48 @@
-{% extends 'main.html.twig' %}
-{# This could use some work #}
+{% extends 'popup.html.twig' %}
 {% block body %}
-<div class="main">
-    <div class="links quicklinks">
-        Quick Links [
-        <a href='#listenerEdit'>Editing Listener Details</a> |
-        <a href='#addLogs'>Add Log Data</a> |
-        <a href='#confirmDetails'>Confirm Details</a>
-        ]
+<div class="main fullwidth">
+    {% set form_class='listener_logs' %}
+    {% include 'listener/tabs.html.twig' %}
+    <div class="controlPanel logUpload">
+        <div class="header">{{ mode|raw }}</div>
+        <div class="content">
+            {% include 'listener/logs_upload/errors.html.twig' %}
+            <div id="form"{% if (errors) %} class='formatErrors'{% endif %}>
+                {{ form_start(form) }}
+                {{ form_row(form.id) }}
+                {{ form_row(form.step)  }}
+                <div id="format"{% if (step != 1) %} class="hidden"{% endif %}>
+                    <div id="formatOld">{{ formatOld }}</div>
+                    {{ form_widget(form.format) }}
+                    {{ form_widget(form.saveFormat)  }}
+                </div>
+                <div{% if (step != 1) %} style="display:none"{% endif %}>
+                    {{ form_widget(form.logs) }}
+                </div>
+                {% include('listener/logs_upload/datefields.html.twig') %}
+                <fieldset id="group_">
+                    <span{% if (step != 1) %} style="display:none"{% endif %}>
+                        {{ form_row(form.tabs2spaces) }}
+                        {{ form_row(form.lineUp) }}
+                        {{ form_row(form.parseLog) }}
+                    </span>
+                    <span{% if (step != 2) %} style="display:none"{% endif %}>
+                        {{ form_row(form.submitLog) }}
+                        {{ form_row(form.back) }}
+                    </span>
+                </fieldset>
+                {{ form_end(form, {'render_rest': true}) }}
+            </div>
+        </div>
     </div>
-    <h1>Administrator Help</h1>
-    <p>This page extends from the standard help available to all users.</p>
-
-    <h2 class="margin-top-2" id="listenerEdit">Editing Listener Details <small>[ <a href='#top'><strong>Top</strong></a> ]</small></h2>
-    <p>The Listeners page works as for ordinary users but with these additional features for Administrators:</p>
-    <ul>
-        <li>To delete a listener, click the <strong>Delete</strong> link at the end of the appropriate row.
-            Deleting a listener also deletes their entire logbook, so make sure that you really want to do this.
-        </li>
-        <li>To edit listener details, find the listener you wish to edit and click on the name to open the <strong>Listener Profile</strong> screen.
-            Ordinary users can't change the values here, but administrators can. Remember to <strong>save</strong> your changes.
-        </li>
-        <li>To add a new listener, click the Add Listener... button at the bottom of the Listener List and complete the profile form for the listener.
-            If you have co-ordinates but no grid square for them, use the GSQ converter on the Tools page.
-        </li>
-        <li>Use the NDBList approved <a href="{{ path('countries', { 'system' : system }) }}" rel="external">3-letter country codes</a> -
-            eg <strong>SWE</strong> not S for Sweden, <strong>BRA</strong> not B for Brazil.
-        </li>
-    </ul>
-
-    <h2 class="margin-top-2" id="addLogs">Add Log Data <small>[ <a href='#top'><strong>Top</strong></a> ]</small></h2>
-    <p>This function is available by selecting a listener from the Listeners list and clicking on the <strong>Add Log...</strong> link for that listener.<br />
-        The system adds logs in two phases: <strong>Parse Log</strong> and <strong>Confirm Details</strong>.</p>
-    <h3>Parse Log</h3>
-    <p>This phase takes text text containing log entries and prepares to extract data into the standard fields used by the system.
-        Each listener may have adifferent way of presenting his or her log data and the trick part about the process is defining
-        the format they have used so that the log data will be correctly interpretted by the Log Upload system.
-    </p>
-    <p>
-        The field on top of the main text area (shaded grey) is the 'Text Format' field and holds the text format defining
-        how the log data is to be parsed. The values set in this field are saved each time a log is parsed.
-    </p>
-    <p>
-        The log import facility ignores all fields other than those shown below. It is a very good idea to place some extra
-        spaces and an X at the end of the list as otherwise the contents of the last field may be cropped (e.g. DI shown as Ident instead of DIW).
-    </p>
-    <h3 class="h3">Log Format Tokens</h3>
-    <p>
-        Here is the full list of field codes that are recognised by the system (these are all CASE SENSITIVE) and Date fields are shown in the table below:
-    </p>
-    <h4>Signal Identifiers</h4>
-    <ul>
-        <li><b>KHZ</b> Frequency in Kilohertz - the nominal carrier frequency.</li>
-        <li><b>ID</b> The Callsign, or in the case of DGPS stations, the Reference Station Identifier (always prefixed with a #) for the station.</li>
-        <li><b>GSQ</b> The Grid Square for the beacon - only used when extracting data to add new beacons.</li>
-        <li><b>PWR</b> The power in watts for the beacon - only used when extracting data to add new beacons.</li>
-        <li><b>QTH</b> The location for the beacon - only used when extracting data to add new beacons.</li>
-        <li><b>SP</b> The State or Province for the beacon (USA, Canada and Australia only) - only used when extracting data to add new beacons.</li>
-        <li><b>ITU</b> The NDBList 3-letter country code for the beacon (e.g. BRA, SWE, ENG) - only used when extracting data to add new beacons.</li>
-    </ul>
-    <h4>Log Date - Simple date tokens</h4>
-    <p>The following tokens can be used in any order to indicate the date for a given logging.<br />
-    They can also be combined without spaces between them to extract a date from a single combined date column:</p>
-    <ul>
-        <li><b>D</b> (one digit for dates 1-9) or <b>DD</b> (two digits, with leading zero for dates 1-9)</li>
-        <li><b>M</b> (one digit for months 1-9), <b>MM</b> (two digits, with leading zero for months 1-9) or <b>MMM</b> (first 3 letters of month name)</li>
-        <li><b>YY</b> (two-digit year) or <b>YYYY</b> (four-digit year)</li>
-    </ul>
-    <h4>Log Date - Combined date tokens (Date and Month only - you will be prompted for the Year)</h4>
-    <p>These extract the date from a combined date column having any of these single-character delimiters: <b>.,;:/|\+-*#$%^~</b></p>
-    <ul class="monospace">
-        <li><b>D.M</b> &nbsp; <b>DD.M</b> &nbsp; <b>D.MM</b> &nbsp;
-            <b>DD.MM</b> &nbsp; <b>D.MMM</b> &nbsp; <b>DD.MMM</b>
-        </li>
-        <li><b>M.D</b> &nbsp; <b>M.DD</b> &nbsp; <b>MM.D</b> &nbsp;
-            <b>MM.DD</b> &nbsp; <b>MMM.D</b> &nbsp; <b>MMM.DD</b>
-        </li>
-    </ul>
-    <h4>Log Date - Combined date tokens (with Year)</h4>
-    <p>These extract the date from a combined date column having any of these single-character delimiters: <b>.,;:/|\+-*#$%^~</b></p>
-    <ul class="monospace">
-        <li><b>DD.MM.YY</b> &nbsp; <b>DD.YY.MM</b> &nbsp; <b>DD.MMM.YY</b> &nbsp;
-            <b>DD.YY.MMM</b> &nbsp; <b>DD.MM.YYYY</b> &nbsp; <b>DD.YYYY.MM</b> &nbsp;
-            <b>DD.MMM.YYYY</b> &nbsp; <b>DD.YYYY.MMM</b>
-        </li>
-        <li><b>MM.DD.YY</b> &nbsp; <b>MM.YY.DD</b> &nbsp; <b>MMM.DD.YY</b> &nbsp;
-            <b>MMM.YY.DD</b> &nbsp; <b>MM.DD.YYYY</b> &nbsp; <b>MM.YYYY.DD</b> &nbsp;
-            <b>MMM.DD.YYYY</b> &nbsp; <b>MMM.YYYY.DD</b>
-        </li>
-        <li><b>YY.DD.MM</b> &nbsp; <b>YY.MM.DD</b> &nbsp; <b>YY.DD.MMM</b> &nbsp;
-            <b>YY.MMM.DD</b> &nbsp; <b>YYYY.DD.MM</b> &nbsp; <b>YYYY.MM.DD</b> &nbsp;
-            <b>YYYY.DD.MMM</b> &nbsp; <b>YYYY.MMM.DD</b>
-        </li>
-    </ul>
-
-    <h4>Log Time</h4>
-    <ul>
-        <li><b>hh:mm</b> The time in UTC when the station was heard, hours and minutes with leading zeros where required (note that these field names are lower case).</li>
-        <li><b>hhmm</b> As hh:mm, but without the colon separator between hours and minutes (note that these field names are lower case).</li>
-    </ul>
-    <h4>Reported Offsets</h4>
-    <ul>
-        <li><b>LSB</b> The frequency offset from the nominal carrier frequency for the lower sizeband.</li>
-        <li><b>USB</b> The frequency offset from the nominal carrier frequency for the upper sizeband.</li>
-        <li><b>~LSB</b> An approximate frequency offset from the nominal carrier frequency for the lower sizeband.</li>
-        <li><b>~USB</b> An approximate frequency offset from the nominal carrier frequency for the upper sizeband.</li>
-        <li><b>+SB-</b> This signifies either one or two separate values using + or - to indicate USB or LSB relative
-            to the nominal carrier frequency, with ~ to indicate where specific values are approximate.<br />
-            Examples:
-            <ul class="no-bullet margin-left-2">
-                <li>+1023 -1034</li>
-                <li>~+1023 1034-</li>
-                <li>-1034 ~1023+</li>
-                <li>+1022-</li>
-            </ul>
-        </li>
-        <li><b>+~SB-</b> As <b>+SB-</b> ecept that values are approximate. This means that values are included in individual
-            users logs and in station logs, but are shown prefixed with ~.  Also, these values are not used to update the latest
-            USB and LSB values for the beacon itself, since the accuracy is not sufficient.<br />
-            Examples:
-            <ul class="no-bullet margin-left-2">
-                <li>+1020 -1020</li>
-                <li>+1020 1020-</li>
-                <li>-1020 1020+</li>
-                <li>+1020-</li>
-            </ul>
-        </li>
-        <li><b>+K-</b> Brian Keyte's log format shows values of 0.4 to signify LSB and USB of 400Hz,
-            while 1 signifies LSB and USB of 1020Hz. A leading + or - signifies only the upper or lower sideband heard.
-            All values are regarded as approximate.<br />
-            Examples:
-            <ul class="no-bullet margin-left-2">
-                <li>0.4</li>
-                <li>+0.4</li>
-                <li>1</li>
-                <li>-1</li>
-            </ul>
-        </li>
-        <li><b>ABS</b> This signifies either one or two separate values as decimal KHz to indicate absolute values
-            for USB or LSB respecively.<br />
-            Examples:
-            <ul class="no-bullet margin-left-2">
-                <li>199.023 197.966</li>
-                <li>199.023</li>
-                <li>197.966</li>
-            </ul>
-        </li>
-        <li><b>~ABS</b> As ABS but offset values are all considered approximate.</li>
-    </ul>
-    <h4>Other Loggable details</h4>
-    <ul>
-        <li><b>sec</b> Used to input time for an ident cycle in seconds - where cycles are shown as aa/bb the first
-            digits indicate the length of the time for the ident code minus any trailing long dash (or dashes), the second
-            indicates the total time for each repeat.
-        </li>
-        <li><b>fmt</b> Used to input the format of a signal - DAID=Dash after ID, DBID=dash before ID, DA2ID=Dash after 2xIDs etc.
-            These formats are also recognised and parsed if they are contained within a +SB- block - e.g:
-            <strong>-1040 +1040 DAID</strong>
-        </li>
-        <li><b>X</b> Signifies start of one or more fields to be ignored by the log upload facility.</li>
-    </ul>
-
-    <h2 class="margin-top-2" id="confirmDetails">Confirm Details <small>[ <a href='#top'><strong>Top</strong></a> ]</small></h2>
-    <p>This phase displays the data extracted in the Parse Log phase within a data-grid to allow the user to ensure that the log data was correctly parsed.</p>
-    <p>If the data-grid reveals errors in parsed data, the user should press the link provided to go back to the previous phase and make corrections as required.</p>
-    <p>The data grid also indicates which stations shown are new to the database - particular attention should be taken to these entries to ensure that
-        the details for Frequency and ID are correctly entered.
-        You will need to add beacons if these are not in the database by using the <strong>Add...</strong> button if the beacon doesn't already appear in the database.</p>
-    <p>Once you are satisfied that the data entered is correct, they should press the Submit button to update the database.</p>
-
 </div>
-<style>
-a { text-decoration: underline !important; }
-b { color: #0000ff; background: #e0e0ff; font-family: "Courier New", Courier, monospace }
-</style>
+{% if (form_logs_height != 420) %}
+<style>.logUpload #form #form_logs { height: {{ form_logs_height }}px; }</style>
+{% endif %}
+
 <script>
 $(document).ready( function() {
+    initListenersLogUploadForm();
     setExternalLinks();
 });
 </script>

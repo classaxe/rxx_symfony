@@ -25,8 +25,10 @@ class Help extends Base
         $system
     ) {
         if (!$this->parameters['isAdmin']) {
-            throw $this->createAccessDeniedException('You must be an Administrator to access this resource');
+            $this->session->set('route', 'admin/help');
+            return $this->redirectToRoute('logon', ['system' => $system]);
         }
+        $this->session->set('route', '');
         $parameters = [
             '_locale' =>    $_locale,
             'classic' =>    $this->systemRepository->getClassicUrl('admin/help'),

@@ -14,7 +14,10 @@ use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 class ListenerLogsUpload extends Base
 {
     private $errors = [];
+    private $format;
+    private $lines = [];
     private $listener;
+    private $logs;
     private $logHas;
     private $tokens = [];
     private $system;
@@ -64,20 +67,29 @@ class ListenerLogsUpload extends Base
             $data = $form->getData();
             $step = $data['step'];
             $format = $data['format'];
-            list($this->tokens, $this->errors) = $this->logRepository->parseFormat($format);
-            $this->logHas = $this->logRepository->checkLogDateTokens($this->tokens);
+            $this->logs =   $data['logs'];
+            $this->errors = [];
+            $this->logRepository->parseFormat($format, $this->tokens, $this->errors, $this->logHas);
+
+            $YYYY = $this->logHas['YYYY'] ? '' : $data['YYYY'];
+            $MM =   $this->logHas['MM']   ? '' : $data['MM'];
+            $DD =   $this->logHas['DD']   ? '' : $data['DD'];
+
             switch ($step) {
                 case '1b':
                     if (!$this->errors && !$this->logHas['partial']) {
-                        $this->saveFormat($data);
+                        $this->saveFormat($data['format']);
                     }
                     $step = '1';
+                    print "<pre>" . print_r($data['format'], true) . "</pre>";
+                    print "<pre>" . print_r($this->format, true) . "</pre>";
                     break;
                 case '2':
-                    if ($this->errors || $this->logHas['partial']) {
+                    if ($this->errors || (!$this->logHas['YYYY'] && !$YYYY) || (!$this->logHas['MM'] && !$MM) || (!$this->logHas['DD'] && !$DD)) {
                         $step = '1';
                     } else {
-                        $this->parseLog($data);
+                        $lines = $this->logRepository->parseLog($this->logs, $this->tokens, $this->lines, $YYYY, $MM, $DD);
+                        print "<pre>" . print_r($lines, true) . "</pre>";
                     }
                     break;
             }
@@ -108,10 +120,6 @@ class ListenerLogsUpload extends Base
         ];
         $parameters = array_merge($parameters, $this->parameters);
         return $this->render('listener/logs_upload/index.html.twig', $parameters);
-    }
-
-    private function parseLog($data) {
-        print "<pre>" . print_r($data, true) . "</pre>";
     }
 
     private function saveFormat($data) {

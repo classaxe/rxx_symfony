@@ -145,7 +145,7 @@ class Listener
     /**
      * @var string
      *
-     * @ORM\Column(name="log_format", type="string", length=128, nullable=false)
+     * @ORM\Column(name="log_format", type="string", length=255, nullable=false)
      */
     private $logFormat = '';
 

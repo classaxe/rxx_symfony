@@ -15,10 +15,19 @@ class LogRepository extends ServiceEntityRepository
 
     const TOKENS = [
         'SINGLE' => [
-            'D',   'DD',  'M',    'MM',   'MMM',   'YY',    'YYYY',   'hh:mm', 'hhmm',
-            'KHZ', 'ID',  'GSQ',  'PWR',  'QTH',   'SP',    'ITU',    'sec',   'fmt',
-            'LSB', 'USB', '~LSB', '~USB', '+SB-',  '+~SB-', '+K-',    'ABS',   '~ABS',
-            'x',   'X'
+            'KHZ', 'ID', 'GSQ', 'PWR', 'QTH', 'SP', 'ITU', 'sec', 'ITU-SP', 'x', 'X'
+        ],
+
+        'OFFSETS' => [
+            'fmt', 'LSB', 'USB', '~LSB', '~USB', '+SB-', '+~SB-', '+K-', 'ABS', '~ABS'
+        ],
+
+        'TIME' => [
+            'hh:mm', 'hhmm'
+        ],
+
+        'DATE_SINGLE' => [
+            'D',   'DD',  'M',    'MM',   'MMM',   'YY',    'YYYY'
         ],
 
         'MMDD' => [
@@ -187,8 +196,8 @@ EOD;
         return $result;
     }
 
-    public function checkLogDateTokens($tokens) {
-        $result = [
+    private function _checkLogDateTokens(&$tokens, &$logHas) {
+        $logHas = [
             'partial' =>    false,
             'YYYY' =>       false,
             'MM' =>         false,
@@ -196,37 +205,255 @@ EOD;
         ];
         foreach (static::TOKENS['YYYYMMDD'] as $token) {
             if (isset($tokens[$token])) {
-                $result['YYYY'] = true;
-                $result['MM'] =   true;
-                $result['DD'] =   true;
-                return $result;
+                $tokens[$token]['type'] = 'date';
+                $logHas['YYYY'] = true;
+                $logHas['MM'] =   true;
+                $logHas['DD'] =   true;
+                return;
             }
         }
         foreach (static::TOKENS['MMDD'] as $token) {
             if (isset($tokens[$token])) {
-                $result['MM'] =   true;
-                $result['DD'] =   true;
+                $tokens[$token]['type'] = 'date';
+                $logHas['MM'] =   true;
+                $logHas['DD'] =   true;
                 break;
             }
         }
-        if (isset($tokens["YYYY"]) || isset($tokens["YY"])) {
-            $result['YYYY'] = true;
+        foreach (static::TOKENS['DATE_SINGLE'] as $token) {
+            if (isset($tokens[$token])) {
+                $tokens[$token]['type'] = 'date';
+                if (in_array($token, [ 'YYYY', 'YY' ])) {
+                    $logHas['YYYY'] = true;
+                }
+                if (in_array($token, [ 'MMM', 'MM', 'M' ])) {
+                    $logHas['MM'] = true;
+                }
+                if (in_array($token, [ 'DD', 'D' ])) {
+                    $logHas['DD'] = true;
+                }
+            }
         }
-        if (isset($tokens["MMM"]) || isset($tokens["MM"]) || isset($tokens["M"])) {
-            $result['MM'] =   true;
+        if (!$logHas['YYYY'] || !$logHas['MM'] || !$logHas['DD']) {
+            $logHas['partial'] =   true;
         }
-        if (isset($tokens["DD"]) || isset($tokens["D"])) {
-            $result['DD'] =   true;
-        }
-        if (!$result['YYYY'] || !$result['MM'] || !$result['DD']) {
-            $result['partial'] =   true;
-        }
-        return $result;
     }
 
-    public function parseFormat($format) {
+    private function _checkLogOffsetTokens(&$tokens) {
+        foreach (static::TOKENS['OFFSETS'] as $token) {
+            if (isset($tokens[$token])) {
+                $tokens[$token]['type'] = 'offsets';
+            }
+        }
+    }
+
+    private function _checkLogTimeTokens(&$tokens) {
+        foreach (static::TOKENS['TIME'] as $token) {
+            if (isset($tokens[$token])) {
+                $tokens[$token]['type'] = 'time';
+                return;
+            }
+        }
+    }
+
+    private function _extractDate($token, $value, $YYYY, $MM, $DD)
+    {
+        if (false !==($idx = strpos($token, 'YYYY'))) {
+            $_YYYY = substr($value, $idx, 4);
+        } elseif (false !== ($idx = strpos($token, 'YY'))) {
+            $x = substr($value, $idx, 2);
+            $_YYYY = (int)$x < 70 ? "20$x" : "19$x";
+        } else {
+            $_YYYY = $YYYY;
+        }
+
+        if (false !== ($idx = strpos($token, 'MMM'))) {
+            $_MM = RXX::convertMMMtoMM(substr($value, $idx, 3));
+        } elseif (false !== ($idx = strpos($token, 'MM'))) {
+            $_MM = substr($value, $idx, 2);;
+        } elseif (false !== ($idx = strpos($token, 'M'))) {
+            $x = substr($value, $idx, 1);
+            $_MM = (strlen($x)<2 ? '0' : '') . $x;
+        } else {
+            $_MM = $MM;
+        }
+
+        if (false !== ($idx = strpos($token, 'DD'))) {
+            $_DD = substr($value, $idx, 2);
+        } elseif (false !== ($idx = strpos($token, 'D'))) {
+            $x = substr($value, $idx, 1);
+            $_DD = (strlen($x)<2 ? '0' : '') . $x;
+        } else {
+            $_DD = $DD;
+        }
+
+        return [
+            'YYYY' =>   $_YYYY,
+            'MM' =>     $_MM,
+            'DD' =>     $_DD
+        ];
+    }
+
+    private function _extractFormatAndOffsets($token, $value, $KHZ) {
+        $out = [
+            'fmt' =>        '',
+            'LSB' =>        '',
+            'LSB_approx' => '',
+            'USB' =>        '',
+            'USB_approx' => '',
+        ];
+        switch ($token) {
+            case 'LSB':
+            case 'USB':
+                $out[$token] = $value;
+                if (substr($value, 0, 1) === '~') {
+                    $out[$token. '_approx'] = '~';
+                    $out[$token] = substr($value, 1);
+                }
+                if ($value === '---') {
+                    // Andy Robins logs use --- as blank
+                    $out['$token'] = '';
+                }
+                break;
+
+            case '~LSB':
+            case '~USB':
+                $token = substr($token, 1);
+                $out[$token. '_approx'] = '~';
+                $out[$token] = $value;
+                break;
+
+            case '+SB-':
+            case '+~SB-':
+                // Convert hyphen symbol to - (For Steve R's Offsets)
+                $value = str_replace('–', '-', $value);
+                if ($token === '+~SB-') {
+                    $value =    str_replace('~', '', $value); // Remove ~ symbol now we know it's approx
+                }
+                $sb_arr =    explode(' ', $value);
+                for ($j = 0; $j < count($sb_arr); $j++) {
+                    $sb =    trim($sb_arr[$j]);
+                    if (in_array($sb, ['X', 'X-'])) {
+                        // Format used by Jim Smith to indicate sb not present
+                        $sb='';
+                    }
+                    if (in_array($sb, ['DAID', 'DA2ID', 'DA3ID', 'DBID', 'DB2ID', 'DB3ID'])) {
+                        $out['fmt'] = $sb;
+                    }
+                    if ((substr($sb, 0, 1) === '+' && substr($sb, strlen($sb)-1, 1) === '-') ||
+                        (substr($sb, 0, 1) === '-' && substr($sb, strlen($sb)-1, 1) === '+')
+                    ) {
+                        $out['USB'] = abs($sb);
+                        $out['LSB'] = $out['USB'];
+                    } elseif (substr($sb, 0, 1) === '±') {
+                        $out['USB'] = abs(substr($sb, 1));
+                        $out['LSB'] = $out['USB'];
+                    } elseif (substr($sb, 0, 3) === '+/-' || substr($sb, 0, 3) === '-/+') {
+                        $out['USB'] = abs(substr($sb, 3));
+                        $out['LSB'] = $out['USB'];
+                    } elseif (substr($sb, 0, 2) === '+-' || substr($sb, 0, 2) === '-+') {
+                        $out['USB'] = abs(substr($sb, 2));
+                        $out['LSB'] = $out['USB'];
+                    } else {
+                        $approx =    '';
+                        if (substr($sb, 0, 1) === '~') {
+                            $approx = '~';
+                            $sb = substr($sb, 1);
+                        }
+                        if (substr($sb, 0, 1) === '+' || substr($sb, strlen($sb)-1, 1) === '+') {
+                            // + at start or end
+                            $out['USB'] = abs($sb);
+                            $out['USB_approx'] =    $approx;
+                        } elseif (substr($sb, 0, 1)=="-" || substr($sb, strlen($sb)-1, 1) === '-') {
+                            // - at start or end
+                            $out['LSB'] = abs($sb);
+                            $out['LSB_approx'] =    $approx;
+                        } elseif (substr($sb, 0, 1) === '±') {
+                            $out['USB'] = abs(substr($sb, 1));
+                            $out['LSB'] = $out['USB'];
+                        } elseif (is_numeric($sb)) {
+                            $out['USB'] = $sb;
+                            // neither + nor -, therefore USB
+                            $out['USB_approx'] =    $approx;
+                        }
+                    }
+                    if ($token === '+~SB-') {
+                        $out['USB_approx'] =    "~";
+                        $out['LSB_approx'] =    "~";
+                    }
+                }
+                break;
+
+            case '+K-':
+                // Cope with Brian Keyte's +0.4 1- offsets
+                $value = str_replace('–', '-', $value);
+                if ($value === '0.4') {
+                    $out['USB_approx'] =    '~';
+                    $out['USB'] =           '400';
+                    $out['LSB_approx'] =    '~';
+                    $out['LSB'] =           '400';
+                } elseif ($value === '+0.4') {
+                    $out['USB_approx'] =    '~';
+                    $out['USB'] =           '400';
+                } elseif ($value === '-0.4') {
+                    $out['LSB_approx'] =    '~';
+                    $out['LSB'] =           '400';
+                } elseif ($value === '1') {
+                    $out['USB_approx'] =    '~';
+                    $out['USB'] =           '1020';
+                    $out['LSB_approx'] =    '~';
+                    $out['LSB'] =           '1020';
+                } elseif ($value === '+1') {
+                    $out['USB_approx'] =    '~';
+                    $out['USB'] =           '1020';
+                } elseif ($value === '-1') {
+                    $out['LSB_approx'] =    '~';
+                    $out['LSB'] =           '1020';
+                }
+                break;
+
+            case 'ABS':
+            case '~ABS':
+                $ABS_arr =    explode(" ", $value);
+                for ($j=0; $j<count($ABS_arr); $j++) {
+                    // print "ABS=$value, KHZ=$this->KHZ";
+                    $ABS = (double)trim($ABS_arr[$j]);
+                    if ($ABS) {
+                        if ($ABS >(float)$KHZ) {
+                            $out['USB'] = round((1000 * ($ABS - $KHZ)));
+                        } else {
+                            $out['LSB'] = round((1000 * ($KHZ - $ABS)));
+                        }
+                        if ($token === '~ABS') {
+                            $out['USB_approx'] =    "~";
+                            $out['LSB_approx'] =    "~";
+                        }
+                    }
+                }
+                break;
+
+        }
+        return $out;
+    }
+
+    private function _extractTime($token, $value) {
+        if ($token === 'hhmm') {
+            return (is_numeric($value) ? $value : 'ERROR');
+        }
+        $x = explode(':', $value);
+        if (2 !== count($x)) {
+            return 'ERROR';
+        }
+        return str_pad($x[0], 2, '0', STR_PAD_LEFT)
+            . str_pad($x[1], 2, '0', STR_PAD_LEFT);
+    }
+
+    public function parseFormat($format, &$tokens, &$errors, &$logHas) {
         $valid = array_merge(
             static::TOKENS['SINGLE'],
+            static::TOKENS['OFFSETS'],
+            static::TOKENS['TIME'],
+            static::TOKENS['DATE_SINGLE'],
             static::TOKENS['MMDD'],
             static::TOKENS['YYYYMMDD']
         );
@@ -245,7 +472,11 @@ EOD;
                     $len++;
                 }
                 if ($key === 'X' || !isset($tokens[$key])) {
-                    $tokens[$key] = [ $start, $len + 1 ];
+                    $tokens[$key] = [
+                        'start' =>  $start,
+                        'len' =>    $len,
+                        'type' =>   ''
+                    ];
                     if (!in_array($key, $valid)) {
                         $errors[$key] = [
                             'class' =>  'unknown',
@@ -261,7 +492,89 @@ EOD;
             }
             $start += $len;
         }
-        return [ $tokens, $errors ];
+        $this->_checkLogDateTokens($tokens, $logHas);
+        $this->_checkLogTimeTokens($tokens);
+        $this->_checkLogOffsetTokens($tokens);
+    }
+
+    public function parseLog($logs, $tokens, $lines, $YYYY, $MM, $DD) {
+        $log_lines = explode("\r", str_replace("\r\n", "\r", stripslashes($logs)));
+        foreach($log_lines as $line) {
+            $data = [
+                'date' => [],
+                'offsets' => [
+                    'LSB' => '',
+                    'LSB_approx' => '',
+                    'USB' => '',
+                    'USB_approx' => ''
+                ]
+            ];
+            foreach ($tokens as $token => $spec) {
+                if (in_array($token, ['x', 'X'])) {
+                    continue;
+                }
+                $value = trim(substr($line, $spec['start'], $spec['len']));
+                if ($token === 'sec') {
+                    $value = str_replace(',', '.', $value);
+                }
+                switch($spec['type']) {
+                    case 'date':
+                        $result = $this->_extractDate($token, $value, $YYYY, $MM, $DD);
+                        foreach ($result as $idx => $v) {
+                            if (!$v) {
+                                continue;
+                            }
+                            $data['date'][$idx] = $v;
+                        }
+                        break;
+                    case 'time':
+                        $data['time'] = $this->_extractTime($token, $value);
+                        break;
+                    case 'offsets':
+                        $result = $this->_extractFormatAndOffsets($token, $value, $data['KHZ']);
+                        foreach ($result as $idx => $v) {
+                            if (!$v) {
+                                continue;
+                            }
+                            if ($idx === 'fmt' && $v) {
+                                $data['fmt'] = $v;
+                                continue;
+                            }
+                            $data['offsets'][$idx] = $v;
+                        }
+                        break;
+                    default:
+                        $data[$token] = $value;
+                        break;
+                }
+            }
+            if (!$data['ID'] || !$data['date']) {
+                continue;
+            }
+
+            // Combine date fields:
+            $d = $data['date'];
+            $data['YYYYMMDD'] = "{$d['YYYY']}-{$d['MM']}-{$d['DD']}";
+            unset($data['date']);
+
+            // Flatten Offset fields:
+            $keys = array_keys($data['offsets']);
+            foreach ($keys as $key) {
+                $data[$key] = $data['offsets'][$key];
+            }
+            unset($data['offsets']);
+
+            // Separate ITU and SP from ITU-SP:
+            if (isset($data['ITU-SP'])) {
+                $x = explode('-', $data['ITU-SP']);
+                $data['ITU'] =  $x[0];
+                $data['SP'] =   $x[1] ?? '';
+                unset($data['ITU-SP']);
+            }
+
+            $lines[] = $data;
+        }
+        return $lines;
     }
 
     public function updateDx($listenerId = false, $signalId = false)
