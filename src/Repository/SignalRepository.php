@@ -1196,6 +1196,44 @@ EOD;
         return $out;
     }
 
+    public function getSignalCandidates($call, $frequency, $listener)
+    {
+        $lat = $listener->getLat();
+        $lon = $listener->getLon();
+
+        $sql = <<< EOD
+            SELECT
+                *
+            FROM
+                `signals`
+            WHERE
+                `call` = :call AND
+                `khz` >= :min AND
+                `khz` <= :max
+EOD;
+        $swing = ($frequency > 1740 ? LogRepository::SWING_HF : LogRepository::SWING_LF);
+        $params = [
+            ':call' =>  $call,
+            ':min' =>   $frequency - $swing,
+            ':max' =>   $frequency + $swing
+        ];
+        $stmt = $this->connection->prepare($sql);
+        $stmt->execute($params);
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        foreach ($results as &$r) {
+            $dx = Rxx::getDx($lat, $lon, $r['lat'], $r['lon']);
+            $r['dx_miles'] = $dx['miles'];
+            $r['dx_km'] = $dx['km'];
+        }
+        usort($results, function($a, $b) {
+            if($a['dx_km']===$b['dx_km']){
+                return 0;
+            };
+            return ($a['dx_km'] > $b['dx_km'] ? 1 : -1);
+        });
+        return $results;
+    }
+
     public function updateSignalLatLonFromGSQ($signalId = false)
     {
         $affected = 0;

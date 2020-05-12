@@ -13,6 +13,9 @@ class LogRepository extends ServiceEntityRepository
 {
     private $connection;
 
+    const SWING_LF = 0.6;
+    const SWING_HF = 1.5;
+
     const TOKENS = [
         'SINGLE' => [
             'KHZ', 'ID', 'GSQ', 'PWR', 'QTH', 'SP', 'ITU', 'sec', 'ITU-SP', 'x', 'X'

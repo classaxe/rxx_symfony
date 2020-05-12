@@ -4323,6 +4323,58 @@
         <source>Month</source>
         <target>__Month</target>
       </trans-unit>
+      <trans-unit id="L0vlj3w" resname="Click to copy this token">
+        <source>Click to copy this token</source>
+        <target>__Click to copy this token</target>
+      </trans-unit>
+      <trans-unit id="0a13.x." resname="Copied '%s' to Clipboard">
+        <source>Copied '%s' to Clipboard</source>
+        <target>__Copied '%s' to Clipboard</target>
+      </trans-unit>
+      <trans-unit id="XvoxoJd" resname="Log Format errors">
+        <source>Log Format errors</source>
+        <target>__Log Format errors</target>
+      </trans-unit>
+      <trans-unit id="0gib5nK" resname="Token">
+        <source>Token</source>
+        <target>__Token</target>
+      </trans-unit>
+      <trans-unit id="ocWue8s" resname="Problem">
+        <source>Problem</source>
+        <target>__Problem</target>
+      </trans-unit>
+      <trans-unit id="4UbUyQ." resname="Please enter the Year">
+        <source>Please enter the Year</source>
+        <target>__Please enter the Year</target>
+      </trans-unit>
+      <trans-unit id="ykpEJlw" resname="YYYY">
+        <source>YYYY</source>
+        <target>__YYYY</target>
+      </trans-unit>
+      <trans-unit id="1Ig0It1" resname="Please enter the Month">
+        <source>Please enter the Month</source>
+        <target>__Please enter the Month</target>
+      </trans-unit>
+      <trans-unit id="g59aAVd" resname="MM">
+        <source>MM</source>
+        <target>__MM</target>
+      </trans-unit>
+      <trans-unit id="c_LCpv1" resname="Please enter the Day">
+        <source>Please enter the Day</source>
+        <target>__Please enter the Day</target>
+      </trans-unit>
+      <trans-unit id="kvCJ8qc" resname="DD">
+        <source>DD</source>
+        <target>__DD</target>
+      </trans-unit>
+      <trans-unit id="0WX8LB0" resname="Log format goes here">
+        <source>Log format goes here</source>
+        <target>__Log format goes here</target>
+      </trans-unit>
+      <trans-unit id="pQNdLB6" resname="Paste log entries here">
+        <source>Paste log entries here</source>
+        <target>__Paste log entries here</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

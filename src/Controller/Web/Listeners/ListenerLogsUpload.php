@@ -14,7 +14,6 @@ use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 class ListenerLogsUpload extends Base
 {
     private $errors = [];
-    private $format;
     private $lines = [];
     private $listener;
     private $logs;
@@ -81,15 +80,17 @@ class ListenerLogsUpload extends Base
                         $this->saveFormat($data['format']);
                     }
                     $step = '1';
-                    print "<pre>" . print_r($data['format'], true) . "</pre>";
-                    print "<pre>" . print_r($this->format, true) . "</pre>";
                     break;
                 case '2':
                     if ($this->errors || (!$this->logHas['YYYY'] && !$YYYY) || (!$this->logHas['MM'] && !$MM) || (!$this->logHas['DD'] && !$DD)) {
                         $step = '1';
                     } else {
                         $lines = $this->logRepository->parseLog($this->logs, $this->tokens, $this->lines, $YYYY, $MM, $DD);
-                        print "<pre>" . print_r($lines, true) . "</pre>";
+                        foreach ($lines as $line) {
+                            print "<pre>" . print_r($line, true) . "</pre>";
+                            $candidates = $this->signalRepository->getSignalCandidates($line['ID'], $line['KHZ'], $this->listener);
+                            print "<pre>" . print_r($candidates, true) . "</pre>";
+                        }
                     }
                     break;
             }
