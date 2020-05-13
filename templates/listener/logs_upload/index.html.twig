@@ -11,7 +11,7 @@
                 {{ form_start(form) }}
                 {{ form_row(form.id) }}
                 {{ form_row(form.step)  }}
-                <div id="format"{% if (step != 1) %} class="hidden"{% endif %}>
+                <div id="format"{% if (step != 1) %} style="display:none"{% endif %}>
                     <div id="formatOld">{{ formatOld }}</div>
                     {{ form_widget(form.format) }}
                     {{ form_widget(form.saveFormat)  }}
@@ -20,6 +20,7 @@
                     {{ form_widget(form.logs) }}
                 </div>
                 {% include('listener/logs_upload/datefields.html.twig') %}
+                {% include('listener/logs_upload/entries.html.twig') %}
                 <fieldset id="group_">
                     <span{% if (step != 1) %} style="display:none"{% endif %}>
                         {{ form_row(form.tabs2spaces) }}

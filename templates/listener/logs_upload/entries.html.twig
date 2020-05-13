@@ -1,0 +1,64 @@
+{% if (entries) %}
+<h2>{% trans %}Parse Results{% endtrans %}</h2>
+<table class="results short" style="width: auto">
+    <thead>
+        <th>{% trans %}Date{% endtrans %}</th>
+        <th>{% trans %}Time{% endtrans %}</th>
+        <th>{% trans %}KHZ{% endtrans %}</th>
+        <th>{% trans %}ID{% endtrans %}</th>
+        <th style="text-align: right">{% trans %}LSB{% endtrans %}</th>
+        <th style="text-align: right">{% trans %}USB{% endtrans %}</th>
+        <th>{% trans %}Sec{% endtrans %}</th>
+        <th>{% trans %}Format{% endtrans %}</th>
+        <th style="text-align: center; padding: 0;">{% trans %}Matched Signal(s){% endtrans %}<br />
+            <table class="results very-short" style="border: none;">
+                <thead style="border: none;">
+                    <tr>
+                        <th style="width:3.5em">KHZ</th>
+                        <th style="width:4em">ID</th>
+                        <th style="width:4em;text-align: right">LSB</th>
+                        <th style="width:4em;text-align: right">USB</th>
+                        <th style="width:4em">Sec</th>
+                        <th style="width:8em">Format</th>
+                        <th>Location</th>
+                        <th style="width:4em;text-align: right">KM</th>
+                    </tr>
+                </thead>
+            </table>
+
+        </th>
+    </thead>
+    <tbody>
+{% for e in entries %}
+        <tr>
+            <td class="text-nowrap">{{ e.YYYYMMDD }}</td>
+            <td>{{ e.time }}</td>
+            <td>{{ e.KHZ }}</td>
+            <td>{{ e.ID }}</td>
+            <td style="text-align: right">{{ e.LSB_approx ~ e.LSB }}</td>
+            <td style="text-align: right">{{ e.USB_approx ~ e.USB }}</td>
+            <td>{{ e.sec }}</td>
+            <td>{{ e.fmt }}</td>
+            <td style="padding:0; border: none;">
+                <table class="results" style="border: none;">
+                    <tbody style="border: none{% if e.options|length > 1 %};background:#ffe0e0 !important;{% endif %}">
+                    {% for o in e.options %}
+                        <tr>
+                            <td style="width:3.5em">{{ 0 + o.khz }}</td>
+                            <td style="width:4em">{{ o.call }}</td>
+                            <td style="width:4em;text-align: right">{{ o.LSB_approx ~ o.LSB }}</td>
+                            <td style="width:4em;text-align: right">{{ o.USB_approx ~ o.USB }}</td>
+                            <td style="width:4em">{{ o.sec }}</td>
+                            <td style="width:8em">{{ o.format }}</td>
+                            <td>{{ o.QTH }} {{ o.SP }} {{ o.ITU }}</td>
+                            <td style="width:4em;text-align: right">{{ o.dx_km }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+{% endfor %}
+    </tbody>
+</table>
+{% endif %}

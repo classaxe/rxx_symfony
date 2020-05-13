@@ -1198,8 +1198,12 @@ EOD;
 
     public function getSignalCandidates($call, $frequency, $listener)
     {
+        if (!is_numeric($frequency)) {
+            return [];
+        }
         $lat = $listener->getLat();
         $lon = $listener->getLon();
+        $swing = ($frequency > 1740 ? LogRepository::SWING_HF : LogRepository::SWING_LF);
 
         $sql = <<< EOD
             SELECT
@@ -1211,7 +1215,6 @@ EOD;
                 `khz` >= :min AND
                 `khz` <= :max
 EOD;
-        $swing = ($frequency > 1740 ? LogRepository::SWING_HF : LogRepository::SWING_LF);
         $params = [
             ':call' =>  $call,
             ':min' =>   $frequency - $swing,

@@ -1,7 +1,7 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.8.26
+ * Version:    2.8.27
  * Date:       2020-05-12
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
@@ -2015,7 +2015,7 @@ div.scroll div table.results img {
   color: #ffffff;
   border: 1px solid #808080;
   vertical-align: bottom;
-  font-size: 80%;
+  font-size: 9pt;
   padding: 0.25em;
 }
 .results thead th.hidden {
@@ -2096,7 +2096,7 @@ div.scroll div table.results img {
   border: 1px solid #808080;
   height: 1.25em;
   vertical-align: top;
-  font-size: 80%;
+  font-size: 9pt;
   padding: 0.125em 0.25em;
 }
 .results td.hidden {

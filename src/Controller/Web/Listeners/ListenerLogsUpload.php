@@ -13,8 +13,8 @@ use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
  */
 class ListenerLogsUpload extends Base
 {
+    private $entries = [];
     private $errors = [];
-    private $lines = [];
     private $listener;
     private $logs;
     private $logHas;
@@ -84,14 +84,10 @@ class ListenerLogsUpload extends Base
                 case '2':
                     if ($this->errors || (!$this->logHas['YYYY'] && !$YYYY) || (!$this->logHas['MM'] && !$MM) || (!$this->logHas['DD'] && !$DD)) {
                         $step = '1';
-                    } else {
-                        $lines = $this->logRepository->parseLog($this->logs, $this->tokens, $this->lines, $YYYY, $MM, $DD);
-                        foreach ($lines as $line) {
-                            print "<pre>" . print_r($line, true) . "</pre>";
-                            $candidates = $this->signalRepository->getSignalCandidates($line['ID'], $line['KHZ'], $this->listener);
-                            print "<pre>" . print_r($candidates, true) . "</pre>";
-                        }
+                        break;
                     }
+                    $this->entries = $this->logRepository->parseLog($this->listener, $this->logs, $this->tokens, $YYYY, $MM, $DD, $this->signalRepository);
+//                    print "<pre>" . print_r($this->entries, true) . "</pre>";
                     break;
             }
         }
@@ -106,6 +102,7 @@ class ListenerLogsUpload extends Base
             'id' =>                 $id,
             '_locale' =>            $_locale,
             'mode' =>               $title,
+            'entries' =>            $this->entries,
             'errors' =>             $this->errors,
             'form' =>               $form->createView(),
             'form_logs_height' =>   $form_logs_height,
@@ -123,8 +120,8 @@ class ListenerLogsUpload extends Base
         return $this->render('listener/logs_upload/index.html.twig', $parameters);
     }
 
-    private function saveFormat($data) {
-        $this->listener->setLogFormat($data['format']);
+    private function saveFormat($format) {
+        $this->listener->setLogFormat($format);
         $em = $this->getDoctrine()->getManager();
         $em->persist($this->listener);
         $em->flush();

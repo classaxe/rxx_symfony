@@ -500,7 +500,8 @@ EOD;
         $this->_checkLogOffsetTokens($tokens);
     }
 
-    public function parseLog($logs, $tokens, $lines, $YYYY, $MM, $DD) {
+    public function parseLog($listener, $logs, $tokens, $YYYY, $MM, $DD, $signalRepository) {
+        $lines = [];
         $log_lines = explode("\r", str_replace("\r\n", "\r", stripslashes($logs)));
         foreach($log_lines as $line) {
             $data = [
@@ -510,7 +511,9 @@ EOD;
                     'LSB_approx' => '',
                     'USB' => '',
                     'USB_approx' => ''
-                ]
+                ],
+                'fmt' => '',
+                'sec' => '',
             ];
             foreach ($tokens as $token => $spec) {
                 if (in_array($token, ['x', 'X'])) {
@@ -574,9 +577,13 @@ EOD;
                 $data['SP'] =   $x[1] ?? '';
                 unset($data['ITU-SP']);
             }
-
             $lines[] = $data;
         }
+
+        foreach ($lines as &$line) {
+            $line['options'] = $signalRepository->getSignalCandidates($line['ID'], $line['KHZ'], $listener);
+        }
+
         return $lines;
     }
 
