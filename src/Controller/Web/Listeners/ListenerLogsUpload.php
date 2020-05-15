@@ -109,6 +109,7 @@ class ListenerLogsUpload extends Base
             'format' =>             $format,
             'formatOld' =>          $this->listener->getLogFormat(),
             'has' =>                $this->logHas,
+            'heardIn' =>            $this->listener->getSp() ? $this->listener->getSp() : $this->listener->getItu(),
             'logs' =>               $this->listener->getCountLogs(),
             'signals' =>            $this->listener->getCountSignals(),
             'step' =>               $step,

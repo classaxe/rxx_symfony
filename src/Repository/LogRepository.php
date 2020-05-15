@@ -512,6 +512,8 @@ EOD;
                     'USB' => '',
                     'USB_approx' => ''
                 ],
+                'time' => '',
+                'daytime' => false,
                 'fmt' => '',
                 'sec' => '',
             ];
@@ -535,6 +537,7 @@ EOD;
                         break;
                     case 'time':
                         $data['time'] = $this->_extractTime($token, $value);
+                        $data['daytime'] = $listener->isDaytime($data['time']);
                         break;
                     case 'offsets':
                         $result = $this->_extractFormatAndOffsets($token, $value, $data['KHZ']);

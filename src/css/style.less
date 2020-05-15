@@ -20,6 +20,9 @@
 body {
     font-family: Arial, Helvetica, sans-serif;
 }
+.txt_c {
+    text-align: center;
+}
 .txt_r {
     text-align: right;
 }
@@ -1099,6 +1102,11 @@ div.scroll {
         &.caps {
             text-transform: uppercase;
         }
+        i {
+            font-style: normal;
+            color: #008000;
+            padding: 0;
+        }
         em {
             font-style: normal;
             font-weight: bold;
@@ -1116,6 +1124,21 @@ div.scroll {
         }
     }
 }
+.results.parse {
+    tbody {
+        tr {
+            background: #ffffff;
+            &.question {
+                background: #ffddca;
+            }
+            &.question.inactive {
+                background: #e6cfc3;
+            }
+        }
+    }
+}
+
+
 /* [ Listeners Grid ] */
 .results.listener {
     .primaryQth {

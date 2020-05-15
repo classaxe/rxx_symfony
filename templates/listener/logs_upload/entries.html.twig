@@ -1,63 +1,77 @@
 {% if (entries) %}
-<h2>{% trans %}Parse Results{% endtrans %}</h2>
-<table class="results short" style="width: auto">
+<h2>{% trans %}Parser Results{% endtrans %}</h2>
+<table class="results parse short" style="width: auto">
     <thead>
-        <th>{% trans %}Date{% endtrans %}</th>
-        <th>{% trans %}Time{% endtrans %}</th>
-        <th>{% trans %}KHZ{% endtrans %}</th>
-        <th>{% trans %}ID{% endtrans %}</th>
-        <th style="text-align: right">{% trans %}LSB{% endtrans %}</th>
-        <th style="text-align: right">{% trans %}USB{% endtrans %}</th>
-        <th>{% trans %}Sec{% endtrans %}</th>
-        <th>{% trans %}Format{% endtrans %}</th>
-        <th style="text-align: center; padding: 0;">{% trans %}Matched Signal(s){% endtrans %}<br />
-            <table class="results very-short" style="border: none;">
-                <thead style="border: none;">
-                    <tr>
-                        <th style="width:3.5em">KHZ</th>
-                        <th style="width:4em">ID</th>
-                        <th style="width:4em;text-align: right">LSB</th>
-                        <th style="width:4em;text-align: right">USB</th>
-                        <th style="width:4em">Sec</th>
-                        <th style="width:8em">Format</th>
-                        <th>Location</th>
-                        <th style="width:4em;text-align: right">KM</th>
-                    </tr>
-                </thead>
-            </table>
-
-        </th>
+        <tr>
+            <th>&nbsp;</th>
+            <th>{% trans %}Date{% endtrans %}</th>
+            <th>{% trans %}Time{% endtrans %}</th>
+            <th>{% trans %}DT{% endtrans %}</th>
+            <th>{% trans %}KHz{% endtrans %}</th>
+            <th>{% trans %}ID{% endtrans %}</th>
+            <th>{% trans %}QTH{% endtrans %}</th>
+            <th>{% trans %}SP{% endtrans %}</th>
+            <th>{% trans %}ITU{% endtrans %}</th>
+            <th>{% trans %}KM{% endtrans %}</th>
+            <th>{% trans %}Pwr{% endtrans %}</th>
+            <th>{% trans %}Heard In{% endtrans %}</th>
+            <th style="text-align: right">{% trans %}LSB{% endtrans %}</th>
+            <th style="text-align: right">{% trans %}USB{% endtrans %}</th>
+            <th>{% trans %}Sec{% endtrans %}</th>
+            <th>{% trans %}Format{% endtrans %}</th>
+        </tr>
     </thead>
     <tbody>
 {% for e in entries %}
-        <tr>
-            <td class="text-nowrap">{{ e.YYYYMMDD }}</td>
+    {% set rowspan=(e.options|length>1 ? ' rowspan=' ~ e.options|length : '') %}
+    {% set o = e.options[0] %}
+    {% set hi=o.heard_in|replace({ (heardIn) : '<em>' ~ heardIn ~ '</em>'}) %}
+        <tr class="{% if e.options|length>1 %}question{% endif %}{% if not o.active %} inactive{% endif %}">
+            <td>{% if e.options|length == 1 %}<input type="checkbox" checked="checked" />{% else %}<input type="radio" name="row_{{ loop.index }}" />{% endif %}</td>
+            <td class="txt_c text-nowrap">{{ e.YYYYMMDD }}{% if o.last_heard %}<br><i>({{ o.last_heard }}){% endif %}</i></td>
             <td>{{ e.time }}</td>
-            <td>{{ e.KHZ }}</td>
-            <td>{{ e.ID }}</td>
-            <td style="text-align: right">{{ e.LSB_approx ~ e.LSB }}</td>
-            <td style="text-align: right">{{ e.USB_approx ~ e.USB }}</td>
-            <td>{{ e.sec }}</td>
-            <td>{{ e.fmt }}</td>
-            <td style="padding:0; border: none;">
-                <table class="results" style="border: none;">
-                    <tbody style="border: none{% if e.options|length > 1 %};background:#ffe0e0 !important;{% endif %}">
-                    {% for o in e.options %}
-                        <tr>
-                            <td style="width:3.5em">{{ 0 + o.khz }}</td>
-                            <td style="width:4em">{{ o.call }}</td>
-                            <td style="width:4em;text-align: right">{{ o.LSB_approx ~ o.LSB }}</td>
-                            <td style="width:4em;text-align: right">{{ o.USB_approx ~ o.USB }}</td>
-                            <td style="width:4em">{{ o.sec }}</td>
-                            <td style="width:8em">{{ o.format }}</td>
-                            <td>{{ o.QTH }} {{ o.SP }} {{ o.ITU }}</td>
-                            <td style="width:4em;text-align: right">{{ o.dx_km }}</td>
-                        </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
+            <td>{{ e.daytime ? 'DT' : '' }}</td>
+            <td>{{ 0 + o.khz }}</td>
+            <td><a href="{{ url('signal', { 'system' : system, 'id' : o.ID }) }}" data-popup="1">{{ o.call }}</a></td>
+            <td>{{ o.QTH }}</td>
+            <td>{{ o.SP }}</td>
+            <td>{{ o.ITU }}</td>
+            <td>{{ o.dx_km }}</td>
+            <td>{{ o.pwr ? o.pwr : '' }}</td>
+            <td>{{ hi|raw }}</td>
+            <td class="num">{{ e.LSB_approx }}{{ e.LSB }}
+                {% if o.LSB_approx or o.LSB %}<br><i>({{ o.LSB_approx }}{{ o.LSB }})</i>{% endif %}
             </td>
+            <td class="num">{{ e.USB_approx }}{{ e.USB }}
+                {% if o.USB_approx or o.USB %}<br><i>({{ o.USB_approx }}{{ o.USB }})</i>{% endif %}
+            </td>
+            <td class="num">{{ e.sec }}{% if o.sec %}<br><i>({{ o.sec }}){% endif %}</i></td>
+            <td class="text-nowrap">{{ e.fmt }}{% if o.format %}<br><i>({{ o.format }}){% endif %}</i></td>
         </tr>
+{% for o in e.options %}{% if loop.index > 1 %}
+        <tr class="question{% if not o.active %} inactive{% endif %}">
+            <td><input type="radio" name="row_{{ loop.parent.loop.index }}" /></td>
+            <td class="txt_c text-nowrap">{{ e.YYYYMMDD }}{% if o.last_heard %}<br><i>({{ o.last_heard }})</i>{% endif %}</td>
+            <td>{{ e.time }}</td>
+            <td>{{ e.daytime ? 'DT' : '' }}</td>
+            <td>{{ 0 + o.khz }}</td>
+            <td><a href="{{ url('signal', { 'system' : system, 'id' : o.ID }) }}" data-popup="1">{{ o.call }}</a></td>
+            <td>{{ o.QTH }}</td>
+            <td>{{ o.SP }}</td>
+            <td>{{ o.ITU }}</td>
+            <td>{{ o.dx_km }}</td>
+            <td>{{ o.pwr ? o.pwr : '' }}</td>
+            <td>{{ o.heard_in }}</td>
+            <td class="num">{{ e.LSB_approx }}{{ e.LSB }}
+                {% if o.LSB_approx or o.LSB %}<br><i>({{ o.LSB_approx }}{{ o.LSB }})</i>{% endif %}
+            </td>
+            <td class="num">{{ e.USB_approx }}{{ e.USB }}
+                {% if o.USB_approx or o.USB %}<br><i>({{ o.USB_approx }}{{ o.USB }})</i>{% endif %}
+            </td>
+            <td class="num">{{ e.sec }}{% if o.sec %}<br><i>({{ o.sec }}){% endif %}</i></td>
+            <td class="text-nowrap">{{ e.fmt }}{% if o.format %}<br><i>({{ o.format }}){% endif %}</i></td>
+        </tr>
+{% endif %}{% endfor %}
 {% endfor %}
     </tbody>
 </table>
