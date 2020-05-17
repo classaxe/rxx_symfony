@@ -516,6 +516,15 @@ EOD;
                 'daytime' => false,
                 'fmt' => '',
                 'sec' => '',
+                'QTH' => '',
+                'GSQ' => '',
+                'LSB' => '',
+                'LSB_approx' => '',
+                'USB' => '',
+                'USB_approx' => '',
+                'ITU' => '',
+                'SP' => '',
+                'pwr' => ''
             ];
             foreach ($tokens as $token => $spec) {
                 if (in_array($token, ['x', 'X'])) {

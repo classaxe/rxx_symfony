@@ -144,7 +144,7 @@ class LogUpload extends AbstractType
             )
             ->add(
                 'back',
-                ButtonType::class,
+                SubmitType::class,
                 [
                     'attr' => [
                         'class' => 'button small'

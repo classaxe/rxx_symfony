@@ -111,11 +111,15 @@ class ListenerLogsUpload extends Base
             'has' =>                $this->logHas,
             'heardIn' =>            $this->listener->getSp() ? $this->listener->getSp() : $this->listener->getItu(),
             'logs' =>               $this->listener->getCountLogs(),
+            'logData' =>            $this->logs,
+            'region' =>             $this->listener->getRegion(),
             'signals' =>            $this->listener->getCountSignals(),
             'step' =>               $step,
             'system' =>             $this->system,
             'tabs' =>               $this->listenerRepository->getTabs($this->listener, $isAdmin),
-            'tokens' =>             $this->tokens
+            'tokens' =>             $this->tokens,
+            'tol_offsets' =>        25,
+            'tol_secs' =>           1
         ];
         $parameters = array_merge($parameters, $this->parameters);
         return $this->render('listener/logs_upload/index.html.twig', $parameters);

@@ -28,8 +28,8 @@
                         {{ form_row(form.parseLog) }}
                     </span>
                     <span{% if (step != 2) %} style="display:none"{% endif %}>
-                        {{ form_row(form.submitLog) }}
                         {{ form_row(form.back) }}
+                        {{ form_row(form.submitLog) }}
                     </span>
                 </fieldset>
                 {{ form_end(form, {'render_rest': true}) }}

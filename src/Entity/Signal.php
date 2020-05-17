@@ -633,7 +633,7 @@ class Signal
 
     public function setPwr(?string $pwr): self
     {
-        $this->pwr = ($pwr === '' ? null : (int) $pwr);;
+        $this->pwr = ($pwr === '' ? '' : (int) $pwr);;
 
         return $this;
     }

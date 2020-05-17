@@ -42,7 +42,7 @@ function popup(url) {
         pattern.pop();
     }
     pattern.reverse();
-    mode = pattern.join('_').replace(',', '_');
+    mode = pattern.join('_').replace(',', '_').split('?')[0];
 
     if ('undefined' === typeof popWinSpecs[mode]) {
         alert('Unhandled mode ' + mode);

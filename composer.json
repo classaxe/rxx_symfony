@@ -6,6 +6,7 @@
         "ext-dom": "*",
         "ext-gd": "*",
         "ext-iconv": "*",
+        "ext-json": "*",
         "ext-mysqli": "*",
         "ext-pdo": "*",
         "ext-posix": "*",

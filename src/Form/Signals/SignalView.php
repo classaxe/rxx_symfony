@@ -89,6 +89,13 @@ class SignalView extends AbstractType
                 ]
             )
             ->add(
+                '_reload_opener',
+                HiddenType::class,
+                [
+                    'data' =>       0
+                ]
+            )
+            ->add(
                 'call',
                 TextType::class,
                 [

@@ -88,7 +88,7 @@ function initListenersLogUploadForm() {
     });
 
     $('#form_back').on('click', function() {
-        window.history.back();
+        $('#form_step').val(1);
     });
 
     $(document).on('click', '.tokensHelpLink', function() {

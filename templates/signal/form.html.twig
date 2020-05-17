@@ -5,6 +5,7 @@
             <div id="form">
                 {{ form_row(form.id)  }}
                 {{ form_row(form._close)  }}
+                {{ form_row(form._reload_opener)  }}
                 <fieldset id="group_profile">
                     <div>
                         {{ form_label(form.call) }}
@@ -93,7 +94,7 @@
                 <fieldset id="group_">
                     {{ form_row(form.print) }}
                     {{ form_row(form.close) }}
-                    {% if isAdmin %}{{ form_row(form.save) }}{% else %}{{ form_row(form.save_disabled) }}{% endif %}
+    {% if not reloadOpener %}{% if isAdmin %}{{ form_row(form.save) }}{% else %}{{ form_row(form.save_disabled) }}{% endif %}{% endif %}
                     {% if isAdmin %}{{ form_row(form.saveClose) }}{% endif %}
                 </fieldset>
 
@@ -101,10 +102,3 @@
         {{ form_end(form, {'render_rest': false}) }}
         </div>
     </div>
-    <script>
-        $(document).ready(function () {
-            $('#form_saveClose').on('click', function(){
-                $('#form__close').val(1);
-            })
-        });
-    </script>

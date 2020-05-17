@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.8.29
- * Date:       2020-05-14
+ * Version:    2.8.30
+ * Date:       2020-05-16
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
  */
@@ -2131,11 +2131,40 @@ div.scroll div table.results img {
 .results.parse tbody tr {
   background: #ffffff;
 }
+.results.parse tbody tr.unknown {
+  background: #ffcccc;
+}
 .results.parse tbody tr.question {
   background: #ffddca;
 }
 .results.parse tbody tr.question.inactive {
   background: #e6cfc3;
+}
+.results.parse tbody tr.question.inactive td {
+  color: #444;
+}
+.results.parse tbody tr td i {
+  color: #080;
+  font-weight: bold;
+}
+.results.parse tbody tr td i.check {
+  background: #ffe0e0;
+  border: 1px solid #f00;
+  color: #ff6600;
+}
+.results.parse tbody tr th {
+  background: #95de95;
+}
+.results.parse tbody tr th.check {
+  background: #ffB080;
+}
+.results.parse tbody tr th.error {
+  background: #ffA0A0;
+}
+.results.parse tbody tr th.error a.add {
+  background: #f44;
+  color: #fff !important;
+  border: 1px solid #f00;
 }
 /* [ Listeners Grid ] */
 .results.listener .primaryQth {

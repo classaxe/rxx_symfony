@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.8.29
- * Date:       2020-05-14
+ * Version:    2.8.30
+ * Date:       2020-05-16
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
  */
@@ -42,6 +42,7 @@ var popWinSpecs = {
     'maps_pacific' :                'width=600,height=750,resizable=1',
     'maps_polynesia' :              'width=500,height=525,resizable=1',
     'maps_sa' :                     'width=490,height=745,resizable=1',
+    'signals_new' :                 'width=720,height=320,status=1,scrollbars=1,resizable=1',
     'signals_[id]' :                'width=1040,height=800,status=1,scrollbars=1,resizable=1',
     'signals_[id]_logs' :           'width=1040,height=800,status=1,scrollbars=1,resizable=1',
     'signals_[id]_listeners' :      'width=1040,height=800,status=1,scrollbars=1,resizable=1',
@@ -207,7 +208,7 @@ function popup(url) {
         pattern.pop();
     }
     pattern.reverse();
-    mode = pattern.join('_').replace(',', '_');
+    mode = pattern.join('_').replace(',', '_').split('?')[0];
 
     if ('undefined' === typeof popWinSpecs[mode]) {
         alert('Unhandled mode ' + mode);
@@ -962,7 +963,7 @@ function initListenersLogUploadForm() {
     });
 
     $('#form_back').on('click', function() {
-        window.history.back();
+        $('#form_step').val(1);
     });
 
     $(document).on('click', '.tokensHelpLink', function() {

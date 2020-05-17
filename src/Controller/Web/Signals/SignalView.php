@@ -42,12 +42,30 @@ class SignalView extends Base
         if ($id === 'new') {
             $id = false;
         }
+        $reloadOpener = false;
+        $doReloadOpener = false;
         if ((int) $id) {
             if (!$signal = $this->getValidSignal($id)) {
                 return $this->redirectToRoute('signals', ['system' => $system]);
             }
         } else {
             $signal = new SignalEntity();
+            if ($request->query->get('data')) {
+                $reloadOpener = true;
+                $d = json_decode($request->query->get('data'), true);
+                $signal
+                    ->setActive(true)
+                    ->setType(0)
+                    ->setCall($d['ID'])
+                    ->setKhz($d['KHZ'])
+                    ->setQth($d['QTH'])
+                    ->setSp($d['SP'])
+                    ->setItu($d['ITU'])
+                    ->setGsq($d['GSQ'])
+                    ->setHeardIn('dbdb');
+            }
+
+//            print "<pre>" . print_r($data, true) . "</pre>";
         }
         $isAdmin = $this->parameters['isAdmin'];
         if (!$id && !$isAdmin) {
@@ -75,6 +93,7 @@ class SignalView extends Base
         if ($isAdmin && $form->isSubmitted()) {
             $form_data = $form->getData();
             $data['form'] = $form_data;
+            $doReloadOpener = $data['form']['_reload_opener'] ?? false;
             if ((int)$id) {
                 $signal = $this->signalRepository->find($id);
             } else {
@@ -102,6 +121,7 @@ class SignalView extends Base
             }
             $signal
                 ->setGsq($GSQ)
+                ->setHeardIn($signal->getHeardIn() ?? '')
                 ->setHeardInHtml($signal->getHeardInHtml() ?? '')
                 ->setLat($lat)
                 ->setLon($lon)
@@ -118,11 +138,10 @@ class SignalView extends Base
             $em->flush();
 
             if ($form_data['_close']) {
-                return new Response(
-                    '<script>window.close();</script>',
-                    Response::HTTP_OK,
-                    ['content-type' => 'text/html']
-                );
+                $js =
+                    ($doReloadOpener ? "window.opener.document.getElementsByName('form')[0].submit();" : '')
+                    ."window.close()";
+                return new Response("<script>$js</script>", Response::HTTP_OK, [ 'content-type' => 'text/html' ]);
             }
 
             $id = $signal->getId();
@@ -148,6 +167,8 @@ class SignalView extends Base
                         $this->i18n('Details for %s (Inctive)'),  $signal->getFormattedIdent()
                     )
                 ),
+            'doReloadOpener' =>     $doReloadOpener,
+            'reloadOpener' =>       $reloadOpener,
             'system' =>             $system,
             'tabs' =>               $this->signalRepository->getTabs($signal),
         ];
