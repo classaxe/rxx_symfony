@@ -1,125 +1,124 @@
 {% if (entries) %}
 <h2>{% trans %}Review{% endtrans %}</h2>
-<table class="results parse short" style="width: auto">
-    <thead>
-        <tr>
-            <th>{% trans %}Add{% endtrans %}</th>
-            <th>{% trans %}Date{% endtrans %}</th>
-            <th>{% trans %}Time{% endtrans %}</th>
-            <th>{% trans %}DT{% endtrans %}</th>
-            <th>{% trans %}KHz{% endtrans %}</th>
-            <th>{% trans %}ID{% endtrans %}</th>
-            <th>{% trans %}QTH{% endtrans %}</th>
-            <th>{% trans %}SP{% endtrans %}</th>
-            <th>{% trans %}ITU{% endtrans %}</th>
-            <th>{% trans %}GSQ{% endtrans %}</th>
-            <th class="num">{% trans %}KM{% endtrans %}</th>
-            <th class="num">{% trans %}Miles{% endtrans %}</th>
-            <th>{% trans %}Pwr{% endtrans %}</th>
-            <th>{% trans %}Heard In{% endtrans %}</th>
-            <th class="num">{% trans %}LSB{% endtrans %}</th>
-            <th class="num">{% trans %}USB{% endtrans %}</th>
-            <th class="num">{% trans %}Sec{% endtrans %}</th>
-            <th>{% trans %}Format{% endtrans %}</th>
-        </tr>
-    </thead>
-    <tbody>
-{% for e in entries %}
-    {% set rowspan=(e.options|length>1 ? ' rowspan=' ~ e.options|length : '') %}
-    {% if e.options|length == 0 %}
-        <tr class="unknown">
-            <th class="error"><a href="{{ url('signal', { 'system' : system, 'id' : 'new', 'data' : e|json_encode() }) }}"
-                   data-popup="1" class="add" title="{% trans %}Add new signal...{% endtrans %}">+</a></th>
-            <td class="txt_c text-nowrap">{{ e.YYYYMMDD }}</td>
-            <td>{{ e.time }}</td>
-            <td>{{ e.daytime ? 'DT' : '' }}</td>
-            <td>{{ 0 + e.KHZ }}</td>
-            <td>{{ e.ID }}</td>
-            <td>{{ e.QTH }}</td>
-            <td>{{ e.SP }}</td>
-            <td>{{ e.ITU }}</td>
-            <td>{{ e.GSQ }}</td>
-            <td></td>
-            <td>{{ e.pwr ? e.pwr : '' }}</td>
-            <td></td>
-            <td></td>
-            <td class="num">{{ e.LSB_approx }}{{ e.LSB }}</td>
-            <td class="num">{{ e.USB_approx }}{{ e.USB }}</td>
-            <td class="num">{{ e.sec }}</td>
-            <td class="text-nowrap">{{ e.fmt }}</td>
-        </tr>
-    {% else %}
-    {% set o = e.options[0] %}
-        {% set hi=o.heard_in|replace({ (heardIn) : '<em>' ~ heardIn ~ '</em>'}) %}
-        {% set lsb_check=(e.LSB and o.LSB and ((e.LSB + tol_offsets < o.LSB) or (e.LSB - tol_offsets > o.LSB))) %}
-        {% set usb_check=(e.USB and o.USB and ((e.USB + tol_offsets < o.USB) or (e.USB - tol_offsets > o.USB))) %}
-        {% set sec_check=(e.sec and o.sec and ((e.sec + tol_secs < o.sec) or (e.sec - tol_secs > o.sec))) %}
-        {% set row_check=(lsb_check or usb_check or sec_check) %}
+<div class="content scroll" id="list">
+    <div>
+    <table class="results parse short" style="width: auto;">
+        <thead>
+            <tr>
+                <th>{% trans %}Add{% endtrans %}</th>
+                <th>{% trans %}Date{% endtrans %}</th>
+                <th>{% trans %}Time{% endtrans %}</th>
+                <th>{% trans %}DT{% endtrans %}</th>
+                <th>{% trans %}KHz{% endtrans %}</th>
+                <th>{% trans %}ID{% endtrans %}</th>
+                <th>{% trans %}QTH{% endtrans %}</th>
+                <th>{% trans %}SP{% endtrans %}</th>
+                <th>{% trans %}ITU{% endtrans %}</th>
+                <th>{% trans %}GSQ{% endtrans %}</th>
+                <th class="num">{% trans %}KM{% endtrans %}</th>
+                <th class="num">{% trans %}Miles{% endtrans %}</th>
+                <th>{% trans %}Pwr{% endtrans %}</th>
+                <th>{% trans %}Heard In{% endtrans %}</th>
+                <th class="num">{% trans %}LSB{% endtrans %}</th>
+                <th class="num">{% trans %}USB{% endtrans %}</th>
+                <th class="num">{% trans %}Sec{% endtrans %}</th>
+                <th>{% trans %}Format{% endtrans %}</th>
+            </tr>
+        </thead>
+        <tbody>
+    {% for e in entries %}
+        {% set rowspan=(e.options|length>1 ? ' rowspan=' ~ e.options|length : '') %}
+        {% if e.options|length == 0 %}
+            <tr class="unknown">
+                <th class="error">
+                    <a href="{{ url('signal', { 'system' : system, 'id' : 'new', 'data' : e|json_encode() }) }}"
+                       data-popup="1" class="add" title="{% trans %}Add new signal...{% endtrans %}">+</a></th>
+                <td class="txt_c text-nowrap">{{ e.YYYYMMDD }}</td>
+                <td>{{ e.time }}</td>
+                <td>{{ e.daytime ? 'DT' : '' }}</td>
+                <td>{{ 0 + e.KHZ }}</td>
+                <td>{{ e.ID }}</td>
+                <td>{{ e.QTH }}</td>
+                <td>{{ e.SP }}</td>
+                <td>{{ e.ITU }}</td>
+                <td>{{ e.GSQ }}</td>
+                <td></td>
+                <td>{{ e.pwr ? e.pwr : '' }}</td>
+                <td></td>
+                <td></td>
+                <td class="num">{{ e.LSB_approx }}{{ e.LSB }}</td>
+                <td class="num">{{ e.USB_approx }}{{ e.USB }}</td>
+                <td class="num">{{ e.sec }}</td>
+                <td class="text-nowrap">{{ e.fmt }}</td>
+            </tr>
+        {% else %}
+        {% set o = e.options[0] %}
+            {% set hi=o.heard_in|replace({ (heardIn) : '<em>' ~ heardIn ~ '</em>'}) %}
+            {% set lsb_check=(e.LSB and o.LSB and ((e.LSB + tol_offsets < o.LSB) or (e.LSB - tol_offsets > o.LSB))) %}
+            {% set usb_check=(e.USB and o.USB and ((e.USB + tol_offsets < o.USB) or (e.USB - tol_offsets > o.USB))) %}
+            {% set sec_check=(e.sec and o.sec and ((e.sec + tol_secs < o.sec) or (e.sec - tol_secs > o.sec))) %}
+            {% set row_check=(lsb_check or usb_check or sec_check) %}
 
-        <tr class="{% if e.options|length>1 %}question{% endif %}{% if not o.active %} inactive{% endif %}">
-            <th class="{% if e.options|length > 1 %}error{% elseif row_check %}check{% endif %}">
-                {% if e.options|length == 1 %}
-                <input type="checkbox" title="{% trans %}Include this log{% endtrans %}" name="l_{{ loop.index }}" value="{{
-                    o.ID }}|{{ e.YYYYMMDD }}|{{ e.daytime ? 1 : 0 }}|{{ o.dx_km }}|{{ o.dx_miles }}|{{
-                    e.fmt }}|{{ id }}|{{ e.LSB_approx }}|{{ e.LSB }}|{{ heardIn }}|{{ region }}|{{
-                    e.sec }}|{{ e.time }}|{{ e.USB_approx }}|{{ e.USB }}"
-                />
-            {% else %}
-                <input type="radio" name="row_{{ loop.index }}" title="{% trans %}Include this log{% endtrans %}" />
-            {% endif %}</th>
-            <td class="txt_c text-nowrap"><i>{{ e.YYYYMMDD }}</i>{% if o.last_heard %}<br>{{ o.last_heard }}{% endif %}</td>
-            <td><i>{{ e.time }}</i></td>
-            <td>{{ e.daytime ? 'DT' : '' }}</td>
-            <td>{{ 0 + o.khz }}</td>
-            <td><a href="{{ url('signal', { 'system' : system, 'id' : o.ID }) }}" data-popup="1">{{ o.call }}</a></td>
-            <td>{{ o.QTH }}</td>
-            <td>{{ o.SP }}</td>
-            <td>{{ o.ITU }}</td>
-            <td>{{ o.GSQ }}</td>
-            <td>{{ o.dx_km }}</td>
-            <td>{{ o.dx_miles }}</td>
-            <td>{{ o.pwr ? o.pwr : '' }}</td>
-            <td>{{ hi|raw }}</td>
-            <td class="num"><i{% if lsb_check %} class="check"{% endif %}>{{ e.LSB_approx }}{{ e.LSB }}</i>{% if o.LSB_approx or o.LSB %}<br>{{ o.LSB_approx }}{{ o.LSB }}{% endif %}</td>
-            <td class="num"><i{% if usb_check %} class="check"{% endif %}>{{ e.USB_approx }}{{ e.USB }}</i>{% if o.USB_approx or o.USB %}<br>{{ o.USB_approx }}{{ o.USB }}{% endif %}</td>
-            <td class="num"><i{%
-                if e.sec and o.sec and ((e.sec + tol_secs < o.sec) or (e.sec - tol_secs > o.sec)) %} class="check"{% endif
-            %}>{{ e.sec }}</i>{% if o.sec %}<br>{{ o.sec }}{% endif %}</td>
-            <td class="text-nowrap"><i>{{ e.fmt }}</i>{% if o.format %}<br>{{ o.format }}{% endif %}</td>
-        </tr>
-{% for o in e.options %}{% if loop.index > 1 %}
-        <tr class="question{% if not o.active %} inactive{% endif %}">
-            <th class="error"><input type="radio" name="row_{{ loop.parent.loop.index }}" title="{% trans %}Include this log{% endtrans %}"/></th>
-            <td class="txt_c text-nowrap"><i>{{ e.YYYYMMDD }}</i>{% if o.last_heard %}<br>{{ o.last_heard }}{% endif %}</td>
-            <td><i>{{ e.time }}</i></td>
-            <td>{{ e.daytime ? 'DT' : '' }}</td>
-            <td>{{ 0 + o.khz }}</td>
-            <td><a href="{{ url('signal', { 'system' : system, 'id' : o.ID }) }}" data-popup="1">{{ o.call }}</a></td>
-            <td>{{ o.QTH }}</td>
-            <td>{{ o.SP }}</td>
-            <td>{{ o.ITU }}</td>
-            <td>{{ o.GSQ }}</td>
-            <td>{{ o.dx_km }}</td>
-            <td>{{ o.dx_miles }}</td>
-            <td>{{ o.pwr ? o.pwr : '' }}</td>
-            <td>{{ o.heard_in }}</td>
-            <td class="num"><i{%
-                if e.LSB and o.LSB and ((e.LSB + tol_offsets < o.LSB) or (e.LSB - tol_offsets > o.LSB)) %} class="check"{% endif
-            %}>{{ e.LSB_approx }}{{ e.LSB }}</i>{% if o.LSB_approx or o.LSB %}<br>{{ o.LSB_approx }}{{ o.LSB }}{% endif %}</td>
-            <td class="num"><i{%
-                if e.USB and o.USB and ((e.USB + tol_offsets < o.USB) or (e.USB - tol_offsets > o.USB)) %} class="check"{% endif
-            %}>{{ e.USB_approx }}{{ e.USB }}</i>{% if o.USB_approx or o.USB %}<br>{{ o.USB_approx }}{{ o.USB }}{% endif %}</td>
-            <td class="num"><i{%
-                if e.sec and o.sec and ((e.sec + tol_secs < o.sec) or (e.sec - tol_secs > o.sec)) %} class="check"{% endif
-            %}>{{ e.sec }}</i>{% if o.sec %}<br>{{ o.sec }}{% endif %}</td>
-            <td class="text-nowrap"><i>{{ e.fmt }}</i>{% if o.format %}<br>{{ o.format }}{% endif %}</td>
-        </tr>
-{% endif %}{% endfor %}
-    {% endif %}
-{% endfor %}
-    </tbody>
-</table>
-<h2>Remainder</h2>
+            <tr class="{% if e.options|length>1 %}question{% endif %}{% if not o.active %} inactive{% endif %}">
+                <th class="{% if e.options|length > 1 %}error{% elseif row_check %}check{% endif %}">
+                    <input type="checkbox" title="{% trans %}Include this log{% endtrans %}" data-idx="{{ loop.index -1 }}" value="{{ loop.index -1 }}|{{ o.ID }}" />
+                </th>
+                <td class="txt_c text-nowrap"><i>{{ e.YYYYMMDD }}</i>{% if o.last_heard %}<br>{{ o.last_heard }}{% endif %}</td>
+                <td><i>{{ e.time }}</i></td>
+                <td>{{ e.daytime ? 'DT' : '' }}</td>
+                <td>{{ 0 + o.khz }}</td>
+                <td><a href="{{ url('signal', { 'system' : system, 'id' : o.ID }) }}" data-popup="1">{{ o.call }}</a></td>
+                <td>{{ o.QTH }}</td>
+                <td>{{ o.SP }}</td>
+                <td>{{ o.ITU }}</td>
+                <td>{{ o.GSQ }}</td>
+                <td>{{ o.dx_km }}</td>
+                <td>{{ o.dx_miles }}</td>
+                <td>{{ o.pwr ? o.pwr : '' }}</td>
+                <td>{{ hi|raw }}</td>
+                <td class="num"><i{% if lsb_check %} class="check"{% endif %}>{{ e.LSB_approx }}{{ e.LSB }}</i>{% if o.LSB_approx or o.LSB %}<br>{{ o.LSB_approx }}{{ o.LSB }}{% endif %}</td>
+                <td class="num"><i{% if usb_check %} class="check"{% endif %}>{{ e.USB_approx }}{{ e.USB }}</i>{% if o.USB_approx or o.USB %}<br>{{ o.USB_approx }}{{ o.USB }}{% endif %}</td>
+                <td class="num"><i{%
+                    if e.sec and o.sec and ((e.sec + tol_secs < o.sec) or (e.sec - tol_secs > o.sec)) %} class="check"{% endif
+                %}>{{ e.sec }}</i>{% if o.sec %}<br>{{ o.sec }}{% endif %}</td>
+                <td class="text-nowrap"><i>{{ e.fmt }}</i>{% if o.format %}<br>{{ o.format }}{% endif %}</td>
+            </tr>
+    {% for o in e.options %}{% if loop.index > 1 %}
+            <tr class="question{% if not o.active %} inactive{% endif %}">
+                <th class="error">
+                    <input type="checkbox" title="{% trans %}Include this log{% endtrans %}" data-idx="{{ loop.parent.loop.index -1 }}" value="{{ loop.parent.loop.index -1 }}|{{ o.ID }}" /></th>
+                <td class="txt_c text-nowrap"><i>{{ e.YYYYMMDD }}</i>{% if o.last_heard %}<br>{{ o.last_heard }}{% endif %}</td>
+                <td><i>{{ e.time }}</i></td>
+                <td>{{ e.daytime ? 'DT' : '' }}</td>
+                <td>{{ 0 + o.khz }}</td>
+                <td><a href="{{ url('signal', { 'system' : system, 'id' : o.ID }) }}" data-popup="1">{{ o.call }}</a></td>
+                <td>{{ o.QTH }}</td>
+                <td>{{ o.SP }}</td>
+                <td>{{ o.ITU }}</td>
+                <td>{{ o.GSQ }}</td>
+                <td>{{ o.dx_km }}</td>
+                <td>{{ o.dx_miles }}</td>
+                <td>{{ o.pwr ? o.pwr : '' }}</td>
+                <td>{{ o.heard_in }}</td>
+                <td class="num"><i{%
+                    if e.LSB and o.LSB and ((e.LSB + tol_offsets < o.LSB) or (e.LSB - tol_offsets > o.LSB)) %} class="check"{% endif
+                %}>{{ e.LSB_approx }}{{ e.LSB }}</i>{% if o.LSB_approx or o.LSB %}<br>{{ o.LSB_approx }}{{ o.LSB }}{% endif %}</td>
+                <td class="num"><i{%
+                    if e.USB and o.USB and ((e.USB + tol_offsets < o.USB) or (e.USB - tol_offsets > o.USB)) %} class="check"{% endif
+                %}>{{ e.USB_approx }}{{ e.USB }}</i>{% if o.USB_approx or o.USB %}<br>{{ o.USB_approx }}{{ o.USB }}{% endif %}</td>
+                <td class="num"><i{%
+                    if e.sec and o.sec and ((e.sec + tol_secs < o.sec) or (e.sec - tol_secs > o.sec)) %} class="check"{% endif
+                %}>{{ e.sec }}</i>{% if o.sec %}<br>{{ o.sec }}{% endif %}</td>
+                <td class="text-nowrap"><i>{{ e.fmt }}</i>{% if o.format %}<br>{{ o.format }}{% endif %}</td>
+            </tr>
+    {% endif %}{% endfor %}
+        {% endif %}
+    {% endfor %}
+        </tbody>
+    </table>
+</div>
+</div>
+<h2>{% trans %}Issues / Skipped logs{% endtrans %}</h2>
 <input type='text' style="width:100%;height:2em;padding: 0; margin-bottom: 0; font-family: 'Courier New bold', Courier, monospace; font-size:12px" id="remainder_format" />
 <textarea style="width:100%;height:10em;padding: 0; margin-top: 0; font-family: 'Courier New', Courier, monospace;font-size:12px" id="remainder_logs"></textarea>
 
@@ -127,21 +126,10 @@
 $(document).ready( function() {
     initListenersLogUploadForm();
     setExternalLinks();
-    $('table.parse input:checkbox').change(function() {
-        var logs = $('#form_logs').val().split("\n");
-        var lines = [];
-        var remainder = [];
-        var i;
-        $('table.parse input:checkbox').each(function() {
-            if (!$(this).is(':checked')) {
-                lines.push($(this).attr('name').split('_')[1]);
-            }
-        });
-        for (i=0; i < lines.length; i++) {
-            remainder.push(logs[lines[i]-1])
-        }
-        $('#remainder_format').val($('#form_format').val());
-        $('#remainder_logs').val(remainder.join("\n"));
+    logsShowRemainder();
+    $('#list').height($(window).height() - 390);
+    $(window).resize(function () {
+        $('#list').height($(window).height() - 390);
     });
 });
 </script>

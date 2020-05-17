@@ -7,6 +7,7 @@
         <div class="header">{{ mode|raw }}</div>
         <div class="content">
             {% include 'listener/logs_upload/errors.html.twig' %}
+            {% include('listener/logs_upload/entries.html.twig') %}
             <div id="form"{% if (errors) %} class='formatErrors'{% endif %}>
                 {{ form_start(form) }}
                 {{ form_row(form.id) }}
@@ -20,7 +21,6 @@
                     {{ form_widget(form.logs) }}
                 </div>
                 {% include('listener/logs_upload/datefields.html.twig') %}
-                {% include('listener/logs_upload/entries.html.twig') %}
                 <fieldset id="group_">
                     <span{% if (step != 1) %} style="display:none"{% endif %}>
                         {{ form_row(form.tabs2spaces) }}

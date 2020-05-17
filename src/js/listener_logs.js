@@ -121,3 +121,31 @@ function initListenersLogUploadForm() {
         e.stopImmediatePropagation();
     });
 }
+
+function logsShowRemainder() {
+    var logs = $('#form_logs').val().split("\n");
+    var i;
+    var idx;
+    var selected = [];
+    var remainder = [];
+    $('table.parse input:checkbox').each(function() {
+        if ($(this).is(':checked')) {
+            idx = $(this).val().split('|')[0];
+            selected[idx] = idx;
+        }
+    });
+    for (i in selected) {
+        if (selected.hasOwnProperty(i)) {
+            logs[i] = '';
+        }
+    }
+    for (i in logs) {
+        if (logs.hasOwnProperty(i)) {
+            if (logs[i] !== '') {
+                remainder.push(logs[i]);
+            }
+        }
+    }
+    $('#remainder_format').val($('#form_format').val());
+    $('#remainder_logs').val(remainder.join("\r\n"));
+}
