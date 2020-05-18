@@ -595,7 +595,6 @@ EOD;
         foreach ($lines as &$line) {
             $line['options'] = $signalRepository->getSignalCandidates($line['ID'], $line['KHZ'], $listener);
         }
-
         return $lines;
     }
 

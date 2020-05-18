@@ -51,8 +51,8 @@ class SignalView extends Base
         } else {
             $signal = new SignalEntity();
             if ($request->query->get('data')) {
-                $reloadOpener = true;
                 $d = json_decode($request->query->get('data'), true);
+                $reloadOpener = $d['row'];
                 $signal
                     ->setActive(true)
                     ->setType(0)
@@ -62,7 +62,7 @@ class SignalView extends Base
                     ->setSp($d['SP'])
                     ->setItu($d['ITU'])
                     ->setGsq($d['GSQ'])
-                    ->setHeardIn('dbdb');
+                    ->setHeardIn('');
             }
 
 //            print "<pre>" . print_r($data, true) . "</pre>";
@@ -139,8 +139,13 @@ class SignalView extends Base
 
             if ($form_data['_close']) {
                 $js =
-                    ($doReloadOpener ? "window.opener.document.getElementsByName('form')[0].submit();" : '')
-                    ."window.close()";
+                    ($doReloadOpener ?
+                        "window.opener.document.getElementById('form_selected').value = "
+                        . "window.opener.document.getElementById('form_selected').value + ',"
+                        . explode('_', $reloadOpener)[1] . "|" . $signal->getId() . "';"
+                        . "window.opener.document.getElementsByName('form')[0].submit();" : ''
+                    )
+                    . "window.close()";
                 return new Response("<script>$js</script>", Response::HTTP_OK, [ 'content-type' => 'text/html' ]);
             }
 

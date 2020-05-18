@@ -4375,6 +4375,94 @@
         <source>Paste log entries here</source>
         <target>Paste log entries here</target>
       </trans-unit>
+      <trans-unit id="oDd9xtC" resname="NDB List Website">
+        <source>NDB List Website</source>
+        <target>NDB List Website</target>
+      </trans-unit>
+      <trans-unit id="o0SV7EF" resname="NDB Group">
+        <source>NDB Group</source>
+        <target>NDB Group</target>
+      </trans-unit>
+      <trans-unit id="0ZIGkAt" resname="DSC Group">
+        <source>DSC Group</source>
+        <target>DSC Group</target>
+      </trans-unit>
+      <trans-unit id="fxcfd4e" resname="DGPS Group">
+        <source>DGPS Group</source>
+        <target>DGPS Group</target>
+      </trans-unit>
+      <trans-unit id="kKqBovf" resname="NAVTEX Group">
+        <source>NAVTEX Group</source>
+        <target>NAVTEX Group</target>
+      </trans-unit>
+      <trans-unit id="VtLQxs1" resname="Add Log">
+        <source>Add Log</source>
+        <target>Add Log</target>
+      </trans-unit>
+      <trans-unit id="hdOFGpH" resname="Click for help">
+        <source>Click for help</source>
+        <target>Click for help</target>
+      </trans-unit>
+      <trans-unit id="r.B2alK" resname="Review">
+        <source>Review</source>
+        <target>Review</target>
+      </trans-unit>
+      <trans-unit id="qLVmaRG" resname="DT">
+        <source>DT</source>
+        <target>DT</target>
+      </trans-unit>
+      <trans-unit id="ePb12WU" resname="Matched Signal(s)">
+        <source>Matched Signal(s)</source>
+        <target>Matched Signal(s)</target>
+      </trans-unit>
+      <trans-unit id="2ihCune" resname="Submit Log - are you sure?">
+        <source>Submit Log - are you sure?</source>
+        <target>Submit Log - are you sure?</target>
+      </trans-unit>
+      <trans-unit id="3rjLuw9" resname="There are COUNT unresolved issues remaining.">
+        <source>There are COUNT unresolved issues remaining.</source>
+        <target>There are COUNT unresolved issues remaining.</target>
+      </trans-unit>
+      <trans-unit id="7w69AeO" resname="Please capture the remaining logs for later processing.">
+        <source>Please capture the remaining logs for later processing.</source>
+        <target>Please capture the remaining logs for later processing.</target>
+      </trans-unit>
+      <trans-unit id="n9coxmy" resname="Add">
+        <source>Add</source>
+        <target>Add</target>
+      </trans-unit>
+      <trans-unit id="oq6gVUz" resname="Add new signal...">
+        <source>Add new signal...</source>
+        <target>Add new signal...</target>
+      </trans-unit>
+      <trans-unit id="2sFhvYO" resname="Include this log">
+        <source>Include this log</source>
+        <target>Include this log</target>
+      </trans-unit>
+      <trans-unit id="dMyRyQr" resname="Issues / Skipped logs">
+        <source>Issues / Skipped logs</source>
+        <target>Issues / Skipped logs</target>
+      </trans-unit>
+      <trans-unit id="SEcKXpy" resname="Log Format">
+        <source>Log Format</source>
+        <target>Log Format</target>
+      </trans-unit>
+      <trans-unit id="0.qEq97" resname="Log Entries">
+        <source>Log Entries</source>
+        <target>Log Entries</target>
+      </trans-unit>
+      <trans-unit id="YBXNoHJ" resname="Click to copy this token.">
+        <source>Click to copy this token.</source>
+        <target>Click to copy this token.</target>
+      </trans-unit>
+      <trans-unit id="LkUsR9O" resname="Copied '%s' to Clipboard.">
+        <source>Copied '%s' to Clipboard.</source>
+        <target>Copied '%s' to Clipboard.</target>
+      </trans-unit>
+      <trans-unit id="ibHhuW_" resname="Copied remaining logs to clipboard.">
+        <source>Copied remaining logs to clipboard.</source>
+        <target>Copied remaining logs to clipboard.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

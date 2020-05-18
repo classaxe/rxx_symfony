@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.8.31
- * Date:       2020-05-17
+ * Version:    2.8.32
+ * Date:       2020-05-18
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
  */
@@ -588,7 +588,7 @@ function setFormPagingActions() {
 }
 
 function copyToClipboard(text) {
-    var temp = $("<input>");
+    var temp = $("<textarea>");
     $("body").append(temp);
     temp.val(text).select();
     document.execCommand("copy");
@@ -946,6 +946,7 @@ function initListenersLogUploadForm() {
             [ '#form_MM',     9, 10 ],
             [ '#form_DD',    11, 12 ]
         ];
+        logsRemoveBlankLines($('#form_logs'));
         for (f in fields) {
             field = $(fields[f][0]);
             if (!field.is(':visible')) {
@@ -959,11 +960,13 @@ function initListenersLogUploadForm() {
                 return false;
             }
         }
+        $('#form_selected').val('UNSET');
         $('#form_step').val(2);
     });
 
     $('#form_back').on('click', function() {
         $('#form_step').val(1);
+        $('#form_selected').val('UNSET');
     });
 
     $(document).on('click', '.tokensHelpLink', function() {
@@ -981,7 +984,7 @@ function initListenersLogUploadForm() {
         $('.tokensHelp b').on('click', function() {
             var txt = $(this).text();
             copyToClipboard(txt);
-            alert(msg.copied.replace('%s', txt));
+            alert(msg.copied_x.replace('%s', txt));
         }).attr('title', msg.copy_token);
         return false;
     });
@@ -996,22 +999,68 @@ function initListenersLogUploadForm() {
         e.stopImmediatePropagation();
     });
 
+    $('table.parse').on('click', 'tr', function(event) {
+        if (event.target.type !== 'checkbox') {
+            event.stopImmediatePropagation();
+            var ctl = $(this).find('input:checkbox');
+            ctl.prop('checked', !ctl.prop('checked'));
+            ctl.trigger('change');
+        }
+    });
+
+    $('table.parse input:checkbox').change(function() {
+        $('input[data-idx="' + $(this).data()['idx'] + '"]').not(this).prop('checked', false);
+        logsShowRemainder();
+    });
+
+    $('#form_submitLog').on('click', function(e) {
+        var m = msg.log_upload.confirm;
+        var remaining_val = $('#remainder_logs').val();
+        var remaining = remaining_val === '' ? 0 : remaining_val.split("\n").length;
+        var message = (remaining_val.trim() ? m[1] + "\n" + m[2].replace('COUNT', remaining) + "\n\n" + m[3] : m[1]);
+        if (!confirm(message)) {
+            e.preventDefault();
+            return false;
+        }
+//        $('#form_step').val(3);
+    });
+
+    $('#copyRemainder').on('click', function() {
+        var txt = $('#remainder_logs').val();
+        copyToClipboard(txt);
+        alert(msg.log_upload.copy_remaining);
+        return false;
+    })
+}
+function logsRemoveBlankLines(element) {
+    var i, logs, logs_filtered;
+    logs = element.val().split("\n");
+    logs_filtered = [];
+    for (i=0; i < logs.length; i++) {
+        if (logs[i].trim() !== '') {
+            logs_filtered.push(logs[i]);
+        }
+    }
+    element.val(logs_filtered.join("\n"));
+
 }
 
 function logsShowRemainder() {
     var logs = $('#form_logs').val().split("\n");
     var i;
     var idx;
+    var checked = [];
     var selected = [];
     var remainder = [];
     $('table.parse input:checkbox').each(function() {
         if ($(this).is(':checked')) {
+            selected.push($(this).val());
             idx = $(this).val().split('|')[0];
-            selected[idx] = idx;
+            checked[idx] = idx;
         }
     });
-    for (i in selected) {
-        if (selected.hasOwnProperty(i)) {
+    for (i in checked) {
+        if (checked.hasOwnProperty(i)) {
             logs[i] = '';
         }
     }
@@ -1024,6 +1073,7 @@ function logsShowRemainder() {
     }
     $('#remainder_format').val($('#form_format').val());
     $('#remainder_logs').val(remainder.join("\r\n"));
+    $('#form_selected').val(selected.join(','));
 }
 
 // Used here: http://rxx.classaxe.com/en/rna/listeners/56/map

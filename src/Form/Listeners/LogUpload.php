@@ -38,6 +38,13 @@ class LogUpload extends AbstractType
                 ]
             )
             ->add(
+                'selected',
+                HiddenType::class,
+                [
+                    'data' =>           $options['selected']
+                ]
+            )
+            ->add(
                 'format',
                 TextType::class,
                 [

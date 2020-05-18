@@ -27,9 +27,10 @@
         </thead>
         <tbody>
     {% for e in entries %}
-        {% set rowspan=(e.options|length>1 ? ' rowspan=' ~ e.options|length : '') %}
+        {% set rowspan = (e.options|length>1 ? ' rowspan=' ~ e.options|length : '') %}
         {% if e.options|length == 0 %}
-            <tr class="unknown">
+            {% set e = e|merge({ 'row' : 'row_' ~ (loop.index - 1) }) %}
+            <tr class="unknown" id="row_{{ loop.index -1 }}">
                 <th class="error">
                     <a href="{{ url('signal', { 'system' : system, 'id' : 'new', 'data' : e|json_encode() }) }}"
                        data-popup="1" class="add" title="{% trans %}Add new signal...{% endtrans %}">+</a></th>
@@ -58,10 +59,13 @@
             {% set usb_check=(e.USB and o.USB and ((e.USB + tol_offsets < o.USB) or (e.USB - tol_offsets > o.USB))) %}
             {% set sec_check=(e.sec and o.sec and ((e.sec + tol_secs < o.sec) or (e.sec - tol_secs > o.sec))) %}
             {% set row_check=(lsb_check or usb_check or sec_check) %}
+            {% set row_selected=((row_check == false and e.options|length == 1 and selected == 'UNSET') or (selected[loop.index -1] is defined and selected[loop.index -1])) %}
 
-            <tr class="{% if e.options|length>1 %}question{% endif %}{% if not o.active %} inactive{% endif %}">
+
+            <tr class="{% if e.options|length>1 %}question{% endif %}{% if not o.active %} inactive{% endif %}" id="row_{{ loop.index -1 }}">
                 <th class="{% if e.options|length > 1 %}error{% elseif row_check %}check{% endif %}">
-                    <input type="checkbox" title="{% trans %}Include this log{% endtrans %}" data-idx="{{ loop.index -1 }}" value="{{ loop.index -1 }}|{{ o.ID }}" />
+                    <input type="checkbox" title="{% trans %}Include this log{% endtrans %}" data-idx="{{ loop.index -1 }}"
+                     value="{{ loop.index -1 }}|{{ o.ID }}"{% if row_selected %} checked="checked"{% endif %}/>
                 </th>
                 <td class="txt_c text-nowrap"><i>{{ e.YYYYMMDD }}</i>{% if o.last_heard %}<br>{{ o.last_heard }}{% endif %}</td>
                 <td><i>{{ e.time }}</i></td>
@@ -118,14 +122,14 @@
     </table>
 </div>
 </div>
-<h2>{% trans %}Issues / Skipped logs{% endtrans %}</h2>
+<h2>{% trans %}Issues / Skipped logs{% endtrans %} <small>[ <a id="copyRemainder" href="#">Copy</a> ]</small></h2>
+<label for="remainder_format" class="sr-only">{% trans %}Log Format{% endtrans %}</label>
 <input type='text' style="width:100%;height:2em;padding: 0; margin-bottom: 0; font-family: 'Courier New bold', Courier, monospace; font-size:12px" id="remainder_format" />
+<label for="remainder_logs" class="sr-only">{% trans %}Log Entries{% endtrans %}</label>
 <textarea style="width:100%;height:10em;padding: 0; margin-top: 0; font-family: 'Courier New', Courier, monospace;font-size:12px" id="remainder_logs"></textarea>
 
 <script>
 $(document).ready( function() {
-    initListenersLogUploadForm();
-    setExternalLinks();
     logsShowRemainder();
     $('#list').height($(window).height() - 390);
     $(window).resize(function () {

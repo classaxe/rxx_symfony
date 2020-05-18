@@ -50,10 +50,12 @@ class ListenerLogsUpload extends Base
             return $this->redirectToRoute('listener', ['system' => $this->system, 'id' => $id]);
         }
         $step = $request->get('step', '1');
+        $selected = 'UNSET';
         $format = $this->listener->getLogFormat();
         $options = [
             'id' =>         $this->listener->getId(),
             'step' =>       $step,
+            'selected' =>   $selected,
             'format' =>     $format
         ];
 
@@ -67,6 +69,7 @@ class ListenerLogsUpload extends Base
             $step = $data['step'];
             $format = $data['format'];
             $this->logs =   $data['logs'];
+            $selected =     $data['selected'];
             $this->errors = [];
             $this->logRepository->parseFormat($format, $this->tokens, $this->errors, $this->logHas);
 
@@ -87,7 +90,15 @@ class ListenerLogsUpload extends Base
                         break;
                     }
                     $this->entries = $this->logRepository->parseLog($this->listener, $this->logs, $this->tokens, $YYYY, $MM, $DD, $this->signalRepository);
-//                    print "<pre>" . print_r($this->entries, true) . "</pre>";
+                    $step = '2';
+                    break;
+                case '3':
+                    if ($this->errors || (!$this->logHas['YYYY'] && !$YYYY) || (!$this->logHas['MM'] && !$MM) || (!$this->logHas['DD'] && !$DD)) {
+                        $step = '1';
+                        break;
+                    }
+                    $this->entries = $this->logRepository->parseLog($this->listener, $this->logs, $this->tokens, $YYYY, $MM, $DD, $this->signalRepository);
+                    print "Made it!";
                     break;
             }
         }
@@ -98,6 +109,18 @@ class ListenerLogsUpload extends Base
         );
         $form_logs_height =
             420 - ($this->errors ? 90 + (23 * count($this->errors)) : 0) - ($this->logHas['partial'] ? 28 : 0);
+
+        if ('UNSET' !== $selected) {
+            $_sels = explode(',', $selected);
+            $_selected = [];
+            foreach($_sels as $_s){
+                $_s = explode('|', $_s);
+                if (count($_s) === 2) {
+                    $_selected[$_s[0]] = $_s[1];
+                }
+            }
+            $selected = $_selected;
+        }
         $parameters = [
             'id' =>                 $id,
             '_locale' =>            $_locale,
@@ -113,6 +136,7 @@ class ListenerLogsUpload extends Base
             'logs' =>               $this->listener->getCountLogs(),
             'logData' =>            $this->logs,
             'region' =>             $this->listener->getRegion(),
+            'selected' =>           $selected,
             'signals' =>            $this->listener->getCountSignals(),
             'step' =>               $step,
             'system' =>             $this->system,
