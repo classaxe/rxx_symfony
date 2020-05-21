@@ -74,6 +74,55 @@ class LogRepository extends ServiceEntityRepository
         $this->connection = $connection;
     }
 
+    public function addLog(
+        $signalID,
+        $listenerID,
+        $heardIn,
+        $region,
+        $YYYYMMDD,
+        $hhmm,
+        $daytime,
+        $dx_km,
+        $dx_miles,
+        $LSB_approx,
+        $LSB,
+        $USB_approx,
+        $USB,
+        $fmt,
+        $sec
+    ) {
+        $params = [
+            ':signalID' =>      $signalID,
+            ':listenerID' =>    $listenerID,
+            ':heardIn' =>       $heardIn,
+            ':region' =>        $region,
+            ':YYYYMMDD' =>      $YYYYMMDD,
+            ':hhmm' =>          $hhmm,
+            ':daytime' =>       $daytime,
+            ':LSB_approx' =>    $LSB_approx,
+            ':LSB' =>           $LSB,
+            ':USB_approx' =>    $USB_approx,
+            ':USB' =>           $USB,
+            ':fmt' =>           $fmt,
+            ':sec' =>           $sec
+        ];
+        $sql = <<< EOD
+            INSERT INTO `logs` (
+                `signalID`,
+                `listenerID`,
+                `heard_in`,
+                `region`,
+                `date`,
+                `dx_km`,
+                `dx_miles`
+            )
+                                
+                
+EOD;
+        $stmt = $this->connection->prepare($sql);
+        $stmt->execute($params);
+    }
+
     public function getFilteredLogsCount($system, $region = '')
     {
         $qb = $this
@@ -451,6 +500,72 @@ EOD;
             . str_pad($x[1], 2, '0', STR_PAD_LEFT);
     }
 
+    public function checkIfDuplicate($signalID, $listenerID, $YYYYMMDD, $hhmm = false)
+    {
+        $sql = <<< EOD
+            SELECT
+                `ID`
+            FROM
+                `logs`
+            WHERE
+                `signalID` = :signalID AND
+                `listenerID` = :listenerID AND
+                `date` = :YYYYMMDD
+EOD;
+        $params = [
+            ':signalID' =>  $signalID,
+            ':listenerID' =>$listenerID,
+            ':YYYYMMDD' =>  $YYYYMMDD,
+        ];
+        if ($hhmm) {
+            $sql .= " AND  `time` = :hhmm";
+            $params[':hhmm'] = $hhmm;
+        }
+        $stmt = $this->connection->prepare($sql);
+        $stmt->execute($params);
+        return $stmt->fetchColumn();
+    }
+
+    public function checkIfHeardAtPlace($signalID, $heardIn)
+    {
+        $sql = <<< EOD
+            SELECT
+                `ID`
+            FROM
+                `logs`
+            WHERE
+                `signalID` = :signalID AND
+                `heard_in` = :heardIn
+EOD;
+        $params = [
+            ':signalID' =>  $signalID,
+            ':heardIn' =>$heardIn,
+        ];
+        $stmt = $this->connection->prepare($sql);
+        $stmt->execute($params);
+        return $stmt->fetchColumn();
+    }
+
+    public function countTimesHeardByListener($signalID, $listenerID)
+    {
+        $params = [
+            ':signalID' =>      $signalID,
+            ':listenerID' =>    $listenerID,
+        ];
+        $sql = <<< EOD
+            SELECT
+                COUNT(*) AS `count`
+            FROM
+                `logs`
+            WHERE
+                `signalID` = :signalID AND
+                `listenerID` = :listenerID
+EOD;
+        $stmt = $this->connection->prepare($sql);
+        $stmt->execute($params);
+        return $stmt->fetchColumn();
+    }
+
     public function parseFormat($format, &$tokens, &$errors, &$logHas) {
         $valid = array_merge(
             static::TOKENS['SINGLE'],
@@ -500,7 +615,7 @@ EOD;
         $this->_checkLogOffsetTokens($tokens);
     }
 
-    public function parseLog($listener, $logs, $tokens, $YYYY, $MM, $DD, $signalRepository) {
+    public function parseLog($listener, $logs, $tokens, $YYYY, $MM, $DD, $signalRepository, $selected = false) {
         $lines = [];
         $log_lines = explode("\r", str_replace("\r\n", "\r", stripslashes($logs)));
         foreach($log_lines as $line) {
@@ -592,10 +707,28 @@ EOD;
             $lines[] = $data;
         }
 
-        foreach ($lines as &$line) {
-            $line['options'] = $signalRepository->getSignalCandidates($line['ID'], $line['KHZ'], $listener);
+        if (!$selected) {
+            foreach ($lines as $key => &$line) {
+                $line['options'] = $signalRepository->getSignalCandidates($line['ID'], $line['KHZ'], $listener);
+            }
+            return $lines;
         }
-        return $lines;
+
+        $filtered = [];
+        $signals = [];
+        $selected_arr = explode(',', $selected);
+        foreach ($selected_arr as $entry) {
+            $e = explode('|', $entry);
+            $signals[$e[0]] = $e[1];
+        }
+        foreach ($lines as $key => &$line) {
+            $signalID = $signals[$key] ?? false;
+            if ($signalID) {
+                $line['signalID'] = $signalID;
+                $filtered[] = $line;
+            }
+        }
+        return $filtered;
     }
 
     public function updateDx($listenerId = false, $signalId = false)

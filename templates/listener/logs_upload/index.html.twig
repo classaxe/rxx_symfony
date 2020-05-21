@@ -6,8 +6,15 @@
     <div class="controlPanel logUpload">
         <div class="header">{{ mode|raw }}</div>
         <div class="content">
-            {% include 'listener/logs_upload/errors.html.twig' %}
-            {% include('listener/logs_upload/entries.html.twig') %}
+            {% if (step == 1) %}
+                {% include 'listener/logs_upload/errors.html.twig' %}
+            {% endif %}
+            {% if (step == 2) %}
+                {% include('listener/logs_upload/parse.html.twig') %}
+            {% endif %}
+            {% if (step == 3) %}
+                {% include('listener/logs_upload/results.html.twig') %}
+            {% endif %}
             <div id="form"{% if (errors) %} class='formatErrors'{% endif %}>
                 {{ form_start(form) }}
                 {{ form_row(form.id) }}

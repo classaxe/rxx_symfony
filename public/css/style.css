@@ -2,7 +2,7 @@
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
  * Version:    2.8.32
- * Date:       2020-05-17
+ * Date:       2020-05-18
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
  */
@@ -1850,6 +1850,13 @@ fieldset#form_range_units div label {
 }
 div.scroll div table.parse.results tbody tr {
   cursor: pointer;
+}
+.results.stats {
+  width: 14em;
+  margin-bottom: 1em;
+}
+.results.stats td + td {
+  width: 4em;
 }
 a.add,
 a.close,

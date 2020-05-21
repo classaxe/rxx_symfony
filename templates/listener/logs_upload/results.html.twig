@@ -1,0 +1,56 @@
+<h2>{% trans %}Results{% endtrans %}</h2>
+<h3>{% trans %}Statistics for this update{% endtrans %}</h3>
+<table class="results stats very-short">
+    <thead>
+        <tr>
+            <th>{% trans %}Statistic{% endtrans %}</th>
+            <th>{% trans %}Value{% endtrans %}</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{% trans %}Loggings checked{% endtrans %}</td>
+            <td>{{ stats.logs }}</td>
+        </tr>
+        <tr>
+            <td>{% trans %}Exact Duplicates{% endtrans %}</td>
+            <td>{{ stats.duplicates }}</td>
+        </tr>
+        <tr>
+            <td>{% trans %}First for State or ITU{% endtrans %}</td>
+            <td>{{ stats.first_for_place }}</td>
+        </tr>
+        <tr>
+            <td>{% trans %}First for Listener{% endtrans %}</td>
+            <td>{{ stats.first_for_listener }}</td>
+        </tr>
+        <tr>
+            <td>{% trans %}Repeat logging for Listener{% endtrans %}</td>
+            <td>{{ stats.repeat_for_listener }}</td>
+        </tr>
+        <tr>
+            <td>{% trans %}Latest signal logging{% endtrans %}</td>
+            <td>{{ stats.latest_for_signal }}</td>
+        </tr>
+    </tbody>
+</table>
+
+<h3>{% trans %}Statistics for listener{% endtrans %}</h3>
+<table class="results stats very-short">
+    <thead>
+        <tr>
+            <th>{% trans %}Statistic{% endtrans %}</th>
+            <th>{% trans %}Value{% endtrans %}</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{% trans %}Total Signals{% endtrans %}</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>{% trans %}Total Logs{% endtrans %}</td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>

@@ -49,6 +49,8 @@ class ListenerLogsUpload extends Base
         if (!$isAdmin || !$this->listener = $this->getValidListener($id)) {
             return $this->redirectToRoute('listener', ['system' => $this->system, 'id' => $id]);
         }
+        $heardIn = $this->listener->getSp() ? $this->listener->getSp() : $this->listener->getItu();
+        $region = $this->listener->getRegion();
         $step = $request->get('step', '1');
         $selected = 'UNSET';
         $format = $this->listener->getLogFormat();
@@ -57,6 +59,14 @@ class ListenerLogsUpload extends Base
             'step' =>       $step,
             'selected' =>   $selected,
             'format' =>     $format
+        ];
+        $stats = [
+            'duplicates' => 0,
+            'first_for_listener' => 0,
+            'first_for_place' => 0,
+            'latest_for_signal' => 0,
+            'logs' => 0,
+            'repeat_for_listener' => 0
         ];
 
         $form = $logUploadForm->buildForm(
@@ -97,8 +107,43 @@ class ListenerLogsUpload extends Base
                         $step = '1';
                         break;
                     }
-                    $this->entries = $this->logRepository->parseLog($this->listener, $this->logs, $this->tokens, $YYYY, $MM, $DD, $this->signalRepository);
-                    print "Made it!";
+                    $this->entries = $this->logRepository->parseLog($this->listener, $this->logs, $this->tokens, $YYYY, $MM, $DD, $this->signalRepository, $selected);
+                    foreach($this->entries as $e) {
+                        $stats['logs']++;
+                        if ($this->logRepository->checkIfDuplicate($e['signalID'], $id, $e['YYYYMMDD'], $e['time'])) {
+                            $stats['duplicates']++;
+                            continue;
+                        }
+                        if ($this->logRepository->checkIfHeardAtPlace($e['signalID'], $heardIn)) {
+                            if ($this->logRepository->countTimesHeardByListener($e['signalID'], $id)) {
+                                $stats['repeat_for_listener']++;
+                            } else {
+                                $stats['first_for_listener']++;
+                            }
+                        } else {
+                            $stats['first_for_listener']++;
+                            $stats['first_for_place']++;
+                        }
+
+                        $this->logRepository->addLog(
+                            $e['signalID'],
+                            $id,
+                            $heardIn,
+                            $region,
+                            $e['YYYYMMDD'],
+                            $e['time'],
+                            $e['daytime'],
+                            $e['dx_km'],
+                            $e['dx_miles'],
+                            $e['LSB_approx'],
+                            $e['LSB'],
+                            $e['USB_approx'],
+                            $e['USB'],
+                            $e['fmt'],
+                            $e['sec']
+                        );
+                    }
+//                    print "<pre>" . print_r($this->entries, true) . "</pre>";
                     break;
             }
         }
@@ -132,12 +177,13 @@ class ListenerLogsUpload extends Base
             'format' =>             $format,
             'formatOld' =>          $this->listener->getLogFormat(),
             'has' =>                $this->logHas,
-            'heardIn' =>            $this->listener->getSp() ? $this->listener->getSp() : $this->listener->getItu(),
+            'heardIn' =>            $heardIn,
             'logs' =>               $this->listener->getCountLogs(),
             'logData' =>            $this->logs,
-            'region' =>             $this->listener->getRegion(),
+            'region' =>             $region,
             'selected' =>           $selected,
             'signals' =>            $this->listener->getCountSignals(),
+            'stats' =>              $stats,
             'step' =>               $step,
             'system' =>             $this->system,
             'tabs' =>               $this->listenerRepository->getTabs($this->listener, $isAdmin),

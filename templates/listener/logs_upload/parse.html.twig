@@ -1,5 +1,5 @@
 {% if (entries) %}
-<h2>{% trans %}Review{% endtrans %}</h2>
+<h2>{% trans %}Review{% endtrans %} ({% trans with { '%COUNT%' : entries|length} %}%COUNT% Logs{% endtrans %})</h2>
 <div class="content scroll" id="list">
     <div>
     <table class="results parse short" style="width: auto;">
@@ -122,7 +122,7 @@
     </table>
 </div>
 </div>
-<h2>{% trans %}Issues / Skipped logs{% endtrans %} <small>[ <a id="copyRemainder" href="#">Copy</a> ]</small></h2>
+<h2>{% trans %}Issues / Skipped logs{% endtrans %} (<span id="issueCount"></span>) <small>[ <a id="copyRemainder" href="#">Copy</a> ]</small></h2>
 <label for="remainder_format" class="sr-only">{% trans %}Log Format{% endtrans %}</label>
 <input type='text' style="width:100%;height:2em;padding: 0; margin-bottom: 0; font-family: 'Courier New bold', Courier, monospace; font-size:12px" id="remainder_format" />
 <label for="remainder_logs" class="sr-only">{% trans %}Log Entries{% endtrans %}</label>

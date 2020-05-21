@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- TODO: Enable LanguageRepository::ENABLEAUTOSELECT when translations are complete -->
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
   <file source-language="en" target-language="de" datatype="plaintext" original="file.ext">
     <header>
@@ -2777,10 +2778,6 @@
         <source>Lon</source>
         <target>__Lon</target>
       </trans-unit>
-      <trans-unit id="47DEQpj" resname="">
-        <source></source>
-        <target>__</target>
-      </trans-unit>
       <trans-unit id="1pajW90" resname="Profile">
         <source>Profile</source>
         <target>__Profile</target>
@@ -4462,6 +4459,58 @@
       <trans-unit id="ibHhuW_" resname="Copied remaining logs to clipboard.">
         <source>Copied remaining logs to clipboard.</source>
         <target>__Copied remaining logs to clipboard.</target>
+      </trans-unit>
+      <trans-unit id="IZxKbIa" resname="Results">
+        <source>Results</source>
+        <target>__Results</target>
+      </trans-unit>
+      <trans-unit id="C5jQdDd" resname="Statistics for this update">
+        <source>Statistics for this update</source>
+        <target>__Statistics for this update</target>
+      </trans-unit>
+      <trans-unit id="hVwSbpb" resname="Statistic">
+        <source>Statistic</source>
+        <target>__Statistic</target>
+      </trans-unit>
+      <trans-unit id="jjeVPSP" resname="Value">
+        <source>Value</source>
+        <target>__Value</target>
+      </trans-unit>
+      <trans-unit id="81HSy.U" resname="Loggings checked">
+        <source>Loggings checked</source>
+        <target>__Loggings checked</target>
+      </trans-unit>
+      <trans-unit id="O6ch5Ho" resname="Exact Duplicates">
+        <source>Exact Duplicates</source>
+        <target>__Exact Duplicates</target>
+      </trans-unit>
+      <trans-unit id="Q8YCEhh" resname="First for State or ITU">
+        <source>First for State or ITU</source>
+        <target>__First for State or ITU</target>
+      </trans-unit>
+      <trans-unit id="80.b3Nr" resname="First for Listener">
+        <source>First for Listener</source>
+        <target>__First for Listener</target>
+      </trans-unit>
+      <trans-unit id="L7UrPnr" resname="Repeat logging for Listener">
+        <source>Repeat logging for Listener</source>
+        <target>__Repeat logging for Listener</target>
+      </trans-unit>
+      <trans-unit id="iIsyt4A" resname="Latest signal logging">
+        <source>Latest signal logging</source>
+        <target>__Latest signal logging</target>
+      </trans-unit>
+      <trans-unit id="wqP02iQ" resname="Statistics for listener">
+        <source>Statistics for listener</source>
+        <target>__Statistics for listener</target>
+      </trans-unit>
+      <trans-unit id="y8tymta" resname="Signals Logged">
+        <source>Signals Logged</source>
+        <target>__Signals Logged</target>
+      </trans-unit>
+      <trans-unit id="wyUC9kZ" resname="%COUNT% Logs">
+        <source>%COUNT% Logs</source>
+        <target>__%COUNT% Logs</target>
       </trans-unit>
     </body>
   </file>

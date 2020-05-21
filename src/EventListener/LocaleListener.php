@@ -12,10 +12,12 @@ use App\Repository\LanguageRepository;
 class LocaleListener implements EventSubscriberInterface
 {
     private $defaultLocale;
+    private $enableAutoSelect;
     private $locales;
 
     public function __construct(LanguageRepository $languageRepository)
     {
+        $this->enableAutoSelect = $languageRepository::ENABLEAUTOSELECT;
         $this->locales = $languageRepository->getAllCodes();
         $this->defaultLocale = $this->locales[0];
     }
@@ -23,9 +25,9 @@ class LocaleListener implements EventSubscriberInterface
     public function onKernelRequest(GetResponseEvent $event)
     {
         $request = $event->getRequest();
-
         $language = $this->defaultLocale;
-        if (null !== $acceptLanguage = $event->getRequest()->headers->get('Accept-Language')) {
+
+        if ($this->enableAutoSelect && null !== $acceptLanguage = $event->getRequest()->headers->get('Accept-Language')) {
             $negotiator = new LanguageNegotiator();
             $best       = $negotiator->getBest(
                 $event->getRequest()->headers->get('Accept-Language'),

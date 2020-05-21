@@ -147,7 +147,7 @@ function initListenersLogUploadForm() {
             e.preventDefault();
             return false;
         }
-//        $('#form_step').val(3);
+        $('#form_step').val(3);
     });
 
     $('#copyRemainder').on('click', function() {
@@ -199,4 +199,5 @@ function logsShowRemainder() {
     $('#remainder_format').val($('#form_format').val());
     $('#remainder_logs').val(remainder.join("\r\n"));
     $('#form_selected').val(selected.join(','));
+    $('#issueCount').text(remainder.length);
 }
