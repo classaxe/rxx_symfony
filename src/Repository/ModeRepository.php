@@ -48,11 +48,25 @@ class ModeRepository
                 'title' =>  'Log Off',
                 'url'=>     false
             ],
+            'changes' => [
+                'admin' =>  true,
+                'guest' =>  true,
+                'menu' =>   'Changes',
+                'title' =>  'Changes',
+                'url'=>     false
+            ],
             'help' => [
                 'admin' =>  true,
                 'guest' =>  true,
                 'menu' =>   'Help',
                 'title' =>  'Help',
+                'url'=>     false
+            ],
+            'donate' => [
+                'admin' =>  true,
+                'guest' =>  true,
+                'menu' =>   'Donate',
+                'title' =>  'Donate',
                 'url'=>     false
             ],
         ],

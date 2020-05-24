@@ -1,0 +1,9 @@
+{% extends 'main.html.twig' %}
+{% block body %}
+<div class="main">
+    <h1>{% trans %}Change Log for this system{% endtrans %}</h1>
+    <p>{% trans %}This page gives headline information about changes to this system over time.{% endtrans %}</p>
+    <p>{% trans %}If you spot a bug or have ideas for a new feature, please contact me - you may become famous in the release notes!{% endtrans %}</p>
+    <div>{{ changelog|raw }}</div>
+</div>
+{% endblock %}

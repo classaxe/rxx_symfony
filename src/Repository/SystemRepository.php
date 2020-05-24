@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 use Doctrine\DBAL\Driver\Connection;
+use DOMDocument;
 
 class SystemRepository
 {
@@ -153,6 +154,7 @@ class SystemRepository
                 $response['value'] = 'admin_manage';
                 break;
             case 'cle':
+            case 'donate':
             case 'help':
             case 'logon':
             case 'maps':
@@ -186,6 +188,42 @@ class SystemRepository
     public function getAll()
     {
         return self::SYSTEMS;
+    }
+
+    public function getGitInfo()
+    {
+        $changelog = explode("\n", `git log master --pretty=format:"%ad %s" --date=short`);
+        $entries = [];
+        foreach ($changelog as &$entry) {
+            $bits =     explode(' ', $entry);
+            $date =     array_shift($bits);
+            $version =  trim(array_shift($bits), ':');
+            $details =  implode(' ', $bits);
+            $entries[] =    '<strong>'.$version.'</strong> <em>('.$date.')</em><br />'.$details;
+        }
+        return $entries;
+    }
+
+    public function getPhpInfo() : string
+    {
+        $doc = new DOMDocument();
+        ob_start();
+        phpinfo();
+        $doc->loadHtml(ob_get_contents());
+        ob_get_clean();
+        return $this->innerHTML(
+            $doc->getElementsByTagName('div')->item(0)
+        );
+    }
+
+    private function innerHTML($element) : string
+    {
+        $doc = $element->ownerDocument;
+        $html = '';
+        foreach ($element->childNodes as $node) {
+            $html .= $doc->saveHTML($node);
+        }
+        return $html;
     }
 
     public function getMySQLVersion()
