@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.8.32
- * Date:       2020-05-18
+ * Version:    2.8.34
+ * Date:       2020-05-24
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
  */
@@ -1858,6 +1858,71 @@ div.scroll div table.parse.results tbody tr {
 .results.stats td + td {
   width: 4em;
 }
+.results.parse tbody tr {
+  background: #ffffff;
+}
+.results.parse tbody tr.unknown {
+  background: #ffcccc;
+}
+.results.parse tbody tr.question {
+  background: #ffddca;
+}
+.results.parse tbody tr.error {
+  background: #ffd8d8;
+}
+.results.parse tbody tr.question.inactive {
+  background: #e6cfc3;
+}
+.results.parse tbody tr.question.inactive td {
+  color: #444;
+}
+.results.parse tbody tr.error.start {
+  border-top: 3px solid red;
+}
+.results.parse tbody tr.error.end {
+  border-bottom: 3px solid red;
+}
+.results.parse tbody tr td i {
+  color: #080;
+  font-weight: bold;
+}
+.results.parse tbody tr td i.check {
+  background: #ffe0e0;
+  border: 1px solid #f00;
+  color: #ff6600;
+}
+.results.parse tbody tr th {
+  background: #95de95;
+}
+.results.parse tbody tr th.check {
+  background: #ffB080;
+}
+.results.parse tbody tr th.error {
+  background: #ffA0A0;
+}
+.results.parse tbody tr th.error a.add {
+  background: #f44;
+  color: #fff !important;
+  border: 1px solid #f00;
+}
+.results.parse tbody tr th.jump {
+  vertical-align: middle;
+  line-height: 1em;
+  padding: 0 0.25em;
+  background: #ffffff;
+}
+.results.parse tbody tr th.jump .up:after {
+  content: '\25B3';
+}
+.results.parse tbody tr th.jump .up:hover:after {
+  content: '\25B2';
+}
+.results.parse tbody tr th.jump .down:after {
+  content: '\25BD';
+}
+.results.parse tbody tr th.jump .down:hover:after {
+  content: '\25BC';
+}
 a.add,
 a.close,
 a.delete {
@@ -2137,44 +2202,6 @@ div.scroll div table.results img {
   padding: 1px;
   border: 1px solid #b0b000;
   border-radius: 2px;
-}
-.results.parse tbody tr {
-  background: #ffffff;
-}
-.results.parse tbody tr.unknown {
-  background: #ffcccc;
-}
-.results.parse tbody tr.question {
-  background: #ffddca;
-}
-.results.parse tbody tr.question.inactive {
-  background: #e6cfc3;
-}
-.results.parse tbody tr.question.inactive td {
-  color: #444;
-}
-.results.parse tbody tr td i {
-  color: #080;
-  font-weight: bold;
-}
-.results.parse tbody tr td i.check {
-  background: #ffe0e0;
-  border: 1px solid #f00;
-  color: #ff6600;
-}
-.results.parse tbody tr th {
-  background: #95de95;
-}
-.results.parse tbody tr th.check {
-  background: #ffB080;
-}
-.results.parse tbody tr th.error {
-  background: #ffA0A0;
-}
-.results.parse tbody tr th.error a.add {
-  background: #f44;
-  color: #fff !important;
-  border: 1px solid #f00;
 }
 /* [ Listeners Grid ] */
 .results.listener .primaryQth {

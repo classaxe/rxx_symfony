@@ -35,6 +35,8 @@ function initSignalsForm(pagingMsg, resultsCount) {
         setSignalActions();
         scrollToResults();
 
+        setFocusOnCall();
+
         RT.init($('#wide'), $('#narrow'));
     });
 }

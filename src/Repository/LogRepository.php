@@ -99,10 +99,12 @@ class LogRepository extends ServiceEntityRepository
             ':YYYYMMDD' =>      $YYYYMMDD,
             ':hhmm' =>          $hhmm,
             ':daytime' =>       $daytime,
+            ':dx_km' =>         $dx_km,
+            ':dx_miles' =>      $dx_miles,
             ':LSB_approx' =>    $LSB_approx,
-            ':LSB' =>           $LSB,
+            ':LSB' =>           $LSB ? $LSB : null,
             ':USB_approx' =>    $USB_approx,
-            ':USB' =>           $USB,
+            ':USB' =>           $USB ? $USB : null,
             ':fmt' =>           $fmt,
             ':sec' =>           $sec
         ];
@@ -113,11 +115,33 @@ class LogRepository extends ServiceEntityRepository
                 `heard_in`,
                 `region`,
                 `date`,
+                `time`,
+                `daytime`,
                 `dx_km`,
-                `dx_miles`
-            )
-                                
-                
+                `dx_miles`,
+                `LSB_approx`,
+                `LSB`,
+                `USB_approx`,
+                `USB`,
+                `format`,
+                `sec`
+            ) values (
+                :signalID,
+                :listenerID,
+                :heardIn,
+                :region,
+                :YYYYMMDD,
+                :hhmm,
+                :daytime,
+                :dx_km,
+                :dx_miles,
+                :LSB_approx,
+                :LSB,
+                :USB_approx,
+                :USB,
+                :fmt,
+                :sec
+            );
 EOD;
         $stmt = $this->connection->prepare($sql);
         $stmt->execute($params);
@@ -725,6 +749,9 @@ EOD;
             $signalID = $signals[$key] ?? false;
             if ($signalID) {
                 $line['signalID'] = $signalID;
+                $dx = $signalRepository->getDx($signalID, $listener->getLat(), $listener->getLon());
+                $line['dx_km'] =    $dx ? $dx['km'] : null;
+                $line['dx_miles'] = $dx ? $dx['miles'] : null;
                 $filtered[] = $line;
             }
         }

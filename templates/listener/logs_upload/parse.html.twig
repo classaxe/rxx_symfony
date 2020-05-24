@@ -5,7 +5,7 @@
     <table class="results parse short" style="width: auto;">
         <thead>
             <tr>
-                <th>{% trans %}Add{% endtrans %}</th>
+                <th colspan="2">{% trans %}Action{% endtrans %}</th>
                 <th>{% trans %}Date{% endtrans %}</th>
                 <th>{% trans %}Time{% endtrans %}</th>
                 <th>{% trans %}DT{% endtrans %}</th>
@@ -26,11 +26,13 @@
             </tr>
         </thead>
         <tbody>
+    {% set jump_anchor = 0 %}
     {% for e in entries %}
         {% set rowspan = (e.options|length>1 ? ' rowspan=' ~ e.options|length : '') %}
         {% if e.options|length == 0 %}
             {% set e = e|merge({ 'row' : 'row_' ~ (loop.index - 1) }) %}
             <tr class="unknown" id="row_{{ loop.index -1 }}">
+                <th class="jump" id="jump_{{ jump_anchor }}">{% if jump_anchor > 0 %}<span class="up"></span>{% endif %}<br><span class="down"></span></th>
                 <th class="error">
                     <a href="{{ url('signal', { 'system' : system, 'id' : 'new', 'data' : e|json_encode() }) }}"
                        data-popup="1" class="add" title="{% trans %}Add new signal...{% endtrans %}">+</a></th>
@@ -52,6 +54,7 @@
                 <td class="num">{{ e.sec }}</td>
                 <td class="text-nowrap">{{ e.fmt }}</td>
             </tr>
+            {% set jump_anchor = jump_anchor + 1 %}
         {% else %}
         {% set o = e.options[0] %}
             {% set hi=o.heard_in|replace({ (heardIn) : '<em>' ~ heardIn ~ '</em>'}) %}
@@ -60,10 +63,14 @@
             {% set sec_check=(e.sec and o.sec and ((e.sec + tol_secs < o.sec) or (e.sec - tol_secs > o.sec))) %}
             {% set row_check=(lsb_check or usb_check or sec_check) %}
             {% set row_selected=((row_check == false and e.options|length == 1 and selected == 'UNSET') or (selected[loop.index -1] is defined and selected[loop.index -1])) %}
+            {% set has_error = e.options|length > 1 %}
+            {% set has_issue = has_error or row_check %}
 
-
-            <tr class="{% if e.options|length>1 %}question{% endif %}{% if not o.active %} inactive{% endif %}" id="row_{{ loop.index -1 }}">
-                <th class="{% if e.options|length > 1 %}error{% elseif row_check %}check{% endif %}">
+            <tr class="{% if e.options|length>1 %}question{% endif %}{% if not o.active %} inactive{% endif %}{% if has_error %} error start{% endif %}" id="row_{{ loop.index -1 }}">
+                <th class="jump"{% if has_issue %} id="jump_{{ jump_anchor }}"{% endif %}>
+                    {% if has_issue %}{% if jump_anchor > 0 %}<span class="up"></span>{% endif %}<br><span class="down"></span>{% endif %}
+                </th>
+                <th class="{% if has_error %}error{% elseif row_check %}check{% endif %}">
                     <input type="checkbox" title="{% trans %}Include this log{% endtrans %}" data-idx="{{ loop.index -1 }}"
                      value="{{ loop.index -1 }}|{{ o.ID }}"{% if row_selected %} checked="checked"{% endif %}/>
                 </th>
@@ -87,8 +94,10 @@
                 %}>{{ e.sec }}</i>{% if o.sec %}<br>{{ o.sec }}{% endif %}</td>
                 <td class="text-nowrap"><i>{{ e.fmt }}</i>{% if o.format %}<br>{{ o.format }}{% endif %}</td>
             </tr>
+            {% if has_issue %}{% set jump_anchor = jump_anchor + 1 %}{% endif %}
     {% for o in e.options %}{% if loop.index > 1 %}
-            <tr class="question{% if not o.active %} inactive{% endif %}">
+            <tr class="error{% if not o.active %} inactive{% endif %}{% if loop.last %} end{% endif %}">
+                <th class="jump"></th>
                 <th class="error">
                     <input type="checkbox" title="{% trans %}Include this log{% endtrans %}" data-idx="{{ loop.parent.loop.index -1 }}" value="{{ loop.parent.loop.index -1 }}|{{ o.ID }}" /></th>
                 <td class="txt_c text-nowrap"><i>{{ e.YYYYMMDD }}</i>{% if o.last_heard %}<br>{{ o.last_heard }}{% endif %}</td>
@@ -120,6 +129,7 @@
     {% endfor %}
         </tbody>
     </table>
+    <div id="shim"></div>
 </div>
 </div>
 <h2>{% trans %}Issues / Skipped logs{% endtrans %} (<span id="issueCount"></span>) <small>[ <a id="copyRemainder" href="#">Copy</a> ]</small></h2>
@@ -132,8 +142,10 @@
 $(document).ready( function() {
     logsShowRemainder();
     $('#list').height($(window).height() - 390);
+    $('#shim').height($(window).height() - 490)
     $(window).resize(function () {
         $('#list').height($(window).height() - 390);
+        $('#shim').height($(window).height() - 490)
     });
 });
 </script>

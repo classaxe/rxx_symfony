@@ -143,7 +143,6 @@ class ListenerLogsUpload extends Base
                             $e['sec']
                         );
                     }
-//                    print "<pre>" . print_r($this->entries, true) . "</pre>";
                     break;
             }
         }

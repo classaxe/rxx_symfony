@@ -149,3 +149,75 @@ div.scroll {
         width: 4em;
     }
 }
+
+.results.parse {
+    tbody {
+        tr {
+            background: #ffffff;
+            &.unknown {
+                background: #ffcccc;
+            }
+            &.question {
+                background: #ffddca;
+            }
+            &.error {
+                background: #ffd8d8;
+            }
+            &.question.inactive {
+                background: #e6cfc3;
+                td {
+                    color: #444;
+                }
+            }
+            &.error.start {
+                border-top: 3px solid red;
+            }
+            &.error.end {
+                border-bottom: 3px solid red;
+            }
+            td {
+                i {
+                    color: #080;
+                    font-weight: bold;
+                    &.check {
+                        background: #ffe0e0;
+                        border: 1px solid #f00;
+                        color: #ff6600
+                    }
+                }
+            }
+            th {
+                background: #95de95;
+                &.check {
+                    background: #ffB080;
+                }
+                &.error {
+                    background: #ffA0A0;
+                    a.add {
+                        background: #f44;
+                        color: #fff !important;
+                        border: 1px solid #f00;
+                    }
+                }
+                &.jump {
+                    vertical-align: middle;
+                    line-height: 1em;
+                    padding: 0 0.25em;
+                    background: #ffffff;
+                    .up:after {
+                        content: '\25B3';
+                    }
+                    .up:hover:after {
+                        content: '\25B2';
+                    }
+                    .down:after {
+                        content: '\25BD';
+                    }
+                    .down:hover:after {
+                        content: '\25BC';
+                    }
+                }
+            }
+        }
+    }
+}

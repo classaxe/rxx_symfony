@@ -124,13 +124,11 @@ function initListenersLogUploadForm() {
         e.stopImmediatePropagation();
     });
 
-    $('table.parse').on('click', 'tr', function(event) {
-        if (event.target.type !== 'checkbox') {
-            event.stopImmediatePropagation();
-            var ctl = $(this).find('input:checkbox');
-            ctl.prop('checked', !ctl.prop('checked'));
-            ctl.trigger('change');
-        }
+    $('table.parse').on('click', 'tr td:gt(1)', function(event) {
+        event.stopImmediatePropagation();
+        var ctl = $(this).parent().find('input:checkbox');
+        ctl.prop('checked', !ctl.prop('checked'));
+        ctl.trigger('change');
     });
 
     $('table.parse input:checkbox').change(function() {
@@ -156,6 +154,22 @@ function initListenersLogUploadForm() {
         alert(msg.log_upload.copy_remaining);
         return false;
     })
+
+    $('.jump .up').on('click', function() {
+        var id = parseInt($(this).parent().attr('id').split('_')[1]);
+        var row_id = $('#jump_' + (id - 1)).parent().attr('id').split('_')[1];
+        document.getElementById('row_' + (row_id-1)).scrollIntoView({behavior: 'smooth', block: 'start'});
+    });
+
+    $('.jump .down').on('click', function() {
+        var id = parseInt($(this).parent().attr('id').split('_')[1]);
+        if ($('#jump_' + (id + 1)).length) {
+            var row_id = $('#jump_' + (id + 1)).parent().attr('id').split('_')[1];
+            document.getElementById('row_' + (row_id - 1)).scrollIntoView({behavior: 'smooth', block: 'start'});
+        } else {
+            alert(msg.log_upload.last_item)
+        }
+    });
 }
 function logsRemoveBlankLines(element) {
     var i, logs, logs_filtered;

@@ -857,6 +857,18 @@ EOD;
         return false;
     }
 
+    public function getDx($signalID, $qthLat, $qthLon)
+    {
+        $qb = $this
+            ->createQueryBuilder('s')
+            ->select('s.lat, s.lon')
+            ->andWhere('s.id = :signalID')
+            ->setParameter(':signalID', $signalID);
+
+        $record = $qb->getQuery()->execute();
+        return Rxx::getDx($qthLat, $qthLon, $record[0]['lat'], $record[0]['lon']);
+    }
+
     /**
      * @return array
      */

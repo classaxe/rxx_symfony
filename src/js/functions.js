@@ -693,6 +693,10 @@ function setFormTypesAllAction() {
     });
 }
 
+function setFocusOnCall() {
+    $('#form_call').focus();
+}
+
 function strip_tags(input, allowed) {
     var tags = /<\/?([a-z][a-z0-9]*)\b[^>]*>/gi;
     var commentsAndPhpTags = /<!--[\s\S]*?-->|<\?(?:php)?[\s\S]*?\?>/gi;
