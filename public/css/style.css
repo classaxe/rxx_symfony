@@ -1,7 +1,7 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.8.34
+ * Version:    2.9.1
  * Date:       2020-05-24
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
@@ -364,7 +364,7 @@ tr.other td {
 .menu-centered .system a,
 .menu-centered .mode a,
 .menu-centered .language a {
-  padding: 0.25em 1em;
+  padding: 0.25em 0.75em;
   text-align: center;
 }
 .menu-centered .system a:hover,

@@ -34,6 +34,13 @@ class ModeRepository
                 'title' =>  'Maps',
                 'url'=>     false
             ],
+            'tools' => [
+                'admin' =>  true,
+                'guest' =>  true,
+                'menu' =>   'Tools',
+                'title' =>  'Tools',
+                'url'=>     false
+            ],
             'logon' => [
                 'admin' =>  false,
                 'guest' =>  true,

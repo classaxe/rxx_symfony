@@ -7,6 +7,8 @@ use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 
 class Changes extends Base
 {
+    const FIRST_COMMIT = '2018-06-08';
+
     /**
      * @Route(
      *     "/{_locale}/{system}/changes",
@@ -56,6 +58,8 @@ class Changes extends Base
             'system' =>     $system,
             'classic' =>    $this->systemRepository->getClassicUrl('changes'),
             'changelog' =>  $changelog,
+            'count' =>      count($entries),
+            'first' =>      static::FIRST_COMMIT
         ];
 
         $parameters = array_merge($parameters, $this->parameters);

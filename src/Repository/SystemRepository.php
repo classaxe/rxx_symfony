@@ -140,6 +140,27 @@ class SystemRepository
         $this->connection = $connection;
     }
 
+    public function getAdmins()
+    {
+        $admins = [];
+        foreach (SystemRepository::AWARDS as $a) {
+            $names = explode(', ', $a['name']);
+            foreach ($names as $n) {
+                $admins[$n] = $a['email'];
+            }
+        }
+        foreach (SystemRepository::SYSTEMS as $s) {
+            foreach ($s['editors'] as $e) {
+                $names = explode(', ', $e['name']);
+                foreach ($names as $n) {
+                    $admins[$n] = $e['email'];
+                }
+            }
+        }
+        ksort($admins);
+        return $admins;
+    }
+
     public function getClassicUrl($mode='', $submode='')
     {
         $response = [ 'type' => 'url', 'value' => '' ];
@@ -153,11 +174,13 @@ class SystemRepository
             case 'admin/tools':
                 $response['value'] = 'admin_manage';
                 break;
+            case 'changes':
             case 'cle':
             case 'donate':
             case 'help':
             case 'logon':
             case 'maps':
+            case 'tools':
                 $response['value'] = $mode;
                 break;
             case 'listeners':

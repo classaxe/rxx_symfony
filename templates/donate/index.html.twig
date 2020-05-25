@@ -1,30 +1,57 @@
 {% extends 'main.html.twig' %}
 {% block body %}
 <div class="main">
-    <h2>{% trans %}About our server costs{% endtrans %}</h2>
-    <p>{% trans %}This service is offered <strong>guilt-free</strong> and without any form of advertising as a gift to those who enjoy the hobby (art?) of NDB Listening.{% endtrans %}</p>
-    <p>{% trans %}I am incredibly grateful to our <a href="#footer">site administrators</a> who give their time at great personal cost but at no charge to the community, and to the listeners who provide their logs for inclusion.{% endtrans %}<br/>
-       {% trans %}Without those contributions this system would not be able to continue operating.{% endtrans %}</p>
-    <p>{% trans %}However, for the developer of this system there are additional financial costs to bear in terms of website hosting and domain registration.{% endtrans %}</p>
-    <p style="text-align:center">
-        <img src="{{ asset('/image/server.png') }}" alt="{% trans %}DL380-G5 server hosting RXX system{% endtrans %}" style="float:none"><br>
+    <h2>{% trans %}Thank You!{% endtrans %}</h2>
+    <p>
+        {% trans %}This service is offered <strong>guilt-free</strong> and without any form of commercial advertising as a gift to those who enjoy the hobby (art?) of NDB Listening.{% endtrans %}
+    </p>
+    <p>
+        {% trans %}I am incredibly grateful to our volunteer <a href="#footer">Editors and Administrators</a> who selflessly give their time at great personal cost, but at no charge to the community.{% endtrans %}<br>
+        {% trans %}Our Editors and Administrators are:{% endtrans %}
+        {% for a in admins %}<strong>{{ a }}</strong>{%
+            if loop.index < admins|length
+        %}{%
+            if loop.index == admins|length - 1
+        %} and {%
+            else
+        %}, {%
+            endif
+        %}{%
+            endif
+        %}{%
+            endfor
+        %}.<br>
+        {% trans %}Without their tireless devotion this resource would simply not be able to continue operating.{% endtrans %}</p>
+    <p>{% trans %}Thanks also to those listeners who provide their logs for inclusion.{% endtrans %}</p>
+
+    <h2 class="margin-top-2">About our Server Hosting Costs</h2>
+    <p>
+        {% trans %}For the developer of this system there are one or two additional financial burdens to bear in terms of website hosting and domain registration.{% endtrans %}
+    </p>
+    <p class="text-center">
+        <img src="{{ asset('/image/server.png') }}" alt="{% trans %}DL380-G5 server hosting RXX system (circa 2015){% endtrans %}"><br>
         <em>{% trans %}HP / Compaq DL380-G5 formerly used to host RXX system - we're now cloud based{% endtrans %}</em>
     </p>
-    <h2>{% trans %}Donate Via Paypal:{% endtrans %}</h2>
-    <p>{% trans %}The Paypal button below is provided to those persons who specifically want to offer financial support to offset some of these hosting costs.{% endtrans %}</p>
-
-    <p>{% trans %}Please note that donations of under <strong>$0.40</strong> or so will be swallowed up in Paypal's admin costs (hey, they have to eat as well you know!),{% endtrans %}
-        {% trans %}so go wild and pledge <strong>a dollar</strong> <em>(or more!)</em> if you want your donation to actually reach me :-){% endtrans %}
+    <p>
+        {% trans %}The Paypal button below is provided to those persons who specifically want to offer financial support to offset some of these hosting costs.{% endtrans %}
     </p>
-    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
-        <div style='text-align:center'><input type="hidden" name="cmd" value="_s-xclick">
-            <input type="hidden" name="hosted_button_id" value="GA3BH4BQ2VWYG">
-            <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" name="submit" alt="PayPal - The safer, easier way to pay online!">
-            <img alt="" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+    <p class="font-bold">
+        {% trans %}Please feel under no obligation to do so.{% endtrans %}
+    </p>
+    <p>
+        {% trans with({ DOMAIN : domain, MONTHLY : monthly })%}As a guide, a single donation of <strong>MONTHLY</strong> would cover our website hosting costs for a month, while <strong>DOMAIN</strong> would pay for domain registration for a whole year.{% endtrans %}
+    </p>
+
+    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+        <div class="text-center margin-1">
+            <input type="hidden" name="cmd" value="_s-xclick" />
+            <input type="hidden" name="hosted_button_id" value="A356JZL3MKZBG" />
+            <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+            <img alt="" src="https://www.paypal.com/en_CA/i/scr/pixel.gif" width="1" height="1" />
         </div>
     </form>
 
-    <p>{% trans %}Sincere thanks to you for visiting and using this site, and whether you choose to donate to its upkeep or not, please be blessed by it - you are the reason this site even exists.{% endtrans %}</p>
+    <p>{% trans %}Sincere thanks to you for visiting and using this site, and whether you choose to donate or not, please be blessed by it - you are the reason this site even exists.{% endtrans %}</p>
 
     <p>Blessings,<br><br>Martin Francis<br>&lt;&gt;&lt;</p>
     <p>(May 24th, 2020)</p>

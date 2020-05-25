@@ -1,22 +1,20 @@
 <?php
-namespace App\Controller\Web\Donate;
+namespace App\Controller\Web\Tools;
 
 use App\Controller\Web\Base;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 
-class Donate extends Base
+class Tools extends Base
 {
-    const MONTHLY_COST =    '$35 CAD';
-    const DOMAIN_COST =     '$14.70 CAD';
     /**
      * @Route(
-     *     "/{_locale}/{system}/donate",
+     *     "/{_locale}/{system}/tools",
      *     requirements={
      *        "_locale": "de|en|es|fr",
      *        "system": "reu|rna|rww"
      *     },
-     *     name="donate"
+     *     name="tools"
      * )
      * @param $_locale
      * @param $system
@@ -24,20 +22,15 @@ class Donate extends Base
      */
     public function controller($_locale, $system)
     {
-        $admins = array_keys($this->systemRepository->getAdmins());
-
         $parameters = [
             '_locale' =>    $_locale,
             'mode' =>       'Donate',
             'system' =>     $system,
-            'classic' =>    $this->systemRepository->getClassicUrl('donate'),
-            'admins' =>     $admins,
-            'domain' =>     static::DOMAIN_COST,
-            'monthly' =>    static::MONTHLY_COST
+            'classic' =>    $this->systemRepository->getClassicUrl('tools'),
         ];
 
         $parameters = array_merge($parameters, $this->parameters);
-        return $this->render('donate/index.html.twig', $parameters);
+        return $this->render('tools/index.html.twig', $parameters);
     }
 
 }

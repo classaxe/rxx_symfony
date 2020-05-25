@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- TODO: Enable LanguageRepository::ENABLEAUTOSELECT when translations are complete -->
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
   <file source-language="en" target-language="es" datatype="plaintext" original="file.ext">
     <header>
@@ -4511,6 +4510,98 @@
       <trans-unit id="wyUC9kZ" resname="%COUNT% Logs">
         <source>%COUNT% Logs</source>
         <target>__%COUNT% Logs</target>
+      </trans-unit>
+      <trans-unit id="XUMoS6Q" resname="You are at the last item">
+        <source>You are at the last item</source>
+        <target>__You are at the last item</target>
+      </trans-unit>
+      <trans-unit id="u9S2qGv" resname="Changes">
+        <source>Changes</source>
+        <target>__Changes</target>
+      </trans-unit>
+      <trans-unit id="tewRqei" resname="Change Log for this system">
+        <source>Change Log for this system</source>
+        <target>__Change Log for this system</target>
+      </trans-unit>
+      <trans-unit id="AujZtcM" resname="(COUNT versioned releases since FIRST)">
+        <source>(COUNT versioned releases since FIRST)</source>
+        <target>__(COUNT versioned releases since FIRST)</target>
+      </trans-unit>
+      <trans-unit id="pUZYHRa" resname="This page gives headline information about changes to this system over time.">
+        <source>This page gives headline information about changes to this system over time.</source>
+        <target>__This page gives headline information about changes to this system over time.</target>
+      </trans-unit>
+      <trans-unit id="7KGdbrh" resname="If you spot a bug or have ideas for a new feature, please contact me - you may become famous in the release notes!">
+        <source>If you spot a bug or have ideas for a new feature, please contact me - you may become famous in the release notes!</source>
+        <target>__If you spot a bug or have ideas for a new feature, please contact me - you may become famous in the release notes!</target>
+      </trans-unit>
+      <trans-unit id="yR7g8nm" resname="Donate">
+        <source>Donate</source>
+        <target>__Donate</target>
+      </trans-unit>
+      <trans-unit id="zdL7LRn" resname="Thank You!">
+        <source>Thank You!</source>
+        <target>__Thank You!</target>
+      </trans-unit>
+      <trans-unit id="hV0Gzj0" resname="This service is offered &lt;strong&gt;guilt-free&lt;/strong&gt; and without any form of commercial advertising as a gift to those who enjoy the hobby (art?) of NDB Listening.">
+        <source>This service is offered &lt;strong&gt;guilt-free&lt;/strong&gt; and without any form of commercial advertising as a gift to those who enjoy the hobby (art?) of NDB Listening.</source>
+        <target><![CDATA[__This service is offered <strong>guilt-free</strong> and without any form of commercial advertising as a gift to those who enjoy the hobby (art?) of NDB Listening.]]></target>
+      </trans-unit>
+      <trans-unit id="mg7CNoN" resname="I am incredibly grateful to our volunteer &lt;a href=&quot;#footer&quot;&gt;Editors and Administrators&lt;/a&gt; who selflessly give their time at great personal cost, but at no charge to the community.">
+        <source>I am incredibly grateful to our volunteer &lt;a href="#footer"&gt;Editors and Administrators&lt;/a&gt; who selflessly give their time at great personal cost, but at no charge to the community.</source>
+        <target><![CDATA[__I am incredibly grateful to our volunteer <a href="#footer">Editors and Administrators</a> who selflessly give their time at great personal cost, but at no charge to the community.]]></target>
+      </trans-unit>
+      <trans-unit id="pjJj1kI" resname="Our Editors and Administrators are:">
+        <source>Our Editors and Administrators are:</source>
+        <target>__Our Editors and Administrators are:</target>
+      </trans-unit>
+      <trans-unit id="CSeowq3" resname="Without their tireless devotion this resource would simply not be able to continue operating.">
+        <source>Without their tireless devotion this resource would simply not be able to continue operating.</source>
+        <target>__Without their tireless devotion this resource would simply not be able to continue operating.</target>
+      </trans-unit>
+      <trans-unit id="yP62QSh" resname="Thanks also to those listeners who provide their logs for inclusion.">
+        <source>Thanks also to those listeners who provide their logs for inclusion.</source>
+        <target>__Thanks also to those listeners who provide their logs for inclusion.</target>
+      </trans-unit>
+      <trans-unit id="Vk6NFl1" resname="For the developer of this system there are one or two additional financial burdens to bear in terms of website hosting and domain registration.">
+        <source>For the developer of this system there are one or two additional financial burdens to bear in terms of website hosting and domain registration.</source>
+        <target>__For the developer of this system there are one or two additional financial burdens to bear in terms of website hosting and domain registration.</target>
+      </trans-unit>
+      <trans-unit id="7T.JTgT" resname="DL380-G5 server hosting RXX system (circa 2015)">
+        <source>DL380-G5 server hosting RXX system (circa 2015)</source>
+        <target>__DL380-G5 server hosting RXX system (circa 2015)</target>
+      </trans-unit>
+      <trans-unit id="omBYOCS" resname="The Paypal button below is provided to those persons who specifically want to offer financial support to offset some of these hosting costs.">
+        <source>The Paypal button below is provided to those persons who specifically want to offer financial support to offset some of these hosting costs.</source>
+        <target>__The Paypal button below is provided to those persons who specifically want to offer financial support to offset some of these hosting costs.</target>
+      </trans-unit>
+      <trans-unit id="C4SnXdN" resname="Please feel under no obligation to do so.">
+        <source>Please feel under no obligation to do so.</source>
+        <target>__Please feel under no obligation to do so.</target>
+      </trans-unit>
+      <trans-unit id="MxbMSgO" resname="As a guide, a single donation of &lt;strong&gt;MONTHLY&lt;/strong&gt; would cover our website hosting costs for a month, while &lt;strong&gt;DOMAIN&lt;/strong&gt; would pay for domain registration for a whole year.">
+        <source>As a guide, a single donation of &lt;strong&gt;MONTHLY&lt;/strong&gt; would cover our website hosting costs for a month, while &lt;strong&gt;DOMAIN&lt;/strong&gt; would pay for domain registration for a whole year.</source>
+        <target><![CDATA[__As a guide, a single donation of <strong>MONTHLY</strong> would cover our website hosting costs for a month, while <strong>DOMAIN</strong> would pay for domain registration for a whole year.]]></target>
+      </trans-unit>
+      <trans-unit id="hxI0NUH" resname="Sincere thanks to you for visiting and using this site, and whether you choose to donate or not, please be blessed by it - you are the reason this site even exists.">
+        <source>Sincere thanks to you for visiting and using this site, and whether you choose to donate or not, please be blessed by it - you are the reason this site even exists.</source>
+        <target>__Sincere thanks to you for visiting and using this site, and whether you choose to donate or not, please be blessed by it - you are the reason this site even exists.</target>
+      </trans-unit>
+      <trans-unit id="ZM.xMZ0" resname="Action">
+        <source>Action</source>
+        <target>__Action</target>
+      </trans-unit>
+      <trans-unit id="ITAypcz" resname="HP / Compaq DL380-G5 formerly used to host RXX system - we're now cloud based">
+        <source>HP / Compaq DL380-G5 formerly used to host RXX system - we're now cloud based</source>
+        <target>__HP / Compaq DL380-G5 formerly used to host RXX system - we're now cloud based</target>
+      </trans-unit>
+      <trans-unit id="6pPWomL" resname="Tools">
+        <source>Tools</source>
+        <target>__Tools</target>
+      </trans-unit>
+      <trans-unit id="DEeuES0" resname="Coming soon...">
+        <source>Coming soon...</source>
+        <target>__Coming soon...</target>
       </trans-unit>
     </body>
   </file>
