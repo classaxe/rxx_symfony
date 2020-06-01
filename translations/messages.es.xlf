@@ -3223,10 +3223,6 @@
         <source>%SYSTEM% %FOCUS% Listener Stats:</source>
         <target>__%SYSTEM% %FOCUS% Listener Stats:</target>
       </trans-unit>
-      <trans-unit id="URadVpj" resname="Locations: %LOCATIONS% | Logs: %LOGS% | First Log: %FIRST% | Last Log: %LAST%">
-        <source>Locations: %LOCATIONS% | Logs: %LOGS% | First Log: %FIRST% | Last Log: %LAST%</source>
-        <target>__Locations: %LOCATIONS% | Logs: %LOGS% | First Log: %FIRST% | Last Log: %LAST%</target>
-      </trans-unit>
       <trans-unit id="rCCle.3" resname="Hide">
         <source>Hide</source>
         <target>__Hide</target>
@@ -4551,10 +4547,6 @@
         <source>I am incredibly grateful to our volunteer &lt;a href="#footer"&gt;Editors and Administrators&lt;/a&gt; who selflessly give their time at great personal cost, but at no charge to the community.</source>
         <target><![CDATA[__I am incredibly grateful to our volunteer <a href="#footer">Editors and Administrators</a> who selflessly give their time at great personal cost, but at no charge to the community.]]></target>
       </trans-unit>
-      <trans-unit id="pjJj1kI" resname="Our Editors and Administrators are:">
-        <source>Our Editors and Administrators are:</source>
-        <target>__Our Editors and Administrators are:</target>
-      </trans-unit>
       <trans-unit id="CSeowq3" resname="Without their tireless devotion this resource would simply not be able to continue operating.">
         <source>Without their tireless devotion this resource would simply not be able to continue operating.</source>
         <target>__Without their tireless devotion this resource would simply not be able to continue operating.</target>
@@ -4602,6 +4594,14 @@
       <trans-unit id="DEeuES0" resname="Coming soon...">
         <source>Coming soon...</source>
         <target>__Coming soon...</target>
+      </trans-unit>
+      <trans-unit id="Fs742TY" resname="They are:">
+        <source>They are:</source>
+        <target>__They are:</target>
+      </trans-unit>
+      <trans-unit id="rkMKq3F" resname="[A1]Locations[/A]: %LOCATIONS% | [A2]Logs[/A]: %LOGS% | [A3]First Log[/A]: %FIRST% | [A4]Last Log[/A]: %LAST%">
+        <source>[A1]Locations[/A]: %LOCATIONS% | [A2]Logs[/A]: %LOGS% | [A3]First Log[/A]: %FIRST% | [A4]Last Log[/A]: %LAST%</source>
+        <target>__[A1]Locations[/A]: %LOCATIONS% | [A2]Logs[/A]: %LOGS% | [A3]First Log[/A]: %FIRST% | [A4]Last Log[/A]: %LAST%</target>
       </trans-unit>
     </body>
   </file>

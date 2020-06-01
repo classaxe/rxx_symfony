@@ -23,6 +23,11 @@
         '%LOGS%' : stats['listeners']['Loggings'],
         '%FIRST%' : stats['listeners']['First log'],
         '%LAST%' : stats['listeners']['Last log'],
-        } %}Locations: %LOCATIONS% | Logs: %LOGS% | First Log: %FIRST% | Last Log: %LAST%{% endtrans %} ]
+        '[A1]' : '<a href="' ~ url('listeners_count', { 'system' : system, 'region' : args.rww_focus }) ~ '" rel="external">',
+        '[A2]' : '<a href="' ~ url('logs_count', { 'system' : system }) ~ '" rel="external">',
+        '[A3]' : '<a href="' ~ url('logs_first', { 'system' : system }) ~ '" rel="external">',
+        '[A4]' : '<a href="' ~ url('logs_last', { 'system' : system }) ~ '" rel="external">',
+        '[/A]' : '</a>'
+        } %}[A1]Locations[/A]: %LOCATIONS% | [A2]Logs[/A]: %LOGS% | [A3]First Log[/A]: %FIRST% | [A4]Last Log[/A]: %LAST%{% endtrans %} ]
 </p>
 </div>
