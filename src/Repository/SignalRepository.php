@@ -876,7 +876,7 @@ EOD;
     {
         $sql = <<< EOD
             SELECT
-                'REU Only' AS stat,
+                'reu' AS stat,
                 COUNT(*) AS count
             FROM
                 `signals`
@@ -884,7 +884,7 @@ EOD;
                 `heard_in_af`=0 AND `heard_in_an`=0 AND `heard_in_as`=0 AND `heard_in_ca`=0 AND `heard_in_eu`=1 AND
                 `heard_in_iw`=0 AND `heard_in_na`=0 AND `heard_in_oc`=0 AND `heard_in_sa`=0
             UNION SELECT
-                'RNA Only',
+                'rna',
                 COUNT(*)
             FROM
                 `signals`
@@ -892,21 +892,21 @@ EOD;
                 `heard_in_af`=0 AND `heard_in_an`=0 AND `heard_in_as`=0 AND `heard_in_ca`=0 AND `heard_in_eu`=0 AND
                 `heard_in_iw`=0 AND `heard_in_na`=1 AND `heard_in_oc`=0 AND `heard_in_sa`=0
             UNION SELECT
-                'RNA + REU',
+                'rna_reu',
                 COUNT(*)
             FROM
                 `signals`
             WHERE
                 `heard_in_eu`=1 AND `heard_in_na`=1
             UNION SELECT
-                'RWW',
+                'rww',
                 COUNT(*)
             FROM
                 `signals`
             WHERE
                 `logs` > 0
             UNION SELECT
-                'Unlogged',
+                'unlogged',
                 COUNT(*)
             FROM
                 `signals`
@@ -919,7 +919,7 @@ EOD;
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $out = [];
         foreach ($results as $r) {
-            $out[$r['stat']] = number_format($r['count']);
+            $out[$r['stat']] = $r['count'];
         }
         return [ 'signals' => $out ];
     }
@@ -1115,6 +1115,29 @@ EOD;
         return $result;
     }
 
+    public function getLatestLogDateAndTime($signalID)
+    {
+        $sql = <<<EOD
+            SELECT
+	            date,
+                time
+            FROM
+	            logs
+            WHERE
+                signalID = :signalID
+            ORDER BY
+                date DESC,
+                time DESC
+            LIMIT 1
+EOD;
+        $params = [ ':signalID' => $signalID ];
+        $stmt = $this->connection->prepare($sql);
+        $stmt->execute($params);
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $results[0] ?? false;
+    }
+
     private function getLogsLatestSpec($signalId = false)
     {
         // This takes WAY longer for mysql 5.5 so don't use for all signals on that server
@@ -1176,7 +1199,7 @@ EOD;
         return $this->array_group_by('signalID', $results);
     }
 
-    private function getLogsStats($signalId = false)
+    public function getLogsStats($signalId = false)
     {
         $WHERE = ($signalId ? "WHERE\n    signalID = $signalId" : '');
         $sql = <<<EOD

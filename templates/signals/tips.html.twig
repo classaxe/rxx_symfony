@@ -8,31 +8,31 @@
 
 <p><strong>{% trans %}Signal Stats:{% endtrans %}</strong> [
     {% trans with {
-        '%RNA%' : stats['signals']['RNA Only'],
-        '%REU%' : stats['signals']['REU Only'],
-        '%RNAREU%' : stats['signals']['RNA + REU'],
-        '%RWW%' : stats['signals']['RWW'],
-        '%UNLOGGED%' : stats['signals']['Unlogged'],
-        '[A1]' : '<a href="' ~ url('signals_count_rna', { 'system' : system }) ~ '" rel="external">',
-        '[A2]' : '<a href="' ~ url('signals_count_reu', { 'system' : system }) ~ '" rel="external">',
-        '[A3]' : '<a href="' ~ url('signals_count_rna_reu', { 'system' : system }) ~ '" rel="external">',
-        '[A4]' : '<a href="' ~ url('signals_count_rww', { 'system' : system }) ~ '" rel="external">',
-        '[A5]' : '<a href="' ~ url('signals_count_unlogged', { 'system' : system }) ~ '" rel="external">',
+        '%RNA%' : stats['signals']['rna'] | number_format(0, '', ','),
+        '%REU%' : stats['signals']['reu'] | number_format(0, '', ','),
+        '%RNAREU%' : stats['signals']['rna_reu'] | number_format(0, '', ','),
+        '%RWW%' : stats['signals']['rww'] | number_format(0, '', ','),
+        '%UNLOGGED%' : stats['signals']['unlogged'] | number_format(0, '', ','),
+        '[A1]' : '<a href="' ~ url('stats_signals_count', { 'system' : system, 'sys' : 'rna' }) ~ '" rel="external">',
+        '[A2]' : '<a href="' ~ url('stats_signals_count', { 'system' : system, 'sys' : 'reu' }) ~ '" rel="external">',
+        '[A3]' : '<a href="' ~ url('stats_signals_count', { 'system' : system, 'sys' : 'rna_reu' }) ~ '" rel="external">',
+        '[A4]' : '<a href="' ~ url('stats_signals_count', { 'system' : system, 'sys' : 'rww' }) ~ '" rel="external">',
+        '[A5]' : '<a href="' ~ url('stats_signals_count', { 'system' : system, 'sys' : 'unlogged' }) ~ '" rel="external">',
         '[/A]' : '</a>'
     } %}[A1]RNA only[/A]: %RNA% | [A2]REU only[/A]: %REU% | [A3]RNA + REU[/A]: %RNAREU% | [A4]RWW[/A]: %RWW% | [A5]Unlogged[/A]: %UNLOGGED%{% endtrans %} ]<br />
 <strong>{% trans with {
         '%SYSTEM%' : system|upper,
-        '%FOCUS%' : stats['listeners']['Focus'] ? ' (' ~ stats['listeners']['Focus'] ~ ')' : ''
+        '%FOCUS%' : stats['listeners']['focus'] ? ' (' ~ stats['listeners']['focus'] ~ ')' : ''
     } %}%SYSTEM% %FOCUS% Listener Stats:{% endtrans %}</strong> [
     {% trans with {
-        '%LOCATIONS%' : stats['listeners']['Locations'],
-        '%LOGS%' : stats['listeners']['Loggings'],
-        '%FIRST%' : stats['listeners']['First log'],
-        '%LAST%' : stats['listeners']['Last log'],
-        '[A1]' : '<a href="' ~ url('listeners_count', { 'system' : system, 'region' : args.rww_focus }) ~ '" rel="external">',
-        '[A2]' : '<a href="' ~ url('logs_count', { 'system' : system, 'region' : args.rww_focus }) ~ '" rel="external">',
-        '[A3]' : '<a href="' ~ url('logs_first', { 'system' : system, 'region' : args.rww_focus }) ~ '" rel="external">',
-        '[A4]' : '<a href="' ~ url('logs_last', { 'system' : system, 'region' : args.rww_focus }) ~ '" rel="external">',
+        '%LOCATIONS%' : stats['listeners']['locations'] | number_format(0, '', ','),
+        '%LOGS%' : stats['listeners']['logs'] | number_format(0, '', ','),
+        '%FIRST%' : stats['listeners']['first'],
+        '%LAST%' : stats['listeners']['last'],
+        '[A1]' : '<a href="' ~ url('stats_listeners_count', { 'system' : system, 'region' : args.rww_focus }) ~ '" rel="external">',
+        '[A2]' : '<a href="' ~ url('stats_logs_count', { 'system' : system, 'region' : args.rww_focus }) ~ '" rel="external">',
+        '[A3]' : '<a href="' ~ url('stats_logs_first', { 'system' : system, 'region' : args.rww_focus }) ~ '" rel="external">',
+        '[A4]' : '<a href="' ~ url('stats_logs_last', { 'system' : system, 'region' : args.rww_focus }) ~ '" rel="external">',
         '[/A]' : '</a>'
         } %}[A1]Locations[/A]: %LOCATIONS% | [A2]Logs[/A]: %LOGS% | [A3]First Log[/A]: %FIRST% | [A4]Last Log[/A]: %LAST%{% endtrans %} ]
 </p>

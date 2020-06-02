@@ -357,13 +357,13 @@ class ListenerRepository extends ServiceEntityRepository
         $dates =        $this->logRepository->getFirstAndLastLog($system, $region);
 
         $stats = [
-            'Focus' =>        ($region ? $this->regionRepository->get($region)->getName() : ""),
-            'Locations' =>    number_format($listeners),
-            'Loggings' =>     number_format($loggings)
+            'focus' =>      ($region ? $this->regionRepository->get($region)->getName() : ""),
+            'locations' =>  $listeners,
+            'logs' =>       $loggings
         ];
         if ($loggings) {
-            $stats['First log'] = date('j M Y', strtotime($dates['first']));
-            $stats['Last log'] = date('j M Y', strtotime($dates['last' ]));
+            $stats['first'] =   $dates['first'];
+            $stats['last'] =    $dates['last' ];
         }
         return [ 'listeners' => $stats ];
     }

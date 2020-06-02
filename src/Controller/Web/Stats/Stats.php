@@ -13,11 +13,54 @@ class Stats extends Base
 {
     /**
      * @Route(
+     *     "/{_locale}/{system}/stats/listeners/{region}",
+     *     requirements={
+     *        "system": "reu|rna|rww",
+     *        "region": "af|an|as|ca|eu|iw|na|oc|sa|xx|all"
+     *     },
+     *     name="stats_listeners"
+     * )
+     * @param $_locale
+     * @param $system
+     * @param $region
+     * @return Response
+     */
+    public function listeners(
+        $_locale,
+        $system,
+        $region = ''
+    ) {
+        if ($region) {
+            $results = [];
+            $params = ($region === 'all' ? [] : [ 'region' => $region ]);
+            $results[$region] = [
+                'count' => $this->listenerRepository->getFilteredListenersCount($system, $params)
+            ];
+            $out = json_encode($results);
+        } else {
+            $results = [];
+            foreach(explode('|', 'af|an|as|ca|eu|iw|na|oc|sa|xx|all') as $region) {
+                $params = ($region === 'all' ? [] : [ 'region' => $region ]);
+                $results[$region] = [
+                    'count' => $this->listenerRepository->getFilteredListenersCount($system, $params)
+                ];
+            }
+            $out = json_encode($results);
+        }
+        $textResponse = new Response($out , 200);
+        $textResponse->headers->set('Content-Type', 'application/json');
+
+        return $textResponse;
+    }
+
+    /**
+     * @Route(
      *     "/{_locale}/{system}/stats/listeners/count/{region}",
      *     requirements={
-     *        "system": "reu|rna|rww"
+     *        "system": "reu|rna|rww",
+     *        "region": "af|an|as|ca|eu|iw|na|oc|sa|xx"
      *     },
-     *     name="listeners_count"
+     *     name="stats_listeners_count"
      * )
      * @param $_locale
      * @param $system
@@ -42,7 +85,7 @@ class Stats extends Base
      *     requirements={
      *        "system": "reu|rna|rww"
      *     },
-     *     name="logs_count"
+     *     name="stats_logs_count"
      * )
      * @param $_locale
      * @param $system
@@ -67,7 +110,7 @@ class Stats extends Base
      *     requirements={
      *        "system": "reu|rna|rww"
      *     },
-     *     name="logs_first"
+     *     name="stats_logs_first"
      * )
      * @param $_locale
      * @param $system
@@ -92,7 +135,7 @@ class Stats extends Base
      *     requirements={
      *        "system": "reu|rna|rww"
      *     },
-     *     name="logs_last"
+     *     name="stats_logs_last"
      * )
      * @param $_locale
      * @param $system
@@ -113,114 +156,24 @@ class Stats extends Base
 
     /**
      * @Route(
-     *     "/{_locale}/{system}/stats/signals/count/rna",
+     *     "/{_locale}/{system}/stats/signals/count/{sys}",
      *     requirements={
-     *        "system": "reu|rna|rww"
+     *        "system": "reu|rna|rww",
+     *        "sys": "reu|rna|rna_reu|rww|unlogged"
      *     },
-     *     name="signals_count_rna"
+     *     name="stats_signals_count"
      * )
      * @param $_locale
      * @param $system
      * @return Response
      */
-    public function signals_count_rna (
+    public function signals_count (
         $_locale,
-        $system
+        $system,
+        $sys
     ) {
         $stats =        $this->signalRepository->getStats();
-        $textResponse = new Response($stats[ 'signals' ][ 'RNA Only' ] , 200);
-        $textResponse->headers->set('Content-Type', 'text/plain');
-
-        return $textResponse;
-    }
-
-    /**
-     * @Route(
-     *     "/{_locale}/{system}/stats/signals/count/reu",
-     *     requirements={
-     *        "system": "reu|rna|rww"
-     *     },
-     *     name="signals_count_reu"
-     * )
-     * @param $_locale
-     * @param $system
-     * @return Response
-     */
-    public function signals_count_reu (
-        $_locale,
-        $system
-    ) {
-        $stats =        $this->signalRepository->getStats();
-        $textResponse = new Response($stats[ 'signals' ][ 'REU Only' ] , 200);
-        $textResponse->headers->set('Content-Type', 'text/plain');
-
-        return $textResponse;
-    }
-
-    /**
-     * @Route(
-     *     "/{_locale}/{system}/stats/signals/count/rna_reu",
-     *     requirements={
-     *        "system": "reu|rna|rww"
-     *     },
-     *     name="signals_count_rna_reu"
-     * )
-     * @param $_locale
-     * @param $system
-     * @return Response
-     */
-    public function signals_count_rna_reu (
-        $_locale,
-        $system
-    ) {
-        $stats =        $this->signalRepository->getStats();
-        $textResponse = new Response($stats[ 'signals' ][ 'RNA + REU' ] , 200);
-        $textResponse->headers->set('Content-Type', 'text/plain');
-
-        return $textResponse;
-    }
-
-    /**
-     * @Route(
-     *     "/{_locale}/{system}/stats/signals/count/rww",
-     *     requirements={
-     *        "system": "reu|rna|rww"
-     *     },
-     *     name="signals_count_rww"
-     * )
-     * @param $_locale
-     * @param $system
-     * @return Response
-     */
-    public function signals_count_rww (
-        $_locale,
-        $system
-    ) {
-        $stats =        $this->signalRepository->getStats();
-        $textResponse = new Response($stats[ 'signals' ][ 'RWW' ] , 200);
-        $textResponse->headers->set('Content-Type', 'text/plain');
-
-        return $textResponse;
-    }
-
-    /**
-     * @Route(
-     *     "/{_locale}/{system}/stats/signals/count/unlogged",
-     *     requirements={
-     *        "system": "reu|rna|rww"
-     *     },
-     *     name="signals_count_unlogged"
-     * )
-     * @param $_locale
-     * @param $system
-     * @return Response
-     */
-    public function signals_count_unlogged (
-        $_locale,
-        $system
-    ) {
-        $stats =        $this->signalRepository->getStats();
-        $textResponse = new Response($stats[ 'signals' ][ 'Unlogged' ] , 200);
+        $textResponse = new Response($stats[ 'signals' ][ $sys ] , 200);
         $textResponse->headers->set('Content-Type', 'text/plain');
 
         return $textResponse;
