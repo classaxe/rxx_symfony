@@ -1,5 +1,13 @@
 {% if (entries) %}
-<h2>{% trans %}Review{% endtrans %} ({% trans with { '%COUNT%' : entries|length} %}%COUNT% Logs{% endtrans %})</h2>
+<h2>
+    {% trans %}Review{% endtrans %} ({% trans with { '%COUNT%' : entries|length} %}%COUNT% Logs{% endtrans %})
+    <div class="check-links">[
+        <a href="#" id="uncheck_all">{% trans %}Uncheck All{% endtrans %}</a> |
+        <a href="#" id="uncheck_warning">{% trans %}Uncheck Warnings{% endtrans %}</a> |
+        <a href="#" id="check_good">{% trans %}Check Good{% endtrans %}</a>
+        <a href="#" id="check_warning">{% trans %}Check Warnings{% endtrans %}</a>
+    ]</div>
+</h2>
 <div class="content scroll" id="list">
     <div>
     <table class="results parse short" style="width: auto;">
@@ -34,12 +42,15 @@
             <tr class="unknown" id="row_{{ loop.index -1 }}">
                 <th class="jump" id="jump_{{ jump_anchor }}">{% if jump_anchor > 0 %}<span class="up"></span>{% endif %}<br><span class="down"></span></th>
                 <th class="error">
+                {% if e.YYYYMMDD != 'ERROR' and e.KHZ is numeric and e.ID %}
                     <a href="{{ url('signal', { 'system' : system, 'id' : 'new', 'data' : e|json_encode() }) }}"
-                       data-popup="1" class="add" title="{% trans %}Add new signal...{% endtrans %}">+</a></th>
+                       data-popup="1" class="add" title="{% trans %}Add new signal...{% endtrans %}">+</a>
+                {% endif %}
+                </th>
                 <td class="txt_c text-nowrap">{{ e.YYYYMMDD }}</td>
                 <td>{{ e.time }}</td>
                 <td>{{ e.daytime ? 'DT' : '' }}</td>
-                <td>{{ 0 + e.KHZ }}</td>
+                <td>{{ e.KHZ is numeric ? 0 + e.KHZ : e.KHZ }}</td>
                 <td>{{ e.ID }}</td>
                 <td>{{ e.QTH }}</td>
                 <td>{{ e.SP }}</td>
@@ -55,6 +66,7 @@
                 <td class="text-nowrap">{{ e.fmt }}</td>
             </tr>
             {% set jump_anchor = jump_anchor + 1 %}
+
         {% else %}
         {% set o = e.options[0] %}
             {% set hi=o.heard_in|replace({ (heardIn) : '<em>' ~ heardIn ~ '</em>'}) %}
@@ -70,7 +82,7 @@
                 <th class="jump"{% if has_issue %} id="jump_{{ jump_anchor }}"{% endif %}>
                     {% if has_issue %}{% if jump_anchor > 0 %}<span class="up"></span>{% endif %}<br><span class="down"></span>{% endif %}
                 </th>
-                <th class="{% if has_error %}error{% elseif row_check %}check{% endif %}">
+                <th class="{% if has_error %}error{% elseif row_check %}warning{% else %}good{% endif %}">
                     <input type="checkbox" title="{% trans %}Include this log{% endtrans %}" data-idx="{{ loop.index -1 }}"
                      value="{{ loop.index -1 }}|{{ o.ID }}"{% if row_selected %} checked="checked"{% endif %}/>
                 </th>

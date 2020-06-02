@@ -6,6 +6,7 @@ use Symfony\Component\HttpKernel\Kernel;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
+use Twig\TwigTest;
 
 class CustomExtensions extends AbstractExtension
 {
@@ -25,6 +26,13 @@ class CustomExtensions extends AbstractExtension
         return [
             new TwigFunction('getEnv', [$this, '_getenv']),
             new TwigFunction('symfonyVersion', [$this, '_symfonyVersion'])
+        ];
+    }
+
+    public function getTests()
+    {
+        return [
+            new TwigTest('numeric', function ($value) { return is_numeric($value); }),
         ];
     }
 

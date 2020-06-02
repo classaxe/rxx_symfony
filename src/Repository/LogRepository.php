@@ -363,6 +363,9 @@ EOD;
             $_DD = $DD;
         }
 
+        if (!checkdate((int)$_MM, (int)$_DD, (int)$_YYYY)) {
+            return false;
+        }
         return [
             'YYYY' =>   $_YYYY,
             'MM' =>     $_MM,
@@ -676,6 +679,9 @@ EOD;
                 switch($spec['type']) {
                     case 'date':
                         $result = $this->_extractDate($token, $value, $YYYY, $MM, $DD);
+                        if (!$result) {
+                            break;
+                        }
                         foreach ($result as $idx => $v) {
                             if (!$v) {
                                 continue;
@@ -705,14 +711,13 @@ EOD;
                         break;
                 }
             }
-            if (!$data['ID'] || !$data['date']) {
-                continue;
+            if ($data['date']) {
+                $d = $data['date'];
+                $data['YYYYMMDD'] = "{$d['YYYY']}-{$d['MM']}-{$d['DD']}";
+                unset($data['date']);
+            } else {
+                $data['YYYYMMDD'] = 'ERROR';
             }
-
-            // Combine date fields:
-            $d = $data['date'];
-            $data['YYYYMMDD'] = "{$d['YYYY']}-{$d['MM']}-{$d['DD']}";
-            unset($data['date']);
 
             // Flatten Offset fields:
             $keys = array_keys($data['offsets']);

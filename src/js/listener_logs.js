@@ -170,6 +170,34 @@ function initListenersLogUploadForm() {
             alert(msg.log_upload.last_item)
         }
     });
+    $('#uncheck_all').on('click', function() {
+        $('table.parse input:checkbox').each(function() {
+            $(this).prop('checked', false);
+        });
+        logsShowRemainder();
+        return false;
+    })
+    $('#uncheck_warning').on('click', function() {
+        $('table.parse .warning input:checkbox').each(function() {
+            $(this).prop('checked', false);
+        });
+        logsShowRemainder();
+        return false;
+    })
+    $('#check_good').on('click', function() {
+        $('table.parse .good input:checkbox').each(function() {
+            $(this).prop('checked', true);
+        });
+        logsShowRemainder();
+        return false;
+    })
+    $('#check_warning').on('click', function() {
+        $('table.parse .warning input:checkbox').each(function() {
+            $(this).prop('checked', true);
+        });
+        logsShowRemainder();
+        return false;
+    })
 }
 function logsRemoveBlankLines(element) {
     var i, logs, logs_filtered;
