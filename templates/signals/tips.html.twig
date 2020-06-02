@@ -13,7 +13,13 @@
         '%RNAREU%' : stats['signals']['RNA + REU'],
         '%RWW%' : stats['signals']['RWW'],
         '%UNLOGGED%' : stats['signals']['Unlogged'],
-    } %}RNA only: %RNA% | REU only: %REU% | RNA + REU: %RNAREU% | RWW: %RWW% | Unlogged: %UNLOGGED%{% endtrans %} ]<br />
+        '[A1]' : '<a href="' ~ url('signals_count_rna', { 'system' : system }) ~ '" rel="external">',
+        '[A2]' : '<a href="' ~ url('signals_count_reu', { 'system' : system }) ~ '" rel="external">',
+        '[A3]' : '<a href="' ~ url('signals_count_rna_reu', { 'system' : system }) ~ '" rel="external">',
+        '[A4]' : '<a href="' ~ url('signals_count_rww', { 'system' : system }) ~ '" rel="external">',
+        '[A5]' : '<a href="' ~ url('signals_count_unlogged', { 'system' : system }) ~ '" rel="external">',
+        '[/A]' : '</a>'
+    } %}[A1]RNA only[/A]: %RNA% | [A2]REU only[/A]: %REU% | [A3]RNA + REU[/A]: %RNAREU% | [A4]RWW[/A]: %RWW% | [A5]Unlogged[/A]: %UNLOGGED%{% endtrans %} ]<br />
 <strong>{% trans with {
         '%SYSTEM%' : system|upper,
         '%FOCUS%' : stats['listeners']['Focus'] ? ' (' ~ stats['listeners']['Focus'] ~ ')' : ''
@@ -24,9 +30,9 @@
         '%FIRST%' : stats['listeners']['First log'],
         '%LAST%' : stats['listeners']['Last log'],
         '[A1]' : '<a href="' ~ url('listeners_count', { 'system' : system, 'region' : args.rww_focus }) ~ '" rel="external">',
-        '[A2]' : '<a href="' ~ url('logs_count', { 'system' : system }) ~ '" rel="external">',
-        '[A3]' : '<a href="' ~ url('logs_first', { 'system' : system }) ~ '" rel="external">',
-        '[A4]' : '<a href="' ~ url('logs_last', { 'system' : system }) ~ '" rel="external">',
+        '[A2]' : '<a href="' ~ url('logs_count', { 'system' : system, 'region' : args.rww_focus }) ~ '" rel="external">',
+        '[A3]' : '<a href="' ~ url('logs_first', { 'system' : system, 'region' : args.rww_focus }) ~ '" rel="external">',
+        '[A4]' : '<a href="' ~ url('logs_last', { 'system' : system, 'region' : args.rww_focus }) ~ '" rel="external">',
         '[/A]' : '</a>'
         } %}[A1]Locations[/A]: %LOCATIONS% | [A2]Logs[/A]: %LOGS% | [A3]First Log[/A]: %FIRST% | [A4]Last Log[/A]: %LAST%{% endtrans %} ]
 </p>
