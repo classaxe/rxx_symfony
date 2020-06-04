@@ -107,7 +107,16 @@ class ListenerLogsUpload extends Base
                         $step = '1';
                         break;
                     }
-                    $this->entries = $this->logRepository->parseLog($this->listener, $this->logs, $this->tokens, $YYYY, $MM, $DD, $this->signalRepository, $selected);
+                    $this->entries = $this->logRepository->parseLog(
+                        $this->listener,
+                        $this->logs,
+                        $this->tokens,
+                        $YYYY,
+                        $MM,
+                        $DD,
+                        $this->signalRepository,
+                        $selected
+                    );
                     foreach($this->entries as $e) {
                         $stats['logs']++;
                         if ($this->logRepository->checkIfDuplicate($e['signalID'], $id, $e['YYYYMMDD'], $e['time'])) {
@@ -124,7 +133,12 @@ class ListenerLogsUpload extends Base
                             $stats['first_for_listener']++;
                             $stats['first_for_place']++;
                         }
-
+                        $e['latest'] = $this->signalRepository->isLatestLogDateAndTime(
+                            $e['signalID'],
+                            $e['YYYYMMDD'],
+                            $e['time']
+                        );
+                        $stats['latest_for_signal'] += ($e['latest'] ? 1 : 0);
                         $this->logRepository->addLog(
                             $e['signalID'],
                             $id,
@@ -142,7 +156,13 @@ class ListenerLogsUpload extends Base
                             $e['fmt'],
                             $e['sec']
                         );
+                        $this->signalRepository->updateSignalStats($e['signalID'], $e['latest']);
                     }
+                    $this->listenerRepository->updateListenerStats($id);
+                    $this->listenerRepository->clear();
+                    $this->listener = $this->listenerRepository->find($id);
+                    $stats['total_signals'] = $this->listener->getCountSignals();
+                    $stats['total_logs'] = $this->listener->getCountLogs();
                     break;
             }
         }

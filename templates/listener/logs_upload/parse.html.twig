@@ -1,11 +1,12 @@
 {% if (entries) %}
 <h2>
     {% trans %}Review{% endtrans %} ({% trans with { '%COUNT%' : entries|length} %}%COUNT% Logs{% endtrans %})
-    <div class="check-links">[
-        <a href="#" id="uncheck_all">{% trans %}Uncheck All{% endtrans %}</a> |
-        <a href="#" id="uncheck_warning">{% trans %}Uncheck Warnings{% endtrans %}</a> |
-        <a href="#" id="check_good">{% trans %}Check Good{% endtrans %}</a>
-        <a href="#" id="check_warning">{% trans %}Check Warnings{% endtrans %}</a>
+    <div class="check-links">{% trans %}Select{% endtrans %} [
+        <a href="#" id="check_good">{% trans %}Good{% endtrans %}</a> |
+        <a href="#" id="check_warning">{% trans %}Warnings{% endtrans %}</a>
+    ] {% trans %}Unselect{% endtrans %} [
+        <a href="#" id="uncheck_warning">{% trans %}Warnings{% endtrans %}</a> |
+        <a href="#" id="uncheck_all">{% trans %}All{% endtrans %}</a>
     ]</div>
 </h2>
 <div class="content scroll" id="list">

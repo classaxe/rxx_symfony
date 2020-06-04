@@ -1138,6 +1138,21 @@ EOD;
         return $results[0] ?? false;
     }
 
+    public function isLatestLogDateAndTime($signalID, $YYYYMMDD, $hhmm)
+    {
+        $latestLog = $this->getLatestLogDateAndTime($signalID);
+        if (!$latestLog) {
+            return true;
+        }
+        if ($YYYYMMDD > $latestLog['date']) {
+            return true;
+        }
+        if ($YYYYMMDD === $latestLog['date'] && $hhmm && $hhmm > $latestLog['time']) {
+            return true;
+        }
+        return false;
+    }
+
     private function getLogsLatestSpec($signalId = false)
     {
         // This takes WAY longer for mysql 5.5 so don't use for all signals on that server

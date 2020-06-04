@@ -4603,6 +4603,26 @@
         <source>[A1]RNA only[/A]: %RNA% | [A2]REU only[/A]: %REU% | [A3]RNA + REU[/A]: %RNAREU% | [A4]RWW[/A]: %RWW% | [A5]Unlogged[/A]: %UNLOGGED%</source>
         <target>__[A1]RNA only[/A]: %RNA% | [A2]REU only[/A]: %REU% | [A3]RNA + REU[/A]: %RNAREU% | [A4]RWW[/A]: %RWW% | [A5]Unlogged[/A]: %UNLOGGED%</target>
       </trans-unit>
+      <trans-unit id="DUaSQzt" resname="Save + Close">
+        <source>Save + Close</source>
+        <target>__Save + Close</target>
+      </trans-unit>
+      <trans-unit id="KngCXea" resname="Select">
+        <source>Select</source>
+        <target>__Select</target>
+      </trans-unit>
+      <trans-unit id="yTkyfKF" resname="Good">
+        <source>Good</source>
+        <target>__Good</target>
+      </trans-unit>
+      <trans-unit id="DgTNEPm" resname="Warnings">
+        <source>Warnings</source>
+        <target>__Warnings</target>
+      </trans-unit>
+      <trans-unit id="zpyVkLp" resname="Unselect">
+        <source>Unselect</source>
+        <target>__Unselect</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
