@@ -1,9 +1,28 @@
 {% extends 'main.html.twig' %}
 {% block body %}
 <div class="main">
-    <h2>{% trans %}Tools{% endtrans %}</h2>
-    <p>
-        {% trans %}Coming soon...{% endtrans %}
-    </p>
+    <h1>{{ title | trans }}</h1>
+    {% if tools|length > 1 %}
+        <div class="links quicklinks">[
+            {% for key, m in tools %}
+                <a href="#{{ key }}">{{ m.shortName }}</a>{%  if not loop.last %} |{%  endif %}
+            {% endfor %}
+            ]</div>
+    {% endif %}
+    <div class="main">
+        {% for key, m in tools %}
+            {% set mode = m.mode %}
+            {% set showTopAndPopup = true %}
+            <div class="help">
+                {% include 'tools/inner.html.twig' %}
+            </div>
+        {% endfor %}
+    </div>
 </div>
+<script>
+    $(document).ready( function() {
+        setExternalLinks();
+    });
+</script>
+
 {% endblock %}

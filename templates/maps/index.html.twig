@@ -19,7 +19,7 @@
         {% set countryFilter = (m.countryFilter is defined ? m.countryFilter : false) %}
         {% set stateBtn = (m.stateBtn is defined ? m.stateBtn : false) %}
         {% set stateFilter = (m.stateFilter is defined ? m.stateFilter : false) %}
-        <div class="map">
+        <div class="help">
             {% include 'maps/inner.html.twig' %}
         </div>
     {% endfor %}

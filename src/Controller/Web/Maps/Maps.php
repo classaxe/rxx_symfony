@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 
 /**
- * Class Countries
+ * Class Maps
  * @package App\Controller\Web\Maps
  */
 class Maps extends Base

@@ -1,0 +1,12 @@
+<div class="header"{% if key is defined %} id="{{ key }}"{% endif %}>
+    <h3>{{ mode | trans }}</h3>
+    {% if showTopAndPopup is defined %}
+    <div class="links">[
+        <a href="#top">{{ "Top" | trans }}</a> |
+        <a href="{{ url('tool', { 'system' : system, 'tool' : key }) }}" data-popup="1">{{ 'Popup' | trans }}</a>
+    ]</div>
+    {% endif %}
+</div>
+<div class="body tool">
+    {% include 'tools/tool/' ~ key ~ '.html.twig' %}
+</div>

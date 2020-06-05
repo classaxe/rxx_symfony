@@ -1,0 +1,14 @@
+{% extends 'popup.html.twig' %}
+
+{% block body %}
+<div class="help">
+    <div>
+{% include 'tools/inner.html.twig' %}
+    </div>
+</div>
+    <script>
+        $(document).ready( function() {
+            setExternalLinks();
+        });
+    </script>
+{% endblock %}

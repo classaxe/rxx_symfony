@@ -17,6 +17,7 @@
 @import (less) 'include/responsive.less';
 @import (less) 'include/admin.less';
 @import (less) 'include/changelog.less';
+@import (less) 'include/help.less';
 
 body {
     font-family: Arial, Helvetica, sans-serif;
@@ -86,106 +87,6 @@ a.hover:hover {
     overflow: hidden;
     clip: rect(0,0,0,0);
     border: 0;
-}
-
-/* [ Help dialogs ] */
-.help {
-    border: 2px solid #888;
-    padding: 0.5em;
-    background: #ffffff;
-    p {
-        margin: 0.5em 0;
-        font-size: 100%;
-    }
-    h1 {
-        margin: 0.125em 0;
-        font-size: 120%;
-        font-weight: normal;
-    }
-    a {
-        color: #0044cc;
-        text-decoration: none;
-        font-weight: bold;
-        &:hover {
-            text-decoration: underline;
-        }
-    }
-    .links {
-        text-align: center;
-        margin: 1em 0;
-        font-size: 70%;
-    }
-    .zone {
-        display: block;
-        margin: 0.5em 0;
-        padding: 0.25em;
-        font-weight: bold;
-        border: 1px solid #888;
-        &:after {
-            content: '';
-            display: table;
-            clear: both;
-            height: 1px;
-            overflow: hidden;
-        }
-    }
-    .header {
-        background: #707070;
-        color: #ffffff;
-        padding: 0.2em;
-        h2 {
-            float: left;
-            margin: 0;
-            font-size: small;
-            color: #ffffff !important;
-        }
-        .links {
-            float: right;
-            margin: 0;
-            a {
-                color: #ffff80;
-                font-weight: bold;
-                text-decoration: none;
-                &:hover {
-                    text-decoration: underline;
-                }
-            }
-        }
-        &:after {
-            content: '';
-            display: table;
-            clear: both;
-        }
-    }
-    ol {
-        background: #ffffff;
-        color: #000;
-        margin: 0;
-    }
-    li {
-        list-style: none;
-        font-size: 80%;
-        font-weight: normal;
-        span.abbr {
-            float: right; font-weight: bold;
-        }
-        a:hover,
-        a:hover * {
-            background: #ffff00;
-            text-decoration: underline;
-        }
-    }
-    .body {
-        border: 1px solid #707070;
-        padding: 0.25em;
-        border-top: none;
-    }
-    img.map {
-        width: 100%;
-    }
-    div.map {
-        margin: 0 0 1em 0;
-    }
 }
 
 /* [ Main Screen ] */
@@ -1157,7 +1058,6 @@ div.scroll {
     }
 }
 
-/* [ Help pages */
 pre.log {
     background: #ffffff;
     border: 1px solid #888;
@@ -1462,10 +1362,6 @@ a.sec {
           }
       }
   }
-}
-#main .help .header h3 {
-    font-size: 120%;
-    float: left;
 }
 
 .fa-info-circle {

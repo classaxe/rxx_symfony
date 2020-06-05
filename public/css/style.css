@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.9.6
- * Date:       2020-06-02
+ * Version:    2.10.1
+ * Date:       2020-06-05
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
  */
@@ -656,78 +656,15 @@ table.responsive tbody tr td b {
   border: 1px solid #dd0;
   background-color: #ffc;
 }
-body {
-  font-family: Arial, Helvetica, sans-serif;
-}
-.txt_c {
-  text-align: center;
-}
-.txt_r {
-  text-align: right;
-}
-.monospace {
-  font-family: "Courier New bold", Courier, monospace;
-}
-.clipped {
-  max-width: 100px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.txt_vertical {
-  vertical-align: bottom;
-  text-align: center;
-}
-.txt_vertical div {
-  -ms-writing-mode: tb-rl;
-  -webkit-writing-mode: vertical-rl;
-  writing-mode: vertical-rl;
-  white-space: nowrap;
-  padding-bottom: 0.5em;
-  display: table;
-  border-spacing: 0;
-}
-#lastError,
-#lastMessage {
-  padding: 0.5em;
-  margin: 0.5em 0;
-  display: inline-block;
-}
-#lastError {
-  border: 1px solid #ff0000;
-  background: #ffe0e0;
-  color: #ff0000;
-}
-#lastMessage {
-  border: 1px solid #008000;
-  background: #e0ffe0;
-  color: #008000;
-}
-pre {
-  border: 1px dashed #ccc;
-  background: #eee;
-  padding: 0.25em 1em !important;
-  margin: 0.5em !important;
-  font-size: 8pt !important;
-  display: inline-block;
-}
-a.hover:hover {
-  background-color: #ffff00;
-}
-/* [ Screen Reader Support ] */
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  border: 0;
-}
 /* [ Help dialogs ] */
-.help {
+.main .help {
   border: 2px solid #888;
-  padding: 0.5em;
+  padding: 0.25em;
+  background: #ffffff;
+  margin-bottom: 1em;
+}
+.help {
+  border: 1px solid #888;
   background: #ffffff;
 }
 .help p {
@@ -735,7 +672,7 @@ a.hover:hover {
   font-size: 100%;
 }
 .help h1 {
-  margin: 0.125em 0;
+  margin: 0.125em;
   font-size: 120%;
   font-weight: normal;
 }
@@ -815,6 +752,7 @@ a.hover:hover {
 }
 .help .body {
   border: 1px solid #707070;
+  background: #fff;
   padding: 0.25em;
   border-top: none;
 }
@@ -823,6 +761,78 @@ a.hover:hover {
 }
 .help div.map {
   margin: 0 0 1em 0;
+}
+#main .help .header h3 {
+  font-size: 120%;
+  float: left;
+}
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+.txt_c {
+  text-align: center;
+}
+.txt_r {
+  text-align: right;
+}
+.monospace {
+  font-family: "Courier New bold", Courier, monospace;
+}
+.clipped {
+  max-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.txt_vertical {
+  vertical-align: bottom;
+  text-align: center;
+}
+.txt_vertical div {
+  -ms-writing-mode: tb-rl;
+  -webkit-writing-mode: vertical-rl;
+  writing-mode: vertical-rl;
+  white-space: nowrap;
+  padding-bottom: 0.5em;
+  display: table;
+  border-spacing: 0;
+}
+#lastError,
+#lastMessage {
+  padding: 0.5em;
+  margin: 0.5em 0;
+  display: inline-block;
+}
+#lastError {
+  border: 1px solid #ff0000;
+  background: #ffe0e0;
+  color: #ff0000;
+}
+#lastMessage {
+  border: 1px solid #008000;
+  background: #e0ffe0;
+  color: #008000;
+}
+pre {
+  border: 1px dashed #ccc;
+  background: #eee;
+  padding: 0.25em 1em !important;
+  margin: 0.5em !important;
+  font-size: 8pt !important;
+  display: inline-block;
+}
+a.hover:hover {
+  background-color: #ffff00;
+}
+/* [ Screen Reader Support ] */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
 }
 /* [ Main Screen ] */
 .main {
@@ -2252,7 +2262,6 @@ div.scroll div table.results img {
     width: 95%;
   }
 }
-/* [ Help pages */
 pre.log {
   background: #ffffff;
   border: 1px solid #888;
@@ -2531,10 +2540,6 @@ a.sec {
   padding: 3px;
   font-size: 10pt;
   width: 16em;
-}
-#main .help .header h3 {
-  font-size: 120%;
-  float: left;
 }
 .fa-info-circle {
   color: #00f;
