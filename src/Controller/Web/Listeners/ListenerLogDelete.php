@@ -52,7 +52,7 @@ class ListenerLogDelete extends Base
         $em->remove($log);
         $em->flush();
 
-        $this->signalRepository->updateSignalStats($log->getSignalId(), true);
+        $this->signalRepository->updateSignalStats($log->getSignalId(), true, true);
         $this->listenerRepository->updateListenerStats($log->getListenerId());
 
         $this->session->set(

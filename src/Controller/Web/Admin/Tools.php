@@ -149,7 +149,7 @@ class Tools extends Base
         $start = time();
         $mysql = $this->systemRepository->getMySQLVersion();
         $updateStats = (float)substr($mysql,0,3) > 5.5;
-        $affected = $this->signalRepository->updateSignalStats(false, $updateStats);
+        $affected = $this->signalRepository->updateSignalStats(false, $updateStats, true);
         $this->setMessage('Signals', 'Update info from latest log data', $affected, $start);
 
         return $this->redirectToRoute('admin/tools', [ 'system' => $this->system ]);

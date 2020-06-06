@@ -32,7 +32,7 @@ class MapsTest extends Base
             $message =      $this->getError(2, [$url,  $expected, $actual]);
             $this->assertEquals($expected, $actual, $message);
 
-            $regions =      $this->getMyCrawler()->filter('.map .header h3');
+            $regions =      $this->getMyCrawler()->filter('.help .header h3');
             $expected =     count($maps);
             $actual =       $regions->count();
             $message =      $this->getError(3, [$url,  $expected, $actual]);

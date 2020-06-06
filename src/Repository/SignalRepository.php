@@ -1335,13 +1335,41 @@ EOD;
         return $affected;
     }
 
-    public function updateSignalStats($signalId = false, $updateSpecs = false)
+    public function updateSignalStats($signalId = false, $updateSpecs = false, $clearUnheard = false)
     {
+        $affected = 0;
         $all_regions =      ['af', 'an', 'as', 'ca', 'eu', 'iw', 'na', 'oc', 'sa'];
         $logsHeardIn =      $this->getLogsHeardIn($signalId);
         $logsStats =        $this->getLogsStats($signalId);
         if ($updateSpecs) {
             $logsLatestSpec = $this->getLogsLatestSpec($signalId);
+        }
+        if ($clearUnheard) {
+            $sql = <<< EOD
+UPDATE
+    `signals`
+SET
+    `heard_in` = '',
+    `heard_in_html` = '',
+    `last_heard` = NULL,
+    `logs` = 0,
+    `listeners` = 0,
+    `heard_in_af` = 0,
+    `heard_in_an` = 0,
+    `heard_in_as` = 0,
+    `heard_in_ca` = 0,
+    `heard_in_eu` = 0,
+    `heard_in_iw` = 0,
+    `heard_in_na` = 0,
+    `heard_in_oc` = 0,
+    `heard_in_sa` = 0
+WHERE
+    ID NOT IN (SELECT distinct signalID from logs)
+EOD;
+
+            $stmt = $this->connection->prepare($sql);
+            $stmt->execute();
+            $affected += $stmt->rowCount();
         }
 
         $data =         [];
@@ -1401,8 +1429,6 @@ EOD;
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $signals = $this->array_group_by('ID', $results);
 
-
-        $affected = 0;
         $fields = [
             'first_heard', 'heard_in', 'heard_in_html', 'last_heard', 'logs', 'listeners',
             'heard_in_af', 'heard_in_an', 'heard_in_as', 'heard_in_ca', 'heard_in_eu',
