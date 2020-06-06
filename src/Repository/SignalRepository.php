@@ -588,7 +588,11 @@ EOD;
             ($this->args['listener'] ?? false) ||
             ($this->args['heard_in'] ?? false) ||
             ($this->args['logged_date_1'] ?? false) ||
-            ($this->args['logged_date_2'] ?? false)
+            ($this->args['logged_date_2'] ?? false) ||
+            ($this->args['logged_first_1'] ?? false) ||
+            ($this->args['logged_first_2'] ?? false) ||
+            ($this->args['logged_last_1'] ?? false) ||
+            ($this->args['logged_last_2'] ?? false)
         );
         $this->query['select'][] = ($distinct ? 'DISTINCT ' : '') . 's.*';
         return $this;
@@ -600,7 +604,11 @@ EOD;
             ($this->args['listener'] ?? false) ||
             ($this->args['heard_in'] ?? false) ||
             ($this->args['logged_date_1'] ?? false) ||
-            ($this->args['logged_date_2'] ?? false)
+            ($this->args['logged_date_2'] ?? false) ||
+            ($this->args['logged_first_1'] ?? false) ||
+            ($this->args['logged_first_2'] ?? false) ||
+            ($this->args['logged_last_1'] ?? false) ||
+            ($this->args['logged_last_2'] ?? false)
         );
         $this->query['select'][] =
             ($distinct ? 'DISTINCT ' : '')
@@ -614,7 +622,11 @@ EOD;
             ($this->args['listener'] ?? false) ||
             ($this->args['heard_in'] ?? false) ||
             ($this->args['logged_date_1'] ?? false) ||
-            ($this->args['logged_date_2'] ?? false)
+            ($this->args['logged_date_2'] ?? false) ||
+            ($this->args['logged_first_1'] ?? false) ||
+            ($this->args['logged_first_2'] ?? false) ||
+            ($this->args['logged_last_1'] ?? false) ||
+            ($this->args['logged_last_2'] ?? false)
         );
         $this->query['select'][] = "COUNT(" . ($distinct ? "DISTINCT s.id" : "*"). ") AS count";
         return $this;
