@@ -18,7 +18,7 @@ class LogRepository extends ServiceEntityRepository
 
     const TOKENS = [
         'SINGLE' => [
-            'KHZ', 'ID', 'GSQ', 'PWR', 'QTH', 'SP', 'ITU', 'sec', 'ITU-SP', 'x', 'X'
+            'KHZ', 'MHZ', 'ID', 'GSQ', 'PWR', 'QTH', 'SP', 'ITU', 'sec', 'ITU-SP', 'x', 'X'
         ],
 
         'OFFSETS' => [
@@ -675,6 +675,10 @@ EOD;
                 $value = trim(substr($line, $spec['start'], $spec['len']));
                 if ($token === 'sec') {
                     $value = str_replace(',', '.', $value);
+                }
+                if ($token === 'MHZ') {
+                    $data['KHZ'] = 1000 * (float) $value;
+                    continue;
                 }
                 switch($spec['type']) {
                     case 'date':
