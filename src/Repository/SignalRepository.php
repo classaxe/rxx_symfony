@@ -1510,4 +1510,41 @@ WHERE
         return $affected;
     }
 
+    public function getDgpsForLookup()
+    {
+        $typeDgps = 1;
+        $sql = <<< EOD
+            SELECT
+                `signals`.*
+            FROM
+                `signals`
+            INNER JOIN `itu` ON
+                `signals`.`ITU` = `itu`.`ITU`
+            WHERE
+                `signals`.`type` = $typeDgps
+EOD;
+        $stmt = $this->connection->prepare($sql);
+        $stmt->execute();
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $out =    '';
+
+        foreach ($results as $row) {
+            if (preg_match("/Ref ID: ([0-9]+)\/*([0-9]+)*; *([0-9]+) *bps/i", $row['notes'], $ID_arr)) {
+                $out.=
+                    "DGPS.a('"
+                    . (count($ID_arr)>1 ? $ID_arr[1] : "") . "', '"
+                    . (count($ID_arr)>2 ? $ID_arr[2] : "") . "', '"
+                    . $row['call'] . "', '"
+                    . (float)$row['khz'] . "', '"
+                    . (count($ID_arr)>2 ? $ID_arr[3] : '') . "', \""
+                    . $row['QTH'] . "\", '"
+                    . $row['SP'] . "', '"
+                    . $row['ITU'] . "', "
+                    . $row['active'] .");\n";
+            }
+        }
+        return $out;
+    }
+
 }

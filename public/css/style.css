@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.10.1
- * Date:       2020-06-05
+ * Version:    2.10.5
+ * Date:       2020-06-07
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
  */
@@ -765,6 +765,25 @@ table.responsive tbody tr td b {
 #main .help .header h3 {
   font-size: 120%;
   float: left;
+}
+#dgps_lookup textarea {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 80%;
+}
+#dgps_lookup #dgps_ref {
+  height: 1.5em;
+  width: 3em;
+  display: inline;
+}
+#dgps_lookup label {
+  padding-right: 1em;
+  font-weight: bold;
+  font-size: 100%;
+}
+#dgps_lookup input[type='reset'],
+#dgps_lookup input[type='submit'] {
+  margin: 0;
+  padding: 0.25em 1em;
 }
 body {
   font-family: Arial, Helvetica, sans-serif;

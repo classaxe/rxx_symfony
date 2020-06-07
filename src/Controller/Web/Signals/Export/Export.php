@@ -113,4 +113,26 @@ class Export extends Base
         $response->headers->set('Content-Disposition',"attachment;filename={$system}_signals.{$mode}");
         return $response;
     }
+
+    /**
+     * @Route(
+     *     "/{_locale}/{system}/signals/export/js/dgps",
+     *     requirements={
+     *        "_locale": "de|en|es|fr",
+     *        "system": "reu|rna|rww"
+     *     },
+     *     name="signals_export_js_dgps"
+     * )
+     * @param $_locale
+     * @param $system
+     * @return Response
+     * @throws Exception
+     */
+    public function jsDgps() {
+        $signals = $this->signalRepository->getDgpsForLookup();
+        $response = new Response($signals , 200);
+        $response->headers->set('Content-Type', 'application/javascript');
+        return $response;
+    }
+
 }

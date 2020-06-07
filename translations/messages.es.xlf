@@ -4623,6 +4623,62 @@
         <source>Unselect</source>
         <target>__Unselect</target>
       </trans-unit>
+      <trans-unit id="86Bbw69" resname="DGPS Station ID Lookup">
+        <source>DGPS Station ID Lookup</source>
+        <target>__DGPS Station ID Lookup</target>
+      </trans-unit>
+      <trans-unit id="09pg52." resname="Enter Decoded Reference Station ID and click 'Lookup'">
+        <source>Enter Decoded Reference Station ID and click 'Lookup'</source>
+        <target>__Enter Decoded Reference Station ID and click 'Lookup'</target>
+      </trans-unit>
+      <trans-unit id="ypltVtQ" resname="E.g.: Ref Stations [R1] and [R2] both belong to station [A]&lt;b&gt;ID&lt;/b&gt;[/A] at QTH">
+        <source>E.g.: Ref Stations [R1] and [R2] both belong to station [A]&lt;b&gt;ID&lt;/b&gt;[/A] at QTH</source>
+        <target><![CDATA[__E.g.: Ref Stations [R1] and [R2] both belong to station [A]<b>ID</b>[/A] at QTH]]></target>
+      </trans-unit>
+      <trans-unit id="1MtFePa" resname="but also match [A]&lt;b&gt;ID&lt;/b&gt;[/A] in QTH">
+        <source>but also match [A]&lt;b&gt;ID&lt;/b&gt;[/A] in QTH</source>
+        <target><![CDATA[__but also match [A]<b>ID</b>[/A] in QTH]]></target>
+      </trans-unit>
+      <trans-unit id="DVAxRlV" resname="Coordinates Converter">
+        <source>Coordinates Converter</source>
+        <target>__Coordinates Converter</target>
+      </trans-unit>
+      <trans-unit id="_86uy7G" resname="NAVTEX Missed Shift Fixer (Version 1.4)">
+        <source>NAVTEX Missed Shift Fixer (Version 1.4)</source>
+        <target>__NAVTEX Missed Shift Fixer (Version 1.4)</target>
+      </trans-unit>
+      <trans-unit id="VcZw4ye" resname="Sunrise / Sunset Calculator">
+        <source>Sunrise / Sunset Calculator</source>
+        <target>__Sunrise / Sunset Calculator</target>
+      </trans-unit>
+      <trans-unit id="_0e9Huk" resname="Other Database References on the Web">
+        <source>Other Database References on the Web</source>
+        <target>__Other Database References on the Web</target>
+      </trans-unit>
+      <trans-unit id="EaZ2fVZ" resname="Done">
+        <source>Done</source>
+        <target>__Done</target>
+      </trans-unit>
+      <trans-unit id="YCPFyEi" resname="Reference Station ID">
+        <source>Reference Station ID</source>
+        <target>__Reference Station ID</target>
+      </trans-unit>
+      <trans-unit id="CUzApAc" resname="Station Details">
+        <source>Station Details</source>
+        <target>__Station Details</target>
+      </trans-unit>
+      <trans-unit id="p8M3kko" resname="Station not recognised">
+        <source>Station not recognised</source>
+        <target>__Station not recognised</target>
+      </trans-unit>
+      <trans-unit id="go9WLZu" resname="(Inactive)">
+        <source>(Inactive)</source>
+        <target>__(Inactive)</target>
+      </trans-unit>
+      <trans-unit id="YyWYu_X" resname="Multiple matches">
+        <source>Multiple matches</source>
+        <target>__Multiple matches</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

@@ -1,1 +1,58 @@
-<div>Coming soon</div>
+<script src="{{ path('signals_export_js_dgps', { 'system' : system }) }}"></script>
+<form id="dgps_lookup">
+<p><strong>{% trans %}Enter Decoded Reference Station ID and click 'Lookup'{% endtrans %}</strong><br>
+{% if system == 'rna' %}
+    {% trans with({
+        '[R1]' : '<a href="#" data-dgps="310"><b>310</b></a>',
+        '[R2]' : '<a href="#" data-dgps="311"><b>311</b></a>',
+        '[A]' : '<a href="' ~ path('signal', { 'system' : system, 'id' : 921 })~ '" data-popup="1">',
+        '[/A]' : '</a>',
+        'ID' : '#918',
+        'QTH' : 'Wiarton, Ontario, Canada'
+    }) | raw %}E.g.: Ref Stations [R1] and [R2] both belong to station [A]<b>ID</b>[/A] at QTH{% endtrans %}.
+{% endif %}
+{% if system == 'reu' %}
+    {% trans with({
+        '[R1]' : '<a href="#" data-dgps="660"><b>660</b></a>',
+        '[R2]' : '<a href="#" data-dgps="661"><b>661</b></a>',
+        '[A]' : '<a href="' ~ path('signal', { 'system' : system, 'id' : 2746 })~ '" data-popup="1">',
+        '[/A]' : '</a>',
+        'ID' : '#430',
+        'QTH' : 'Mizen Head, Ireland'
+    }) | raw %}E.g.: Ref Stations [R1] and [R2] both belong to station [A]<b>ID</b>[/A] at QTH{% endtrans %}.
+{% endif %}
+{% if system == 'rww' %}
+    {% trans with({
+        '[R1]' : '<a href="#" data-dgps="480"><b>480</b></a>',
+        '[R2]' : '<a href="#" data-dgps="481"><b>481</b></a>',
+        '[A]' : '<a href="' ~ path('signal', { 'system' : system, 'id' : 6376 })~ '" data-popup="1">',
+        '[/A]' : '</a>',
+        'ID' : '#340',
+        'QTH' : 'Cabo Carvoeiro Lt, Portugal'
+    }) | raw %}E.g.: Ref Stations [R1] and [R2] both belong to station [A]<b>ID</b>[/A] at QTH{% endtrans %},
+    {% trans with({
+        '[A]' : '<a href="' ~ path('signal', { 'system' : system, 'id' : 16306 })~ '" data-popup="1">',
+        '[/A]' : '</a>',
+        'ID' : '#140',
+        'QTH' : 'Bahrain'
+    }) | raw %}but also match [A]<b>ID</b>[/A] in QTH{% endtrans %}.
+{% endif %}
+</p>
+<div>
+    <label for="dgps_ref" style="display: inline;">{% trans %}Reference Station ID{% endtrans %}</label>
+    <input type="text" size="3" id="dgps_ref">
+    <input type="submit" id="dgps_go" value="Lookup" class="button">
+    <input type="reset" value="Reset" class="button">
+</div>
+<div>
+    <label for="dgps_details">{% trans %}Station Details{% endtrans %}</label>
+    <textarea id="dgps_details" cols="40" rows="5" readonly="readonly"></textarea>
+</div>
+</form>
+<script>
+$(document).ready( function() {
+    DGPS.init();
+    setExternalLinks();
+});
+</script>
+
