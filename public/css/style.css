@@ -2,7 +2,7 @@
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
  * Version:    2.10.5
- * Date:       2020-06-07
+ * Date:       2020-06-09
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
  */
@@ -766,6 +766,10 @@ table.responsive tbody tr td b {
   font-size: 120%;
   float: left;
 }
+.body.tool {
+  background-color: #f0f0f0;
+  padding: 0.25em;
+}
 #dgps_lookup textarea {
   font-family: "Courier New", Courier, monospace;
   font-size: 80%;
@@ -780,10 +784,88 @@ table.responsive tbody tr td b {
   font-weight: bold;
   font-size: 100%;
 }
+#dgps_lookup input[type='button'],
 #dgps_lookup input[type='reset'],
 #dgps_lookup input[type='submit'] {
   margin: 0;
   padding: 0.25em 1em;
+}
+#dgps_lookup textarea:read-only {
+  background-color: #fff;
+  font-weight: bold;
+  color: #000;
+}
+#coords label {
+  display: inline-block;
+  text-align: right;
+  padding: 0 0.5em;
+  font-weight: bold;
+  font-size: 100%;
+  white-space: nowrap;
+  width: 11.5em;
+}
+#coords input[type='text'] {
+  height: 1.5em;
+  width: 8em;
+  display: inline;
+  margin: 0;
+}
+#coords input[type='button'],
+#coords input[type='reset'],
+#coords input[type='submit'] {
+  margin: 0;
+  padding: 0.3em 1em;
+}
+#coords div div {
+  display: inline-block;
+  padding: 0 0 0 0.5em;
+  margin: 0.25em 0;
+}
+#coords div span {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+}
+#coords .r3 span {
+  margin-left: 19.85em;
+}
+@media (max-width: 55em) {
+  #coords {
+    border-bottom: 1px solid #ccc;
+  }
+  #coords div:last-child {
+    border-bottom: none;
+  }
+  #coords div {
+    padding: 0.25em 0 0.5em 0;
+  }
+  #coords div label {
+    padding: 0;
+    text-align: left;
+  }
+  #coords div input[type='text'] {
+    display: block;
+  }
+  #coords div div {
+    padding: 0;
+    border: none;
+  }
+  #coords div.r3 span {
+    margin-left: 11.5em;
+  }
+}
+@media (max-width: 39em) {
+  #coords div div {
+    display: block;
+  }
+  #coords div div input[type='button'],
+  #coords div div input[type='reset'],
+  #coords div div input[type='submit'] {
+    margin: 0.5em 0 0 0;
+  }
+  #coords div.r3 span {
+    margin-left: 0;
+  }
 }
 body {
   font-family: Arial, Helvetica, sans-serif;

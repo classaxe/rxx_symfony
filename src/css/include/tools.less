@@ -1,3 +1,7 @@
+.body.tool {
+    background-color: #f0f0f0;
+    padding: 0.25em;
+}
 #dgps_lookup {
     textarea {
         font-family: "Courier New", Courier, monospace;
@@ -13,9 +17,104 @@
         font-weight: bold;
         font-size: 100%;
     }
+    input[type='button'],
     input[type='reset'],
     input[type='submit'] {
         margin: 0;
         padding: 0.25em 1em;
+    }
+    textarea:read-only {
+        background-color: #fff;
+        font-weight: bold;
+        color: #000;
+    }
+}
+#coords {
+    label {
+        display: inline-block;
+        text-align: right;
+        padding: 0 0.5em;
+        font-weight: bold;
+        font-size: 100%;
+        white-space: nowrap;
+        width: 11.5em;
+    }
+
+    input[type='text'] {
+        height: 1.5em;
+        width: 8em;
+        display: inline;
+        margin: 0;
+    }
+
+    input[type='button'],
+    input[type='reset'],
+    input[type='submit'] {
+        margin: 0;
+        padding: 0.3em 1em;
+    }
+
+    div {
+        div {
+            display: inline-block;
+            padding: 0 0 0 0.5em;
+            margin: 0.25em 0;
+        }
+        span {
+            display: inline-block;
+            padding: 0;
+            margin: 0;
+        }
+    }
+
+    .r3 {
+        span {
+            margin-left: 19.85em;
+        }
+    }
+
+    @media (max-width: 55em) {
+        border-bottom: 1px solid #ccc;
+        div:last-child {
+            border-bottom: none;
+        }
+        div {
+            padding: 0.25em 0 0.5em 0;
+            label {
+                padding: 0;
+                text-align: left;
+            }
+            input[type='text'] {
+                display: block;
+            }
+            div {
+                padding: 0;
+                border: none;
+            }
+            &.r3 {
+                span {
+                    margin-left: 11.5em;
+                }
+            }
+        }
+    }
+
+    @media (max-width: 39em) {
+        div {
+            div {
+                display: block;
+
+                input[type='button'],
+                input[type='reset'],
+                input[type='submit'] {
+                    margin: 0.5em 0 0 0;
+                }
+            }
+            &.r3 {
+                span {
+                    margin-left: 0;
+                }
+            }
+        }
     }
 }

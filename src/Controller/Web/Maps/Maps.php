@@ -68,4 +68,36 @@ class Maps extends Base
         $parameters = array_merge($parameters, $this->parameters);
         return $this->render('maps/map.html.twig', $parameters);
     }
+
+    /**
+     * @Route(
+     *     "/{_locale}/{system}/maps/coords/{lat}/{lon}/{mode}",
+     *     requirements={
+     *        "_locale": "de|en|es|fr",
+     *        "system": "reu|rna|rww",
+     *        "mode": "map|photo"
+     *     },
+     *     name="map"
+     * )
+     * @param $_locale
+     * @param $system
+     * @param $lat
+     * @param $lon
+     * @param $mode
+     * @param MapRepository $mapRepository
+     * @return Response
+     */
+    public function coords($_locale, $system, $lat, $lon, $mode)
+    {
+        $parameters = [
+            '_locale' =>    $_locale,
+            'system' =>     $system,
+            'lat' =>        $lat,
+            'lon' =>        $lon,
+            'mode' =>       $mode
+        ];
+
+        $parameters = array_merge($parameters, $this->parameters);
+        return $this->render('maps/coords.html.twig', $parameters);
+    }
 }

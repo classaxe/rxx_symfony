@@ -1,0 +1,13 @@
+{% extends 'popup.html.twig' %}
+
+{% block body %}
+<div class="help">
+    <div>{{ lat }}|{{ lon }}|{{ mode }}</div>
+    <p>Coming soon!</p>
+</div>
+<script>
+$(document).ready( function() {
+    setExternalLinks();
+});
+</script>
+{% endblock %}

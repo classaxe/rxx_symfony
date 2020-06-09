@@ -1,1 +1,44 @@
-<div>Coming soon</div>
+<form id='coords'>
+    <p><strong>{% trans %}To convert between systems, enter known values then click the button next to them.{% endtrans %}</strong></p>
+    <div class="r1">
+        <span>
+            <label for="lat_dd_mm_ss">Lat DD&deg;MM'SS"N/S</label>
+            <input type='text' size='10' id='lat_dd_mm_ss'>
+        </span><span>
+            <label for="lon_dd_mm_ss">Lon DDD&deg;MM'SS"E/W</label>
+            <input type='text' size='10' id='lon_dd_mm_ss'>
+        </span><div>
+            <input type='button' class='button' id='go_1' value='Convert'>
+            <input type='button' class='button' id='map_1' value='Map'>
+            <input type='button' class='button' id='photo_1' value='Photo'>
+        </div>
+    </div>
+    <div class="r2">
+        <span>
+            <label for="lat_dddd">Lat +/-DD.DDDD</label>
+            <input type='text' size='10' id='lat_dddd'>
+        </span><span>
+            <label for="lon_dddd">Lon +/-DDD.DDDD</label>
+            <input type='text' size='10' id='lon_dddd'>
+        </span><div>
+            <input type='button' class='button' id='go_2' value='Convert'>
+            <input type='button' class='button' id='map_2' value='Map'>
+            <input type='button' class='button' id='photo_2' value='Photo'>
+        </div>
+    </div>
+    <div class="r3">
+        <span>
+            <label for="gsq">GSQ</label>
+            <input type='text' size='10' id='gsq'>
+        </span><div>
+            <input type='button' class='button' id='go_3' value='Convert'>
+            <input type='button' class='button' id='map_3' value='Map'>
+            <input type='button' class='button' id='photo_3' value='Photo'>
+        </div>
+    </div>
+</form>
+<script>
+$(document).ready( function() {
+    COORDS.init();
+});
+</script>

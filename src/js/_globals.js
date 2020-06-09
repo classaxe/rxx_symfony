@@ -43,7 +43,7 @@ var popWinSpecs = {
     'states_*' :                    'width=720,height=760,resizable=1',
     'states_aus' :                  'width=720,height=240,resizable=1',
     'states_can_usa' :              'width=680,height=690,resizable=1',
-    'tools_coordinates' :           'width=620,height=145,resizable=1',
+    'tools_coordinates' :           'width=890,height=220,resizable=1',
     'tools_dgps' :                  'width=640,height=375,resizable=1',
     'tools_navtex' :                'width=420,height=370,resizable=1',
     'tools_references' :            'width=520,height=130,resizable=1',
