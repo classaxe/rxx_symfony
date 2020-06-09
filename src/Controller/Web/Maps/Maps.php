@@ -77,7 +77,7 @@ class Maps extends Base
      *        "system": "reu|rna|rww",
      *        "mode": "map|photo"
      *     },
-     *     name="map"
+     *     name="map_coords"
      * )
      * @param $_locale
      * @param $system
