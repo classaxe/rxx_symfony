@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.10.5
- * Date:       2020-06-09
+ * Version:    2.10.7
+ * Date:       2020-06-10
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
  */
@@ -2220,7 +2220,7 @@ var DGPS = {
             $('#dgps_details').val(DGPS.lookup($('#dgps_ref').val()));
             return false;
         });
-        $('#dgps_close').on('click', function(){
+        $('#close').on('click', function(){
             window.close();
         })
     },
@@ -2295,6 +2295,9 @@ var COORDS = {
                 });
             })(idx + 1, cmd_1, cmd_2);
         }
+        $('#close').on('click', function(){
+            window.close();
+        })
     },
     map: function(mode) {
         var hd, lat, lon, url;
@@ -2374,7 +2377,7 @@ var COORDS = {
         return true;
     },
     conv_dd_mm_ss: function() {
-        var a, dec_lat, dec_lon, deg, hem, min, min_d, rexp_lat, rexp_lon, sec
+        var a, dec_lat, dec_lon, deg, hem, min, rexp_lat, rexp_lon, sec
         rexp_lat =  /([0-9]+)[� .]*([0-9]+)[' .]*([0-9]+)*[" .]*([NS])*/i;
         rexp_lon =  /([0-9]+)[� .]*([0-9]+)[' .]*([0-9]+)*[" .]*([EW])*/i;
         a = $('#lat_dd_mm_ss').val().match(rexp_lat);
@@ -2389,7 +2392,6 @@ var COORDS = {
         deg =       parseFloat(a[1]);
         min =       parseFloat(a[2]);
         sec =       (a[3] !== '' ? parseFloat(a[3]) : 0);
-        min_d =     min+sec/60;
         hem =       (typeof a[4] === 'undefined' ? 1 : (a[4] === 'N' || a[4] === 'n' ? 1 : -1));
         dec_lat =   hem * (deg + (Math.round(((sec / 3600) + (min / 60)) * 10000)) / 10000);
         $('#lat_dddd').val(dec_lat);
@@ -2406,7 +2408,6 @@ var COORDS = {
         deg =       parseFloat(a[1]);
         min =       parseFloat(a[2]);
         sec =       (a[3] !== '' ? parseFloat(a[3]) : 0);
-        min_d =     min+sec/60;
         hem =       (typeof a[4] === 'undefined' ? 1 : (a[4] === 'E' || a[4] === 'e' ? 1 : -1));
         dec_lon =   hem * (deg + (Math.round(((sec / 3600) + (min / 60)) * 10000)) / 10000);
         $('#lon_dddd').val(dec_lon);

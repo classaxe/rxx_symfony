@@ -29,7 +29,7 @@
     <div class="r3">
         <span>
             <label for="gsq">GSQ</label>
-            <input type='text' size='10' id='gsq'>
+            <input type='text' size='10' id='gsq' value="{{ args }}">
         </span><div>
             <input type='button' class='button' id='go_3' value='Convert'>
             <input type='button' class='button' id='map_3' value='Map'>
@@ -40,5 +40,8 @@
 <script>
 $(document).ready( function() {
     COORDS.init();
+    if ('{{ args }}' !== '') {
+        $('#go_3').trigger('click');
+    }
 });
 </script>

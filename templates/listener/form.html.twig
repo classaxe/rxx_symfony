@@ -30,9 +30,9 @@
                             {% endif %}
                         </label>
                         {{ form_widget(form.gsq) }}
+                        <div id="form_gsq_suffix"><a id="coords_link">{% trans %}Convert...{% endtrans %}</a></div>
                     </div>
 
-                    {{ form_row(form.gsq) }}
                     {% if isAdmin%}
                     <div{% if l.region not in ['ca', 'eu', 'na'] and 'HWA' != l.itu %} style="display: none"{% endif %}>
                         <label for="{{ form.mapX.vars.id }}">
@@ -73,6 +73,9 @@
 <script>
 $(document).ready(function () {
     $('#form_timezone').selectmenu();
+    $('#coords_link').on('click', function(){
+        popup(base_url +"tools/coordinates?args=" + $('#form_gsq').val());
+    });
     $('#form_saveClose').on('click', function(){
         $('#form__close').val(1);
     })

@@ -1,13 +1,31 @@
 {% extends 'popup.html.twig' %}
-
+{% if mode == 'photo' %}
+    {% set iframe = "https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d20220.329901966557!2d" ~ lon ~ "!3d" ~ lat ~ "!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1sen!2sca!4v1580566549377!5m2!1sen!2sca" %}
+{% else %}
+    {% set iframe = "https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d42908.84432124917!2d" ~ lon ~ "!3d" ~ lat ~ "!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sca!4v1591749082867!5m2!1sen!2sca" %}
+{% endif %}
 {% block body %}
-<div class="help">
-    <div>{{ lat }}|{{ lon }}|{{ mode }}</div>
-    <p>Coming soon!</p>
+<div class="main fullwidth">
+    <div id="tabs" class="padding-horizontal-1">
+        <a class="button small{% if mode == 'map' %} is-active{% endif %}" href="{{
+            path('map_coords', { 'system' : system, 'lat' : lat, 'lon' : lon, 'mode' : 'map' })
+        }}">Map</a>
+        <a class="button small{% if mode == 'photo' %} is-active{% endif %}" href="{{
+            path('map_coords', { 'system' : system, 'lat' : lat, 'lon' : lon, 'mode' : 'photo' })
+        }}">Photo</a>
+    </div>
+    <div class="controlPanel">
+        <div class="header">{% trans with({ 'MODE': mode == 'map' ? 'Map' : 'Photo', 'LAT': lat, 'LON': lon}) %}MODE for LAT / LON{% endtrans %}</div>
+        <div class="content">
+            <iframe id='gmap' src="{{ iframe }}" style="width: 100%; border: 1px solid #888;" allowfullscreen="allowfullscreen"></iframe>
+        </div>
+    </div>
 </div>
 <script>
 $(document).ready( function() {
     setExternalLinks();
+    $(window).resize(function() {$('#gmap').height($(window).height() - 100); });
+    $(window).trigger('resize');
 });
 </script>
 {% endblock %}

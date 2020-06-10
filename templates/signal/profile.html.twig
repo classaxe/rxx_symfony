@@ -8,6 +8,9 @@
 <script>
     $(document).ready( function() {
         setExternalLinks();
+        $('#coords_link').on('click', function(){
+            popup(base_url +"tools/coordinates?args=" + $('#form_gsq').val());
+        });
         var ctlSave=$('#form_save');
         var ctlSaveClose=$('#form_saveClose');
 {% if doReloadOpener %}window.opener.document.getElementsByName('form')[0].submit();{% endif %}

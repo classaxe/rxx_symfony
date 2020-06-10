@@ -193,7 +193,7 @@ class SignalView extends AbstractType
                     'attr' => [
                         'maxlength' =>  6,
                         'size' =>       6,
-                        'style' =>      "width: 6em"
+                        'style' =>      "width: 4em"
                     ],
                     'data' =>           $options['gsq'],
                     'empty_data' =>     '',

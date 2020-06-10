@@ -12,7 +12,7 @@ var DGPS = {
             $('#dgps_details').val(DGPS.lookup($('#dgps_ref').val()));
             return false;
         });
-        $('#dgps_close').on('click', function(){
+        $('#close').on('click', function(){
             window.close();
         })
     },
@@ -87,6 +87,9 @@ var COORDS = {
                 });
             })(idx + 1, cmd_1, cmd_2);
         }
+        $('#close').on('click', function(){
+            window.close();
+        })
     },
     map: function(mode) {
         var hd, lat, lon, url;

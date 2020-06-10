@@ -4679,6 +4679,30 @@
         <source>Multiple matches</source>
         <target>Multiple matches</target>
       </trans-unit>
+      <trans-unit id="D4qly7k" resname="MODE for LAT / LON">
+        <source>MODE for LAT / LON</source>
+        <target>MODE for LAT / LON</target>
+      </trans-unit>
+      <trans-unit id="HImLWx6" resname="Convert...">
+        <source>Convert...</source>
+        <target>Convert...</target>
+      </trans-unit>
+      <trans-unit id="99jQuHR" resname="Latitude must be a decimal number">
+        <source>Latitude must be a decimal number</source>
+        <target>Latitude must be a decimal number</target>
+      </trans-unit>
+      <trans-unit id="1WcpSo6" resname="Longitude must be a decimal number">
+        <source>Longitude must be a decimal number</source>
+        <target>Longitude must be a decimal number</target>
+      </trans-unit>
+      <trans-unit id="SLiVNyl" resname="GSQ must be in one of these formats:\nXXnnxx or XXnn">
+        <source>GSQ must be in one of these formats:\nXXnnxx or XXnn</source>
+        <target>GSQ must be in one of these formats:\nXXnnxx or XXnn</target>
+      </trans-unit>
+      <trans-unit id="zn9RogQ" resname="To convert between systems, enter known values then click the button next to them.">
+        <source>To convert between systems, enter known values then click the button next to them.</source>
+        <target>To convert between systems, enter known values then click the button next to them.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
