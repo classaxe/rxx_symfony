@@ -8,8 +8,8 @@
         '[A]' : '<a href="' ~ path('signal', { 'system' : system, 'id' : 921 })~ '" data-popup="1">',
         '[/A]' : '</a>',
         'ID' : '#918',
-        'QTH' : 'Wiarton, Ontario, Canada'
-    }) | raw %}E.g.: Ref Stations [R1] and [R2] both belong to station [A]<b>ID</b>[/A] at QTH{% endtrans %}.
+        'QTH' : 'Wiarton, ON, Canada'
+    }) | raw %}E.g.: Ref Stations [R1] and [R2] belong to station [A]<b>ID</b>[/A] at QTH{% endtrans %}.
 {% endif %}
 {% if system == 'reu' %}
     {% trans with({
@@ -19,7 +19,7 @@
         '[/A]' : '</a>',
         'ID' : '#430',
         'QTH' : 'Mizen Head, Ireland'
-    }) | raw %}E.g.: Ref Stations [R1] and [R2] both belong to station [A]<b>ID</b>[/A] at QTH{% endtrans %}.
+    }) | raw %}E.g.: Ref Stations [R1] and [R2] belong to station [A]<b>ID</b>[/A] at QTH{% endtrans %}.
 {% endif %}
 {% if system == 'rww' %}
     {% trans with({
@@ -29,7 +29,7 @@
         '[/A]' : '</a>',
         'ID' : '#340',
         'QTH' : 'Cabo Carvoeiro Lt, Portugal'
-    }) | raw %}E.g.: Ref Stations [R1] and [R2] both belong to station [A]<b>ID</b>[/A] at QTH{% endtrans %},
+    }) | raw %}E.g.: Ref Stations [R1] and [R2] belong to station [A]<b>ID</b>[/A] at QTH{% endtrans %},
     {% trans with({
         '[A]' : '<a href="' ~ path('signal', { 'system' : system, 'id' : 16306 })~ '" data-popup="1">',
         '[/A]' : '</a>',

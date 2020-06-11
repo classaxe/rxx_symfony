@@ -4631,10 +4631,6 @@
         <source>Enter Decoded Reference Station ID and click 'Lookup'</source>
         <target>Enter Decoded Reference Station ID and click 'Lookup'</target>
       </trans-unit>
-      <trans-unit id="ypltVtQ" resname="E.g.: Ref Stations [R1] and [R2] both belong to station [A]&lt;b&gt;ID&lt;/b&gt;[/A] at QTH">
-        <source>E.g.: Ref Stations [R1] and [R2] both belong to station [A]&lt;b&gt;ID&lt;/b&gt;[/A] at QTH</source>
-        <target><![CDATA[E.g.: Ref Stations [R1] and [R2] both belong to station [A]<b>ID</b>[/A] at QTH]]></target>
-      </trans-unit>
       <trans-unit id="1MtFePa" resname="but also match [A]&lt;b&gt;ID&lt;/b&gt;[/A] in QTH">
         <source>but also match [A]&lt;b&gt;ID&lt;/b&gt;[/A] in QTH</source>
         <target><![CDATA[but also match [A]<b>ID</b>[/A] in QTH]]></target>
@@ -4702,6 +4698,10 @@
       <trans-unit id="zn9RogQ" resname="To convert between systems, enter known values then click the button next to them.">
         <source>To convert between systems, enter known values then click the button next to them.</source>
         <target>To convert between systems, enter known values then click the button next to them.</target>
+      </trans-unit>
+      <trans-unit id="spe3kvW" resname="E.g.: Ref Stations [R1] and [R2] belong to station [A]&lt;b&gt;ID&lt;/b&gt;[/A] at QTH">
+        <source>E.g.: Ref Stations [R1] and [R2] belong to station [A]&lt;b&gt;ID&lt;/b&gt;[/A] at QTH</source>
+        <target><![CDATA[E.g.: Ref Stations [R1] and [R2] belong to station [A]<b>ID</b>[/A] at QTH]]></target>
       </trans-unit>
     </body>
   </file>

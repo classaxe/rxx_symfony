@@ -52,7 +52,7 @@ var popWinSpecs = {
     'states_aus' :                  'width=720,height=240,resizable=1',
     'states_can_usa' :              'width=680,height=690,resizable=1',
     'tools_coordinates' :           'width=900,height=195,resizable=1',
-    'tools_dgps' :                  'width=640,height=320,resizable=1',
+    'tools_dgps' :                  'width=720,height=345,resizable=1',
     'tools_navtex' :                'width=420,height=580,resizable=1',
     'tools_references' :            'width=520,height=130,resizable=1',
     'tools_sunrise' :               'width=455,height=310,resizable=1',
@@ -2208,6 +2208,10 @@ function setSignalActions() {
 
 var DGPS = {
     init: function() {
+        $('#frm_dgps').on('submit', function() {
+            $('#dgps_details').val(DGPS.lookup($('#dgps_ref').val()));
+            return false;
+        });
         $('a[data-dgps]').on('click', function() {
             $('#dgps_ref').val($(this).data('dgps'));
             $('#dgps_go').trigger('click');
@@ -2215,10 +2219,6 @@ var DGPS = {
         });
         $('#dgps_ref').on('focus', function() {
             $(this).select();
-        });
-        $('#dgps_lookup').on('submit', function() {
-            $('#dgps_details').val(DGPS.lookup($('#dgps_ref').val()));
-            return false;
         });
         $('#close').on('click', function(){
             window.close();
