@@ -1,1 +1,46 @@
-<div>Coming soon</div>
+<p>Repairs Navtex decoded message where 'shift' command was garbled.
+Enter characters in appropriate window and press button to translate.</p>
+
+<p>Thanks to Tjaerand, Curt and Mr. Mosbron for code and concept.</p>
+
+<form id="frm_navtex" onsubmit="return false;">
+    <div class="row">
+        <div class="small-3 columns text-left">
+            <input id="translateMumbo" type="button" value="Unshift" class="button">
+        </div>
+        <div class="small-6 columns text-center">
+            <p>Missed Shift Characters</p>
+        </div>
+        <div class="small-3 columns text-right">
+            <input id="clearoutMumbo" type="button" value="Clear" class="button">
+        </div>
+    </div>
+    <div class="row">
+        <textarea id="navtex1" cols="40" rows="5" class="FormField"></textarea>
+    </div>
+    <div class="row">
+        <div class="small-3 columns text-left">
+            <input id="translateText" type="button" value="Shift" class="button">
+        </div>
+        <div class="small-6 columns text-center">
+            <p>Correct Shift Characters</p>
+        </div>
+        <div class="small-3 columns text-right">
+            <input id="clearoutText" type="button" value="Clear" class="button">
+        </div>
+    </div>
+    <div class="row">
+        <textarea id="navtex2" cols="40" rows="5" class="FormField"></textarea>
+    </div>
+    <div class="row">
+        <div class="small-12 text-center">
+            <input id="clearoutAll" type="button" value="Clear All" class="button">
+        </div>
+    </div>
+</form>
+
+<script>
+$(document).ready( function() {
+    NAVTEX.init();
+});
+</script>

@@ -206,3 +206,59 @@ var COORDS = {
         return true;
     }
 }
+var NAVTEX = {
+    init: function() {
+        $('#frm_navtex').on('submit', function(){
+            return false;
+        });
+        $('#translateMumbo').on('click', function() {
+            $('#navtex2').val(NAVTEX.mumboToText($('#navtex1').val()));
+        });
+        $('#clearoutMumbo').on('click', function() {
+            $('#navtex1').val('');
+        });
+        $('#clearoutText').on('click', function() {
+            $('#navtex2').val('');
+        });
+        $('#clearoutAll').on('click', function() {
+            $('#navtex1').val('');
+            $('#navtex2').val('');
+        });
+        $('#translateText').on('click', function() {
+            $('#navtex1').val(NAVTEX.textToMumbo($('#navtex2').val()));
+        });
+        $('#close').on('click', function(){
+            window.close();
+        })
+    },
+    mumboChars: "-?:$3!&#8*().,9014'57=2/6+",
+    textChars:  "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+    mumboChar: function(chars) {
+        var pos = NAVTEX.textChars.indexOf(chars);
+        if (pos > -1) {
+            return NAVTEX.mumboChars.charAt(pos);
+        }
+        return chars;
+    },
+    textChar: function(chars) {
+        var pos = NAVTEX.mumboChars.indexOf(chars);
+        if (pos > -1) {
+            return NAVTEX.textChars.charAt(pos);
+        }
+        return chars;
+    },
+    textToMumbo: function(input) {
+        var i, output = '';
+        for (i=0; i<input.length; i++) {
+            output += NAVTEX.mumboChar(input.charAt(i).toUpperCase());
+        }
+        return output;
+    },
+    mumboToText: function(input) {
+        var i, output = '';
+        for (i = 0; i < input.length; i++) {
+            output += NAVTEX.textChar(input.charAt(i));
+        }
+        return output;
+    }
+}

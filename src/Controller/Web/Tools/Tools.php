@@ -27,12 +27,13 @@ class Tools extends Base
      * @param ToolRepository $toolRepository
      * @return Response
      */
-    public function index($_locale, $system, ToolRepository $toolRepository)
+    public function index($_locale, $system, Request $request, ToolRepository $toolRepository)
     {
         $tools =   $toolRepository->getAll();
 
         $parameters = [
             '_locale' =>    $_locale,
+            'args' =>       $request->query->get('args'),
             'mode' =>       'Tools',
             'system' =>     $system,
             'classic' =>    $this->systemRepository->getClassicUrl('tools'),
@@ -56,13 +57,13 @@ class Tools extends Base
      * )
      * @param $_locale
      * @param $system
-     * @param Request $request
      * @param $tool
      * @param $args
+     * @param Request $request
      * @param ToolRepository $toolRepository
      * @return Response
      */
-    public function tool($_locale, $system, Request $request, $tool, $args, ToolRepository $toolRepository)
+    public function tool($_locale, $system, $tool, $args, Request $request, ToolRepository $toolRepository)
     {
         $parameters = $toolRepository->get($tool);
         $parameters['_locale'] = $_locale;

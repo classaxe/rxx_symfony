@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.10.7
- * Date:       2020-06-10
+ * Version:    2.10.8
+ * Date:       2020-06-11
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
  */
@@ -51,9 +51,9 @@ var popWinSpecs = {
     'states_*' :                    'width=720,height=760,resizable=1',
     'states_aus' :                  'width=720,height=240,resizable=1',
     'states_can_usa' :              'width=680,height=690,resizable=1',
-    'tools_coordinates' :           'width=890,height=220,resizable=1',
-    'tools_dgps' :                  'width=640,height=375,resizable=1',
-    'tools_navtex' :                'width=420,height=370,resizable=1',
+    'tools_coordinates' :           'width=900,height=195,resizable=1',
+    'tools_dgps' :                  'width=640,height=320,resizable=1',
+    'tools_navtex' :                'width=420,height=580,resizable=1',
     'tools_references' :            'width=520,height=130,resizable=1',
     'tools_sunrise' :               'width=455,height=310,resizable=1',
 };
@@ -2412,5 +2412,61 @@ var COORDS = {
         dec_lon =   hem * (deg + (Math.round(((sec / 3600) + (min / 60)) * 10000)) / 10000);
         $('#lon_dddd').val(dec_lon);
         return true;
+    }
+}
+var NAVTEX = {
+    init: function() {
+        $('#frm_navtex').on('submit', function(){
+            return false;
+        });
+        $('#translateMumbo').on('click', function() {
+            $('#navtex2').val(NAVTEX.mumboToText($('#navtex1').val()));
+        });
+        $('#clearoutMumbo').on('click', function() {
+            $('#navtex1').val('');
+        });
+        $('#clearoutText').on('click', function() {
+            $('#navtex2').val('');
+        });
+        $('#clearoutAll').on('click', function() {
+            $('#navtex1').val('');
+            $('#navtex2').val('');
+        });
+        $('#translateText').on('click', function() {
+            $('#navtex1').val(NAVTEX.textToMumbo($('#navtex2').val()));
+        });
+        $('#close').on('click', function(){
+            window.close();
+        })
+    },
+    mumboChars: "-?:$3!&#8*().,9014'57=2/6+",
+    textChars:  "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+    mumboChar: function(chars) {
+        var pos = NAVTEX.textChars.indexOf(chars);
+        if (pos > -1) {
+            return NAVTEX.mumboChars.charAt(pos);
+        }
+        return chars;
+    },
+    textChar: function(chars) {
+        var pos = NAVTEX.mumboChars.indexOf(chars);
+        if (pos > -1) {
+            return NAVTEX.textChars.charAt(pos);
+        }
+        return chars;
+    },
+    textToMumbo: function(input) {
+        var i, output = '';
+        for (i=0; i<input.length; i++) {
+            output += NAVTEX.mumboChar(input.charAt(i).toUpperCase());
+        }
+        return output;
+    },
+    mumboToText: function(input) {
+        var i, output = '';
+        for (i = 0; i < input.length; i++) {
+            output += NAVTEX.textChar(input.charAt(i));
+        }
+        return output;
     }
 }

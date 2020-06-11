@@ -14,7 +14,7 @@ class ToolRepository
             'shortName' =>      'Coordinates',
         ],
         'navtex' => [
-            'mode' =>           'NAVTEX Missed Shift Fixer (Version 1.4)',
+            'mode' =>           'NAVTEX Missed Shift Fixer (v1.4)',
             'shortName' =>      'NAVTEX Fixer',
         ],
         'sunrise' => [

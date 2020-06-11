@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.10.7
- * Date:       2020-06-10
+ * Version:    2.10.8
+ * Date:       2020-06-11
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
  */
@@ -770,32 +770,32 @@ table.responsive tbody tr td b {
   background-color: #f0f0f0;
   padding: 0.25em;
 }
-#dgps_lookup textarea {
+#frm_dgps textarea {
   font-family: "Courier New", Courier, monospace;
   font-size: 80%;
 }
-#dgps_lookup #dgps_ref {
+#frm_dgps #dgps_ref {
   height: 1.5em;
   width: 3em;
   display: inline;
 }
-#dgps_lookup label {
+#frm_dgps label {
   padding-right: 1em;
   font-weight: bold;
   font-size: 100%;
 }
-#dgps_lookup input[type='button'],
-#dgps_lookup input[type='reset'],
-#dgps_lookup input[type='submit'] {
+#frm_dgps input[type='button'],
+#frm_dgps input[type='reset'],
+#frm_dgps input[type='submit'] {
   margin: 0;
   padding: 0.25em 1em;
 }
-#dgps_lookup textarea:read-only {
+#frm_dgps textarea:read-only {
   background-color: #fff;
   font-weight: bold;
   color: #000;
 }
-#coords label {
+#frm_coordinates label {
   display: inline-block;
   text-align: right;
   padding: 0 0.5em;
@@ -804,68 +804,88 @@ table.responsive tbody tr td b {
   white-space: nowrap;
   width: 11.5em;
 }
-#coords input[type='text'] {
+#frm_coordinates input[type='text'] {
   height: 1.5em;
   width: 8em;
   display: inline;
   margin: 0;
 }
-#coords input[type='button'],
-#coords input[type='reset'],
-#coords input[type='submit'] {
+#frm_coordinates input[type='button'],
+#frm_coordinates input[type='reset'],
+#frm_coordinates input[type='submit'] {
   margin: 0;
   padding: 0.3em 1em;
 }
-#coords div div {
+#frm_coordinates div div {
   display: inline-block;
   padding: 0 0 0 0.5em;
   margin: 0.25em 0;
 }
-#coords div span {
+#frm_coordinates div span {
   display: inline-block;
   padding: 0;
   margin: 0;
 }
-#coords .r3 span {
+#frm_coordinates .r3 span {
   margin-left: 19.85em;
 }
 @media (max-width: 55em) {
-  #coords {
+  #frm_coordinates {
     border-bottom: 1px solid #ccc;
   }
-  #coords div:last-child {
+  #frm_coordinates div:last-child {
     border-bottom: none;
   }
-  #coords div {
+  #frm_coordinates div {
     padding: 0.25em 0 0.5em 0;
   }
-  #coords div label {
+  #frm_coordinates div label {
     padding: 0;
     text-align: left;
   }
-  #coords div input[type='text'] {
+  #frm_coordinates div input[type='text'] {
     display: block;
   }
-  #coords div div {
+  #frm_coordinates div div {
     padding: 0;
     border: none;
   }
-  #coords div.r3 span {
+  #frm_coordinates div.r3 span {
     margin-left: 11.5em;
   }
 }
 @media (max-width: 39em) {
-  #coords div div {
+  #frm_coordinates div div {
     display: block;
   }
-  #coords div div input[type='button'],
-  #coords div div input[type='reset'],
-  #coords div div input[type='submit'] {
+  #frm_coordinates div div input[type='button'],
+  #frm_coordinates div div input[type='reset'],
+  #frm_coordinates div div input[type='submit'] {
     margin: 0.5em 0 0 0;
   }
-  #coords div.r3 span {
+  #frm_coordinates div.r3 span {
     margin-left: 0;
   }
+}
+#frm_navtex div {
+  width: 100%;
+  margin: 0.25em 0;
+  padding: 0;
+}
+#frm_navtex div input {
+  margin: 0;
+  padding: 0.25em 0.5em;
+  min-width: 6em;
+  text-transform: uppercase;
+}
+#frm_navtex div textarea {
+  margin: 0;
+  padding: 0.25em 1em;
+}
+#frm_navtex div p {
+  font-weight: bold;
+  margin: 0;
+  text-align: center;
 }
 body {
   font-family: Arial, Helvetica, sans-serif;
