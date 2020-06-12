@@ -44,7 +44,7 @@ class Rxx
         if (strlen($GSQ) == 4) {
             $GSQ = $GSQ."MM";
         }
-        if (!preg_match('/[a-rA-R][a-rA-R][0-9][0-9][a-xA-X][a-xA-X]/i', $GSQ)) {
+        if (!preg_match('/^[a-rA-R]{2}[0-9]{2}([a-xA-X]{2})?$/i', $GSQ)) {
             return false;
         }
         $lon_d = ord(substr($GSQ, 0, 1))-65;

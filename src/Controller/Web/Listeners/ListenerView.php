@@ -83,8 +83,6 @@ class ListenerView extends Base
                 $listener = $this->listenerRepository->find($id);
             } else {
                 $listener = new ListenerEntity();
-                $listener
-                    ->setLogLatest(Rxx::getUtcDateTime('0000-00-00'));
             }
             if ($form_data['gsq'] && $a = Rxx::convertGsqToDegrees($form_data['gsq'])) {
                 $lat =  $a["lat"];
@@ -108,6 +106,7 @@ class ListenerView extends Base
             $em = $this->getDoctrine()->getManager();
             $em->persist($listener);
             $em->flush();
+            $id = $listener->getId();
 
             if ($form_data['_close']) {
                 return new Response(
@@ -117,7 +116,6 @@ class ListenerView extends Base
                 );
             }
 
-            $id = $listener->getId();
             return $this->redirectToRoute('listener', ['system' => $system, 'id' => $id]);
         }
 

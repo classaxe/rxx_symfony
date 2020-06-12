@@ -139,9 +139,9 @@ class Listener
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="log_earliest", type="date", nullable=false, options={"default"="0000-00-00"})
+     * @ORM\Column(name="log_earliest", type="date", nullable=true)
      */
-    private $logEarliest = '0000-00-00';
+    private $logEarliest = null;
     /**
      * @var string
      *
@@ -152,9 +152,9 @@ class Listener
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="log_latest", type="date", nullable=false, options={"default"="0000-00-00"})
+     * @ORM\Column(name="log_latest", type="date", nullable=true)
      */
-    private $logLatest = '0000-00-00';
+    private $logLatest = null;
 
     /**
      * @var float
@@ -573,10 +573,10 @@ class Listener
     }
 
     /**
-     * @param DateTimeInterface $logLatest
+     * @param DateTimeInterface $logLatest|null
      * @return Listener
      */
-    public function setLogLatest(DateTimeInterface $logLatest): self
+    public function setLogLatest(?DateTimeInterface $logLatest): self
     {
         $this->logLatest = $logLatest;
 
@@ -807,7 +807,7 @@ class Listener
      */
     public function getFormattedLogEarliest(): ?string
     {
-        if ($this->logEarliest->format("Y-m-d") < '1900-01-01') {
+        if (null === $this->logEarliest || $this->logEarliest->format("Y-m-d") < '1900-01-01') {
             return '';
         }
         return $this->logEarliest->format("Y-m-d");
@@ -818,7 +818,7 @@ class Listener
      */
     public function getFormattedLogLatest(): ?string
     {
-        if ($this->logLatest->format("Y-m-d") < '1900-01-01') {
+        if (null === $this->logLatest || $this->logLatest->format("Y-m-d") < '1900-01-01') {
             return '';
         }
         return $this->logLatest->format("Y-m-d");
