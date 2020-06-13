@@ -4703,6 +4703,62 @@
         <source>E.g.: Ref Stations [R1] and [R2] belong to station [A]&lt;b&gt;ID&lt;/b&gt;[/A] at QTH</source>
         <target><![CDATA[__E.g.: Ref Stations [R1] and [R2] belong to station [A]<b>ID</b>[/A] at QTH]]></target>
       </trans-unit>
+      <trans-unit id="_kDkJwd" resname="Latitude must be a decimal number between -90 and 90">
+        <source>Latitude must be a decimal number between -90 and 90</source>
+        <target>__Latitude must be a decimal number between -90 and 90</target>
+      </trans-unit>
+      <trans-unit id="OeQh9al" resname="Longitude must be a decimal number between -180 and 180">
+        <source>Longitude must be a decimal number between -180 and 180</source>
+        <target>__Longitude must be a decimal number between -180 and 180</target>
+      </trans-unit>
+      <trans-unit id=".HrCNDf" resname="Latitude must be given in one of these formats:">
+        <source>Latitude must be given in one of these formats:</source>
+        <target>__Latitude must be given in one of these formats:</target>
+      </trans-unit>
+      <trans-unit id="1kMg15G" resname="(H is N or S, but defaults to N if not given)">
+        <source>(H is N or S, but defaults to N if not given)</source>
+        <target>__(H is N or S, but defaults to N if not given)</target>
+      </trans-unit>
+      <trans-unit id="VtlqFCg" resname="Longitude must be given in one of these formats:">
+        <source>Longitude must be given in one of these formats:</source>
+        <target>__Longitude must be given in one of these formats:</target>
+      </trans-unit>
+      <trans-unit id="IqQnI2c" resname="(H is E or W, but defaults to E if not given)">
+        <source>(H is E or W, but defaults to E if not given)</source>
+        <target>__(H is E or W, but defaults to E if not given)</target>
+      </trans-unit>
+      <trans-unit id="wNppmhF" resname="Latitude (S=neg.)">
+        <source>Latitude (S=neg.)</source>
+        <target>__Latitude (S=neg.)</target>
+      </trans-unit>
+      <trans-unit id="x3qnGo8" resname="Longitude (W=neg.)">
+        <source>Longitude (W=neg.)</source>
+        <target>__Longitude (W=neg.)</target>
+      </trans-unit>
+      <trans-unit id="4QCXdh5" resname="Sunrise Calculator by [A]CSG Network[/A]">
+        <source>Sunrise Calculator by [A]CSG Network[/A]</source>
+        <target>__Sunrise Calculator by [A]CSG Network[/A]</target>
+      </trans-unit>
+      <trans-unit id="t2jvlI7" resname="Based on code by Gene Davis">
+        <source>Based on code by Gene Davis</source>
+        <target>__Based on code by Gene Davis</target>
+      </trans-unit>
+      <trans-unit id="yM2Geg." resname="Dec 6 1994 - Oct 8 2001">
+        <source>Dec 6 1994 - Oct 8 2001</source>
+        <target>__Dec 6 1994 - Oct 8 2001</target>
+      </trans-unit>
+      <trans-unit id="Y_G6Go4" resname="(Ver. 14.7.2, used with permission)">
+        <source>(Ver. 14.7.2, used with permission)</source>
+        <target>__(Ver. 14.7.2, used with permission)</target>
+      </trans-unit>
+      <trans-unit id="heo6jz6" resname="FAA sourced data primarily for Pilots">
+        <source>FAA sourced data primarily for Pilots</source>
+        <target>__FAA sourced data primarily for Pilots</target>
+      </trans-unit>
+      <trans-unit id="B9ZXb.." resname="another aviation database primarily intended for pilots">
+        <source>another aviation database primarily intended for pilots</source>
+        <target>__another aviation database primarily intended for pilots</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

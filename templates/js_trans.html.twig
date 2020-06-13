@@ -100,8 +100,12 @@
         'time':         "{% trans %}This can be a time consuming process - typically a minute or more.{% endtrans %}",
         'tools':  {
             'coords': {
-                'lat_dec':      "{% trans %}Latitude must be a decimal number{% endtrans %}",
-                'lon_dec':      "{% trans %}Longitude must be a decimal number{% endtrans %}",
+                'lat_dec':      "{% trans %}Latitude must be a decimal number between -90 and 90{% endtrans %}",
+                'lon_dec':      "{% trans %}Longitude must be a decimal number between -180 and 180{% endtrans %}",
+                'lat_dms_1':    "{% trans %}Latitude must be given in one of these formats:{% endtrans %}",
+                'lat_dms_2':    "{% trans %}(H is N or S, but defaults to N if not given){% endtrans %}",
+                'lon_dms_1':    "{% trans %}Longitude must be given in one of these formats:{% endtrans %}",
+                'lon_dms_2':    "{% trans %}(H is E or W, but defaults to E if not given){% endtrans %}",
                 'gsq_format':   "{% trans %}GSQ must be in one of these formats:\nXXnnxx or XXnn{% endtrans %}"
             },
             'dgps': {

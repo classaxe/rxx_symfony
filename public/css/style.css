@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.10.8
- * Date:       2020-06-11
+ * Version:    2.10.11
+ * Date:       2020-06-13
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
  */
@@ -886,6 +886,16 @@ table.responsive tbody tr td b {
   font-weight: bold;
   margin: 0;
   text-align: center;
+}
+#sunrise #sunrise_result {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 10pt;
+  height: 18em;
+}
+#sunrise img {
+  float: left;
+  margin: 0 0.5em 0.5em 0;
+  border: 1px solid #000;
 }
 body {
   font-family: Arial, Helvetica, sans-serif;

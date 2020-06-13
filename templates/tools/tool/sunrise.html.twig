@@ -1,1 +1,58 @@
-<div>Coming soon</div>
+<form id="sunrise">
+<div class="row">
+    <div class="small-6 columns">
+        <div class="row">
+            <div class="small-12 columns">
+                <label for="sunrise_gsq">{% trans %}Grid Square{% endtrans %}</label>
+                <input type="text" id="sunrise_gsq" size="6" value="">
+            </div>
+        </div>
+        <div class="row">
+            <div class="small-6 columns">
+                <label for="sunrise_lat">{% trans %}Latitude (S=neg.){% endtrans %}</label>
+                <input type="text" id="sunrise_lat" size="6" value="" placeholder="-90 .. 90">
+            </div>
+            <div class="small-6 columns">
+                <label for="sunrise_lon">{% trans %}Longitude (W=neg.){% endtrans %}</label>
+                <input type="text" id="sunrise_lon" size="7" value="" placeholder="-180 .. 180">
+            </div>
+        </div>
+        <div class="row">
+            <div class="small-4 columns">
+                <label for="sunrise_YYYY">{% trans %}Year{% endtrans %}</label>
+                <input type="text" id="sunrise_YYYY" size="4" value="">
+            </div>
+            <div class="small-4 columns">
+                <label for="sunrise_MM">{% trans %}Month{% endtrans %}</label>
+                <input type="text" id="sunrise_MM" size="2" value="">
+            </div>
+            <div class="small-4 columns">
+                <label for="sunrise_DD">{% trans %}Date{% endtrans %}</label>
+                <input type="text" id="sunrise_DD" size="2" value="">
+            </div>
+        </div>
+    </div>
+    <div class="small-6 columns">
+        <textarea id="sunrise_result" cols="25" rows="9" readonly="readonly"></textarea>
+    </div>
+</div>
+<p class="text-center">
+    <input type="button" value="Calculate" id="sunrise_go" class="button small">
+    <input type="reset" value="Clear Values" id="sunrise_clear" class="button small">
+</p>
+<p class="text-center">
+    <img src="{{ asset('image/csglogo2.jpg') }}" alt="CSG Network Group" width="185" height="74">
+    {% trans with({
+        '[A]': '<a href="http://www.csgnetwork.com/sunrisesetorg.html" target="_blank">',
+        '[/A]' : '</a>'
+    })%}Sunrise Calculator by [A]CSG Network[/A]{% endtrans %}<br>
+    {% trans %}Based on code by Gene Davis{% endtrans %}<br>
+    {% trans %}Dec 6 1994 - Oct 8 2001{% endtrans %}<br>
+    {% trans %}(Ver. 14.7.2, used with permission){% endtrans %}
+</p>
+</form>
+<script>
+$(document).ready( function() {
+    SUNRISE.init();
+});
+</script>
