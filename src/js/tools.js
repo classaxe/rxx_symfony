@@ -420,7 +420,7 @@ var SUNRISE = {
         }
     },
     cookie_clear: function() {
-        document.cookie = 'sunrise=||;expires=Thu, 01 Jan 1970 00:00:00 GMT';
+        document.cookie = 'sunrise=||;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/';
     },
     cookie_get: function(which) {
         var cookies =		document.cookie;
@@ -441,7 +441,7 @@ var SUNRISE = {
         document.cookie = 'sunrise=' +
             $('#sunrise_gsq').val() + '|' +
             $('#sunrise_lat').val() + '|' +
-            $('#sunrise_lon').val() + ';expires=' + nextYear.toGMTString();
+            $('#sunrise_lon').val() + ';expires=' + nextYear.toGMTString() + '; path=/';
     },
     formValues: function() {
         var latText =   "Latitude"
