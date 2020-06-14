@@ -1,10 +1,16 @@
 <div class="header"{% if key is defined %} id="{{ key }}"{% endif %}>
     <h3>{{ mode | trans }}</h3>
     {% if showTopAndPopup is defined %}
-    <div class="links">[
-        <a href="#top">{{ "Top" | trans }}</a> |
-        <a href="{{ url('tool', { 'system' : system, 'tool' : key }) }}" data-popup="1">{{ 'Popup' | trans }}</a>
-    ]</div>
+    <div class="links">
+        <a href="#top"><img src="{{
+            asset('image/icon-top.gif')
+        }}" alt="{% trans %}Top{% endtrans %}" title="{% trans %}Go to top of page{% endtrans %}"></a>
+        <a href="{{
+            url('tool', { 'system' : system, 'tool' : key })
+        }}" data-popup="1"><img src="{{
+            asset('image/icon-popup.gif')
+        }}" alt="{% trans %}Popup{% endtrans %}" title="{% trans %}Open in a popup window{% endtrans %}"></a>
+    </div>
     {% else %}
     <div class="links">
         <input type="button" value="{% trans %}Close{% endtrans %}" id="close">

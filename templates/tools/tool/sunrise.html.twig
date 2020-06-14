@@ -40,6 +40,7 @@
     <input type="button" value="Calculate" id="sunrise_go" class="button small">
     <input type="reset" value="Clear Values" id="sunrise_clear" class="button small">
 </p>
+{% if showTopAndPopup is defined %}
 <p class="text-center">
     <img src="{{ asset('image/csglogo2.jpg') }}" alt="CSG Network Group" width="185" height="74">
     {% trans with({
@@ -50,6 +51,7 @@
     {% trans %}Dec 6 1994 - Oct 8 2001{% endtrans %}<br>
     {% trans %}(Ver. 14.7.2, used with permission){% endtrans %}
 </p>
+{% endif %}
 </form>
 <script>
 $(document).ready( function() {

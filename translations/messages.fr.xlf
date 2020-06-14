@@ -4759,6 +4759,18 @@
         <source>another aviation database primarily intended for pilots</source>
         <target>__another aviation database primarily intended for pilots</target>
       </trans-unit>
+      <trans-unit id=".YCYxBf" resname="Go to top of page">
+        <source>Go to top of page</source>
+        <target>__Go to top of page</target>
+      </trans-unit>
+      <trans-unit id="KhtXJVz" resname="Open in a popup window">
+        <source>Open in a popup window</source>
+        <target>__Open in a popup window</target>
+      </trans-unit>
+      <trans-unit id="naM7iyH" resname="NAVTEX Missed Shift Fixer (v1.4)">
+        <source>NAVTEX Missed Shift Fixer (v1.4)</source>
+        <target>__NAVTEX Missed Shift Fixer (v1.4)</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
