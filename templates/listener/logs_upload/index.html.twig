@@ -26,7 +26,7 @@
                     {{ form_widget(form.format) }}
                     {{ form_widget(form.saveFormat)  }}
                 </div>
-                <div{% if (step != 1) %} style="display:none"{% endif %}>
+                <div class="clearfix"{% if (step != 1) %} style="display:none"{% endif %}>
                     {{ form_widget(form.logs) }}
                 </div>
                 {% include('listener/logs_upload/datefields.html.twig') %}
