@@ -1,4 +1,7 @@
 .logUpload {
+    #presets {
+        font-size: 80%;
+    }
     #format_errors {
         padding: 0 0.25em;
         margin: 0.25em 0;
@@ -155,13 +158,10 @@ div.scroll {
         tr {
             background: #ffffff;
             &.unknown {
-                background: #ffcccc;
+                background: #ffaaaa;
             }
             &.question {
                 background: #ffddca;
-            }
-            &.error {
-                background: #ffd8d8;
             }
             &.question.inactive {
                 background: #e6cfc3;
@@ -169,10 +169,13 @@ div.scroll {
                     color: #444;
                 }
             }
-            &.error.start {
+            &.choice {
+                background: #ffd8d8;
+            }
+            &.choice.start {
                 border-top: 3px solid red;
             }
-            &.error.end {
+            &.choice.end {
                 border-bottom: 3px solid red;
             }
             td {
@@ -225,4 +228,16 @@ div.scroll {
     float: right;
     font-size: small;
     color: #444;
+    #check_good,
+    #uncheck_good {
+        background: #95de95;
+    }
+    #check_warning,
+    #uncheck_warning {
+        background: #ffB080;
+    }
+    #check_choice,
+    #uncheck_choice {
+            background: #ffA0A0;
+    }
 }

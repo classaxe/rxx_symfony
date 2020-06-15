@@ -3,8 +3,10 @@
     {% trans %}Review{% endtrans %} ({% trans with { '%COUNT%' : entries|length} %}%COUNT% Logs{% endtrans %})
     <div class="check-links">{% trans %}Select{% endtrans %} [
         <a href="#" id="check_good">{% trans %}Good{% endtrans %}</a> |
-        <a href="#" id="check_warning">{% trans %}Warnings{% endtrans %}</a>
+        <a href="#" id="check_warning">{% trans %}Warnings{% endtrans %}</a> |
+        <a href="#" id="check_choice">{% trans %}Active Choices{% endtrans %}</a>
     ] &nbsp; &nbsp; &nbsp; &nbsp; {% trans %}Unselect{% endtrans %} [
+        <a href="#" id="uncheck_choice">{% trans %}Choices{% endtrans %}</a> |
         <a href="#" id="uncheck_warning">{% trans %}Warnings{% endtrans %}</a> |
         <a href="#" id="uncheck_all">{% trans %}All{% endtrans %}</a>
     ]</div>
@@ -79,7 +81,7 @@
             {% set has_error = e.options|length > 1 %}
             {% set has_issue = has_error or row_check %}
 
-            <tr class="{% if e.options|length>1 %}question{% endif %}{% if not o.active %} inactive{% endif %}{% if has_error %} error start{% endif %}" id="row_{{ loop.index -1 }}">
+            <tr class="{% if e.options|length>1 %}choice start{% endif %}{% if not o.active %} inactive{% endif %}{% if has_error %} question{% endif %}" id="row_{{ loop.index -1 }}">
                 <th class="jump"{% if has_issue %} id="jump_{{ jump_anchor }}"{% endif %}>
                     {% if has_issue %}{% if jump_anchor > 0 %}<span class="up"></span>{% endif %}<br><span class="down"></span>{% endif %}
                 </th>
@@ -109,7 +111,7 @@
             </tr>
             {% if has_issue %}{% set jump_anchor = jump_anchor + 1 %}{% endif %}
     {% for o in e.options %}{% if loop.index > 1 %}
-            <tr class="error{% if not o.active %} inactive{% endif %}{% if loop.last %} end{% endif %}">
+            <tr class="choice{% if not o.active %} inactive{% endif %}{% if loop.last %} end{% endif %}">
                 <th class="jump"></th>
                 <th class="error">
                     <input type="checkbox" title="{% trans %}Include this log{% endtrans %}" data-idx="{{ loop.parent.loop.index -1 }}" value="{{ loop.parent.loop.index -1 }}|{{ o.ID }}" /></th>

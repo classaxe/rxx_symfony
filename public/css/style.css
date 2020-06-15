@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.10.11
- * Date:       2020-06-13
+ * Version:    2.11.1
+ * Date:       2020-06-14
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
  */
@@ -1887,6 +1887,9 @@ fieldset#form_range_units div label {
   padding: 0;
   margin: 0;
 }
+.logUpload #presets {
+  font-size: 80%;
+}
 .logUpload #format_errors {
   padding: 0 0.25em;
   margin: 0.25em 0;
@@ -2021,13 +2024,10 @@ div.scroll div table.parse.results tbody tr {
   background: #ffffff;
 }
 .results.parse tbody tr.unknown {
-  background: #ffcccc;
+  background: #ffaaaa;
 }
 .results.parse tbody tr.question {
   background: #ffddca;
-}
-.results.parse tbody tr.error {
-  background: #ffd8d8;
 }
 .results.parse tbody tr.question.inactive {
   background: #e6cfc3;
@@ -2035,10 +2035,13 @@ div.scroll div table.parse.results tbody tr {
 .results.parse tbody tr.question.inactive td {
   color: #444;
 }
-.results.parse tbody tr.error.start {
+.results.parse tbody tr.choice {
+  background: #ffd8d8;
+}
+.results.parse tbody tr.choice.start {
   border-top: 3px solid red;
 }
-.results.parse tbody tr.error.end {
+.results.parse tbody tr.choice.end {
   border-bottom: 3px solid red;
 }
 .results.parse tbody tr td i {
@@ -2086,6 +2089,18 @@ div.scroll div table.parse.results tbody tr {
   float: right;
   font-size: small;
   color: #444;
+}
+.check-links #check_good,
+.check-links #uncheck_good {
+  background: #95de95;
+}
+.check-links #check_warning,
+.check-links #uncheck_warning {
+  background: #ffB080;
+}
+.check-links #check_choice,
+.check-links #uncheck_choice {
+  background: #ffA0A0;
 }
 a.add,
 a.close,

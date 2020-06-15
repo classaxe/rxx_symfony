@@ -1,4 +1,8 @@
 function initListenersLogUploadForm() {
+    var std_formats = {
+        'wwsu': 'YYYY-MM-DD UTC    KHZ     ID         X       QTH',
+        'yand': 'YYYYMMDD hhmm KHZ ID   X          QTH           X'
+    }
     var formFormat = $('#form_format');
     formFormat.on('keyup', function() {
         $('#form_saveFormat').attr('disabled', $(this).val() === $('#formatOld').text());
@@ -7,6 +11,13 @@ function initListenersLogUploadForm() {
     // Detect if we reloaded the page dure to back button being pressed
     if (window.performance && window.performance.navigation.type === window.performance.navigation.TYPE_BACK_FORWARD) {
         formFormat.trigger('keyup');
+    }
+    for (var i in std_formats) {
+        (function(i) {
+            $('#format_' + i).on('click', function() {
+                $('#form_format').val(std_formats[i]);
+            });
+        })(i);
     }
 
     $('#form_saveFormat').on('click', function() {
@@ -170,20 +181,6 @@ function initListenersLogUploadForm() {
             alert(msg.log_upload.last_item)
         }
     });
-    $('#uncheck_all').on('click', function() {
-        $('table.parse input:checkbox').each(function() {
-            $(this).prop('checked', false);
-        });
-        logsShowRemainder();
-        return false;
-    })
-    $('#uncheck_warning').on('click', function() {
-        $('table.parse .warning input:checkbox').each(function() {
-            $(this).prop('checked', false);
-        });
-        logsShowRemainder();
-        return false;
-    })
     $('#check_good').on('click', function() {
         $('table.parse .good input:checkbox').each(function() {
             $(this).prop('checked', true);
@@ -198,6 +195,49 @@ function initListenersLogUploadForm() {
         logsShowRemainder();
         return false;
     })
+    $('#check_choice').on('click', function() {
+        var choices, i, path, rows;
+        choices = $('table.parse .choice input:checkbox');
+        rows = [];
+        for (i=0; i<choices.length; i++) {
+            var idx = $(choices[i]).data('idx');
+            if ('undefined' === typeof rows[idx]) {
+                rows[idx] = 0;
+            }
+            if (!$(choices[i]).parent().parent().hasClass('inactive')) {
+                rows[idx]++;
+            }
+        }
+        for (i=0; i<rows.length; i++) {
+            if (rows[i] === 1) {
+                path = 'tr:not(.inactive) input[type=checkbox][data-idx='+i+']';
+                $(path).prop('checked', 'checked');
+            }
+        }
+        logsShowRemainder();
+        return false;
+    });
+    $('#uncheck_warning').on('click', function() {
+        $('table.parse .warning input:checkbox').each(function() {
+            $(this).prop('checked', false);
+        });
+        logsShowRemainder();
+        return false;
+    });
+    $('#uncheck_choice').on('click', function() {
+        $('table.parse .choice input:checkbox').each(function() {
+            $(this).prop('checked', false);
+        });
+        logsShowRemainder();
+        return false;
+    });
+    $('#uncheck_all').on('click', function() {
+        $('table.parse input:checkbox').each(function() {
+            $(this).prop('checked', false);
+        });
+        logsShowRemainder();
+        return false;
+    });
 }
 function logsRemoveBlankLines(element) {
     var i, logs, logs_filtered;
