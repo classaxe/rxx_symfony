@@ -14,15 +14,15 @@
             {% set mode = m.mode %}
             {% set showTopAndPopup = true %}
             <div class="help">
-                {% include 'tools/inner.html.twig' %}
+                {% include 'weather/inner.html.twig' %}
             </div>
         {% endfor %}
     </div>
+
 </div>
 <script>
-$(document).ready( function() {
-    setExternalLinks();
-});
+    $(document).ready( function() {
+        setExternalLinks();
+    });
 </script>
-
 {% endblock %}

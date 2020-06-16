@@ -181,6 +181,7 @@ class SystemRepository
             case 'logon':
             case 'maps':
             case 'tools':
+            case 'weather':
                 $response['value'] = $mode;
                 break;
             case 'listeners':

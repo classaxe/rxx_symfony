@@ -1,78 +1,74 @@
 <?php
-namespace App\Controller\Web\Tools;
+namespace App\Controller\Web\Weather;
 
 use App\Controller\Web\Base;
-use App\Repository\ToolRepository;
+use App\Repository\WeatherRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 
-/**
- * Class Tools
- * @package App\Controller\Web\Tools
- */
-class Tools extends Base
+class Weather extends Base
 {
     /**
      * @Route(
-     *     "/{_locale}/{system}/tools",
+     *     "/{_locale}/{system}/weather",
      *     requirements={
      *        "_locale": "de|en|es|fr",
      *        "system": "reu|rna|rww"
      *     },
-     *     name="tools"
+     *     name="weather"
      * )
      * @param $_locale
      * @param $system
      * @param Request $request
-     * @param ToolRepository $toolRepository
+     * @param WeatherRepository $weatherRepository
      * @return Response
      */
-    public function index($_locale, $system, Request $request, ToolRepository $toolRepository)
+    public function controller($_locale, $system, Request $request, WeatherRepository $weatherRepository)
     {
-        $widgets =   $toolRepository->getAll();
+        $widgets =   $weatherRepository->getAll();
 
         $parameters = [
             '_locale' =>    $_locale,
             'args' =>       $request->query->get('args'),
-            'mode' =>       'Tools',
+            'mode' =>       'Weather',
             'system' =>     $system,
-            'classic' =>    $this->systemRepository->getClassicUrl('tools'),
+            'classic' =>    $this->systemRepository->getClassicUrl('weather'),
             'widgets' =>    $widgets
         ];
 
         $parameters = array_merge($parameters, $this->parameters);
-        return $this->render('tools/index.html.twig', $parameters);
+        return $this->render('weather/index.html.twig', $parameters);
     }
 
     /**
      * @Route(
-     *     "/{_locale}/{system}/tools/{widget}/{args}",
+     *     "/{_locale}/{system}/weather/{widget}/{args}",
      *     requirements={
      *        "_locale": "de|en|es|fr",
      *        "system": "reu|rna|rww"
      *     },
      *     defaults={"args"=""},
-     *     name="tools_widget"
+     *     name="weather_widget"
      * )
      * @param $_locale
      * @param $system
      * @param $widget
      * @param $args
      * @param Request $request
-     * @param ToolRepository $toolRepository
+     * @param WeatherRepository $weatherRepository
      * @return Response
      */
-    public function widget($_locale, $system, $widget, $args, Request $request, ToolRepository $toolRepository)
+    public function widget($_locale, $system, $widget, $args, Request $request, WeatherRepository $weatherRepository)
     {
-        $parameters = $toolRepository->get($widget);
+        $parameters = $weatherRepository->get($widget);
         $parameters['_locale'] = $_locale;
         $parameters['system'] = $system;
         $parameters['key'] = $widget;
         $parameters['args'] = $args ? $args : $request->query->get('args');
 
         $parameters = array_merge($parameters, $this->parameters);
-        return $this->render('tools/widget.html.twig', $parameters);
+        return $this->render('weather/widget.html.twig', $parameters);
     }
 
 }

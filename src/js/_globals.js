@@ -48,4 +48,6 @@ var popWinSpecs = {
     'tools_navtex' :                'width=420,height=580,resizable=1',
     'tools_references' :            'width=520,height=130,resizable=1',
     'tools_sunrise' :               'width=520,height=385,resizable=1',
+    'weather_aurora_n' :            'width=520,height=580,resizable=1',
+    'weather_aurora_s' :            'width=520,height=580,resizable=1',
 };

@@ -6,7 +6,7 @@
             asset('image/icon-top.gif')
         }}" alt="{% trans %}Top{% endtrans %}" title="{% trans %}Go to top of page{% endtrans %}"></a>
         <a href="{{
-            url('tools_widget', { 'system' : system, 'widget' : key })
+            url('weather_widget', { 'system' : system, 'widget' : key })
         }}" data-popup="1"><img src="{{
             asset('image/icon-popup.gif')
         }}" alt="{% trans %}Popup{% endtrans %}" title="{% trans %}Open in a popup window{% endtrans %}"></a>
@@ -18,7 +18,7 @@
     {% endif %}
 </div>
 <div class="body tool">
-    {% include 'tools/widgets/' ~ key ~ '.html.twig' %}
+    {% include 'weather/widgets/' ~ key ~ '.html.twig' %}
 {% if showTopAndPopup is not defined %}
     <div class="text-center"></div>
 {% endif %}

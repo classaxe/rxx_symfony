@@ -1,0 +1,17 @@
+{% extends 'popup.html.twig' %}
+
+{% block body %}
+<div class="help">
+    <div>
+{% include 'weather/inner.html.twig' %}
+    </div>
+</div>
+<script>
+$(document).ready( function() {
+    setExternalLinks();
+    $('#close').on('click', function(){
+        window.close();
+    })
+});
+</script>
+{% endblock %}

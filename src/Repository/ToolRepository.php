@@ -34,14 +34,6 @@ class ToolRepository
 
     public static function getAll()
     {
-        $out = [
-            'tools' =>   [],
-            'title' =>  'Tools'
-        ];
-        foreach (array_keys(static::TOOLS) as $key) {
-            $out['tools'][$key] = static::TOOLS[$key];
-        }
-
-        return $out;
+        return static::TOOLS;
     }
 }

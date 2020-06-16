@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.11.1
- * Date:       2020-06-14
+ * Version:    2.12.0
+ * Date:       2020-06-16
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
  */
@@ -56,6 +56,8 @@ var popWinSpecs = {
     'tools_navtex' :                'width=420,height=580,resizable=1',
     'tools_references' :            'width=520,height=130,resizable=1',
     'tools_sunrise' :               'width=520,height=385,resizable=1',
+    'weather_aurora_n' :            'width=520,height=580,resizable=1',
+    'weather_aurora_s' :            'width=520,height=580,resizable=1',
 };
 
 var awards = {

@@ -41,7 +41,7 @@
     <input type="reset" value="Clear Values" id="sunrise_clear" class="button small">
 </p>
 {% if showTopAndPopup is defined %}
-<p class="text-center">
+<div id="credits">
     <img src="{{ asset('image/csglogo2.jpg') }}" alt="CSG Network Group" width="185" height="74">
     {% trans with({
         '[A]': '<a href="http://www.csgnetwork.com/sunrisesetorg.html" target="_blank">',
@@ -50,7 +50,7 @@
     {% trans %}Based on code by Gene Davis{% endtrans %}<br>
     {% trans %}Dec 6 1994 - Oct 8 2001{% endtrans %}<br>
     {% trans %}(Ver. 14.7.2, used with permission){% endtrans %}
-</p>
+</div>
 {% endif %}
 </form>
 <script>

@@ -41,18 +41,11 @@ class ModeRepository
                 'title' =>  'Tools',
                 'url'=>     false
             ],
-            'logon' => [
-                'admin' =>  false,
-                'guest' =>  true,
-                'menu' =>   'Log On',
-                'title' =>  'Logon',
-                'url'=>     false
-            ],
-            'logoff' => [
+            'weather' => [
                 'admin' =>  true,
-                'guest' =>  false,
-                'menu' =>   'Log Off',
-                'title' =>  'Log Off',
+                'guest' =>  true,
+                'menu' =>   'Weather',
+                'title' =>  'Weather',
                 'url'=>     false
             ],
             'changes' => [
@@ -112,6 +105,20 @@ class ModeRepository
                 'menu' =>   'NAVTEX Group',
                 'title' =>  'Navtex at Groups.io',
                 'url'=>     'https://groups.io/g/navtexdx'
+            ],
+            'logon' => [
+                'admin' =>  false,
+                'guest' =>  true,
+                'menu' =>   'Log On',
+                'title' =>  'Logon',
+                'url'=>     false
+            ],
+            'logoff' => [
+                'admin' =>  true,
+                'guest' =>  false,
+                'menu' =>   'Log Off',
+                'title' =>  'Log Off',
+                'url'=>     false
             ],
         ],
         [
