@@ -25,7 +25,7 @@
                 <td class="e">{% trans with { '%COUNT%' : countEntries} %}Change Log (%COUNT% entries){% endtrans %}<br />
                     <a href="https://github.com/classaxe/rxx_symfony" rel="external">Github</a>
                 </td>
-                <td class="v"><div style="height:200px; overflow:auto">{{ changelog|raw }}</div></td>
+                <td class="v"><ul class="gitlog">{{ changelog|raw }}</ul></td>
             </tr>
         </table>
     {{ info|raw }}

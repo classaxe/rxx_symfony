@@ -24,7 +24,7 @@ class Changes extends Base
      */
     public function controller($_locale, $system)
     {
-        $entries =      $this->systemRepository->getGitInfo();
+        $entries =      $this->systemRepository->getGitInfo(true);
         $tweaks = [
             [
                 'Anders H',
@@ -48,9 +48,9 @@ class Changes extends Base
             ]
         ];
         $changelog =
-            "<ul class='changelog'><li>"
-            . str_replace($tweaks[0], $tweaks[1], implode("</li>\n<li>", $entries))
-            . "</li></ul>";
+            "<ul class='changelog'>"
+            . str_replace($tweaks[0], $tweaks[1], implode("\n", $entries))
+            . "</ul>";
 
         $parameters = [
             '_locale' =>    $_locale,

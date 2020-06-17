@@ -35,7 +35,7 @@ class Info extends Base
         $entries = $this->systemRepository->getGitInfo();
         $parameters = [
             '_locale' =>        $_locale,
-            'changelog' =>      "<p>".implode("</p><p></p>", $entries)."</p>",
+            'changelog' =>      implode("\n", $entries),
             'classic' =>        $this->systemRepository->getClassicUrl('admin/info'),
             'countEntries' =>   count($entries),
             'mode' =>           'System Info',

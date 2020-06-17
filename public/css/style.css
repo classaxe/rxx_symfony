@@ -1,7 +1,7 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.11.2
+ * Version:    2.12.1
  * Date:       2020-06-16
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
@@ -619,6 +619,77 @@ table.responsive tbody tr td b {
   border: 1px solid #b0b000;
   border-radius: 2px;
 }
+#sysinfo {
+  text-align: center;
+}
+#sysinfo table {
+  border-collapse: collapse;
+  border: 0;
+  width: 934px;
+  box-shadow: 1px 2px 3px #ccc;
+  margin: 1em auto;
+  text-align: left;
+}
+#sysinfo table td,
+#sysinfo table th {
+  border: 1px solid #666;
+  font-size: 75%;
+  vertical-align: baseline;
+  padding: 4px 5px;
+}
+#sysinfo table th {
+  text-align: center !important;
+}
+#sysinfo table a {
+  color: #0000ff;
+}
+#sysinfo table .gitlog {
+  height: 400px;
+  overflow: auto;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+#sysinfo table .gitlog li {
+  margin: 0 0 1em 0;
+}
+#sysinfo table .p {
+  text-align: left;
+}
+#sysinfo table .e {
+  background-color: #ccf;
+  width: 300px;
+  font-weight: bold;
+}
+#sysinfo table .h {
+  background-color: #99c;
+  font-weight: bold;
+}
+#sysinfo table .v {
+  background-color: #ddd;
+  max-width: 300px;
+  overflow-x: auto;
+  word-wrap: break-word;
+}
+#sysinfo table .v i {
+  color: #999;
+}
+#sysinfo h1 {
+  font-size: 150%;
+}
+#sysinfo h2 {
+  font-size: 125%;
+}
+#sysinfo hr {
+  width: 934px;
+  background-color: #ccc;
+  border: 0;
+  height: 1px;
+}
+#sysinfo img {
+  float: right;
+  border: 0;
+}
 .admin_tools {
   margin: 0 0 0.5em 2em;
 }
@@ -902,6 +973,13 @@ table.responsive tbody tr td b {
   float: left;
   margin: 0 0.25em 0.5em 0;
   border: 1px solid #000;
+}
+@media (min-width: 40em) {
+  .halfwidth {
+    width: 48%;
+    float: left;
+    margin-right: 2%;
+  }
 }
 body {
   font-family: Arial, Helvetica, sans-serif;
@@ -2533,64 +2611,6 @@ body.map {
   font-weight: bold;
   font-family: Tahoma, Arial, Helvetica, sans-serif;
   opacity: 0.9;
-}
-#sysinfo {
-  text-align: center;
-}
-#sysinfo table {
-  border-collapse: collapse;
-  border: 0;
-  width: 934px;
-  box-shadow: 1px 2px 3px #ccc;
-  margin: 1em auto;
-  text-align: left;
-}
-#sysinfo table td,
-#sysinfo table th {
-  border: 1px solid #666;
-  font-size: 75%;
-  vertical-align: baseline;
-  padding: 4px 5px;
-}
-#sysinfo table th {
-  text-align: center !important;
-}
-#sysinfo table .p {
-  text-align: left;
-}
-#sysinfo table .e {
-  background-color: #ccf;
-  width: 300px;
-  font-weight: bold;
-}
-#sysinfo table .h {
-  background-color: #99c;
-  font-weight: bold;
-}
-#sysinfo table .v {
-  background-color: #ddd;
-  max-width: 300px;
-  overflow-x: auto;
-  word-wrap: break-word;
-}
-#sysinfo table .v i {
-  color: #999;
-}
-#sysinfo h1 {
-  font-size: 150%;
-}
-#sysinfo h2 {
-  font-size: 125%;
-}
-#sysinfo hr {
-  width: 934px;
-  background-color: #ccc;
-  border: 0;
-  height: 1px;
-}
-#sysinfo img {
-  float: right;
-  border: 0;
 }
 #panel {
   font-family: Arial, sans-serif;

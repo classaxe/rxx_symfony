@@ -8,10 +8,12 @@ class WeatherRepository
         'aurora_n' => [
             'mode' =>           'Northern Solar Activity Chart',
             'shortName' =>      'Northern Aurora',
+            'class' =>          'halfwidth'
         ],
         'aurora_s' => [
             'mode' =>           'Southern Solar Activity Chart',
             'shortName' =>      'Southern Aurora',
+            'class' =>          'halfwidth'
         ],
     ];
 

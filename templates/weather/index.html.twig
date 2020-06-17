@@ -9,11 +9,12 @@
             {% endfor %}
             ]</div>
     {% endif %}
-    <div class="main">
+    <div class="main clearfix">
         {% for key, m in widgets %}
             {% set mode = m.mode %}
+            {% set class = m.class %}
             {% set showTopAndPopup = true %}
-            <div class="help">
+            <div class="help {{ class }}">
                 {% include 'weather/inner.html.twig' %}
             </div>
         {% endfor %}

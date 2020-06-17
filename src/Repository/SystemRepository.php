@@ -223,7 +223,10 @@ class SystemRepository
             $date =     array_shift($bits);
             $version =  trim(array_shift($bits), ':');
             $details =  implode(' ', $bits);
-            $entries[] =    '<strong>'.$version.'</strong> <em>('.$date.')</em><br />'.$details;
+            $entries[] =
+                 '<li id="' . $version .'"><a href="#' . $version .'"><strong>'.$version.'</strong></a> <em>('.$date.')</em><br />'
+                . $details
+                . '</li>';
         }
         return $entries;
     }
