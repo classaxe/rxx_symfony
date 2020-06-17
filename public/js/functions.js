@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.12.0
- * Date:       2020-06-16
+ * Version:    2.12.2
+ * Date:       2020-06-17
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
  */
@@ -58,6 +58,7 @@ var popWinSpecs = {
     'tools_sunrise' :               'width=520,height=385,resizable=1',
     'weather_aurora_n' :            'width=520,height=580,resizable=1',
     'weather_aurora_s' :            'width=520,height=580,resizable=1',
+    'weather_lightning' :           'width=620,height=620,resizable=1',
 };
 
 var awards = {
@@ -2609,7 +2610,35 @@ var NAVTEX = {
         return output;
     }
 }
-
+var COOKIE = {
+    clear: function(which, path) {
+        document.cookie =
+            which +
+            '=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=' +
+            ('string' === typeof path ? path : '/');
+    },
+    get: function(which) {
+        var cookies =		document.cookie;
+        var pos =		cookies.indexOf(which+"=");
+        if (pos === -1) {
+            return false;
+        }
+        var start =	pos + which.length+1;
+        var end =	cookies.indexOf(";",start);
+        if (end === -1) {
+            end =	cookies.length;
+        }
+        return unescape(cookies.substring(start, end));
+    },
+    set: function(which, value, path) {
+        var nextYear =	new Date();
+        nextYear.setFullYear(nextYear.getFullYear()+1);
+        document.cookie =
+            which +
+            '=' + value + ';expires=' + nextYear.toGMTString() + '; path=' +
+            ('string' === typeof path ? path : '/');
+    },
+}
 var SUNRISE = {
     // Refactored from code created by Gene Davis - Computer Support Group: Dec 6 1994 - Oct 8 2001
     init: function() {
@@ -2652,7 +2681,7 @@ var SUNRISE = {
             VALIDATE.float($(this).val(), -90.0, 90.0, 'Latitude')
         });
         sunrise_lon.on('change', function() {
-            VALIDATE.float(this, -180.0, 180.0, 'Longitude');
+            VALIDATE.float($(this).val(), -180.0, 180.0, 'Longitude');
         });
         sunrise_go.on('click', function(){
             $('#sunrise_result').val(SUNRISE.formValues());
@@ -2662,7 +2691,7 @@ var SUNRISE = {
         sunrise_clear.on('click', function(){
             SUNRISE.cookie_clear();
         });
-        if (SUNRISE.cookie_get('sunrise')) {
+        if (SUNRISE.cookie_get()) {
             var result = SUNRISE.cookie_get("sunrise").split("|");
             sunrise_gsq.val(result[0]);
             sunrise_lat.val(result[1]);
@@ -2670,28 +2699,14 @@ var SUNRISE = {
         }
     },
     cookie_clear: function() {
-        document.cookie = 'sunrise=||;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/';
+        COOKIE.clear('sunrise');
     },
-    cookie_get: function(which) {
-        var cookies =		document.cookie;
-        var pos =		cookies.indexOf(which+"=");
-        if (pos === -1) {
-            return false;
-        }
-        var start =	pos + which.length+1;
-        var end =	cookies.indexOf(";",start);
-        if (end === -1) {
-            end =	cookies.length;
-        }
-        return unescape(cookies.substring(start, end));
+    cookie_get: function() {
+        return COOKIE.get('sunrise');
     },
     cookie_set: function() {
-        var nextYear =	new Date();
-        nextYear.setFullYear(nextYear.getFullYear()+1);
-        document.cookie = 'sunrise=' +
-            $('#sunrise_gsq').val() + '|' +
-            $('#sunrise_lat').val() + '|' +
-            $('#sunrise_lon').val() + ';expires=' + nextYear.toGMTString() + '; path=/';
+        var value = $('#sunrise_gsq').val() + '|' + $('#sunrise_lat').val() + '|' + $('#sunrise_lon').val();
+        COOKIE.set('sunrise', value);
     },
     formValues: function() {
         var latText =   "Latitude"
@@ -3127,4 +3142,93 @@ function GMST0( dayDiff ) {
     var const1 = 180.0 + 356.0470 + 282.9404;
     var const2 = 0.9856002585 + 4.70935E-5;
     return ( revolution( const1 + const2 * dayDiff ) );
+}
+
+
+var LIGHTNING = {
+    init: function() {
+        var lightning_clear = $('#lightning_clear');
+        var lightning_go =    $('#lightning_go');
+        var lightning_gsq =   $('#lightning_gsq');
+        var lightning_lat =   $('#lightning_lat');
+        var lightning_lon =   $('#lightning_lon');
+
+        $('#close').on('click', function(){
+            window.close();
+        })
+        lightning_gsq.on('change', function() {
+            if (!VALIDATE.gsq($(this).val())) {
+                alert(msg.tools.coords.gsq_format);
+            } else {
+                LIGHTNING.gsq_deg($(this).val());
+            }
+        });
+        lightning_lat.on('change', function() {
+            VALIDATE.float($(this).val(), -90.0, 90.0, 'Latitude')
+        });
+        lightning_lon.on('change', function() {
+            VALIDATE.float($(this).val(), -180.0, 180.0, 'Longitude');
+        });
+        lightning_go.on('click', function() {
+            var lat = $('#lightning_lat').val();
+            var lon = $('#lightning_lon').val();
+            var zoom = 3;
+            if (!VALIDATE.float(lat, -90.0, 90.0, 'Latitude')) {
+                return false;
+            }
+            if (!VALIDATE.float(lon, -180.0, 180.0, 'Longitude')) {
+                return false;
+            }
+            LIGHTNING.map_show(lat, lon, zoom);
+        });
+        lightning_clear.on('click', function(){
+            LIGHTNING.cookie_clear();
+            $('#lightning_map').prop('src', '')
+        });
+        if (LIGHTNING.cookie_get('sunrise')) {
+            var result = LIGHTNING.cookie_get("lightning").split("|");
+            lightning_gsq.val(result[0]);
+            lightning_lat.val(result[1]);
+            lightning_lon.val(result[2]);
+        }
+    },
+    cookie_clear: function() {
+        COOKIE.clear('lightning');
+    },
+    cookie_get: function() {
+        return COOKIE.get('lightning');
+    },
+    cookie_set: function() {
+        var value = $('#lightning_gsq').val() + '|' + $('#lightning_lat').val() + '|' + $('#lightning_lon').val();
+        COOKIE.set('lightning', value);
+    },
+    gsq_deg: function(gsq) {
+        var result = CONVERT.gsq_deg(gsq);
+        $('#lightning_lat').val(result.lat);
+        $('#lightning_lon').val(result.lon);
+        return true;
+    },
+    map_show: function(lat, lon, zoom) {
+        var url =
+            'https://map.blitzortung.org?' +
+            'interactive=1' +
+            '&NavigationControl=0' +
+            '&FullScreenControl=1' +
+            '&Cookies=0' +
+            '&InfoDiv=0' +
+            '&MenuButtonDiv=1' +
+            '&ScaleControl=1' +
+            '&CountingRangeValue=3' +
+            '&CountingCheckboxChecked=1' +
+            '&DetectorsCheckboxChecked=0' +
+            '&DetectorsRange=0' +
+            '&AudioCheckboxChecked=0' +
+            '&LinksCheckboxChecked=0' +
+            '&LinksRangeValue=0' +
+            '&MapStyle=0' +
+            '&MapStyleRangeValue=0' +
+            '&Advertisment=0' +
+            '#' + zoom + '/' + lat + '/' + lon;
+        $('#lightning_map').prop('src', url);
+    }
 }

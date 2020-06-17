@@ -50,4 +50,5 @@ var popWinSpecs = {
     'tools_sunrise' :               'width=520,height=385,resizable=1',
     'weather_aurora_n' :            'width=520,height=580,resizable=1',
     'weather_aurora_s' :            'width=520,height=580,resizable=1',
+    'weather_lightning' :           'width=620,height=620,resizable=1',
 };

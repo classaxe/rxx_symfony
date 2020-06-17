@@ -15,6 +15,11 @@ class WeatherRepository
             'shortName' =>      'Southern Aurora',
             'class' =>          'halfwidth'
         ],
+        'lightning' => [
+            'mode' =>           'Realtime Lightning Map',
+            'shortName' =>      'Lightning',
+            'class' =>          'fullwidth'
+        ],
     ];
 
     public static function get($key)

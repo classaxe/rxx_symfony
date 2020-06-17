@@ -3,6 +3,7 @@ namespace App\Controller\Web\Weather;
 
 use App\Controller\Web\Base;
 use App\Repository\WeatherRepository;
+use App\Utils\Rxx;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
@@ -66,6 +67,23 @@ class Weather extends Base
         $parameters['system'] = $system;
         $parameters['key'] = $widget;
         $parameters['args'] = $args ? $args : $request->query->get('args');
+        switch ($parameters['key']) {
+            case 'lightning':
+                if ($parameters['args'] && $a = Rxx::convertGsqToDegrees($parameters['args'])) {
+                    $lat =  $a["lat"];
+                    $lon =  $a["lon"];
+                    $gsq =  $a["GSQ"];
+                } else {
+                    $gsq =  '';
+                    $lat =  '';
+                    $lon =  '';
+                }
+                $parameters['gsq'] = $gsq;
+                $parameters['lat'] = $lat;
+                $parameters['lon'] = $lon;
+                $parameters['zoom'] = 3;
+                break;
+        }
 
         $parameters = array_merge($parameters, $this->parameters);
         return $this->render('weather/widget.html.twig', $parameters);

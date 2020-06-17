@@ -359,7 +359,35 @@ var NAVTEX = {
         return output;
     }
 }
-
+var COOKIE = {
+    clear: function(which, path) {
+        document.cookie =
+            which +
+            '=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=' +
+            ('string' === typeof path ? path : '/');
+    },
+    get: function(which) {
+        var cookies =		document.cookie;
+        var pos =		cookies.indexOf(which+"=");
+        if (pos === -1) {
+            return false;
+        }
+        var start =	pos + which.length+1;
+        var end =	cookies.indexOf(";",start);
+        if (end === -1) {
+            end =	cookies.length;
+        }
+        return unescape(cookies.substring(start, end));
+    },
+    set: function(which, value, path) {
+        var nextYear =	new Date();
+        nextYear.setFullYear(nextYear.getFullYear()+1);
+        document.cookie =
+            which +
+            '=' + value + ';expires=' + nextYear.toGMTString() + '; path=' +
+            ('string' === typeof path ? path : '/');
+    },
+}
 var SUNRISE = {
     // Refactored from code created by Gene Davis - Computer Support Group: Dec 6 1994 - Oct 8 2001
     init: function() {
@@ -402,7 +430,7 @@ var SUNRISE = {
             VALIDATE.float($(this).val(), -90.0, 90.0, 'Latitude')
         });
         sunrise_lon.on('change', function() {
-            VALIDATE.float(this, -180.0, 180.0, 'Longitude');
+            VALIDATE.float($(this).val(), -180.0, 180.0, 'Longitude');
         });
         sunrise_go.on('click', function(){
             $('#sunrise_result').val(SUNRISE.formValues());
@@ -412,7 +440,7 @@ var SUNRISE = {
         sunrise_clear.on('click', function(){
             SUNRISE.cookie_clear();
         });
-        if (SUNRISE.cookie_get('sunrise')) {
+        if (SUNRISE.cookie_get()) {
             var result = SUNRISE.cookie_get("sunrise").split("|");
             sunrise_gsq.val(result[0]);
             sunrise_lat.val(result[1]);
@@ -420,28 +448,14 @@ var SUNRISE = {
         }
     },
     cookie_clear: function() {
-        document.cookie = 'sunrise=||;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/';
+        COOKIE.clear('sunrise');
     },
-    cookie_get: function(which) {
-        var cookies =		document.cookie;
-        var pos =		cookies.indexOf(which+"=");
-        if (pos === -1) {
-            return false;
-        }
-        var start =	pos + which.length+1;
-        var end =	cookies.indexOf(";",start);
-        if (end === -1) {
-            end =	cookies.length;
-        }
-        return unescape(cookies.substring(start, end));
+    cookie_get: function() {
+        return COOKIE.get('sunrise');
     },
     cookie_set: function() {
-        var nextYear =	new Date();
-        nextYear.setFullYear(nextYear.getFullYear()+1);
-        document.cookie = 'sunrise=' +
-            $('#sunrise_gsq').val() + '|' +
-            $('#sunrise_lat').val() + '|' +
-            $('#sunrise_lon').val() + ';expires=' + nextYear.toGMTString() + '; path=/';
+        var value = $('#sunrise_gsq').val() + '|' + $('#sunrise_lat').val() + '|' + $('#sunrise_lon').val();
+        COOKIE.set('sunrise', value);
     },
     formValues: function() {
         var latText =   "Latitude"

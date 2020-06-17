@@ -1,0 +1,35 @@
+<form id="lightning">
+    <div class="row">
+        <div class="small-3 columns">
+            <label for="lightning_gsq">{% trans %}Grid Square{% endtrans %}</label>
+            <input type="text" id="lightning_gsq" size="6" value="{{ gsq }}">
+        </div>
+        <div class="small-3 columns">
+            <label for="lightning_lat">{% trans %}Latitude (S=neg.){% endtrans %}</label>
+            <input type="text" id="lightning_lat" size="6" value="{{ lat }}" placeholder="-90 .. 90">
+        </div>
+        <div class="small-3 columns">
+            <label for="lightning_lon">{% trans %}Longitude (W=neg.){% endtrans %}</label>
+            <input type="text" id="lightning_lon" size="7" value="{{ lon }}" placeholder="-180 .. 180">
+        </div>
+        <div class="small-3 columns bottom">
+            <input type="button" value="Show" id="lightning_go" class="button small">
+            <input type="reset" value="Clear" id="lightning_clear" class="button small">
+        </div>
+    </div>
+</form>
+<iframe id="lightning_map" src="" width="100%" height="600"></iframe>
+<script>
+$(document).ready( function() {
+    LIGHTNING.init();
+    if ('{{ gsq }}' !== '') {
+        $('#lightning_go').trigger('click');
+    }
+    {% if showTopAndPopup is not defined %}
+        $('iframe').height($(window).height() - 150);
+        $(window).resize(function () {
+            $('iframe').height($(window).height() - 150);
+        });
+    {% endif %}
+});
+</script>
