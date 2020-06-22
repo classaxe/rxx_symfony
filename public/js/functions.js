@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.12.2
- * Date:       2020-06-17
+ * Version:    2.12.3
+ * Date:       2020-06-22
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
  */
@@ -3147,32 +3147,58 @@ function GMST0( dayDiff ) {
 
 var LIGHTNING = {
     init: function() {
-        var lightning_clear = $('#lightning_clear');
-        var lightning_go =    $('#lightning_go');
-        var lightning_gsq =   $('#lightning_gsq');
-        var lightning_lat =   $('#lightning_lat');
-        var lightning_lon =   $('#lightning_lon');
+        var lightning_clear =   $('#lightning_clear');
+        var lightning_go =      $('#lightning_go');
+        var lightning_gsq =     $('#lightning_gsq');
+        var lightning_lat =     $('#lightning_lat');
+        var lightning_lon =     $('#lightning_lon');
+        var lightning_zoom =    $('#lightning_zoom');
+        var lightning_map =     $('#lightning_map');
+        var lightning_slider =  $("#slider-range-max");
 
-        $('#close').on('click', function(){
-            window.close();
-        })
-        lightning_gsq.on('change', function() {
-            if (!VALIDATE.gsq($(this).val())) {
-                alert(msg.tools.coords.gsq_format);
-            } else {
-                LIGHTNING.gsq_deg($(this).val());
+        var element = $('#lightning_zoom');
+        lightning_slider.slider({
+            range: "max",
+            min: 1,
+            max: 10,
+            value: element.val(),
+            slide: function (event, ui) {
+                lightning_zoom.val(ui.value);
+                if (lightning_lat.val() && lightning_lon.val()) {
+                    lightning_go.trigger('click');
+                }
             }
         });
+
+        $('#close').on('click', function() {
+            window.close();
+        })
+
+        lightning_gsq.on('change, blur', function() {
+            if (!$(this).val()) {
+                return;
+            }
+            if (!VALIDATE.gsq($(this).val())) {
+                alert(msg.tools.coords.gsq_format);
+                return;
+            }
+            LIGHTNING.gsq_deg($(this).val());
+            lightning_go.trigger('click');
+            LIGHTNING.cookie_set();
+        });
+
         lightning_lat.on('change', function() {
             VALIDATE.float($(this).val(), -90.0, 90.0, 'Latitude')
         });
+
         lightning_lon.on('change', function() {
             VALIDATE.float($(this).val(), -180.0, 180.0, 'Longitude');
         });
+
         lightning_go.on('click', function() {
             var lat = $('#lightning_lat').val();
             var lon = $('#lightning_lon').val();
-            var zoom = 3;
+            var zoom = $('#lightning_zoom').val();
             if (!VALIDATE.float(lat, -90.0, 90.0, 'Latitude')) {
                 return false;
             }
@@ -3181,16 +3207,36 @@ var LIGHTNING = {
             }
             LIGHTNING.map_show(lat, lon, zoom);
         });
-        lightning_clear.on('click', function(){
+        lightning_clear.on('click', function() {
             LIGHTNING.cookie_clear();
-            $('#lightning_map').prop('src', '')
+            lightning_gsq.val('');
+            lightning_lat.val('');
+            lightning_lon.val('');
+            lightning_map.prop('src', '');
+            lightning_zoom.val(5);
+            lightning_slider.slider('option', 'value', 5);
         });
-        if (LIGHTNING.cookie_get('sunrise')) {
+        if (LIGHTNING.cookie_get('lightning')) {
             var result = LIGHTNING.cookie_get("lightning").split("|");
             lightning_gsq.val(result[0]);
             lightning_lat.val(result[1]);
             lightning_lon.val(result[2]);
+            lightning_zoom.val(result[3]);
+            lightning_slider.slider('option', 'value', result[3]);
         }
+        $('a[data-coords]')
+            .click(function() {
+                var args, lat, lon, zoom;
+                result = $(this).data('coords').split('|');
+                lightning_gsq.val('');
+                lightning_lat.val(result[0]);
+                lightning_lon.val(result[1]);
+                lightning_zoom.val(result[2]);
+                lightning_slider.slider('option', 'value', result[2]);
+                LIGHTNING.map_show(result[0], result[1], result[2]);
+                LIGHTNING.cookie_clear();
+                return false;
+            });
     },
     cookie_clear: function() {
         COOKIE.clear('lightning');
@@ -3199,7 +3245,7 @@ var LIGHTNING = {
         return COOKIE.get('lightning');
     },
     cookie_set: function() {
-        var value = $('#lightning_gsq').val() + '|' + $('#lightning_lat').val() + '|' + $('#lightning_lon').val();
+        var value = $('#lightning_gsq').val() + '|' + $('#lightning_lat').val() + '|' + $('#lightning_lon').val() + '|' + $('#lightning_zoom').val();
         COOKIE.set('lightning', value);
     },
     gsq_deg: function(gsq) {
