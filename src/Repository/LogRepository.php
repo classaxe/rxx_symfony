@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Log;
 use App\Utils\Rxx;
+use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\DBAL\Driver\Connection;
 use Doctrine\Persistence\ManagerRegistry;
@@ -364,6 +365,12 @@ EOD;
         }
 
         if (!checkdate((int)$_MM, (int)$_DD, (int)$_YYYY)) {
+            return false;
+        }
+        if ($_YYYY . $_MM . $_DD > (new DateTime())->modify('+1 day')->format('Ymd')) {
+            return false;
+        }
+        if ($_YYYY . $_MM . $_DD < 19700101) {
             return false;
         }
         return [
