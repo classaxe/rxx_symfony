@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.12.3
- * Date:       2020-06-22
+ * Version:    2.13.0
+ * Date:       2020-06-25
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
  */
@@ -2208,6 +2208,19 @@ div.scroll div table.parse.results tbody tr {
 .check-links #check_choice,
 .check-links #uncheck_choice {
   background: #ffA0A0;
+}
+.log_edit #form label {
+  width: 25%;
+}
+.log_edit #form input[type='text'],
+.log_edit #form textarea,
+.log_edit #form select {
+  width: 70%;
+  padding: 0.125em 0.25em;
+  margin: 0 0 0.25em 0;
+}
+.log_edit #form textarea {
+  height: 6em;
 }
 a.add,
 a.close,

@@ -25,6 +25,8 @@
     %}<td{% if column.td_class %} class="{{ column.td_class }}"{% endif %}>{%
         if key == 'name'
     %}<a href="{{ url('listener', { 'system' : system, 'id': r.id }) }}" data-popup="1">{{ attribute(r, column.field)|raw }}</a>{%
+        elseif key == 'id'
+    %}{% if isAdmin %}<a href="{{ url('log', { 'system' : system, 'id' : r.log_id }) }}" data-popup="1">{{ r.log_id }}</a>{% endif %}{%
         elseif key == 'date'
     %}{{ attribute(r, column.field)|date('Y-m-d') }}{%
         elseif key == 'admin'

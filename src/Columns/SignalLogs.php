@@ -13,6 +13,17 @@ class SignalLogs
     public function getColumns()
     {
         return [
+            'id' => [
+                'admin'     =>  true,
+                'arg'       =>  '',
+                'field'     =>  'log_id',
+                'label'     =>  'ID',
+                'order'     =>  'a',
+                'sort'      =>  'log_id',
+                'td_class'  =>  '',
+                'th_class'  =>  '',
+                'tooltip'   =>  '',
+            ],
             'date' => [
                 'admin'     =>  false,
                 'arg'       =>  '',
@@ -162,7 +173,7 @@ class SignalLogs
                 'admin'     =>  true,
                 'arg'       =>  '',
                 'field'     =>  'delete',
-                'label'     =>  'Admin',
+                'label'     =>  'Delete',
                 'order'     =>  '',
                 'sort'      =>  '',
                 'td_class'  =>  '',

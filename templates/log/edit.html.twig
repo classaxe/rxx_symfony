@@ -1,0 +1,43 @@
+{% extends 'popup.html.twig' %}
+{% block body %}
+<div class="main fullwidth">
+{% set form_class='log_edit' %}
+    <div class="controlPanel {{ form_class }}">
+        <div class="header">{{ mode|raw }}</div>
+        <div class="content">
+            {{ form_start(form) }}
+            <div id="form">
+                {{ form_row(form.id)  }}
+                {{ form_row(form._close)  }}
+                {{ form_row(form.signalId) }}
+                {{ form_row(form.listenerId) }}
+                {{ form_row(form.date) }}
+                {{ form_row(form.time) }}
+                {{ form_row(form.daytime) }}
+                {{ form_row(form.format) }}
+                {{ form_row(form.sec) }}
+                {{ form_row(form.lsbApprox) }}
+                {{ form_row(form.lsb) }}
+                {{ form_row(form.usbApprox) }}
+                {{ form_row(form.usb) }}
+                <fieldset id="group_">
+                    {{ form_row(form.close) }}
+                    {{ form_row(form.saveClose) }}
+                </fieldset>
+            </div>
+            {{ form_end(form, {'render_rest': true}) }}
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $('#form_saveClose').on('click', function(){
+                alert('Not yet implemented');
+                return false;
+            })
+            // $('#form_saveClose').on('click', function(){
+            //     $('#form__close').val(1);
+            // })
+        });
+    </script>
+</div>
+{% endblock %}
