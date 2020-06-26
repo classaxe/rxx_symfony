@@ -20,6 +20,7 @@
     <script src="{{ asset('js/jquery-3.4.1.min.js') }}"></script>
     <script src="{{ asset('js/jquery-ui.min.js') }}"></script>
     <script src="{{ asset('js/functions' ~ (isDev ? '' : '.min') ~ '.js') }}?v={{ tag }}"></script>
+    {% include'js_matmo.html.twig' %}
 </head>
 
 <body class="{{ system|lower }} locale-{{ _locale }}">
