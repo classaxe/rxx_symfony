@@ -1258,6 +1258,37 @@ EOD;
         return $out;
     }
 
+    public function getAll()
+    {
+        $sql = <<< EOD
+            SELECT
+                REPLACE(
+                    CONCAT_WS(
+                        '|',
+                        id,
+                        `call`,
+                        khz,
+                        type,
+                        gsq,
+                        active,
+                        qth,
+                        sp,
+                        itu
+                    ),
+                    '"',
+                    '&quot;'
+                ) as s
+            FROM            
+                `signals`
+            ORDER BY
+                khz,
+                `call`;
+EOD;
+        $stmt = $this->connection->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_COLUMN);
+    }
+
     public function getSignalCandidates($call, $frequency, $listener)
     {
         if (!is_numeric($frequency)) {

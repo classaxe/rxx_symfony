@@ -58,7 +58,7 @@ class Log extends WebBase
             'sec' =>        $log->getSec(),
             'time' =>       $log->getTime(),
             'usb' =>        $log->getUsb(),
-            'usbApprox' =>  $log->getUsbApprox() ? true : false,
+            'usbApprox' =>  $log->getUsbApprox() ? true : false
         ];
 //        print "<pre>" . print_r($options, true) . "</pre>";
         $form = $logForm->buildForm(

@@ -21,7 +21,7 @@ function initListenersLogUploadForm() {
     }
 
     $('#form_saveFormat').on('click', function() {
-        if (confirm(msg.log_upload_1) === false) {
+        if (confirm(msg.log_upload.prompt.a) === false) {
             e.preventDefault();
             return;
         }

@@ -1,6 +1,6 @@
 var shareableLink = {
     getBaseUrl: function(mode) {
-        return base_host + base_url + mode;
+        return window.location.protocol + '//' + window.location.host + base_url + mode;
     },
     getFromField: function(field, options, letterCase) {
         var value = $('#form_' + field).val();

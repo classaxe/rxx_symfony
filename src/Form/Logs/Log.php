@@ -94,7 +94,7 @@ class Log extends AbstractType
             )
             ->add(
                 'signalId',
-                TextType::class,
+                HiddenType::class,
                 [
                     'data' =>           $options['signalId'],
                     'empty_data' =>     '',
@@ -103,7 +103,7 @@ class Log extends AbstractType
             )
             ->add(
                 'listenerId',
-                TextType::class,
+                HiddenType::class,
                 [
                     'data' =>           $options['listenerId'],
                     'empty_data' =>     '',

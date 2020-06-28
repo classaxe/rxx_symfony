@@ -9,8 +9,12 @@
             <div id="form">
                 {{ form_row(form.id)  }}
                 {{ form_row(form._close)  }}
-                {{ form_row(form.signalId) }}
-                {{ form_row(form.listenerId) }}
+                <div>{{ form_label(form.listenerId) }}
+                    {{ form_widget(form.listenerId) }}
+                </div>
+                <div>{{ form_label(form.signalId) }}
+                    {{ form_widget(form.signalId) }}
+                </div>
                 {{ form_row(form.date) }}
                 {{ form_row(form.time) }}
                 {{ form_row(form.daytime) }}
@@ -25,19 +29,23 @@
                     {{ form_row(form.saveClose) }}
                 </fieldset>
             </div>
-            {{ form_end(form, {'render_rest': true}) }}
+            {{ form_end(form, {'render_rest': false}) }}
         </div>
     </div>
-    <script>
-        $(document).ready(function () {
-            $('#form_saveClose').on('click', function(){
-                alert('Not yet implemented');
-                return false;
-            })
-            // $('#form_saveClose').on('click', function(){
-            //     $('#form__close').val(1);
-            // })
-        });
-    </script>
+<script src="{{ path('js_listeners') }}"></script>
+<script src="{{ path('js_signals') }}"></script>
+<script>
+$(document).ready(function () {
+// $('#form_saveClose').on('click', function(){
+//     $('#form__close').val(1);
+// })
+    $('#form_saveClose').on('click', function(){
+        alert('Not yet implemented');
+        return false;
+    })
+    initListenersSelector(listeners);
+    initSignalsSelector(signals);
+});
+</script>
 </div>
 {% endblock %}

@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.13.0
- * Date:       2020-06-25
+ * Version:    2.13.4
+ * Date:       2020-06-27
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
  */
@@ -32,7 +32,7 @@ var popWinSpecs = {
     'listeners_[id]_locatormap' :   'width=1000,height=760,status=1,scrollbars=1,resizable=1',
     '[id]_signals_map' :            'width=1000,height=760,status=1,scrollbars=1,resizable=1',
     'listeners_[id]_ndbweblog' :    'status=1,scrollbars=1,resizable=1',
-    'logs_[id]' :                   'width=400,height=400,status=1,scrollbars=1,resizable=1',
+    'logs_[id]' :                   'width=700,height=500,status=1,scrollbars=1,resizable=1',
     'maps_af' :                     'width=646,height=652,resizable=1',
     'maps_alaska' :                 'width=600,height=620,resizable=1',
     'maps_as' :                     'width=856,height=645,resizable=1',
@@ -894,6 +894,14 @@ function lead(num, size) {
     return s;
 }
 
+function pad(txt, size, padStr) {
+    var s = String(txt);
+    var r = (s + (' ').repeat(size)).substr(0, size);
+    if ('string' === typeof padStr) {
+        return r.replace(/ /g, padStr);
+    }
+    return r;
+}
 
 function initListenersLogUploadForm() {
     var std_formats = {
@@ -918,7 +926,7 @@ function initListenersLogUploadForm() {
     }
 
     $('#form_saveFormat').on('click', function() {
-        if (confirm(msg.log_upload_1) === false) {
+        if (confirm(msg.log_upload.prompt.a) === false) {
             e.preventDefault();
             return;
         }
@@ -1672,7 +1680,7 @@ var RT = {
 
 var shareableLink = {
     getBaseUrl: function(mode) {
-        return base_host + base_url + mode;
+        return window.location.protocol + '//' + window.location.host + base_url + mode;
     },
     getFromField: function(field, options, letterCase) {
         var value = $('#form_' + field).val();
@@ -2246,8 +2254,55 @@ function setSignalActions() {
         window.open('./signals/new', 'signal_new', popWinSpecs['signals_[id]']);
         return false;
     });
-
 }
+
+function initSignalsSelector(data) {
+    var element, i, out = '', r, s;
+    element = $('#form_signalId');
+    s  = element.val();
+    out = "<select id=\"form_signalId\" name=\"form[signalId]\" required=\"required\" size=\"6\">\n";
+    for (i in data) {
+        r = data[i].split('|');
+        out +=
+            "<option value='" + r[0] + "'" +
+            (r[5] === '0' ? " title='" + msg.tools : '') + "'" +
+            " class='type_" +r[3] + (r[5] === '0' ? ' inactive' : '') + "'" +
+            (r[0] === s ? " selected='selected'" : '') +
+            " data-gsq='" + r[4] + "'" +
+            ">" +
+            pad(parseFloat(r[2]), 10, '&nbsp;') +
+            pad(r[1], 10, '&nbsp;') +
+            pad(r[6], 41, '&nbsp;') +
+            pad(r[7], 3, '&nbsp;') +
+            r[8] + ' ' +
+            "</option>";
+    }
+    out += "</select>";
+    element.replaceWith(out);
+}
+
+function initListenersSelector(data) {
+    var element, i, out = '', r, s;
+    element = $('#form_listenerId');
+    s  = element.val();
+    out = "<select id=\"form_listenerId\" name=\"form[listenerId]\" required=\"required\" size=\"6\">\n";
+    for (i in data) {
+        r = data[i].split('|');
+        out +=
+            "<option value='" + r[0] + "'" +
+            (r[0] === s ? " selected='selected'" : '') +
+            " data-gsq='" + r[3] + "'" +
+            " class='" + (r[4] === '1' ? 'primaryQth' : 'secondaryQth') + "'" +
+            ">" +
+            pad(r[1] + ", " + r[5] + (r[2] ? ' ' + r[2] : ''), (r[4] === '1' ? 60 : 58), '&nbsp;') +
+            (r[6] ? ' ' + r[6] : '&nbsp; &nbsp;') +
+            ' ' + r[7] +
+            "</option>";
+    }
+    out += "</select>";
+    element.replaceWith(out);
+}
+
 
 
 var DGPS = {

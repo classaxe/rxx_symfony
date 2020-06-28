@@ -11,6 +11,7 @@ use Doctrine\DBAL\Driver\Connection;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
+use PDO;
 
 class ListenerRepository extends ServiceEntityRepository
 {
@@ -366,6 +367,36 @@ class ListenerRepository extends ServiceEntityRepository
             $stats['last'] =    $dates['last' ];
         }
         return [ 'listeners' => $stats ];
+    }
+
+    public function getAll()
+    {
+        $sql = <<< EOD
+            SELECT
+                REPLACE(
+                    CONCAT_WS(
+                        '|',
+                        id,
+                        name,
+                        callsign,
+                        gsq,
+                        primary_QTH,
+                        qth,
+                        sp,
+                        itu
+                    ),
+                    '"',
+                    '&quot;'
+                ) as s
+            FROM            
+                `listeners`
+            ORDER BY
+                name,
+                primary_QTH;
+EOD;
+        $stmt = $this->connection->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_COLUMN);
     }
 
     public function getAllOptions(

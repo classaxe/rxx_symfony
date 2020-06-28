@@ -24,7 +24,7 @@ var popWinSpecs = {
     'listeners_[id]_locatormap' :   'width=1000,height=760,status=1,scrollbars=1,resizable=1',
     '[id]_signals_map' :            'width=1000,height=760,status=1,scrollbars=1,resizable=1',
     'listeners_[id]_ndbweblog' :    'status=1,scrollbars=1,resizable=1',
-    'logs_[id]' :                   'width=400,height=400,status=1,scrollbars=1,resizable=1',
+    'logs_[id]' :                   'width=700,height=500,status=1,scrollbars=1,resizable=1',
     'maps_af' :                     'width=646,height=652,resizable=1',
     'maps_alaska' :                 'width=600,height=620,resizable=1',
     'maps_as' :                     'width=856,height=645,resizable=1',

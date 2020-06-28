@@ -1,17 +1,25 @@
 .log_edit {
     #form {
         label {
-            width: 25%;
+            width: 20%;
         }
         input[type='text'],
-        textarea,
         select {
-            width: 70%;
+            width: 75%;
             padding: 0.125em 0.25em;
             margin: 0 0 0.25em 0;
         }
-        textarea {
-            height: 6em;
+        select {
+            margin: 0 0 0.5em 0;
+            font-family: monospace;
+            height: 8em;
+            option.primaryQth {
+                font-weight: bold;
+            }
+            option.secondaryQth {
+                padding-left: 1.5em;
+                color: #888;
+            }
         }
     }
 }

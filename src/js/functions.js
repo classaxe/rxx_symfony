@@ -718,3 +718,12 @@ function lead(num, size) {
     }
     return s;
 }
+
+function pad(txt, size, padStr) {
+    var s = String(txt);
+    var r = (s + (' ').repeat(size)).substr(0, size);
+    if ('string' === typeof padStr) {
+        return r.replace(/ /g, padStr);
+    }
+    return r;
+}

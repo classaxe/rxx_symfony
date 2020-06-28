@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.13.0
- * Date:       2020-06-25
+ * Version:    2.13.4
+ * Date:       2020-06-27
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
  */
@@ -196,37 +196,46 @@ body.rww .button.is-inactive {
   background: #f2fff2;
   color: #198019;
 }
+.inactive,
 tr.inactive td {
   color: #a0a0a0;
   font-style: italic;
 }
+.inactive a,
 tr.inactive td a {
   color: #6080b0;
 }
+.type_0,
 .type_ndb,
 tr.ndb td {
   background-color: #ffffff !important;
 }
+.type_1,
 .type_dgps,
 tr.dgps td {
   background-color: #00d8ff !important;
 }
+.type_2,
 .type_dsc,
 tr.dsc td {
   background-color: #ffb000 !important;
 }
+.type_3,
 .type_time,
 tr.time td {
   background-color: #ffe0b0 !important;
 }
+.type_4,
 .type_navtex,
 tr.navtex td {
   background-color: #ffb8d8 !important;
 }
+.type_5,
 .type_hambcn,
 tr.hambcn td {
   background-color: #b8ffc0 !important;
 }
+.type_6,
 .type_other,
 tr.other td {
   background-color: #b8f8ff !important;
@@ -2210,17 +2219,25 @@ div.scroll div table.parse.results tbody tr {
   background: #ffA0A0;
 }
 .log_edit #form label {
-  width: 25%;
+  width: 20%;
 }
 .log_edit #form input[type='text'],
-.log_edit #form textarea,
 .log_edit #form select {
-  width: 70%;
+  width: 75%;
   padding: 0.125em 0.25em;
   margin: 0 0 0.25em 0;
 }
-.log_edit #form textarea {
-  height: 6em;
+.log_edit #form select {
+  margin: 0 0 0.5em 0;
+  font-family: monospace;
+  height: 8em;
+}
+.log_edit #form select option.primaryQth {
+  font-weight: bold;
+}
+.log_edit #form select option.secondaryQth {
+  padding-left: 1.5em;
+  color: #888;
 }
 a.add,
 a.close,
