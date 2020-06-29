@@ -2,12 +2,46 @@
     #form {
         label {
             width: 20%;
+            &[for="form_dxMiles"],
+            &[for="form_time"],
+            &[for="form_daytime"],
+            &[for="form_sec"],
+            &[for="form_lsbApprox"],
+            &[for="form_usbApprox"]{
+                width: auto;
+                min-width: auto;
+                text-align: right;
+                padding: 0 0.5em 0 2em;
+            }
+
         }
         input[type='text'],
         select {
             width: 75%;
             padding: 0.125em 0.25em;
             margin: 0 0 0.25em 0;
+            &#form_date {
+                width: 95px;
+                padding: 0 1.75em 0 0.25em !important;
+                background: #ffffff url("../../image/calendar.png") no-repeat;
+                background-size: auto 100%;
+                background-position: right;
+            }
+            &#form_time {
+                text-align: right;
+                width: 3em;
+            }
+            &#form_format {
+                width: 20em;
+            }
+            &#form_dxKm,
+            &#form_dxMiles,
+            &#form_sec,
+            &#form_lsb,
+            &#form_usb {
+                text-align: right;
+                width: 4em;
+            }
         }
         select {
             margin: 0 0 0.5em 0;
@@ -21,5 +55,6 @@
                 color: #888;
             }
         }
+
     }
 }

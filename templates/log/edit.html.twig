@@ -9,21 +9,46 @@
             <div id="form">
                 {{ form_row(form.id)  }}
                 {{ form_row(form._close)  }}
-                <div>{{ form_label(form.listenerId) }}
+                <div>
+                    {{ form_label(form.listenerId) }}
                     {{ form_widget(form.listenerId) }}
                 </div>
-                <div>{{ form_label(form.signalId) }}
+                <div>
+                    {{ form_label(form.signalId) }}
                     {{ form_widget(form.signalId) }}
                 </div>
-                {{ form_row(form.date) }}
-                {{ form_row(form.time) }}
-                {{ form_row(form.daytime) }}
-                {{ form_row(form.format) }}
-                {{ form_row(form.sec) }}
-                {{ form_row(form.lsbApprox) }}
-                {{ form_row(form.lsb) }}
-                {{ form_row(form.usbApprox) }}
-                {{ form_row(form.usb) }}
+                <div>
+                    {{ form_label(form.dxKm) }}
+                    {{ form_widget(form.dxKm) }}
+                    {{ form_label(form.dxMiles) }}
+                    {{ form_widget(form.dxMiles) }}
+                </div>
+                <div>
+                    {{ form_label(form.date) }}
+                    {{ form_widget(form.date) }}
+                    {{ form_label(form.time) }}
+                    {{ form_widget(form.time) }}
+                    {{ form_label(form.daytime) }}
+                    {{ form_widget(form.daytime) }}
+                </div>
+                <div>
+                    {{ form_label(form.format) }}
+                    {{ form_widget(form.format) }}
+                    {{ form_label(form.sec) }}
+                    {{ form_widget(form.sec) }}
+                </div>
+                <div>
+                    {{ form_label(form.lsb) }}
+                    {{ form_widget(form.lsb) }}
+                    {{ form_label(form.lsbApprox) }}
+                    {{ form_widget(form.lsbApprox) }}
+                </div>
+                <div>
+                    {{ form_label(form.usb) }}
+                    {{ form_widget(form.usb) }}
+                    {{ form_label(form.usbApprox) }}
+                    {{ form_widget(form.usbApprox) }}
+                </div>
                 <fieldset id="group_">
                     {{ form_row(form.close) }}
                     {{ form_row(form.saveClose) }}
@@ -36,15 +61,7 @@
 <script src="{{ path('js_signals') }}"></script>
 <script>
 $(document).ready(function () {
-// $('#form_saveClose').on('click', function(){
-//     $('#form__close').val(1);
-// })
-    $('#form_saveClose').on('click', function(){
-        alert('Not yet implemented');
-        return false;
-    })
-    initListenersSelector(listeners);
-    initSignalsSelector(signals);
+    LOG_EDIT.init()
 });
 </script>
 </div>

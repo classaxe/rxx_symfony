@@ -111,9 +111,30 @@ class Log extends AbstractType
                 ]
             )
             ->add(
+                'dxKm',
+                TextType::class,
+                [
+                    'attr' =>   [ 'readonly' => 'readonly' ],
+                    'data' =>           $options['dxKm'],
+                    'empty_data' =>     '',
+                    'label' =>          'DX (KM)',
+                ]
+            )
+            ->add(
+                'dxMiles',
+                TextType::class,
+                [
+                    'attr' =>   [ 'readonly' => 'readonly' ],
+                    'data' =>           $options['dxMiles'],
+                    'empty_data' =>     '',
+                    'label' =>          'DX (Miles)',
+                ]
+            )
+            ->add(
                 'date',
                 TextType::class,
                 [
+                    'attr' =>   [ 'class' => 'js-datepicker' ],
                     'data' =>           $options['date'],
                     'empty_data' =>     '',
                     'label' =>          'Date',

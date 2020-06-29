@@ -122,6 +122,11 @@ function initListenersLogUploadForm() {
             copyToClipboard(txt);
             alert(msg.copied_x.replace('%s', txt));
         }).attr('title', msg.copy_token);
+        $('.tokensHelp #tokensHelpClose').on('click', function() {
+            $('.tokensHelpLink').removeClass('on');
+            $('.tokensHelpLink').tooltip('close');
+            return false;
+        });
         return false;
     });
     //hide
@@ -282,4 +287,81 @@ function logsShowRemainder() {
     $('#remainder_logs').val(remainder.join("\r\n"));
     $('#form_selected').val(selected.join(','));
     $('#issueCount').text(remainder.length);
+}
+
+var LOG_EDIT = {
+    init: function() {
+        $('#form_saveClose').on('click', function(){
+            alert('Not yet implemented');
+            return false;
+        })
+        LOG_EDIT.initListenersSelector(listeners);
+        LOG_EDIT.initSignalsSelector(signals);
+        setFormDatePickers();
+    },
+
+    initListenersSelector: function(data) {
+        var element, i, out = '', r, s;
+        element = $('#form_listenerId');
+        s  = element.val();
+        out = "<select id=\"form_listenerId\" name=\"form[listenerId]\" required=\"required\" size=\"6\">\n";
+        for (i in data) {
+            r = data[i].split('|');
+            out +=
+                "<option value='" + r[0] + "'" +
+                " data-gsq='" + r[3] + "'" +
+                " class='" + (r[4] === '1' ? 'primaryQth' : 'secondaryQth') + "'" +
+                (r[0] === s ? " selected='selected'" : '') +
+                ">" +
+                pad(r[1] + ", " + r[5] + (r[2] ? ' ' + r[2] : ''), (r[4] === '1' ? 60 : 58), '&nbsp;') +
+                (r[6] ? ' ' + r[6] : '&nbsp; &nbsp;') +
+                ' ' + r[7] +
+                "</option>";
+        }
+        out += "</select>";
+        element.replaceWith(out);
+        element = $('#form_listenerId');
+        element
+            .on('change', function(){
+                LOG_EDIT.getDx();
+            })
+    },
+
+    initSignalsSelector: function(data) {
+        var element, i, out = '', r, s;
+        element = $('#form_signalId');
+        s  = element.val();
+        out = "<select id=\"form_signalId\" name=\"form[signalId]\" required=\"required\" size=\"6\">\n";
+        for (i in data) {
+            r = data[i].split('|');
+            out +=
+                "<option value='" + r[0] + "'" +
+                (r[5] === '0' ? " title='" + msg.inactive + "'" : '') +
+                " class='type_" +r[3] + (r[5] === '0' ? ' inactive' : '') + "'" +
+                " data-gsq='" + r[4] + "'" +
+                (r[0] === s ? " selected='selected'" : '') +
+                ">" +
+                pad(parseFloat(r[2]), 10, '&nbsp;') +
+                pad(r[1], 10, '&nbsp;') +
+                pad(r[6], 41, '&nbsp;') +
+                pad(r[7], 3, '&nbsp;') +
+                r[8] + ' ' +
+                "</option>";
+        }
+        out += "</select>";
+        element.replaceWith(out);
+    },
+
+    getDx: function() {
+        var dx, dx_km = '', dx_miles = '', qth, sig;
+        qth = $('#form_listenerId').find('option:selected').data('gsq').trim();
+        sig = $('#form_signalId').find('option:selected').data('gsq').trim();
+
+        if (qth !== '' && sig !== '') {
+            qth = CONVERT.gsq_deg(qth);
+            sig = CONVERT.gsq_deg(sig);
+            dx = CONVERT.gsq_gsq_dx(qth, sig)
+            alert(dx.dx_km);
+        }
+    }
 }

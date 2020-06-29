@@ -25,7 +25,7 @@ class Countries extends Base
      *        "_locale": "de|en|es|fr",
      *        "system": "reu|rna|rww"
      *     },
-     *     defaults={"filter"="*"},
+     *     defaults={"filter"=""},
      *     name="countries"
      * )
      * @param $_locale
@@ -36,6 +36,7 @@ class Countries extends Base
      */
     public function controller($_locale, $system, $filter, Region $region)
     {
+        $filter = $filter ?? '*';
         $this->region = $region;
         $parameters = [
             '_locale' =>    $_locale,

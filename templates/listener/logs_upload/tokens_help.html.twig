@@ -1,6 +1,11 @@
-<div id="tokensHelp" style="display:none">
+<div id="tokensHelpLink">
+    {% trans %}Valid Tokens:{% endtrans %} [ <a href="#" class="tokensHelpLink" title="{% trans %}Click for help{% endtrans %}">{% trans %}List{% endtrans %}</a> ]
+</div>
+
+<div id="tokensHelp">
     <div class="tokensHelp">
-        <strong>Valid Tokens</strong> <em>(Click any token to copy it, click 'Help' again to close panel)</em>
+        <div id="tokensHelpClose"><a href="#" class="close">X</a></div>
+        <strong>Valid Tokens</strong> <em>(Click any token to copy it)</em>
         <label>Signal Information</label>
         <p><b>KHZ</b> <b>MHZ</b> <b>ID</b> <b>GSQ</b> <b>PWR</b> <b>QTH</b> <b>SP</b> <b>ITU</b> <b>ITU-SP</b></p>
         <label>Date and Time Fields:</label>

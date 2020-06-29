@@ -266,7 +266,7 @@ function setFormDatePickers() {
         changeMonth: true,
         changeYear: true,
         dateFormat: 'yy-mm-dd',
-        yearRange: '1980:+0'
+        yearRange: '1970:+0'
     });
     $('.js-datepicker').datepicker({
     });

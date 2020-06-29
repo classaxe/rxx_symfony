@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.13.4
- * Date:       2020-06-27
+ * Version:    2.13.5
+ * Date:       2020-06-29
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
  */
@@ -2018,6 +2018,13 @@ fieldset#form_range_units div label {
   font-size: 13px;
   float: left;
 }
+.logUpload #tokensHelp {
+  display: none;
+}
+.logUpload #tokensHelpLink {
+  float: right;
+  font-size: small;
+}
 .logUpload .tokenErrors th {
   text-align: left;
 }
@@ -2098,6 +2105,10 @@ fieldset#form_range_units div label {
 .toolTipDetails {
   max-width: 800px;
   overflow-x: auto;
+}
+.toolTipDetails #tokensHelpClose {
+  float: right;
+  font-size: small;
 }
 .toolTipDetails label {
   margin: 0.25em 0;
@@ -2221,11 +2232,52 @@ div.scroll div table.parse.results tbody tr {
 .log_edit #form label {
   width: 20%;
 }
+.log_edit #form label[for="form_dxMiles"],
+.log_edit #form label[for="form_time"],
+.log_edit #form label[for="form_daytime"],
+.log_edit #form label[for="form_sec"],
+.log_edit #form label[for="form_lsbApprox"],
+.log_edit #form label[for="form_usbApprox"] {
+  width: auto;
+  min-width: auto;
+  text-align: right;
+  padding: 0 0.5em 0 2em;
+}
 .log_edit #form input[type='text'],
 .log_edit #form select {
   width: 75%;
   padding: 0.125em 0.25em;
   margin: 0 0 0.25em 0;
+}
+.log_edit #form input[type='text']#form_date,
+.log_edit #form select#form_date {
+  width: 95px;
+  padding: 0 1.75em 0 0.25em !important;
+  background: #ffffff url("../../image/calendar.png") no-repeat;
+  background-size: auto 100%;
+  background-position: right;
+}
+.log_edit #form input[type='text']#form_time,
+.log_edit #form select#form_time {
+  text-align: right;
+  width: 3em;
+}
+.log_edit #form input[type='text']#form_format,
+.log_edit #form select#form_format {
+  width: 20em;
+}
+.log_edit #form input[type='text']#form_dxKm,
+.log_edit #form select#form_dxKm,
+.log_edit #form input[type='text']#form_dxMiles,
+.log_edit #form select#form_dxMiles,
+.log_edit #form input[type='text']#form_sec,
+.log_edit #form select#form_sec,
+.log_edit #form input[type='text']#form_lsb,
+.log_edit #form select#form_lsb,
+.log_edit #form input[type='text']#form_usb,
+.log_edit #form select#form_usb {
+  text-align: right;
+  width: 4em;
 }
 .log_edit #form select {
   margin: 0 0 0.5em 0;

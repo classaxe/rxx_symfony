@@ -129,6 +129,48 @@ var CONVERT = {
         lat = Math.round((lat_d * 10 + lat_m + lat_s / 24 + offset - 90) * 10000) / 10000;
         return { lat: lat, lon: lon };
     },
+    gsq_gsq_dx: function(gsq1, gsq2) {
+        var out = { 'dx_km': null, 'dx_miles': null };
+        var deg2rad, lat1, lat2, lon1, lon2
+        gsq1 = CONVERT.gsq_deg(gsq1);
+        gsq2 = CONVERT.gsq_deg(gsq2);
+        if (gsq1 || !gsq2) {
+            alert("I seem to be null");
+            return out;
+        }
+
+        lat1 = parseFloat(gsq1.lat);
+        lon1 = parseFloat(gsq1.lon);
+
+        lat2 = parseFloat(gsq2.lat);
+        lon2 = parseFloat(gsq2.lon);
+
+        deg2rad = Math.PI / 180;
+        lat1 *= deg2rad;
+        lon1 *= deg2rad;
+        lat2 *= deg2rad;
+        lon2 *= deg2rad;
+        var diam = 12742; // Diameter of the earth in km (2 * 6371)
+        var dLat = lat2 - lat1;
+        var dLon = lon2 - lon1;
+        var a = (
+            (1 - Math.cos(dLat)) +
+            (1 - Math.cos(dLon)) * Math.cos(lat1) * Math.cos(lat2)
+        ) / 2;
+
+        alert(diam * Math.asin(Math.sqrt(a)));
+
+        return out;
+
+
+        var p = 0.017453292519943295;    // Math.PI / 180
+        var c = Math.cos;
+        var a = 0.5 - c((gsq2.lat - gsq1.lat) * p)/2 +
+            c(gsq1.lat * p) * c(gsq2.lat * p) *
+            (1 - c((gsq2.lon - gsq1.lon) * p))/2;
+
+        return 12742 * Math.asin(Math.sqrt(a)); // 2 * R; R = 6371 km
+    }
 }
 var VALIDATE = {
     gsq: function(value) {

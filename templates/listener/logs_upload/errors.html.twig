@@ -1,11 +1,6 @@
 {% if (errors) %}
     {% set format_line = format %}
-    {% include 'listener/logs_upload/tokens_help.html.twig' %}
-    <h2>{% trans %}Log Format errors{% endtrans %}
-        <small>[
-            <a href="#" class="tokensHelpLink" title="{% trans %}Click for help{% endtrans %}">{% trans %}Help{% endtrans %}</a>
-        ]</small>
-    </h2>
+    <h2>{% trans %}Log Format errors{% endtrans %}</h2>
     <table class="results very-short tokenErrors">
         <thead>
         <tr>

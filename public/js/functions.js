@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.13.4
- * Date:       2020-06-27
+ * Version:    2.13.5
+ * Date:       2020-06-29
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
  */
@@ -32,7 +32,7 @@ var popWinSpecs = {
     'listeners_[id]_locatormap' :   'width=1000,height=760,status=1,scrollbars=1,resizable=1',
     '[id]_signals_map' :            'width=1000,height=760,status=1,scrollbars=1,resizable=1',
     'listeners_[id]_ndbweblog' :    'status=1,scrollbars=1,resizable=1',
-    'logs_[id]' :                   'width=700,height=500,status=1,scrollbars=1,resizable=1',
+    'logs_[id]' :                   'width=640,height=500,status=1,scrollbars=1,resizable=1',
     'maps_af' :                     'width=646,height=652,resizable=1',
     'maps_alaska' :                 'width=600,height=620,resizable=1',
     'maps_as' :                     'width=856,height=645,resizable=1',
@@ -441,7 +441,7 @@ function setFormDatePickers() {
         changeMonth: true,
         changeYear: true,
         dateFormat: 'yy-mm-dd',
-        yearRange: '1980:+0'
+        yearRange: '1970:+0'
     });
     $('.js-datepicker').datepicker({
     });
@@ -903,292 +903,6 @@ function pad(txt, size, padStr) {
     return r;
 }
 
-function initListenersLogUploadForm() {
-    var std_formats = {
-        'wwsu': 'YYYY-MM-DD UTC    KHZ     ID         X       QTH',
-        'yand': 'YYYYMMDD hhmm KHZ ID   X          QTH           X'
-    }
-    var formFormat = $('#form_format');
-    formFormat.on('keyup', function() {
-        $('#form_saveFormat').attr('disabled', $(this).val() === $('#formatOld').text());
-    });
-
-    // Detect if we reloaded the page dure to back button being pressed
-    if (window.performance && window.performance.navigation.type === window.performance.navigation.TYPE_BACK_FORWARD) {
-        formFormat.trigger('keyup');
-    }
-    for (var i in std_formats) {
-        (function(i) {
-            $('#format_' + i).on('click', function() {
-                $('#form_format').val(std_formats[i]);
-            });
-        })(i);
-    }
-
-    $('#form_saveFormat').on('click', function() {
-        if (confirm(msg.log_upload.prompt.a) === false) {
-            e.preventDefault();
-            return;
-        }
-        $('#form_step').val('1b');
-    });
-
-    $('#form_tabs2spaces').on('click', function() {
-        var logs = $('#form_logs');
-        logs.val(logs.val().replace(/\t/g, '     '));
-    });
-
-    $('#form_lineUp').on('click', function() {
-        var i, idx, line, log_arr, logs, max_words, word, word_num, word_len_arr, words;
-        format = $('#form_format');
-        logs = $('#form_logs');
-        log_arr = logs.val().split('\n');
-        max_words = 0;
-        word_len_arr = [];
-        for (idx in log_arr) {
-            line = log_arr[idx].replace(/^\s+|\s+$/g,'').replace(/\s+/g,' ');
-            words = line.split(' ').length;
-            if (words > max_words) {
-                max_words = words;
-            }
-            log_arr[idx] = line;
-        }
-        for (i = 0; i < max_words; i++) {
-            word_len_arr[i] = 0;
-        }
-        for (idx in log_arr) {
-            line = log_arr[idx];
-            words = line.split(' ');
-            for (word_num in words) {
-                word = words[word_num];
-                if (word.length > word_len_arr[word_num]) {
-                    word_len_arr[word_num] = word.length;
-                }
-            }
-        }
-        for (idx in log_arr) {
-            line = log_arr[idx];
-            words = line.split(' ');
-            for (word_num in words) {
-                word = words[word_num];
-                words[word_num] = word.padEnd(word_len_arr[word_num]+1, ' ');
-            }
-            log_arr[idx] = words.join('');
-        }
-        logs.val(log_arr.join('\r\n'));
-    });
-
-    $('#form_parseLog').on('click', function(e) {
-        var f, field, fields;
-        fields = [
-            [ '#form_format', 3, 4 ],
-            [ '#form_logs',   5, 6 ],
-            [ '#form_YYYY',   7, 8 ],
-            [ '#form_MM',     9, 10 ],
-            [ '#form_DD',    11, 12 ]
-        ];
-        logsRemoveBlankLines($('#form_logs'));
-        for (f in fields) {
-            field = $(fields[f][0]);
-            if (!field.is(':visible')) {
-                continue;
-            }
-            if (field.val() === '' || field.val() === msg['log_upload_' + fields[f][2]]) {
-                e.preventDefault();
-                field.val(msg['log_upload_' + fields[f][2]]);
-                alert(msg.error.toUpperCase() + "\n\n" + msg['log_upload_' + fields[f][1]]);
-                field.focus().select();
-                return false;
-            }
-        }
-        $('#form_selected').val('UNSET');
-        $('#form_step').val(2);
-    });
-
-    $('#form_back').on('click', function() {
-        $('#form_step').val(1);
-        $('#form_selected').val('UNSET');
-    });
-
-    $(document).on('click', '.tokensHelpLink', function() {
-        $(this).addClass('on');
-        $(this).tooltip({
-            content: $('#tokensHelp').html(),
-            items: '.tokensHelpLink.on',
-            position: {
-                my: 'left+15 top-20',
-                at: 'right center',
-            },
-            tooltipClass: 'toolTipDetails',
-        });
-        $(this).trigger('mouseenter');
-        $('.tokensHelp b').on('click', function() {
-            var txt = $(this).text();
-            copyToClipboard(txt);
-            alert(msg.copied_x.replace('%s', txt));
-        }).attr('title', msg.copy_token);
-        return false;
-    });
-    //hide
-    $(document).on('click', '.tokensHelpLink.on', function () {
-        $(this).removeClass('on');
-        $(this).tooltip('close');
-        return false;
-    });
-    //prevent mouseout and other related events from firing their handlers
-    $('.tokensHelpLink').on('mouseout', function (e) {
-        e.stopImmediatePropagation();
-    });
-
-    $('table.parse').on('click', 'tr td:gt(1)', function(event) {
-        event.stopImmediatePropagation();
-        var ctl = $(this).parent().find('input:checkbox');
-        ctl.prop('checked', !ctl.prop('checked'));
-        ctl.trigger('change');
-    });
-
-    $('table.parse input:checkbox').change(function() {
-        $('input[data-idx="' + $(this).data()['idx'] + '"]').not(this).prop('checked', false);
-        logsShowRemainder();
-    });
-
-    $('#form_submitLog').on('click', function(e) {
-        var m = msg.log_upload.confirm;
-        var remaining_val = $('#remainder_logs').val();
-        var remaining = remaining_val === '' ? 0 : remaining_val.split("\n").length;
-        var message = (remaining_val.trim() ? m[1] + "\n" + m[2].replace('COUNT', remaining) + "\n\n" + m[3] : m[1]);
-        if (!confirm(message)) {
-            e.preventDefault();
-            return false;
-        }
-        $('#form_step').val(3);
-    });
-
-    $('#copyRemainder').on('click', function() {
-        var txt = $('#remainder_logs').val();
-        copyToClipboard(txt);
-        alert(msg.log_upload.copy_remaining);
-        return false;
-    })
-
-    $('.jump .up').on('click', function() {
-        var id = parseInt($(this).parent().attr('id').split('_')[1]);
-        var row_id = $('#jump_' + (id - 1)).parent().attr('id').split('_')[1];
-        document.getElementById('row_' + (row_id-1)).scrollIntoView({behavior: 'smooth', block: 'start'});
-    });
-
-    $('.jump .down').on('click', function() {
-        var id = parseInt($(this).parent().attr('id').split('_')[1]);
-        if ($('#jump_' + (id + 1)).length) {
-            var row_id = $('#jump_' + (id + 1)).parent().attr('id').split('_')[1];
-            document.getElementById('row_' + (row_id - 1)).scrollIntoView({behavior: 'smooth', block: 'start'});
-        } else {
-            alert(msg.log_upload.last_item)
-        }
-    });
-    $('#check_good').on('click', function() {
-        $('table.parse .good input:checkbox').each(function() {
-            $(this).prop('checked', true);
-        });
-        logsShowRemainder();
-        return false;
-    })
-    $('#check_warning').on('click', function() {
-        $('table.parse .warning input:checkbox').each(function() {
-            $(this).prop('checked', true);
-        });
-        logsShowRemainder();
-        return false;
-    })
-    $('#check_choice').on('click', function() {
-        var choices, i, path, rows;
-        choices = $('table.parse .choice input:checkbox');
-        rows = [];
-        for (i=0; i<choices.length; i++) {
-            var idx = $(choices[i]).data('idx');
-            if ('undefined' === typeof rows[idx]) {
-                rows[idx] = 0;
-            }
-            if (!$(choices[i]).parent().parent().hasClass('inactive')) {
-                rows[idx]++;
-            }
-        }
-        for (i=0; i<rows.length; i++) {
-            if (rows[i] === 1) {
-                path = 'tr:not(.inactive) input[type=checkbox][data-idx='+i+']';
-                $(path).prop('checked', 'checked');
-            }
-        }
-        logsShowRemainder();
-        return false;
-    });
-    $('#uncheck_warning').on('click', function() {
-        $('table.parse .warning input:checkbox').each(function() {
-            $(this).prop('checked', false);
-        });
-        logsShowRemainder();
-        return false;
-    });
-    $('#uncheck_choice').on('click', function() {
-        $('table.parse .choice input:checkbox').each(function() {
-            $(this).prop('checked', false);
-        });
-        logsShowRemainder();
-        return false;
-    });
-    $('#uncheck_all').on('click', function() {
-        $('table.parse input:checkbox').each(function() {
-            $(this).prop('checked', false);
-        });
-        logsShowRemainder();
-        return false;
-    });
-}
-function logsRemoveBlankLines(element) {
-    var i, logs, logs_filtered;
-    logs = element.val().split("\n");
-    logs_filtered = [];
-    for (i=0; i < logs.length; i++) {
-        if (logs[i].trim() !== '') {
-            logs_filtered.push(logs[i]);
-        }
-    }
-    element.val(logs_filtered.join("\n"));
-
-}
-
-function logsShowRemainder() {
-    var logs = $('#form_logs').val().split("\n");
-    var i;
-    var idx;
-    var checked = [];
-    var selected = [];
-    var remainder = [];
-    $('table.parse input:checkbox').each(function() {
-        if ($(this).is(':checked')) {
-            selected.push($(this).val());
-            idx = $(this).val().split('|')[0];
-            checked[idx] = idx;
-        }
-    });
-    for (i in checked) {
-        if (checked.hasOwnProperty(i)) {
-            logs[i] = '';
-        }
-    }
-    for (i in logs) {
-        if (logs.hasOwnProperty(i)) {
-            if (logs[i] !== '') {
-                remainder.push(logs[i]);
-            }
-        }
-    }
-    $('#remainder_format').val($('#form_format').val());
-    $('#remainder_logs').val(remainder.join("\r\n"));
-    $('#form_selected').val(selected.join(','));
-    $('#issueCount').text(remainder.length);
-}
-
 // Used here: http://rxx.classaxe.com/en/rna/listeners/56/map
 // Global vars:
 //     google.maps
@@ -1450,6 +1164,375 @@ var LocatorMap = {
         });
     }
 };
+
+function initListenersLogUploadForm() {
+    var std_formats = {
+        'wwsu': 'YYYY-MM-DD UTC    KHZ     ID         X       QTH',
+        'yand': 'YYYYMMDD hhmm KHZ ID   X          QTH           X'
+    }
+    var formFormat = $('#form_format');
+    formFormat.on('keyup', function() {
+        $('#form_saveFormat').attr('disabled', $(this).val() === $('#formatOld').text());
+    });
+
+    // Detect if we reloaded the page dure to back button being pressed
+    if (window.performance && window.performance.navigation.type === window.performance.navigation.TYPE_BACK_FORWARD) {
+        formFormat.trigger('keyup');
+    }
+    for (var i in std_formats) {
+        (function(i) {
+            $('#format_' + i).on('click', function() {
+                $('#form_format').val(std_formats[i]);
+            });
+        })(i);
+    }
+
+    $('#form_saveFormat').on('click', function() {
+        if (confirm(msg.log_upload.prompt.a) === false) {
+            e.preventDefault();
+            return;
+        }
+        $('#form_step').val('1b');
+    });
+
+    $('#form_tabs2spaces').on('click', function() {
+        var logs = $('#form_logs');
+        logs.val(logs.val().replace(/\t/g, '     '));
+    });
+
+    $('#form_lineUp').on('click', function() {
+        var i, idx, line, log_arr, logs, max_words, word, word_num, word_len_arr, words;
+        format = $('#form_format');
+        logs = $('#form_logs');
+        log_arr = logs.val().split('\n');
+        max_words = 0;
+        word_len_arr = [];
+        for (idx in log_arr) {
+            line = log_arr[idx].replace(/^\s+|\s+$/g,'').replace(/\s+/g,' ');
+            words = line.split(' ').length;
+            if (words > max_words) {
+                max_words = words;
+            }
+            log_arr[idx] = line;
+        }
+        for (i = 0; i < max_words; i++) {
+            word_len_arr[i] = 0;
+        }
+        for (idx in log_arr) {
+            line = log_arr[idx];
+            words = line.split(' ');
+            for (word_num in words) {
+                word = words[word_num];
+                if (word.length > word_len_arr[word_num]) {
+                    word_len_arr[word_num] = word.length;
+                }
+            }
+        }
+        for (idx in log_arr) {
+            line = log_arr[idx];
+            words = line.split(' ');
+            for (word_num in words) {
+                word = words[word_num];
+                words[word_num] = word.padEnd(word_len_arr[word_num]+1, ' ');
+            }
+            log_arr[idx] = words.join('');
+        }
+        logs.val(log_arr.join('\r\n'));
+    });
+
+    $('#form_parseLog').on('click', function(e) {
+        var f, field, fields;
+        fields = [
+            [ '#form_format', 3, 4 ],
+            [ '#form_logs',   5, 6 ],
+            [ '#form_YYYY',   7, 8 ],
+            [ '#form_MM',     9, 10 ],
+            [ '#form_DD',    11, 12 ]
+        ];
+        logsRemoveBlankLines($('#form_logs'));
+        for (f in fields) {
+            field = $(fields[f][0]);
+            if (!field.is(':visible')) {
+                continue;
+            }
+            if (field.val() === '' || field.val() === msg['log_upload_' + fields[f][2]]) {
+                e.preventDefault();
+                field.val(msg['log_upload_' + fields[f][2]]);
+                alert(msg.error.toUpperCase() + "\n\n" + msg['log_upload_' + fields[f][1]]);
+                field.focus().select();
+                return false;
+            }
+        }
+        $('#form_selected').val('UNSET');
+        $('#form_step').val(2);
+    });
+
+    $('#form_back').on('click', function() {
+        $('#form_step').val(1);
+        $('#form_selected').val('UNSET');
+    });
+
+    $(document).on('click', '.tokensHelpLink', function() {
+        $(this).addClass('on');
+        $(this).tooltip({
+            content: $('#tokensHelp').html(),
+            items: '.tokensHelpLink.on',
+            position: {
+                my: 'left+15 top-20',
+                at: 'right center',
+            },
+            tooltipClass: 'toolTipDetails',
+        });
+        $(this).trigger('mouseenter');
+        $('.tokensHelp b').on('click', function() {
+            var txt = $(this).text();
+            copyToClipboard(txt);
+            alert(msg.copied_x.replace('%s', txt));
+        }).attr('title', msg.copy_token);
+        $('.tokensHelp #tokensHelpClose').on('click', function() {
+            $('.tokensHelpLink').removeClass('on');
+            $('.tokensHelpLink').tooltip('close');
+            return false;
+        });
+        return false;
+    });
+    //hide
+    $(document).on('click', '.tokensHelpLink.on', function () {
+        $(this).removeClass('on');
+        $(this).tooltip('close');
+        return false;
+    });
+    //prevent mouseout and other related events from firing their handlers
+    $('.tokensHelpLink').on('mouseout', function (e) {
+        e.stopImmediatePropagation();
+    });
+
+    $('table.parse').on('click', 'tr td:gt(1)', function(event) {
+        event.stopImmediatePropagation();
+        var ctl = $(this).parent().find('input:checkbox');
+        ctl.prop('checked', !ctl.prop('checked'));
+        ctl.trigger('change');
+    });
+
+    $('table.parse input:checkbox').change(function() {
+        $('input[data-idx="' + $(this).data()['idx'] + '"]').not(this).prop('checked', false);
+        logsShowRemainder();
+    });
+
+    $('#form_submitLog').on('click', function(e) {
+        var m = msg.log_upload.confirm;
+        var remaining_val = $('#remainder_logs').val();
+        var remaining = remaining_val === '' ? 0 : remaining_val.split("\n").length;
+        var message = (remaining_val.trim() ? m[1] + "\n" + m[2].replace('COUNT', remaining) + "\n\n" + m[3] : m[1]);
+        if (!confirm(message)) {
+            e.preventDefault();
+            return false;
+        }
+        $('#form_step').val(3);
+    });
+
+    $('#copyRemainder').on('click', function() {
+        var txt = $('#remainder_logs').val();
+        copyToClipboard(txt);
+        alert(msg.log_upload.copy_remaining);
+        return false;
+    })
+
+    $('.jump .up').on('click', function() {
+        var id = parseInt($(this).parent().attr('id').split('_')[1]);
+        var row_id = $('#jump_' + (id - 1)).parent().attr('id').split('_')[1];
+        document.getElementById('row_' + (row_id-1)).scrollIntoView({behavior: 'smooth', block: 'start'});
+    });
+
+    $('.jump .down').on('click', function() {
+        var id = parseInt($(this).parent().attr('id').split('_')[1]);
+        if ($('#jump_' + (id + 1)).length) {
+            var row_id = $('#jump_' + (id + 1)).parent().attr('id').split('_')[1];
+            document.getElementById('row_' + (row_id - 1)).scrollIntoView({behavior: 'smooth', block: 'start'});
+        } else {
+            alert(msg.log_upload.last_item)
+        }
+    });
+    $('#check_good').on('click', function() {
+        $('table.parse .good input:checkbox').each(function() {
+            $(this).prop('checked', true);
+        });
+        logsShowRemainder();
+        return false;
+    })
+    $('#check_warning').on('click', function() {
+        $('table.parse .warning input:checkbox').each(function() {
+            $(this).prop('checked', true);
+        });
+        logsShowRemainder();
+        return false;
+    })
+    $('#check_choice').on('click', function() {
+        var choices, i, path, rows;
+        choices = $('table.parse .choice input:checkbox');
+        rows = [];
+        for (i=0; i<choices.length; i++) {
+            var idx = $(choices[i]).data('idx');
+            if ('undefined' === typeof rows[idx]) {
+                rows[idx] = 0;
+            }
+            if (!$(choices[i]).parent().parent().hasClass('inactive')) {
+                rows[idx]++;
+            }
+        }
+        for (i=0; i<rows.length; i++) {
+            if (rows[i] === 1) {
+                path = 'tr:not(.inactive) input[type=checkbox][data-idx='+i+']';
+                $(path).prop('checked', 'checked');
+            }
+        }
+        logsShowRemainder();
+        return false;
+    });
+    $('#uncheck_warning').on('click', function() {
+        $('table.parse .warning input:checkbox').each(function() {
+            $(this).prop('checked', false);
+        });
+        logsShowRemainder();
+        return false;
+    });
+    $('#uncheck_choice').on('click', function() {
+        $('table.parse .choice input:checkbox').each(function() {
+            $(this).prop('checked', false);
+        });
+        logsShowRemainder();
+        return false;
+    });
+    $('#uncheck_all').on('click', function() {
+        $('table.parse input:checkbox').each(function() {
+            $(this).prop('checked', false);
+        });
+        logsShowRemainder();
+        return false;
+    });
+}
+function logsRemoveBlankLines(element) {
+    var i, logs, logs_filtered;
+    logs = element.val().split("\n");
+    logs_filtered = [];
+    for (i=0; i < logs.length; i++) {
+        if (logs[i].trim() !== '') {
+            logs_filtered.push(logs[i]);
+        }
+    }
+    element.val(logs_filtered.join("\n"));
+
+}
+
+function logsShowRemainder() {
+    var logs = $('#form_logs').val().split("\n");
+    var i;
+    var idx;
+    var checked = [];
+    var selected = [];
+    var remainder = [];
+    $('table.parse input:checkbox').each(function() {
+        if ($(this).is(':checked')) {
+            selected.push($(this).val());
+            idx = $(this).val().split('|')[0];
+            checked[idx] = idx;
+        }
+    });
+    for (i in checked) {
+        if (checked.hasOwnProperty(i)) {
+            logs[i] = '';
+        }
+    }
+    for (i in logs) {
+        if (logs.hasOwnProperty(i)) {
+            if (logs[i] !== '') {
+                remainder.push(logs[i]);
+            }
+        }
+    }
+    $('#remainder_format').val($('#form_format').val());
+    $('#remainder_logs').val(remainder.join("\r\n"));
+    $('#form_selected').val(selected.join(','));
+    $('#issueCount').text(remainder.length);
+}
+
+var LOG_EDIT = {
+    init: function() {
+        $('#form_saveClose').on('click', function(){
+            alert('Not yet implemented');
+            return false;
+        })
+        LOG_EDIT.initListenersSelector(listeners);
+        LOG_EDIT.initSignalsSelector(signals);
+        setFormDatePickers();
+    },
+
+    initListenersSelector: function(data) {
+        var element, i, out = '', r, s;
+        element = $('#form_listenerId');
+        s  = element.val();
+        out = "<select id=\"form_listenerId\" name=\"form[listenerId]\" required=\"required\" size=\"6\">\n";
+        for (i in data) {
+            r = data[i].split('|');
+            out +=
+                "<option value='" + r[0] + "'" +
+                " data-gsq='" + r[3] + "'" +
+                " class='" + (r[4] === '1' ? 'primaryQth' : 'secondaryQth') + "'" +
+                (r[0] === s ? " selected='selected'" : '') +
+                ">" +
+                pad(r[1] + ", " + r[5] + (r[2] ? ' ' + r[2] : ''), (r[4] === '1' ? 60 : 58), '&nbsp;') +
+                (r[6] ? ' ' + r[6] : '&nbsp; &nbsp;') +
+                ' ' + r[7] +
+                "</option>";
+        }
+        out += "</select>";
+        element.replaceWith(out);
+        element = $('#form_listenerId');
+        element
+            .on('change', function(){
+                LOG_EDIT.getDx();
+            })
+    },
+
+    initSignalsSelector: function(data) {
+        var element, i, out = '', r, s;
+        element = $('#form_signalId');
+        s  = element.val();
+        out = "<select id=\"form_signalId\" name=\"form[signalId]\" required=\"required\" size=\"6\">\n";
+        for (i in data) {
+            r = data[i].split('|');
+            out +=
+                "<option value='" + r[0] + "'" +
+                (r[5] === '0' ? " title='" + msg.inactive + "'" : '') +
+                " class='type_" +r[3] + (r[5] === '0' ? ' inactive' : '') + "'" +
+                " data-gsq='" + r[4] + "'" +
+                (r[0] === s ? " selected='selected'" : '') +
+                ">" +
+                pad(parseFloat(r[2]), 10, '&nbsp;') +
+                pad(r[1], 10, '&nbsp;') +
+                pad(r[6], 41, '&nbsp;') +
+                pad(r[7], 3, '&nbsp;') +
+                r[8] + ' ' +
+                "</option>";
+        }
+        out += "</select>";
+        element.replaceWith(out);
+    },
+
+    getDx: function() {
+        var dx, dx_km = '', dx_miles = '', qth, sig;
+        qth = $('#form_listenerId').find('option:selected').data('gsq').trim();
+        sig = $('#form_signalId').find('option:selected').data('gsq').trim();
+
+        if (qth !== '' && sig !== '') {
+            qth = CONVERT.gsq_deg(qth);
+            sig = CONVERT.gsq_deg(sig);
+            dx = CONVERT.gsq_gsq_dx(qth, sig)
+            alert(dx.dx_km);
+        }
+    }
+}
+
 
 function drawGrid(map, layers) {
     TxtOverlay =    initMapsTxtOverlay();
@@ -2256,54 +2339,6 @@ function setSignalActions() {
     });
 }
 
-function initSignalsSelector(data) {
-    var element, i, out = '', r, s;
-    element = $('#form_signalId');
-    s  = element.val();
-    out = "<select id=\"form_signalId\" name=\"form[signalId]\" required=\"required\" size=\"6\">\n";
-    for (i in data) {
-        r = data[i].split('|');
-        out +=
-            "<option value='" + r[0] + "'" +
-            (r[5] === '0' ? " title='" + msg.tools : '') + "'" +
-            " class='type_" +r[3] + (r[5] === '0' ? ' inactive' : '') + "'" +
-            (r[0] === s ? " selected='selected'" : '') +
-            " data-gsq='" + r[4] + "'" +
-            ">" +
-            pad(parseFloat(r[2]), 10, '&nbsp;') +
-            pad(r[1], 10, '&nbsp;') +
-            pad(r[6], 41, '&nbsp;') +
-            pad(r[7], 3, '&nbsp;') +
-            r[8] + ' ' +
-            "</option>";
-    }
-    out += "</select>";
-    element.replaceWith(out);
-}
-
-function initListenersSelector(data) {
-    var element, i, out = '', r, s;
-    element = $('#form_listenerId');
-    s  = element.val();
-    out = "<select id=\"form_listenerId\" name=\"form[listenerId]\" required=\"required\" size=\"6\">\n";
-    for (i in data) {
-        r = data[i].split('|');
-        out +=
-            "<option value='" + r[0] + "'" +
-            (r[0] === s ? " selected='selected'" : '') +
-            " data-gsq='" + r[3] + "'" +
-            " class='" + (r[4] === '1' ? 'primaryQth' : 'secondaryQth') + "'" +
-            ">" +
-            pad(r[1] + ", " + r[5] + (r[2] ? ' ' + r[2] : ''), (r[4] === '1' ? 60 : 58), '&nbsp;') +
-            (r[6] ? ' ' + r[6] : '&nbsp; &nbsp;') +
-            ' ' + r[7] +
-            "</option>";
-    }
-    out += "</select>";
-    element.replaceWith(out);
-}
-
-
 
 var DGPS = {
     init: function() {
@@ -2436,6 +2471,48 @@ var CONVERT = {
         lat = Math.round((lat_d * 10 + lat_m + lat_s / 24 + offset - 90) * 10000) / 10000;
         return { lat: lat, lon: lon };
     },
+    gsq_gsq_dx: function(gsq1, gsq2) {
+        var out = { 'dx_km': null, 'dx_miles': null };
+        var deg2rad, lat1, lat2, lon1, lon2
+        gsq1 = CONVERT.gsq_deg(gsq1);
+        gsq2 = CONVERT.gsq_deg(gsq2);
+        if (gsq1 || !gsq2) {
+            alert("I seem to be null");
+            return out;
+        }
+
+        lat1 = parseFloat(gsq1.lat);
+        lon1 = parseFloat(gsq1.lon);
+
+        lat2 = parseFloat(gsq2.lat);
+        lon2 = parseFloat(gsq2.lon);
+
+        deg2rad = Math.PI / 180;
+        lat1 *= deg2rad;
+        lon1 *= deg2rad;
+        lat2 *= deg2rad;
+        lon2 *= deg2rad;
+        var diam = 12742; // Diameter of the earth in km (2 * 6371)
+        var dLat = lat2 - lat1;
+        var dLon = lon2 - lon1;
+        var a = (
+            (1 - Math.cos(dLat)) +
+            (1 - Math.cos(dLon)) * Math.cos(lat1) * Math.cos(lat2)
+        ) / 2;
+
+        alert(diam * Math.asin(Math.sqrt(a)));
+
+        return out;
+
+
+        var p = 0.017453292519943295;    // Math.PI / 180
+        var c = Math.cos;
+        var a = 0.5 - c((gsq2.lat - gsq1.lat) * p)/2 +
+            c(gsq1.lat * p) * c(gsq2.lat * p) *
+            (1 - c((gsq2.lon - gsq1.lon) * p))/2;
+
+        return 12742 * Math.asin(Math.sqrt(a)); // 2 * R; R = 6371 km
+    }
 }
 var VALIDATE = {
     gsq: function(value) {
