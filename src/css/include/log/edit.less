@@ -13,6 +13,15 @@
                 text-align: right;
                 padding: 0 0.5em 0 2em;
             }
+            &[for="form_dxMiles"] {
+                width: 10em;
+            }
+            &[for="form_time"] {
+                width: 7em;
+            }
+            &[for="form_daytime"] {
+                width: 10em;
+            }
 
         }
         input[type='text'],
@@ -32,7 +41,7 @@
                 width: 3em;
             }
             &#form_format {
-                width: 20em;
+                width: 23em;
             }
             &#form_dxKm,
             &#form_dxMiles,
@@ -43,7 +52,8 @@
                 width: 4em;
             }
         }
-        select {
+        select#form_listenerId,
+        select#form_signalId {
             margin: 0 0 0.5em 0;
             font-family: monospace;
             height: 8em;
@@ -55,6 +65,10 @@
                 color: #888;
             }
         }
-
+        select#form_daytime {
+            background: #E6E6E7;
+            cursor: not-allowed;
+            width: 6em;
+        }
     }
 }

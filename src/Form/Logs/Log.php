@@ -114,7 +114,9 @@ class Log extends AbstractType
                 'dxKm',
                 TextType::class,
                 [
-                    'attr' =>   [ 'readonly' => 'readonly' ],
+                    'attr' => [
+                        'readonly' => 'readonly'
+                    ],
                     'data' =>           $options['dxKm'],
                     'empty_data' =>     '',
                     'label' =>          'DX (KM)',
@@ -124,7 +126,9 @@ class Log extends AbstractType
                 'dxMiles',
                 TextType::class,
                 [
-                    'attr' =>   [ 'readonly' => 'readonly' ],
+                    'attr' => [
+                        'readonly' => 'readonly'
+                    ],
                     'data' =>           $options['dxMiles'],
                     'empty_data' =>     '',
                     'label' =>          'DX (Miles)',
@@ -134,7 +138,9 @@ class Log extends AbstractType
                 'date',
                 TextType::class,
                 [
-                    'attr' =>   [ 'class' => 'js-datepicker' ],
+                    'attr' => [
+                        'class' => 'js-datepicker'
+                    ],
                     'data' =>           $options['date'],
                     'empty_data' =>     '',
                     'label' =>          'Date',
@@ -142,8 +148,15 @@ class Log extends AbstractType
             )
             ->add(
                 'daytime',
-                CheckboxType::class,
+                ChoiceType::class,
                 [
+                    'attr' => [
+                        'readonly' => 'readonly'
+                    ],
+                    'choices' =>        [
+                        'No' => 0,
+                        'Yes' => 1
+                    ],
                     'data' =>           $options['daytime'],
                     'empty_data' =>     '',
                     'label' =>          'Daytime',
@@ -220,146 +233,6 @@ class Log extends AbstractType
                     'required' =>       false
                 ]
             )
-
-/*
-
-            'dxKm' =>       $log->getDxKm(),
-            'dxMiles' =>    $log->getDxMiles(),
-            'format' =>     $log->getFormat(),
-            'heardIn' =>    $log->getHeardIn(),
-            'listenerId' => $log->getListenerId(),
-            'lsb' =>        $log->getLsb(),
-            'lsbApprox' =>  $log->getLsbApprox(),
-            'region' =>     $log->getRegion(),
-            'sec' =>        $log->getSec(),
-            'usb' =>        $log->getUsb(),
-            'usbApprox' =>  $log->getUsbApprox(),
-
-*/
-/*
-            ->add(
-                'callsign',
-                TextType::class,
-                [
-                    'data' =>           $options['callsign'],
-                    'empty_data' =>     '',
-                    'label' =>          'Callsign',
-                    'required' =>       false
-                ]
-            )
-            ->add(
-                'website',
-                TextType::class,
-                [
-                    'data' =>           $options['website'],
-                    'empty_data' =>     '',
-                    'label' =>          'Website',
-                    'required' =>       false
-                ]
-            )
-            ->add(
-                'qth',
-                TextType::class,
-                [
-                    'attr' => [
-                        'onchange' =>   "try{setCustomValidity('')}catch(e){}",
-                        'oninvalid' =>  "setCustomValidity('Please enter this listener\'s approximate location')"
-                    ],
-                    'data' =>           $options['qth'],
-                    'empty_data' =>     '',
-                    'label' =>          'Town / City',
-                ]
-            )
-            ->add(
-                'sp',
-                ChoiceType::class,
-                [
-                    'choices' =>        $this->sp->getMatchingOptions(),
-                    'data' =>           $options['sp'],
-                    'label' =>          'State / Prov',
-                    'required' =>       false
-                ]
-            )
-            ->add(
-                'itu',
-                ChoiceType::class,
-                [
-                    'choices' =>        $this->country->getMatchingOptions(),
-                    'data' =>           $options['itu'],
-                    'label' =>          'Country',
-                ]
-            )
-            ->add(
-                'gsq',
-                TextType::class,
-                [
-                    'attr' => [
-                        'maxlength' =>  6,
-                        'onchange' =>   "try{setCustomValidity('')}catch(e){}",
-                        'oninvalid' =>  "setCustomValidity('Please provide the grid square so we can calculate distances')",
-                        'size' =>       6,
-                        'style' =>      "width: 6em"
-                    ],
-                    'data' =>           $options['gsq'],
-                    'empty_data' =>     '',
-                    'label' =>          'Grid Square',
-                ]
-            )
-            ->add(
-                'primaryQth',
-                ChoiceType::class,
-                [
-                    'attr' => [
-                        'style' =>      "width: 6em"
-                    ],
-                    'choices' => [
-                        'Yes' =>        1,
-                        'No' =>         0,
-                    ],
-                    'data' =>           $options['primaryQth'],
-                    'label' =>          'Primary Location',
-                ]
-            )
-            ->add(
-                'timezone',
-                ChoiceType::class,
-                [
-                    'choices' =>        $this->timeRepository->getAllOptions(),
-                    'choice_translation_domain' => false,
-                    'data' =>           $options['timezone'],
-                    'label' =>          'Timezone',
-                    'required' =>       false
-                ]
-            )
-            ->add(
-                'equipment',
-                TextareaType::class,
-                [
-                    'attr' => [
-                        'cols' =>       80,
-                        'rows' =>       5,
-                    ],
-                    'data' =>           html_entity_decode($options['equipment']),
-                    'empty_data' =>     '',
-                    'label' =>          'Equipment',
-                    'required' =>       false
-                ]
-            )
-            ->add(
-                'notes',
-                TextareaType::class,
-                [
-                    'attr' => [
-                        'cols' =>       80,
-                        'rows' =>       5,
-                    ],
-                    'data' =>           $options['notes'],
-                    'empty_data' =>     '',
-                    'label' =>          'Notes',
-                    'required' =>       false
-                ]
-            )
-*/
             ->add(
                 'close',
                 ButtonType::class,

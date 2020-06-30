@@ -134,9 +134,9 @@ var CONVERT = {
         var deg2rad, lat1, lat2, lon1, lon2
         gsq1 = CONVERT.gsq_deg(gsq1);
         gsq2 = CONVERT.gsq_deg(gsq2);
-        if (gsq1 || !gsq2) {
-            alert("I seem to be null");
-            return out;
+
+        if (!gsq1 || !gsq2) {
+            return false;
         }
 
         lat1 = parseFloat(gsq1.lat);
@@ -158,18 +158,10 @@ var CONVERT = {
             (1 - Math.cos(dLon)) * Math.cos(lat1) * Math.cos(lat2)
         ) / 2;
 
-        alert(diam * Math.asin(Math.sqrt(a)));
-
-        return out;
-
-
-        var p = 0.017453292519943295;    // Math.PI / 180
-        var c = Math.cos;
-        var a = 0.5 - c((gsq2.lat - gsq1.lat) * p)/2 +
-            c(gsq1.lat * p) * c(gsq2.lat * p) *
-            (1 - c((gsq2.lon - gsq1.lon) * p))/2;
-
-        return 12742 * Math.asin(Math.sqrt(a)); // 2 * R; R = 6371 km
+        return {
+            'dx_km' :       Math.round(12742 * Math.asin(Math.sqrt(a))),
+            'dx_miles' :    Math.round(7917.5 * Math.asin(Math.sqrt(a))),
+        }
     }
 }
 var VALIDATE = {

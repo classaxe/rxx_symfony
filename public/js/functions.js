@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.13.5
- * Date:       2020-06-29
+ * Version:    2.13.6
+ * Date:       2020-06-30
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
  */
@@ -1464,6 +1464,7 @@ var LOG_EDIT = {
         })
         LOG_EDIT.initListenersSelector(listeners);
         LOG_EDIT.initSignalsSelector(signals);
+        LOG_EDIT.initTimeControl();
         setFormDatePickers();
     },
 
@@ -1477,6 +1478,7 @@ var LOG_EDIT = {
             out +=
                 "<option value='" + r[0] + "'" +
                 " data-gsq='" + r[3] + "'" +
+                " data-tz='" + r[8] + "'" +
                 " class='" + (r[4] === '1' ? 'primaryQth' : 'secondaryQth') + "'" +
                 (r[0] === s ? " selected='selected'" : '') +
                 ">" +
@@ -1491,6 +1493,7 @@ var LOG_EDIT = {
         element
             .on('change', function(){
                 LOG_EDIT.getDx();
+                LOG_EDIT.getDaytime();
             })
     },
 
@@ -1517,19 +1520,48 @@ var LOG_EDIT = {
         }
         out += "</select>";
         element.replaceWith(out);
+        element = $('#form_signalId');
+        element
+            .on('change', function(){
+                LOG_EDIT.getDx();
+            })
+    },
+
+    initTimeControl: function() {
+        element = $('#form_time');
+        element
+            .on('change', function(){
+                LOG_EDIT.getDaytime();
+            })
     },
 
     getDx: function() {
-        var dx, dx_km = '', dx_miles = '', qth, sig;
-        qth = $('#form_listenerId').find('option:selected').data('gsq').trim();
-        sig = $('#form_signalId').find('option:selected').data('gsq').trim();
+        var dx, dx_km = '', dx_miles = '', qth, qth_element, sig, sig_element;
+        qth_element = document.getElementById('form_listenerId');
+        qth = qth_element.options[qth_element.selectedIndex].getAttribute('data-gsq');
 
-        if (qth !== '' && sig !== '') {
-            qth = CONVERT.gsq_deg(qth);
-            sig = CONVERT.gsq_deg(sig);
-            dx = CONVERT.gsq_gsq_dx(qth, sig)
-            alert(dx.dx_km);
+        sig_element = document.getElementById('form_signalId');
+        sig = sig_element.options[sig_element.selectedIndex].getAttribute('data-gsq');
+
+        if (qth == '' || sig == '') {
+            return false;
         }
+        dx = CONVERT.gsq_gsq_dx(qth, sig);
+        $('#form_dxKm').val(dx ? dx.dx_km : '');
+        $('#form_dxMiles').val(dx ? dx.dx_miles : '');
+    },
+
+    getDaytime: function() {
+        var hhmm, isDaytime, tz, tz_element;
+        tz_element = document.getElementById('form_listenerId');
+        tz = tz_element.options[tz_element.selectedIndex].getAttribute('data-tz');
+        hhmm = $('#form_time').val();
+        if (hhmm.length !== 4) {
+            isDaytime = 0;
+        } else {
+            isDaytime = (parseInt(hhmm) + 2400 >= (tz * -100) + 3400 && parseInt(hhmm) + 2400 <  (tz * -100) + 3800) ? 1 : 0;
+        }
+        $('#form_daytime').val(isDaytime);
     }
 }
 
@@ -2476,9 +2508,9 @@ var CONVERT = {
         var deg2rad, lat1, lat2, lon1, lon2
         gsq1 = CONVERT.gsq_deg(gsq1);
         gsq2 = CONVERT.gsq_deg(gsq2);
-        if (gsq1 || !gsq2) {
-            alert("I seem to be null");
-            return out;
+
+        if (!gsq1 || !gsq2) {
+            return false;
         }
 
         lat1 = parseFloat(gsq1.lat);
@@ -2500,18 +2532,10 @@ var CONVERT = {
             (1 - Math.cos(dLon)) * Math.cos(lat1) * Math.cos(lat2)
         ) / 2;
 
-        alert(diam * Math.asin(Math.sqrt(a)));
-
-        return out;
-
-
-        var p = 0.017453292519943295;    // Math.PI / 180
-        var c = Math.cos;
-        var a = 0.5 - c((gsq2.lat - gsq1.lat) * p)/2 +
-            c(gsq1.lat * p) * c(gsq2.lat * p) *
-            (1 - c((gsq2.lon - gsq1.lon) * p))/2;
-
-        return 12742 * Math.asin(Math.sqrt(a)); // 2 * R; R = 6371 km
+        return {
+            'dx_km' :       Math.round(12742 * Math.asin(Math.sqrt(a))),
+            'dx_miles' :    Math.round(7917.5 * Math.asin(Math.sqrt(a))),
+        }
     }
 }
 var VALIDATE = {

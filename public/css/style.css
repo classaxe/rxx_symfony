@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.13.5
- * Date:       2020-06-29
+ * Version:    2.13.6
+ * Date:       2020-06-30
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
  */
@@ -2243,6 +2243,15 @@ div.scroll div table.parse.results tbody tr {
   text-align: right;
   padding: 0 0.5em 0 2em;
 }
+.log_edit #form label[for="form_dxMiles"] {
+  width: 10em;
+}
+.log_edit #form label[for="form_time"] {
+  width: 7em;
+}
+.log_edit #form label[for="form_daytime"] {
+  width: 10em;
+}
 .log_edit #form input[type='text'],
 .log_edit #form select {
   width: 75%;
@@ -2264,7 +2273,7 @@ div.scroll div table.parse.results tbody tr {
 }
 .log_edit #form input[type='text']#form_format,
 .log_edit #form select#form_format {
-  width: 20em;
+  width: 23em;
 }
 .log_edit #form input[type='text']#form_dxKm,
 .log_edit #form select#form_dxKm,
@@ -2279,17 +2288,25 @@ div.scroll div table.parse.results tbody tr {
   text-align: right;
   width: 4em;
 }
-.log_edit #form select {
+.log_edit #form select#form_listenerId,
+.log_edit #form select#form_signalId {
   margin: 0 0 0.5em 0;
   font-family: monospace;
   height: 8em;
 }
-.log_edit #form select option.primaryQth {
+.log_edit #form select#form_listenerId option.primaryQth,
+.log_edit #form select#form_signalId option.primaryQth {
   font-weight: bold;
 }
-.log_edit #form select option.secondaryQth {
+.log_edit #form select#form_listenerId option.secondaryQth,
+.log_edit #form select#form_signalId option.secondaryQth {
   padding-left: 1.5em;
   color: #888;
+}
+.log_edit #form select#form_daytime {
+  background: #E6E6E7;
+  cursor: not-allowed;
+  width: 6em;
 }
 a.add,
 a.close,

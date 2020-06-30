@@ -383,7 +383,8 @@ class ListenerRepository extends ServiceEntityRepository
                         primary_QTH,
                         qth,
                         sp,
-                        itu
+                        itu,
+                        timezone
                     ),
                     '"',
                     '&quot;'

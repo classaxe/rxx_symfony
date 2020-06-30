@@ -870,7 +870,6 @@ class Listener
         return
             $hhmm + 2400 >= ($this->timezone * -100) + 3400 &&
             $hhmm + 2400 <  ($this->timezone * -100) + 3800;
-
     }
 
 }
