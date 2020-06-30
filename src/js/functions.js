@@ -38,7 +38,7 @@ function popup(url) {
             pattern.push(path[i]);
         }
     }
-    if (systems.indexOf(pattern[2]) !== false) {
+    if (systems.indexOf(pattern[2]) !== -1) {
         pattern.pop();
     }
     pattern.reverse();
