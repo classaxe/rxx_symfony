@@ -597,7 +597,7 @@ EOD;
     {
         $qb = $this
             ->createQueryBuilder('l')
-            ->select('l.id, l.name, l.sp, l.itu');
+            ->select('l.id, l.name, l.qth, l.sp, l.itu, l.gsq, l.primaryQth');
         $this->addFilterSystem($qb, $system);
         $qb
             ->andWhere('(l.logLatest = :date)')
