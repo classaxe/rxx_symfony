@@ -837,7 +837,11 @@ class Listener
      */
     public function getFormattedNameAndLocation(): ?string
     {
-        return $this->name.', '.$this->qth.($this->sp ? ', '.$this->sp : '').', '.$this->itu;
+        return
+            $this->name . ', '
+            . $this->qth.($this->sp ? ', '.$this->sp : '') . ', '
+            . $this->itu
+            . ' ['.$this->gsq.']';
     }
 
 

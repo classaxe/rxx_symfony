@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.13.9
- * Date:       2020-07-01
+ * Version:    2.13.11
+ * Date:       2020-07-02
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
  */
@@ -1347,8 +1347,9 @@ function initListenersLogUploadForm() {
 
     $('.jump .down').on('click', function() {
         var id = parseInt($(this).parent().attr('id').split('_')[1]);
-        if ($('#jump_' + (id + 1)).length) {
-            var row_id = $('#jump_' + (id + 1)).parent().attr('id').split('_')[1];
+        var jump = $('#jump_' + (id + 1));
+        if (jump.length) {
+            var row_id =jump.parent().attr('id').split('_')[1];
             document.getElementById('row_' + (row_id - 1)).scrollIntoView({behavior: 'smooth', block: 'start'});
         } else {
             alert(msg.log_upload.last_item)
@@ -1476,7 +1477,7 @@ var LOG_EDIT = {
         var element, i, out, r, s;
         element = $('#form_listenerId');
         s  = element.val();
-        out = "<select id=\"form_listenerId\" name=\"form[listenerId]\" required=\"required\" size=\"6\">\n";
+        out = "<select id=\"form_listenerId\" name=\"form[listenerId]\" required=\"required\" size=\"10\">\n";
         for (i in data) {
             r = data[i].split('|');
             out +=
@@ -1493,19 +1494,18 @@ var LOG_EDIT = {
         }
         out += "</select>";
         element.replaceWith(out);
-        element = $('#form_listenerId');
-        element
+        $('#form_' + 'listenerId')
             .on('change', function(){
                 LOG_EDIT.getDx();
                 LOG_EDIT.getDaytime();
-            })
+            });
     },
 
     initSignalsSelector: function(data) {
         var element, i, out, r, s;
         element = $('#form_signalId');
         s  = element.val();
-        out = "<select id=\"form_signalId\" name=\"form[signalId]\" required=\"required\" size=\"6\">\n";
+        out = "<select id=\"form_signalId\" name=\"form[signalId]\" required=\"required\" size=\"10\">\n";
         for (i in data) {
             r = data[i].split('|');
             out +=
@@ -1524,8 +1524,7 @@ var LOG_EDIT = {
         }
         out += "</select>";
         element.replaceWith(out);
-        element = $('#form_signalId');
-        element
+        $('#form_' + 'signalId')
             .on('change', function(){
                 LOG_EDIT.getDx();
             })

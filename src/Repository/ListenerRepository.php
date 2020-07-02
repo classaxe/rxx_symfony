@@ -393,7 +393,10 @@ class ListenerRepository extends ServiceEntityRepository
                 `listeners`
             ORDER BY
                 name,
-                primary_QTH;
+                primary_QTH DESC,
+                itu,
+                sp,
+                qth;
 EOD;
         $stmt = $this->connection->prepare($sql);
         $stmt->execute();
@@ -557,10 +560,13 @@ EOD;
     public function getLatestLoggedListeners($system, $limit = 25)
     {
         $fields =
-             'l.id,'
-            .'l.name,'
-            .'l.sp,'
-            .'l.itu';
+            'l.id,'
+            . 'l.name,'
+            . 'l.qth,'
+            . 'l.sp,'
+            . 'l.itu,'
+            . 'l.gsq,'
+            . 'l.primaryQth';
 
         $qb = $this
             ->createQueryBuilder('l')
