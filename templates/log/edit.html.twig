@@ -7,8 +7,10 @@
         <div class="content">
             {{ form_start(form) }}
             <div id="form">
-                {{ form_row(form.id)  }}
-                {{ form_row(form._close)  }}
+                {{ form_row(form._token) }}
+                {{ form_row(form.id) }}
+                {{ form_row(form._close) }}
+                {{ form_row(form.reload) }}
                 <div>
                     {{ form_label(form.listenerId) }}
                     {{ form_widget(form.listenerId) }}
@@ -51,6 +53,7 @@
                 </div>
                 <fieldset id="group_">
                     {{ form_row(form.close) }}
+                    {{ form_row(form.save) }}
                     {{ form_row(form.saveClose) }}
                 </fieldset>
             </div>
@@ -62,6 +65,7 @@
 <script>
 $(document).ready(function () {
     LOG_EDIT.init()
+    {% if doReload %}window.opener.document.getElementsByName('form')[0].submit();{% endif %}
 });
 </script>
 </div>

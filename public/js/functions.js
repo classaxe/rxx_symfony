@@ -2,7 +2,7 @@
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
  * Version:    2.13.9
- * Date:       2020-06-30
+ * Date:       2020-07-01
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
  */
@@ -1290,8 +1290,9 @@ function initListenersLogUploadForm() {
             alert(msg.copied_x.replace('%s', txt));
         }).attr('title', msg.copy_token);
         $('.tokensHelp #tokensHelpClose').on('click', function() {
-            $('.tokensHelpLink').removeClass('on');
-            $('.tokensHelpLink').tooltip('close');
+            $('.tokensHelpLink')
+                .removeClass('on')
+                .tooltip('close');
             return false;
         });
         return false;
@@ -1458,9 +1459,12 @@ function logsShowRemainder() {
 
 var LOG_EDIT = {
     init: function() {
+        $('#form_save').on('click', function(){
+            $('#form_reload').val(1);
+        })
         $('#form_saveClose').on('click', function(){
-            alert('Not yet implemented');
-            return false;
+            $('#form_reload').val(1);
+            $('#form__close').val(1);
         })
         LOG_EDIT.initListenersSelector(listeners);
         LOG_EDIT.initSignalsSelector(signals);
@@ -1469,7 +1473,7 @@ var LOG_EDIT = {
     },
 
     initListenersSelector: function(data) {
-        var element, i, out = '', r, s;
+        var element, i, out, r, s;
         element = $('#form_listenerId');
         s  = element.val();
         out = "<select id=\"form_listenerId\" name=\"form[listenerId]\" required=\"required\" size=\"6\">\n";
@@ -1498,7 +1502,7 @@ var LOG_EDIT = {
     },
 
     initSignalsSelector: function(data) {
-        var element, i, out = '', r, s;
+        var element, i, out, r, s;
         element = $('#form_signalId');
         s  = element.val();
         out = "<select id=\"form_signalId\" name=\"form[signalId]\" required=\"required\" size=\"6\">\n";
@@ -1536,14 +1540,14 @@ var LOG_EDIT = {
     },
 
     getDx: function() {
-        var dx, dx_km = '', dx_miles = '', qth, qth_element, sig, sig_element;
+        var dx, qth, qth_element, sig, sig_element;
         qth_element = document.getElementById('form_listenerId');
         qth = qth_element.options[qth_element.selectedIndex].getAttribute('data-gsq');
 
         sig_element = document.getElementById('form_signalId');
         sig = sig_element.options[sig_element.selectedIndex].getAttribute('data-gsq');
 
-        if (qth == '' || sig == '') {
+        if (qth === '' || sig === '') {
             return false;
         }
         dx = CONVERT.gsq_gsq_dx(qth, sig);

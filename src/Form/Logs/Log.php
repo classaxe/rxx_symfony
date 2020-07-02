@@ -93,6 +93,13 @@ class Log extends AbstractType
                 ]
             )
             ->add(
+                'reload',
+                HiddenType::class,
+                [
+                    'data' =>       0
+                ]
+            )
+            ->add(
                 'signalId',
                 HiddenType::class,
                 [
@@ -242,6 +249,16 @@ class Log extends AbstractType
                         'onclick' =>    'window.close()'
                     ],
                     'label' =>          'Close',
+                ]
+            )
+            ->add(
+                'save',
+                SubmitType::class,
+                [
+                    'attr' => [
+                        'class' => 'button small'
+                    ],
+                    'label' => 'Save',
                 ]
             )
             ->add(

@@ -55,8 +55,8 @@ class SignalLogs
                 'label'     =>  'LSB',
                 'order'     =>  'a',
                 'sort'      =>  'l.lsb',
-                'td_class'  =>  '',
-                'th_class'  =>  '',
+                'td_class'  =>  'txt_r',
+                'th_class'  =>  'txt_r',
                 'tooltip'   =>  'Lower Sideband',
             ],
             'usb' => [
@@ -66,8 +66,8 @@ class SignalLogs
                 'label'     =>  'USB',
                 'order'     =>  'a',
                 'sort'      =>  'l.usb',
-                'td_class'  =>  '',
-                'th_class'  =>  '',
+                'td_class'  =>  'txt_r',
+                'th_class'  =>  'txt_r',
                 'tooltip'   =>  'Upper Sideband',
             ],
             'sec' => [
@@ -77,8 +77,8 @@ class SignalLogs
                 'label'     =>  'Sec.',
                 'order'     =>  'a',
                 'sort'      =>  'CAST(l.sec AS DECIMAL(10,2))',
-                'td_class'  =>  '',
-                'th_class'  =>  '',
+                'td_class'  =>  'txt_r',
+                'th_class'  =>  'txt_r',
                 'tooltip'   =>  'Cycle Time in seconds',
             ],
             'format' => [
@@ -155,7 +155,7 @@ class SignalLogs
                 'order'     =>  'd',
                 'sort'      =>  'l.dxKm',
                 'td_class'  =>  'txt_r',
-                'th_class'  =>  '',
+                'th_class'  =>  'txt_r',
                 'tooltip'   =>  'Distance in KM',
             ],
             'dxMiles' => [
@@ -166,7 +166,7 @@ class SignalLogs
                 'order'     =>  'd',
                 'sort'      =>  'l.dxMiles',
                 'td_class'  =>  'txt_r',
-                'th_class'  =>  '',
+                'th_class'  =>  'txt_r',
                 'tooltip'   =>  'Distance in Miles',
             ],
             'admin' => [

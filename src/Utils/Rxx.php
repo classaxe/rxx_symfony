@@ -123,6 +123,13 @@ class Rxx
         ];
     }
 
+    public static function getDxGsq2Gsq($gsq1, $gsq2)
+    {
+        $qth1 = static::convertGsqToDegrees($gsq1);
+        $qth2 = static::convertGsqToDegrees($gsq2);
+        return static::getDx($qth1['lat'], $qth1['lon'], $qth2['lat'], $qth2['lon']);
+    }
+
     public static function getUtcDateTime($yyyymmdd)
     {
         $bits = explode('-', $yyyymmdd);

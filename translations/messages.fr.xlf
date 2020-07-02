@@ -4799,6 +4799,30 @@
         <source>Zoom</source>
         <target>__Zoom</target>
       </trans-unit>
+      <trans-unit id="HpgG5CJ" resname="Signal">
+        <source>Signal</source>
+        <target>__Signal</target>
+      </trans-unit>
+      <trans-unit id="9MU_kIZ" resname="DX (KM)">
+        <source>DX (KM)</source>
+        <target>__DX (KM)</target>
+      </trans-unit>
+      <trans-unit id="w6YWcVy" resname="DX (Miles)">
+        <source>DX (Miles)</source>
+        <target>__DX (Miles)</target>
+      </trans-unit>
+      <trans-unit id="FkiCSW4" resname="Cycle Time">
+        <source>Cycle Time</source>
+        <target>__Cycle Time</target>
+      </trans-unit>
+      <trans-unit id="38g5th1" resname="LSB Approx">
+        <source>LSB Approx</source>
+        <target>__LSB Approx</target>
+      </trans-unit>
+      <trans-unit id="8JHCh24" resname="USB Approx">
+        <source>USB Approx</source>
+        <target>__USB Approx</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
