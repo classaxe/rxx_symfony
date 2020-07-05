@@ -4823,6 +4823,14 @@
         <source>USB Approx</source>
         <target>__USB Approx</target>
       </trans-unit>
+      <trans-unit id="C5.oBQJ" resname="You have logged on as a Member.">
+        <source>You have logged on as a Member.</source>
+        <target>__You have logged on as a Member.</target>
+      </trans-unit>
+      <trans-unit id="uazCsha" resname="Inactive User account.">
+        <source>Inactive User account.</source>
+        <target>__Inactive User account.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

@@ -5,10 +5,10 @@
 {% set form_class='signal_list' %}
     <div class="main">
         <div class="text-center center-block">
+            {% include 'status.html.twig' %}
             <h1>{{ mode }}</h1>
             {% include 'signals/tips.html.twig' %}
             {% include 'signals/refs.html.twig' %}
-            {% include 'status.html.twig' %}
             {% include 'signals/form.html.twig' %}
         </div>
 

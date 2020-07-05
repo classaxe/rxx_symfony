@@ -28,7 +28,9 @@ class Logoff extends Base
     public function logoffController($_locale, $system)
     {
         $this->session->set('isAdmin', 0);
+        $this->session->set('isMember', 0);
         $this->session->set('lastMessage', 'You have logged off.');
+        $this->session->set('name', '');
 
         $parameters = [
             '_locale' => $_locale,

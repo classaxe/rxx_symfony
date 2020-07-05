@@ -3,8 +3,8 @@
 {% block body %}
 <div class="main">
     <div class="text-center center-block">
-        <h1>{{ mode | trans }}</h1>
         {% include 'status.html.twig' %}
+        <h1>{{ mode | trans }}</h1>
         {% if isAdmin %}
             {% include 'listeners/latestlogs.html.twig' %}
             {% include 'listeners/addlogfor.html.twig' %}

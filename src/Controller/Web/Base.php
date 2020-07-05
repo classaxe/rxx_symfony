@@ -9,6 +9,7 @@ use App\Repository\SignalRepository;
 use App\Repository\SystemRepository;
 use App\Repository\TypeRepository;
 
+use App\Repository\UserRepository;
 use App\Utils\Rxx;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
@@ -31,6 +32,7 @@ class Base extends AbstractController
     protected $signalRepository;
     protected $systemRepository;
     protected $typeRepository;
+    protected $userRepository;
 
     protected $kernel;
     protected $parameters = [];
@@ -54,6 +56,7 @@ class Base extends AbstractController
      * @param SignalRepository $signalRepository
      * @param SystemRepository $systemRepository
      * @param TypeRepository $typeRepository
+     * @param UserRepository $userRepository
      */
     public function __construct(
         EntityManagerInterface $em,
@@ -67,7 +70,8 @@ class Base extends AbstractController
         SignalRepository $signalRepository,
         SystemRepository $systemRepository,
         TranslatorInterface $translator,
-        TypeRepository $typeRepository
+        TypeRepository $typeRepository,
+        UserRepository $userRepository
     ) {
         $this->kernel =             $kernel;
         $this->rxx =                $rxx;
@@ -81,14 +85,17 @@ class Base extends AbstractController
         $this->signalRepository =   $signalRepository;
         $this->systemRepository =   $systemRepository;
         $this->typeRepository =     $typeRepository;
+        $this->userRepository =     $userRepository;
 
         $this->parameters = [
             'isAdmin' =>        $this->session->get('isAdmin', 0),
             'isDev' =>          getEnv('APP_ENV') === 'dev',
+            'isMember' =>       $this->session->get('isMember', 0),
             'lastError' =>      $this->session->get('lastError', ''),
             'lastMessage' =>    $this->session->get('lastMessage', ''),
             'languages' =>      $this->languageRepository->getAll(),
             'modes' =>          $this->modeRepository->getAll(),
+            'name' =>           $this->session->get('name', ''),
             'systems' =>        $this->systemRepository->getAll(),
             'tag' =>            $this->getGitTag()
         ];

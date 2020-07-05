@@ -7,7 +7,6 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Dotenv\Dotenv;
 
 /**
  * Class Listeners
@@ -15,9 +14,6 @@ use Symfony\Component\Dotenv\Dotenv;
  */
 class Logon extends Base
 {
-
-    private $username = '';
-    private $password = '';
 
     /**
      * @Route(
@@ -36,10 +32,6 @@ class Logon extends Base
      */
     public function logonController($_locale, $system, Request $request, LogonForm $form)
     {
-        if (!$this->getConfig()) {
-            return $this->configError();
-        }
-
         $form = $form->buildForm($this->createFormBuilder(), ['system' => $system]);
         $form->handleRequest($request);
         $args = [
@@ -47,9 +39,10 @@ class Logon extends Base
             'password' =>   ''
         ];
         if ($form->isSubmitted() && $form->isValid()) {
-            $args = $form->getData();
-            if ($args['user'] !== $this->username || $args['password'] !== $this->password) {
-                $this->session->set('lastError', 'Incorrect Username and / or Password.');
+            $data = $form->getData();
+            $result = $this->userRepository->logon($data['user'], $data['password']);
+            if ($result['error']) {
+                $this->session->set('lastError', $result['error']);
                 $this->session->set('lastMessage', '');
                 $parameters = [
                     '_locale' => $_locale,
@@ -57,19 +50,26 @@ class Logon extends Base
                 ];
                 return $this->redirectToRoute('logon', $parameters);
             }
-            if (!$this->session->get('isAdmin', 0)) {
+            $r = $result['record'];
+            $this->session->set('name', $r->getName());
+            $this->session->set('lastError', '');
+            if ($r->getAdmin() === 1) {
                 $this->session->set('isAdmin', 1);
-                $this->session->set('lastError', '');
+                $this->session->set('isMember', 0);
                 $this->session->set('lastMessage', 'You have logged on as an Administrator.');
-                $parameters = [
-                    '_locale' => $_locale,
-                    'system' => $system
-                ];
-                if ($this->session->get('route')) {
-                    return $this->redirectToRoute($this->session->get('route'), $parameters);
-                }
-                return $this->redirectToRoute('logon', $parameters);
+            } else {
+                $this->session->set('isAdmin', 0);
+                $this->session->set('isMember', 1);
+                $this->session->set('lastMessage', 'You have logged on as a Member.');
             }
+            $parameters = [
+                '_locale' => $_locale,
+                'system' => $system
+            ];
+            if ($this->session->get('route')) {
+                return $this->redirectToRoute($this->session->get('route'), $parameters);
+            }
+            return $this->redirectToRoute('logon', $parameters);
         } else {
             $this->session->set('lastError', '');
             $this->session->set('lastMessage', '');
@@ -85,28 +85,5 @@ class Logon extends Base
         ];
         $parameters = array_merge($parameters, $this->parameters);
         return $this->render('admin/logon/index.html.twig', $parameters);
-    }
-
-    private function configError()
-    {
-        return $this->rxx::error(
-            'ADMIN_USER and ADMIN_PASS environment variables must be defined in server or a .env file.'
-        );
-    }
-
-    private function getConfig()
-    {
-        if (!getenv('ADMIN_USER') || !getenv('ADMIN_PASS')) {
-            if (!class_exists(Dotenv::class)) {
-                return false;
-            }
-        }
-        (new Dotenv(true))->load($this->kernel->getProjectDir().'/.env');
-        $this->username = getenv('ADMIN_USER');
-        $this->password = getenv('ADMIN_PASS');
-        if (!$this->username || !$this->password) {
-            return false;
-        }
-        return true;
     }
 }

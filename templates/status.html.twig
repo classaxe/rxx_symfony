@@ -1,5 +1,10 @@
 {% if lastError %}
-    <span id="lastError"><a class="close">X</a><strong>{% trans %}Error:{% endtrans %}</strong> {{ lastError|raw }}</span>
+    <span id="lastError"><a class="close">X</a><strong>{% trans %}Error:{% endtrans %}</strong> {%
+        if (lastError == 'UNKNOWN_USER') %}{% trans %}Incorrect Username and / or Password.{% endtrans %}{%
+        elseif (lastError == 'INVALID_USER') %}{% trans %}Incorrect Username and / or Password.{% endtrans %}{%
+        elseif (lastError == 'INACTIVE_USER') %}{% trans %}Inactive User account.{% endtrans %}{%
+        else %}{{ lastError|raw }}{% endif %}
+    </span>
 {% endif %}
 {% if lastMessage %}
     <span id="lastMessage"><a class="close">X</a>{{ lastMessage|raw }}</span>

@@ -10,10 +10,14 @@ use DateTimeInterface;
  * Sp
  *
  * @ORM\Table(name="users")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  */
 class User
 {
+    const INACTIVE =    'INACTIVE_USER';
+    const INVALID =     'INVALID_USER';
+    const UNKNOWN =     'UNKNOWN_USER';
+
     /**
      * @var int
      *
@@ -24,11 +28,18 @@ class User
     private $id;
 
     /**
-     * @var bool
+     * @var int
      *
      * @ORM\Column(name="active", type="boolean", nullable=false)
      */
     private $active = 0;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="admin", type="boolean", nullable=false)
+     */
+    private $admin = 0;
 
     /**
      * @var int
@@ -75,24 +86,39 @@ class User
     /**
      * @var string
      *
-     * @ORM\Column(name="password", type="string", length=50, nullable=false)
+     * @ORM\Column(name="password", type="string", length=255, nullable=false)
      */
     private $password = '';
 
     /**
-     * @return int|null
+     * @var string
+     *
+     * @ORM\Column(name="username", type="string", length=50, nullable=false)
      */
-    public function getId(): ?int
+    private $username = '';
+
+    /**
+     * @return int
+     */
+    public function getId(): int
     {
         return $this->id;
     }
 
     /**
-     * @return int|null
+     * @return int
      */
-    public function getActive(): ?int
+    public function getActive(): int
     {
         return $this->active;
+    }
+
+    /**
+     * @return int
+     */
+    public function getAdmin(): int
+    {
+        return $this->admin;
     }
 
     /**
@@ -144,11 +170,19 @@ class User
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getPassword(): string
+    public function getPassword(): ?string
     {
         return $this->password;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getUsername(): ?string
+    {
+        return $this->username;
     }
 
     /**
@@ -168,6 +202,16 @@ class User
     public function setActive($active): self
     {
         $this->active = (int)$active;
+        return $this;
+    }
+
+    /**
+     * @param $admin
+     * @return self
+     */
+    public function setAdmin($admin): self
+    {
+        $this->admin = (int)$admin;
         return $this;
     }
 
@@ -232,7 +276,7 @@ class User
     }
 
     /**
-     * @param string $name
+     * @param string $password
      * @return self
      */
     public function setPassword(string $password): self
@@ -240,4 +284,15 @@ class User
         $this->password = $password;
         return $this;
     }
+
+    /**
+     * @param string $username
+     * @return self
+     */
+    public function setUsername(string $username): self
+    {
+        $this->username = $username;
+        return $this;
+    }
+
 }
