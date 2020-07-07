@@ -113,13 +113,6 @@ class ModeRepository
                 'title' =>  'Logon',
                 'url'=>     false
             ],
-            'logoff' => [
-                'admin' =>  true,
-                'guest' =>  false,
-                'menu' =>   'Log Off',
-                'title' =>  'Log Off',
-                'url'=>     false
-            ],
         ],
         [
             'admin/tools' => [
