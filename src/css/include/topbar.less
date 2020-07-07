@@ -1,0 +1,104 @@
+.topbar {
+    @media (max-width: 60.9375em) {
+        text-align: center;
+        padding: 0 0.5em;
+        background-color: #eeeeee;
+        border: 1px solid #cccccc;
+        div.toolbar {
+            display: inline;
+            padding: 0 1em;
+            white-space: nowrap;
+        }
+    }
+    @media (min-width: 61em) {
+        div.toolbar {
+            padding: 0 0.5em;
+            background-color: #eeeeee;
+            border: 1px solid #cccccc;
+            ul {
+                ul {
+                    right: 0;
+                }
+            }
+        }
+        .version-switcher {
+            float: left;
+        }
+        .userStatus {
+            float: right;
+        }
+    }
+    .userStatus {
+        ul {
+            display: inline;
+            margin: 0;
+            li {
+                list-style: none;
+                margin: 0;
+                display: inline-block;
+                a.dropdown-toggle,
+                a.dropdown-toggle:active {
+                    display: block;
+                    text-align: right;
+                    color: black;
+                    font-weight: normal;
+                    text-decoration: none;
+                }
+                div.open,
+                div.close {
+                    padding: 0;
+                    width: auto;
+                    border: none;
+                }
+                div.open {
+                    display: inline-block;
+                }
+                div.close {
+                    -moz-transform: scale(1, -1);
+                    -webkit-transform: scale(1, -1);
+                    -o-transform: scale(1, -1);
+                    -ms-transform: scale(1, -1);
+                    transform: scale(1, -1);
+                    display: none;
+                }
+                img {
+                    padding: 0 0.25em;
+                }
+                ul {
+                    display: none;
+                    position: relative;
+                }
+                &.open {
+                    div.open {
+                        display: none;
+                    }
+                    div.close {
+                        display: inline-block;
+                    }
+                    ul {
+                        text-align: center;
+                        background-color: #fff;
+                        border: 1px solid #ccc;
+                        z-index: 100;
+                        padding: 0.25em;
+                        position: absolute;
+                        display: block;
+                        border-top: 1px solid #ccc;
+                        border-radius: 0 0 5px 5px;
+                        li {
+                            display: block;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    a {
+        color: #0000ff;
+        &.active,
+        &:active {
+            font-weight: bold;
+            text-decoration: underline;
+        }
+    }
+}

@@ -1,0 +1,17 @@
+{% if user_name %}
+<div class="toolbar userStatus">
+    <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" aria-haspopup="true" aria-expanded="false">
+                <img src="{{ asset('image/icon-user.png') }}" alt="{% trans %}User{% endtrans %}">{{ user_name }}
+                <div class="open">&#9662;</div>
+                <div class="close">&#9662;</div>
+            </a>
+            <ul>
+                <li>{{ user_email }}</li>
+                <li><a href="{{ url('logoff', { 'system': system }) }}">{% trans %}Log Off{% endtrans %}</a></li>
+            </ul>
+        </li>
+    </ul>
+</div>
+{% endif %}

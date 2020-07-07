@@ -51,7 +51,8 @@ class Logon extends Base
                 return $this->redirectToRoute('logon', $parameters);
             }
             $r = $result['record'];
-            $this->session->set('name', $r->getName());
+            $this->session->set('user_name', $r->getName());
+            $this->session->set('user_email', $r->getEmail());
             $this->session->set('lastError', '');
             if ($r->getAdmin() === 1) {
                 $this->session->set('isAdmin', 1);

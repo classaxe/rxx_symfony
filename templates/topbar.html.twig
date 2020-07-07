@@ -1,0 +1,17 @@
+<div class="topbar">
+    {% include 'version_switcher.html.twig' %}
+    {% include 'user_status.html.twig' %}
+</div>
+<script>
+    $(document).ready(function() {
+        $('a.dropdown-toggle').on('click', function(){
+            var ele = $(this).parent();
+            if (ele.hasClass('open')) {
+                ele.removeClass('open');
+            } else {
+                ele.addClass('open');
+            }
+            return false;
+        })
+    })
+</script>

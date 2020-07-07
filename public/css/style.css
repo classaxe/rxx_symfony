@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.13.11
- * Date:       2020-07-02
+ * Version:    2.50.0
+ * Date:       2020-07-06
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
  */
@@ -249,41 +249,101 @@ tr.other td {
   font-style: italic;
   font-weight: bold !important;
 }
-@media (max-width: 63.9375em) {
-  .version {
+@media (max-width: 60.9375em) {
+  .topbar {
     text-align: center;
     padding: 0 0.5em;
-    background-color: #ffff80;
-    border: 1px solid #eee;
+    background-color: #eeeeee;
+    border: 1px solid #cccccc;
   }
-  .version div {
+  .topbar div.toolbar {
     display: inline;
     padding: 0 1em;
     white-space: nowrap;
   }
 }
-@media (min-width: 64em) {
-  .version div {
+@media (min-width: 61em) {
+  .topbar div.toolbar {
     padding: 0 0.5em;
-    background-color: #ffff80;
-    border: 1px solid #eee;
+    background-color: #eeeeee;
+    border: 1px solid #cccccc;
   }
-}
-@media (min-width: 64em) {
-  .version .version-switcher {
+  .topbar div.toolbar ul ul {
+    right: 0;
+  }
+  .topbar .version-switcher {
+    float: left;
+  }
+  .topbar .userStatus {
     float: right;
   }
 }
-@media (min-width: 64em) {
-  .version .version-git {
-    float: left;
-  }
+.topbar .userStatus ul {
+  display: inline;
+  margin: 0;
 }
-.version a {
+.topbar .userStatus ul li {
+  list-style: none;
+  margin: 0;
+  display: inline-block;
+}
+.topbar .userStatus ul li a.dropdown-toggle,
+.topbar .userStatus ul li a.dropdown-toggle:active {
+  display: block;
+  text-align: right;
+  color: black;
+  font-weight: normal;
+  text-decoration: none;
+}
+.topbar .userStatus ul li div.open,
+.topbar .userStatus ul li div.close {
+  padding: 0;
+  width: auto;
+  border: none;
+}
+.topbar .userStatus ul li div.open {
+  display: inline-block;
+}
+.topbar .userStatus ul li div.close {
+  -moz-transform: scale(1, -1);
+  -webkit-transform: scale(1, -1);
+  -o-transform: scale(1, -1);
+  -ms-transform: scale(1, -1);
+  transform: scale(1, -1);
+  display: none;
+}
+.topbar .userStatus ul li img {
+  padding: 0 0.25em;
+}
+.topbar .userStatus ul li ul {
+  display: none;
+  position: relative;
+}
+.topbar .userStatus ul li.open div.open {
+  display: none;
+}
+.topbar .userStatus ul li.open div.close {
+  display: inline-block;
+}
+.topbar .userStatus ul li.open ul {
+  text-align: center;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  z-index: 100;
+  padding: 0.25em;
+  position: absolute;
+  display: block;
+  border-top: 1px solid #ccc;
+  border-radius: 0 0 5px 5px;
+}
+.topbar .userStatus ul li.open ul li {
+  display: block;
+}
+.topbar a {
   color: #0000ff;
 }
-.version a.active,
-.version a:active {
+.topbar a.active,
+.topbar a:active {
   font-weight: bold;
   text-decoration: underline;
 }
