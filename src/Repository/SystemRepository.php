@@ -49,8 +49,8 @@ class SystemRepository
                     'show_email' => true
                 ],
                 [
-                    'email' =>      'smoketronics@comcast.net',
-                    'name' =>       'S M O\'Kelley',
+                    'email' =>      'swl.tn.usa@gmail.com',
+                    'name' =>       'Brandon Jordan - KM4PBQ',
                     'role' =>       'NDBs and Ham Beacons',
                     'show_email' => true
                 ],
@@ -83,8 +83,8 @@ class SystemRepository
                     'show_email' => true
                 ],
                 [
-                    'email' =>      'smoketronics@comcast.net',
-                    'name' =>       'S M O\'Kelley',
+                    'email' =>      'swl.tn.usa@gmail.com',
+                    'name' =>       'Brandon Jordan - KM4PBQ',
                     'role' =>       'Ham Beacons',
                     'show_email' => true
                 ],
@@ -111,8 +111,8 @@ class SystemRepository
                     'show_email' => true
                 ],
                 [
-                    'email' =>      'smoketronics@comcast.net',
-                    'name' =>       'S M O\'Kelley',
+                    'email' =>      'swl.tn.usa@gmail.com',
+                    'name' =>       'Brandon Jordan - KM4PBQ',
                     'role' =>       'NDBs and Ham Beacons',
                     'show_email' => true
                 ],
