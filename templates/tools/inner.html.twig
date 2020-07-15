@@ -1,5 +1,5 @@
 <div class="header"{% if key is defined %} id="{{ key }}"{% endif %}>
-    <h3>{{ mode | trans }}</h3>
+    <h3>{{ mode | trans | raw }}</h3>
     {% if showTopAndPopup is defined %}
     <div class="links">
         <a href="#top"><img src="{{

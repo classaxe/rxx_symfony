@@ -17,6 +17,10 @@ class ToolRepository
             'mode' =>           'NAVTEX Missed Shift Fixer (v1.4)',
             'shortName' =>      'NAVTEX Fixer',
         ],
+        'negativeKeyer' => [
+            'mode' =>           'Negative Keying Tool (v7.0, &copy;Brian Keyte + J. Rabe)',
+            'shortName' =>      'Negative Keying Tool',
+        ],
         'sunrise' => [
             'mode' =>           'Sunrise / Sunset Calculator',
             'shortName' =>      'Sunrise Calc',

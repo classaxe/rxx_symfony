@@ -1,0 +1,188 @@
+body {
+    background: #666;
+    color: #000000;
+    FONT-SIZE: 1.0em;
+    font-family: Courier New, Courier, monospace;
+    padding: 0;
+    margin: 0;
+}
+
+.defaultTable {
+    background: #000000;
+}
+
+.defaultTr {
+    background: #D4D4D4;
+    color: #000000;
+    font-weight: bold;
+}
+.defaultTr  a:link{
+    color: #eeeeee;
+    font-weight: bold;
+}
+.defaultTr  a:visited{
+    color: #eeeeee;
+    font-weight: bold;
+}
+.defaultTr a:hover {
+    color: #FC0505;
+    text-decoration: none;
+}
+
+.defaultTrII{
+    background: #FFFFFF;
+    color: #000000;
+    font-weight: bold;
+}
+
+.defaultTrIII{
+    background: #FFFFFF;
+    color: #FF0000;
+    font-weight: bold;
+}
+
+.catTr {
+    background: #fdfefe url(/image/default/cattr.png) repeat-x;
+    color: #fff;
+    font-weight: bold;
+}
+
+.catTr a:link {
+    color: #fff;
+    text-decoration: underline;
+}
+
+.catTr a:visited {
+    color: #fff;
+    text-decoration: underline;
+}
+
+.catTr a:hover {
+    color: #fff;
+    text-decoration: none;
+}
+
+.catOne {
+    background: #C4C4C4;
+}
+
+.catTwo {
+    background: #d4d4d4;
+}
+
+#modal {
+    display: none; /* initially hide the modal window - display it by JS */
+
+    /* Make the modal window fill the screen */
+    position: fixed;
+    transform: translate(0,0);
+    width: auto; left: 0; right: 0;
+    height: auto; top: 0; bottom: 0;
+    z-index: 990; /* display above everything else */
+
+    background: transparent; /* no background, just fill space */
+
+    padding: 20px; /* create padding for inner window - page under modal window will be still visible */
+    /* Note: I use pixels to show you that this layout is NOT base on some
+     * percentage counting (e.g. 2% padding + 96% width makes 100% screen width)
+     */
+}
+
+#modal.flex-center {
+    /* Make Flex items centered */
+    -webkit-box-align: center;
+    -moz-box-align: center;
+    box-align: center;
+    -ms-flex-align: center;
+    flex-align: center;
+    -webkit-align-items: center;
+    -webkit-align-content: center;
+    align-items: center;
+    align-content: center;
+
+    -webkit-box-pack: center;
+    moz-box-pack: center;
+    box-pack: center;
+    -ms-flex-pack: center;
+    flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+}
+
+#modal:target {     /* when URL contains hash of this element... */
+    display: block; /* ... then make it visible (fallback for IE9 and older) */
+    /* Display as Flexbox */
+    display: -webkit-box !important; /* iOS6+, Safari 3.1+ */
+    display: -moz-box !important; /* Firefox 4 - 19 */
+    display: box !important; /* ostatní (Opera 12 - 14) */
+    display: -ms-flexbox !important; /* IE10 */
+    display: flexbox !important; /* ostatní prohlížeèe (?) */
+    display: -webkit-flex !important; /* iOS7.1+, Safari 6+ */
+    display: flex !important; /* ostatní prohlížeèe
+						(Firefox 22+, Chrome 21+,
+						IE11, Opera 15+) */
+}
+
+#modal .shade {
+    /* shade creates semi-transparent background for modal window to block clicks on page below */
+    display: block;
+    /* make the shade fill whole screen as well */
+    position: absolute;
+    width: auto; left: 0; right: 0;
+    height: auto; top: 0; bottom: 0;
+    box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; -o-box-sizing: border-box;
+    z-index: 995; /* display between modal container and modal window */
+
+    /* make semi-transparent gray background */
+    opacity: 0.3;
+    background: #333333;
+}
+
+#modal .inner {
+    /* inner window in the actual modal window with backround, border, etc. */
+    box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; -o-box-sizing: border-box;
+    width: 80%;
+    height: auto;       /* allow to fit content (if smaller)... */
+    max-height: 100%;   /* ... but make sure it does not overflow browser window */
+
+    /* allow vertical scrolling if required */
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    position: relative; /* allows to use z-index to display over shade but still remain non-absolute layout */
+    z-index: 999;
+
+    /* definition of modal window layout */
+    background: #ffffff;
+    border: 2px solid #222222;
+    border-radius: 16px; /* some nice (modern) round corners */
+    padding: 16px;       /* make sure inner elements does not overflow round corners */
+    /* Note:
+     *  Scrollbar over round corners may not look good in some browsers
+     *  so if you expect the content to be long, you better not use them.
+     */
+}
+
+#modal .header { /* allows to position close button to the right */
+    position: relative;
+}
+
+#modal a.close {  /* display close link in top right corner */
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: #aaa;
+    float: right;
+    font-size: 16px;
+    font-weight: bold;
+}
+#modal a.close:hover,
+#modal a.close:focus {
+    color:#111111;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#myDIV2{
+    display: none;
+}
