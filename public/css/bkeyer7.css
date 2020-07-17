@@ -1,32 +1,62 @@
 body {
     background: #666;
     color: #000000;
-    FONT-SIZE: 1.0em;
+    font-size: 1.0em;
     font-family: Courier New, Courier, monospace;
     padding: 0;
     margin: 0;
 }
 
 .defaultTable {
+    width: 100%;
     background: #000000;
 }
-
+td {
+    background: #D4D4D4;
+}
 .defaultTr {
+    width: 270px;
+    max-width: 270px;
+    padding: 0.25em 1em;
     background: #D4D4D4;
     color: #000000;
     font-weight: bold;
 }
-.defaultTr  a:link{
+.defaultTr a:link{
     color: #eeeeee;
     font-weight: bold;
 }
-.defaultTr  a:visited{
+.defaultTr a:visited{
     color: #eeeeee;
     font-weight: bold;
 }
 .defaultTr a:hover {
     color: #FC0505;
     text-decoration: none;
+}
+.header td {
+    height: 1em;
+    background:#626262 url(/image/back_header.png) repeat-x;
+}
+#help {
+    margin-left:225px;
+}
+#help img {
+    width:30px;
+    height:30px;
+}
+#btn_convert,
+#btn_clear {
+    margin: 20px 0;
+    border-left: 1px solid #fff;
+    border-top: 1px solid #fff;
+    border-right: 2px solid #555;
+    border-bottom: 2px solid #555;
+}
+
+#MorseCode {
+    margin: 0 10px;
+    width: 293px;
 }
 
 .defaultTrII{
@@ -42,7 +72,6 @@ body {
 }
 
 .catTr {
-    background: #fdfefe url(/image/default/cattr.png) repeat-x;
     color: #fff;
     font-weight: bold;
 }
@@ -140,7 +169,10 @@ body {
 
 #modal .inner {
     /* inner window in the actual modal window with backround, border, etc. */
-    box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; -o-box-sizing: border-box;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -o-box-sizing: border-box;
     width: 80%;
     height: auto;       /* allow to fit content (if smaller)... */
     max-height: 100%;   /* ... but make sure it does not overflow browser window */
@@ -182,7 +214,17 @@ body {
     text-decoration: none;
     cursor: pointer;
 }
+#myDIV1 img,
+#myDIV1 img {
+    width:30px;
+    height:30px;
+}
 
 #myDIV2{
     display: none;
+}
+
+button {
+    border:none;
+    background-color: Transparent;
 }

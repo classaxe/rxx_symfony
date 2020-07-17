@@ -1,12 +1,15 @@
 <?php
 
 namespace App\Repository;
+use App\Entity\User;
 
 class ModeRepository
 {
+
     const MODES = [
         [
             'signals' => [
+                'access' => User::ALL,
                 'admin' =>  true,
                 'guest' =>  true,
                 'menu' =>   'Signals',
@@ -14,6 +17,7 @@ class ModeRepository
                 'url'=>     false
             ],
             'listeners' => [
+                'access' => User::ALL,
                 'admin' =>  true,
                 'guest' =>  true,
                 'menu' =>   'Listeners',
@@ -21,6 +25,7 @@ class ModeRepository
                 'url'=>     false
             ],
             'cle' => [
+                'access' => User::ALL,
                 'admin' =>  true,
                 'guest' =>  true,
                 'menu' =>   'CLE',
@@ -28,6 +33,7 @@ class ModeRepository
                 'url'=>     false
             ],
             'maps' => [
+                'access' => User::ALL,
                 'admin' =>  true,
                 'guest' =>  true,
                 'menu' =>   'Maps',
@@ -35,6 +41,7 @@ class ModeRepository
                 'url'=>     false
             ],
             'tools' => [
+                'access' => User::ALL,
                 'admin' =>  true,
                 'guest' =>  true,
                 'menu' =>   'Tools',
@@ -42,6 +49,7 @@ class ModeRepository
                 'url'=>     false
             ],
             'weather' => [
+                'access' => User::ALL,
                 'admin' =>  true,
                 'guest' =>  true,
                 'menu' =>   'Weather',
@@ -49,6 +57,7 @@ class ModeRepository
                 'url'=>     false
             ],
             'changes' => [
+                'access' => User::ALL,
                 'admin' =>  true,
                 'guest' =>  true,
                 'menu' =>   'Changes',
@@ -56,6 +65,7 @@ class ModeRepository
                 'url'=>     false
             ],
             'help' => [
+                'access' => User::ALL,
                 'admin' =>  true,
                 'guest' =>  true,
                 'menu' =>   'Help',
@@ -63,6 +73,7 @@ class ModeRepository
                 'url'=>     false
             ],
             'donate' => [
+                'access' => User::ALL,
                 'admin' =>  true,
                 'guest' =>  true,
                 'menu' =>   'Donate',
@@ -72,6 +83,7 @@ class ModeRepository
         ],
         [
             'ndblistWebsite' => [
+                'access' => User::ALL,
                 'admin' =>  true,
                 'guest' =>  true,
                 'menu' =>   'NDB List Website',
@@ -79,6 +91,7 @@ class ModeRepository
                 'url'=>     'http://ndblist.info/'
             ],
             'NdbGroup' => [
+                'access' => User::ALL,
                 'admin' =>  true,
                 'guest' =>  true,
                 'menu' =>   'NDB Group',
@@ -86,6 +99,7 @@ class ModeRepository
                 'url'=>     'https://groups.io/g/ndblist'
             ],
             'DscGroup' => [
+                'access' => User::ALL,
                 'admin' =>  true,
                 'guest' =>  true,
                 'menu' =>   'DSC Group',
@@ -93,6 +107,7 @@ class ModeRepository
                 'url'=>     'https://groups.io/g/dsc-list'
             ],
             'DgpsGroup' => [
+                'access' => User::ALL,
                 'admin' =>  true,
                 'guest' =>  true,
                 'menu' =>   'DGPS Group',
@@ -100,6 +115,7 @@ class ModeRepository
                 'url'=>     'https://groups.io/g/dgpslist'
             ],
             'NavtexGroup' => [
+                'access' => User::ALL,
                 'admin' =>  true,
                 'guest' =>  true,
                 'menu' =>   'NAVTEX Group',
@@ -107,6 +123,7 @@ class ModeRepository
                 'url'=>     'https://groups.io/g/navtexdx'
             ],
             'logon' => [
+                'access' => User::PUBLIC,
                 'admin' =>  false,
                 'guest' =>  true,
                 'menu' =>   'Log On',
@@ -116,6 +133,7 @@ class ModeRepository
         ],
         [
             'admin/tools' => [
+                'access' => User::ADMIN | User::MASTER,
                 'admin' =>  true,
                 'guest' =>  false,
                 'menu' =>   'Admin Tools',
@@ -123,6 +141,7 @@ class ModeRepository
                 'url'=>     false
             ],
             'admin/info' => [
+                'access' => User::ADMIN | User::MASTER,
                 'admin' =>  true,
                 'guest' =>  false,
                 'menu' =>   'System Info',
@@ -130,6 +149,7 @@ class ModeRepository
                 'url'=>     false
             ],
             'admin/help' => [
+                'access' => User::AWARDS | User::ADMIN | User::MASTER,
                 'admin' =>  true,
                 'guest' =>  false,
                 'menu' =>   'Admin Help',

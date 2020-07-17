@@ -1,58 +1,36 @@
 <?php
 
-if(isset($_POST["MorseCode"]))
-{
-    //keep pitch and speed while entering another morse ID
-    if (isset($_POST["myPitch"]))
-    {
-        $myPitch = $_POST["myPitch"];
-    }
-    else
-    {
-        $myPitch = "550";
-    }
-
-    if (isset($_POST["mySpeed"]))
-    {
-        $mySpeed = $_POST["mySpeed"];
-    }
-    else
-    {
-        $mySpeed = "10";
-    }
+if ($_POST["MorseCode"] ?? false) {
+    $myPitch = isset($_POST["myPitch"]) ? $_POST["myPitch"] : "550";
+    $mySpeed = isset($_POST["mySpeed"]) ? $_POST["mySpeed"] : "10";
 
     //delete all unwanted characters in input string
-    $m_get = strtoupper(preg_replace('/[^a-zA-Z0-9ßäÄöÖüÜ\(\)\ \+\=]/si','',$_POST["MorseCode"]));
+    $m_get = strtoupper(preg_replace('/[^a-zA-Z0-9ßäÄöÖüÜ() +=]/si','',$_POST["MorseCode"]));
 
     //prepare caption for Morse ID
     $m_caption = "ID = "."<b>".str_replace("(E)","",str_replace("=","",$m_get));
     $m_in = "";
     $daid = false;
     $emergency = false;
-    if (strlen($m_get) == 0)
-    {
+    if (strlen($m_get) == 0) {
         $m_caption = "";
         $m_code = "";
         $m_negativ = "";
         $m_pos_play = "";
         $m_neg_play = "";
-    }
-    else
-    {
+    } else {
         //delete unneeded leading and trailing spaces
         $m_get = ltrim($m_get);
         $m_get = rtrim($m_get);
 
-        //sarch for "=" = "DAID"
-        if ((strpos($m_get,"=") > 0) AND (strpos($m_get,"=") == strlen($m_get) - 1))
-        {
+        //search for "=" = "DAID"
+        if ((strpos($m_get,"=") > 0) AND (strpos($m_get,"=") == strlen($m_get) - 1)) {
             $daid = true;
         }
         $m_get = rtrim(str_replace("=","",$m_get));
 
         //search for "(e)" = "EMERGENCY"
-        if ((strpos($m_get,"(E)") > 0) AND (strpos($m_get,"(E)") == strlen($m_get) - 3))
-        {
+        if ((strpos($m_get,"(E)") > 0) AND (strpos($m_get,"(E)") == strlen($m_get) - 3)) {
             $emergency = true;
         }
         $m_get = rtrim(str_replace("(E)","",$m_get));
@@ -81,10 +59,24 @@ if(isset($_POST["MorseCode"]))
         //adjust caption and Morse-code for DAID
         if ($daid == true) {
             $m_caption .= "[DAID]</b>";
-            $m_code = "&nbsp;&nbsp;&nbsp;".$m_code."_____________?_____________"."&nbsp;&nbsp;&nbsp;".$m_code."_____________?_____________";
+            $m_code =
+                "&nbsp;&nbsp;&nbsp;"
+                . $m_code
+                . "_____________?_____________"
+                . "&nbsp;&nbsp;&nbsp;"
+                . $m_code
+                . "_____________?_____________";
         } else {
             $m_caption .= "</b>";
-            $m_code = $m_code.str_repeat("&nbsp;",10)."?".str_repeat("&nbsp;",13).$m_code.str_repeat("&nbsp;",10)."?".str_repeat("&nbsp;",13);
+            $m_code =
+                $m_code
+                . str_repeat("&nbsp;",10)
+                . "?"
+                . str_repeat("&nbsp;",13)
+                . $m_code
+                . str_repeat("&nbsp;",10)
+                . "?"
+                . str_repeat("&nbsp;",13);
         }
 
         //delete unneeded blanks
@@ -98,16 +90,18 @@ if(isset($_POST["MorseCode"]))
 
         //Build positive ID for WebAudio Player (# = SAID, | = DAID)
         if ($daid == true) {
-            $m_pos_play = str_replace("_____________?_____________","|",$m_code);
+            $m_pos_play = str_replace(
+            "_____________?_____________", "|", $m_code
+            );
         } else {
-            $m_pos_play = str_replace(str_repeat("&nbsp;",10)."?".str_repeat("&nbsp;",13),"#",$m_code);
+            $m_pos_play = str_replace(str_repeat("&nbsp;",10) . "?" . str_repeat("&nbsp;",13),"#", $m_code);
         }
-        $m_pos_play = str_replace("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;","$",$m_pos_play);
-        $m_pos_play = str_replace("&nbsp;&nbsp;&nbsp;","=",$m_pos_play);
-        $m_pos_play = str_replace("___","-",$m_pos_play);
-        $m_pos_play = str_replace("_",".",$m_pos_play);
-        $m_pos_play = str_replace("&nbsp;","",$m_pos_play);
-        $m_pos_play = str_replace("="," ",$m_pos_play);
+        $m_pos_play = str_replace("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;","$", $m_pos_play);
+        $m_pos_play = str_replace("&nbsp;&nbsp;&nbsp;","=", $m_pos_play);
+        $m_pos_play = str_replace("___","-", $m_pos_play);
+        $m_pos_play = str_replace("_",".", $m_pos_play);
+        $m_pos_play = str_replace("&nbsp;","", $m_pos_play);
+        $m_pos_play = str_replace("="," ", $m_pos_play);
 
 
         //Build negative ID for WebAudio Player
@@ -174,83 +168,83 @@ function get_morse()
         "0" => "___&nbsp;___&nbsp;___&nbsp;___&nbsp;___",
         "Ä" => "_&nbsp;___&nbsp;_&nbsp;___",
         "Ö" => "___&nbsp;___&nbsp;___&nbsp;_",
-        "Ü" => "_&nbsp;_&nbsp;___&nbsp;___"];
+        "Ü" => "_&nbsp;_&nbsp;___&nbsp;___"
+    ];
 }
 
-function morse_encoder($word)
-{
+function morse_encoder($word) {
     return str_replace(array_keys(get_morse()), get_morse(), strtoupper($word));
 }
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="de" xml:lang="de">
 <head>
-    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="description" content="B_KEYER (V7.0) - Convert Morse code to negative keying" />
-    <link rel="stylesheet" type="text/css" href="/css/css_1.css" />
+    <link rel="stylesheet" type="text/css" href="/css/bkeyer7.css" />
     <title>B_KEYER (V7.0)</title>
 </head>
 <body style="background-color:#fff">
 
 <table cellpadding="3" cellspacing="1" width="100%" class="defaultTable">
-    <tr height="5" style='background:#626262 url(/image/back_header.png) repeat-x;color:#EEEEEE;font-weight: bold'>
-        <td colspan="2" >&nbsp;</td>
+    <tr class="header">
+        <td colspan="2"></td>
     </tr>
-    <tr height="45">
-        <td class="defaultTr" style="vertical-align:middle">
-            &nbsp;Convert Morse code to negative equivalent
-            <a href="#modal" style="margin-left:225px"><img src="/image/Help.png" alt="Help" style="width:30px;height:30px;"></a>
+    <tr>
+        <td class="defaultTr">
+            Convert Morse code to negative equivalent
+            <a href="#modal" id="help"><img src="/image/Help.png" alt="Help"></a>
         </td>
     </tr>
 </table>
 <form method="post" name="Morse_Code" id="Morse_Code">
-    <table cellpadding="3" cellspacing="1" width="100%" class="defaultTable">
-        <tr height="25" >
-            <td class="defaultTr" width="270">&nbsp;<strong>Please enter NDB IDENT</strong></td>
+    <table cellpadding="3" cellspacing="1" class="defaultTable">
+        <tr>
+            <td class="defaultTr">
+                <label for="MorseCode">Please enter NDB IDENT</label>
+            </td>
             <td class="catOne">
                 <input id="myPitch" name="myPitch" type="hidden" value="<?php echo $myPitch; ?>">
                 <input id="mySpeed" name="mySpeed" type="hidden" value="<?php echo $mySpeed; ?>">
-                <img src="/image/clear.gif" border="0" width="8" height="1">
-                <input type = "Text" id="MorseCode" name="MorseCode" size="1" style="width: 293px;" autofocus >
-                <img src="/image/clear.gif" border="0" width="1" height="1">
-                <button type="submit" tabindex="1"  style="margin: 20px 15px 25px 15px; border-left: 1px solid #fff;border-top: 1px solid #fff;border-right: 2px solid #555;border-bottom: 2px solid #555;">convert</button>
+                <input type="Text" id="MorseCode" name="MorseCode" size="1" autofocus>
+                <button type="submit" id="btn_convert" tabindex="1">Convert</button>
+                <button type="button" id="btn_clear" tabindex="1">Clear</button>
             </td>
         </tr>
-    </table>
-</form>
-<table cellpadding="3" cellspacing="1" width="100%" class="defaultTable">
 <?php
     if (isset($m_caption) and isset($m_code) and isset($m_negativ)) {
         echo <<< EOD
-    <tr height="45" ><td class="defaultTr" colspan = "2">&nbsp;{$m_caption}</td></tr>
-    <tr height="45" ><td class="defaultTrII" colspan = "2"><div style="width:95%; overflow:hidden;">{$m_code}</div></td></tr>
-    <tr height="45" ><td class="defaultTrIII" colspan = "2"><div style="width:95%; overflow:hidden;">{$m_negativ}</div></td></tr>
+    <tr><td class="defaultTr" colspan="2">&nbsp;{$m_caption}</td></tr>
+    <tr><td class="defaultTrII" colspan="2"><div style="width:95%; overflow:hidden;">{$m_code}</div></td></tr>
+    <tr><td class="defaultTrIII" colspan="2"><div style="width:95%; overflow:hidden;">{$m_negativ}</div></td></tr>
     <tr>
-        <td class="defaultTr" width="270">
-            &nbsp;
-        </td>
-        <td class="defaultTr">
-            <img src="/image/clear.gif" width="8" height="1" alt="">
+        <td class="defaultTr"></td>
+        <td>
             <div id="myDIV1">
-                Play positive&nbsp;&nbsp;&nbsp;<button onclick="PlayMorse('{$m_pos_play}');" style="border:none; background-color: Transparent;"><img src="/image/play.png" alt="Play+" style="width:30px;height:30px;"></button><br><br>
-                Play negative&nbsp;&nbsp;&nbsp;<button onclick="PlayMorse('{$m_neg_play}');" style="border:none; background-color: Transparent;"><img src="/image/play.png" alt="Play-" style="width:30px;height:30px;"></button><br><br>
-                Pitch&nbsp;[<input type="text" id="myFR" value="{$myPitch}" size="3" style="border-style:none;background: transparent">&nbsp;Hz]:&nbsp;<input id="frequency" type="range" min="400" max="700" step="10" value="{$myPitch}" onchange="updateText(this.value, myFR, myFR2, frequency2, myPitch);" ><br><br>
-                Speed&nbsp;[<input type="text" id="mySP" value="{$mySpeed}" size="3" style="border-style:none;background: transparent">WPM]:&nbsp;<input id="speed" type="range" min="5" max="15" step="1" value="{$mySpeed}" onchange="updateText(this.value, mySP, mySP2, speed2, mySpeed);">
+                Play positive <button onclick="return PlayMorse('{$m_pos_play}');"><img src="/image/play.png" alt="Play+"></button><br><br>
+                Play negative <button onclick="return PlayMorse('{$m_neg_play}');"><img src="/image/play.png" alt="Play-"></button><br><br>
+                Pitch [<input type="text" id="myFR" value="{$myPitch}" size="3" style="border-style:none;background: transparent">&nbsp;Hz]:
+                <input id="frequency" type="range" min="400" max="700" step="10" value="{$myPitch}" onchange="updateText(this.value, myFR, myFR2, frequency2, myPitch);" ><br><br>
+                Speed [<input type="text" id="mySP" value="{$mySpeed}" size="3" style="border-style:none;background: transparent">WPM]:
+                <input id="speed" type="range" min="5" max="15" step="1" value="{$mySpeed}" onchange="updateText(this.value, mySP, mySP2, speed2, mySpeed);">
             </div>
             <div id="myDIV2">
-                Play positive&nbsp;&nbsp;&nbsp;<button style="border:none; background-color: Transparent;"><img src="/image/no-play.png" alt="Play+" style="width:30px;height:30px;"></button><br><br>
-                Play negative&nbsp;&nbsp;&nbsp;<button style="border:none; background-color: Transparent;"><img src="/image/no-play.png" alt="Play-" style="width:30px;height:30px;"></button><br><br>
-                Pitch&nbsp;[<input type="text" id="myFR2" value="{$myPitch}" size="3" style="border-style:none;background: transparent">&nbsp;Hz]:&nbsp;<input id="frequency2" type="range" min="400" max="700" step="10" value="{$myPitch}" ><br><br>
-                Speed&nbsp;[<input type="text" id="mySP2" value="{$mySpeed}" size="3" style="border-style:none;background: transparent">WPM]:&nbsp;<input id="speed2" type="range" min="5" max="15" step="1" value="{$mySpeed}" >
-            </div>								  
+                Play positive <button disabled="disabled"><img src="/image/no-play.png" alt="Play+" style="width:30px;height:30px;"></button><br><br>
+                Play negative <button disabled="disabled"><img src="/image/no-play.png" alt="Play-" style="width:30px;height:30px;"></button><br><br>
+                Pitch [<input type="text" disabled="disabled" id="myFR2" value="{$myPitch}" size="3" style="border-style:none;background: transparent">&nbsp;Hz]:
+                <input id="frequency2" type="range" min="400" max="700" step="10" value="{$myPitch}" disabled="disabled"><br><br>
+                Speed [<input type="text" disabled="disabled" id="mySP2" value="{$mySpeed}" size="3" style="border-style:none;background: transparent">WPM]:
+                <input id="speed2" type="range" min="5" max="15" step="1" value="{$mySpeed}" disabled="disabled">
+            </div>
         </td>
     </tr>
 EOD;
     } ?>
-    <tr height="5" style='background:#626262 url(/image/back_header.png) repeat-x;color:#EEEEEE;font-weight: bold'>
-        <td colspan="2" >&nbsp;</td>
+    <tr class="header">
+        <td colspan="2"></td>
     </tr>
 </table>
+</form>
 <section id="modal" class="flex-center">
     <div class="shade"></div>
     <div class="inner">
@@ -301,98 +295,101 @@ EOD;
         </div>
     </div>
 </section>
-<script>
-    var tmp = (window.AudioContext || window.webkitAudioContext)?true:false;
-    if (tmp) {
-        ctx = new (window.AudioContext || window.webkitAudioContext)();
-    }
-
-    function PlayMorse(inp)
-    {
-        var d1 = document.getElementById("myDIV1");
-        var d2 = document.getElementById("myDIV2");
-        var t = ctx.currentTime;
-        var oscillator = ctx.createOscillator();
-        var myFreq = document.getElementById("frequency").value;
-        var myRate = document.getElementById("speed").value * 1.3;
-        var dot = 1.2 / myRate;
-        var myDots = 	inp.split('.').length - 1;
-        var myDashes = 	inp.split('-').length - 1;
-        var myBlanks = 	inp.split(' ').length - 1;
-        var myHashes = 	inp.split('#').length - 1;
-        var myPipes = 	inp.split('|').length - 1;
-        var myDollars = inp.split('$').length - 1;
-        var myAmps = 	inp.split('&').length - 1;
-
-        var myTime = ((myDots * dot) + (myDashes * dot * 3) + (myBlanks * dot * 4) + (myHashes * dot * 24) + (myPipes * dot * 34) + (myAmps * dot * 19) + (myDollars * dot * 14)) * 1000;
-
-        d1.style.display = "none";
-        d2.style.display = "block";
-        oscillator.type = "sine";
-        oscillator.frequency.value = myFreq;
-
-        var gainNode = ctx.createGain();
-        gainNode.gain.setTargetAtTime(0, t, 0.004);
-
-        inp.split("").forEach(
-            function(letter) {
-                switch(letter)
-                {
-                    case ".":
-                        gainNode.gain.setTargetAtTime(1, t, 0.004);
-                        t += dot;
-                        gainNode.gain.setTargetAtTime(0, t, 0.004);
-                        t += dot;
-                        break;
-                    case "-":
-                        gainNode.gain.setTargetAtTime(1, t, 0.004);
-                        t += 3 * dot;
-                        gainNode.gain.setTargetAtTime(0, t, 0.004);
-                        t += dot;
-                        break;
-                    case " ":
-                        t += 4 * dot;
-                        break;
-                    case "#":
-                        t += 28 * dot;
-                        break;
-                    case "$":
-                        t += 14 * dot;
-                        break;
-                    case "|":
-                        gainNode.gain.setTargetAtTime(1, t, 0.004);
-                        t += 28 * dot;
-                        gainNode.gain.setTargetAtTime(0, t, 0.004);
-                        t += dot;
-                        break;
-                    case "&":
-                        gainNode.gain.setTargetAtTime(1, t, 0.004);
-                        t += 14 * dot;
-                        gainNode.gain.setTargetAtTime(0, t, 0.004);
-                        t += dot;
-                        break;							}
-            }
-        );
-        oscillator.connect(gainNode);
-        gainNode.connect(ctx.destination);
-        oscillator.start();
-
-        let myWait = setTimeout(function() {
-            d1.style.display = "block";
-            d2.style.display = "none";
-        }, myTime)
-
+<script type="application/javascript">
+function PlayMorse(inp)
+{
+    if (!window.AudioContext || window.webkitAudioContext) {
+        alert('Audio tone generation is not supported in this browser')
         return false;
     }
+    var ctx = new (window.AudioContext || window.webkitAudioContext)();
+    var d1 = document.getElementById("myDIV1");
+    var d2 = document.getElementById("myDIV2");
+    var t = ctx.currentTime;
+    var oscillator = ctx.createOscillator();
+    var myFreq = document.getElementById("frequency").value;
+    var myRate = document.getElementById("speed").value * 1.3;
+    var dot = 1.2 / myRate;
+    var myDots = 	inp.split('.').length - 1;
+    var myDashes = 	inp.split('-').length - 1;
+    var myBlanks = 	inp.split(' ').length - 1;
+    var myHashes = 	inp.split('#').length - 1;
+    var myPipes = 	inp.split('|').length - 1;
+    var myDollars = inp.split('$').length - 1;
+    var myAmps = 	inp.split('&').length - 1;
 
-    function updateText(val,F1, F2, F3, F4)
-    {
-        F1.value = val;
-        F2.value = val;
-        F3.value = val;
-        F4.value = val;
+    var myTime = ((myDots * dot) + (myDashes * dot * 3) + (myBlanks * dot * 4) + (myHashes * dot * 24) + (myPipes * dot * 34) + (myAmps * dot * 19) + (myDollars * dot * 14)) * 1000;
+
+    d1.style.display = "none";
+    d2.style.display = "block";
+    oscillator.type = "sine";
+    oscillator.frequency.value = myFreq;
+
+    var gainNode = ctx.createGain();
+    gainNode.gain.setTargetAtTime(0, t, 0.004);
+
+    inp.split("").forEach(
+        function(letter) {
+            switch(letter) {
+                case ".":
+                    gainNode.gain.setTargetAtTime(1, t, 0.004);
+                    t += dot;
+                    gainNode.gain.setTargetAtTime(0, t, 0.004);
+                    t += dot;
+                    break;
+                case "-":
+                    gainNode.gain.setTargetAtTime(1, t, 0.004);
+                    t += 3 * dot;
+                    gainNode.gain.setTargetAtTime(0, t, 0.004);
+                    t += dot;
+                    break;
+                case " ":
+                    t += 4 * dot;
+                    break;
+                case "#":
+                    t += 28 * dot;
+                    break;
+                case "$":
+                    t += 14 * dot;
+                    break;
+                case "|":
+                    gainNode.gain.setTargetAtTime(1, t, 0.004);
+                    t += 28 * dot;
+                    gainNode.gain.setTargetAtTime(0, t, 0.004);
+                    t += dot;
+                    break;
+                case "&":
+                    gainNode.gain.setTargetAtTime(1, t, 0.004);
+                    t += 14 * dot;
+                    gainNode.gain.setTargetAtTime(0, t, 0.004);
+                    t += dot;
+                    break;							}
+        }
+    );
+    oscillator.connect(gainNode);
+    gainNode.connect(ctx.destination);
+    oscillator.start();
+
+    setTimeout(function() {
+        d1.style.display = "block";
+        d2.style.display = "none";
+    }, myTime)
+
+    return false;
+}
+
+function updateText(val, F1, F2, F3, F4) {
+    F1.value = val;
+    F2.value = val;
+    F3.value = val;
+    F4.value = val;
+}
+document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById('btn_clear').onclick = function(){
+        document.getElementById('MorseCode').value = '';
+        document.getElementById('btn_convert').click();
     }
-
+});
 </script>
 </body>
 </html>
