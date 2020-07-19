@@ -33,6 +33,8 @@ class Changes extends Base
                 'Scott W',
                 'Vernon',
                 'Vic Metcalfe',
+                '[[',
+                ']]',
                 '[',
                 ']'
             ],
@@ -43,6 +45,8 @@ class Changes extends Base
                 '[Scott W]',
                 '[Vernon]',
                 '[Vic Metcalfe]',
+                '[',
+                ']',
                 '<span>',
                 '</span>'
             ]
