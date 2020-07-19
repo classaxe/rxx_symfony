@@ -88,6 +88,9 @@ class Base extends AbstractController
         $this->userRepository =     $userRepository;
 
         $this->parameters = [
+            'gitAge' =>         $this->getGitAge(),
+            'gitNew' =>         SystemRepository::NEW_VERSION_AGE,
+            'gitTag' =>         $this->getGitTag(),
             'isAdmin' =>        $this->session->get('isAdmin', 0),
             'isDev' =>          getEnv('APP_ENV') === 'dev',
             'isMember' =>       $this->session->get('isMember', 0),
@@ -98,7 +101,6 @@ class Base extends AbstractController
             'user_email' =>     $this->session->get('user_email', ''),
             'user_name' =>      $this->session->get('user_name', ''),
             'systems' =>        $this->systemRepository->getAll(),
-            'tag' =>            $this->getGitTag()
         ];
         $dsn = getenv('DATABASE_URL');
         if (in_array($dsn, ['', 'mysql://db_user:db_password@127.0.0.1:3306/db_name'])) {
@@ -157,6 +159,18 @@ class Base extends AbstractController
                 .(php_sapi_name() == "cli" ? "" : "</pre>");
             die();
         }
+    }
+
+    private function getGitAge()
+    {
+        return round(
+            $datediff = (time() - strtotime(static::getGitDate())) / (60 * 60 * 24)
+        );
+    }
+
+    private function getGitDate()
+    {
+        return exec('git log -1 --date=format:"%Y-%m-%d" --format="%ad"');
     }
 
     private function getGitTag()

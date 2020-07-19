@@ -6,6 +6,8 @@ use DOMDocument;
 
 class SystemRepository
 {
+    const NEW_VERSION_AGE = 2;
+
     const AUTHORS = [
         [
             'email' =>      'martin@classaxe.com',
@@ -214,17 +216,24 @@ class SystemRepository
         return self::SYSTEMS;
     }
 
-    public function getGitInfo()
+    public function getGitInfo(int $new_days = 0)
     {
         $changelog = explode("\n", `git log master --pretty=format:"%ad %s" --date=short`);
         $entries = [];
         foreach ($changelog as &$entry) {
             $bits =     explode(' ', $entry);
             $date =     array_shift($bits);
+            $new =      round(
+                $datediff = (time() - strtotime($date)) / (60 * 60 * 24)
+            ) <= $new_days;
             $version =  trim(array_shift($bits), ':');
             $details =  implode(' ', $bits);
             $entries[] =
-                 '<li id="' . $version .'"><a href="#' . $version .'"><strong>'.$version.'</strong></a> <em>('.$date.')</em><br />'
+                '<li id="' . $version .'">'
+                . '<a href="#' . $version .'"><strong>'.$version.'</strong></a>'
+                . ' <em>('.$date.')</em>'
+                .($new ? ' <span class="new">NEW</span>' : '')
+                . '<br />'
                 . $details
                 . '</li>';
         }

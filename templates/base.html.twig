@@ -7,7 +7,7 @@
 {% if not isDev %}{% include'js_matmo.html.twig' %}{% endif %}
     <link rel="stylesheet prefetch" href="{{ asset('css/foundation.min.css') }}" />
     <link rel="stylesheet prefetch" href="{{ asset('css/jquery-ui.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('css/style' ~ (isDev ? '' : '.min') ~ '.css') }}?v={{ tag }}" />
+    <link rel="stylesheet" href="{{ asset('css/style' ~ (isDev ? '' : '.min') ~ '.css') }}?v={{ gitTag }}" />
 {% include 'favicons.html.twig' %}
 {% block stylesheets %}{% endblock %}
 
@@ -19,8 +19,8 @@
     </script>
     <script src="{{ asset('js/jquery-3.4.1.min.js') }}"></script>
     <script src="{{ asset('js/jquery-ui.min.js') }}"></script>
-    <script src="{{ path('i18n', { 'v' : tag }) }}"></script>
-    <script src="{{ asset('js/functions' ~ (isDev ? '' : '.min') ~ '.js') }}?v={{ tag }}"></script>
+    <script src="{{ path('i18n', { 'v' : gitTag }) }}"></script>
+    <script src="{{ asset('js/functions' ~ (isDev ? '' : '.min') ~ '.js') }}?v={{ gitTag }}"></script>
 </head>
 
 <body class="{{ system|lower }} locale-{{ _locale }}">

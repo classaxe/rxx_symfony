@@ -87,20 +87,31 @@
         a {
             padding: 0.25em 0.75em;
             text-align: center;
-            &:hover {
+            &:hover span {
                 text-decoration: underline;
             }
             @media print {
                 color: #a0a0a0;
             }
         }
-        .is-active > a {
+        a span.new {
+            text-decoration: none;
+            color: #408040;
+            position: relative;
+            top: -0.5em;
+            font-size: 60%;
+        }
+        .is-active > a span {
             font-weight: 900;
             color: #ffff00;
             text-decoration: underline;
             @media print {
                 border-width: 2px 1px;
             }
+        }
+        .is-active > a span.new {
+            text-decoration: none;
+            color: #80ff80;
         }
     }
 }

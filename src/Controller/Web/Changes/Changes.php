@@ -24,7 +24,7 @@ class Changes extends Base
      */
     public function controller($_locale, $system)
     {
-        $entries =      $this->systemRepository->getGitInfo(true);
+        $entries =      $this->systemRepository->getGitInfo($this->systemRepository::NEW_VERSION_AGE);
         $tweaks = [
             [
                 'Anders H',

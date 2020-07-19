@@ -32,12 +32,9 @@ class Info extends Base
             $this->session->set('route', 'admin/info');
             return $this->redirectToRoute('logon', ['system' => $system]);
         }
-        $entries = $this->systemRepository->getGitInfo();
         $parameters = [
             '_locale' =>        $_locale,
-            'changelog' =>      implode("\n", $entries),
             'classic' =>        $this->systemRepository->getClassicUrl('admin/info'),
-            'countEntries' =>   count($entries),
             'mode' =>           'System Info',
             'info' =>           $this->systemRepository->getPhpInfo(),
             'mysql_version' =>  $this->systemRepository->getMySQLVersion(),

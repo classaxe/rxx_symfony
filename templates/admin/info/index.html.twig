@@ -21,12 +21,6 @@
                 <td class="e">{{ 'Symfony Version' | trans }}</td>
                 <td class="v"><strong>{{ symfonyVersion() }}</strong></td>
             </tr>
-            <tr>
-                <td class="e">{% trans with { '%COUNT%' : countEntries} %}Change Log (%COUNT% entries){% endtrans %}<br />
-                    <a href="https://github.com/classaxe/rxx_symfony" rel="external">Github</a>
-                </td>
-                <td class="v"><ul class="gitlog">{{ changelog|raw }}</ul></td>
-            </tr>
         </table>
     {{ info|raw }}
     </div>
