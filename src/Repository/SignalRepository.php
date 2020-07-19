@@ -436,6 +436,9 @@ class SignalRepository extends ServiceEntityRepository
                     ($this->args['order'] === 'd' ? 'DESC' : 'ASC')
                 );
             }
+            if ($this->args['sort'] === 'khz') {
+                $this->_addOrder('s.call', 'ASC');
+            }
         }
         return $this;
     }
