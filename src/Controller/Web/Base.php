@@ -170,7 +170,7 @@ class Base extends AbstractController
 
     private function getGitDate()
     {
-        return exec('git log -1 --date=format:"%Y-%m-%d" --format="%ad"');
+        return date('Y-m-d', strtotime(exec('git log -1 --format="%ad"')));
     }
 
     private function getGitTag()
