@@ -117,6 +117,7 @@ class ListenerLogsUpload extends Base
                         $this->signalRepository,
                         $selected
                     );
+                    $user = $this->userRepository->find($this->session->get('user_id'));
                     foreach($this->entries as $e) {
                         $stats['logs']++;
                         if ($this->logRepository->checkIfDuplicate($e['signalID'], $id, $e['YYYYMMDD'], $e['time'])) {
@@ -160,6 +161,11 @@ class ListenerLogsUpload extends Base
                     }
                     $this->listenerRepository->updateListenerStats($id);
                     $this->listenerRepository->clear();
+                    $user->setCountLogSession($user->getCountLogSession() + 1);
+                    $user->setCountLog($user->getCountLog() + $stats['logs']);
+                    $em = $this->getDoctrine()->getManager();
+                    $em->flush();
+
                     $this->listener = $this->listenerRepository->find($id);
                     $stats['total_signals'] = $this->listener->getCountSignals();
                     $stats['total_logs'] = $this->listener->getCountLogs();

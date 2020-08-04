@@ -91,6 +91,7 @@ class Base extends AbstractController
             'gitAge' =>         $this->getGitAge(),
             'gitNew' =>         SystemRepository::NEW_VERSION_AGE,
             'gitTag' =>         $this->getGitTag(),
+            'access' =>         $this->session->get('access', 0),
             'isAdmin' =>        $this->session->get('isAdmin', 0),
             'isDev' =>          getEnv('APP_ENV') === 'dev',
             'isMember' =>       $this->session->get('isMember', 0),

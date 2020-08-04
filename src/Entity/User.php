@@ -22,7 +22,6 @@ class User
 
     const ALL =     self::PUBLIC | self::USER | self::AWARDS | self::ADMIN | self::MASTER;
 
-
     const INACTIVE =    'INACTIVE_USER';
     const INVALID =     'INVALID_USER';
     const UNKNOWN =     'UNKNOWN_USER';
@@ -46,9 +45,9 @@ class User
     /**
      * @var int
      *
-     * @ORM\Column(name="admin", type="boolean", nullable=false)
+     * @ORM\Column(name="access", type="integer", nullable=false)
      */
-    private $admin = 0;
+    private $access = 0;
 
     /**
      * @var int
@@ -72,18 +71,18 @@ class User
     private $email = '';
 
     /**
-     * @var DateTime
+     * @var int
      *
-     * @ORM\Column(name="log_earliest", type="date", nullable=true)
+     * @ORM\Column(name="logon_count", type="integer", nullable=false)
      */
-    private $logEarliest = null;
+    private $logonCount = 0;
 
     /**
      * @var DateTime
      *
-     * @ORM\Column(name="log_latest", type="date", nullable=true)
+     * @ORM\Column(name="logon_latest", type="datetime", nullable=true)
      */
-    private $logLatest = null;
+    private $logonLatest = null;
 
     /**
      * @var string
@@ -107,9 +106,9 @@ class User
     private $username = '';
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -125,9 +124,9 @@ class User
     /**
      * @return int
      */
-    public function getAdmin(): int
+    public function getAccess(): int
     {
-        return $this->admin;
+        return $this->access;
     }
 
     /**
@@ -155,19 +154,19 @@ class User
     }
 
     /**
-     * @return DateTime
+     * @return int
      */
-    public function getLogEarliest(): DateTime
+    public function getLogonCount(): int
     {
-        return $this->logEarliest;
+        return $this->logonCount;
     }
 
     /**
      * @return DateTime
      */
-    public function getLogLatest(): DateTime
+    public function getLogonLatest(): ?DateTime
     {
-        return $this->logLatest;
+        return $this->logonLatest;
     }
 
     /**
@@ -215,12 +214,12 @@ class User
     }
 
     /**
-     * @param $admin
+     * @param $access
      * @return self
      */
-    public function setAdmin($admin): self
+    public function setAccess($access): self
     {
-        $this->admin = (int)$admin;
+        $this->access = (int)$access;
         return $this;
     }
 
@@ -255,22 +254,22 @@ class User
     }
 
     /**
-     * @param DateTimeInterface $logEarliest
+     * @param int $logonCount
      * @return self
      */
-    public function setLogEarliest(DateTimeInterface $logEarliest): self
+    public function setLogonCount(int $logonCount): self
     {
-        $this->logEarliest = $logEarliest;
+        $this->logonCount = $logonCount;
         return $this;
     }
 
     /**
-     * @param DateTimeInterface $logLatest
+     * @param DateTimeInterface $logonLatest
      * @return self
      */
-    public function setLogLatest(DateTimeInterface $logEarliest): self
+    public function setLogonLatest(DateTimeInterface $logonLatest): self
     {
-        $this->logEarliest = $logEarliest;
+        $this->logonLatest = $logonLatest;
         return $this;
     }
 

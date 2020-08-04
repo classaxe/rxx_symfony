@@ -41,7 +41,7 @@
 {% if isAdmin %}
         <ul class="menu mode">
             {% for key, modeRepo in modes[2] %}
-                {% if ((isAdmin and modeRepo.admin) or (not isAdmin and modeRepo.guest))%}
+                {% if (access b-and modeRepo['access'])%}
                     <li{% if (app.request.get('_route') == key) %} class="is-active"{% endif %}>
                         <a href="{{ url(key, { 'system' : system }) }}">{{ modeRepo['menu']|trans }}</a>
                     </li>

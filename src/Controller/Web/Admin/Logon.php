@@ -1,7 +1,9 @@
 <?php
 namespace App\Controller\Web\Admin;
 
+use DateTime;
 use App\Controller\Web\Base;
+use App\Entity\User;
 use App\Form\Logon as LogonForm;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -51,10 +53,12 @@ class Logon extends Base
                 return $this->redirectToRoute('logon', $parameters);
             }
             $r = $result['record'];
+            $this->session->set('access', $r->getAccess());
+            $this->session->set('user_id', $r->getId());
             $this->session->set('user_name', $r->getName());
             $this->session->set('user_email', $r->getEmail());
             $this->session->set('lastError', '');
-            if ($r->getAdmin() === 1) {
+            if ($r->getAccess() | User::ADMIN) {
                 $this->session->set('isAdmin', 1);
                 $this->session->set('isMember', 0);
                 $this->session->set('lastMessage', 'You have logged on as an Administrator.');
@@ -63,6 +67,12 @@ class Logon extends Base
                 $this->session->set('isMember', 1);
                 $this->session->set('lastMessage', 'You have logged on as a Member.');
             }
+            $r->setLogonCount($r->getLogonCount() +1);
+            $r->setLogonLatest(new DateTime());
+
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
+
             $parameters = [
                 '_locale' => $_locale,
                 'system' => $system
@@ -83,6 +93,7 @@ class Logon extends Base
             '_locale' =>    $_locale,
             'mode' =>       'Logon',
             'system' =>     $system,
+            'username' =>   $this->session->get('user_name')
         ];
         $parameters = array_merge($parameters, $this->parameters);
         return $this->render('admin/logon/index.html.twig', $parameters);

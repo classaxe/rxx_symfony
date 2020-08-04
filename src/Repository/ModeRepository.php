@@ -148,12 +148,28 @@ class ModeRepository
                 'title' =>  'System Info',
                 'url'=>     false
             ],
+            'admin/users' => [
+                'access' => User::MASTER,
+                'admin' =>  true,
+                'guest' =>  false,
+                'menu' =>   'User Accounts',
+                'title' =>  'User Accounts',
+                'url'=>     false
+            ],
             'admin/help' => [
                 'access' => User::AWARDS | User::ADMIN | User::MASTER,
                 'admin' =>  true,
                 'guest' =>  false,
                 'menu' =>   'Admin Help',
                 'title' =>  'Admin Help',
+                'url'=>     false
+            ],
+            'logoff' => [
+                'access' => User::AWARDS | User::ADMIN | User::MASTER,
+                'admin' =>  true,
+                'guest' =>  false,
+                'menu' =>   'Logoff',
+                'title' =>  'Log Off',
                 'url'=>     false
             ],
         ]

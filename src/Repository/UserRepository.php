@@ -2,19 +2,54 @@
 
 namespace App\Repository;
 
+use App\Columns\Users as UsersColumns;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 class UserRepository extends ServiceEntityRepository
 {
+    const defaultlimit =    50;
+    const defaultOrder =    'a';
+    const defaultPage =     0;
+    const defaultSorting =  'name';
+
+    private $usersColumns;
+
     /**
      * CleRepository constructor.
      * @param ManagerRegistry $registry
      */
-    public function __construct(ManagerRegistry $registry)
-    {
+    public function __construct(
+        ManagerRegistry $registry,
+        UsersColumns $usersColumns
+
+    ) {
         parent::__construct($registry, User::class);
+        $this->usersColumns = $usersColumns->getColumns();
+    }
+
+    public function getColumns()
+    {
+        return $this->usersColumns;
+    }
+
+    public function getCount()
+    {
+        return $this
+            ->createQueryBuilder('u')
+            ->select('count(u.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    public function getRecords($args)
+    {
+        return $this
+            ->createQueryBuilder('u')
+            ->addOrderBy('u.' . $args['sort'], $args['order'] === 'a' ? 'ASC' : 'DESC')
+            ->getQuery()
+            ->getArrayResult();
     }
 
     public function logon($username, $password)

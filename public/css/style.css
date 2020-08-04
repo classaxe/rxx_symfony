@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.16.5
- * Date:       2020-07-19
+ * Version:    2.17.0
+ * Date:       2020-08-03
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
  */
@@ -2015,6 +2015,29 @@ fieldset#form_range_units div label {
 }
 .signal_view #form fieldset {
   margin-top: 0.75em;
+}
+.user .role-ma,
+.user .role-aa,
+.user .role-a,
+.user .role-u {
+  padding: 0 0.25em;
+  border-radius: 3px;
+}
+.user .role-ma {
+  border: 1px solid #f00;
+  background: #fcc;
+}
+.user .role-a {
+  border: 1px solid #00f;
+  background: #eef;
+}
+.user .role-aa {
+  border: 1px solid #0aa;
+  background: #eff;
+}
+.user .role-u {
+  border: 1px solid #080;
+  background: #efe;
 }
 .listener_weather #form fieldset#group_weather_report_details div *,
 .signal_weather #form fieldset#group_weather_report_details div * {

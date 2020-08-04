@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.15.2
- * Date:       2020-07-15
+ * Version:    2.16.7
+ * Date:       2020-08-03
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
  */
@@ -17,6 +17,8 @@ var award = {};
 var cart = [];
 
 var popWinSpecs = {
+    'admin_users_[id]' :            'width=520,height=420,status=1,scrollbars=1,resizable=1',
+    'admin_users_new' :             'width=520,height=420,status=1,scrollbars=1,resizable=1',
     'countries_*' :                 'width=860,height=630,resizable=1',
     'countries_af' :                'width=640,height=630,resizable=1',
     'countries_as' :                'width=780,height=590,resizable=1',
@@ -3303,6 +3305,27 @@ function GMST0( dayDiff ) {
     var const1 = 180.0 + 356.0470 + 282.9404;
     var const2 = 0.9856002585 + 4.70935E-5;
     return ( revolution( const1 + const2 * dayDiff ) );
+}
+
+
+function initUsersForm(pagingMsg, resultsCount) {
+    $(document).ready( function() {
+        setFormPagingActions();
+
+        setColumnSortActions();
+        setColumnSortedClass();
+        setExternalLinks();
+
+        setFormPagingStatus(pagingMsg, resultsCount);
+        setUserActions();
+    });
+}
+
+function setUserActions() {
+    $('#btn_new').click(function() {
+        window.open('./users/new', 'user_new', popWinSpecs['users_[id]']);
+        return false;
+    });
 }
 
 

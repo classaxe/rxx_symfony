@@ -1,0 +1,62 @@
+<div class="main fullwidth">
+    <h2>{{ mode }} <small>[ <a href="{{ url('user', { 'system' : system, 'id': 'new' }) }}" data-popup="1">Add...</a> ]</small></h2>
+    <div class="controlPanel">
+    {% include 'status.html.twig' %}
+    {{ form_start(form) }}
+        {% include 'forms/paging.html.twig' %}
+    {{ form_end(form) }}
+
+{% if records|length > 0 %}
+    <table id="wide" class="user results short">
+    <thead>
+        <tr>
+{% for key, column in columns %}
+    {% if ((not column.admin or isAdmin) and (not column.arg or (column.arg in args|keys and attribute(args, column.arg) != ''))) %}
+            <th{%  if key and column.order %} id="{{ key }}|{{ column.order }}"{% endif %}
+{% if column.th_class or column.sort%} class="{{ column.th_class }}{% if column.sort %} sort{% endif %}"{% endif %}
+{% if column.tooltip %} title="{{ column.tooltip | trans }}"{% endif %}
+>{% if column.th_class == 'txt_vertical' %}<div>{{ column.label | trans | raw }}</div>{% else %}{{ column.label | trans | raw }}{% endif %}</th>
+{% endif %}
+{% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+{% for record in records %}
+        <tr class="{% if record.active == 0 %}inactive {% endif %}">
+{% for key, column in columns %}
+        {% set value = attribute(record, column.field) %}
+        {% if (column.highlight and args[column.highlight] is defined and args[column.highlight] is not empty) %}
+            {% for repl in args[column.highlight] | split(' ') %}
+                {% set value = value | ireplace({ (repl) : '<em>' ~ repl|upper ~ '</em>' }) %}
+            {% endfor %}
+        {% endif %}
+        <td {% if column.td_class %} class="{{ column.td_class }}"{% endif %}>
+    {%
+    if key == 'username'
+%}<a href="{{ url('user', { 'system' : system, 'id': record.id }) }}" data-popup="1">{{ value|raw }}</a>{%
+        elseif key == 'active'
+    %}{{ value ? 'YES'|trans : 'NO'|trans }}{%
+        elseif key == 'logonLatest'
+    %}{{ value ? value|date('Y-m-d (H:i:s)') : '' }}{%
+        elseif key == 'access'
+    %}
+        {% if value b-and 16 %}<span class="role-ma">MASTERADMIN</span>{% endif %}
+        {% if value b-and 8 %}<span class="role-a">ADMIN</span>{% endif %}
+        {% if value b-and 4 %}<span class="role-aa">AWARDSADMIN</span>{% endif %}
+        {% if value b-and 2 %}<span class="role-u">USER</span>{% endif %}{%
+    else
+%}{{ value|raw }}{%
+    endif
+%}
+        </td>
+    {% endfor %}
+        </tr>
+
+{% endfor %}
+    </tbody>
+</table>
+{% else %}
+    <p class="no-results">{% trans %}(No users found matching your criteria){% endtrans %}</p>
+{% endif %}
+    </div>
+</div>
