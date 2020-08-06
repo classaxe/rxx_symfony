@@ -14,13 +14,14 @@ use DateTimeInterface;
  */
 class User
 {
-    const PUBLIC =  1;
-    const USER =    2;
+    const PUBLIC =  null;
+    const USER =    1;
+    const CLE =     2;
     const AWARDS =  4;
     const ADMIN =   8;
     const MASTER =  16;
 
-    const ALL =     self::PUBLIC | self::USER | self::AWARDS | self::ADMIN | self::MASTER;
+    const ALL =     self::USER | self::CLE | self::AWARDS | self::ADMIN | self::MASTER;
 
     const INACTIVE =    'INACTIVE_USER';
     const INVALID =     'INVALID_USER';

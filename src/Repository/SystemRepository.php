@@ -113,8 +113,8 @@ class SystemRepository
                     'show_email' => true
                 ],
                 [
-                    'email' =>      'swl.tn.usa@gmail.com',
-                    'name' =>       'ndb.rna.logs@gmail.com',
+                    'email' =>      'ndb.rna.logs@gmail.com',
+                    'name' =>       'Brandon Jordan - KM4PBQ',
                     'role' =>       'NDBs and Ham Beacons',
                     'show_email' => true
                 ],
