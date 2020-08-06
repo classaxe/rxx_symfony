@@ -99,6 +99,7 @@ class Base extends AbstractController
             'lastMessage' =>    $this->session->get('lastMessage', ''),
             'languages' =>      $this->languageRepository->getAll(),
             'modes' =>          $this->modeRepository->getAll(),
+            'user_id' =>        $this->session->get('user_id', ''),
             'user_email' =>     $this->session->get('user_email', ''),
             'user_name' =>      $this->session->get('user_name', ''),
             'systems' =>        $this->systemRepository->getAll(),

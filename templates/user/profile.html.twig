@@ -1,7 +1,15 @@
-{% extends 'popup.html.twig' %}
+{% extends 'main.html.twig' %}
 {% block body %}
-<div class="main fullwidth">
-{% set form_class='user_view' %}
-{% include 'user/form.html.twig' %}
-</div>
+    <div class="main">
+        <div>{% include 'status.html.twig' %}</div>
+        <h1>{{ mode | trans }}</h1>
+        <p>
+            {% trans with({ '%NAME%' : u.name, '%DATE%' : u.logonLatest|date('Y-m-d H:i:s') }) %}Welcome <strong>%NAME%</strong>, your last logon was at %DATE%.{% endtrans %}<br>
+            {% trans with({ '%LOGS%' : u.countLogSession, '%ENTRIES%' : u.countLog }) %}You have processed <strong>%LOGS%</strong> logs and <strong>%ENTRIES%</strong> log entries.{% endtrans %}
+        </p>
+        <div class="main">
+            {% set form_class='user_view' %}
+            {% include 'user/profileForm.html.twig' %}
+        </div>
+    </div>
 {% endblock %}

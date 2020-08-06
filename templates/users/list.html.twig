@@ -1,5 +1,5 @@
 <div class="main fullwidth">
-    <h2>{{ mode }} <small>[ <a href="{{ url('user', { 'system' : system, 'id': 'new' }) }}" data-popup="1">Add...</a> ]</small></h2>
+    <h2>{{ mode }} <small>[ <a href="{{ url('admin/user', { 'system' : system, 'id': 'new' }) }}" data-popup="1">Add...</a> ]</small></h2>
     <div class="controlPanel">
     {% include 'status.html.twig' %}
     {{ form_start(form) }}
@@ -33,7 +33,7 @@
         <td {% if column.td_class %} class="{{ column.td_class }}"{% endif %}>
     {%
     if key == 'username'
-%}<a href="{{ url('user', { 'system' : system, 'id': record.id }) }}" data-popup="1">{{ value|raw }}</a>{%
+%}<a href="{{ url('admin/user', { 'system' : system, 'id': record.id }) }}" data-popup="1">{{ value|raw }}</a>{%
         elseif key == 'active'
     %}{{ value ? 'YES'|trans : 'NO'|trans }}{%
         elseif key == 'logonLatest'

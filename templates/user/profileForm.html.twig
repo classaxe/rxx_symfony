@@ -1,0 +1,20 @@
+    <div class="controlPanel {{ form_class }}">
+        <div class="header">{% trans %}Edit Your Profile{% endtrans %}</div>
+        <div class="content">
+        {{ form_start(form) }}
+            <div id="form">
+                {{ form_row(form.id)  }}
+                <fieldset id="group_details">
+                    {{ form_row(form.name) }}
+                    {{ form_row(form.email) }}
+                    <br><br>
+                    {{ form_row(form.password) }}
+                    <div><p><em>{% trans %}Leave blank except to change this{% endtrans %}</em></p></div>
+                </fieldset>
+                <fieldset id="group_">
+                    {{ form_row(form.save) }}
+                </fieldset>
+            </div>
+        {{ form_end(form, {'render_rest': true}) }}
+        </div>
+    </div>

@@ -78,7 +78,15 @@ class Logon extends Base
                 'system' => $system
             ];
             if ($this->session->get('route')) {
-                return $this->redirectToRoute($this->session->get('route'), $parameters);
+                $parts = explode('?', $this->session->get('route'));
+                if (isset($parts[1])) {
+                    $arg_arr = explode('&', $parts[1]);
+                    foreach ($arg_arr as $arg) {
+                        $arg_pair = explode('=', $arg);
+                        $parameters[$arg_pair[0]] = $arg_pair[1] ?? '';
+                    }
+                }
+                return $this->redirectToRoute($parts[0], $parameters);
             }
             return $this->redirectToRoute('logon', $parameters);
         } else {

@@ -9,6 +9,7 @@
                     <legend>{% trans %}Details{% endtrans %}</legend>
                     {{ form_row(form.username) }}
                     {{ form_row(form.password) }}
+                    <div><p>{% if id != false %}<em>{% trans %}Leave blank except to change this{% endtrans %}</em>{% endif %}</p></div>
                     {{ form_row(form.name) }}
                     {{ form_row(form.email) }}
                     {{ form_row(form.access) }}
@@ -23,10 +24,3 @@
         {{ form_end(form, {'render_rest': true}) }}
         </div>
     </div>
-<script>
-$(document).ready(function () {
-    $('#form_saveClose').on('click', function(){
-        $('#form__close').val(1);
-    })
-});
-</script>

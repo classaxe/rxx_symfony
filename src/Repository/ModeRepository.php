@@ -164,6 +164,14 @@ class ModeRepository
                 'title' =>  'Admin Help',
                 'url'=>     false
             ],
+            'admin/profile' => [
+                'access' => User::USER | User::AWARDS | User::ADMIN | User::MASTER,
+                'admin' =>  true,
+                'guest' =>  false,
+                'menu' =>   'Your Profile',
+                'title' =>  'Edit your profile',
+                'url'=>     false
+            ],
             'logoff' => [
                 'access' => User::AWARDS | User::ADMIN | User::MASTER,
                 'admin' =>  true,

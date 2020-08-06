@@ -3,6 +3,7 @@ namespace App\Controller\Web\Admin;
 
 use App\Entity\User as UserEntity;
 use App\Form\Users\Users as Form;
+use App\Form\Users\UserProfile as UserProfileForm;
 use App\Form\Users\UserView as UserViewForm;
 
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -21,9 +22,95 @@ class Users extends Base
     const defaultOrder =    'a';
 
     const EDITABLE_FIELDS = [
-        'active', 'access', 'email', 'name', 'username'
+        'access', 'active', 'email', 'name', 'username'
+    ];
+    const PROFILE_FIELDS = [
+        'email', 'name'
     ];
 
+
+    /**
+     * @Route(
+     *     "/{_locale}/{system}/admin/profile",
+     *     requirements={
+     *        "_locale": "de|en|es|fr",
+     *        "system": "reu|rna|rww"
+     *     },
+     *     name="admin/profile"
+     * )
+     * @param $_locale
+     * @param $system
+     * @param Request $request
+     * @param UserProfileForm $userProfileForm
+     * @return RedirectResponse|Response
+     */
+    public function profile(
+        $_locale,
+        $system,
+        Request $request,
+        UserProfileForm $userProfileForm
+    ) {
+        if ((int)$this->parameters['access'] === 0) {
+            $this->session->set('route', 'admin/profile');
+            return $this->redirectToRoute('logon', ['system' => $system]);
+        }
+
+        $this->session->set('route', '');
+        $id = $this->session->get('user_id');
+        if (!$user = $this->getValidUser($id)) {
+            throw $this->createAccessDeniedException('You do not have access to this page');
+        }
+        $options = [
+            'id' =>         $id,
+        ];
+        foreach (static::PROFILE_FIELDS as $f) {
+            $options[$f] = $user->{'get' . ucfirst($f)}();
+        }
+        $form = $userProfileForm->buildForm(
+            $this->createFormBuilder(),
+            $options
+        );
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $form_data = $form->getData();
+            $data['form'] = $form_data;
+            $user = $this->userRepository->find($id);
+            foreach (static::PROFILE_FIELDS as $f) {
+                $user->{'set' . ucfirst($f)}($form_data[$f]);
+            }
+            if ($form_data['password'] ?? false) {
+                $user->setPassword(password_hash($form_data['password'], PASSWORD_DEFAULT));
+            }
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
+            $em->flush();
+            if ($form_data['password'] ?? false) {
+                $this->session->set(
+                    'lastMessage',
+                    $this->i18n("Your Password has ben updated.")
+                );
+            } else {
+                $this->session->set(
+                    'lastMessage',
+                    $this->i18n("Your Profile has been saved.")
+                );
+            }
+
+            return $this->redirectToRoute('admin/profile', [ 'system' => $system ]);
+        }
+
+        $parameters = [
+            '_locale' =>            $_locale,
+            'id' =>                 $id,
+            'classic' =>            $this->systemRepository->getClassicUrl('profile'),
+            'form' =>               $form->createView(),
+            'u' =>                  $user,
+            'mode' =>               'Your Profile',
+            'system' =>             $system
+        ];
+        $parameters = array_merge($parameters, $this->parameters);
+        return $this->render('user/profile.html.twig', $parameters);
+    }
 
     /**
      * @Route(
@@ -32,7 +119,7 @@ class Users extends Base
      *        "_locale": "de|en|es|fr",
      *        "system": "reu|rna|rww"
      *     },
-     *     name="user"
+     *     name="admin/user"
      * )
      * @param $_locale
      * @param $system
@@ -48,13 +135,26 @@ class Users extends Base
         Request $request,
         UserViewForm $userViewForm
     ) {
+        if (!((int)$this->parameters['access'] & UserEntity::MASTER)) {
+            if ((int)$this->parameters['access'] === 0) {
+                $this->session->set('route', 'admin/user?id=' . $id);
+                return $this->redirectToRoute('logon', ['system' => $system]);
+            }
+            throw $this->createAccessDeniedException('You do not have access to this page');
+        }
+        $this->session->set('route', '');
+        $operation = $id;
         if ($id === 'new') {
             $id = false;
         }
+        $doReloadOpener = $this->session->get('reloadOpener') ?? false;
+        $this->session->set('reloadOpener', false);
+        $reloadOpener = false;
         if ((int) $id) {
             if (!$user = $this->getValidUser($id)) {
-                return $this->redirectToRoute('listeners', ['system' => $system]);
+                return $this->redirectToRoute('admin/users', ['system' => $system]);
             }
+            $reloadOpener = true;
         } else {
             $user = new UserEntity();
         }
@@ -89,21 +189,19 @@ class Users extends Base
             if ($form_data['password'] ?? false) {
                 $user->setPassword(password_hash($form_data['password'], PASSWORD_DEFAULT));
             }
-
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
             $id = $user->getId();
 
             if ($form_data['_close']) {
-                return new Response(
-                    '<script>window.close();</script>',
-                    Response::HTTP_OK,
-                    ['content-type' => 'text/html']
-                );
+                $js =
+                    ($doReloadOpener ? "window.opener.document.getElementsByName('form')[0].submit();" : '')
+                    . "window.close()";
+                return new Response("<script>$js</script>", Response::HTTP_OK, [ 'content-type' => 'text/html' ]);
             }
-
-            return $this->redirectToRoute('user', ['system' => $system, 'id' => $id]);
+            $this->session->set('reloadOpener', 1);
+            return $this->redirectToRoute('admin/user', ['system' => $system, 'id' => $id]);
         }
 
         $parameters = [
@@ -111,11 +209,13 @@ class Users extends Base
             'id' =>                 $id,
             'form' =>               $form->createView(),
             'u' =>                  $user,
-            'mode' =>               ($isAdmin && !$id ? 'Add User' : $user->getUsername().' &gt; Profile'),
+            'mode' =>               !$id ? $this->i18n('Add New User') : sprintf($this->i18n('Edit %s User Profile'), $user->getUsername()),
+            'doReloadOpener' =>     $doReloadOpener,
+            'reloadOpener' =>       $reloadOpener,
             'system' =>             $system
         ];
         $parameters = array_merge($parameters, $this->parameters);
-        return $this->render('user/profile.html.twig', $parameters);
+        return $this->render('user/edit.html.twig', $parameters);
     }
 
     /**
@@ -139,9 +239,12 @@ class Users extends Base
         Request $request,
         Form $form
     ) {
-        if (!$this->parameters['isAdmin']) {
-            $this->session->set('route', 'admin/users');
-            return $this->redirectToRoute('logon', ['system' => $system]);
+        if (!((int)$this->parameters['access'] & UserEntity::MASTER)) {
+            if ((int)$this->parameters['access'] === 0) {
+                $this->session->set('route', 'admin/users');
+                return $this->redirectToRoute('logon', ['system' => $system]);;
+            }
+            throw $this->createAccessDeniedException('You do not have access to this page');
         }
         $this->session->set('route', '');
         $options = [

@@ -8,7 +8,7 @@
                 <div class="close">&#9662;</div>
             </a>
             <ul>
-                <li>{{ user_email }}</li>
+                <li><a href="{{ url('admin/profile', { 'system': system }) }}"{% if (app.request.get('_route') == 'admin/profile') %} class="active"{% endif %}>{% trans %}Your Profile{% endtrans %}</a></li>
                 <li><a href="{{ url('logoff', { 'system': system }) }}">{% trans %}Log Off{% endtrans %}</a></li>
             </ul>
         </li>

@@ -1,7 +1,6 @@
 <?php
 namespace App\Form\Users;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -12,7 +11,7 @@ use Symfony\Component\Form\FormInterface;
  * Class Listeners
  * @package App\Form
  */
-class UserView extends AbstractType
+class UserProfile extends AbstractType
 {
     /**
      * @param FormBuilderInterface $formBuilder
@@ -37,26 +36,6 @@ class UserView extends AbstractType
                 ]
             )
             ->add(
-                '_reload_opener',
-                HiddenType::class,
-                [
-                    'data' =>       0
-                ]
-            )
-            ->add(
-                'username',
-                TextType::class,
-                [
-                    'attr' => [
-                        'onchange' =>   "try{setCustomValidity('')}catch(e){}",
-                        'oninvalid' =>  "setCustomValidity('Please enter this user's username')"
-                    ],
-                    'data' =>           $options['username'],
-                    'empty_data' =>     '',
-                    'label' =>          'Username',
-                ]
-            )
-            ->add(
                 'password',
                 TextType::class,
                 [
@@ -72,11 +51,11 @@ class UserView extends AbstractType
                 [
                     'attr' => [
                         'onchange' =>   "try{setCustomValidity('')}catch(e){}",
-                        'oninvalid' =>  "setCustomValidity('Please enter this user\'s name')"
+                        'oninvalid' =>  "setCustomValidity('Please enter your name')"
                     ],
                     'data' =>           $options['name'],
                     'empty_data' =>     '',
-                    'label' =>          'Name',
+                    'label' =>          'Your Name',
                 ]
             )
             ->add(
@@ -90,37 +69,6 @@ class UserView extends AbstractType
                 ]
             )
             ->add(
-                'access',
-                TextType::class,
-                [
-                    'data' =>       $options['access'],
-                    'empty_data' => '',
-                    'label' =>      'Roles',
-                    'required' =>   false
-                ]
-            )
-            ->add(
-                'active',
-                TextType::class,
-                [
-                    'data' =>       $options['active'],
-                    'empty_data' => '',
-                    'label' =>      'Active',
-                    'required' =>   false
-                ]
-            )
-            ->add(
-                'close',
-                ButtonType::class,
-                [
-                    'attr' => [
-                        'class' =>      'button small',
-                        'onclick' =>    'window.close()'
-                    ],
-                    'label' =>          'Close',
-                ]
-            )
-            ->add(
                 'save',
                 SubmitType::class,
                 [
@@ -128,16 +76,6 @@ class UserView extends AbstractType
                         'class' => 'button small'
                     ],
                     'label' => 'Save',
-                ]
-            )
-            ->add(
-                'saveClose',
-                SubmitType::class,
-                [
-                    'attr' => [
-                        'class' => 'button small'
-                    ],
-                    'label' => 'Save + Close',
                 ]
             );
 
