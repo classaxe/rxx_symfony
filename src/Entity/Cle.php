@@ -46,21 +46,21 @@ class Cle
     /**
      * @var string|null
      *
-     * @ORM\Column(name="date_timespan", type="string", length=255, nullable=true)
+     * @ORM\Column(name="date_timespan", type="string", length=65535, nullable=true)
      */
     private $dateTimespan = '';
 
     /**
      * @var string|null
      *
-     * @ORM\Column(name="scope", type="string", length=255, nullable=true)
+     * @ORM\Column(name="scope", type="string", length=65535, nullable=true)
      */
     private $scope = '';
 
     /**
      * @var string|null
      *
-     * @ORM\Column(name="additional", type="string", length=255, nullable=true)
+     * @ORM\Column(name="additional", type="string", length=65535, nullable=true)
      */
     private $additional = '';
 
