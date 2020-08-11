@@ -40,11 +40,11 @@
     %}{{ value ? value|date('Y-m-d (H:i:s)') : '' }}{%
         elseif key == 'access'
     %}
-        {% if value b-and 16 %}<span class="role-ma">MASTERADMIN</span>{% endif %}
-        {% if value b-and 8 %}<span class="role-a">ADMIN</span>{% endif %}
-        {% if value b-and 4 %}<span class="role-aa">AWARDSADMIN</span>{% endif %}
-        {% if value b-and 2 %}<span class="role-cle">CLE</span>{% endif %}
-        {% if value b-and 1 %}<span class="role-u">USER</span>{% endif %}{%
+        {% if value b-and 16 %}<span class="role-ma">{% trans %}MASTER ADMIN{% endtrans %}</span>{% endif %}
+        {% if value b-and 8 %}<span class="role-a">{% trans %}ADMIN{% endtrans %}</span>{% endif %}
+        {% if value b-and 4 %}<span class="role-aa">{% trans %}AWARDS ADMIN{% endtrans %}</span>{% endif %}
+        {% if value b-and 2 %}<span class="role-cle">{% trans %}CLE ADMIN{% endtrans %}</span>{% endif %}
+        {% if value b-and 1 %}<span class="role-u">{% trans %}USER{% endtrans %}</span>{% endif %}{%
     else
 %}{{ value|raw }}{%
     endif

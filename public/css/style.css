@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.17.2
- * Date:       2020-08-06
+ * Version:    2.17.5
+ * Date:       2020-08-11
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
  */
@@ -333,11 +333,10 @@ tr.other td {
 }
 .topbar .userStatus ul li.open ul {
   width: 12em;
-  text-align: center;
   background-color: #fff;
   border: 1px solid #ccc;
   z-index: 100;
-  padding: 0.25em;
+  padding: 0.25em 0.5em;
   position: absolute;
   display: block;
   border-top: 1px solid #ccc;
@@ -345,6 +344,17 @@ tr.other td {
 }
 .topbar .userStatus ul li.open ul li {
   display: block;
+}
+.topbar .userStatus ul li.open ul li.rule {
+  border-top: 1px solid #ccc;
+  padding: 0.25em 0 0 0;
+}
+.topbar .userStatus ul li.open ul li ul {
+  width: auto;
+  padding: 0 0 0.5em 1em;
+  border: none;
+  display: inline-block;
+  position: relative;
 }
 .topbar a {
   color: #0000ff;

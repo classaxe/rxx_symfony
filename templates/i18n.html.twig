@@ -1,6 +1,15 @@
 {# i18n template as base for translations #}
 {% trans %}<{% endtrans %}
 {% trans %}>{% endtrans %}
+{% if 'User Status' %}
+    {% trans %}Your Profile{% endtrans %}
+    {% trans %}Logoff{% endtrans %}
+    {% trans %}MASTER ADMIN{% endtrans %}
+    {% trans %}ADMIN{% endtrans %}
+    {% trans %}AWARDS ADMIN{% endtrans %}
+    {% trans %}CLE ADMIN{% endtrans %}
+    {% trans %}USER{% endtrans %}
+{% endif %}
 {% if 'Version' %}
     {% trans %}Version{% endtrans %}
     {% trans %}Switch{% endtrans %}
@@ -77,6 +86,27 @@
     {% trans %}PHP Version{% endtrans %}
     {% trans %}Symfony Version{% endtrans %}
     {% trans %}Change Log (%COUNT% entries){% endtrans %}
+{% endif %}
+{% if 'Users' %}
+    {% trans %}of %s User Accounts{% endtrans %}
+    {% trans %}User Accounts{% endtrans %}
+    {% trans %}Login Username{% endtrans %}
+    {% trans %}User Name{% endtrans %}
+    {% trans %}Name of person account belongs to{% endtrans %}
+    {% trans %}Email address associated with this account{% endtrans %}
+    {% trans %}email{% endtrans %}
+    {% trans %}Number of Log Entries this user has processed{% endtrans %}
+    {% trans %}Number of Log Sessions this user has processed{% endtrans %}
+    {% trans %}Log Sessions{% endtrans %}
+    {% trans %}Number of times this account has logged in{% endtrans %}
+    {% trans %}Logon Count{% endtrans %}
+    {% trans %}Date on which this account last logged in{% endtrans %}
+    {% trans %}Logon Latest{% endtrans %}
+    {% trans %}Roles{% endtrans %}
+    {% trans %}Administrator Role(s) for this user{% endtrans %}
+    {% trans %}Active users can log in{% endtrans %}
+    {% trans %}YES{% endtrans %}
+    {% trans %}NO{% endtrans %}
 {% endif %}
 {% if 'Footer' %}
     {% trans %}Your %s Editors are:{% endtrans %}

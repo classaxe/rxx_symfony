@@ -4831,6 +4831,146 @@
         <source>Inactive User account.</source>
         <target>Inactive User account.</target>
       </trans-unit>
+      <trans-unit id="con47Fg" resname="Your Profile">
+        <source>Your Profile</source>
+        <target>Your Profile</target>
+      </trans-unit>
+      <trans-unit id="rYxl38h" resname="Logoff">
+        <source>Logoff</source>
+        <target>Logoff</target>
+      </trans-unit>
+      <trans-unit id="HXKDIzC" resname="MASTER ADMIN">
+        <source>MASTER ADMIN</source>
+        <target>MASTER ADMIN</target>
+      </trans-unit>
+      <trans-unit id="g11tyIt" resname="ADMIN">
+        <source>ADMIN</source>
+        <target>ADMIN</target>
+      </trans-unit>
+      <trans-unit id="vyHtS8Z" resname="AWARDS ADMIN">
+        <source>AWARDS ADMIN</source>
+        <target>AWARDS ADMIN</target>
+      </trans-unit>
+      <trans-unit id="sbfu3Jv" resname="CLE ADMIN">
+        <source>CLE ADMIN</source>
+        <target>CLE ADMIN</target>
+      </trans-unit>
+      <trans-unit id="kre0IZk" resname="USER">
+        <source>USER</source>
+        <target>USER</target>
+      </trans-unit>
+      <trans-unit id="5qQ3gNq" resname="of %s User Accounts">
+        <source>of %s User Accounts</source>
+        <target>of %s User Accounts</target>
+      </trans-unit>
+      <trans-unit id="BnsjIK5" resname="User Accounts">
+        <source>User Accounts</source>
+        <target>User Accounts</target>
+      </trans-unit>
+      <trans-unit id="wJa_vUT" resname="Login Username">
+        <source>Login Username</source>
+        <target>Login Username</target>
+      </trans-unit>
+      <trans-unit id="qWnQTsL" resname="User Name">
+        <source>User Name</source>
+        <target>User Name</target>
+      </trans-unit>
+      <trans-unit id="pLud4EG" resname="Name of person account belongs to">
+        <source>Name of person account belongs to</source>
+        <target>Name of person account belongs to</target>
+      </trans-unit>
+      <trans-unit id="6rxdxx9" resname="Email address associated with this account">
+        <source>Email address associated with this account</source>
+        <target>Email address associated with this account</target>
+      </trans-unit>
+      <trans-unit id="giREF.l" resname="email">
+        <source>email</source>
+        <target>email</target>
+      </trans-unit>
+      <trans-unit id="Nftdg4A" resname="Number of Log Entries this user has processed">
+        <source>Number of Log Entries this user has processed</source>
+        <target>Number of Log Entries this user has processed</target>
+      </trans-unit>
+      <trans-unit id="9oW9s6e" resname="Number of Log Sessions this user has processed">
+        <source>Number of Log Sessions this user has processed</source>
+        <target>Number of Log Sessions this user has processed</target>
+      </trans-unit>
+      <trans-unit id="cOukcgx" resname="Log Sessions">
+        <source>Log Sessions</source>
+        <target>Log Sessions</target>
+      </trans-unit>
+      <trans-unit id="9k6vB9O" resname="Number of times this account has logged in">
+        <source>Number of times this account has logged in</source>
+        <target>Number of times this account has logged in</target>
+      </trans-unit>
+      <trans-unit id="5iinn.m" resname="Logon Count">
+        <source>Logon Count</source>
+        <target>Logon Count</target>
+      </trans-unit>
+      <trans-unit id="ThKSrC9" resname="Date on which this account last logged in">
+        <source>Date on which this account last logged in</source>
+        <target>Date on which this account last logged in</target>
+      </trans-unit>
+      <trans-unit id="ljSzo6l" resname="Logon Latest">
+        <source>Logon Latest</source>
+        <target>Logon Latest</target>
+      </trans-unit>
+      <trans-unit id="wlM3BVR" resname="Roles">
+        <source>Roles</source>
+        <target>Roles</target>
+      </trans-unit>
+      <trans-unit id="yYsPDac" resname="Active users can log in">
+        <source>Active users can log in</source>
+        <target>Active users can log in</target>
+      </trans-unit>
+      <trans-unit id="_RcRZFk" resname="YES">
+        <source>YES</source>
+        <target>YES</target>
+      </trans-unit>
+      <trans-unit id="I3lNkcU" resname="NO">
+        <source>NO</source>
+        <target>NO</target>
+      </trans-unit>
+      <trans-unit id="qwluUPd" resname="Welcome %USERNAME%.">
+        <source>Welcome %USERNAME%.</source>
+        <target>Welcome %USERNAME%.</target>
+      </trans-unit>
+      <trans-unit id="VFxfYHN" resname="Edit Your Profile">
+        <source>Edit Your Profile</source>
+        <target>Edit Your Profile</target>
+      </trans-unit>
+      <trans-unit id="Kld9Yxq" resname="Leave blank except to change this">
+        <source>Leave blank except to change this</source>
+        <target>Leave blank except to change this</target>
+      </trans-unit>
+      <trans-unit id="RZid5J_" resname="Details">
+        <source>Details</source>
+        <target>Details</target>
+      </trans-unit>
+      <trans-unit id="CrjGAjU" resname="Welcome &lt;strong&gt;%NAME%&lt;/strong&gt;, your last logon was at %DATE%.">
+        <source>Welcome &lt;strong&gt;%NAME%&lt;/strong&gt;, your last logon was at %DATE%.</source>
+        <target><![CDATA[Welcome <strong>%NAME%</strong>, your last logon was at %DATE%.]]></target>
+      </trans-unit>
+      <trans-unit id="nP5Ad3B" resname="You have processed &lt;strong&gt;%LOGS%&lt;/strong&gt; logs and &lt;strong&gt;%ENTRIES%&lt;/strong&gt; log entries.">
+        <source>You have processed &lt;strong&gt;%LOGS%&lt;/strong&gt; logs and &lt;strong&gt;%ENTRIES%&lt;/strong&gt; log entries.</source>
+        <target><![CDATA[You have processed <strong>%LOGS%</strong> logs and <strong>%ENTRIES%</strong> log entries.]]></target>
+      </trans-unit>
+      <trans-unit id="1KlBi37" resname="(No users found matching your criteria)">
+        <source>(No users found matching your criteria)</source>
+        <target>(No users found matching your criteria)</target>
+      </trans-unit>
+      <trans-unit id="tRLZfny" resname="User">
+        <source>User</source>
+        <target>User</target>
+      </trans-unit>
+      <trans-unit id="mY9HyQ_" resname="of %s users">
+        <source>of %s users</source>
+        <target>of %s users</target>
+      </trans-unit>
+      <trans-unit id="6YXW5oX" resname="Administrator Role(s) for this user">
+        <source>Administrator Role(s) for this user</source>
+        <target>Administrator Role(s) for this user</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

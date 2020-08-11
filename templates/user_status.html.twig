@@ -9,7 +9,15 @@
             </a>
             <ul>
                 <li><a href="{{ url('admin/profile', { 'system': system }) }}"{% if (app.request.get('_route') == 'admin/profile') %} class="active"{% endif %}>{% trans %}Your Profile{% endtrans %}</a></li>
-                <li><a href="{{ url('logoff', { 'system': system }) }}">{% trans %}Log Off{% endtrans %}</a></li>
+                {% if access %}<li><ul class="user">
+                    {% if access b-and 16 %}<li><span class="role-ma">{% trans %}MASTER ADMIN{% endtrans %}</span></li>{% endif %}
+                    {% if access b-and 8 %}<li><span class="role-a">{% trans %}ADMIN{% endtrans %}</span></li>{% endif %}
+                    {% if access b-and 4 %}<li><span class="role-aa">{% trans %}AWARDS ADMIN{% endtrans %}</span></li>{% endif %}
+                    {% if access b-and 2 %}<li><span class="role-cle">{% trans %}CLE ADMIN{% endtrans %}</span></li>{% endif %}
+                    {% if access b-and 1 %}<li><span class="role-u">{% trans %}USER{% endtrans %}</span></li>{% endif %}
+                    </ul></li>
+                {% endif %}
+                <li class="rule"><a href="{{ url('logoff', { 'system': system }) }}">{% trans %}Log Off{% endtrans %}</a></li>
             </ul>
         </li>
     </ul>
