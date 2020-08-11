@@ -4971,10 +4971,6 @@
         <source>Administrator Role(s) for this user</source>
         <target>Administrator Role(s) for this user</target>
       </trans-unit>
-      <trans-unit id="B3UqEop" resname="Export for PSKOV">
-        <source>Export for PSKOV</source>
-        <target>Export for PSKOV</target>
-      </trans-unit>
     </body>
   </file>
 </xliff>

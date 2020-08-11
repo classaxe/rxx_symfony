@@ -48,6 +48,9 @@ function setSignalActions() {
     $('#btn_txt_all').click(function () {
         window.location.assign(window.location + '/export/txt');
     });
+    $('#btn_xls_all').click(function () {
+        window.location.assign(window.location + '/export/xls');
+    });
     $('#btn_csv_fil').click(function () {
         var form_show = $('#form_show');
         var show = form_show.val();

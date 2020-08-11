@@ -152,8 +152,7 @@ function shareSignals() {
             '<li><a style="color:#0000ff" href="' + url + '&show=list">' + msg.share.signals.links.list + '</a></li>' +
             '<li><a style="color:#0000ff" href="' + url + '&show=seeklist">' + msg.share.signals.links.seeklist + '</a></li>' +
             '<li><a style="color:#0000ff" href="' + url + '&show=map">' + msg.share.signals.links.map + '</a></li>' +
-            '<li><a style="color:#0000ff" href="' + url + '&show=csv">' + msg.share.signals.links.export1 + '</a></li>' +
-            '<li><a style="color:#0000ff" href="' + url + '&show=pskov">' + msg.share.signals.links.export2 + '</a></li>' +
+            '<li><a style="color:#0000ff" href="' + url + '&show=csv">' + msg.share.signals.links.export + '</a></li>' +
             '</ul>')
         .dialog({
             buttons: [{

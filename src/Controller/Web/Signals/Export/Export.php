@@ -58,6 +58,27 @@ class Export extends Base
     }
 
     /**
+     * @Route(
+     *     "/{_locale}/{system}/signals/export/xls",
+     *     requirements={
+     *        "_locale": "de|en|es|fr",
+     *        "system": "reu|rna|rww"
+     *     },
+     *     name="signals_export_xls"
+     * )
+     * @param $_locale
+     * @param $system
+     * @return Response
+     * @throws Exception
+     */
+    public function xls(
+        $_locale
+    ) {
+        $system = 'rww'; // PSKOV requires whole system
+        return $this->export($_locale, $system, 'xls');
+    }
+
+    /**
      * @param $_locale
      * @param $system
      * @param $mode
@@ -103,14 +124,23 @@ class Export extends Base
         ];
         switch ($mode) {
             case 'csv':
+                $type = 'text/plain';
+                $name = "{$system}_signals.csv";
                 $response = $this->render("signals/export/signals.csv.twig", $parameters);
                 break;
             case 'txt':
+                $type = 'text/plain';
+                $name = "{$system}_signals.txt";
                 $response = $this->render("signals/export/signals.txt.twig", $parameters);
                 break;
+            case 'xls':
+                $type = 'application/vnd.ms-excel';
+                $name = "export_RWW.xls";
+                $response = $this->render("signals/export/signals.xls.twig", $parameters);
+                break;
         }
-        $response->headers->set('Content-Type', 'text/plain');
-        $response->headers->set('Content-Disposition',"attachment;filename={$system}_signals.{$mode}");
+        $response->headers->set('Content-Type', $type);
+        $response->headers->set('Content-Disposition',"attachment;filename={$name}");
         return $response;
     }
 

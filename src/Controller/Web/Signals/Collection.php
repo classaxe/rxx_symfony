@@ -216,12 +216,6 @@ class Collection extends Base
             $response->headers->set('Content-Disposition',"attachment;filename={$system}_signals.txt");
             return $response;
         }
-        if (isset($args['show']) && $args['show'] === 'pskov') {
-            $response = $this->render("signals/export/signals.xls.twig", $this->getMergedParameters($parameters));
-            $response->headers->set('Content-Type', 'application/vnd.ms-excel');
-            $response->headers->set('Content-Disposition',"attachment;filename=export_" . strtoupper($system) . ".xls");
-            return $response;
-        }
         return $this->render('signals/index.html.twig', $this->getMergedParameters($parameters));
     }
 

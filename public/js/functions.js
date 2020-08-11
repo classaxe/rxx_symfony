@@ -1,7 +1,7 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.18.0
+ * Version:    2.18.1
  * Date:       2020-08-11
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
@@ -1953,8 +1953,7 @@ function shareSignals() {
             '<li><a style="color:#0000ff" href="' + url + '&show=list">' + msg.share.signals.links.list + '</a></li>' +
             '<li><a style="color:#0000ff" href="' + url + '&show=seeklist">' + msg.share.signals.links.seeklist + '</a></li>' +
             '<li><a style="color:#0000ff" href="' + url + '&show=map">' + msg.share.signals.links.map + '</a></li>' +
-            '<li><a style="color:#0000ff" href="' + url + '&show=csv">' + msg.share.signals.links.export1 + '</a></li>' +
-            '<li><a style="color:#0000ff" href="' + url + '&show=pskov">' + msg.share.signals.links.export2 + '</a></li>' +
+            '<li><a style="color:#0000ff" href="' + url + '&show=csv">' + msg.share.signals.links.export + '</a></li>' +
             '</ul>')
         .dialog({
             buttons: [{
@@ -2349,6 +2348,9 @@ function setSignalActions() {
     });
     $('#btn_txt_all').click(function () {
         window.location.assign(window.location + '/export/txt');
+    });
+    $('#btn_xls_all').click(function () {
+        window.location.assign(window.location + '/export/xls');
     });
     $('#btn_csv_fil').click(function () {
         var form_show = $('#form_show');
