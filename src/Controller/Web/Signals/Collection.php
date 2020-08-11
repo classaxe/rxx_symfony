@@ -216,6 +216,12 @@ class Collection extends Base
             $response->headers->set('Content-Disposition',"attachment;filename={$system}_signals.txt");
             return $response;
         }
+        if (isset($args['show']) && $args['show'] === 'pskov') {
+            $response = $this->render("signals/export/signals.xls.twig", $this->getMergedParameters($parameters));
+            $response->headers->set('Content-Type', 'application/vnd.ms-excel');
+            $response->headers->set('Content-Disposition',"attachment;filename=export_" . strtoupper($system) . ".xls");
+            return $response;
+        }
         return $this->render('signals/index.html.twig', $this->getMergedParameters($parameters));
     }
 
@@ -250,8 +256,8 @@ class Collection extends Base
         $this->setValueFromRequest($args, $request, 'range_max');
         $this->setValueFromRequest($args, $request, 'range_units', ['km', 'mi']);
 
-        $this->setValueFromRequest($args, $request, 'show', ['csv', 'list', 'map'], 'a');
-        $this->setValueFromRequest($args, $request, 'paper', [ 'a4', 'a4_l', 'lgl', 'lgl_l', 'ltr', 'ltr_l' ], 'a');
+        $this->setValueFromRequest($args, $request, 'show', ['csv', 'list', 'map', 'pskov'], 'a');
+        $this->setValueFromRequest($args, $request, 'paper', ['a4', 'a4_l', 'lgl', 'lgl_l', 'ltr', 'ltr_l'], 'a');
 
     }
 }

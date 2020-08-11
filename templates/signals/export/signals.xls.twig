@@ -1,0 +1,47 @@
+<html>
+<head>
+    <title>{{ mode }}</title>
+</head>
+<body>
+<table border="1" bordercolor="#000000" cellpadding="0" cellspacing="0">
+  <tr bgcolor="#c0c0c0">
+    <th>KHZ</th>
+    <th>ID</th>
+    <th>active</th>
+    <th>LSB</th>
+    <th>USB</th>
+    <th>Sec</th>
+    <th>Fmt</th>
+    <th>QTH</th>
+    <th>S/P</th>
+    <th>ITU</th>
+    <th>GSQ</th>
+    <th>Pwr</th>
+    <th>Notes</th>
+    <th>Heard In</th>
+    <th>Logs</th>
+    <th>Last Logged</th>
+  </tr>
+{% for s in signals %}
+  <tr>
+    <td>{{ s.khz }}</td>
+    <td>{{ s.call }}</td>
+    <td>{{ s.active ? 1 : 0 }}</td>
+    <td align="right" x:num>{{ s.lsb }}</td>
+    <td align="right" x:num>{{ s.usb }}</td>
+    <td align="right" x:num>{{ s.sec }}</td>
+    <td align="right" x:num>{{ s.format|raw }}</td>
+    <td>{{ s.qth|raw }}</td>
+    <td>{{ s.sp }}</td>
+    <td>{{ s.itu }}</td>
+    <td>{{ s.gsq }}</td>
+    <td align="right" x:num>{{ s.pwr ? s.pwr : '&nbsp;' }}</td>
+    <td>{{ s.notes ? s.notes|raw : '&nbsp;' }}</td>
+    <td>{{ s.heardIn }}</td>
+    <td>{{ s.logs }}</td>
+    <td align="right" x:num>{{ s.lastHeard|date('Y-m-d') }}</td>
+  </tr>
+{% endfor %}
+</table>
+</body>
+</html>
