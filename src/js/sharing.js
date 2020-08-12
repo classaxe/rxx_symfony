@@ -59,13 +59,13 @@ var shareableLink = {
             if ($(this).is(':checked') && 'ALL' !== $(this).prop('value')) {
                 types.push($(this).prop('value'));
             }
-            if (0 === types.length) {
-                types = ['NDB'];
-            }
-            if (7 === types.length) {
-                types = ['ALL'];
-            }
         });
+        if (0 === types.length) {
+            types = ['NDB'];
+        }
+        if (7 === types.length) {
+            types = ['ALL'];
+        }
         return '?types=' + $.uniqueSort(types).join(',');
     },
     listenersUrl: function() {
