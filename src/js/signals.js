@@ -43,13 +43,38 @@ function initSignalsForm(pagingMsg, resultsCount) {
 
 function setSignalActions() {
     $('#btn_csv_all').click(function () {
-        window.location.assign(window.location + '/export/csv');
+        if (confirm(
+                msg.export
+                    .replace(':system', system.toUpperCase())
+                    .replace(':format', '.csv') +
+                "\n" + msg.export2
+            )
+        ) {
+            window.location.assign(window.location + '/export/csv' + shareableLink.getFromTypes());
+        }
     });
     $('#btn_txt_all').click(function () {
-        window.location.assign(window.location + '/export/txt');
+        shareableLink.getFromTypes()
+        if (confirm(
+            msg.export
+                .replace(':system', system.toUpperCase())
+                .replace(':format', '.txt') +
+            "\n" + msg.export2
+        )
+        ) {
+            window.location.assign(window.location + '/export/txt' + shareableLink.getFromTypes());
+        }
     });
     $('#btn_xls_all').click(function () {
-        window.location.assign(window.location + '/export/xls');
+        if (confirm(
+            msg.export
+                .replace(':system', system.toUpperCase())
+                .replace(':format', 'PSKOV') +
+            "\n" + msg.export2
+        )
+        ) {
+            window.location.assign(window.location + '/export/xls' + shareableLink.getFromTypes());
+        }
     });
     $('#btn_csv_fil').click(function () {
         var form_show = $('#form_show');

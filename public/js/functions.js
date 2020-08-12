@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.18.1
- * Date:       2020-08-11
+ * Version:    2.18.2
+ * Date:       2020-08-12
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
  */
@@ -2344,13 +2344,38 @@ function initSignalsForm(pagingMsg, resultsCount) {
 
 function setSignalActions() {
     $('#btn_csv_all').click(function () {
-        window.location.assign(window.location + '/export/csv');
+        if (confirm(
+                msg.export
+                    .replace(':system', system.toUpperCase())
+                    .replace(':format', '.csv') +
+                "\n" + msg.export2
+            )
+        ) {
+            window.location.assign(window.location + '/export/csv' + shareableLink.getFromTypes());
+        }
     });
     $('#btn_txt_all').click(function () {
-        window.location.assign(window.location + '/export/txt');
+        shareableLink.getFromTypes()
+        if (confirm(
+            msg.export
+                .replace(':system', system.toUpperCase())
+                .replace(':format', '.txt') +
+            "\n" + msg.export2
+        )
+        ) {
+            window.location.assign(window.location + '/export/txt' + shareableLink.getFromTypes());
+        }
     });
     $('#btn_xls_all').click(function () {
-        window.location.assign(window.location + '/export/xls');
+        if (confirm(
+            msg.export
+                .replace(':system', system.toUpperCase())
+                .replace(':format', 'PSKOV') +
+            "\n" + msg.export2
+        )
+        ) {
+            window.location.assign(window.location + '/export/xls' + shareableLink.getFromTypes());
+        }
     });
     $('#btn_csv_fil').click(function () {
         var form_show = $('#form_show');

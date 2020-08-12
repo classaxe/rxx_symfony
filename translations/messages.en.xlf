@@ -4971,6 +4971,10 @@
         <source>Administrator Role(s) for this user</source>
         <target>Administrator Role(s) for this user</target>
       </trans-unit>
+      <trans-unit id="5Uh6TdU" resname="'Signal Types' filter will be used, all other settings are ignored.">
+        <source>'Signal Types' filter will be used, all other settings are ignored.</source>
+        <target>'Signal Types' filter will be used, all other settings are ignored.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

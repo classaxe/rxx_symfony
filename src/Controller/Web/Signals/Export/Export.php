@@ -6,6 +6,7 @@ use App\Entity\Signal as SignalEntity;
 
 use DateTime;
 use Exception;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 
@@ -26,14 +27,16 @@ class Export extends Base
      * )
      * @param $_locale
      * @param $system
+     * @param Request $request
      * @return Response
      * @throws Exception
      */
     public function csv(
         $_locale,
-        $system
+        $system,
+        Request $request
     ) {
-        return $this->export($_locale, $system, 'csv');
+        return $this->export($_locale, $system, 'csv', $request);
     }
 
     /**
@@ -47,14 +50,16 @@ class Export extends Base
      * )
      * @param $_locale
      * @param $system
+     * @param Request $request
      * @return Response
      * @throws Exception
      */
     public function txt(
         $_locale,
-        $system
-    ) {
-        return $this->export($_locale, $system, 'txt');
+        $system,
+        Request $request
+) {
+        return $this->export($_locale, $system, 'txt', $request);
     }
 
     /**
@@ -68,27 +73,31 @@ class Export extends Base
      * )
      * @param $_locale
      * @param $system
+     * @param Request $request
      * @return Response
      * @throws Exception
      */
     public function xls(
-        $_locale
+        $_locale,
+        $system,
+        Request $request
     ) {
-        $system = 'rww'; // PSKOV requires whole system
-        return $this->export($_locale, $system, 'xls');
+        return $this->export($_locale, $system, 'xls', $request);
     }
 
     /**
      * @param $_locale
      * @param $system
      * @param $mode
+     * @param Request $request
      * @return Response
      * @throws Exception
      */
     private function export(
         $_locale,
         $system,
-        $mode
+        $mode,
+        Request $request
     ) {
         $args = [
             'limit' =>          -1,
@@ -97,6 +106,8 @@ class Export extends Base
             'sort' =>           $this->signalRepository::defaultSorting,
             'system' =>         $system,
         ];
+        $this->setTypeFromRequest($args, $request);
+        $args['signalTypes'] =  $this->typeRepository->getSignalTypesSearched($args['type']);
         $signals = $this->signalRepository->getFilteredSignals($system, $args);
         $signalEntities = [];
         $signalTypes = [];
@@ -135,7 +146,7 @@ class Export extends Base
                 break;
             case 'xls':
                 $type = 'application/vnd.ms-excel';
-                $name = "export_RWW.xls";
+                $name = "export_" . strtoupper($system) . ".xls";
                 $response = $this->render("signals/export/signals.xls.twig", $parameters);
                 break;
         }
