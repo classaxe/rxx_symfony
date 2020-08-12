@@ -25,25 +25,29 @@
     <p>{% trans %}Thanks also to those listeners who provide their logs for inclusion.{% endtrans %}</p>
 
     <h2 class="margin-top-2">About our Server Hosting Costs</h2>
-    <p>
-        {% trans %}For the developer of this system there are one or two additional financial burdens to bear in terms of website hosting and domain registration.{% endtrans %}
-    </p>
     <p class="text-center">
         <img src="{{ asset('/image/server.png') }}" alt="{% trans %}DL380-G5 server hosting RXX system (circa 2015){% endtrans %}"><br>
         <em>{% trans %}HP / Compaq DL380-G5 formerly used to host RXX system - we're now cloud based{% endtrans %}</em>
     </p>
     <p>
-        {% trans %}The Paypal button below is provided to those persons who specifically want to offer financial support to offset some of these hosting costs.{% endtrans %}
-    </p>
-    <p class="font-bold">
-        {% trans %}Please feel under no obligation to do so.{% endtrans %}
+        {% trans %}It costs around <strong>$450 per year</strong> to run this site, and those costs have to come from somewhere.{% endtrans %}
     </p>
     <p>
         {% trans with({ DOMAIN : domain, MONTHLY : monthly })%}As a guide, a single donation of <strong>MONTHLY</strong> would cover our website hosting costs for a month, while <strong>DOMAIN</strong> would pay for domain registration for a whole year.{% endtrans %}
     </p>
+    <p><br></p>
+    <h2>Support this site via Patreon</h2>
+    <p>If you wish, you may support the work of this site through <a href="https://www.patreon.com/classaxe">Patreon</a>
+        <a href="https://www.patreon.com/bePatron?u=15396096" data-patreon-widget-type="become-patron-button">Become a Patron!</a><script async src="https://c6.patreon.com/becomePatronButton.bundle.js"></script>
+    </p>
+
+    <h2 class="margin-top-2">Support this site via Paypal</h2>
+    <p>
+        {% trans %}There is also the option to make a one off payment via Paypal.{% endtrans %}
+    </p>
 
     <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-        <div class="text-center margin-1">
+        <div class="margin-1">
             <input type="hidden" name="cmd" value="_s-xclick" />
             <input type="hidden" name="hosted_button_id" value="A356JZL3MKZBG" />
             <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
@@ -51,9 +55,10 @@
         </div>
     </form>
 
+    <h2 class="margin-top-2">Finally...</h2>
     <p>{% trans %}Sincere thanks to you for visiting and using this site, and whether you choose to donate or not, please be blessed by it - you are the reason this site even exists.{% endtrans %}</p>
 
     <p>Blessings,<br><br>Martin Francis<br>&lt;&gt;&lt;</p>
-    <p>(May 24th, 2020)</p>
+    <p>(August 12th, 2020)</p>
 </div>
 {% endblock %}
