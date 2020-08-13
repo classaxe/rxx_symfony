@@ -24,15 +24,15 @@
   </tr>
 {% for s in signals %}
   <tr>
-    <td>{{ s.khz }}</td>
+    <td>{{ s.khz|number_format(3, '.', '') }}</td>
     <td>{{ s.call }}</td>
     <td>{{ s.active ? 1 : 0 }}</td>
-    <td align="right" x:num>{{ s.lsb }}</td>
-    <td align="right" x:num>{{ s.usb }}</td>
-    <td align="right" x:num>{{ s.sec }}</td>
-    <td align="right" x:num>{{ s.format|raw }}</td>
+    <td align="right" x:num>{{ s.lsb ? s.lsb : '&nbsp;' }}</td>
+    <td align="right" x:num>{{ s.usb ? s.usb : '&nbsp;' }}</td>
+    <td align="right" x:num>{{ s.sec ? s.sec : '&nbsp;' }}</td>
+    <td align="right" x:num>{{ s.format ? s.format|raw : '&nbsp;'}}</td>
     <td>{{ s.qth|raw }}</td>
-    <td>{{ s.sp }}</td>
+    <td>{{ s.sp ? s.sp : '&nbsp;' }}</td>
     <td>{{ s.itu }}</td>
     <td>{{ s.gsq }}</td>
     <td align="right" x:num>{{ s.pwr ? s.pwr : '&nbsp;' }}</td>
