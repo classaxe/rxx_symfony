@@ -1,0 +1,84 @@
+.cle_editor {
+    label {
+        display: inline-block;
+        font-weight: bold;
+        width: 10em;
+    }
+    input,
+    textarea {
+        display: inline-block;
+    }
+    #form_cle {
+        width: 3em;
+    }
+    #form_scope,
+    #form_dateTimespan {
+        width: 70em;
+    }
+    #form_dateStart,
+    #form_dateEnd{
+        width: 95px;
+        padding: 0 1.75em 0 0.25em !important;
+        background: #ffffff url("../../image/calendar.png") no-repeat;
+        background-size: auto 100%;
+        background-position: right;
+    }
+    table {
+        border-collapse: collapse;
+        tr {
+            background: #ffffff;
+            td {
+                text-align: right;
+            }
+            th.left {
+                text-align: left;
+            }
+            th,
+            td {
+                padding: 0 0.25em;
+                margin: 0;
+                border: 1px solid #aaa;
+                input{
+                    padding: 0.25em;
+                    height: 1.25em;
+                    line-height: 1.25em;
+                    margin: 0;
+                }
+                #form_europeRange1Channels,
+                #form_europeRange2Channels,
+                #form_worldRange1Channels,
+                #form_worldRange2Channels {
+                    width: 8.175em;
+                }
+                #form_europeRange1Low,
+                #form_europeRange2Low,
+                #form_worldRange1Low,
+                #form_worldRange2Low,
+                #form_europeRange1High,
+                #form_europeRange2High,
+                #form_worldRange1High,
+                #form_worldRange2High {
+                    width: 6em;
+                    text-align: right;
+                }
+            }
+            input[type='checkbox'] {
+                height: 20px;
+                line-height: 1.25em;
+                padding: 0;
+                margin: 0 0.25em 0.125em 0.25em;
+                vertical-align: middle;
+            }
+            label {
+                border: 1px solid #aaa;
+                border-radius: 3px;
+                height: 20px;
+                line-height: 1.25em;
+                text-align: left;
+                width: 9.375em;
+                margin: 0 0 0.25em 0;
+                vertical-align: middle;
+            }
+        }
+    }
+}

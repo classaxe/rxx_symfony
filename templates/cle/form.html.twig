@@ -1,0 +1,147 @@
+<div id="editor" style="display:none">
+    {{ form_start(form) }}
+    <div class="controlPanel cle_editor">
+        <div class="header">{% trans %}CLE Configuration{% endtrans %}</div>
+        <div class="content">
+            <div class="cleForm">
+                {{ form_row(form.id)  }}
+                <fieldset id="group_event_overview">
+                    <legend>{% trans %}Event Overview{% endtrans %}</legend>
+
+                    {{ form_row(form.cle) }}
+                    <div>
+                        <label>{% trans %}Date Range{% endtrans %}</label>
+                        {{ form_widget(form.dateStart) }} <div>&nbsp; - &nbsp;</div> {{ form_widget(form.dateEnd) }}
+                    </div>
+                    {{ form_row(form.dateTimespan) }}
+                    {{ form_row(form.scope) }}
+                </fieldset>
+            </div>
+            <div class="textarea">{{ form_row(form.additional) }}<br></div>
+            <div class="cleForm">
+                <fieldset id="group_cle_specifics">
+                    <legend>{% trans %}CLE Specifics{% endtrans %}</legend>
+                    <table>
+                        <tr>
+                            <th class="left">&nbsp;</th>
+                            <th>{% trans %}World Range 1{% endtrans %}</th>
+                            <th>{% trans %}Europe Range 1{% endtrans %}</th>
+                            <th>{% trans %}World Range 2{% endtrans %}</th>
+                            <th>{% trans %}Europe Range 2{% endtrans %}</th>
+                        </tr>
+                        <tr>
+                            <th class="left">{% trans %}Low{% endtrans %}</th>
+                            <td>{{ form_widget(form.worldRange1Low) }} KHz</td>
+                            <td>{{ form_widget(form.europeRange1Low) }} KHz</td>
+                            <td>{{ form_widget(form.worldRange2Low) }} KHz</td>
+                            <td>{{ form_widget(form.europeRange2Low) }} KHz</td>
+                        </tr>
+                        <tr>
+                            <th class="left">{% trans %}High{% endtrans %}</th>
+                            <td>{{ form_widget(form.worldRange1High) }} KHz</td>
+                            <td>{{ form_widget(form.europeRange1High) }} KHz</td>
+                            <td>{{ form_widget(form.worldRange2High) }} KHz</td>
+                            <td>{{ form_widget(form.europeRange2High) }} KHz</td>
+                        </tr>
+                        <tr>
+                            <th class="left">{% trans %}Channels{% endtrans %}</th>
+                            <td>{{ form_widget(form.worldRange1Channels) }}</td>
+                            <td>{{ form_widget(form.europeRange1Channels) }}</td>
+                            <td>{{ form_widget(form.worldRange2Channels) }}</td>
+                            <td>{{ form_widget(form.europeRange2Channels) }}</td>
+                        </tr>
+                        <tr>
+                            <th class="left">{% trans %}Types{% endtrans %}</th>
+                            <td>
+                                {{ form_widget(form.worldRange1Type) }}
+                                <label class="type_dgps"><input type="checkbox" />{% trans %}DGPS{% endtrans %}</label><br>
+                                <label class="type_dsc"><input type="checkbox" />{% trans %}DSC{% endtrans %}</label><br>
+                                <label class="type_hambcn"><input type="checkbox" />{% trans %}HAMBCN{% endtrans %}</label><br>
+                                <label class="type_navtex"><input type="checkbox" />{% trans %}NAVTEX{% endtrans %}</label><br>
+                                <label class="type_ndb"><input type="checkbox" />{% trans %}NDB{% endtrans %}</label><br>
+                                <label class="type_time"><input type="checkbox" />{% trans %}TIME{% endtrans %}</label><br>
+                                <label class="type_other"><input type="checkbox" />{% trans %}OTHER{% endtrans %}</label>
+                            </td>
+                            <td>
+                                {{ form_widget(form.europeRange1Type) }}
+                                <label class="type_dgps"><input type="checkbox" />{% trans %}DGPS{% endtrans %}</label><br>
+                                <label class="type_dsc"><input type="checkbox" />{% trans %}DSC{% endtrans %}</label><br>
+                                <label class="type_hambcn"><input type="checkbox" />{% trans %}HAMBCN{% endtrans %}</label><br>
+                                <label class="type_navtex"><input type="checkbox" />{% trans %}NAVTEX{% endtrans %}</label><br>
+                                <label class="type_ndb"><input type="checkbox" />{% trans %}NDB{% endtrans %}</label><br>
+                                <label class="type_time"><input type="checkbox" />{% trans %}TIME{% endtrans %}</label><br>
+                                <label class="type_other"><input type="checkbox" />{% trans %}OTHER{% endtrans %}</label>
+                            </td>
+                            <td>
+                                {{ form_widget(form.worldRange2Type) }}
+                                <label class="type_dgps"><input type="checkbox" />{% trans %}DGPS{% endtrans %}</label><br>
+                                <label class="type_dsc"><input type="checkbox" />{% trans %}DSC{% endtrans %}</label><br>
+                                <label class="type_hambcn"><input type="checkbox" />{% trans %}HAMBCN{% endtrans %}</label><br>
+                                <label class="type_navtex"><input type="checkbox" />{% trans %}NAVTEX{% endtrans %}</label><br>
+                                <label class="type_ndb"><input type="checkbox" />{% trans %}NDB{% endtrans %}</label><br>
+                                <label class="type_time"><input type="checkbox" />{% trans %}TIME{% endtrans %}</label><br>
+                                <label class="type_other"><input type="checkbox" />{% trans %}OTHER{% endtrans %}</label>
+                            </td>
+                            <td>
+                                {{ form_widget(form.europeRange2Type) }}
+                                <label class="type_dgps"><input type="checkbox" />{% trans %}DGPS{% endtrans %}</label><br>
+                                <label class="type_dsc"><input type="checkbox" />{% trans %}DSC{% endtrans %}</label><br>
+                                <label class="type_hambcn"><input type="checkbox" />{% trans %}HAMBCN{% endtrans %}</label><br>
+                                <label class="type_navtex"><input type="checkbox" />{% trans %}NAVTEX{% endtrans %}</label><br>
+                                <label class="type_ndb"><input type="checkbox" />{% trans %}NDB{% endtrans %}</label><br>
+                                <label class="type_time"><input type="checkbox" />{% trans %}TIME{% endtrans %}</label><br>
+                                <label class="type_other"><input type="checkbox" />{% trans %}OTHER{% endtrans %}</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="left">{% trans %}Locator (GSQ) Codes	{% endtrans %}</th>
+                            <td>{{ form_widget(form.worldRange1Locator) }}</td>
+                            <td>{{ form_widget(form.europeRange1Locator) }}</td>
+                            <td>{{ form_widget(form.worldRange2Locator) }}</td>
+                            <td>{{ form_widget(form.europeRange2Locator) }}</td>
+                        </tr>
+                        <tr>
+                            <th class="left">{% trans %}State / Province Codes{% endtrans %}</th>
+                            <td>{{ form_widget(form.worldRange1Sp) }}</td>
+                            <td>{{ form_widget(form.europeRange1Sp) }}</td>
+                            <td>{{ form_widget(form.worldRange2Sp) }}</td>
+                            <td>{{ form_widget(form.europeRange2Sp) }}</td>
+                        </tr>
+                        <tr>
+                            <th class="left">{% trans %}SP / ITU Combiner{% endtrans %}</th>
+                            <td>{{ form_widget(form.worldRange1SpItuClause) }}</td>
+                            <td>{{ form_widget(form.europeRange1SpItuClause) }}</td>
+                            <td>{{ form_widget(form.worldRange2SpItuClause) }}</td>
+                            <td>{{ form_widget(form.europeRange2SpItuClause) }}</td>
+                        </tr>
+                        <tr>
+                            <th class="left">{% trans %}Country Codes{% endtrans %}</th>
+                            <td>{{ form_widget(form.worldRange1Itu) }}</td>
+                            <td>{{ form_widget(form.europeRange1Itu) }}</td>
+                            <td>{{ form_widget(form.worldRange2Itu) }}</td>
+                            <td>{{ form_widget(form.europeRange2Itu) }}</td>
+                        </tr>
+                        <tr>
+                            <th class="left">{% trans %}Extra Filter{% endtrans %}</th>
+                            <td>{{ form_widget(form.worldRange1FilterOther) }}</td>
+                            <td>{{ form_widget(form.europeRange1FilterOther) }}</td>
+                            <td>{{ form_widget(form.worldRange2FilterOther) }}</td>
+                            <td>{{ form_widget(form.europeRange2FilterOther) }}</td>
+                        </tr>
+                        <tr>
+                            <th class="left">{% trans %}Text Suffix{% endtrans %}</th>
+                            <td>{{ form_widget(form.worldRange1TextExtra) }}</td>
+                            <td>{{ form_widget(form.europeRange1TextExtra) }}</td>
+                            <td>{{ form_widget(form.worldRange2TextExtra) }}</td>
+                            <td>{{ form_widget(form.europeRange2TextExtra) }}</td>
+                        </tr>
+                    </table>
+                </fieldset>
+                <fieldset id="group_">
+                    {% if isAdmin %}{{ form_row(form.save) }}{% else %}{{ form_row(form.save_disabled) }}{% endif %}
+                </fieldset>
+            </div>
+        </div>
+    </div>
+    {{ form_end(form, {'render_rest': true}) }}
+</div>

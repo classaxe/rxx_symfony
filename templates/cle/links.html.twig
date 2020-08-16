@@ -5,11 +5,9 @@
         <ul>
             <li>
                 <a href="{{ path('signals', { 'system' : link.system } )}}?{% if link.focus %}rww_focus={{ link.focus }}&{% endif %}{{ link.r1.url }}">{%
-                    trans with { '%MIN%': link.r1.min, '%MAX%' : link.r1.max } %}%MIN% - %MAX%KHz{% endtrans
-                %}</a>{% if link.r2.min and link.r2.max %},
+                    trans with { '%MIN%': link.r1.min, '%MAX%' : link.r1.max } %}%MIN% - %MAX%KHz{% endtrans %}{% if link.r1.textExtra %} {{ link.r1.textExtra }}{% endif %}</a>{% if link.r2.min and link.r2.max %},
                 <a href="{{ path('signals', { 'system' : link.system }) }}?{% if link.focus %}rww_focus={{ link.focus }}&{% endif %}{{ link.r2.url }}">{%
-                    trans with { '%MIN%': link.r2.min, '%MAX%' : link.r2.max } %}%MIN% - %MAX%KHz{% endtrans
-                %}</a>{% endif %}
+                    trans with { '%MIN%': link.r2.min, '%MAX%' : link.r2.max } %}%MIN% - %MAX%KHz{% endtrans %}{% if link.r2.textExtra %} {{ link.r2.textExtra }}{% endif %}</a>{% endif %}
             </li>
         </ul>
 
@@ -17,11 +15,9 @@
         <ul>
             <li>
                 <a href="{{ path('signals', { 'system' : link.system } )}}?show=seeklist&{% if link.focus %}rww_focus={{ link.focus }}&{% endif %}{{ link.r1.url }}">{%
-                        trans with { '%MIN%': link.r1.min, '%MAX%' : link.r1.max } %}%MIN% - %MAX%KHz{% endtrans
-                    %}</a>{% if link.r2.min and link.r2.max %},
+                    trans with { '%MIN%': link.r1.min, '%MAX%' : link.r1.max } %}%MIN% - %MAX%KHz{% endtrans %}{% if link.r1.textExtra %} {{ link.r1.textExtra }}{% endif %}</a>{% if link.r2.min and link.r2.max %},
                 <a href="{{ path('signals', { 'system' : link.system }) }}?show=seeklist&{% if link.focus %}rww_focus={{ link.focus }}&{% endif %}{{ link.r2.url }}">{%
-                    trans with { '%MIN%': link.r2.min, '%MAX%' : link.r2.max } %}%MIN% - %MAX%KHz{% endtrans
-                %}</a>{% endif %}
+                    trans with { '%MIN%': link.r2.min, '%MAX%' : link.r2.max } %}%MIN% - %MAX%KHz{% endtrans %}{% if link.r2.textExtra %} {{ link.r2.textExtra }}{% endif %}</a>{% endif %}
             </li>
         </ul>
 
@@ -29,11 +25,9 @@
         <ul>
             <li>
                 <a href="{{ path('signals', { 'system' : link.system } )}}?show=map&{% if link.focus %}rww_focus={{ link.focus }}&{% endif %}{{ link.r1.url }}">{%
-                        trans with { '%MIN%': link.r1.min, '%MAX%' : link.r1.max } %}%MIN% - %MAX%KHz{% endtrans
-                    %}</a>{% if link.r2.min and link.r2.max %},
+                    trans with { '%MIN%': link.r1.min, '%MAX%' : link.r1.max } %}%MIN% - %MAX%KHz{% endtrans %}{% if link.r1.textExtra %} {{ link.r1.textExtra }}{% endif %}</a>{% if link.r2.min and link.r2.max %},
                 <a href="{{ path('signals', { 'system' : link.system }) }}?show=map&{% if link.focus %}rww_focus={{ link.focus }}&{% endif %}{{ link.r2.url }}">{%
-                    trans with { '%MIN%': link.r2.min, '%MAX%' : link.r2.max } %}%MIN% - %MAX%KHz{% endtrans
-                %}</a>{% endif %}
+                    trans with { '%MIN%': link.r2.min, '%MAX%' : link.r2.max } %}%MIN% - %MAX%KHz{% endtrans %}{% if link.r2.textExtra %} {{ link.r2.textExtra }}{% endif %}</a>{% endif %}
             </li>
         </ul>
 
@@ -41,11 +35,9 @@
         <ul>
             <li>
                 <a href="{{ path('signals', { 'system' : link.system } )}}?show=csv&{% if link.focus %}rww_focus={{ link.focus }}&{% endif %}{{ link.r1.url }}">{%
-                        trans with { '%MIN%': link.r1.min, '%MAX%' : link.r1.max } %}%MIN% - %MAX%KHz{% endtrans
-                    %}</a>{% if link.r2.min and link.r2.max %},
+                    trans with { '%MIN%': link.r1.min, '%MAX%' : link.r1.max } %}%MIN% - %MAX%KHz{% endtrans %}{% if link.r1.textExtra %} {{ link.r1.textExtra }}{% endif %}</a>{% if link.r2.min and link.r2.max %},
                 <a href="{{ path('signals', { 'system' : link.system }) }}?show=csv&{% if link.focus %}rww_focus={{ link.focus }}&{% endif %}{{ link.r2.url }}">{%
-                    trans with { '%MIN%': link.r2.min, '%MAX%' : link.r2.max } %}%MIN% - %MAX%KHz{% endtrans
-                %}</a>{% endif %}
+                    trans with { '%MIN%': link.r2.min, '%MAX%' : link.r2.max } %}%MIN% - %MAX%KHz{% endtrans %}{% if link.r2.textExtra %} {{ link.r2.textExtra }}{% endif %}</a>{% endif %}
             </li>
         </ul>
     </div>

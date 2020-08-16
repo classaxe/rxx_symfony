@@ -2,7 +2,11 @@
 namespace App\Controller\Web\Cle;
 
 use App\Controller\Web\Base;
+use App\Entity\User as UserEntity;
+use App\Form\Cle\Cle as CleForm;
 use App\Repository\CleRepository;
+use DateTime;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 
@@ -23,21 +27,103 @@ class Cle extends Base
      * )
      * @param $_locale
      * @param $system
+     * @param Request $request
      * @param CleRepository $cleRepository
+     * @param CleForm $form
      * @return Response
      */
-    public function controller($_locale, $system, CleRepository $cleRepository)
-    {
+    public function controller(
+        $_locale,
+        $system,
+        Request $request,
+        CleRepository $cleRepository,
+        CleForm $form
+    ) {
         $i18n = $this->translator;
+        $id = 1;
 
-        $cle = $cleRepository->find(1);
+        $cle = $cleRepository->find($id);
+        $simpleFields = [
+            'cle',
+            'dateTimespan',
+            'europeRange1Channels',
+            'europeRange1FilterOther',
+            'europeRange1Itu',
+            'europeRange1Locator',
+            'europeRange1Low',
+            'europeRange1High',
+            'europeRange1Sp',
+            'europeRange1SpItuClause',
+            'europeRange1TextExtra',
+            'europeRange1Type',
+            'europeRange2Channels',
+            'europeRange2FilterOther',
+            'europeRange2Itu',
+            'europeRange2Locator',
+            'europeRange2Low',
+            'europeRange2High',
+            'europeRange2Sp',
+            'europeRange2SpItuClause',
+            'europeRange2TextExtra',
+            'europeRange2Type',
+            'scope',
+            'worldRange1Channels',
+            'worldRange1FilterOther',
+            'worldRange1Itu',
+            'worldRange1Locator',
+            'worldRange1Low',
+            'worldRange1High',
+            'worldRange1Sp',
+            'worldRange1SpItuClause',
+            'worldRange1TextExtra',
+            'worldRange1Type',
+            'worldRange2Channels',
+            'worldRange2FilterOther',
+            'worldRange2Itu',
+            'worldRange2Locator',
+            'worldRange2Low',
+            'worldRange2High',
+            'worldRange2Sp',
+            'worldRange2SpItuClause',
+            'worldRange2TextExtra',
+            'worldRange2Type',
+        ];
+
+        $options = [
+            'id' =>                     $id,
+            'additional' =>             html_entity_decode($cle->getAdditional()),
+            'dateEnd' =>                ($cle->getDateEnd() ? new DateTime($cle->getDateEnd()->format('Y-m-d')) : null),
+            'dateStart' =>              ($cle->getDateStart() ? new DateTime($cle->getDateStart()->format('Y-m-d')) : null),
+        ];
+        foreach($simpleFields as $f) {
+            $options[$f] = $cle->{'get' . ucfirst($f)}();
+        }
+        $form = $form->buildForm(
+            $this->createFormBuilder(),
+            $options
+        );
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            $cle->setAdditional($data['additional']);
+            $cle->setDateStart($data['dateStart']);
+            $cle->setDateEnd($data['dateEnd']);
+            foreach($simpleFields as $f) {
+                $cle->{'set' . ucfirst($f)}($data[$f]);
+            }
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($cle);
+            $em->flush();
+        }
 
         $parameters = [
             '_locale' =>    $_locale,
             'mode' =>       $i18n->trans('CLE %NUMBER%', [ '%NUMBER%' => $cle->getCle() ]),
             'system' =>     $system,
             'classic' =>    $this->systemRepository->getClassicUrl('cle'),
+            'admin' =>      (int)$this->parameters['access'] & UserEntity::CLE,
             'cle' =>        $cle,
+            'form' =>       $form->createView(),
             'reu1' =>       $this->getUrlForRegion($cle, 'Europe', 1),
             'reu2' =>       $this->getUrlForRegion($cle, 'Europe', 2),
             'rww1' =>       $this->getUrlForRegion($cle, 'World', 1),

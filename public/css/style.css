@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.17.5
- * Date:       2020-08-11
+ * Version:    2.19.0
+ * Date:       2020-08-16
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
  */
@@ -1393,65 +1393,81 @@ button.tiny {
   font-size: 0.4rem !important;
   line-height: 0.6em;
 }
-#form button {
+#form button,
+.cleForm button {
   margin: 0.25em 50%;
   padding: 0;
 }
-#form hr {
+#form hr,
+.cleForm hr {
   margin: 1.25em 0 0.5em 0;
   border-bottom: 1px solid #a0a0a0;
 }
-#form fieldset {
+#form fieldset,
+.cleForm fieldset {
   margin: 0;
   padding: 0 0 0.25em 0;
 }
-#form fieldset legend {
+#form fieldset legend,
+.cleForm fieldset legend {
   margin: 0;
   padding: 0;
   text-align: center;
   width: 100%;
   font-size: 100%;
 }
-#form fieldset legend.line {
+#form fieldset legend.line,
+.cleForm fieldset legend.line {
   border-top: 1px solid #ccc;
   padding: 0.25em 0 0 0;
 }
-#form fieldset legend.toggle {
+#form fieldset legend.toggle,
+.cleForm fieldset legend.toggle {
   cursor: pointer;
 }
-#form fieldset legend.toggle:hover {
+#form fieldset legend.toggle:hover,
+.cleForm fieldset legend.toggle:hover {
   color: #000080;
 }
-#form fieldset legend.sr-only {
+#form fieldset legend.sr-only,
+.cleForm fieldset legend.sr-only {
   width: auto;
 }
-#form fieldset legend span {
+#form fieldset legend span,
+.cleForm fieldset legend span {
   float: none;
   margin: 0;
 }
-#form fieldset#group_ {
+#form fieldset#group_,
+.cleForm fieldset#group_ {
   padding: 0;
   margin: 0;
   text-align: center;
 }
-#form fieldset#group_ div {
+#form fieldset#group_ div,
+.cleForm fieldset#group_ div {
   display: inline-block;
 }
-#form fieldset#group_ button {
+#form fieldset#group_ button,
+.cleForm fieldset#group_ button {
   margin: 0.25em 0;
   float: left;
   clear: none;
 }
-#form fieldset.actionButtons {
+#form fieldset.actionButtons,
+.cleForm fieldset.actionButtons {
   clear: both;
   text-align: center;
 }
-#form fieldset.actionButtons button {
+#form fieldset.actionButtons button,
+.cleForm fieldset.actionButtons button {
   margin: 0.5em 0;
   width: 6em;
 }
 #form #form_prev,
-#form #form_next {
+.cleForm #form_prev,
+#form #form_next,
+.cleForm #form_next {
   float: left;
   line-height: 1.75em;
   margin: 0 0 0 0.5em;
@@ -1461,26 +1477,31 @@ button.tiny {
   font-size: 55% !important;
   font-weight: bold;
 }
-#form #form_page {
+#form #form_page,
+.cleForm #form_page {
   float: left;
   margin: 0 0 0 0.5em;
 }
-#form #form_paging_status {
+#form #form_paging_status,
+.cleForm #form_paging_status {
   display: inline-block;
   width: 8em;
   padding: 0;
   line-height: 1.25em;
   margin: 0 0 0 0.5em;
 }
-#form #form_type div {
+#form #form_type div,
+.cleForm #form_type div {
   padding: 0 0 0 2px;
   margin: 1px 0 0 0;
 }
-#form div {
+#form div,
+.cleForm div {
   clear: both;
   /* Hides 'This value is not valid' error with bad country / region combination */
 }
-#form div label {
+#form div label,
+.cleForm div label {
   line-height: 1.8em;
   text-align: left;
   font-size: 90%;
@@ -1490,10 +1511,15 @@ button.tiny {
   padding: 0;
 }
 #form div select,
+.cleForm div select,
 #form div textarea,
+.cleForm div textarea,
 #form div input[type='number'],
+.cleForm div input[type='number'],
 #form div input[type='text'],
-#form div input[type='password'] {
+.cleForm div input[type='text'],
+#form div input[type='password'],
+.cleForm div input[type='password'] {
   margin: 0;
   border-radius: 0;
   height: 1.75em;
@@ -1501,26 +1527,31 @@ button.tiny {
   font-size: 80%;
   float: left;
 }
-#form div select {
+#form div select,
+.cleForm div select {
   -webkit-appearance: menulist;
   -moz-appearance: menulist;
   appearance: menulist;
 }
-#form div select.multiple {
+#form div select.multiple,
+.cleForm div select.multiple {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
 }
-#form div textarea {
+#form div textarea,
+.cleForm div textarea {
   margin: 0 0 0.25em 0;
 }
-#form div button {
+#form div button,
+.cleForm div button {
   float: left;
   clear: none !important;
   padding: 0.25em 0;
   width: 8em;
 }
-#form div p {
+#form div p,
+.cleForm div p {
   margin: 0;
   border-radius: 0;
   height: 1.5em;
@@ -1528,13 +1559,15 @@ button.tiny {
   float: right;
   text-align: right;
 }
-#form div div {
+#form div div,
+.cleForm div div {
   clear: none;
   height: 1.5em;
   float: left;
   display: inline-block;
 }
-#form div div label {
+#form div div label,
+.cleForm div div label {
   float: none;
   width: auto;
   font-size: 80%;
@@ -1543,7 +1576,8 @@ button.tiny {
   padding: 0 0.1em;
   line-height: 1.5em;
 }
-#form div ul {
+#form div ul,
+.cleForm div ul {
   display: none;
 }
 /* [ Form Dimensions ] */
@@ -2440,6 +2474,101 @@ div.scroll div table.parse.results tbody tr {
   background: #E6E6E7;
   cursor: not-allowed;
   width: 6em;
+}
+.cle_editor label {
+  display: inline-block;
+  font-weight: bold;
+  width: 10em;
+}
+.cle_editor input,
+.cle_editor textarea {
+  display: inline-block;
+}
+.cle_editor #form_cle {
+  width: 3em;
+}
+.cle_editor #form_scope,
+.cle_editor #form_dateTimespan {
+  width: 70em;
+}
+.cle_editor #form_dateStart,
+.cle_editor #form_dateEnd {
+  width: 95px;
+  padding: 0 1.75em 0 0.25em !important;
+  background: #ffffff url("../../image/calendar.png") no-repeat;
+  background-size: auto 100%;
+  background-position: right;
+}
+.cle_editor table {
+  border-collapse: collapse;
+}
+.cle_editor table tr {
+  background: #ffffff;
+}
+.cle_editor table tr td {
+  text-align: right;
+}
+.cle_editor table tr th.left {
+  text-align: left;
+}
+.cle_editor table tr th,
+.cle_editor table tr td {
+  padding: 0 0.25em;
+  margin: 0;
+  border: 1px solid #aaa;
+}
+.cle_editor table tr th input,
+.cle_editor table tr td input {
+  padding: 0.25em;
+  height: 1.25em;
+  line-height: 1.25em;
+  margin: 0;
+}
+.cle_editor table tr th #form_europeRange1Channels,
+.cle_editor table tr td #form_europeRange1Channels,
+.cle_editor table tr th #form_europeRange2Channels,
+.cle_editor table tr td #form_europeRange2Channels,
+.cle_editor table tr th #form_worldRange1Channels,
+.cle_editor table tr td #form_worldRange1Channels,
+.cle_editor table tr th #form_worldRange2Channels,
+.cle_editor table tr td #form_worldRange2Channels {
+  width: 8.175em;
+}
+.cle_editor table tr th #form_europeRange1Low,
+.cle_editor table tr td #form_europeRange1Low,
+.cle_editor table tr th #form_europeRange2Low,
+.cle_editor table tr td #form_europeRange2Low,
+.cle_editor table tr th #form_worldRange1Low,
+.cle_editor table tr td #form_worldRange1Low,
+.cle_editor table tr th #form_worldRange2Low,
+.cle_editor table tr td #form_worldRange2Low,
+.cle_editor table tr th #form_europeRange1High,
+.cle_editor table tr td #form_europeRange1High,
+.cle_editor table tr th #form_europeRange2High,
+.cle_editor table tr td #form_europeRange2High,
+.cle_editor table tr th #form_worldRange1High,
+.cle_editor table tr td #form_worldRange1High,
+.cle_editor table tr th #form_worldRange2High,
+.cle_editor table tr td #form_worldRange2High {
+  width: 6em;
+  text-align: right;
+}
+.cle_editor table tr input[type='checkbox'] {
+  height: 20px;
+  line-height: 1.25em;
+  padding: 0;
+  margin: 0 0.25em 0.125em 0.25em;
+  vertical-align: middle;
+}
+.cle_editor table tr label {
+  border: 1px solid #aaa;
+  border-radius: 3px;
+  height: 20px;
+  line-height: 1.25em;
+  text-align: left;
+  width: 9.375em;
+  margin: 0 0 0.25em 0;
+  vertical-align: middle;
 }
 a.add,
 a.close,

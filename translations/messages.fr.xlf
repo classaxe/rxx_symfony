@@ -3195,10 +3195,6 @@
         <source>'Co-ordinated Listening Events' take place several times a year and provide opportunities for listeners of all ranges of experience to practice our hobby and learn more about it. To learn more about the %URL1%, or to join (it's free!), visit %URL2%</source>
         <target>__'Co-ordinated Listening Events' take place several times a year and provide opportunities for listeners of all ranges of experience to practice our hobby and learn more about it. To learn more about the %URL1%, or to join (it's free!), visit %URL2%</target>
       </trans-unit>
-      <trans-unit id="7pBw0sZ" resname="CLE %CLE% starts at midday %DATESTART% and ends at midday %DATEEND% LOCAL TIME at the receiver.">
-        <source>CLE %CLE% starts at midday %DATESTART% and ends at midday %DATEEND% LOCAL TIME at the receiver.</source>
-        <target>__CLE %CLE% starts at midday %DATESTART% and ends at midday %DATEEND% LOCAL TIME at the receiver.</target>
-      </trans-unit>
       <trans-unit id="YXBikGd" resname="Error:">
         <source>Error:</source>
         <target>__Error:</target>
@@ -4974,6 +4970,102 @@
       <trans-unit id="5Uh6TdU" resname="'Signal Types' filter will be used, all other settings are ignored.">
         <source>'Signal Types' filter will be used, all other settings are ignored.</source>
         <target>__'Signal Types' filter will be used, all other settings are ignored.</target>
+      </trans-unit>
+      <trans-unit id="w_6i.U6" resname="Hide editor">
+        <source>Hide editor</source>
+        <target>__Hide editor</target>
+      </trans-unit>
+      <trans-unit id="NQLJfXk" resname="CLE Configuration">
+        <source>CLE Configuration</source>
+        <target>__CLE Configuration</target>
+      </trans-unit>
+      <trans-unit id="ihTbRfP" resname="Event Overview">
+        <source>Event Overview</source>
+        <target>__Event Overview</target>
+      </trans-unit>
+      <trans-unit id="hIuKKIl" resname="CLE #">
+        <source>CLE #</source>
+        <target>__CLE #</target>
+      </trans-unit>
+      <trans-unit id="FNdBWKj" resname="Date Range">
+        <source>Date Range</source>
+        <target>__Date Range</target>
+      </trans-unit>
+      <trans-unit id="GCU.VDL" resname="Timespan">
+        <source>Timespan</source>
+        <target>__Timespan</target>
+      </trans-unit>
+      <trans-unit id="sHP2xo7" resname="Scope">
+        <source>Scope</source>
+        <target>__Scope</target>
+      </trans-unit>
+      <trans-unit id="nDSHQn_" resname="Additional">
+        <source>Additional</source>
+        <target>__Additional</target>
+      </trans-unit>
+      <trans-unit id="HiYS._Y" resname="CLE Specifics">
+        <source>CLE Specifics</source>
+        <target>__CLE Specifics</target>
+      </trans-unit>
+      <trans-unit id="wMdNzZw" resname="World Range 1">
+        <source>World Range 1</source>
+        <target>__World Range 1</target>
+      </trans-unit>
+      <trans-unit id="bO.ajQI" resname="Europe Range 1">
+        <source>Europe Range 1</source>
+        <target>__Europe Range 1</target>
+      </trans-unit>
+      <trans-unit id="PJrI7Ol" resname="World Range 2">
+        <source>World Range 2</source>
+        <target>__World Range 2</target>
+      </trans-unit>
+      <trans-unit id="DjDUoQO" resname="Europe Range 2">
+        <source>Europe Range 2</source>
+        <target>__Europe Range 2</target>
+      </trans-unit>
+      <trans-unit id="95PeIF6" resname="Low">
+        <source>Low</source>
+        <target>__Low</target>
+      </trans-unit>
+      <trans-unit id="xOvG1KW" resname="High">
+        <source>High</source>
+        <target>__High</target>
+      </trans-unit>
+      <trans-unit id="pfyRhoO" resname="Types">
+        <source>Types</source>
+        <target>__Types</target>
+      </trans-unit>
+      <trans-unit id="209FyEa" resname="Locator (GSQ) Codes">
+        <source>Locator (GSQ) Codes</source>
+        <target>__Locator (GSQ) Codes</target>
+      </trans-unit>
+      <trans-unit id="RThA_a9" resname="State / Province Codes">
+        <source>State / Province Codes</source>
+        <target>__State / Province Codes</target>
+      </trans-unit>
+      <trans-unit id="QuMB7I3" resname="SP / ITU Combiner">
+        <source>SP / ITU Combiner</source>
+        <target>__SP / ITU Combiner</target>
+      </trans-unit>
+      <trans-unit id="KkVUs3M" resname="Country Codes">
+        <source>Country Codes</source>
+        <target>__Country Codes</target>
+      </trans-unit>
+      <trans-unit id="JpHrikN" resname="Extra Filter">
+        <source>Extra Filter</source>
+        <target>__Extra Filter</target>
+      </trans-unit>
+      <trans-unit id=".uZWV12" resname="Text Suffix">
+        <source>Text Suffix</source>
+        <target>__Text Suffix</target>
+      </trans-unit>
+      <trans-unit id="oeKKCmO" resname="It costs around &lt;strong&gt;$450 per year&lt;/strong&gt; to run this site, and those costs have to come from somewhere.">
+        <source>It costs around &lt;strong&gt;$450 per year&lt;/strong&gt; to run this site, and those costs have to come from somewhere.</source>
+        <target><![CDATA[__It costs around <strong>$450 per year</strong> to run this site, and those costs have to come from somewhere.]]></target>
+      </trans-unit>
+      <trans-unit id="9lB7iY_" resname="There is also the option to make a one off payment via Paypal.">
+        <source>There is also the option to make a one off payment via Paypal.</source>
+        <target>__There is also the option to make a one off payment via Paypal.</target>
       </trans-unit>
     </body>
   </file>

@@ -1,20 +1,23 @@
 {% extends 'main.html.twig' %}
 {# This could use some work #}
 {% block body %}
+<script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=lz0wkk4zh8w8oqbghibz380go0yhscpl15iv46n1ffdy3v2k"></script>
 <div class="main">
-    <h1>{% trans %}CLE Information{% endtrans %}</h1>
+    <h1>{% trans %}CLE Information{% endtrans %}
+        {% if (admin)%}
+        <span id="toggle_editor" class="links">
+            [ <span>Show Editor</span><span style="display:none">{% trans %}Hide editor{% endtrans %}</span> ]
+        </span>
+        {% endif %}
+    </h1>
+    {% if (admin)%}{% include 'cle/form.html.twig' %}{% endif %}
     <p>{% trans with {
             '%URL1%' : '<a href="https://groups.io/g/ndblist" rel="external">NDB List</a>',
             '%URL2%' : '<a href="https://groups.io/g/ndblist" rel="external">https://groups.io/g/ndblist</a>'
             } %}Co-ordinated Listening Events (or 'CLEs') take place several times a year and provide opportunities for listeners of all ranges of experience to practice our hobby and learn more about it. To learn more about the %URL1%, or to join (it's free!), visit %URL2%{% endtrans %}
     </p>
     <h2>{{ mode }}</h2>
-    <p><strong>{% trans %}Dates:{% endtrans %}</strong>
-        {% trans with {
-        '%CLE%' : cle.cle,
-        '%DATESTART%' : cle.dateStart|date('Y-m-d'),
-        '%DATEEND%' : cle.dateEnd|date('Y-m-d')
-    } %}CLE %CLE% starts at midday %DATESTART% and ends at midday %DATEEND% LOCAL TIME at the receiver.{% endtrans %}<br />
+    <p><strong>{% trans %}Dates:{% endtrans %}</strong> {{ cle.dateTimespan }}<br />
     <strong>{% trans %}Scope:{% endtrans %}</strong> {{ cle.scope }}<br />
     <strong>{% trans %}Details:{% endtrans %}</strong> {{ cle.additional|unescape|raw|replace({'<p>' : '', '</p>' : ''})|raw }}
 
@@ -22,8 +25,8 @@
     <div class="row cle_links">
         {% set link = {
             'focus' : '',
-            'r1' : { 'min' : cle.worldRange1Low, 'max' : cle.worldRange1High, 'url' : rww1 },
-            'r2' : { 'min' : cle.worldRange2Low, 'max' : cle.worldRange2High, 'url' : rww2 },
+            'r1' : { 'min' : cle.worldRange1Low, 'max' : cle.worldRange1High, 'url' : rww1, 'textExtra' : cle.worldRange1TextExtra },
+            'r2' : { 'min' : cle.worldRange2Low, 'max' : cle.worldRange2High, 'url' : rww2, 'textExtra' : cle.worldRange2TextExtra },
             'span' : [ 6, 4 ],
             'system' : 'rna',
             'title' : 'RNA - N America'|trans
@@ -32,8 +35,8 @@
 
         {% set link = {
             'focus' : '',
-            'r1' : { 'min' : cle.europeRange1Low, 'max' : cle.europeRange1High, 'url' : reu1 },
-            'r2' : { 'min' : cle.europeRange2Low, 'max' : cle.europeRange2High, 'url' : reu2 },
+            'r1' : { 'min' : cle.europeRange1Low, 'max' : cle.europeRange1High, 'url' : reu1, 'textExtra' : cle.europeRange1TextExtra },
+            'r2' : { 'min' : cle.europeRange2Low, 'max' : cle.europeRange2High, 'url' : reu2, 'textExtra' : cle.europeRange2TextExtra },
             'span' : [ 6, 4 ],
             'system' : 'reu',
             'title' : 'REU - Europe'|trans
@@ -42,8 +45,8 @@
 
         {% set link = {
             'focus' : '',
-            'r1' : { 'min' : cle.worldRange1Low, 'max' : cle.worldRange1High, 'url' : rww1 },
-            'r2' : { 'min' : cle.worldRange2Low, 'max' : cle.worldRange2High, 'url' : rww2 },
+            'r1' : { 'min' : cle.worldRange1Low, 'max' : cle.worldRange1High, 'url' : rww1, 'textExtra' : cle.worldRange1TextExtra },
+            'r2' : { 'min' : cle.worldRange2Low, 'max' : cle.worldRange2High, 'url' : rww2, 'textExtra' : cle.worldRange2TextExtra },
             'span' : [ 6, 4 ],
             'system' : 'rww',
             'title' : 'RWW - Worldwide'|trans
@@ -52,8 +55,8 @@
 
         {% set link = {
             'focus' : 'af',
-            'r1' : { 'min' : cle.worldRange1Low, 'max' : cle.worldRange1High, 'url' : rww1 },
-            'r2' : { 'min' : cle.worldRange2Low, 'max' : cle.worldRange2High, 'url' : rww2 },
+            'r1' : { 'min' : cle.worldRange1Low, 'max' : cle.worldRange1High, 'url' : rww1, 'textExtra' : cle.worldRange1TextExtra },
+            'r2' : { 'min' : cle.worldRange2Low, 'max' : cle.worldRange2High, 'url' : rww2, 'textExtra' : cle.worldRange2TextExtra },
             'span' : [ 6, 3 ],
             'system' : 'rww',
             'title' : 'RWW - Africa'|trans
@@ -62,8 +65,8 @@
 
         {% set link = {
             'focus' : 'as',
-            'r1' : { 'min' : cle.worldRange1Low, 'max' : cle.worldRange1High, 'url' : rww1 },
-            'r2' : { 'min' : cle.worldRange2Low, 'max' : cle.worldRange2High, 'url' : rww2 },
+            'r1' : { 'min' : cle.worldRange1Low, 'max' : cle.worldRange1High, 'url' : rww1, 'textExtra' : cle.worldRange1TextExtra },
+            'r2' : { 'min' : cle.worldRange2Low, 'max' : cle.worldRange2High, 'url' : rww2, 'textExtra' : cle.worldRange2TextExtra },
             'span' : [ 6, 3 ],
             'system' : 'rww',
             'title' : 'RWW - Asia'|trans
@@ -72,8 +75,8 @@
 
         {% set link = {
             'focus' : 'oc',
-            'r1' : { 'min' : cle.worldRange1Low, 'max' : cle.worldRange1High, 'url' : rww1 },
-            'r2' : { 'min' : cle.worldRange2Low, 'max' : cle.worldRange2High, 'url' : rww2 },
+            'r1' : { 'min' : cle.worldRange1Low, 'max' : cle.worldRange1High, 'url' : rww1, 'textExtra' : cle.worldRange1TextExtra },
+            'r2' : { 'min' : cle.worldRange2Low, 'max' : cle.worldRange2High, 'url' : rww2, 'textExtra' : cle.worldRange2TextExtra },
             'span' : [ 6, 3 ],
             'system' : 'rww',
             'title' : 'RWW - Pacific'|trans
@@ -82,8 +85,8 @@
 
         {% set link = {
             'focus' : 'sa',
-            'r1' : { 'min' : cle.worldRange1Low, 'max' : cle.worldRange1High, 'url' : rww1 },
-            'r2' : { 'min' : cle.worldRange2Low, 'max' : cle.worldRange2High, 'url' : rww2 },
+            'r1' : { 'min' : cle.worldRange1Low, 'max' : cle.worldRange1High, 'url' : rww1, 'textExtra' : cle.worldRange1TextExtra },
+            'r2' : { 'min' : cle.worldRange2Low, 'max' : cle.worldRange2High, 'url' : rww2, 'textExtra' : cle.worldRange2TextExtra },
             'span' : [ 6, 3 ],
             'system' : 'rww',
             'title' : 'RWW - S America'|trans
@@ -92,4 +95,10 @@
 
     </div>
 </div>
+<script>
+$(document).ready( function() {
+    cle.init();
+});
+</script>
+
 {% endblock %}
