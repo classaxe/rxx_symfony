@@ -72,6 +72,7 @@ class ModeRepository
                 'title' =>  'Help',
                 'url'=>     false
             ],
+/*
             'donate' => [
                 'access' => User::ALL,
                 'admin' =>  true,
@@ -80,6 +81,7 @@ class ModeRepository
                 'title' =>  'Donate',
                 'url'=>     false
             ],
+*/
         ],
         [
             'ndblistWebsite' => [
@@ -165,7 +167,7 @@ class ModeRepository
                 'url'=>     false
             ],
             'admin/profile' => [
-                'access' => User::USER | User::AWARDS | User::ADMIN | User::MASTER,
+                'access' => User::USER | User::CLE | User::AWARDS | User::ADMIN | User::MASTER,
                 'admin' =>  true,
                 'guest' =>  false,
                 'menu' =>   'Your Profile',
@@ -173,7 +175,7 @@ class ModeRepository
                 'url'=>     false
             ],
             'logoff' => [
-                'access' => User::AWARDS | User::ADMIN | User::MASTER,
+                'access' => User::USER | User::CLE | User::AWARDS | User::ADMIN | User::MASTER,
                 'admin' =>  true,
                 'guest' =>  false,
                 'menu' =>   'Logoff',
