@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.19.0
- * Date:       2020-08-16
+ * Version:    2.19.2
+ * Date:       2020-08-18
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
  */
@@ -2071,6 +2071,7 @@ fieldset#form_range_units div label {
 .user .role-u {
   padding: 0 0.25em;
   border-radius: 3px;
+  white-space: nowrap;
 }
 .user .role-ma {
   border: 1px solid #f00;

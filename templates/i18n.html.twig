@@ -10,6 +10,11 @@
     {% trans %}CLE ADMIN{% endtrans %}
     {% trans %}USER{% endtrans %}
 {% endif %}
+{% if 'User Profile' %}
+    {% trans %}You have the following rights on this system:{% endtrans %}
+    {% trans %}Your Name{% endtrans %}
+    {% trans %}Leave blank except to change this{% endtrans %}
+{% endif %}
 {% if 'Version' %}
     {% trans %}Version{% endtrans %}
     {% trans %}Switch{% endtrans %}
@@ -47,7 +52,7 @@
     {% trans %}You must Log On in order to perform administrative functions.{% endtrans %}
     {% trans %}You have logged on as an Administrator.{% endtrans %}
     {% trans %}You have logged on as a Member.{% endtrans %}
-    {% trans %}You are now logged on as an Administrator and may perform administrative functions.{% endtrans %}
+    {% trans %}You are now logged on and may perform additional operations, including updating your password and profile.{% endtrans %}
     {% trans %}To Log Off, select <strong>Log Off</strong> from the main menu.{% endtrans %}
     {% trans %}Username{% endtrans %}
     {% trans %}Password{% endtrans %}

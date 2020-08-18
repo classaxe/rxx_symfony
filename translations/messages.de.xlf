@@ -77,10 +77,6 @@
         <source>You must Log On in order to perform administrative functions.</source>
         <target>Sie müssen sich anmelden, um Verwaltungsfunktionen ausführen zu können.</target>
       </trans-unit>
-      <trans-unit id="Vq6hsgL" resname="You are now logged on as an Administrator and may perform administrative functions.">
-        <source>You are now logged on as an Administrator and may perform administrative functions.</source>
-        <target>Sie sind jetzt als Administrator angemeldet und können Verwaltungsfunktionen ausführen.</target>
-      </trans-unit>
       <trans-unit id="PFYWyg3" resname="To Log Off, select &lt;strong&gt;Log Off&lt;/strong&gt; from the main menu.">
         <source>To Log Off, select &lt;strong&gt;Log Off&lt;/strong&gt; from the main menu.</source>
         <target><![CDATA[Um sich abzumelden, wählen Sie im Hauptmenü <strong>Abmelden</strong>.]]></target>
@@ -5066,6 +5062,18 @@
       <trans-unit id="9lB7iY_" resname="There is also the option to make a one off payment via Paypal.">
         <source>There is also the option to make a one off payment via Paypal.</source>
         <target>__There is also the option to make a one off payment via Paypal.</target>
+      </trans-unit>
+      <trans-unit id="IRwXgLY" resname="You have the following rights on this system:">
+        <source>You have the following rights on this system:</source>
+        <target>__You have the following rights on this system:</target>
+      </trans-unit>
+      <trans-unit id="nNJr7k1" resname="Your Name">
+        <source>Your Name</source>
+        <target>__Your Name</target>
+      </trans-unit>
+      <trans-unit id="kt7T215" resname="You are now logged on and may perform additional operations, including updating your password and profile.">
+        <source>You are now logged on and may perform additional operations, including updating your password and profile.</source>
+        <target>__You are now logged on and may perform additional operations, including updating your password and profile.</target>
       </trans-unit>
     </body>
   </file>

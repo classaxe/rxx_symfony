@@ -25,7 +25,7 @@ $(document).ready( function() {
 {% else %}
     <p id='success'>
         {% trans with({ '%USERNAME%' : username })%}Welcome %USERNAME%.{% endtrans %}<br>
-        {% trans %}You are now logged on as an Administrator and may perform administrative functions.{% endtrans %}</p>
+        {% trans %}You are now logged on and may perform additional operations, including updating your password and profile.{% endtrans %}</p>
     <p>{% trans %}To Log Off, select <strong>Log Off</strong> from the main menu.{% endtrans %}</p>
 {% endif %}
 </div>

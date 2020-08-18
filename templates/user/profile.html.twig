@@ -4,9 +4,21 @@
         <div>{% include 'status.html.twig' %}</div>
         <h1>{{ mode | trans }}</h1>
         <p>
-            {% trans with({ '%NAME%' : u.name, '%DATE%' : u.logonLatest|date('Y-m-d H:i:s') }) %}Welcome <strong>%NAME%</strong>, your last logon was at %DATE%.{% endtrans %}<br>
-            {% trans with({ '%LOGS%' : u.countLogSession, '%ENTRIES%' : u.countLog }) %}You have processed <strong>%LOGS%</strong> logs and <strong>%ENTRIES%</strong> log entries.{% endtrans %}
+            {% trans with({ '%NAME%' : u.name, '%DATE%' : u.logonLatest|date('Y-m-d H:i:s') }) %}Welcome <strong>%NAME%</strong>, your last logon was at %DATE%.{% endtrans %}
         </p>
+        <p>{% trans %}You have the following rights on this system:{% endtrans %}</p>
+        <ul class="user">
+            {% if access b-and 16 %}<li><span class="role-ma">{% trans %}MASTER ADMIN{% endtrans %}</span></li>{% endif %}
+            {% if access b-and 8 %}<li><span class="role-a">{% trans %}ADMIN{% endtrans %}</span></li>{% endif %}
+            {% if access b-and 4 %}<li><span class="role-aa">{% trans %}AWARDS ADMIN{% endtrans %}</span></li>{% endif %}
+            {% if access b-and 2 %}<li><span class="role-cle">{% trans %}CLE ADMIN{% endtrans %}</span></li>{% endif %}
+            {% if access b-and 1 %}<li><span class="role-u">{% trans %}USER{% endtrans %}</span></li>{% endif %}
+        </ul>
+        {% if (access b-and 8) or (access b-and 16) %}
+            <p>
+                {% trans with({ '%LOGS%' : u.countLogSession, '%ENTRIES%' : u.countLog }) %}You have processed <strong>%LOGS%</strong> logs and <strong>%ENTRIES%</strong> log entries.{% endtrans %}
+            </p>
+        {% endif %}
         <div class="main">
             {% set form_class='user_view' %}
             {% include 'user/profileForm.html.twig' %}
