@@ -48,6 +48,8 @@ class UserRepository extends ServiceEntityRepository
         return $this
             ->createQueryBuilder('u')
             ->addOrderBy('u.' . $args['sort'], $args['order'] === 'a' ? 'ASC' : 'DESC')
+            ->setFirstResult((int)$args['page'] * (int)$args['limit'])
+            ->setMaxResults($args['limit'])
             ->getQuery()
             ->getArrayResult();
     }

@@ -242,7 +242,7 @@ class Users extends Base
         if (!((int)$this->parameters['access'] & UserEntity::MASTER)) {
             if ((int)$this->parameters['access'] === 0) {
                 $this->session->set('route', 'admin/users');
-                return $this->redirectToRoute('logon', ['system' => $system]);;
+                return $this->redirectToRoute('logon', ['system' => $system]);
             }
             throw $this->createAccessDeniedException('You do not have access to this page');
         }

@@ -39,6 +39,7 @@ class Cle extends AbstractType
                     'data' =>           $options['cle'],
                     'empty_data' =>     '',
                     'label' =>          'CLE #',
+                    'required' =>       true
                 ]
             )
             ->add(
@@ -49,7 +50,7 @@ class Cle extends AbstractType
                     'data' =>           $options['dateStart'],
                     'html5' =>          false,
                     'label' =>          'Start Date',
-                    'required' =>       false,
+                    'required' =>       true,
                     'widget' =>         'single_text'
                 ]
             )
@@ -61,7 +62,7 @@ class Cle extends AbstractType
                     'data' =>           $options['dateEnd'],
                     'html5' =>          false,
                     'label' =>          'End Date',
-                    'required' =>       false,
+                    'required' =>       true,
                     'widget' =>         'single_text'
                 ]
             )
@@ -72,6 +73,7 @@ class Cle extends AbstractType
                     'data' =>           $options['dateTimespan'],
                     'empty_data' =>     '',
                     'label' =>          'Timespan',
+                    'required' =>       true
                 ]
             )
             ->add(
@@ -81,6 +83,7 @@ class Cle extends AbstractType
                     'data' =>           $options['scope'],
                     'empty_data' =>     '',
                     'label' =>          'Scope',
+                    'required' =>       true
                 ]
             )
             ->add(
@@ -90,6 +93,7 @@ class Cle extends AbstractType
                     'data' =>           $options['additional'],
                     'empty_data' =>     '',
                     'label' =>          'Additional',
+                    'required' =>       false
                 ]
             )
             ->add(
@@ -99,6 +103,7 @@ class Cle extends AbstractType
                     'data' =>           $options['worldRange1Low'],
                     'empty_data' =>     '',
                     'label' =>          '',
+                    'required' =>       true
                 ]
             )
             ->add(
@@ -108,24 +113,27 @@ class Cle extends AbstractType
                     'data' =>           $options['europeRange1Low'],
                     'empty_data' =>     '',
                     'label' =>          '',
+                    'required' =>       true
                 ]
             )
             ->add(
                 'worldRange2Low',
                 TextType::class,
                 [
-                    'data' =>           $options['worldRange2Low'],
+                    'data' =>           $options['worldRange2Low'] ? $options['worldRange2Low'] : '',
                     'empty_data' =>     '',
                     'label' =>          '',
+                    'required' =>       false
                 ]
             )
             ->add(
                 'europeRange2Low',
                 TextType::class,
                 [
-                    'data' =>           $options['europeRange2Low'],
+                    'data' =>           $options['europeRange2Low'] ? $options['europeRange2Low'] : '',
                     'empty_data' =>     '',
                     'label' =>          '',
+                    'required' =>       false
                 ]
             )
             ->add(
@@ -135,6 +143,7 @@ class Cle extends AbstractType
                     'data' =>           $options['worldRange1High'],
                     'empty_data' =>     '',
                     'label' =>          '',
+                    'required' =>       true
                 ]
             )
             ->add(
@@ -144,24 +153,27 @@ class Cle extends AbstractType
                     'data' =>           $options['europeRange1High'],
                     'empty_data' =>     '',
                     'label' =>          '',
+                    'required' =>       true
                 ]
             )
             ->add(
                 'worldRange2High',
                 TextType::class,
                 [
-                    'data' =>           $options['worldRange2High'],
+                    'data' =>           $options['worldRange2High'] ? $options['worldRange2High'] : '',
                     'empty_data' =>     '',
                     'label' =>          '',
+                    'required' =>       false
                 ]
             )
             ->add(
                 'europeRange2High',
                 TextType::class,
                 [
-                    'data' =>           $options['europeRange2High'],
+                    'data' =>           $options['europeRange2High'] ? $options['europeRange2High'] : '',
                     'empty_data' =>     '',
                     'label' =>          '',
+                    'required' =>       false
                 ]
             )
             ->add(
@@ -239,6 +251,7 @@ class Cle extends AbstractType
                     'data' =>           $options['worldRange1Locator'],
                     'empty_data' =>     '',
                     'label' =>          '',
+                    'required' =>       false
                 ]
             )
             ->add(
@@ -248,6 +261,7 @@ class Cle extends AbstractType
                     'data' =>           $options['europeRange1Locator'],
                     'empty_data' =>     '',
                     'label' =>          '',
+                    'required' =>       false
                 ]
             )
             ->add(
@@ -257,6 +271,7 @@ class Cle extends AbstractType
                     'data' =>           $options['worldRange2Locator'],
                     'empty_data' =>     '',
                     'label' =>          '',
+                    'required' =>       false
                 ]
             )
             ->add(
@@ -266,6 +281,7 @@ class Cle extends AbstractType
                     'data' =>           $options['europeRange2Locator'],
                     'empty_data' =>     '',
                     'label' =>          '',
+                    'required' =>       false
                 ]
             )
             ->add(
@@ -275,6 +291,7 @@ class Cle extends AbstractType
                     'data' =>           $options['worldRange1Sp'],
                     'empty_data' =>     '',
                     'label' =>          '',
+                    'required' =>       false
                 ]
             )
             ->add(
@@ -284,6 +301,7 @@ class Cle extends AbstractType
                     'data' =>           $options['europeRange1Sp'],
                     'empty_data' =>     '',
                     'label' =>          '',
+                    'required' =>       false
                 ]
             )
             ->add(
@@ -293,6 +311,7 @@ class Cle extends AbstractType
                     'data' =>           $options['worldRange2Sp'],
                     'empty_data' =>     '',
                     'label' =>          '',
+                    'required' =>       false
                 ]
             )
             ->add(
@@ -302,6 +321,7 @@ class Cle extends AbstractType
                     'data' =>           $options['europeRange2Sp'],
                     'empty_data' =>     '',
                     'label' =>          '',
+                    'required' =>       false
                 ]
             )
             ->add(
@@ -351,6 +371,7 @@ class Cle extends AbstractType
                     'data' =>           $options['worldRange1Itu'],
                     'empty_data' =>     '',
                     'label' =>          '',
+                    'required' =>       false
                 ]
             )
             ->add(
@@ -360,6 +381,7 @@ class Cle extends AbstractType
                     'data' =>           $options['europeRange1Itu'],
                     'empty_data' =>     '',
                     'label' =>          '',
+                    'required' =>       false
                 ]
             )
             ->add(
@@ -369,6 +391,7 @@ class Cle extends AbstractType
                     'data' =>           $options['worldRange2Itu'],
                     'empty_data' =>     '',
                     'label' =>          '',
+                    'required' =>       false
                 ]
             )
             ->add(
@@ -378,6 +401,7 @@ class Cle extends AbstractType
                     'data' =>           $options['europeRange2Itu'],
                     'empty_data' =>     '',
                     'label' =>          '',
+                    'required' =>       false
                 ]
             )
             ->add(
@@ -387,6 +411,7 @@ class Cle extends AbstractType
                     'data' =>           $options['worldRange1FilterOther'],
                     'empty_data' =>     '',
                     'label' =>          '',
+                    'required' =>       false
                 ]
             )
             ->add(
@@ -396,6 +421,7 @@ class Cle extends AbstractType
                     'data' =>           $options['europeRange1FilterOther'],
                     'empty_data' =>     '',
                     'label' =>          '',
+                    'required' =>       false
                 ]
             )
             ->add(
@@ -405,6 +431,7 @@ class Cle extends AbstractType
                     'data' =>           $options['worldRange2FilterOther'],
                     'empty_data' =>     '',
                     'label' =>          '',
+                    'required' =>       false
                 ]
             )
             ->add(
@@ -414,6 +441,7 @@ class Cle extends AbstractType
                     'data' =>           $options['europeRange2FilterOther'],
                     'empty_data' =>     '',
                     'label' =>          '',
+                    'required' =>       false
                 ]
             )
             ->add(
@@ -423,6 +451,7 @@ class Cle extends AbstractType
                     'data' =>           $options['worldRange1TextExtra'],
                     'empty_data' =>     '',
                     'label' =>          '',
+                    'required' =>       false
                 ]
             )
             ->add(
@@ -432,6 +461,7 @@ class Cle extends AbstractType
                     'data' =>           $options['europeRange1TextExtra'],
                     'empty_data' =>     '',
                     'label' =>          '',
+                    'required' =>       false
                 ]
             )
             ->add(
@@ -441,6 +471,7 @@ class Cle extends AbstractType
                     'data' =>           $options['worldRange2TextExtra'],
                     'empty_data' =>     '',
                     'label' =>          '',
+                    'required' =>       false
                 ]
             )
             ->add(
@@ -450,6 +481,7 @@ class Cle extends AbstractType
                     'data' =>           $options['europeRange2TextExtra'],
                     'empty_data' =>     '',
                     'label' =>          '',
+                    'required' =>       false
                 ]
             )
 

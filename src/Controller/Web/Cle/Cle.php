@@ -109,7 +109,8 @@ class Cle extends Base
             $cle->setDateStart($data['dateStart']);
             $cle->setDateEnd($data['dateEnd']);
             foreach($simpleFields as $f) {
-                $cle->{'set' . ucfirst($f)}($data[$f]);
+                $value = $data[$f] === '' ? null : $data[$f];
+                $cle->{'set' . ucfirst($f)}($value);
             }
             $em = $this->getDoctrine()->getManager();
             $em->persist($cle);
