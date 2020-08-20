@@ -92,8 +92,8 @@ var CONVERT = {
     dms_deg: function(lat_dd_mm_ss, lon_dd_mm_ss) {
         var a, dec_lat, dec_lon, deg, hem, min, rexp_lat, rexp_lon, result, sec
 
-        rexp_lat =  /([0-9]+)[� .]*([0-9]+)[' .]*([0-9]+)*[" .]*([NS])*/i;
-        rexp_lon =  /([0-9]+)[� .]*([0-9]+)[' .]*([0-9]+)*[" .]*([EW])*/i;
+        rexp_lat =  /([0-9]+)[^0-9]*([0-9]+)[^0-9]*([0-9]+)*[^0-9]*([NS])*/i;
+        rexp_lon =  /([0-9]+)[^0-9]*([0-9]+)[^0-9]*([0-9]+)*[^0-9]*([EW])*/i;
 
         a =         lat_dd_mm_ss.match(rexp_lat);
         deg =       parseFloat(a[1]);
@@ -175,10 +175,10 @@ var VALIDATE = {
         return (!(isNaN(value) || value >= 180 || value <= -180));
     },
     dms_lat: function(value) {
-        return value.match(/^([0-9]{1,2})[� .]([0-5][0-9])[' .]([0-5][0-9])[" .]?([NS])?$/i);
+        return value.match(/^([0-9]{1,2})[^0-9]([0-5][0-9])[^0-9]([0-5][0-9])[^0-9]?([NS])?$/i);
     },
     dms_lon: function(value) {
-        return value.match(/^([0-9]{1,3})[� .]([0-5][0-9])[' .]([0-5][0-9])[" .]?([EW])?$/i);
+        return value.match(/^([0-9]{1,3})[^0-9]([0-5][0-9])[^0-9]([0-5][0-9])[^0-9]?([EW])?$/i);
     },
     float: function(value, min, max, field) {
         var msg = "Please enter a number"

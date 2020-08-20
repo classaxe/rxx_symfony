@@ -5075,6 +5075,10 @@
         <source>You are now logged on and may perform additional operations, including updating your password and profile.</source>
         <target>__You are now logged on and may perform additional operations, including updating your password and profile.</target>
       </trans-unit>
+      <trans-unit id="zL4MZ5Y" resname="Negative Keying Tool (v7.0, &amp;copy;Brian Keyte + J. Rabe)">
+        <source>Negative Keying Tool (v7.0, &amp;copy;Brian Keyte + J. Rabe)</source>
+        <target><![CDATA[__Negative Keying Tool (v7.0, &copy;Brian Keyte + J. Rabe)]]></target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
