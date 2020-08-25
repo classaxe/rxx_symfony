@@ -1,7 +1,7 @@
 {#<pre>{{ dump(signals[0]) }}</pre>#}
-    <div class="row">
-        <div class="small-6 text-left">
-            <h2>
+<div class="row">
+    <div class="small-6 text-left">
+        <h2>
             {% if (isAdmin and args.admin_mode == 1) %}
                 {% trans %}Showing Unlogged Signals for all systems{% endtrans %}
             {% elseif (isAdmin and args.admin_mode == 2) %}
@@ -9,78 +9,78 @@
             {% else %}
                 {{ system|upper }} {% trans %}Signals List{% endtrans %}
             {% endif %}
-            </h2>
-        </div>
-        <div class="small-6 text-right">{% if personalised %}<h3>{{ 'Personalised for %s%s%s'|trans|format(
+        </h2>
+    </div>
+    <div class="small-6 text-right">{% if personalised %}<h3>{{ 'Personalised for %s%s%s'|trans|format(
             "<a href='" ~ url('listener', { 'system' : system, 'id' : args.personalise }) ~ "' data-popup='1'>",
             personalised,
             '</a>'
         )|raw }}</h3>{% endif %}</div>
-    </div>
+</div>
 
 {% if signals|length > 0 %}
     <table id="wide" class="signal results">
-    <thead>
+        <thead>
         <tr>
             {% if args.personalise %}<th class="txt_vertical nosort rowspan2 th"><div>{% trans %}Logged{% endtrans %}</div></th>{% endif %}
-{% for key, column in columns %}
-    {% if ((not column.admin or isAdmin) and (not column.arg or (column.arg in args|keys and attribute(args, column.arg) != ''))) %}
-            <th{%  if key and column.order %} id="{{ key }}|{{ column.order }}"{% endif %}
-{% if column.th_class or column.sort%} class="{{ column.th_class }}{% if column.sort %} sort{% endif %}"{% endif %}
-{% if column.tooltip %} title="{{ column.tooltip | trans }}"{% endif %}
->{% if column.th_class == 'txt_vertical' %}<div>{{ column.label | trans | raw }}</div>{% else %}{{ column.label | trans | raw }}{% endif %}</th>
-{% endif %}
-{% endfor %}
-        </tr>
-    </thead>
-    <tbody>
-{% for signal in signals %}
-    {% set type = typeRepository.TypeForCode(signal.type) %}
-        <tr
-            class="{% if signal.active == 0 %}inactive {% endif %}type_{{ type.class|lower }}{% if (args.personalise)%} {% if not signal.personalise %}un{% endif %}logged{% endif %}"
-            title="{{ type.title|trans }}{% if signal.active == 0 %} {% trans %}(inactive){% endtrans %}{% endif %}"
-        >
-{% if args.personalise %}<th title="{% trans %}Logged by Personalised Listener{% endtrans %}" class="rowspan2">{{ signal.personalise ? '&#x2714;' : '&nbsp;' }}</th>{% endif %}
-{% for key, column in columns %}
-    {% if ((not column.admin or isAdmin) and (not column.arg or (column.arg in args|keys and attribute(args, column.arg) != ''))) %}
-        {% set value = attribute(signal, column.field) %}
-        {% if (column.highlight and args[column.highlight] is defined and args[column.highlight] is not empty) %}
-            {% for repl in args[column.highlight] | split(' ') %}
-                {% set value = value | ireplace({ (repl) : '<em>' ~ repl|upper ~ '</em>' }) %}
+            {% for key, column in columns %}
+                {% if ((not column.admin or isAdmin) and (not column.arg or (column.arg in args|keys and attribute(args, column.arg) != ''))) %}
+                    <th{%  if key and column.order %} id="{{ key }}|{{ column.order }}"{% endif %}
+                            {% if column.th_class or column.sort%} class="{{ column.th_class }}{% if column.sort %} sort{% endif %}"{% endif %}
+                            {% if column.tooltip %} title="{{ column.tooltip | trans }}"{% endif %}
+                    >{% if column.th_class == 'txt_vertical' %}<div>{{ column.label | trans | raw }}</div>{% else %}{{ column.label | trans | raw }}{% endif %}</th>
+                {% endif %}
             {% endfor %}
-        {% endif %}
-        <td {% if column.td_class %} class="{{ column.td_class }}"{% endif %}>
-            {%
-                if (column.field == 'actions')
-            %}{% if isAdmin %}<a href="{{ url('signal_delete', { 'system' : system, 'id' : signal.id }) }}" class="delete" onclick="return confirm(msg.del_signal)">X</a>{% endif %}{%
-                elseif (column.field == 'call')
-            %}<a href="{{ url('signal', { 'system' : system, 'id' : signal.id }) }}" data-popup="1">{{ signal.call }}</a>{%
-                elseif (column.field == 'type')
-            %}{{ type.title }}</a>{%
-                elseif (column.field == 'GSQ')
-            %}{% if signal.GSQ %}<a data-gsq="{{ signal.id }}">{{ value | raw }}</a>{% endif %}{%
-                elseif (column.field == 'ITU')
-            %}{% if signal.itu %}<a data-set="itu">{{ value | raw }}</a>{% endif %}{%
-                elseif (column.field == 'khz')
-            %}<a data-set="khz">{{ value | raw }}</a>{%
-                elseif (column.field == 'listeners')
-            %}{% if signal.listeners %}<a href="{{ url('signal_listeners', { 'system' : system, 'id' : signal.id }) }}" data-popup="1">{{ signal.listeners }}</a>{% endif %}{%
-                elseif (column.field == 'logs')
-            %}{% if signal.logs %}<a href="{{ url('signal_logs', { 'system' : system, 'id' : signal.id }) }}" data-popup="1">{{ signal.logs }}</a>{% endif %}{%
-                elseif (column.field == 'LSB' or column.field == 'USB')
-            %}{%  if value != 0 %}{% if (args.offsets == '1') %}{{ value | number_format(3) }}{% else %}{{ value }}{% endif %}{% endif %}{%
-                elseif (column.field == 'SP')
-            %}{% if signal.sp %}<a data-set="sp">{{ value | raw }}</a>{% endif %}{%
-                else
-            %}{{ value | raw }}{%
-                endif
-            %}</td>
-    {% endif %}{% endfor %}
         </tr>
-{% endfor %}
-    </tbody>
-</table>
-<div id="narrow"></div>
+        </thead>
+        <tbody>
+        {% for signal in signals %}
+            {% set type = typeRepository.TypeForCode(signal.type) %}
+            <tr class="{% if signal.active == 0 %}inactive {% endif %}type_{{ type.class|lower }}{% if (args.personalise)%} {% if not signal.personalise %}un{% endif %}logged{% endif %}"
+                title="{{ type.title|trans }}{% if signal.active == 0 %} {% trans %}(inactive){% endtrans %}{% endif %}">
+                {% if args.personalise %}<th title="{% trans %}Logged by Personalised Listener{% endtrans %}" class="rowspan2">{{ signal.personalise ? '&#x2714;' : '&nbsp;' }}</th>{% endif %}
+                {% for key, column in columns %}
+                    {% if ((not column.admin or isAdmin) and (not column.arg or (column.arg in args|keys and attribute(args, column.arg) != ''))) %}
+                        {% set value = attribute(signal, column.field) %}
+                        {% if (column.highlight and args[column.highlight] is defined and args[column.highlight] is not empty) %}
+                            {% for repl in args[column.highlight] | split(' ') %}
+                                {% set value = value | ireplace({ (repl) : '<em>' ~ repl|upper ~ '</em>' }) %}
+                            {% endfor %}
+                        {% endif %}
+                        <td {% if column.td_class %} class="{{ column.td_class }}"{% endif %}>
+                            {%
+                                if (column.field == 'actions')
+                            %}{% if isAdmin %}<a href="{{ url('signal_delete', { 'system' : system, 'id' : signal.ID }) }}" class="delete" onclick="return confirm(msg.del_signal)">X</a>{% endif %}{%
+                                elseif (column.field == 'call')
+                            %}<a href="{{ url('signal', { 'system' : system, 'id' : signal.ID }) }}" data-popup="1">{{ signal.call }}</a>{%
+                                elseif (column.field == 'type')
+                            %}{{ type.title }}</a>{%
+                                elseif (column.field == 'pwr')
+                            %}{% if signal.pwr %}{{ value | raw }}{% endif %}{%
+                                elseif (column.field == 'GSQ')
+                            %}{% if signal.GSQ %}<a data-gsq="{{ signal.ID }}">{{ value | raw }}</a>{% endif %}{%
+                                elseif (column.field == 'ITU')
+                            %}{% if signal.ITU %}<a data-set="itu">{{ value | raw }}</a>{% endif %}{%
+                                elseif (column.field == 'khz')
+                            %}<a data-set="khz">{{ value | float }}</a>{%
+                                elseif (column.field == 'listeners')
+                            %}{% if signal.listeners %}<a href="{{ url('signal_listeners', { 'system' : system, 'id' : signal.ID }) }}" data-popup="1">{{ signal.listeners }}</a>{% endif %}{%
+                                elseif (column.field == 'logs')
+                            %}{% if signal.logs %}<a href="{{ url('signal_logs', { 'system' : system, 'id' : signal.ID }) }}" data-popup="1">{{ signal.logs }}</a>{% endif %}{%
+                                elseif (column.field == 'LSB' or column.field == 'USB')
+                            %}{%  if value | float != 0 %}{% if (args.offsets == '1') %}{{ value | number_format(3) }}{% else %}{{ value }}{% endif %}{% endif %}{%
+                                elseif (column.field == 'SP')
+                            %}{% if signal.SP %}<a data-set="sp">{{ value | raw }}</a>{% endif %}{%
+                                else
+                            %}{{ value | raw }}{%
+                                endif
+                            %}</td>
+                    {% endif %}{% endfor %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div id="narrow"></div>
 {% else %}
     <p class="no-results">{% trans %}(No signals found matching your criteria){% endtrans %}</p>
 {% endif %}

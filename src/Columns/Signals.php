@@ -56,7 +56,7 @@ class Signals
             'LSB' => [
                 'admin'     =>  false,
                 'arg'       =>  '',
-                'field'     =>  'lsb',
+                'field'     =>  'LSB',
                 'highlight' =>  false,
                 'label'     =>  'LSB',
                 'labelSort' =>  '',
@@ -69,7 +69,7 @@ class Signals
             'USB' => [
                 'admin'     =>  false,
                 'arg'       =>  '',
-                'field'     =>  'usb',
+                'field'     =>  'USB',
                 'highlight' =>  false,
                 'label'     =>  'USB',
                 'labelSort' =>  '',
@@ -199,7 +199,7 @@ class Signals
             'heard_in' => [
                 'admin'     =>  false,
                 'arg'       =>  '',
-                'field'     =>  'heardInHtml',
+                'field'     =>  'heard_in_html',
                 'highlight' =>  'heard_in',
                 'label'     =>  'Heard In<br /><b>(Daytime Log)</b>',
                 'labelSort' =>  'Heard In',
@@ -238,7 +238,7 @@ class Signals
             'first_heard' => [
                 'admin'     =>  false,
                 'arg'       =>  '',
-                'field'     =>  'formattedFirstHeard',
+                'field'     =>  'first_heard',
                 'highlight' =>  false,
                 'label'     =>  'First Logged',
                 'labelSort' =>  '',
@@ -251,7 +251,7 @@ class Signals
             'last_heard' => [
                 'admin'     =>  false,
                 'arg'       =>  '',
-                'field'     =>  'formattedLastHeard',
+                'field'     =>  'last_heard',
                 'highlight' =>  false,
                 'label'     =>  'Last Logged',
                 'labelSort' =>  '',
@@ -303,7 +303,7 @@ class Signals
             'delete' => [
                 'admin'     =>  true,
                 'arg'       =>  '',
-                'field'     =>  'actions',
+                'field'     =>  'ID',
                 'highlight' =>  false,
                 'label'     =>  'Delete',
                 'order'     =>  '',

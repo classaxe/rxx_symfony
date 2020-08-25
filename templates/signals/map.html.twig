@@ -21,12 +21,12 @@ var signals = [
     row.lat }}, 'lon':{{
     row.lon }}, 'gsq':'{{
     row.GSQ }}', 'lsb':'{{
-    row.lsb }}', 'usb':'{{
-    row.usb }}', 'sec':'{{
+    row.LSB }}', 'usb':'{{
+    row.USB }}', 'sec':'{{
     row.sec }}', 'fmt':'{{
     row.format }}', 'heard':'{{
-    row.formattedLastHeard }}', 'heard_in':'{{
-    row.heardIn }}'{% if args.personalise %},'logged':{{ row.personalise ? 1 : 0 }}, {% endif %} },
+    row.last_heard }}', 'heard_in':'{{
+    row.heard_in }}'{% if args.personalise %},'logged':{{ row.personalise ? 1 : 0 }}, {% endif %} },
 {% endfor %}
 ];
 

@@ -1,7 +1,6 @@
 <?php
 namespace App\Controller\Web\Signals;
 
-use App\Entity\Signal as SignalEntity;
 use App\Form\Signals\Collection as Form;
 use App\Repository\PaperRepository;
 use App\Repository\SignalRepository;
@@ -140,16 +139,12 @@ class Collection extends Base
             $box =      [[$lat_min, $lon_min], [$lat_max, $lon_max]];
             $center =   [$lat_cen, $lon_cen];
         }
-        $signalEntities = [];
         $signalTypes = [];
         foreach ($signals as $signal) {
             if ('seeklist' !== $args['show']) {
                 $signal['first_heard'] =    $signal['first_heard'] ? new DateTime($signal['first_heard']) : null;
                 $signal['last_heard'] =     $signal['last_heard'] ? new DateTime($signal['last_heard']) : null;
             }
-            $s = new SignalEntity;
-            $s->loadFromArray($signal);
-            $signalEntities[] = $s;
             $signalTypes[] = $signal['type'];
         }
 
@@ -190,7 +185,7 @@ class Collection extends Base
             ],
             'seeklistColumns' =>    $seeklistColumns,
             'seeklistStats' =>      $seeklistStats,
-            'signals' =>            $signalEntities,
+            'signals' =>            $signals,
             'stats' =>
                 $this->signalRepository->getStats() +
                 $this->listenerRepository->getStats($system, $args['rww_focus']),
