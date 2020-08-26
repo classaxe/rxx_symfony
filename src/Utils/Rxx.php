@@ -85,6 +85,23 @@ class Rxx
         return new Response("<p><strong>Error:</strong><br />$message</p>");
     }
 
+    public function getGitAge()
+    {
+        return round(
+            $datediff = (time() - strtotime(static::getGitDate())) / (60 * 60 * 24)
+        );
+    }
+
+    public function getGitDate()
+    {
+        return date('Y-m-d', strtotime(exec('git log -1 --format="%ad"')));
+    }
+
+    public function getGitTag()
+    {
+        return exec('git describe --tags');
+    }
+
     public static function y($var)
     {
         return "<pre>".str_replace("Array\n(", "Array (", print_r($var, true))."</pre>";

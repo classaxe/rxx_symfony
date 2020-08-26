@@ -13,6 +13,7 @@ use App\Repository\UserRepository;
 use App\Utils\Rxx;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpKernel\KernelInterface as Kernel;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -26,6 +27,7 @@ class Base extends AbstractController
 {
     protected $languageRepository;
     protected $listenerRepository;
+    protected $logger;
     protected $logRepository;
     protected $modeRepository;
     protected $paperRepository; // Only autowire where needed
@@ -65,6 +67,7 @@ class Base extends AbstractController
         SessionInterface $session,
         LanguageRepository $languageRepository,
         ListenerRepository $listenerRepository,
+        LoggerInterface $logger,
         LogRepository $logRepository,
         ModeRepository $modeRepository,
         SignalRepository $signalRepository,
@@ -74,6 +77,7 @@ class Base extends AbstractController
         UserRepository $userRepository
     ) {
         $this->kernel =             $kernel;
+        $this->logger =             $logger;
         $this->rxx =                $rxx;
         $this->session =            $session;
         $this->translator =         $translator;
@@ -88,9 +92,9 @@ class Base extends AbstractController
         $this->userRepository =     $userRepository;
 
         $this->parameters = [
-            'gitAge' =>         $this->getGitAge(),
-            'gitNew' =>         SystemRepository::NEW_VERSION_AGE,
-            'gitTag' =>         $this->getGitTag(),
+            'gitAge' =>         $this->rxx->getGitAge(),
+            'gitNew' =>         $this->systemRepository::NEW_VERSION_AGE,
+            'gitTag' =>         $this->rxx->getGitTag(),
             'access' =>         $this->session->get('access', 0),
             'isAdmin' =>        $this->session->get('isAdmin', 0),
             'isDev' =>          getEnv('APP_ENV') === 'dev',
@@ -161,23 +165,6 @@ class Base extends AbstractController
                 .(php_sapi_name() == "cli" ? "" : "</pre>");
             die();
         }
-    }
-
-    private function getGitAge()
-    {
-        return round(
-            $datediff = (time() - strtotime(static::getGitDate())) / (60 * 60 * 24)
-        );
-    }
-
-    private function getGitDate()
-    {
-        return date('Y-m-d', strtotime(exec('git log -1 --format="%ad"')));
-    }
-
-    private function getGitTag()
-    {
-        return exec('git describe --tags');
     }
 
     public function isAdmin()
