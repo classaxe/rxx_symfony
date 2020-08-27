@@ -9,10 +9,7 @@
 namespace App\Form\Listeners;
 
 use App\Form\Base;
-use App\Repository\CountryRepository;
-use App\Repository\RegionRepository;
-use App\Repository\TimeRepository;
-use App\Repository\TypeRepository;
+
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -27,44 +24,6 @@ use Symfony\Component\Form\FormInterface;
  */
 class Collection extends Base
 {
-    /**
-     * @var CountryRepository
-     */
-    private $country;
-
-    /**
-     * @var RegionRepository
-     */
-    private $region;
-
-    /**
-     * @var TimeRepository
-     */
-    private $timeRepository;
-    /**
-     * @var TypeRepository
-     */
-    private $type;
-
-    /**
-     * Listeners constructor.
-     * @param CountryRepository $country
-     * @param RegionRepository $region
-     * @param TimeRepository $timeRepository
-     * @param TypeRepository $type
-     */
-    public function __construct(
-        CountryRepository $country,
-        RegionRepository $region,
-        TimeRepository $timeRepository,
-        TypeRepository $type
-    ) {
-        $this->country = $country;
-        $this->region = $region;
-        $this->timeRepository = $timeRepository;
-        $this->type = $type;
-    }
-
     /**
      * @param FormBuilderInterface $formBuilder
      * @param array $options
@@ -102,7 +61,7 @@ class Collection extends Base
                 ChoiceType::class,
                 [
                     'attr' =>           [ 'legend' => 'Signal Types' ],
-                    'choices' =>        $this->type->getAllChoices(true),
+                    'choices' =>        $this->typeRepository->getAllChoices(true),
                     'choice_attr' =>    function ($value) { return ['class' => strToLower($value)]; },
                     'data' =>           $options['type'],
                     'expanded' =>       true,
@@ -114,7 +73,7 @@ class Collection extends Base
                 'country',
                 ChoiceType::class,
                 [
-                    'choices' => $this->country->getMatchingOptions(
+                    'choices' => $this->countryRepository->getMatchingOptions(
                         $system, $region, true, false,true
                     ),
                     'data' =>           $options['country'],
@@ -157,7 +116,7 @@ class Collection extends Base
                     'region',
                     ChoiceType::class,
                     [
-                        'choices' =>        $this->region->getAllOptions(),
+                        'choices' =>        $this->regionRepository->getAllOptions(),
                         'data' =>           $options['region'],
                         'label' =>          'Region',
                         'required' =>       false

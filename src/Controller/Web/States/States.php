@@ -2,7 +2,6 @@
 namespace App\Controller\Web\States;
 
 use App\Controller\Web\Base;
-use App\Repository\CountryRepository;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 
 /**
@@ -11,11 +10,6 @@ use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
  */
 class States extends Base
 {
-    /**
-     * @var CountryRepository
-     */
-    private $country;
-
     /**
      * @Route(
      *     "/{_locale}/{system}/states/{filter}",
@@ -27,12 +21,11 @@ class States extends Base
      *     name="states"
      * )
      */
-    public function stateLocatorController($_locale, $system, $filter, CountryRepository $country)
+    public function stateLocatorController($_locale, $system, $filter)
     {
-        $this->country = $country;
         $parameters = [
             '_locale' =>    $_locale,
-            'countries' =>  $this->country->getCountriesAndStates($filter),
+            'countries' =>  $this->countryRepository->getCountriesAndStates($filter),
             'filter' =>     $filter,
             'mode' =>       'State and Province Locator',
             'system' =>     $system,

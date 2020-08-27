@@ -1,8 +1,6 @@
 <?php
 namespace App\Controller\Web\Signals;
 
-use App\Repository\MapRepository;
-
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
@@ -142,13 +140,11 @@ class SignalMap extends Base
      * )
      * @param $id
      * @param $map
-     * @param MapRepository $mapRepository
      * @return void
      */
     public function controllerRxMapImage(
         $id,
-        $map,
-        MapRepository $mapRepository
+        $map
     ) {
         if (!$signal = $this->getValidSignal($id)) {
            throw $this->createNotFoundException('The signal does not exist');
@@ -171,7 +167,7 @@ class SignalMap extends Base
 
         header('Content-Type: image/gif');
 
-        $mapRepository->drawMapImage($map, 'signal', $basedIn, $listenerSpItus, $listenerMapCoords, $heardIn, $text);
+        $this->mapRepository->drawMapImage($map, 'signal', $basedIn, $listenerSpItus, $listenerMapCoords, $heardIn, $text);
         die;
     }
 }

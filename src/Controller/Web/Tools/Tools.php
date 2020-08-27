@@ -2,7 +2,7 @@
 namespace App\Controller\Web\Tools;
 
 use App\Controller\Web\Base;
-use App\Repository\ToolRepository;
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
@@ -25,12 +25,11 @@ class Tools extends Base
      * @param $_locale
      * @param $system
      * @param Request $request
-     * @param ToolRepository $toolRepository
      * @return Response
      */
-    public function index($_locale, $system, Request $request, ToolRepository $toolRepository)
+    public function index($_locale, $system, Request $request)
     {
-        $widgets =   $toolRepository->getAll();
+        $widgets =   $this->toolRepository->getAll();
 
         $parameters = [
             '_locale' =>    $_locale,
@@ -60,12 +59,11 @@ class Tools extends Base
      * @param $widget
      * @param $args
      * @param Request $request
-     * @param ToolRepository $toolRepository
      * @return Response
      */
-    public function widget($_locale, $system, $widget, $args, Request $request, ToolRepository $toolRepository)
+    public function widget($_locale, $system, $widget, $args, Request $request)
     {
-        $parameters = $toolRepository->get($widget);
+        $parameters = $this->toolRepository->get($widget);
         $parameters['_locale'] = $_locale;
         $parameters['system'] = $system;
         $parameters['key'] = $widget;

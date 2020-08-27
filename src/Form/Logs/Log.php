@@ -1,13 +1,8 @@
 <?php
 namespace App\Form\Logs;
 
-use App\Repository\CountryRepository;
-use App\Repository\RegionRepository;
-use App\Repository\StateRepository;
-use App\Repository\TimeRepository;
-use App\Repository\TypeRepository;
+use App\Form\Base;
 
-use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
@@ -21,55 +16,8 @@ use Symfony\Component\Form\FormInterface;
  * Class Listeners
  * @package App\Form
  */
-class Log extends AbstractType
+class Log extends Base
 {
-    /**
-     * @var CountryRepository
-     */
-    private $country;
-
-    /**
-     * @var RegionRepository
-     */
-    private $region;
-
-    /**
-     * @var StateRepository
-     */
-    private $sp;
-
-    /**
-     * @var TimeRepository
-     */
-    private $timeRepository;
-
-    /**
-     * @var TypeRepository
-     */
-    private $type;
-
-    /**
-     * Listeners constructor.
-     * @param CountryRepository $country
-     * @param RegionRepository $region
-     * @param StateRepository $sp
-     * @param TimeRepository $timeRepository
-     * @param TypeRepository $type
-     */
-    public function __construct(
-        CountryRepository $country,
-        RegionRepository $region,
-        StateRepository $sp,
-        TimeRepository $timeRepository,
-        TypeRepository $type
-    ) {
-        $this->country =    $country;
-        $this->region =     $region;
-        $this->sp =         $sp;
-        $this->timeRepository = $timeRepository;
-        $this->type =       $type;
-    }
-
     /**
      * @param FormBuilderInterface $formBuilder
      * @param array $options

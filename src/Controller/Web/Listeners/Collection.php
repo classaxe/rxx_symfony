@@ -2,7 +2,7 @@
 namespace App\Controller\Web\Listeners;
 
 use App\Form\Listeners\Collection as Form;
-use App\Repository\TypeRepository;
+
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 use Symfony\Component\HttpFoundation\Request;
@@ -47,18 +47,14 @@ class Collection extends Base
      * @param $system
      * @param Request $request
      * @param Form $form
-     * @param TypeRepository $typeRepository
      * @return Response
      */
     public function controller(
         $_locale,
         $system,
         Request $request,
-        Form $form,
-        TypeRepository $typeRepository
+        Form $form
     ) {
-        $this->typeRepository = $typeRepository;
-
         $isAdmin = $this->parameters['isAdmin'];
         $args = [
             'isAdmin' =>    $isAdmin,

@@ -8,7 +8,6 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 use Symfony\Component\HttpFoundation\Request;
-use App\Utils\Rxx;
 
 class SignalView extends Base
 {
@@ -103,7 +102,7 @@ class SignalView extends Base
                 $GSQ =
                     strtoUpper(substr($form_data['gsq'], 0, 4))
                     .strtoLower(substr($form_data['gsq'], 4, 2));
-                $a =    Rxx::convertGsqToDegrees($GSQ);
+                $a =    $this->rxx::convertGsqToDegrees($GSQ);
                 $lat =  $a["lat"];
                 $lon =  $a["lon"];
             } else {

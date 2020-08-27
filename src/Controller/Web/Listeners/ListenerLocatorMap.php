@@ -2,7 +2,7 @@
 namespace App\Controller\Web\Listeners;
 
 use App\Form\Listeners\ListenerLocatorMap as ListenerLocatorMapForm;
-use App\Repository\MapRepository;
+
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -99,13 +99,11 @@ class ListenerLocatorMap extends Base
      * )
      * @param $id
      * @param $map
-     * @param MapRepository $mapRepository,
-     * @return RedirectResponse|Response
+     * @return void
      */
     public function image(
         $id,
-        $map,
-        MapRepository $mapRepository
+        $map
     ) {
         $isAdmin = $this->parameters['isAdmin'];
 
@@ -114,7 +112,7 @@ class ListenerLocatorMap extends Base
         }
 
         header('Content-Type: image/gif');
-        $mapRepository->drawMapImage($map, 'countries');
+        $this->mapRepository->drawMapImage($map, 'countries');
         die;
     }
 

@@ -8,13 +8,8 @@
 
 namespace App\Form\Signals;
 
-use App\Repository\CountryRepository;
-use App\Repository\StateRepository;
+use App\Form\Base;
 
-use App\Repository\RegionRepository;
-use App\Repository\TypeRepository;
-
-use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -22,54 +17,18 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormInterface as FormInterfaceAlias;
 
 /**
  * Class Listeners
  * @package App\Form
  */
-class SignalView extends AbstractType
+class SignalView extends Base
 {
-    /**
-     * @var CountryRepository
-     */
-    private $country;
-
-    /**
-     * @var RegionRepository
-     */
-    private $region;
-
-    /**
-     * @var StateRepository
-     */
-    private $sp;
-
-    /**
-     * @var TypeRepository
-     */
-    private $type;
-
-    /**
-     * Listeners constructor.
-     * @param CountryRepository $country
-     * @param RegionRepository $region
-     */
-    public function __construct(
-        CountryRepository $country,
-        RegionRepository $region,
-        StateRepository $sp,
-        TypeRepository $type
-    ) {
-        $this->country =    $country;
-        $this->region =     $region;
-        $this->sp =         $sp;
-        $this->type =       $type;
-    }
-
     /**
      * @param FormBuilderInterface $formBuilder
      * @param array $options
-     * @return \Symfony\Component\Form\FormInterface|void
+     * @return FormInterfaceAlias|void
      */
     public function buildForm(FormBuilderInterface $formBuilder, array $options)
     {
@@ -132,7 +91,7 @@ class SignalView extends AbstractType
                 'type',
                 ChoiceType::class,
                 [
-                    'choices' =>    $this->type->getAllChoicesForKey(),
+                    'choices' =>    $this->typeRepository->getAllChoicesForKey(),
                     'data' =>       $options['type'],
                     'empty_data' => '',
                     'label' =>      'Type',
@@ -170,7 +129,7 @@ class SignalView extends AbstractType
                 'sp',
                 ChoiceType::class,
                 [
-                    'choices' =>        $this->sp->getMatchingOptions(),
+                    'choices' =>        $this->stateRepository->getMatchingOptions(),
                     'data' =>           $options['sp'],
                     'empty_data' =>     null,
                     'label' =>          'State / Prov',
@@ -181,7 +140,7 @@ class SignalView extends AbstractType
                 'itu',
                 ChoiceType::class,
                 [
-                    'choices' =>        $this->country->getMatchingOptions(),
+                    'choices' =>        $this->countryRepository->getMatchingOptions(),
                     'data' =>           $options['itu'],
                     'label' =>          'Country',
                 ]

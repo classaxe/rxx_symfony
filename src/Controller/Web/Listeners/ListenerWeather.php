@@ -2,7 +2,6 @@
 namespace App\Controller\Web\Listeners;
 
 use App\Form\Listeners\ListenerWeather as ListenerWeatherForm;
-use App\Repository\IcaoRepository;
 
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,7 +28,6 @@ class ListenerWeather extends Base
      * @param $system
      * @param $id
      * @param Request $request
-     * @param IcaoRepository $icaoRepository
      * @param ListenerWeatherForm $listenerWeatherForm
      * @return RedirectResponse|Response
      */
@@ -38,7 +36,6 @@ class ListenerWeather extends Base
         $system,
         $id,
         Request $request,
-        IcaoRepository $icaoRepository,
         ListenerWeatherForm $listenerWeatherForm
     ) {
         if (!$listener = $this->getValidListener($id)) {
@@ -64,9 +61,9 @@ class ListenerWeather extends Base
             $form_data = $form->getData();
             $data['form'] = $form_data;
 
-            $weather = $icaoRepository::getMetar($form_data['icao'], $form_data['hours']);
+            $weather = $this->icaoRepository::getMetar($form_data['icao'], $form_data['hours']);
             if ($weather) {
-                $icao = $icaoRepository->getLocalIcaos(
+                $icao = $this->icaoRepository->getLocalIcaos(
                     $listener->getLat(),
                     $listener->getLon(),
                     1,

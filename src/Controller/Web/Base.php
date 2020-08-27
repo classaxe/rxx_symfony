@@ -1,15 +1,25 @@
 <?php
 namespace App\Controller\Web;
 
+use App\Repository\AwardRepository;
+use App\Repository\BackupRepository;
+use App\Repository\CleRepository;
+use App\Repository\CountryRepository;
+use App\Repository\IcaoRepository;
 use App\Repository\LanguageRepository;
 use App\Repository\ListenerRepository;
 use App\Repository\LogRepository;
+use App\Repository\MapRepository;
 use App\Repository\ModeRepository;
+use App\Repository\PaperRepository;
+use App\Repository\RegionRepository;
 use App\Repository\SignalRepository;
 use App\Repository\SystemRepository;
+use App\Repository\ToolRepository;
 use App\Repository\TypeRepository;
-
 use App\Repository\UserRepository;
+use App\Repository\WeatherRepository;
+
 use App\Utils\Rxx;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
@@ -25,22 +35,31 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 class Base extends AbstractController
 {
-    protected $languageRepository;
-    protected $listenerRepository;
-    protected $logger;
-    protected $logRepository;
-    protected $modeRepository;
-    protected $paperRepository; // Only autowire where needed
-    protected $signalRepository;
-    protected $systemRepository;
-    protected $typeRepository;
-    protected $userRepository;
-
     protected $kernel;
     protected $parameters = [];
     protected $rxx;
     protected $session;
     protected $translator;
+
+    protected $awardRepository;
+    protected $backupRepository;
+    protected $cleRepository;
+    protected $countryRepository;
+    protected $icaoRepository;
+    protected $languageRepository;
+    protected $listenerRepository;
+    protected $logger;
+    protected $logRepository;
+    protected $mapRepository;
+    protected $modeRepository;
+    protected $paperRepository;
+    protected $regionRepository;
+    protected $signalRepository;
+    protected $systemRepository;
+    protected $toolRepository;
+    protected $typeRepository;
+    protected $userRepository;
+    protected $weatherRepository;
 
     /**
      * Base constructor.
@@ -51,30 +70,54 @@ class Base extends AbstractController
      * @param TranslatorInterface $translator
      *
      * Auto-wire these repositories:
+     * @param AwardRepository $awardRepository
+     * @param BackupRepository $backupRepository
+     * @param CleRepository $cleRepository;
+     * @param CountryRepository $countryRepository
+     * @param IcaoRepository $icaoRepository
      * @param LanguageRepository $languageRepository
      * @param ListenerRepository $listenerRepository
+     * @param LoggerInterface $logger
      * @param LogRepository $logRepository
+     * @param MapRepository $mapRepository
      * @param ModeRepository $modeRepository
+     * @param PaperRepository $paperRepository
+     * @param RegionRepository $regionRepository
      * @param SignalRepository $signalRepository
      * @param SystemRepository $systemRepository
+     * @param ToolRepository $toolRepository
      * @param TypeRepository $typeRepository
      * @param UserRepository $userRepository
+     * @param WeatherRepository $weatherRepository
+
      */
     public function __construct(
         EntityManagerInterface $em,
+
         Kernel $kernel,
+        LoggerInterface $logger,
         Rxx $rxx,
         SessionInterface $session,
+        TranslatorInterface $translator,
+
+        AwardRepository $awardRepository,
+        BackupRepository $backupRepository,
+        CleRepository $cleRepository,
+        CountryRepository $countryRepository,
+        IcaoRepository $icaoRepository,
         LanguageRepository $languageRepository,
         ListenerRepository $listenerRepository,
-        LoggerInterface $logger,
         LogRepository $logRepository,
+        MapRepository $mapRepository,
         ModeRepository $modeRepository,
+        PaperRepository $paperRepository,
+        RegionRepository $regionRepository,
         SignalRepository $signalRepository,
         SystemRepository $systemRepository,
-        TranslatorInterface $translator,
+        ToolRepository $toolRepository,
         TypeRepository $typeRepository,
-        UserRepository $userRepository
+        UserRepository $userRepository,
+        WeatherRepository $weatherRepository
     ) {
         $this->kernel =             $kernel;
         $this->logger =             $logger;
@@ -82,14 +125,24 @@ class Base extends AbstractController
         $this->session =            $session;
         $this->translator =         $translator;
 
+        $this->awardRepository =    $awardRepository;
+        $this->backupRepository =   $backupRepository;
+        $this->cleRepository =      $cleRepository;
+        $this->countryRepository =  $countryRepository;
+        $this->icaoRepository =     $icaoRepository;
         $this->languageRepository = $languageRepository;
         $this->listenerRepository = $listenerRepository;
         $this->logRepository =      $logRepository;
+        $this->mapRepository =      $mapRepository;
         $this->modeRepository =     $modeRepository;
+        $this->paperRepository =    $paperRepository;
+        $this->regionRepository =   $regionRepository;
         $this->signalRepository =   $signalRepository;
         $this->systemRepository =   $systemRepository;
+        $this->toolRepository =     $toolRepository;
         $this->typeRepository =     $typeRepository;
         $this->userRepository =     $userRepository;
+        $this->weatherRepository =  $weatherRepository;
 
         $this->parameters = [
             'gitAge' =>         $this->rxx->getGitAge(),

@@ -2,7 +2,7 @@
 namespace App\Controller\Web\Maps;
 
 use App\Controller\Web\Base;
-use App\Repository\MapRepository;
+
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 
@@ -23,12 +23,11 @@ class Maps extends Base
      * )
      * @param $_locale
      * @param $system
-     * @param MapRepository $mapRepository
      * @return Response
      */
-    public function mapsController($_locale, $system, MapRepository $mapRepository)
+    public function mapsController($_locale, $system)
     {
-        $maps =   $mapRepository->getAllForSystem($system);
+        $maps =   $this->mapRepository->getAllForSystem($system);
 
         $parameters = [
             '_locale' =>    $_locale,
@@ -56,12 +55,11 @@ class Maps extends Base
      * @param $_locale
      * @param $system
      * @param $area
-     * @param MapRepository $mapRepository
      * @return Response
      */
-    public function map($_locale, $system, $area, MapRepository $mapRepository)
+    public function map($_locale, $system, $area)
     {
-        $parameters = $mapRepository->get($area);
+        $parameters = $this->mapRepository->get($area);
         $parameters['_locale'] = $_locale;
         $parameters['system'] = $system;
 
@@ -84,7 +82,6 @@ class Maps extends Base
      * @param $lat
      * @param $lon
      * @param $mode
-     * @param MapRepository $mapRepository
      * @return Response
      */
     public function coords($_locale, $system, $lat, $lon, $mode)

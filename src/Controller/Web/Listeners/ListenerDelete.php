@@ -2,7 +2,7 @@
 namespace App\Controller\Web\Listeners;
 
 use App\Controller\Web\Base;
-use App\Repository\ListenerRepository;
+
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 
 /**
@@ -20,17 +20,19 @@ class ListenerDelete extends Base
      *     },
      *     name="listener_delete"
      * )
+     * @param $_locale
+     * @param $system
+     * @param $id
      */
     public function controller(
         $_locale,
         $system,
-        $id,
-        ListenerRepository $listenerRepository
+        $id
     ) {
         if (!(int) $id) {
             return $this->redirectToRoute('listeners', ['_locale' => $_locale, 'system' => $system]);
         }
-        $listener = $listenerRepository->find((int) $id);
+        $listener = $this->listenerRepository->find((int) $id);
         if (!$listener) {
             return $this->redirectToRoute('listeners', ['_locale' => $_locale, 'system' => $system]);
         }

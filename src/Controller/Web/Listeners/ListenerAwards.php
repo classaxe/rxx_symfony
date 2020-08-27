@@ -2,7 +2,6 @@
 namespace App\Controller\Web\Listeners;
 
 use App\Form\Listeners\ListenerAward as ListenerAwardForm;
-use App\Repository\AwardRepository;
 
 use Swift_Mailer;
 use Swift_Message;
@@ -18,7 +17,6 @@ use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
  */
 class ListenerAwards extends Base
 {
-    private $awardRepository;
     private $listener;
     private $signals;
 
@@ -37,7 +35,6 @@ class ListenerAwards extends Base
      * @param $id
      * @param $filter
      * @param Request $request
-     * @param AwardRepository $awardRepository
      * @param ListenerAwardForm $listenerAwardForm
      * @param Swift_Mailer $mailer
      * @return RedirectResponse|Response
@@ -48,11 +45,9 @@ class ListenerAwards extends Base
         $id,
         $filter,
         Request $request,
-        AwardRepository $awardRepository,
         ListenerAwardForm $listenerAwardForm,
         Swift_Mailer $mailer
     ) {
-        $this->awardRepository = $awardRepository;
         if ((int) $id) {
             if (!$this->listener = $this->getValidReportingListener($id)) {
                 return $this->redirectToRoute('listeners', ['system' => $system]);
@@ -112,7 +107,7 @@ class ListenerAwards extends Base
         );
 
         $isAdmin = $this->parameters['isAdmin'];
-        $award_types = array_keys(AwardRepository::AWARDSPEC);
+        $award_types = array_keys($this->awardRepository::AWARDSPEC);
         $awards = [];
         foreach ($award_types as $type) {
             if ('*' !== $filter) {

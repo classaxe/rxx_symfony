@@ -3,12 +3,12 @@ namespace App\Controller\Web\Listeners;
 
 use App\Entity\Listener as ListenerEntity;
 use App\Form\Listeners\ListenerView as ListenerViewForm;
-use App\Repository\CountryRepository;
+
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 use Symfony\Component\HttpFoundation\Request;
-use App\Utils\Rxx;
+
 
 /**
  * Class Listeners
@@ -33,7 +33,6 @@ class ListenerView extends Base
      * @param $system
      * @param $id
      * @param Request $request
-     * @param CountryRepository $countryRepository
      * @param ListenerViewForm $listenerViewForm
      * @return RedirectResponse|Response
      */
@@ -42,7 +41,6 @@ class ListenerView extends Base
         $system,
         $id,
         Request $request,
-        CountryRepository $countryRepository,
         ListenerViewForm $listenerViewForm
     ) {
         if ($id === 'new') {
@@ -84,7 +82,7 @@ class ListenerView extends Base
             } else {
                 $listener = new ListenerEntity();
             }
-            if ($form_data['gsq'] && $a = Rxx::convertGsqToDegrees($form_data['gsq'])) {
+            if ($form_data['gsq'] && $a = $this->rxx::convertGsqToDegrees($form_data['gsq'])) {
                 $lat =  $a["lat"];
                 $lon =  $a["lon"];
                 $GSQ =  $a["GSQ"];
@@ -93,7 +91,7 @@ class ListenerView extends Base
                 $lat =  0;
                 $lon =  0;
             }
-            $region = $countryRepository->getRegionForCountry($form_data['itu']);
+            $region = $this->countryRepository->getRegionForCountry($form_data['itu']);
             $listener
                 ->setGsq($GSQ)
                 ->setLat($lat)

@@ -2,9 +2,7 @@
 namespace App\Controller\Web\Admin;
 
 use App\Controller\Web\Base;
-use App\Repository\BackupRepository;
-use App\Repository\IcaoRepository;
-use App\Utils\Rxx;
+
 use Swift_Mailer;
 use Swift_Message;
 use Swift_Transport_EsmtpTransport;
@@ -17,8 +15,6 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class Tools extends Base
 {
-    private $backupRepository;
-    private $icaoRepository;
     private $mailer;
     private $system;
 
@@ -35,8 +31,6 @@ class Tools extends Base
      * @param $_locale
      * @param $system
      * @param $tool
-     * @param BackupRepository $backupRepository
-     * @param IcaoRepository $icaoRepository
      * @param Swift_Mailer $mailer
      * @return Response|void
      */
@@ -44,13 +38,9 @@ class Tools extends Base
         $_locale,
         $system,
         $tool,
-        BackupRepository $backupRepository,
-        IcaoRepository $icaoRepository,
         Swift_Mailer $mailer
     ) {
         $this->system = $system;
-        $this->backupRepository = $backupRepository;
-        $this->icaoRepository = $icaoRepository;
         $this->mailer = $mailer;
         if (!$this->parameters['isAdmin']) {
             $this->session->set('route', 'admin/tools');
@@ -90,7 +80,7 @@ class Tools extends Base
 
     private function setMessage($mode, $submode, $affected, $start) {
         $duration = gmdate("H:i:s", time() - $start);
-        $memory = Rxx::formatBytes(memory_get_peak_usage(),1);
+        $memory = $this->rxx::formatBytes(memory_get_peak_usage(),1);
         $message = sprintf(
             $this->i18n('<strong>%s / %s</strong><br />Updated %d records in %s (Used %s)'),
             $this->i18n($mode),

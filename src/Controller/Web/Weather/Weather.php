@@ -2,16 +2,13 @@
 namespace App\Controller\Web\Weather;
 
 use App\Controller\Web\Base;
-use App\Repository\WeatherRepository;
-use App\Utils\Rxx;
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 
 class Weather extends Base
 {
-    private $weatherRepository;
-
     /**
      * @Route(
      *     "/{_locale}/{system}/weather",
@@ -24,12 +21,10 @@ class Weather extends Base
      * @param $_locale
      * @param $system
      * @param Request $request
-     * @param WeatherRepository $weatherRepository
      * @return Response
      */
-    public function controller($_locale, $system, Request $request, WeatherRepository $weatherRepository)
+    public function controller($_locale, $system, Request $request)
     {
-        $this->weatherRepository = $weatherRepository;
         $widgets =  $this->weatherRepository->getAll();
         $args =     $request->query->get('args');
         $gsq =  '';
@@ -81,12 +76,10 @@ class Weather extends Base
      * @param $widget
      * @param $args
      * @param Request $request
-     * @param WeatherRepository $weatherRepository
      * @return Response
      */
-    public function widget($_locale, $system, $widget, $args, Request $request, WeatherRepository $weatherRepository)
+    public function widget($_locale, $system, $widget, $args, Request $request)
     {
-        $this->weatherRepository = $weatherRepository;
         $parameters = $this->weatherRepository->get($widget);
         $parameters['_locale'] = $_locale;
         $parameters['system'] = $system;
@@ -119,7 +112,7 @@ class Weather extends Base
     }
 
     private function getLightningCoords($system, $args) {
-        if ($args && $spec = Rxx::convertGsqToDegrees($args)) {
+        if ($args && $spec = $this->rxx::convertGsqToDegrees($args)) {
             $spec['zoom'] = 5;
         } else {
             switch ($system) {

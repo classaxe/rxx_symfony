@@ -8,8 +8,7 @@
 
 namespace App\Form\Listeners;
 
-use App\Repository\IcaoRepository;
-
+use App\Form\Base;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
@@ -22,19 +21,8 @@ use Symfony\Component\Form\FormBuilderInterface;
  * Class Listeners
  * @package App\Form
  */
-class ListenerWeather extends AbstractType
+class ListenerWeather extends Base
 {
-    /**
-     * @var IcaoRepository
-     */
-    private $icao;
-
-    public function __construct(
-        IcaoRepository $icaoRepository
-    ) {
-        $this->icao =   $icaoRepository;
-    }
-
     public function getFieldGroups()
     {
         return [
@@ -59,27 +47,31 @@ class ListenerWeather extends AbstractType
                 'id',
                 HiddenType::class,
                 [
-                    'data'          => $options['id']
+                    'data' =>           $options['id']
                 ]
             )
             ->add(
                 'icao',
                 ChoiceType::class,
                 [
-                    'label'         => '',
+                    'label' =>          '',
                     'choice_translation_domain' => false,
-                    'choices'       => $this->icao->getMatchingOptions($options['lat'], $options['lon'], $options['limit']),
-                    'data'          => $options['icao'],
+                    'choices' =>        $this->icaoRepository->getMatchingOptions(
+                        $options['lat'],
+                        $options['lon'],
+                        $options['limit']
+                    ),
+                    'data' =>           $options['icao'],
                 ]
             )
             ->add(
                 'hours',
                 IntegerType::class,
                 [
-                    'label'         =>  'Hours',
-                    'data'          =>  $options['hours'],
-                    'empty_data'    =>  '',
-                    'attr'          =>  ['min' => 0]
+                    'label' =>          'Hours',
+                    'data' =>           $options['hours'],
+                    'empty_data' =>     '',
+                    'attr' =>           [ 'min' => 0 ]
 
                 ]
             )
@@ -87,8 +79,8 @@ class ListenerWeather extends AbstractType
                 'qnh',
                 SubmitType::class,
                 [
-                    'label'         => 'QNH',
-                    'attr'          => [
+                    'label' =>          'QNH',
+                    'attr' => [
                         'class' =>      'button small'
                     ]
                 ]
@@ -97,8 +89,8 @@ class ListenerWeather extends AbstractType
                 'raw',
                 ButtonType::class,
                 [
-                    'label'         => 'Metar - Raw',
-                    'attr'          => [
+                    'label' =>          'Metar - Raw',
+                    'attr' => [
                         'class' =>      'button small',
                         'onclick' =>    'getMetar(0)'
                     ]
@@ -108,8 +100,8 @@ class ListenerWeather extends AbstractType
                 'decoded',
                 ButtonType::class,
                 [
-                    'label'         => 'Metar - Decoded',
-                    'attr'          => [
+                    'label' =>          'Metar - Decoded',
+                    'attr' => [
                         'class' =>      'button small',
                         'onclick' =>    'getMetar(1)'
                     ]

@@ -2,7 +2,7 @@
 namespace App\Controller\Web\Countries;
 
 use App\Controller\Web\Base;
-use App\Repository\RegionRepository as Region;
+
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 
@@ -12,12 +12,6 @@ use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
  */
 class Countries extends Base
 {
-
-    /**
-     * @var Region
-     */
-    private $region;
-
     /**
      * @Route(
      *     "/{_locale}/{system}/countries/{filter}",
@@ -31,18 +25,16 @@ class Countries extends Base
      * @param $_locale
      * @param $system
      * @param $filter
-     * @param Region $region
      * @return Response
      */
-    public function controller($_locale, $system, $filter, Region $region)
+    public function controller($_locale, $system, $filter)
     {
         $filter = $filter ?? '*';
-        $this->region = $region;
         $parameters = [
             '_locale' =>    $_locale,
             'filter' =>     $filter,
             'mode' =>       'Country Code Locator',
-            'regions' =>    $this->region->getAllWithCountries($filter),
+            'regions' =>    $this->regionRepository->getAllWithCountries($filter),
             'system' =>     $system
         ];
 

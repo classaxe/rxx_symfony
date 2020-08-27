@@ -4,7 +4,7 @@ namespace App\Controller\Web\Cle;
 use App\Controller\Web\Base;
 use App\Entity\User as UserEntity;
 use App\Form\Cle\Cle as CleForm;
-use App\Repository\CleRepository;
+
 use DateTime;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,7 +28,6 @@ class Cle extends Base
      * @param $_locale
      * @param $system
      * @param Request $request
-     * @param CleRepository $cleRepository
      * @param CleForm $form
      * @return Response
      */
@@ -36,13 +35,12 @@ class Cle extends Base
         $_locale,
         $system,
         Request $request,
-        CleRepository $cleRepository,
         CleForm $form
     ) {
         $i18n = $this->translator;
         $id = 1;
 
-        $cle = $cleRepository->find($id);
+        $cle = $this->cleRepository->find($id);
         $simpleFields = [
             'cle',
             'dateTimespan',

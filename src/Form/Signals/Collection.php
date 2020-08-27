@@ -9,11 +9,7 @@
 namespace App\Form\Signals;
 
 use App\Form\Base;
-use App\Repository\CountryRepository;
-use App\Repository\ListenerRepository;
-use App\Repository\PaperRepository;
-use App\Repository\RegionRepository;
-use App\Repository\TypeRepository;
+
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -30,62 +26,6 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 class Collection extends Base
 {
-    /**
-     * @var CountryRepository
-     */
-    private $country;
-
-    /**
-     * @var ListenerRepository
-     */
-    private $listener;
-
-    /**
-     * @var PaperRepository
-     */
-    private $paper;
-
-    /**
-     * @var RegionRepository
-     */
-    private $region;
-
-    /**
-     * @var TranslatorInterface
-     */
-    private $translator;
-
-    /**
-     * @var TypeRepository
-     */
-    private $type;
-
-    /**
-     * Collection constructor.
-     * @param CountryRepository $country
-     * @param ListenerRepository $listener
-     * @param PaperRepository $paper
-     * @param RegionRepository $region
-     * @param TranslatorInterface $translator
-     * @param TypeRepository $type
-     * @package ListenerRepository $listener
-     */
-    public function __construct(
-        CountryRepository $country,
-        ListenerRepository $listener,
-        PaperRepository $paper,
-        RegionRepository $region,
-        TranslatorInterface $translator,
-        TypeRepository $type
-    ) {
-        $this->country = $country;
-        $this->listener = $listener;
-        $this->paper = $paper;
-        $this->region = $region;
-        $this->translator = $translator;
-        $this->type = $type;
-    }
-
     /**
      * @param FormBuilderInterface $formBuilder
      * @param array $options
@@ -138,7 +78,7 @@ class Collection extends Base
                 ChoiceType::class,
                 [
                     'attr' =>           [ 'legend' => 'Signal Types' ],
-                    'choices' =>        $this->type->getAllChoices(true),
+                    'choices' =>        $this->typeRepository->getAllChoices(true),
                     'choice_attr' =>    function ($value) { return ['class' => strToLower($value)]; },
                     'data' =>           $options['type'],
                     'expanded' =>       true,
@@ -197,7 +137,7 @@ class Collection extends Base
                 'personalise',
                 ChoiceType::class,
                 [
-                    'choices' =>        $this->listener->getAllOptions($system,null, $i18n->trans('(None specified)'), true),
+                    'choices' =>        $this->listenerRepository->getAllOptions($system,null, $i18n->trans('(None specified)'), true),
                     'choice_translation_domain' => false,
                     'data' =>           $options['personalise'],
                     'expanded' =>       false,
@@ -248,7 +188,7 @@ class Collection extends Base
                 'region',
                 ChoiceType::class,
                 [
-                    'choices' =>        $this->region->getAllOptions(),
+                    'choices' =>        $this->regionRepository->getAllOptions(),
                     'data' =>           $options['region'],
                     'label' =>          'Region',
                     'required' =>       false
@@ -258,7 +198,7 @@ class Collection extends Base
                 'rww_focus',
                 ChoiceType::class,
                 [
-                    'choices' =>        $this->region->getAllOptions(),
+                    'choices' =>        $this->regionRepository->getAllOptions(),
                     'data' =>           $options['rww_focus'],
                     'label' =>          'RWW Focus',
                     'required' =>       false
@@ -320,7 +260,12 @@ class Collection extends Base
                 ChoiceType::class,
                 [
                     'attr' =>           [ 'class' => 'multiple' ],
-                    'choices' =>        $this->listener->getAllOptions( $system, null, $i18n->trans('Anyone (or enter values in "Heard here" box)'), false ),
+                    'choices' =>        $this->listenerRepository->getAllOptions(
+                        $system,
+                        null,
+                        $i18n->trans('Anyone (or enter values in "Heard here" box)'),
+                        false
+                    ),
                     'choice_translation_domain' => false,
                     'data' =>           $options['listener'],
                     'expanded' =>       false,

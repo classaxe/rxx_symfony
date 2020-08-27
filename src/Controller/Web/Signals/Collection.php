@@ -2,9 +2,6 @@
 namespace App\Controller\Web\Signals;
 
 use App\Form\Signals\Collection as Form;
-use App\Repository\PaperRepository;
-use App\Repository\SignalRepository;
-use App\Repository\TypeRepository;
 use DateTime;
 use Exception;
 use Symfony\Component\HttpFoundation\Response;
@@ -31,8 +28,6 @@ class Collection extends Base
      * @param $system
      * @param Request $request
      * @param Form $form
-     * @param PaperRepository $paperRepository
-     * @param TypeRepository $typeRepository
      * @return Response
      * @throws Exception
      */
@@ -40,13 +35,8 @@ class Collection extends Base
         $_locale,
         $system,
         Request $request,
-        Form $form,
-        PaperRepository $paperRepository,
-        TypeRepository $typeRepository
+        Form $form
     ) {
-        $this->paperRepository = $paperRepository;
-        $this->typeRepository = $typeRepository;
-
         $isAdmin = $this->parameters['isAdmin'];
         $args = [
             'admin_mode' =>     $_REQUEST['form']['admin_mode'] ?? 0,
@@ -77,7 +67,7 @@ class Collection extends Base
             'logged_last_1' =>  '',
             'logged_last_2' =>  '',
             'offsets' =>        '',
-            'paper' =>          $paperRepository::getDefaultForSystem($system),
+            'paper' =>          $this->paperRepository::getDefaultForSystem($system),
             'personalise' =>    '',
             'range_gsq' =>      '',
             'range_min' =>      '',
@@ -112,18 +102,18 @@ class Collection extends Base
             $args['listener'] = [];
         }
         $args['isAdmin'] =      $isAdmin;
-        $args['signalTypes'] =  $typeRepository->getSignalTypesSearched($args['type']);
+        $args['signalTypes'] =  $this->typeRepository->getSignalTypesSearched($args['type']);
         if ($isAdmin && $args['admin_mode'] !== '') {
             $args['show'] = 'list';
         }
-        $paper =                isset($args['paper']) ? $paperRepository->getSpecifications($args['paper']) : false;
+        $paper =                isset($args['paper']) ? $this->paperRepository->getSpecifications($args['paper']) : false;
         $signals =              $this->signalRepository->getFilteredSignals($system, $args);
         $total =                $this->signalRepository->getFilteredSignalsCount($system, $args);
         $seeklistStats =        [];
         $seeklistColumns =      [];
         if ('seeklist' === $args['show']) {
-            $seeklistStats =    SignalRepository::getSeeklistStats($signals);
-            $seeklistColumns =  SignalRepository::getSeeklistColumns($signals, $paper);
+            $seeklistStats =    $this->signalRepository::getSeeklistStats($signals);
+            $seeklistColumns =  $this->signalRepository::getSeeklistColumns($signals, $paper);
         }
         $box =          false;
         $center =       false;
@@ -150,11 +140,11 @@ class Collection extends Base
 
         $types = [];
         foreach ($signalTypes as $type) {
-            $types[$type] = $typeRepository->getTypeForCode($type);
+            $types[$type] = $this->typeRepository->getTypeForCode($type);
         }
-        uasort($types, [$typeRepository, 'sortByOrder']);
+        uasort($types, [$this->typeRepository, 'sortByOrder']);
         $expanded = [];
-        foreach (SignalRepository::collapsable_sections as $section => $fields) {
+        foreach ($this->signalRepository::collapsable_sections as $section => $fields) {
             $expanded[$section] = 0;
             foreach ($fields as $field) {
                 if ($args[$field]) {
@@ -176,10 +166,10 @@ class Collection extends Base
             'isAdmin' =>            $isAdmin,
             'mode' =>               $this->i18n('Signals'),
             'paper' =>              $paper,
-            'paperChoices' =>       $paperRepository->getAllChoices(),
+            'paperChoices' =>       $this->paperRepository->getAllChoices(),
             'personalised' =>       isset($args['personalise']) ? $this->listenerRepository->getDescription($args['personalise']) : false,
             'results' => [
-                'limit' =>              isset($args['limit']) ? $args['limit'] : SignalRepository::defaultlimit,
+                'limit' =>              isset($args['limit']) ? $args['limit'] : $this->signalRepository::defaultlimit,
                 'page' =>               isset($args['page']) ? $args['page'] : 0,
                 'total' =>              $total
             ],
@@ -197,7 +187,7 @@ class Collection extends Base
                 [ 'map', 'Map' ],
             ],
             'types' =>              $types,
-            'typeRepository' =>     $typeRepository
+            'typeRepository' =>     $this->typeRepository
         ];
         if (isset($args['show']) && $args['show'] === 'csv') {
             $response = $this->render("signals/export/signals.csv.twig", $this->getMergedParameters($parameters));

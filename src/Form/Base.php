@@ -1,12 +1,14 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: mfrancis
- * Date: 2018-06-18
- * Time: 12:08
- */
-
 namespace App\Form;
+
+use App\Repository\CountryRepository;
+use App\Repository\IcaoRepository;
+use App\Repository\ListenerRepository;
+use App\Repository\PaperRepository;
+use App\Repository\RegionRepository;
+use App\Repository\StateRepository;
+use App\Repository\TimeRepository;
+use App\Repository\TypeRepository;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
@@ -14,13 +16,63 @@ use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
- * Class ListenerLogs
+ * Class Base
  * @package App\Form
  */
 class Base extends AbstractType
 {
+    protected $translator;
+
+    protected $countryRepository;
+    protected $icaoRepository;
+    protected $listenerRepository;
+    protected $paperRepository;
+    protected $regionRepository;
+    protected $stateRepository;
+    protected $timeRepository;
+    protected $typeRepository;
+
+    /**
+     * Base constructor.
+     * @param TranslatorInterface $translator
+     *
+     * Auto-wire these repositories:
+     * @param CountryRepository $countryRepository
+     * @param IcaoRepository $icaoRepository
+     * @param ListenerRepository $listenerRepository
+     * @param PaperRepository $paperRepository
+     * @param RegionRepository $regionRepository
+     * @param StateRepository $stateRepository
+     * @param TimeRepository $timeRepository
+     * @param TypeRepository $typeRepository
+     */
+    public function __construct(
+        TranslatorInterface $translator,
+
+        CountryRepository $countryRepository,
+        IcaoRepository $icaoRepository,
+        ListenerRepository $listenerRepository,
+        PaperRepository $paperRepository,
+        RegionRepository $regionRepository,
+        StateRepository $stateRepository,
+        TimeRepository $timeRepository,
+        TypeRepository $typeRepository
+    ) {
+        $this->translator =         $translator;
+
+        $this->countryRepository =  $countryRepository;
+        $this->icaoRepository =     $icaoRepository;
+        $this->listenerRepository = $listenerRepository;
+        $this->paperRepository =    $paperRepository;
+        $this->regionRepository =   $regionRepository;
+        $this->stateRepository =    $stateRepository;
+        $this->timeRepository =     $timeRepository;
+        $this->typeRepository =     $typeRepository;
+    }
+
     /**
      * @param FormBuilderInterface $formBuilder
      * @param array $options

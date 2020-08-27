@@ -2,7 +2,7 @@
 namespace App\Controller\Web\Signals;
 
 use App\Form\Signals\SignalWeather as SignalWeatherForm;
-use App\Repository\IcaoRepository;
+
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
@@ -14,7 +14,6 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class SignalWeather extends Base
 {
-
     /**
      * @Route(
      *     "/{_locale}/{system}/signals/{id}/weather",
@@ -28,7 +27,6 @@ class SignalWeather extends Base
      * @param $system
      * @param $id
      * @param Request $request
-     * @param IcaoRepository $icaoRepository
      * @param SignalWeatherForm $signalWeatherForm
      * @return RedirectResponse|Response
      */
@@ -37,7 +35,6 @@ class SignalWeather extends Base
         $system,
         $id,
         Request $request,
-        IcaoRepository $icaoRepository,
         SignalWeatherForm $signalWeatherForm
     ) {
         if (!$signal = $this->getValidSignal($id)) {
@@ -61,9 +58,9 @@ class SignalWeather extends Base
             $form_data = $form->getData();
             $data['form'] = $form_data;
 
-            $weather = $icaoRepository::getMetar($form_data['icao'], $form_data['hours']);
+            $weather = $this->icaoRepository::getMetar($form_data['icao'], $form_data['hours']);
             if ($weather) {
-                $icao = $icaoRepository->getLocalIcaos(
+                $icao = $this->icaoRepository->getLocalIcaos(
                     $signal->getLat(),
                     $signal->getLon(),
                     1,
