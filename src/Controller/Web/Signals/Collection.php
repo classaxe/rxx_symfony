@@ -38,6 +38,7 @@ class Collection extends Base
         Form $form
     ) {
         $isAdmin = $this->parameters['isAdmin'];
+        $ajax = false;
         $args = [
             'admin_mode' =>     $_REQUEST['form']['admin_mode'] ?? 0,
             'isAdmin' =>        $isAdmin,
@@ -156,6 +157,7 @@ class Collection extends Base
 
         $parameters = [
             '_locale' =>            $_locale,
+            'ajax' =>               $ajax,
             'args' =>               $args,
             'box' =>                $box,
             'center' =>             $center,

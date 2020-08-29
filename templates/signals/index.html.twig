@@ -24,6 +24,6 @@
         </div>
      </div>
 <script>
-    initSignalsForm(msg.paging_s, {{ results.total }});
+    initSignalsForm(msg.paging_s, {{ results.total }}, {{ ajax ? 1 : 0 }});
 </script>
 {% endblock %}

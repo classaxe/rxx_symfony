@@ -1,4 +1,4 @@
-function initSignalsForm(pagingMsg, resultsCount) {
+function initSignalsForm(pagingMsg, resultsCount, forAjax) {
     $(document).ready( function() {
         setFormPagingActions();
 
@@ -29,15 +29,20 @@ function initSignalsForm(pagingMsg, resultsCount) {
         setFormResetAction('signals');
         setColumnSortActions();
         setColumnSortedClass();
-        setExternalLinks();
 
         setFormPagingStatus(pagingMsg, resultsCount);
         setSignalActions();
-        scrollToResults();
 
         setFocusOnCall();
 
+        if (forAjax) {
+            return;
+        }
+
+        setExternalLinks();
+        scrollToResults();
         RT.init($('#wide'), $('#narrow'));
+
     });
 }
 
