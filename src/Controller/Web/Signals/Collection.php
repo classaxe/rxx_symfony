@@ -195,6 +195,9 @@ class Collection extends Base
             $response->headers->set('Content-Disposition',"attachment;filename={$system}_signals.csv");
             return $response;
         }
+        if (isset($args['show']) && $args['show'] === 'json') {
+            return $this->json($signals);
+        }
         if (isset($args['show']) && $args['show'] === 'kml') {
             $response = $this->render("signals/export/signals.kml.twig", $this->getMergedParameters($parameters));
             $response->headers->set('Content-Type', 'application/vnd.google-earth.kml+xml');
@@ -241,7 +244,7 @@ class Collection extends Base
         $this->setValueFromRequest($args, $request, 'range_max');
         $this->setValueFromRequest($args, $request, 'range_units', ['km', 'mi']);
 
-        $this->setValueFromRequest($args, $request, 'show', ['csv', 'kml', 'list', 'map', 'pskov', 'txt'], 'a');
+        $this->setValueFromRequest($args, $request, 'show', ['csv', 'json', 'kml', 'list', 'map', 'pskov', 'txt'], 'a');
         $this->setValueFromRequest($args, $request, 'paper', ['a4', 'a4_l', 'lgl', 'lgl_l', 'ltr', 'ltr_l'], 'a');
 
     }
