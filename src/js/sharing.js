@@ -147,12 +147,17 @@ function shareSignals() {
     var dialog = $('#dialog');
     dialog
         .html(
-            '<p>' + msg.share.signals.text1 +'<br>' + msg.share.signals.text2 +'</p>' +
+            '<p style="margin:0">' + msg.share.signals.text1 +'<br>' + msg.share.signals.text2 +'</p>' +
             '<ul>' +
             '<li><a style="color:#0000ff" href="' + url + '&show=list">' + msg.share.signals.links.list + '</a></li>' +
             '<li><a style="color:#0000ff" href="' + url + '&show=seeklist">' + msg.share.signals.links.seeklist + '</a></li>' +
             '<li><a style="color:#0000ff" href="' + url + '&show=map">' + msg.share.signals.links.map + '</a></li>' +
-            '<li><a style="color:#0000ff" href="' + url + '&show=csv">' + msg.share.signals.links.export + '</a></li>' +
+            '</ul>' +
+            '<p style="margin:0"><strong>' + msg.share.signals.links.export + '</strong></p>' +
+            '<ul style="margin-bottom:0">' +
+            '<li><a style="color:#0000ff" href="' + url + '&show=csv">signals.csv</a></li>' +
+            '<li><a style="color:#0000ff" href="' + url + '&show=kml">signals.kml</a></li>' +
+            '<li><a style="color:#0000ff" href="' + url + '&show=txt">signals.txt</a></li>' +
             '</ul>')
         .dialog({
             buttons: [{

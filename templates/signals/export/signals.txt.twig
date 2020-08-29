@@ -1,6 +1,4 @@
 {{ mode }}
-DT - {% trans %}Logged between 10am and 2pm local time{% endtrans %}
-
 ----------------------------------------------------------------------------------------------------------------
 KHz      ID         Type         Logs Latest       PWR GSQ    SP ITU Location
 ----------------------------------------------------------------------------------------------------------------
@@ -10,11 +8,11 @@ KHz      ID         Type         Logs Latest       PWR GSQ    SP ITU Location
     "% -10s" | format(s.call) }} {{
     "% -10s" | format( typeRepository.typeForCode(s.type)['label']|trans) }} {{
     "% 6s"   | format(s.logs) }} {{
-    "% 10s"  | format(s.lastHeard|date('Y-m-d')) }} {{
+    "% 10s"  | format(s.last_heard|date('Y-m-d')) }} {{
     "% 5s"   | format(s.pwr ? s.pwr : '') }} {{
-    "% 6s"   | format(s.gsq) }} {{
-    "% 2s"   | format(s.sp) }} {{
-    "% 3s"   | format(s.itu) }} {{
-    s.qth|raw
+    "% 6s"   | format(s.GSQ) }} {{
+    "% 2s"   | format(s.SP) }} {{
+    "% 3s"   | format(s.ITU) }} {{
+    s.QTH|raw
 }}
 {% endfor %}

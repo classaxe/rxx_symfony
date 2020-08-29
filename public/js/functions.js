@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.19.4
- * Date:       2020-08-20
+ * Version:    2.20.2
+ * Date:       2020-08-29
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
  */
@@ -2015,12 +2015,17 @@ function shareSignals() {
     var dialog = $('#dialog');
     dialog
         .html(
-            '<p>' + msg.share.signals.text1 +'<br>' + msg.share.signals.text2 +'</p>' +
+            '<p style="margin:0">' + msg.share.signals.text1 +'<br>' + msg.share.signals.text2 +'</p>' +
             '<ul>' +
             '<li><a style="color:#0000ff" href="' + url + '&show=list">' + msg.share.signals.links.list + '</a></li>' +
             '<li><a style="color:#0000ff" href="' + url + '&show=seeklist">' + msg.share.signals.links.seeklist + '</a></li>' +
             '<li><a style="color:#0000ff" href="' + url + '&show=map">' + msg.share.signals.links.map + '</a></li>' +
-            '<li><a style="color:#0000ff" href="' + url + '&show=csv">' + msg.share.signals.links.export + '</a></li>' +
+            '</ul>' +
+            '<p style="margin:0"><strong>' + msg.share.signals.links.export + '</strong></p>' +
+            '<ul style="margin-bottom:0">' +
+            '<li><a style="color:#0000ff" href="' + url + '&show=csv">signals.csv</a></li>' +
+            '<li><a style="color:#0000ff" href="' + url + '&show=kml">signals.kml</a></li>' +
+            '<li><a style="color:#0000ff" href="' + url + '&show=txt">signals.txt</a></li>' +
             '</ul>')
         .dialog({
             buttons: [{
@@ -2412,13 +2417,22 @@ function initSignalsForm(pagingMsg, resultsCount) {
 function setSignalActions() {
     $('#btn_csv_all').click(function () {
         if (confirm(
-                msg.export
-                    .replace(':system', system.toUpperCase())
-                    .replace(':format', '.csv') +
-                "\n" + msg.export2
-            )
-        ) {
+            msg.export
+                .replace(':system', system.toUpperCase())
+                .replace(':format', '.csv') +
+            "\n" + msg.export2
+        )) {
             window.location.assign(window.location + '/export/csv' + shareableLink.getFromTypes());
+        }
+    });
+    $('#btn_kml_all').click(function () {
+        if (confirm(
+            msg.export
+                .replace(':system', system.toUpperCase())
+                .replace(':format', '.kml') +
+            "\n" + msg.export2
+        )) {
+            window.location.assign(window.location + '/export/kml' + shareableLink.getFromTypes());
         }
     });
     $('#btn_txt_all').click(function () {
@@ -2428,8 +2442,7 @@ function setSignalActions() {
                 .replace(':system', system.toUpperCase())
                 .replace(':format', '.txt') +
             "\n" + msg.export2
-        )
-        ) {
+        )) {
             window.location.assign(window.location + '/export/txt' + shareableLink.getFromTypes());
         }
     });
@@ -2439,8 +2452,7 @@ function setSignalActions() {
                 .replace(':system', system.toUpperCase())
                 .replace(':format', 'PSKOV') +
             "\n" + msg.export2
-        )
-        ) {
+        )) {
             window.location.assign(window.location + '/export/xls' + shareableLink.getFromTypes());
         }
     });
@@ -2448,6 +2460,13 @@ function setSignalActions() {
         var form_show = $('#form_show');
         var show = form_show.val();
         form_show.val('csv');
+        $('#form_submit').click();
+        form_show.val(show);
+    });
+    $('#btn_kml_fil').click(function () {
+        var form_show = $('#form_show');
+        var show = form_show.val();
+        form_show.val('kml');
         $('#form_submit').click();
         form_show.val(show);
     });

@@ -31,22 +31,22 @@
     s.call }}","{{
     typeRepository.typeForCode(s.type)['label']|trans }}","{{
     s.active ? 'Y' : 'N' }}","{{
-    s.lsb }}","{{
-    s.usb }}","{{
+    s.LSB }}","{{
+    s.USB }}","{{
     s.sec }}","{{
     s.format|raw }}","{{
-    s.qth|raw }}","{{
-    s.sp }}","{{
-    s.itu }}","{{
+    s.QTH|raw }}","{{
+    s.SP }}","{{
+    s.ITU }}","{{
     s.region }}","{{
-    s.gsq }}","{{
+    s.GSQ }}","{{
     s.lat }}","{{
     s.lon }}","{{
     s.pwr ? s.pwr : '' }}","{{
     s.notes|raw }}","{{
-    s.heardIn }}","{{
+    s.heard_in }}","{{
     s.logs }}","{{
-    s.firstHeard|date('Y-m-d') }}","{{
-    s.lastHeard|date('Y-m-d') }}"{% if args.personalise is defined and args.personalise %},"{{ s.range_km }}","{{ s.range_mi }}","{{ s.range_deg }}"{% endif %}
+    s.first_heard|date('Y-m-d') }}","{{
+    s.last_heard|date('Y-m-d') }}"{% if args.personalise is defined and args.personalise %},"{{ s.range_km }}","{{ s.range_mi }}","{{ s.range_deg }}"{% endif %}
 
 {% endfor %}

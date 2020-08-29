@@ -2,7 +2,6 @@
 namespace App\Controller\Web\Signals\Export;
 
 use App\Controller\Web\Base as Base;
-use App\Entity\Signal as SignalEntity;
 
 use DateTime;
 use Exception;
@@ -37,6 +36,29 @@ class Export extends Base
         Request $request
     ) {
         return $this->export($_locale, $system, 'csv', $request);
+    }
+
+    /**
+     * @Route(
+     *     "/{_locale}/{system}/signals/export/kml",
+     *     requirements={
+     *        "_locale": "de|en|es|fr",
+     *        "system": "reu|rna|rww"
+     *     },
+     *     name="signals_export_kml"
+     * )
+     * @param $_locale
+     * @param $system
+     * @param Request $request
+     * @return Response
+     * @throws Exception
+     */
+    public function kml(
+        $_locale,
+        $system,
+        Request $request
+    ) {
+        return $this->export($_locale, $system, 'kml', $request);
     }
 
     /**
@@ -114,9 +136,6 @@ class Export extends Base
         foreach ($signals as $signal) {
             $signal['first_heard'] =    $signal['first_heard'] ? new DateTime($signal['first_heard']) : null;
             $signal['last_heard'] =     $signal['last_heard'] ? new DateTime($signal['last_heard']) : null;
-            $s = new SignalEntity;
-            $s->loadFromArray($signal);
-            $signalEntities[] = $s;
             $signalTypes[] = $signal['type'];
         }
         $types = [];
@@ -128,8 +147,9 @@ class Export extends Base
             'args' =>               $args,
             'columns' =>            $this->signalRepository->getColumns('signals'),
             'mode' =>               $this->i18n('Signals'),
-            'signals' =>            $signalEntities,
+            'signals' =>            $signals,
             'system' =>             $system,
+            'title' =>              $this->i18n('Signals'),
             'types' =>              $types,
             'typeRepository' =>     $this->typeRepository
         ];
@@ -138,6 +158,11 @@ class Export extends Base
                 $type = 'text/plain';
                 $name = "{$system}_signals.csv";
                 $response = $this->render("signals/export/signals.csv.twig", $parameters);
+                break;
+            case 'kml':
+                $type = 'application/vnd.google-earth.kml+xml';
+                $name = "{$system}_signals.kml";
+                $response = $this->render("signals/export/signals.kml.twig", $parameters);
                 break;
             case 'txt':
                 $type = 'text/plain';

@@ -3847,10 +3847,6 @@
         <source>SP</source>
         <target>__SP</target>
       </trans-unit>
-      <trans-unit id="14VVxI1" resname="Export as %s">
-        <source>Export as %s</source>
-        <target>__Export as %s</target>
-      </trans-unit>
       <trans-unit id="0hlucmZ" resname="Number of DGPS stations received">
         <source>Number of DGPS stations received</source>
         <target>__Number of DGPS stations received</target>
@@ -4070,10 +4066,6 @@
       <trans-unit id="o8gG4Et" resname="&lt;b&gt;Right-click&lt;/b&gt; to copy link address.">
         <source>&lt;b&gt;Right-click&lt;/b&gt; to copy link address.</source>
         <target><![CDATA[__<b>Right-click</b> to copy link address.]]></target>
-      </trans-unit>
-      <trans-unit id="xgw8OZd" resname="Export as .csv">
-        <source>Export as .csv</source>
-        <target>__Export as .csv</target>
       </trans-unit>
       <trans-unit id="5jJF.l3" resname="Has Logs">
         <source>Has Logs</source>

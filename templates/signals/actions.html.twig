@@ -2,12 +2,14 @@
     <div class="frame clearfix">
         <div><strong>{% trans %}Matched{% endtrans %}:</strong>
             <a id="btn_csv_fil" title="{% trans %}Export Matched Results{% endtrans %}"><span class='ui-icon ui-icon-document'></span>.csv</a>
+            <a id="btn_kml_fil" title="{% trans %}Export Matched Results{% endtrans %}"><span class='ui-icon ui-icon-document'></span>.kml</a>
             <a id="btn_txt_fil" title="{% trans %}Export Matched Results{% endtrans %}"><span class='ui-icon ui-icon-document'></span>.txt</a>
         </div>
         <div>
             <strong>{% trans %}All{% endtrans %}:</strong>
-            <a id="btn_txt_all" title="{% trans with { '%SYSTEM%' : system|upper } %}Export Entire %SYSTEM% Database{% endtrans %}"><span class='ui-icon ui-icon-document'></span>.txt</a>
             <a id="btn_csv_all" title="{% trans with { '%SYSTEM%' : system|upper } %}Export Entire %SYSTEM% Database{% endtrans %}"><span class='ui-icon ui-icon-document'></span>.csv</a>
+            <a id="btn_kml_all" title="{% trans with { '%SYSTEM%' : system|upper } %}Export Entire %SYSTEM% Database{% endtrans %}"><span class='ui-icon ui-icon-document'></span>.kml</a>
+            <a id="btn_txt_all" title="{% trans with { '%SYSTEM%' : system|upper } %}Export Entire %SYSTEM% Database{% endtrans %}"><span class='ui-icon ui-icon-document'></span>.txt</a>
             <a id="btn_xls_all" title="{% trans with { '%SYSTEM%' : system|upper } %}Export Entire %SYSTEM% Database{% endtrans %}"><span class='ui-icon ui-icon-document'></span>PSKOV</a>
         </div>
         <div>
