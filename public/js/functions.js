@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.20.4
- * Date:       2020-08-29
+ * Version:    2.20.5
+ * Date:       2020-09-05
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
  */
@@ -2591,8 +2591,8 @@ var CONVERT = {
     dms_deg: function(lat_dd_mm_ss, lon_dd_mm_ss) {
         var a, dec_lat, dec_lon, deg, hem, min, rexp_lat, rexp_lon, result, sec
 
-        rexp_lat =  /([0-9]+)[^0-9]*([0-9]+)[^0-9]*([0-9]+)*[^0-9]*([NS])*/i;
-        rexp_lon =  /([0-9]+)[^0-9]*([0-9]+)[^0-9]*([0-9]+)*[^0-9]*([EW])*/i;
+        rexp_lat =  /([0-9]+)[^0-9]([0-9]+)[^0-9]([0-9]+)[^0-9]([NS])/i;
+        rexp_lon =  /([0-9]+)[^0-9]([0-9]+)[^0-9]([0-9]+)[^0-9]([EW])/i;
 
         a =         lat_dd_mm_ss.match(rexp_lat);
         deg =       parseFloat(a[1]);

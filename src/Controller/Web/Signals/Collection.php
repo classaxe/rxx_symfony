@@ -37,6 +37,10 @@ class Collection extends Base
         Request $request,
         Form $form
     ) {
+        /* Benchmarks:
+            REU - list all NDBs (no ajax):   26.6MB and 84 seconds
+            REU - list all NDBs (with ajax):  6.4MB and 18 seconds
+        */
         $isAdmin = $this->parameters['isAdmin'];
         $ajax = false;
         $args = [
