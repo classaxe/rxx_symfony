@@ -202,7 +202,10 @@ class Collection extends Base
             return $response;
         }
         if (isset($args['show']) && $args['show'] === 'json') {
-            return $this->json($signals);
+            return $this->json([
+                'results' => $parameters['results'],
+                'signals' => $signals
+            ]);
         }
         if (isset($args['show']) && $args['show'] === 'kml') {
             $response = $this->render("signals/export/signals.kml.twig", $this->getMergedParameters($parameters));

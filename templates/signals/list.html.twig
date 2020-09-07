@@ -92,20 +92,29 @@ $(document).ready( function() {
     var url;
     url = shareableLink.signalsUrl() + '&show=json';
     $.get(url, function(data) {
-        var admin, c, cssclass, html, i, id, j, key, link_li, link_lo, link_s, offsets, row, rows, tde, tds, value;
+        var admin, c, cssclass, html, i, id, j, key, link_li, link_lo, link_s, offsets, row, rows, s, tde, tds, types, value;
         admin = {{ isAdmin ? 1 : 0 }};
         html = []
         link_s =    '{{ url('signal', { 'system' : system, 'id' : '*' }) }}';
         link_li =   '{{ url('signal_listeners', { 'system' : system, 'id' : '*' }) }}';
         link_lo =   '{{ url('signal_logs', { 'system' : system, 'id' : '*' }) }}';
         offsets =   '{{ args.offsets }}';
-        for (i=0; i<data.length; i++) {
-            row = "<tr>";
-            for (j=0; j<columns.length; j++) {
+        types = {
+            {% for key, type in types %}{{ key }} : { classname: 'type_{{ type.class|lower }}', title: '{{ type.title|trans }}' }{% if not loop.last %},
+            {% endif %}{% endfor %}
+
+        }
+        for (i = 0; i<data.signals.length; i++) {
+            s = data.signals[i];
+            row = '<tr class="' +
+                (s.active === '0' ? 'inactive ' : '') + types[s.type].classname +
+                {% if (args.personalise)%}(s.personalise ? '' : 'un') + 'logged'{% endif %}'"' +
+                ' title="' + types[s.type].title + (s.active === '0' ? ' {% trans %}(Inactive){% endtrans %}' : '' ) + '">';
+            for (j = 0; j<columns.length; j++) {
                 c = columns[j].split('|');
                 key = c[0];
-                value = data[i][key];
-                id = data[i]['ID'];
+                value = s[key];
+                id = s['ID'];
                 tds = '<td' + (c[2] ? ' class="' + c[2] + '"' : '') + '>';
                 tde = '</td>';
                 switch (key) {
@@ -116,7 +125,7 @@ $(document).ready( function() {
                         row += tds + (value !=='' ? '<a data-gsq="' + id + '">' + value + '</a>' : '') + tde;
                         break;
                     case 'heard_in':
-                        row += tds + data[i]['heard_in_html'] + tde;
+                        row += tds + s['heard_in_html'] + tde;
                         break;
                     case 'ITU':
                         row += tds + (value !=='' ? '<a data-set="itu">' + value + '</a>' : '') + tde;
