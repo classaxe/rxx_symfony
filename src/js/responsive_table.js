@@ -22,10 +22,13 @@ var RT = {
         }
         i = 0;
         this.source.find('tbody tr').each(function () {
-            var classname, ele = $(this), html;
+            var classname, ele = $(this), html, j;
 
             html = '<table>';
             for (j in RT.fields) {
+                if (!RT.rows[i][RT.fields[j].idx]) {
+                    continue;
+                }
                 if (!RT.rows[i][RT.fields[j].idx].l2) {
                     continue;
                 }
@@ -51,6 +54,9 @@ var RT = {
         for (i in this.rows) {
             html += '<table class="responsive"><tbody>\n';
             for (j in this.fields) {
+                if (!this.rows[i][this.fields[j].idx]) {
+                    continue;
+                }
                 if ('' === this.rows[i][this.fields[j].idx].html) {
                     continue;
                 }

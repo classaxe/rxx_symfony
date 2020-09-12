@@ -42,7 +42,7 @@ class Collection extends Base
             REU - list all NDBs (with ajax):  6.4MB and 18 seconds
         */
         $isAdmin = $this->parameters['isAdmin'];
-        $ajax = false;
+        $ajax = true;
         $args = [
             'admin_mode' =>     $_REQUEST['form']['admin_mode'] ?? 0,
             'isAdmin' =>        $isAdmin,

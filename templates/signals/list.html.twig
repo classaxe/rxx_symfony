@@ -92,7 +92,7 @@ $(document).ready( function() {
     var url;
     url = shareableLink.signalsUrl() + '&show=json';
     $.get(url, function(data) {
-        var admin, c, cssclass, html, i, id, j, key, link_li, link_lo, link_s, offsets, row, rows, s, tde, tds, types, value;
+        var admin, c, html, i, id, j, key, link_li, link_lo, link_s, offsets, row, s, tde, tds, types, value;
         admin = {{ isAdmin ? 1 : 0 }};
         html = []
         link_s =    '{{ url('signal', { 'system' : system, 'id' : '*' }) }}';
@@ -108,8 +108,10 @@ $(document).ready( function() {
             s = data.signals[i];
             row = '<tr class="' +
                 (s.active === '0' ? 'inactive ' : '') + types[s.type].classname +
-                {% if (args.personalise)%}(s.personalise ? '' : 'un') + 'logged'{% endif %}'"' +
-                ' title="' + types[s.type].title + (s.active === '0' ? ' {% trans %}(Inactive){% endtrans %}' : '' ) + '">';
+                {% if (args.personalise)%}(s.personalise ? '' : 'un') + 'logged' + {% endif %}'"' +
+                ' title="' + types[s.type].title + (s.active === '0' ? ' {% trans %}(Inactive){% endtrans %}' : '' ) + '">'{% if args.personalise %} +
+                '<th title="{% trans %}Logged by Personalised Listener{% endtrans %}" class="rowspan2">' + (s.personalise === '1' ? '&#x2714;' : '&nbsp;') + '</th>'
+                {% endif %};
             for (j = 0; j<columns.length; j++) {
                 c = columns[j].split('|');
                 key = c[0];
