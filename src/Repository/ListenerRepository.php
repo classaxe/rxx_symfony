@@ -359,8 +359,8 @@ class ListenerRepository extends ServiceEntityRepository
 
         $stats = [
             'focus' =>      ($region ? $this->regionRepository->get($region)->getName() : ""),
-            'locations' =>  $listeners,
-            'logs' =>       $loggings
+            'locations' =>  (int) $listeners,
+            'logs' =>       (int) $loggings
         ];
         if ($loggings) {
             $stats['first'] =   $dates['first'];

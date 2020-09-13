@@ -7,8 +7,7 @@
         <div class="text-center center-block">
             {% include 'status.html.twig' %}
             <h1>{{ mode }}</h1>
-            {% include 'signals/tips.html.twig' %}
-            {% include 'signals/refs.html.twig' %}
+            {% include 'signals/tipsRefsStats.html.twig' %}
             {% include 'signals/form.html.twig' %}
         </div>
 
@@ -25,5 +24,21 @@
      </div>
 <script>
     initSignalsForm(msg.paging_s, {{ results.total }}, {{ ajax ? 1 : 0 }});
+    var stats = {};
+    $(document).ready( function() {
+        url = base_url + 'signals/stats?rww_focus=' + $('#form_rww_focus').val();
+        $.get(url, function(data) {
+            stats = data;
+            $.each(data.signals, function(key, value){
+                $('#stats_' + key).text(value.numberFormat());
+            })
+            $('#stats_focus').text(data.listeners.focus);
+            $('#stats_locations').text(data.listeners.locations.numberFormat());
+            $('#stats_logs').text(data.listeners.logs.numberFormat());
+            $('#stats_first').text(data.listeners.first);
+            $('#stats_last').text(data.listeners.last);
+            $('#seeklist_last').text(data.listeners.last);
+        });
+    })
 </script>
 {% endblock %}

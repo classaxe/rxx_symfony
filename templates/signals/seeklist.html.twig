@@ -43,7 +43,11 @@
                         {% endif %}
                         </div>
                         <div class="small-6 text-right">
-                            {{ 'Updated %s'|trans|format(stats['listeners']['last']) }}
+                            {% trans with {
+                                '[S]'  : '<span id="seeklist_last"></span>',
+                                '%SYSTEM%' : system|upper
+                                }
+                            %}Updated [S]{% endtrans %}
                         </div>
                     </div>
                     <div class="row">

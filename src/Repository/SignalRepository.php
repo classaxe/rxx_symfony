@@ -934,7 +934,7 @@ EOD;
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $out = [];
         foreach ($results as $r) {
-            $out[$r['stat']] = $r['count'];
+            $out[$r['stat']] = (int) $r['count'];
         }
         return [ 'signals' => $out ];
     }

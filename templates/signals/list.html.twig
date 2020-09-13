@@ -77,6 +77,8 @@
                     {% endif %}{% endfor %}
             </tr>
         {% endfor %}
+{% else %}
+    <tr><th colspan="{{ columns|length }}">{% trans %}Loading... Please wait{% endtrans %}</th></tr>
 {% endif %}
         </tbody>
     </table>
@@ -88,22 +90,26 @@ var columns = [
     '{{ key }}|{{ column.highlight ? 1 : 0 }}|{{ column.td_class }}',
 {% endif %}{% endfor %}
 ];
+var types = {
+{% for key, type in types %}{{ key }} : { classname: 'type_{{ type.class|lower }}', title: '{{ type.title|trans }}' }{% if not loop.last %},
+{% endif %}{% endfor %}
+}
 $(document).ready( function() {
     var url;
     url = shareableLink.signalsUrl() + '&show=json';
     $.get(url, function(data) {
-        var admin, c, html, i, id, j, key, link_li, link_lo, link_s, offsets, row, s, tde, tds, types, value;
+        var admin, c, html, i, id, j, key, link_li, link_lo, link_s, offsets, row, s, tde, tds, value;
         admin = {{ isAdmin ? 1 : 0 }};
         html = []
         link_s =    '{{ url('signal', { 'system' : system, 'id' : '*' }) }}';
         link_li =   '{{ url('signal_listeners', { 'system' : system, 'id' : '*' }) }}';
         link_lo =   '{{ url('signal_logs', { 'system' : system, 'id' : '*' }) }}';
         offsets =   '{{ args.offsets }}';
-        types = {
-            {% for key, type in types %}{{ key }} : { classname: 'type_{{ type.class|lower }}', title: '{{ type.title|trans }}' }{% if not loop.last %},
-            {% endif %}{% endfor %}
 
+        for (i = 0; i<data.types.length; i++) {
+            $('#ref_type_' + data.types[i]).show();
         }
+
         for (i = 0; i<data.signals.length; i++) {
             s = data.signals[i];
             row = '<tr class="' +

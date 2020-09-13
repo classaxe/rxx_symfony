@@ -134,20 +134,13 @@ class Collection extends Base
             $box =      [[$lat_min, $lon_min], [$lat_max, $lon_max]];
             $center =   [$lat_cen, $lon_cen];
         }
-        $signalTypes = [];
         foreach ($signals as $signal) {
             if ('seeklist' !== $args['show']) {
                 $signal['first_heard'] =    $signal['first_heard'] ? new DateTime($signal['first_heard']) : null;
                 $signal['last_heard'] =     $signal['last_heard'] ? new DateTime($signal['last_heard']) : null;
             }
-            $signalTypes[] = $signal['type'];
         }
 
-        $types = [];
-        foreach ($signalTypes as $type) {
-            $types[$type] = $this->typeRepository->getTypeForCode($type);
-        }
-        uasort($types, [$this->typeRepository, 'sortByOrder']);
         $expanded = [];
         foreach ($this->signalRepository::collapsable_sections as $section => $fields) {
             $expanded[$section] = 0;
@@ -158,7 +151,6 @@ class Collection extends Base
                 }
             }
         }
-
         $parameters = [
             '_locale' =>            $_locale,
             'ajax' =>               $ajax,
@@ -182,9 +174,6 @@ class Collection extends Base
             'seeklistColumns' =>    $seeklistColumns,
             'seeklistStats' =>      $seeklistStats,
             'signals' =>            $signals,
-            'stats' =>
-                $this->signalRepository->getStats() +
-                $this->listenerRepository->getStats($system, $args['rww_focus']),
             'system' =>             $system,
             'sortbyOptions' =>      $this->signalRepository->getColumns('signals'),
             'tabs' => [
@@ -192,7 +181,7 @@ class Collection extends Base
                 [ 'seeklist', 'Seeklist'],
                 [ 'map', 'Map' ],
             ],
-            'types' =>              $types,
+            'types' =>              $this->typeRepository->getAll(),
             'typeRepository' =>     $this->typeRepository
         ];
         if (isset($args['show']) && $args['show'] === 'csv') {
@@ -203,8 +192,9 @@ class Collection extends Base
         }
         if (isset($args['show']) && $args['show'] === 'json') {
             return $this->json([
-                'results' => $parameters['results'],
-                'signals' => $signals
+                'results' =>    $parameters['results'],
+                'signals' =>    $signals,
+                'types' =>      $args['signalTypes']
             ]);
         }
         if (isset($args['show']) && $args['show'] === 'kml') {
@@ -220,6 +210,32 @@ class Collection extends Base
             return $response;
         }
         return $this->render('signals/index.html.twig', $this->getMergedParameters($parameters));
+    }
+
+    /**
+     * @Route(
+     *     "/{_locale}/{system}/signals/stats",
+     *     requirements={
+     *        "_locale": "de|en|es|fr",
+     *        "system": "reu|rna|rww"
+     *     },
+     *     name="signals_stats"
+     * )
+     * @param $system
+     * @param Request $request
+     * @throws Exception
+     */
+    public function stats(
+        $system,
+        Request $request
+    ) {
+        $args = [
+            'rww_focus' =>      '',
+            'system' =>         $system
+        ];
+        $this->setRwwFocusFromRequest($args, $request);
+        $stats = $this->signalRepository->getStats() + $this->listenerRepository->getStats($system, $args['rww_focus']);
+        return $this->json($stats);
     }
 
     private function setArgsFromRequest(&$args, $request)
@@ -255,6 +271,5 @@ class Collection extends Base
 
         $this->setValueFromRequest($args, $request, 'show', ['csv', 'json', 'kml', 'list', 'map', 'pskov', 'txt'], 'a');
         $this->setValueFromRequest($args, $request, 'paper', ['a4', 'a4_l', 'lgl', 'lgl_l', 'ltr', 'ltr_l'], 'a');
-
     }
 }
