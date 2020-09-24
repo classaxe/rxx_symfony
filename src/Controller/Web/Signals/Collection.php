@@ -108,9 +108,6 @@ class Collection extends Base
         }
         $args['isAdmin'] =      $isAdmin;
         $args['signalTypes'] =  $this->typeRepository->getSignalTypesSearched($args['type']);
-        if ($isAdmin && $args['admin_mode'] !== '') {
-            $args['show'] = 'list';
-        }
         $paper =                isset($args['paper']) ? $this->paperRepository->getSpecifications($args['paper']) : false;
         $signals =              $this->signalRepository->getFilteredSignals($system, $args);
         $total =                $this->signalRepository->getFilteredSignalsCount($system, $args);
