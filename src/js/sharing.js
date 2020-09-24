@@ -111,7 +111,9 @@ var shareableLink = {
             this.getFromField('range_max') +
             (this.getFromField('range_gsq') ? this.getFromRadioGroup('range_units') : '') +
 
-            this.getFromRadioGroup('paper', [ 'a4', 'a4_l', 'lgl', 'lgl_l', 'ltr', 'ltr_l' ]);
+            this.getFromRadioGroup('paper', [ 'a4', 'a4_l', 'lgl', 'lgl_l', 'ltr', 'ltr_l' ]) +
+            this.getFromField('admin_mode');
+
     }
 };
 
@@ -122,7 +124,7 @@ function shareListeners() {
         .html(
             '<p>' + msg.share.listeners.text1 +'<br>' + msg.share.listeners.text2 +'</p>' +
             '<ul>' +
-            '<li><a style="color:#0000ff" href="' + url + '&show=list">' + msg.share.listeners.links.list + '</a></li>' +
+            '<li><a style="color:#0000ff" href="' + url + '">' + msg.share.listeners.links.list + '</a></li>' +
             '<li><a style="color:#0000ff" href="' + url + '&show=map">' + msg.share.listeners.links.map + '</a></li>' +
             '</ul>')
         .dialog({
@@ -149,7 +151,7 @@ function shareSignals() {
         .html(
             '<p style="margin:0">' + msg.share.signals.text1 +'<br>' + msg.share.signals.text2 +'</p>' +
             '<ul>' +
-            '<li><a style="color:#0000ff" href="' + url + '&show=list">' + msg.share.signals.links.list + '</a></li>' +
+            '<li><a style="color:#0000ff" href="' + url + '">' + msg.share.signals.links.list + '</a></li>' +
             '<li><a style="color:#0000ff" href="' + url + '&show=seeklist">' + msg.share.signals.links.seeklist + '</a></li>' +
             '<li><a style="color:#0000ff" href="' + url + '&show=map">' + msg.share.signals.links.map + '</a></li>' +
             '</ul>' +

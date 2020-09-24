@@ -43,7 +43,7 @@ class Collection extends Base
         $isAdmin = $this->parameters['isAdmin'];
         $ajax = true;
         $args = [
-            'admin_mode' =>     $_REQUEST['form']['admin_mode'] ?? 0,
+            'admin_mode' =>     0,
             'isAdmin' =>        $isAdmin,
             'sortby' =>         '',
             'za' =>             '',
@@ -264,6 +264,7 @@ class Collection extends Base
         $this->setValueFromRequest($args, $request, 'range_min');
         $this->setValueFromRequest($args, $request, 'range_max');
         $this->setValueFromRequest($args, $request, 'range_units', ['km', 'mi']);
+        $this->setValueFromRequest($args, $request, 'admin_mode', ['0', '1', '2']);
 
         $this->setValueFromRequest($args, $request, 'show', ['csv', 'json', 'kml', 'list', 'map', 'pskov', 'txt'], 'a');
         $this->setValueFromRequest($args, $request, 'paper', ['a4', 'a4_l', 'lgl', 'lgl_l', 'ltr', 'ltr_l'], 'a');

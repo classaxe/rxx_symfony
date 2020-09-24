@@ -50,7 +50,7 @@
                         {% endif %}
                         <td {% if column.td_class %} class="{{ column.td_class }}"{% endif %}>
                             {%
-                                if (column.field == 'actions')
+                                if (column.field == 'ID')
                             %}{% if isAdmin %}<a href="{{ url('signal_delete', { 'system' : system, 'id' : signal.ID }) }}" class="delete" onclick="return confirm(msg.del_signal)">X</a>{% endif %}{%
                                 elseif (column.field == 'call')
                             %}<a href="{{ url('signal', { 'system' : system, 'id' : signal.ID }) }}" data-popup="1">{{ signal.call }}</a>{%
@@ -98,12 +98,13 @@ $(document).ready( function() {
     var url;
     url = shareableLink.signalsUrl() + '&show=json';
     $.get(url, function(data) {
-        var admin, c, html, i, id, j, key, link_li, link_lo, link_s, offsets, row, s, tde, tds, value;
+        var admin, c, html, i, id, j, key, link_d, link_li, link_lo, link_s, offsets, row, s, tde, tds, value;
         admin = {{ isAdmin ? 1 : 0 }};
         html = []
-        link_s =    '{{ url('signal', { 'system' : system, 'id' : '*' }) }}';
+        link_d =    '{{ url('signal_delete', { 'system' : system, 'id' : '*' }) }}';
         link_li =   '{{ url('signal_listeners', { 'system' : system, 'id' : '*' }) }}';
         link_lo =   '{{ url('signal_logs', { 'system' : system, 'id' : '*' }) }}';
+        link_s =    '{{ url('signal', { 'system' : system, 'id' : '*' }) }}';
         offsets =   '{{ args.offsets }}';
 
         for (i = 0; i<data.types.length; i++) {
@@ -129,8 +130,15 @@ $(document).ready( function() {
                     case 'call':
                         row += tds + '<a href="' + link_s.replace('*', id) + '" data-popup="1">' + value + '</a>' + tde;
                         break;
+                    case 'delete':
+                        row += tds + '<a href="' + link_d.replace('*', id) + '" class="delete" onclick="return confirm(msg.del_signal)">X</a>' + tde;
+                        break;
                     case 'GSQ':
                         row += tds + (value !=='' ? '<a data-gsq="' + id + '">' + value + '</a>' : '') + tde;
+                        break;
+                    case 'first_heard':
+                    case 'last_heard':
+                        row += tds + (value !== null ? value : '') + tde;
                         break;
                     case 'heard_in':
                         row += tds + s['heard_in_html'] + tde;
