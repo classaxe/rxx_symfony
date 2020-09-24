@@ -14,7 +14,6 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class Collection extends Base
 {
-
     /**
      * @Route(
      *     "/{_locale}/{system}/signals",
