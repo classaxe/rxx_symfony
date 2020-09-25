@@ -597,7 +597,35 @@ EOD;
             ($this->args['logged_last_1'] ?? false) ||
             ($this->args['logged_last_2'] ?? false)
         );
-        $this->query['select'][] = ($distinct ? 'DISTINCT ' : '') . 's.*';
+        $this->query['select'][] =
+            ($distinct ? 'DISTINCT ' : '')
+            . 's.active,'
+            . 's.type,'
+            . 's.ID,'
+            . 's.khz,'
+            . 's.call,'
+            . 's.LSB,'
+            . 's.LSB_approx,'
+            . 's.USB,'
+            . 's.USB_approx,'
+            . 's.sec,'
+            . 's.format,'
+            . 's.QTH,'
+            . 's.SP,'
+            . 's.ITU,'
+            . 's.region,'
+            . 's.GSQ,'
+            . 's.lat,'
+            . 's.lon,'
+            . 's.pwr,'
+            . 's.notes,'
+            . 's.heard_in,'
+            . 's.heard_in_html,'
+            . 's.listeners,'
+            . 's.logs,'
+            . 's.first_heard,'
+            . 's.last_heard'
+        ;
         return $this;
     }
 
