@@ -28,11 +28,14 @@ class RegionRepository extends ServiceEntityRepository
             ->getSingleResult();
     }
 
-    public function getAllOptions()
+    public function getAllOptions($withUnknown = true)
     {
         $regions = $this->getRegions();
         $out = ['(All Regions)' => ''];
         foreach ($regions as $row) {
+            if ($withUnknown === false && $row->getRegion() === 'xx') {
+                continue;
+            }
             $out[$row->getName()] = $row->getRegion();
         }
         return $out;

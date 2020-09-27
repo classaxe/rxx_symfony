@@ -198,7 +198,7 @@ class Collection extends Base
                 'rww_focus',
                 ChoiceType::class,
                 [
-                    'choices' =>        $this->regionRepository->getAllOptions(),
+                    'choices' =>        $this->regionRepository->getAllOptions(false),
                     'data' =>           $options['rww_focus'],
                     'label' =>          'RWW Focus',
                     'required' =>       false
