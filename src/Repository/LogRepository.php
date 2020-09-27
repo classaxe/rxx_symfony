@@ -164,22 +164,6 @@ EOD;
         return $qb->getQuery()->getSingleScalarResult();
     }
 
-    public function getFirstAndLastLog($system, $region = '')
-    {
-        $qb = $this
-            ->createQueryBuilder('l')
-            ->select('MIN(l.date) AS first, MAX(l.date) AS last');
-
-        $this->addFilterSystem($qb, $system);
-
-        if ($region) {
-            $qb
-                ->andWhere('(l.region = :region)')
-                ->setParameter('region', $region);
-        }
-        return $qb->getQuery()->getArrayResult()[0];
-    }
-
     private function addFilterSystem(&$qb, $system)
     {
         switch ($system) {
@@ -190,8 +174,10 @@ EOD;
                 break;
             case "rna":
                 $qb
-                    ->andWhere('(l.region = :na)')
-                    ->setParameter('na', 'na');
+                    ->andWhere('(l.region = :oc and l.heardIn = :hi) or (l.region in (:na_ca))')
+                    ->setParameter('na_ca', ['na','ca'])
+                    ->setParameter('oc', 'oc')
+                    ->setParameter('hi', 'hi');
                 break;
         }
     }

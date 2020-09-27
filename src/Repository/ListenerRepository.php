@@ -355,7 +355,7 @@ class ListenerRepository extends ServiceEntityRepository
             return [];
         }
         $loggings =     $this->logRepository->getFilteredLogsCount($system, $region);
-        $dates =        $this->logRepository->getFirstAndLastLog($system, $region);
+        $dates =        $this->getFirstAndLastLog($system, $region);
 
         $stats = [
             'focus' =>      ($region ? $this->regionRepository->get($region)->getName() : ""),
@@ -555,6 +555,22 @@ EOD;
         $this->addFilterRegion($qb, $args);
         $this->addFilterTimezone($qb, $args);
         return $qb->getQuery()->getSingleScalarResult();
+    }
+
+    public function getFirstAndLastLog($system, $region = '')
+    {
+        $qb = $this
+            ->createQueryBuilder('l')
+            ->select('MIN(l.logEarliest) AS first, MAX(l.logLatest) AS last');
+
+        $this->addFilterSystem($qb, $system);
+
+        if ($region) {
+            $qb
+                ->andWhere('(l.region = :region)')
+                ->setParameter('region', $region);
+        }
+        return $qb->getQuery()->getArrayResult()[0];
     }
 
     public function getLatestLoggedListeners($system, $limit = 25)

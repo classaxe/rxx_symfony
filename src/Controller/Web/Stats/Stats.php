@@ -122,7 +122,7 @@ class Stats extends Base
         $system,
         $region = ''
     ) {
-        $dates =        $this->logRepository->getFirstAndLastLog($system, $region);
+        $dates =        $this->listenerRepository->getFirstAndLastLog($system, $region);
         $textResponse = new Response($dates[ 'first' ] , 200);
         $textResponse->headers->set('Content-Type', 'text/plain');
 
@@ -147,7 +147,7 @@ class Stats extends Base
         $system,
         $region = ''
     ) {
-        $dates =        $this->logRepository->getFirstAndLastLog($system, $region);
+        $dates =        $this->listenerRepository->getFirstAndLastLog($system, $region);
         $textResponse = new Response($dates[ 'last' ] , 200);
         $textResponse->headers->set('Content-Type', 'text/plain');
 
