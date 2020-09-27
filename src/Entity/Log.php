@@ -17,7 +17,8 @@ use Doctrine\ORM\Mapping as ORM;
  *          @ORM\Index(name="idx_heard_in", columns={"heard_in"}),
  *          @ORM\Index(name="idx_listenerID", columns={"listenerID"}),
  *          @ORM\Index(name="idx_signalID", columns={"signalID"}),
- *          @ORM\Index(name="idx_daytime", columns={"daytime"})
+ *          @ORM\Index(name="idx_daytime", columns={"daytime"}),
+ *          @ORM\Index(name="idx_region", columns={"region"})
  *     }
  * )
  * @ORM\Entity
