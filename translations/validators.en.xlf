@@ -385,6 +385,10 @@
         <source>Each element of this collection should satisfy its own set of constraints.</source>
         <target>Each element of this collection should satisfy its own set of constraints.</target>
       </trans-unit>
+      <trans-unit id="lrbaa8g" resname="This value is not a valid International Securities Identification Number (ISIN).">
+        <source>This value is not a valid International Securities Identification Number (ISIN).</source>
+        <target>This value is not a valid International Securities Identification Number (ISIN).</target>
+      </trans-unit>
       <trans-unit id=".SEaaBa" resname="This form should not contain extra fields.">
         <source>This form should not contain extra fields.</source>
         <target>This form should not contain extra fields.</target>
