@@ -108,10 +108,7 @@ class Collection extends Base
         $args['isAdmin'] =      $isAdmin;
         $args['signalTypes'] =  $this->typeRepository->getSignalTypesSearched($args['type']);
         $paper =                isset($args['paper']) ? $this->paperRepository->getSpecifications($args['paper']) : false;
-        $signals = [];
-        if ($ajax && 'list' !== $args['show']) {
-            $signals =              $this->signalRepository->getFilteredSignals($system, $args);
-        }
+        $signals =              $this->signalRepository->getFilteredSignals($system, $args);
         $total =                $this->signalRepository->getFilteredSignalsCount($system, $args);
         $seeklistStats =        [];
         $seeklistColumns =      [];
