@@ -52,7 +52,7 @@ class SystemRepository
                 ],
                 [
                     'email' =>      'ndb.rna.logs@gmail.com',
-                    'name' =>       'Brandon Jordan - KM4PBQ',
+                    'name' =>       'Brandon Jordan - K2SWL',
                     'role' =>       'NDBs and Ham Beacons',
                     'show_email' => true
                 ],
@@ -86,7 +86,7 @@ class SystemRepository
                 ],
                 [
                     'email' =>      'ndb.rna.logs@gmail.com',
-                    'name' =>       'Brandon Jordan - KM4PBQ',
+                    'name' =>       'Brandon Jordan - K2SWL',
                     'role' =>       'Ham Beacons',
                     'show_email' => true
                 ],
@@ -114,7 +114,7 @@ class SystemRepository
                 ],
                 [
                     'email' =>      'ndb.rna.logs@gmail.com',
-                    'name' =>       'Brandon Jordan - KM4PBQ',
+                    'name' =>       'Brandon Jordan - K2SWL',
                     'role' =>       'NDBs and Ham Beacons',
                     'show_email' => true
                 ],
