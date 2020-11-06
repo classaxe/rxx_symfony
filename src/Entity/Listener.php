@@ -455,7 +455,7 @@ class Listener
      */
     public function getEquipment(): ?string
     {
-        return $this->equipment;
+        return html_entity_decode($this->equipment);
     }
 
     /**
@@ -464,7 +464,7 @@ class Listener
      */
     public function setEquipment(?string $equipment): self
     {
-        $this->equipment = $equipment;
+        $this->equipment = htmlentities($equipment);
 
         return $this;
     }
@@ -645,7 +645,7 @@ class Listener
      */
     public function getName(): ?string
     {
-        return $this->name;
+        return html_entity_decode($this->name);
     }
 
     /**
@@ -654,7 +654,7 @@ class Listener
      */
     public function setName(?string $name): self
     {
-        $this->name = $name;
+        $this->name = htmlentities($name);
 
         return $this;
     }
@@ -664,7 +664,7 @@ class Listener
      */
     public function getNotes(): ?string
     {
-        return $this->notes;
+        return html_entity_decode($this->notes);
     }
 
     /**
@@ -673,7 +673,7 @@ class Listener
      */
     public function setNotes(?string $notes): self
     {
-        $this->notes = $notes;
+        $this->notes = htmlentities($notes);
 
         return $this;
     }
@@ -702,7 +702,7 @@ class Listener
      */
     public function getQth(): ?string
     {
-        return $this->qth;
+        return html_entity_decode($this->qth);
     }
 
     /**
@@ -711,7 +711,7 @@ class Listener
      */
     public function setQth(?string $qth): self
     {
-        $this->qth = $qth;
+        $this->qth = htmlentities($qth);
 
         return $this;
     }

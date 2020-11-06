@@ -316,12 +316,12 @@ class Signal
 
     public function getCall(): ?string
     {
-        return $this->call;
+        return html_entity_decode($this->call);
     }
 
     public function setCall(string $call): self
     {
-        $this->call = $call;
+        $this->call = htmlentities($call);
 
         return $this;
     }
@@ -544,12 +544,12 @@ class Signal
 
     public function getQth(): ?string
     {
-        return $this->qth;
+        return html_entity_decode($this->qth);
     }
 
     public function setQth(?string $qth): self
     {
-        $this->qth = $qth;
+        $this->qth = htmlentities($qth);
 
         return $this;
     }
@@ -616,12 +616,12 @@ class Signal
 
     public function getNotes(): ?string
     {
-        return $this->notes;
+        return html_entity_decode($this->notes);
     }
 
     public function setNotes(?string $notes): self
     {
-        $this->notes = $notes;
+        $this->notes = htmlentities($notes);
 
         return $this;
     }
