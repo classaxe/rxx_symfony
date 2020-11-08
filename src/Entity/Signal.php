@@ -743,7 +743,7 @@ class Signal
      */
     public function getFormattedIdent(): ?string
     {
-        return $this->call . '-' . (float)$this->khz;
+        return html_entity_decode($this->call) . '-' . (float)$this->khz;
     }
 
     /**

@@ -80,7 +80,7 @@
                         {% endif %}
                         <div {% if not signal.active %}title="(Inactive)"{% endif %} class="clearfix sl_d{% if signal.personalise %} heard{% endif %}{% if not signal.active %} inactive{% endif %}">
                             <span>{{ signal.khz | round(3) }}</span>
-                            <span>{{ signal.call}}</span>
+                            <span>{{ signal.call|raw|unescape}}</span>
                             <em>{{ signal.personalise ? '&#9745;' : '&#9744;' }}</em>
                         </div>
                     {% endfor %}

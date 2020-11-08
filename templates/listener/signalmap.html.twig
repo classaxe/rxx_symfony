@@ -16,7 +16,7 @@ var signals = [
     { 'id':{{
         row.id }}, 'khz':{{
         row.khz }}, 'call':'{{
-        row.call }}', 'active':{{
+        row.call|raw }}', 'active':{{
         row.active ? '1' : '0' }}, 'className':'{{
         type.class|lower }} {{ row.active == '0' ? 'inactive' : 'active' }}', 'type':'{{
         type.title|trans }}{% if row.active == 0 %} {% trans %}(inactive){% endtrans %}{% endif %}', 'typeId':{{
@@ -24,7 +24,7 @@ var signals = [
         row.dxKm }}', 'mi': '{{
         row.dxMiles }}', 'pwr':'{{
         row.pwr }}', 'qth':'{{
-        row.qth }}', 'icon':'{{
+        row.qth|raw|unescape }}', 'icon':'{{
         type.class|lower }}', 'itu':'{{
         row.itu }}', 'sp':'{{
         row.sp }}', 'lat':{{
