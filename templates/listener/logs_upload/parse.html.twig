@@ -81,7 +81,7 @@
             <tr class="unknown" id="row_{{ loop.index -1 }}">
                 <th class="jump" id="jump_{{ jump_anchor }}">{% if jump_anchor > 0 %}<span class="up"></span>{% endif %}<br><span class="down"></span></th>
                 <th class="error"><span style="color:red">!</span></th>
-                <td class="txt_c text-nowrap">{% if e.YYYYMMDD == 'ERROR' %}<span style="color:red">ERROR</span>{% else %}<i>{{ e.YYYYMMDD }}</i>{% endif %}{% if o.last_heard %}<br>{{ o.last_heard }}{% endif %}</td>
+                <td class="txt_c text-nowrap">{% if e.YYYYMMDD == 'ERROR' %}<span style="color:red" title="Invalid Date">ERROR</span>{% else %}<i>{{ e.YYYYMMDD }}</i>{% endif %}{% if o.last_heard %}<br><span title="Last Heard Date">{{ o.last_heard }}</span>{% endif %}</td>
                 <td>{{ e.time }}</td>
                 <td>{{ e.daytime ? 'DT' : '' }}</td>
                 <td>{{ e.KHZ is numeric ? 0 + e.KHZ : e.KHZ }}</td>
@@ -121,7 +121,7 @@
                     <input type="checkbox" title="{% trans %}Include this log{% endtrans %}" data-idx="{{ loop.index -1 }}"
                      value="{{ loop.index -1 }}|{{ o.ID }}"{% if row_selected %} checked="checked"{% endif %}/>
                 </th>
-                <td class="txt_c text-nowrap"><i>{{ e.YYYYMMDD }}</i>{% if o.last_heard %}<br>{{ o.last_heard }}{% endif %}</td>
+                <td class="txt_c text-nowrap"><i>{{ e.YYYYMMDD }}</i>{% if o.last_heard %}<br><span title="Last Heard Date">{{ o.last_heard }}</span>{% endif %}</td>
                 <td><i>{{ e.time }}</i></td>
                 <td>{{ e.daytime ? 'DT' : '' }}</td>
                 <td>{{ 0 + o.khz }}</td>
