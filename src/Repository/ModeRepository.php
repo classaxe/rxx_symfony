@@ -72,7 +72,6 @@ class ModeRepository
                 'title' =>  'Help',
                 'url'=>     false
             ],
-/*
             'donate' => [
                 'access' => User::ALL,
                 'admin' =>  true,
@@ -81,7 +80,6 @@ class ModeRepository
                 'title' =>  'Donate',
                 'url'=>     false
             ],
-*/
         ],
         [
             'ndblistWebsite' => [
