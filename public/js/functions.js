@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.20.11
- * Date:       2020-09-24
+ * Version:    2.20.24
+ * Date:       2020-12-01
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
  */
@@ -1851,15 +1851,17 @@ var RT = {
         var idx = 0;
         this.source.find('thead tr th').each(function () {
             var header = $(this);
-            RT.fields.push({
-                idx: idx++,
-                html: header.html().trim().split('<br>')[0],
-                l2: header.hasClass('l2'),
-                rowspan2: header.hasClass('rowspan2'),
-                type: (header.hasClass('th') ? 'th' : 'td')
-            });
-            RT.classes.push(header.prop('title').trim());
-            RT.titles.push(header.prop('title').trim());
+            if (!header.hasClass('hidden')) {
+                RT.fields.push({
+                    idx: idx++,
+                    html: header.html().trim().split('<br>')[0],
+                    l2: header.hasClass('l2'),
+                    rowspan2: header.hasClass('rowspan2'),
+                    type: (header.hasClass('th') ? 'th' : 'td')
+                });
+                RT.classes.push(header.prop('title').trim());
+                RT.titles.push(header.prop('title').trim());
+            }
         });
         this.source.find('tbody tr').each(function () {
             var ele = $(this);

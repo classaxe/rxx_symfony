@@ -20,13 +20,11 @@ class Stats extends Base
      *     },
      *     name="stats_listeners"
      * )
-     * @param $_locale
      * @param $system
      * @param $region
      * @return Response
      */
     public function listeners(
-        $_locale,
         $system,
         $region = ''
     ) {
@@ -62,13 +60,11 @@ class Stats extends Base
      *     },
      *     name="stats_listeners_count"
      * )
-     * @param $_locale
      * @param $system
      * @param $region
      * @return Response
      */
     public function listeners_count(
-        $_locale,
         $system,
         $region = ''
     ) {
@@ -87,13 +83,11 @@ class Stats extends Base
      *     },
      *     name="stats_logs_count"
      * )
-     * @param $_locale
      * @param $system
      * @param $region
      * @return Response
      */
     public function logs_count(
-        $_locale,
         $system,
         $region = ''
     ) {
@@ -112,13 +106,11 @@ class Stats extends Base
      *     },
      *     name="stats_logs_first"
      * )
-     * @param $_locale
      * @param $system
      * @param $region
      * @return Response
      */
     public function logs_first(
-        $_locale,
         $system,
         $region = ''
     ) {
@@ -137,13 +129,11 @@ class Stats extends Base
      *     },
      *     name="stats_logs_last"
      * )
-     * @param $_locale
      * @param $system
      * @param $region
      * @return Response
      */
     public function logs_last(
-        $_locale,
         $system,
         $region = ''
     ) {
@@ -163,12 +153,10 @@ class Stats extends Base
      *     },
      *     name="stats_signals_count"
      * )
-     * @param $_locale
      * @param $system
      * @return Response
      */
     public function signals_count (
-        $_locale,
         $system,
         $sys
     ) {
