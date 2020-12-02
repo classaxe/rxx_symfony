@@ -703,7 +703,9 @@ function setFormTypesAllAction() {
 }
 
 function setFocusOnCall() {
-    $('#form_call').focus();
+    var f = $('#form_call');
+    f.focus();
+    f.select();
 }
 
 function strip_tags(input, allowed) {

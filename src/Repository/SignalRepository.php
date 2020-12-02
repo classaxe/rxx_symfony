@@ -378,8 +378,8 @@ class SignalRepository extends ServiceEntityRepository
 
     private function _addLimit($args)
     {
-        if ((int)$args['limit'] !== -1) {
-            $limit =    $args['limit'];
+        if (is_numeric($args['limit']) && (int)$args['limit'] !== -1) {
+            $limit =    (int)$args['limit'];
             $offset =   (int)$args['page'] * (int)$args['limit'];
             $this->query['limit'][] = "{$offset}, {$limit}";
         }

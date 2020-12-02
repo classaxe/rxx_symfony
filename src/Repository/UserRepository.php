@@ -45,13 +45,16 @@ class UserRepository extends ServiceEntityRepository
 
     public function getRecords($args)
     {
-        return $this
+        $qb = $this
             ->createQueryBuilder('u')
-            ->addOrderBy('u.' . $args['sort'], $args['order'] === 'a' ? 'ASC' : 'DESC')
-            ->setFirstResult((int)$args['page'] * (int)$args['limit'])
-            ->setMaxResults($args['limit'])
-            ->getQuery()
-            ->getArrayResult();
+            ->addOrderBy('u.' . $args['sort'], $args['order'] === 'a' ? 'ASC' : 'DESC');
+
+        if (is_numeric($args['limit']) && (int)$args['limit'] !== -1) {
+            $qb
+                ->setFirstResult((int)$args['page'] * (int)$args['limit'])
+                ->setMaxResults((int)$args['limit']);
+        }
+        return  $qb->getQuery()->getArrayResult();
     }
 
     public function logon($username, $password)

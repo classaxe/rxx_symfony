@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.20.24
- * Date:       2020-12-01
+ * Version:    2.20.26
+ * Date:       2020-12-02
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
  */
@@ -948,7 +948,9 @@ function setFormTypesAllAction() {
 }
 
 function setFocusOnCall() {
-    $('#form_call').focus();
+    var f = $('#form_call');
+    f.focus();
+    f.select();
 }
 
 function strip_tags(input, allowed) {
