@@ -31,6 +31,23 @@ class Redirect extends AbstractController
 
     /**
      * @Route(
+     *     "/changelog"
+     * )
+     * @param GeoService $GeoService
+     * @return RedirectResponse
+     */
+    public function redirect_1b(GeoService $GeoService)
+    {
+        $parameters = [
+            '_locale' => $this->get('session')->get('_locale'),
+            'system' => $GeoService->getDefaultSystem()
+        ];
+
+        return $this->redirectToRoute('changes', $parameters);
+    }
+
+    /**
+     * @Route(
      *     "/{_locale}/changes",
      *     requirements={
      *        "_locale": "de|en|es|fr",
@@ -41,6 +58,27 @@ class Redirect extends AbstractController
      * @return RedirectResponse
      */
     public function redirect_2($_locale, GeoService $GeoService)
+    {
+        $parameters = [
+            '_locale' => $_locale,
+            'system' => $GeoService->getDefaultSystem()
+        ];
+
+        return $this->redirectToRoute('changes', $parameters);
+    }
+
+    /**
+     * @Route(
+     *     "/{_locale}/changelog",
+     *     requirements={
+     *        "_locale": "de|en|es|fr",
+     *     },
+     * )
+     * @param $_locale
+     * @param GeoService $GeoService
+     * @return RedirectResponse
+     */
+    public function redirect_2b($_locale, GeoService $GeoService)
     {
         $parameters = [
             '_locale' => $_locale,
@@ -64,6 +102,46 @@ class Redirect extends AbstractController
     {
         $parameters =[
             '_locale' =>    $this->get('session')->get('_locale'),
+            'system' =>     $system
+        ];
+
+        return $this->redirectToRoute('changes', $parameters);
+    }
+
+    /**
+     * @Route(
+     *     "/{system}/changelog",
+     *     requirements={
+     *        "system": "reu|rna|rww"
+     *     },
+     * )
+     * @param $system
+     * @return RedirectResponse
+     */
+    public function redirect_3b($system)
+    {
+        $parameters =[
+            '_locale' =>    $this->get('session')->get('_locale'),
+            'system' =>     $system
+        ];
+
+        return $this->redirectToRoute('changes', $parameters);
+    }
+
+    /**
+     * @Route(
+     *     "/{_locale}/{system}/changelog",
+     *     requirements={
+     *        "system": "reu|rna|rww"
+     *     },
+     * )
+     * @param $system
+     * @return RedirectResponse
+     */
+    public function redirect_4($_locale, $system)
+    {
+        $parameters =[
+            '_locale' =>    $_locale,
             'system' =>     $system
         ];
 
