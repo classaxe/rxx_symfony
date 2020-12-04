@@ -45,6 +45,7 @@ class ListenerLogsUpload extends Base
         LogUploadForm $logUploadForm
     ) {
         $isAdmin = $this->parameters['isAdmin'];
+        $userName = $this->parameters['user_name'];
         $this->system = $system;
         if (!$isAdmin || !$this->listener = $this->getValidListener($id)) {
             return $this->redirectToRoute('listener', ['system' => $this->system, 'id' => $id]);
@@ -205,6 +206,8 @@ class ListenerLogsUpload extends Base
             'heardIn' =>            $heardIn,
             'logs' =>               $this->listener->getCountLogs(),
             'logData' =>            $this->logs,
+            'logEmail' =>           $this->listener->getFormattedEmail(),
+            'logOwner' =>           $this->listener->getFormattedNameAndLocation(),
             'region' =>             $region,
             'selected' =>           $selected,
             'signals' =>            $this->listener->getCountSignals(),
@@ -214,7 +217,8 @@ class ListenerLogsUpload extends Base
             'tabs' =>               $this->listenerRepository->getTabs($this->listener, $isAdmin),
             'tokens' =>             $this->tokens,
             'tol_offsets' =>        25,
-            'tol_secs' =>           1
+            'tol_secs' =>           1,
+            'userName' =>           $userName
         ];
         $parameters = array_merge($parameters, $this->parameters);
         return $this->render('listener/logs_upload/index.html.twig', $parameters);

@@ -805,6 +805,14 @@ class Listener
     /**
      * @return null|string
      */
+    public function getFormattedEmail(): ?string
+    {
+        return $this->name . ' <' . $this->email . '>';
+    }
+
+    /**
+     * @return null|string
+     */
     public function getFormattedLogEarliest(): ?string
     {
         if (null === $this->logEarliest || $this->logEarliest->format("Y-m-d") < '1900-01-01') {

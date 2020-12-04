@@ -134,10 +134,10 @@
                 <td>{{ o.dx_miles }}</td>
                 <td>{{ o.pwr ? o.pwr : '' }}</td>
                 <td>{{ hi|raw }}</td>
-                <td class="num"><i{% if lsb_check %} class="check"{% endif %}>{{ e.LSB_approx }}{{ e.LSB }}</i>{% if o.LSB_approx or o.LSB %}<br>{{ o.LSB_approx }}{{ o.LSB }}{% endif %}</td>
-                <td class="num"><i{% if usb_check %} class="check"{% endif %}>{{ e.USB_approx }}{{ e.USB }}</i>{% if o.USB_approx or o.USB %}<br>{{ o.USB_approx }}{{ o.USB }}{% endif %}</td>
+                <td class="num"><i{% if lsb_check %} class="check" title="Different by more than {{ tol_offsets }}Hz"{% endif %}>{{ e.LSB_approx }}{{ e.LSB }}</i>{% if o.LSB_approx or o.LSB %}<br>{{ o.LSB_approx }}{{ o.LSB }}{% endif %}</td>
+                <td class="num"><i{% if usb_check %} class="check" title="Different by more than {{ tol_offsets }}Hz"{% endif %}>{{ e.USB_approx }}{{ e.USB }}</i>{% if o.USB_approx or o.USB %}<br>{{ o.USB_approx }}{{ o.USB }}{% endif %}</td>
                 <td class="num"><i{%
-                    if e.sec and o.sec and ((e.sec + tol_secs < o.sec) or (e.sec - tol_secs > o.sec)) %} class="check"{% endif
+                    if e.sec and o.sec and ((e.sec + tol_secs < o.sec) or (e.sec - tol_secs > o.sec)) %} class="check" title="Different by more than {{ tol_secs }} Second"{% endif
                 %}>{{ e.sec }}</i>{% if o.sec %}<br>{{ o.sec }}{% endif %}</td>
                 <td class="text-nowrap"><i>{{ e.fmt }}</i>{% if o.format %}<br>{{ o.format }}{% endif %}</td>
             </tr>
@@ -179,8 +179,13 @@
     <div id="shim"></div>
 </div>
 </div>
-<h2>{% trans %}Issues / Skipped logs{% endtrans %} (<span id="issueCount"></span>) <small>[ <a id="copyRemainder" href="#">Copy</a> ]</small></h2>
+    <small style="color:#444;float: right">Actions: [ <a id="copyDetails" href="#">Copy Details</a> | <a id="copyEmail" href="#">Prepare Email</a> ]</small>
+<h2>{% trans %}Issues / Skipped logs{% endtrans %} (<span id="issueCount"></span>)</h2>
 <label for="remainder_format" class="sr-only">{% trans %}Log Format{% endtrans %}</label>
+<input type='hidden' id="logOwner" value="{{ logOwner }}" />
+<input type='hidden' id="logOwner" value="{{ logOwner }}" />
+<input type='hidden' id="logEmail" value="{{ logEmail }}" />
+<input type='hidden' id="userName" value="{{ userName }}" />
 <input type='text' style="width:100%;height:2em;padding: 0; margin-bottom: 0; font-family: 'Courier New bold', Courier, monospace; font-size:12px" id="remainder_format" />
 <label for="remainder_logs" class="sr-only">{% trans %}Log Entries{% endtrans %}</label>
 <textarea style="width:100%;height:10em;padding: 0; margin-top: 0; font-family: 'Courier New', Courier, monospace;font-size:12px" id="remainder_logs"></textarea>

@@ -165,10 +165,35 @@ function initListenersLogUploadForm() {
         $('#form_step').val(3);
     });
 
-    $('#copyRemainder').on('click', function() {
-        var txt = $('#remainder_logs').val();
+    $('#copyDetails').on('click', function() {
+        var len = $('#remainder_format').val().length + 1;
+        var txt =
+            $('#logEmail').val() + '\n' +
+            "-".repeat(len) + '\n' +
+            $('#remainder_format').val() + '\n' +
+            "-".repeat(len) + '\n' +
+            $('#remainder_logs').val() + '\n\n';
         copyToClipboard(txt);
         alert(msg.log_upload.copy_remaining);
+        return false;
+    })
+
+    $('#copyEmail').on('click', function() {
+        var len = $('#remainder_format').val().length + 1;
+        var txt =
+            "To:       " + $('#logEmail').val() + '\n' +
+            'Subject:  Issues seen for log upload for ' + $('#logOwner').val() + '\n\n\n' +
+            "Dear Listener,\n" +
+            "    Some potential issues were encountered when attempting to upload a submitted log.\n\n\n" +
+            "Would you please check the following log entries:\n\n" +
+            "-".repeat(len) + '\n' +
+            $('#remainder_format').val() + '\n' +
+            "-".repeat(len) + '\n' +
+            $('#remainder_logs').val() + '\n\n\n\n' +
+            "Sincerely,\n\n\n" +
+            $('#userName').val();
+        copyToClipboard(txt);
+        alert(msg.log_upload.prepare_email);
         return false;
     })
 
