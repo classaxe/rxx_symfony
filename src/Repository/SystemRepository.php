@@ -57,6 +57,12 @@ class SystemRepository
                     'show_email' => true
                 ],
                 [
+                    'email' =>      'vmath@eastlink.ca',
+                    'name' =>       'Vernon Matheson',
+                    'role' =>       'NDBs and Ham Beacons',
+                    'show_email' => true
+                ],
+                [
                     'email' =>      'roelof@ndb.demon.nl',
                     'name' =>       'Roelof Bakker',
                     'role' =>       'DGPS and Navtex',
@@ -115,6 +121,12 @@ class SystemRepository
                 [
                     'email' =>      'ndb.rna.logs@gmail.com',
                     'name' =>       'Brandon Jordan - K2SWL',
+                    'role' =>       'NDBs and Ham Beacons',
+                    'show_email' => true
+                ],
+                [
+                    'email' =>      'vmath@eastlink.ca',
+                    'name' =>       'Vernon Matheson',
                     'role' =>       'NDBs and Ham Beacons',
                     'show_email' => true
                 ],
