@@ -129,8 +129,6 @@ class ListenerLogsUpload extends Base
                     );
                     $user = $this->userRepository->find($this->session->get('user_id'));
 
-                    print "<pre>" . print_r($this->entries, true) . "</pre>";
-                    break;
                     foreach($this->entries as $e) {
                         $stats['logs']++;
                         if ($this->logRepository->checkIfDuplicate($e['signalID'], $id, $e['YYYYMMDD'], $e['time'])) {
