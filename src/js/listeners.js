@@ -14,6 +14,7 @@ function initListenersForm(pagingMsg, resultsCount) {
         setFormResetAction('listeners');
         setColumnSortActions();
         setColumnSortedClass();
+        setFocusOnSearch();
         setExternalLinks();
         setFormPagingStatus(pagingMsg, resultsCount);
         setListenerActions();
@@ -22,6 +23,11 @@ function initListenersForm(pagingMsg, resultsCount) {
     })
 }
 
+function setFocusOnSearch() {
+    var f = $('#form_q');
+    f.focus();
+    f.select();
+}
 function setListenerActions() {
     $('#btn_prt').click(function () {
         window.print();

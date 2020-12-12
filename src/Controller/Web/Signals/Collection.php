@@ -266,7 +266,7 @@ class Collection extends Base
         $this->setValueFromRequest($args, $request, 'range_units', ['km', 'mi']);
         $this->setValueFromRequest($args, $request, 'admin_mode', ['0', '1', '2']);
 
-        $this->setValueFromRequest($args, $request, 'show', ['csv', 'json', 'kml', 'list', 'map', 'pskov', 'txt'], 'a');
+        $this->setValueFromRequest($args, $request, 'show', ['csv', 'json', 'kml', 'list', 'map', 'pskov', 'seeklist', 'txt'], 'a');
         $this->setValueFromRequest($args, $request, 'paper', ['a4', 'a4_l', 'lgl', 'lgl_l', 'ltr', 'ltr_l'], 'a');
     }
 }
