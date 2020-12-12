@@ -51,14 +51,14 @@ class SystemRepository
                     'show_email' => true
                 ],
                 [
-                    'email' =>      'ndb.rna.logs@gmail.com',
-                    'name' =>       'Brandon Jordan - K2SWL',
+                    'email' =>      'vmath@eastlink.ca',
+                    'name' =>       'Vernon Matheson',
                     'role' =>       'NDBs and Ham Beacons',
                     'show_email' => true
                 ],
                 [
-                    'email' =>      'vmath@eastlink.ca',
-                    'name' =>       'Vernon Matheson',
+                    'email' =>      'ndb.rna.logs@gmail.com',
+                    'name' =>       'Brandon Jordan - K2SWL',
                     'role' =>       'NDBs and Ham Beacons',
                     'show_email' => true
                 ],
@@ -91,6 +91,12 @@ class SystemRepository
                     'show_email' => true
                 ],
                 [
+                    'email' =>      'vmath@eastlink.ca',
+                    'name' =>       'Vernon Matheson',
+                    'role' =>       'Ham Beacons',
+                    'show_email' => true
+                ],
+                [
                     'email' =>      'ndb.rna.logs@gmail.com',
                     'name' =>       'Brandon Jordan - K2SWL',
                     'role' =>       'Ham Beacons',
@@ -119,14 +125,14 @@ class SystemRepository
                     'show_email' => true
                 ],
                 [
-                    'email' =>      'ndb.rna.logs@gmail.com',
-                    'name' =>       'Brandon Jordan - K2SWL',
+                    'email' =>      'vmath@eastlink.ca',
+                    'name' =>       'Vernon Matheson',
                     'role' =>       'NDBs and Ham Beacons',
                     'show_email' => true
                 ],
                 [
-                    'email' =>      'vmath@eastlink.ca',
-                    'name' =>       'Vernon Matheson',
+                    'email' =>      'ndb.rna.logs@gmail.com',
+                    'name' =>       'Brandon Jordan - K2SWL',
                     'role' =>       'NDBs and Ham Beacons',
                     'show_email' => true
                 ],
