@@ -100,7 +100,16 @@ class ListenerLogsUpload extends Base
                         $step = '1';
                         break;
                     }
-                    $this->entries = $this->logRepository->parseLog($this->listener, $this->logs, $this->tokens, $YYYY, $MM, $DD, $this->signalRepository);
+                    $this->entries = $this->logRepository->parseLog(
+                        $this->listener,
+                        $this->logs,
+                        $this->tokens,
+                        $YYYY,
+                        $MM,
+                        $DD,
+                        $this->signalRepository,
+                        false
+                    );
                     $step = '2';
                     break;
                 case '3':
@@ -119,6 +128,9 @@ class ListenerLogsUpload extends Base
                         $selected
                     );
                     $user = $this->userRepository->find($this->session->get('user_id'));
+
+                    print "<pre>" . print_r($this->entries, true) . "</pre>";
+                    break;
                     foreach($this->entries as $e) {
                         $stats['logs']++;
                         if ($this->logRepository->checkIfDuplicate($e['signalID'], $id, $e['YYYYMMDD'], $e['time'])) {
@@ -216,8 +228,8 @@ class ListenerLogsUpload extends Base
             'system' =>             $this->system,
             'tabs' =>               $this->listenerRepository->getTabs($this->listener, $isAdmin),
             'tokens' =>             $this->tokens,
-            'tol_offsets' =>        25,
-            'tol_secs' =>           1,
+            'tol_offsets' =>        $this->logRepository::TOL_OFFSETS,
+            'tol_secs' =>           $this->logRepository::TOL_SECS,
             'userName' =>           $userName
         ];
         $parameters = array_merge($parameters, $this->parameters);

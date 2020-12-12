@@ -40,9 +40,13 @@
     {% set jump_anchor = 0 %}
     {% for e in entries %}
         {% set rowspan = (e.options|length>1 ? ' rowspan=' ~ e.options|length : '') %}
-        {% if e.options|length == 0 %}
+        {%  if e.comment %}
+            {# Ignore #}
+        {% elseif e.options|length == 0 %}
+{# START - No matches #}
             {% set e = e|merge({ 'row' : 'row_' ~ (loop.index - 1) }) %}
-            <tr class="unknown" id="row_{{ loop.index -1 }}">
+
+            <tr class="unknown start" id="row_{{ loop.index -1 }}" data-issues="Unknown Signal">
                 <th class="jump" id="jump_{{ jump_anchor }}">{% if jump_anchor > 0 %}<span class="up"></span>{% endif %}<br><span class="down"></span></th>
                 <th class="error"><a href="{{ url('signal', { 'system' : system, 'id' : 'new', 'data' : e|json_encode() }) }}"
                    data-popup="1" class="add" title="{% trans %}Add new signal...{% endtrans %}">+</a>
@@ -66,23 +70,27 @@
                 <td class="text-nowrap">{{ e.fmt }}</td>
             </tr>
             {% set jump_anchor = jump_anchor + 1 %}
-        {% elseif e.YYYYMMDD == 'ERROR' or e.KHZ is not numeric or not e.ID%}
+{# END - No matches for signal #}
+
+{# START - Errors in Date, Time, KHZ or ID #}
+        {% elseif (e.YYYYMMDD|slice(0,1) == '!' or e.time|slice(0,1) == '!' or e.KHZ is not numeric or not e.ID) and e.comment == 0 %}
             {% set e = e|merge({ 'row' : 'row_' ~ (loop.index - 1) }) %}
             {% set o = e.options[0] %}
             {% set hi=o.heard_in|replace({ (heardIn) : '<em>' ~ heardIn ~ '</em>'}) %}
+            {% set time_check = e.time|slice(0,1) == '!' %}
             {% set lsb_check=(e.LSB and o.LSB and ((e.LSB + tol_offsets < o.LSB) or (e.LSB - tol_offsets > o.LSB))) %}
             {% set usb_check=(e.USB and o.USB and ((e.USB + tol_offsets < o.USB) or (e.USB - tol_offsets > o.USB))) %}
             {% set sec_check=(e.sec and o.sec and ((e.sec + tol_secs < o.sec) or (e.sec - tol_secs > o.sec))) %}
-            {% set row_check=(lsb_check or usb_check or sec_check) %}
+            {% set row_check=(time_check or lsb_check or usb_check or sec_check) %}
             {% set row_selected=((row_check == false and e.options|length == 1 and selected == 'UNSET') or (selected[loop.index -1] is defined and selected[loop.index -1])) %}
             {% set has_error = e.options|length > 1 %}
             {% set has_issue = has_error or row_check %}
 
-            <tr class="unknown" id="row_{{ loop.index -1 }}">
+            <tr class="unknown start" id="row_{{ loop.index -1 }}" data-issues="Error with Date, Time, Frequency or Ident">
                 <th class="jump" id="jump_{{ jump_anchor }}">{% if jump_anchor > 0 %}<span class="up"></span>{% endif %}<br><span class="down"></span></th>
                 <th class="error"><span style="color:red">!</span></th>
-                <td class="txt_c text-nowrap">{% if e.YYYYMMDD == 'ERROR' %}<span style="color:red" title="Invalid Date">ERROR</span>{% else %}<i>{{ e.YYYYMMDD }}</i>{% endif %}{% if o.last_heard %}<br><span title="Last Heard Date">{{ o.last_heard }}</span>{% endif %}</td>
-                <td>{{ e.time }}</td>
+                <td class="txt_c text-nowrap">{% if e.YYYYMMDD|slice(0,1) == '!' %}<i class="check" title="Invalid Date">{{ e.YYYYMMDD|slice(1) }}</i>{% else %}<i>{{ e.YYYYMMDD }}</i>{% endif %}{% if o.last_heard %}<br><span title="Last Heard Date">{{ o.last_heard }}</span>{% endif %}</td>
+                <td>{% if e.time|slice(0,1) == '!' %}<i class="check" title="Invalid Time">{{ e.time|slice(1) }}</i>{% else %}{{ e.time }}{% endif %}</td>
                 <td>{{ e.daytime ? 'DT' : '' }}</td>
                 <td>{{ e.KHZ is numeric ? 0 + e.KHZ : e.KHZ }}</td>
                 <td><a href="{{ url('signal', { 'system' : system, 'id' : o.ID }) }}" data-popup="1">{{ o.call }}</a></td>
@@ -102,18 +110,30 @@
                 <td class="text-nowrap"><i>{{ e.fmt }}</i>{% if o.format %}<br>{{ o.format }}{% endif %}</td>
             </tr>
             {% set jump_anchor = jump_anchor + 1 %}
-        {% else %}
+{# END - Errors in Date, Time, KHZ or ID #}
+        {% elseif e.comment == 0 %}
+
+{# START First Valid Option #}
         {% set o = e.options[0] %}
-            {% set hi=o.heard_in|replace({ (heardIn) : '<em>' ~ heardIn ~ '</em>'}) %}
-            {% set lsb_check=(e.LSB and o.LSB and ((e.LSB + tol_offsets < o.LSB) or (e.LSB - tol_offsets > o.LSB))) %}
-            {% set usb_check=(e.USB and o.USB and ((e.USB + tol_offsets < o.USB) or (e.USB - tol_offsets > o.USB))) %}
-            {% set sec_check=(e.sec and o.sec and ((e.sec + tol_secs < o.sec) or (e.sec - tol_secs > o.sec))) %}
-            {% set row_check=(lsb_check or usb_check or sec_check) %}
-            {% set row_selected=((row_check == false and e.options|length == 1 and selected == 'UNSET') or (selected[loop.index -1] is defined and selected[loop.index -1])) %}
+            {% set hi = o.heard_in|replace({ (heardIn) : '<em>' ~ heardIn ~ '</em>'}) %}
+            {% set time_check = e.time|slice(0,1) == '!' %}
+            {% set lsb_check = (e.LSB and o.LSB and ((e.LSB + tol_offsets < o.LSB) or (e.LSB - tol_offsets > o.LSB))) %}
+            {% set usb_check = (e.USB and o.USB and ((e.USB + tol_offsets < o.USB) or (e.USB - tol_offsets > o.USB))) %}
+            {% set sec_check = (e.sec and o.sec and ((e.sec + tol_secs < o.sec) or (e.sec - tol_secs > o.sec))) %}
+            {% set row_check = (time_check or lsb_check or usb_check or sec_check) %}
+            {% set row_selected = ((row_check == false and e.options|length == 1 and selected == 'UNSET') or (selected[loop.index -1] is defined and selected[loop.index -1])) %}
             {% set has_error = e.options|length > 1 %}
             {% set has_issue = has_error or row_check %}
+            {% if e.time|slice(0,1) == '!' %}{% set issues = issues|merge(['Invalid Time']) %}{% endif %}
+            {% set issues = [] %}
+            {% if e.options|length > 1 %}{% set issues = issues|merge(['More than one possible match for ident and frequency']) %}{% endif %}
+            {% if lsb_check %}{% set issues = issues|merge(['LSB changed more than ' ~ tol_offsets ~ 'Hz']) %}{% endif %}
+            {% if usb_check %}{% set issues = issues|merge(['USB changed more than ' ~ tol_offsets ~ 'Hz']) %}{% endif %}
+            {% if sec_check %}{% set issues = issues|merge(['Cycle time changed more than ' ~ tol_secs ~ ' sec']) %}{% endif %}
 
-            <tr class="{% if e.options|length>1 %}choice start{% endif %}{% if not o.active %} inactive{% endif %}{% if has_error %} question{% endif %}" id="row_{{ loop.index -1 }}">
+            <tr class="{% if e.options|length>0 %}choice start{% endif %}{% if not o.active %} inactive{% endif %}{% if has_error %} question{% endif %}"
+                id="row_{{ loop.index -1 }}" data-issues="{{ issues|join(', ') }}"
+            >
                 <th class="jump"{% if has_issue %} id="jump_{{ jump_anchor }}"{% endif %}>
                     {% if has_issue %}{% if jump_anchor > 0 %}<span class="up"></span>{% endif %}<br><span class="down"></span>{% endif %}
                 </th>
@@ -122,7 +142,7 @@
                      value="{{ loop.index -1 }}|{{ o.ID }}"{% if row_selected %} checked="checked"{% endif %}/>
                 </th>
                 <td class="txt_c text-nowrap"><i>{{ e.YYYYMMDD }}</i>{% if o.last_heard %}<br><span title="Last Heard Date">{{ o.last_heard }}</span>{% endif %}</td>
-                <td><i>{{ e.time }}</i></td>
+                <td>{{ e.issues | join(', ') }}<i>{{ e.time }}</i></td>
                 <td>{{ e.daytime ? 'DT' : '' }}</td>
                 <td>{{ 0 + o.khz }}</td>
                 <td><a href="{{ url('signal', { 'system' : system, 'id' : o.ID }) }}" data-popup="1">{{ o.call }}</a></td>
@@ -134,16 +154,22 @@
                 <td>{{ o.dx_miles }}</td>
                 <td>{{ o.pwr ? o.pwr : '' }}</td>
                 <td>{{ hi|raw }}</td>
-                <td class="num"><i{% if lsb_check %} class="check" title="Different by more than {{ tol_offsets }}Hz"{% endif %}>{{ e.LSB_approx }}{{ e.LSB }}</i>{% if o.LSB_approx or o.LSB %}<br>{{ o.LSB_approx }}{{ o.LSB }}{% endif %}</td>
-                <td class="num"><i{% if usb_check %} class="check" title="Different by more than {{ tol_offsets }}Hz"{% endif %}>{{ e.USB_approx }}{{ e.USB }}</i>{% if o.USB_approx or o.USB %}<br>{{ o.USB_approx }}{{ o.USB }}{% endif %}</td>
-                <td class="num"><i{%
-                    if e.sec and o.sec and ((e.sec + tol_secs < o.sec) or (e.sec - tol_secs > o.sec)) %} class="check" title="Different by more than {{ tol_secs }} Second"{% endif
-                %}>{{ e.sec }}</i>{% if o.sec %}<br>{{ o.sec }}{% endif %}</td>
+                <td class="num"><i{% if lsb_check %} class="check" title="LSB differs more than {{ tol_offsets }}Hz"{% endif %}>{{ e.LSB_approx }}{{ e.LSB }}</i>{% if o.LSB_approx or o.LSB %}<br>{{ o.LSB_approx }}{{ o.LSB }}{% endif %}</td>
+                <td class="num"><i{% if usb_check %} class="check" title="USB differs more than {{ tol_offsets }}Hz"{% endif %}>{{ e.USB_approx }}{{ e.USB }}</i>{% if o.USB_approx or o.USB %}<br>{{ o.USB_approx }}{{ o.USB }}{% endif %}</td>
+                <td class="num"><i{% if sec_check %} class="check" title="Cycle time differs more than {{ tol_secs }} sec"{% endif %}>{{ e.sec }}</i>{% if o.sec %}<br>{{ o.sec }}{% endif %}</td>
                 <td class="text-nowrap"><i>{{ e.fmt }}</i>{% if o.format %}<br>{{ o.format }}{% endif %}</td>
             </tr>
             {% if has_issue %}{% set jump_anchor = jump_anchor + 1 %}{% endif %}
-    {% for o in e.options %}{% if loop.index > 1 %}
-            <tr class="choice{% if not o.active %} inactive{% endif %}{% if loop.last %} end{% endif %}">
+{# END First Valid option #}
+
+{# START Other Valid Options #}
+        {% for o in e.options %}{% if loop.index > 1 %}
+            {% set issues = [] %}
+            {% set lsb_check = (e.LSB and o.LSB and ((e.LSB + tol_offsets < o.LSB) or (e.LSB - tol_offsets > o.LSB))) %}
+            {% set usb_check = (e.USB and o.USB and ((e.USB + tol_offsets < o.USB) or (e.USB - tol_offsets > o.USB))) %}
+            {% set sec_check = (e.sec and o.sec and ((e.sec + tol_secs < o.sec) or (e.sec - tol_secs > o.sec))) %}
+
+            <tr class="choice{% if not o.active %} inactive{% endif %}{% if loop.last %} end{% endif %}" data-issues="">
                 <th class="jump"></th>
                 <th class="error">
                     <input type="checkbox" title="{% trans %}Include this log{% endtrans %}" data-idx="{{ loop.parent.loop.index -1 }}" value="{{ loop.parent.loop.index -1 }}|{{ o.ID }}" /></th>
@@ -160,19 +186,16 @@
                 <td>{{ o.dx_miles }}</td>
                 <td>{{ o.pwr ? o.pwr : '' }}</td>
                 <td>{{ o.heard_in }}</td>
-                <td class="num"><i{%
-                    if e.LSB and o.LSB and ((e.LSB + tol_offsets < o.LSB) or (e.LSB - tol_offsets > o.LSB)) %} class="check"{% endif
-                %}>{{ e.LSB_approx }}{{ e.LSB }}</i>{% if o.LSB_approx or o.LSB %}<br>{{ o.LSB_approx }}{{ o.LSB }}{% endif %}</td>
-                <td class="num"><i{%
-                    if e.USB and o.USB and ((e.USB + tol_offsets < o.USB) or (e.USB - tol_offsets > o.USB)) %} class="check"{% endif
-                %}>{{ e.USB_approx }}{{ e.USB }}</i>{% if o.USB_approx or o.USB %}<br>{{ o.USB_approx }}{{ o.USB }}{% endif %}</td>
-                <td class="num"><i{%
-                    if e.sec and o.sec and ((e.sec + tol_secs < o.sec) or (e.sec - tol_secs > o.sec)) %} class="check"{% endif
-                %}>{{ e.sec }}</i>{% if o.sec %}<br>{{ o.sec }}{% endif %}</td>
+                <td class="num"><i{% if lsb_check %} class="check" title="LSB differs more than {{ tol_offsets }}Hz"{% endif %}>{{ e.LSB_approx }}{{ e.LSB }}</i>{% if o.LSB_approx or o.LSB %}<br>{{ o.LSB_approx }}{{ o.LSB }}{% endif %}</td>
+                <td class="num"><i{% if usb_check %} class="check" title="USB differs more than {{ tol_offsets }}Hz"{% endif %}>{{ e.USB_approx }}{{ e.USB }}</i>{% if o.USB_approx or o.USB %}<br>{{ o.USB_approx }}{{ o.USB }}{% endif %}</td>
+                <td class="num"><i{% if sec_check %} class="check" title="Cycle time differs more than {{ tol_secs }} sec"{% endif %}>{{ e.sec }}</i>{% if o.sec %}<br>{{ o.sec }}{% endif %}</td>
                 <td class="text-nowrap"><i>{{ e.fmt }}</i>{% if o.format %}<br>{{ o.format }}{% endif %}</td>
             </tr>
-    {% endif %}{% endfor %}
+        {% endif %}{% endfor %}
+{# END Other Valid Options #}
+
         {% endif %}
+
     {% endfor %}
         </tbody>
     </table>

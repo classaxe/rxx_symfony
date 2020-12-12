@@ -1,7 +1,8 @@
 function initListenersLogUploadForm() {
     var std_formats = {
-        'wwsu': 'YYYY-MM-DD UTC    KHZ     ID         X       QTH',
-        'yand': 'YYYYMMDD hhmm KHZ ID   X          QTH           X'
+        'pskov': '  DD.MM.YYYY  hhmm  KHZ    ID    LSB    USB    sec            X',
+        'wwsu':  'YYYY-MM-DD UTC    KHZ     ID         X       QTH',
+        'yand':  'YYYYMMDD hhmm KHZ ID   X          QTH           X'
     }
     var formFormat = $('#form_format');
     formFormat.on('keyup', function() {
@@ -156,8 +157,15 @@ function initListenersLogUploadForm() {
     $('#form_submitLog').on('click', function(e) {
         var m = msg.log_upload.confirm;
         var remaining_val = $('#remainder_logs').val();
-        var remaining = remaining_val === '' ? 0 : remaining_val.split("\n").length;
-        var message = (remaining_val.trim() ? m[1] + "\n" + m[2].replace('COUNT', remaining) + "\n\n" + m[3] : m[1]);
+        var remaining = 0;
+        var remaining_lines = [];
+        if (remaining_val !== '') {
+            remaining_lines = remaining_val.split("\n");
+            for (i in remaining_lines) {
+                remaining += (remaining_lines[i].substr(0,2) !== '* ' ? 1 : 0)
+            }
+        }
+        var message = (remaining ? m[1] + "\n" + m[2].replace('COUNT', remaining) + "\n\n" + m[3] : m[1]);
         if (!confirm(message)) {
             e.preventDefault();
             return false;
@@ -166,31 +174,35 @@ function initListenersLogUploadForm() {
     });
 
     $('#copyDetails').on('click', function() {
-        var len = $('#remainder_format').val().length + 1;
+        var data = ($('#remainder_format').val() + '\n' + $('#remainder_logs').val()).split('\n');
+        len = 1 + data.sort(function(a,b){return b.length - a.length})[0].length;
         var txt =
             $('#logEmail').val() + '\n' +
             "-".repeat(len) + '\n' +
             $('#remainder_format').val() + '\n' +
             "-".repeat(len) + '\n' +
-            $('#remainder_logs').val() + '\n\n';
+            $('#remainder_logs').val().trimEnd() + '\n' +
+            "-".repeat(len) + '\n\n';
         copyToClipboard(txt);
         alert(msg.log_upload.copy_remaining);
         return false;
     })
 
     $('#copyEmail').on('click', function() {
-        var len = $('#remainder_format').val().length + 1;
+        var data = ($('#remainder_format').val() + '\n' + $('#remainder_logs').val()).split('\n');
+        len = 1 + data.sort(function(a,b){return b.length - a.length})[0].length;
         var txt =
-            "To:       " + $('#logEmail').val() + '\n' +
+            'To:       ' + $('#logEmail').val() + '\n' +
             'Subject:  Issues seen for log upload for ' + $('#logOwner').val() + '\n\n\n' +
-            "Dear Listener,\n" +
-            "    Some potential issues were encountered when attempting to upload a submitted log.\n\n\n" +
-            "Would you please check the following log entries:\n\n" +
-            "-".repeat(len) + '\n' +
+            'Dear Listener,\n\n' +
+            'Some potential issues were encountered when attempting to upload a submitted log.\n' +
+            'Would you please check the following log entries?\n\n' +
+            '-' . repeat(len) + '\n' +
             $('#remainder_format').val() + '\n' +
-            "-".repeat(len) + '\n' +
-            $('#remainder_logs').val() + '\n\n\n\n' +
-            "Sincerely,\n\n\n" +
+            '-' . repeat(len) + '\n' +
+            $('#remainder_logs').val().trimEnd() + '\n' +
+            '-' . repeat(len) + '\n\n\n\n' +
+            'Sincerely,\n\n\n' +
             $('#userName').val();
         copyToClipboard(txt);
         alert(msg.log_upload.prepare_email);
@@ -287,6 +299,7 @@ function logsRemoveBlankLines(element) {
 function logsShowRemainder() {
     var logs = $('#form_logs').val().split("\n");
     var i;
+    var issues;
     var idx;
     var checked = [];
     var selected = [];
@@ -305,9 +318,14 @@ function logsShowRemainder() {
     }
     for (i in logs) {
         if (logs.hasOwnProperty(i)) {
-            if (logs[i] !== '') {
-                remainder.push(logs[i]);
+            if (logs[i] === '') {
+                continue;
             }
+            if (logs[i].substr(0,2) === '* ') {
+                continue;
+            }
+            issues = $('table.parse tbody tr.start').eq(i).data('issues');
+            remainder.push(logs[i] + (issues ? '\n* ISSUES: ' + issues + '\n' : ''));
         }
     }
     $('#remainder_format').val($('#form_format').val());

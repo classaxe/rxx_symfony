@@ -16,6 +16,8 @@ class LogRepository extends ServiceEntityRepository
 
     const SWING_LF = 0.6;
     const SWING_HF = 1.5;
+    const TOL_OFFSETS = 20;
+    const TOL_SECS = 1;
 
     const TOKENS = [
         'SINGLE' => [
@@ -349,20 +351,21 @@ EOD;
         } else {
             $_DD = $DD;
         }
-
+        $error = '';
         if (!checkdate((int)$_MM, (int)$_DD, (int)$_YYYY)) {
-            return false;
+            $error = '!';
         }
         if ($_YYYY . $_MM . $_DD > (new DateTime())->modify('+1 day')->format('Ymd')) {
-            return false;
+            $error = '!';
         }
         if ($_YYYY . $_MM . $_DD < 19700101) {
-            return false;
+            $error = '!';
         }
         return [
             'YYYY' =>   $_YYYY,
             'MM' =>     $_MM,
-            'DD' =>     $_DD
+            'DD' =>     $_DD,
+            'error' =>  $error,
         ];
     }
 
@@ -517,14 +520,16 @@ EOD;
 
     private function _extractTime($token, $value) {
         if ($token === 'hhmm') {
-            return (is_numeric($value) ? $value : 'ERROR');
+            return (is_numeric($value) && (int)$value < 2400 ? $value : "!$value");
         }
         $x = explode(':', $value);
         if (2 !== count($x)) {
-            return 'ERROR';
+            return "!$value";
         }
-        return str_pad($x[0], 2, '0', STR_PAD_LEFT)
+        $value =
+            str_pad($x[0], 2, '0', STR_PAD_LEFT)
             . str_pad($x[1], 2, '0', STR_PAD_LEFT);
+        return (is_numeric($value) && (int)$value < 2400 ? $value : "!$value");
     }
 
     public function checkIfDuplicate($signalID, $listenerID, $YYYYMMDD, $hhmm = false)
@@ -647,6 +652,9 @@ EOD;
         $log_lines = explode("\r", str_replace("\r\n", "\r", stripslashes($logs)));
         foreach($log_lines as $line) {
             $data = [
+                'raw' => $line,
+                'comment' => (substr($line, 0, 2) === '* ') ? 1 : 0,
+                'issues' => [],
                 'date' => [],
                 'offsets' => [
                     'LSB' => '',
@@ -690,7 +698,7 @@ EOD;
                             break;
                         }
                         foreach ($result as $idx => $v) {
-                            if (!$v) {
+                            if ($v === '') {
                                 continue;
                             }
                             $data['date'][$idx] = $v;
@@ -720,10 +728,8 @@ EOD;
             }
             if ($data['date']) {
                 $d = $data['date'];
-                $data['YYYYMMDD'] = "{$d['YYYY']}-{$d['MM']}-{$d['DD']}";
+                $data['YYYYMMDD'] = ($d['error'] ?? '') . "{$d['YYYY']}-{$d['MM']}-{$d['DD']}";
                 unset($data['date']);
-            } else {
-                $data['YYYYMMDD'] = 'ERROR';
             }
 
             // Flatten Offset fields:
@@ -744,6 +750,7 @@ EOD;
         }
 
         if (!$selected) {
+//            print "<pre>" . print_r($lines, true) . "</pre>";
             foreach ($lines as $key => &$line) {
                 $line['options'] = $signalRepository->getSignalCandidates($line['ID'], $line['KHZ'], $listener);
             }
