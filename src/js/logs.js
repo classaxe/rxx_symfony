@@ -162,7 +162,13 @@ function initListenersLogUploadForm() {
         if (remaining_val !== '') {
             remaining_lines = remaining_val.split("\n");
             for (i in remaining_lines) {
-                remaining += (remaining_lines[i].substr(0,2) !== '* ' ? 1 : 0)
+                if (remaining_lines[i] === '') {
+                    continue;
+                }
+                if (remaining_lines[i].substr(0,2) === '* ') {
+                    continue;
+                }
+                remaining++;
             }
         }
         var message = (remaining ? m[1] + "\n" + m[2].replace('COUNT', remaining) + "\n\n" + m[3] : m[1]);
@@ -324,7 +330,7 @@ function logsShowRemainder() {
             if (logs[i].substr(0,2) === '* ') {
                 continue;
             }
-            issues = $('table.parse tbody tr.start').eq(i).data('issues');
+            issues = $('#row_' + i).data('issues');
             remainder.push(logs[i] + (issues ? '\n* ISSUES: ' + issues + '\n' : ''));
         }
     }

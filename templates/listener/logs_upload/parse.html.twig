@@ -131,7 +131,7 @@
             {% if usb_check %}{% set issues = issues|merge(['USB changed more than ' ~ tol_offsets ~ 'Hz']) %}{% endif %}
             {% if sec_check %}{% set issues = issues|merge(['Cycle time changed more than ' ~ tol_secs ~ ' sec']) %}{% endif %}
 
-            <tr class="{% if e.options|length>0 %}choice start{% endif %}{% if not o.active %} inactive{% endif %}{% if has_error %} question{% endif %}"
+            <tr class="{% if e.options|length>1 %}choice start{% endif %}{% if not o.active %} inactive{% endif %}{% if has_error %} question{% endif %}"
                 id="row_{{ loop.index -1 }}" data-issues="{{ issues|join(', ') }}"
             >
                 <th class="jump"{% if has_issue %} id="jump_{{ jump_anchor }}"{% endif %}>

@@ -1472,7 +1472,7 @@ EOD;
                 }
                 $heardIn[] =
                     ($old_link && ($link !== $old_link) ? '</a> ' : ' ')
-                    . ($link && ($link !== $old_link) ? sprintf($link, $row['signalID']) : '')
+                    . (($link ?? '') && ($link !== $old_link) ? sprintf($link, $row['signalID']) : '')
                     . ' '. ($row["daytime"] ? sprintf("<b>%s</b>", $row["heard_in"]) : $row["heard_in"]);
                 $old_link = $link;
             }
