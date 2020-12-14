@@ -1460,9 +1460,7 @@ EOD;
                         $link = "<a data-signal-map-na='%s'>";
                         break;
                     case "oc":
-                        if ('HI' === $row["heard_in"]) {
-                            $link = "<a data-signal-map-na='%s'>";
-                        }
+                        $link = ('HI' === $row["heard_in"] ? "<a data-signal-map-na='%s'>" : false);
                         break;
                     case "eu":
                         $link = "<a data-signal-map-eu='%s'>";
@@ -1472,7 +1470,7 @@ EOD;
                 }
                 $heardIn[] =
                     ($old_link && ($link !== $old_link) ? '</a> ' : ' ')
-                    . (($link ?? '') && ($link !== $old_link) ? sprintf($link, $row['signalID']) : '')
+                    . (($link ?? false) && ($link !== $old_link) ? sprintf($link, $row['signalID']) : '')
                     . ' '. ($row["daytime"] ? sprintf("<b>%s</b>", $row["heard_in"]) : $row["heard_in"]);
                 $old_link = $link;
             }
