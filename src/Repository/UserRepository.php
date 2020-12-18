@@ -9,11 +9,6 @@ use Doctrine\Persistence\ManagerRegistry;
 
 class UserRepository extends ServiceEntityRepository
 {
-    const defaultlimit =    50;
-    const defaultOrder =    'a';
-    const defaultPage =     0;
-    const defaultSorting =  'name';
-
     private $usersColumns;
 
     /**

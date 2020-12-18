@@ -91,7 +91,7 @@ class Users
                 'highlight' =>  false,
                 'label'     =>  'Logon Latest',
                 'labelSort' =>  '',
-                'order'     =>  'a',
+                'order'     =>  'd',
                 'sort'      =>  'logonLatest',
                 'td_class'  =>  'rowspan2',
                 'th_class'  =>  'rowspan2',

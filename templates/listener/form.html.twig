@@ -70,14 +70,4 @@
         {{ form_end(form, {'render_rest': true}) }}
         </div>
     </div>
-<script>
-$(document).ready(function () {
-    $('#form_timezone').selectmenu();
-    $('#coords_link').on('click', function(){
-        popup(base_url +"tools/coordinates?args=" + $('#form_gsq').val());
-    });
-    $('#form_saveClose').on('click', function(){
-        $('#form__close').val(1);
-    })
-});
-</script>
+<script>setListenerActions();</script>

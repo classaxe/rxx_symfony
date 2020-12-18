@@ -17,7 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
  */
 class Users extends Base
 {
-    const defaultlimit =     10;
+    const defaultlimit =     -1;
     const defaultSorting =  'username';
     const defaultOrder =    'a';
 

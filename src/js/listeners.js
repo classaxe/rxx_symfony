@@ -17,7 +17,7 @@ function initListenersForm(pagingMsg, resultsCount) {
         setFocusOnSearch();
         setExternalLinks();
         setFormPagingStatus(pagingMsg, resultsCount);
-        setListenerActions();
+        setListenersActions();
         scrollToResults();
         RT.init($('#wide'), $('#narrow'));
     })
@@ -28,7 +28,7 @@ function setFocusOnSearch() {
     f.focus();
     f.select();
 }
-function setListenerActions() {
+function setListenersActions() {
     $('#btn_prt').click(function () {
         window.print();
         return false;
