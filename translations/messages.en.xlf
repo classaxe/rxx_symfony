@@ -17,10 +17,6 @@
         <source>Signals Received in Europe</source>
         <target>Signals Received in Europe</target>
       </trans-unit>
-      <trans-unit id="7aZSX1X" resname="Signals Received in N &amp; C America + Hawaii">
-        <source>Signals Received in N &amp; C America + Hawaii</source>
-        <target><![CDATA[Signals Received in N & C America + Hawaii]]></target>
-      </trans-unit>
       <trans-unit id="vIiAo.a" resname="Signals Received Worldwide">
         <source>Signals Received Worldwide</source>
         <target>Signals Received Worldwide</target>
@@ -5090,6 +5086,26 @@
       <trans-unit id="CRrrpYi" resname="Updated [S]">
         <source>Updated [S]</source>
         <target>Updated [S]</target>
+      </trans-unit>
+      <trans-unit id="H.64nyE" resname="[A1]RNA only[/A]: [S1] | [A2]REU only[/A]: [S2] | [A3]RNA + REU[/A]: [S3] | [A4]RWW[/A]: [S4]">
+        <source>[A1]RNA only[/A]: [S1] | [A2]REU only[/A]: [S2] | [A3]RNA + REU[/A]: [S3] | [A4]RWW[/A]: [S4]</source>
+        <target>[A1]RNA only[/A]: [S1] | [A2]REU only[/A]: [S2] | [A3]RNA + REU[/A]: [S3] | [A4]RWW[/A]: [S4]</target>
+      </trans-unit>
+      <trans-unit id="1dX1twd" resname="Copied Enquiry Email to clipboard.">
+        <source>Copied Enquiry Email to clipboard.</source>
+        <target>Copied Enquiry Email to clipboard.</target>
+      </trans-unit>
+      <trans-unit id="23cDDOa" resname="Add Listener">
+        <source>Add Listener</source>
+        <target>Add Listener</target>
+      </trans-unit>
+      <trans-unit id="WiOlYBU" resname="Signals Received in N &amp; C America">
+        <source>Signals Received in N &amp; C America</source>
+        <target><![CDATA[Signals Received in N & C America]]></target>
+      </trans-unit>
+      <trans-unit id="AX2cnIU" resname="Received N+C America">
+        <source>Received N+C America</source>
+        <target>Received N+C America</target>
       </trans-unit>
     </body>
   </file>

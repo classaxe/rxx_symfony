@@ -218,10 +218,8 @@ class ListenerRepository extends ServiceEntityRepository
                 break;
             case "rna":
                 $qb
-                    ->andWhere('(l.region = :oc and l.itu = :hwa) or (l.region in (:na_ca))')
-                    ->setParameter('na_ca', ['na','ca'])
-                    ->setParameter('oc', 'oc')
-                    ->setParameter('hwa', 'hwa');
+                    ->andWhere('l.region in (:na_ca)')
+                    ->setParameter('na_ca', ['na','ca']);
                 break;
         }
     }
@@ -867,7 +865,7 @@ EOD;
             FROM
                 listeners li_2
             WHERE
-                (li_2.region = 'oc' AND li_2.ITU = 'HWA') OR (li_2.region IN ('na','ca'));
+                li_2.region IN ('na','ca');
 EOD;
 
         $stmt = $this->connection->prepare($sql);

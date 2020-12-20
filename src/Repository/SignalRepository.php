@@ -330,7 +330,7 @@ class SignalRepository extends ServiceEntityRepository
                 $this->query['where'][] ='s.heard_in_eu = 1';
                 break;
             case "rna":
-                $this->query['where'][] ='s.heard_in_rna = 1';
+                $this->query['where'][] ='(s.heard_in_na = 1 OR s.heard_in_ca = 1)';
                 break;
             case "rww":
                 $this->query['where'][] = "s.logs > 0";
@@ -925,7 +925,7 @@ EOD;
                 `signals`
             WHERE
                 `heard_in_af`=0 AND `heard_in_an`=0 AND `heard_in_as`=0 AND `heard_in_ca`=0 AND `heard_in_eu`=1 AND
-                `heard_in_iw`=0 AND `heard_in_na`=0 AND `heard_in_oc`=0 AND `heard_in_sa`=0 AND `heard_in_rna`=0
+                `heard_in_iw`=0 AND `heard_in_na`=0 AND `heard_in_oc`=0 AND `heard_in_sa`=0
             UNION SELECT
                 'rna',
                 COUNT(*)
@@ -933,14 +933,14 @@ EOD;
                 `signals`
             WHERE
                 `heard_in_af`=0 AND `heard_in_an`=0 AND `heard_in_as`=0 AND `heard_in_eu`=0 AND
-                `heard_in_iw`=0 AND `heard_in_sa`=0 AND `heard_in_rna`=1
+                `heard_in_iw`=0 AND `heard_in_oc`=0 AND `heard_in_sa`=0 AND (`heard_in_ca`=1 OR `heard_in_na`=1)
             UNION SELECT
                 'rna_reu',
                 COUNT(*)
             FROM
                 `signals`
             WHERE
-                `heard_in_eu`=1 AND `heard_in_rna`=1
+                `heard_in_eu`=1 AND (`heard_in_ca`=1 OR `heard_in_na`=1)
             UNION SELECT
                 'rww',
                 COUNT(*)
@@ -955,7 +955,7 @@ EOD;
                 `signals`
             WHERE
                 `heard_in_af`=0 AND `heard_in_an`=0 AND `heard_in_as`=0 AND `heard_in_ca`=0 AND `heard_in_eu`=0 AND
-                `heard_in_iw`=0 AND `heard_in_na`=0 AND `heard_in_oc`=0 AND `heard_in_sa`=0 AND `heard_in_rna`=0;
+                `heard_in_iw`=0 AND `heard_in_na`=0 AND `heard_in_oc`=0 AND `heard_in_sa`=0;
 EOD;
         $stmt = $this->connection->prepare($sql);
         $stmt->execute();
@@ -1412,7 +1412,7 @@ EOD;
     public function updateSignalStats($signalId = false, $updateSpecs = false, $clearUnheard = false)
     {
         $affected = 0;
-        $all_regions =      ['af', 'an', 'as', 'ca', 'eu', 'iw', 'na', 'oc', 'sa', 'rna'];
+        $all_regions =      ['af', 'an', 'as', 'ca', 'eu', 'iw', 'na', 'oc', 'sa'];
         $logsHeardIn =      $this->getLogsHeardIn($signalId);
         $logsStats =        $this->getLogsStats($signalId);
         if ($updateSpecs) {
@@ -1436,8 +1436,7 @@ SET
     `heard_in_iw` = 0,
     `heard_in_na` = 0,
     `heard_in_oc` = 0,
-    `heard_in_sa` = 0,
-    `heard_in_rna` = 0
+    `heard_in_sa` = 0
 WHERE
     ID NOT IN (SELECT distinct signalID from logs)
 EOD;
@@ -1452,7 +1451,6 @@ EOD;
             $heardIn =      [];
             $regions =      [];
             $old_link =     false;
-            $heard_in_rna = '0';
             foreach ($result as $row) {
                 $region = $row['region'];
                 $regions[$region] = $region;
@@ -1460,11 +1458,9 @@ EOD;
                     case "ca":
                     case "na":
                         $link = "<a data-signal-map-na='%s'>";
-                        $heard_in_rna = '1';
                         break;
                     case "oc":
                         $link = ('HI' === $row["heard_in"] ? "<a data-signal-map-na='%s'>" : false);
-                        $heard_in_rna = ('HI' === $row["heard_in"] ? '1' : '0');
                         break;
                     case "eu":
                         $link = "<a data-signal-map-eu='%s'>";
@@ -1489,7 +1485,6 @@ EOD;
             foreach($all_regions as $r) {
                 $entry['heard_in_' . $r] = (isset($regions[$r]) ? '1' : '0');
             }
-            $entry['heard_in_rna'] = $heard_in_rna;
             $data[$row['signalID']] = $entry;
         }
         foreach ($logsStats as $signalID => $stats) {
@@ -1509,7 +1504,7 @@ EOD;
         $fields = [
             'first_heard', 'heard_in', 'heard_in_html', 'last_heard', 'logs', 'listeners',
             'heard_in_af', 'heard_in_an', 'heard_in_as', 'heard_in_ca', 'heard_in_eu',
-            'heard_in_iw', 'heard_in_na', 'heard_in_oc', 'heard_in_sa', 'heard_in_rna'
+            'heard_in_iw', 'heard_in_na', 'heard_in_oc', 'heard_in_sa'
         ];
         foreach ($data as $signalID => $new) {
             $old = $signals[$signalID][0];
@@ -1561,7 +1556,6 @@ SET "
     `heard_in_na` =     '" . $new['heard_in_na'] . "',
     `heard_in_oc` =     '" . $new['heard_in_oc'] . "',
     `heard_in_sa` =     '" . $new['heard_in_sa'] . "',
-    `heard_in_rna` =    '" . $new['heard_in_rna'] . "',
     `last_heard` =      '" . addslashes($new['last_heard']) . "',
     `logs` =            '" . addslashes($new['logs']) . "',
     `listeners` =       '" . addslashes($new['listeners']) . "'

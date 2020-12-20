@@ -71,8 +71,8 @@ class SystemRepository
             ],
             'menu' =>       'North America (RNA)',
             'menu_s' =>     'RNA',
-            'title' =>      'Signals Received in N & C America + Hawaii',
-            'title_s' =>    'Received in N America'
+            'title' =>      'Signals Received in N & C America',
+            'title_s' =>    'Received N+C America'
         ],
         'reu' =>    [
             'authors' =>    self::AUTHORS,
