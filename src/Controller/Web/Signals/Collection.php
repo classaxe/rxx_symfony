@@ -230,8 +230,24 @@ class Collection extends Base
             'system' =>         $system
         ];
         $this->setRwwFocusFromRequest($args, $request);
-        $stats = $this->signalRepository->getStats() + $this->listenerRepository->getStats($system, $args['rww_focus']);
-        return $this->json($stats);
+        $stats = $this->statsRepository->getStats();
+        $out = [
+            'signals' => [
+                'reu' =>        (int) $stats['signals_reu'],
+                'rna' =>        (int) $stats['signals_rna'],
+                'rna_reu' =>    (int) $stats['signals_rna_reu'],
+                'rww' =>        (int) $stats['signals_rww'],
+                'unlogged' =>   (int) $stats['signals_unlogged'],
+            ],
+            'listeners' => [
+                'focus' =>      ($args['rww_focus'] ? $this->regionRepository->get($args['rww_focus'])->getName() : ''),
+                'locations' =>  (int) $stats['listeners_' . $system . ($args['rww_focus'] ? '_' . $args['rww_focus'] : '')],
+                'logs' =>       (int) $stats['logs_' . $system . ($args['rww_focus'] ? '_' . $args['rww_focus'] : '')],
+                'first' =>      $stats['log_first_' . $system . ($args['rww_focus'] ? '_' . $args['rww_focus'] : '')],
+                'last' =>       $stats['log_last_' . $system . ($args['rww_focus'] ? '_' . $args['rww_focus'] : '')]
+            ]
+        ];
+        return $this->json($out);
     }
 
     private function setArgsFromRequest(&$args, $request)

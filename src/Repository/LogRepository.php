@@ -150,40 +150,6 @@ EOD;
         $stmt->execute($params);
     }
 
-    public function getFilteredLogsCount($system, $region = '')
-    {
-        $qb = $this
-            ->createQueryBuilder('l')
-            ->select('COUNT(l.id) as count');
-
-        $this->addFilterSystem($qb, $system);
-
-        if ($region) {
-            $qb
-                ->andWhere('(l.region = :region)')
-                ->setParameter('region', $region);
-        }
-        return $qb->getQuery()->getSingleScalarResult();
-    }
-
-    private function addFilterSystem(&$qb, $system)
-    {
-        switch ($system) {
-            case "reu":
-                $qb
-                    ->andWhere('(l.region = :eu)')
-                    ->setParameter('eu', 'eu');
-                break;
-            case "rna":
-                $qb
-                    ->andWhere('(l.region = :oc and l.heardIn = :hi) or (l.region in (:na_ca))')
-                    ->setParameter('na_ca', ['na','ca'])
-                    ->setParameter('oc', 'oc')
-                    ->setParameter('hi', 'hi');
-                break;
-        }
-    }
-
     private function getLogWhereClause($listenerId = false, $signalId = false)
     {
         return ($listenerId || $signalId ?

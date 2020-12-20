@@ -912,61 +912,6 @@ EOD;
         return Rxx::getDx($qthLat, $qthLon, $record[0]['lat'], $record[0]['lon']);
     }
 
-    /**
-     * @return array
-     */
-    public function getStats()
-    {
-        $sql = <<< EOD
-            SELECT
-                'reu' AS stat,
-                COUNT(*) AS count
-            FROM
-                `signals`
-            WHERE
-                `heard_in_af`=0 AND `heard_in_an`=0 AND `heard_in_as`=0 AND `heard_in_ca`=0 AND `heard_in_eu`=1 AND
-                `heard_in_iw`=0 AND `heard_in_na`=0 AND `heard_in_oc`=0 AND `heard_in_sa`=0
-            UNION SELECT
-                'rna',
-                COUNT(*)
-            FROM
-                `signals`
-            WHERE
-                `heard_in_af`=0 AND `heard_in_an`=0 AND `heard_in_as`=0 AND `heard_in_eu`=0 AND
-                `heard_in_iw`=0 AND `heard_in_oc`=0 AND `heard_in_sa`=0 AND (`heard_in_ca`=1 OR `heard_in_na`=1)
-            UNION SELECT
-                'rna_reu',
-                COUNT(*)
-            FROM
-                `signals`
-            WHERE
-                `heard_in_eu`=1 AND (`heard_in_ca`=1 OR `heard_in_na`=1)
-            UNION SELECT
-                'rww',
-                COUNT(*)
-            FROM
-                `signals`
-            WHERE
-                `logs` > 0
-            UNION SELECT
-                'unlogged',
-                COUNT(*)
-            FROM
-                `signals`
-            WHERE
-                `heard_in_af`=0 AND `heard_in_an`=0 AND `heard_in_as`=0 AND `heard_in_ca`=0 AND `heard_in_eu`=0 AND
-                `heard_in_iw`=0 AND `heard_in_na`=0 AND `heard_in_oc`=0 AND `heard_in_sa`=0;
-EOD;
-        $stmt = $this->connection->prepare($sql);
-        $stmt->execute();
-        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $out = [];
-        foreach ($results as $r) {
-            $out[$r['stat']] = (int) $r['count'];
-        }
-        return [ 'signals' => $out ];
-    }
-
     public static function getSeeklistColumns($signals, $paper)
     {
         $col = 0;

@@ -13,6 +13,29 @@ class Stats extends Base
 {
     /**
      * @Route(
+     *     "/{_locale}/{system}/stats",
+     *     requirements={
+     *        "system": "reu|rna|rww"
+     *     },
+     *     name="stats"
+     * )
+     * @param $system
+     * @param $region
+     * @return Response
+     */
+    public function stats(
+        $system
+    ) {
+        $stats = $this->statsRepository->getStats();
+        $out = json_encode($stats);
+        $textResponse = new Response($out , 200);
+        $textResponse->headers->set('Content-Type', 'application/json');
+
+        return $textResponse;
+    }
+
+    /**
+     * @Route(
      *     "/{_locale}/{system}/stats/listeners/{region}",
      *     requirements={
      *        "system": "reu|rna|rww",
@@ -28,23 +51,13 @@ class Stats extends Base
         $system,
         $region = ''
     ) {
-        if ($region) {
-            $results = [];
-            $params = ($region === 'all' ? [] : [ 'region' => $region ]);
-            $results[$region] = [
-                'count' => $this->listenerRepository->getFilteredListenersCount($system, $params)
-            ];
-            $out = json_encode($results);
-        } else {
-            $results = [];
-            foreach(explode('|', 'af|an|as|ca|eu|iw|na|oc|sa|xx|all') as $region) {
-                $params = ($region === 'all' ? [] : [ 'region' => $region ]);
-                $results[$region] = [
-                    'count' => $this->listenerRepository->getFilteredListenersCount($system, $params)
-                ];
-            }
-            $out = json_encode($results);
-        }
+        $stats = $this->statsRepository->getStats();
+        $result = [
+            'count' => ($region ?
+                ($stats['listeners_' . $system . '_' . $region] ?? '?') : ($stats['listeners_' . $system] ?? '?')
+            )
+        ];
+        $out = json_encode($result);
         $textResponse = new Response($out , 200);
         $textResponse->headers->set('Content-Type', 'application/json');
 
@@ -68,7 +81,10 @@ class Stats extends Base
         $system,
         $region = ''
     ) {
-        $count =        $this->listenerRepository->getFilteredListenersCount($system, [ 'region' => $region ]);
+        $stats = $this->statsRepository->getStats();
+        $count = ($region ?
+            ($stats['listeners_' . $system . '_' . $region] ?? '?') : ($stats['listeners_' . $system] ?? '?')
+        );
         $textResponse = new Response($count , 200);
         $textResponse->headers->set('Content-Type', 'text/plain');
 
@@ -79,7 +95,8 @@ class Stats extends Base
      * @Route(
      *     "/{_locale}/{system}/stats/logs/count/{region}",
      *     requirements={
-     *        "system": "reu|rna|rww"
+     *        "system": "reu|rna|rww",
+     *        "region": "af|an|as|ca|eu|iw|na|oc|sa|xx"
      *     },
      *     name="stats_logs_count"
      * )
@@ -91,7 +108,8 @@ class Stats extends Base
         $system,
         $region = ''
     ) {
-        $count =        $this->logRepository->getFilteredLogsCount($system, $region);
+        $stats = $this->statsRepository->getStats();
+        $count = ($region ? ($stats['logs_' . $system . '_' . $region] ?? '?') : ($stats['logs_' . $system] ?? '?'));
         $textResponse = new Response($count , 200);
         $textResponse->headers->set('Content-Type', 'text/plain');
 
@@ -102,7 +120,8 @@ class Stats extends Base
      * @Route(
      *     "/{_locale}/{system}/stats/logs/first/{region}",
      *     requirements={
-     *        "system": "reu|rna|rww"
+     *        "system": "reu|rna|rww",
+     *        "region": "af|an|as|ca|eu|iw|na|oc|sa|xx"
      *     },
      *     name="stats_logs_first"
      * )
@@ -114,8 +133,9 @@ class Stats extends Base
         $system,
         $region = ''
     ) {
-        $dates =        $this->listenerRepository->getFirstAndLastLog($system, $region);
-        $textResponse = new Response($dates[ 'first' ] , 200);
+        $stats = $this->statsRepository->getStats();
+        $date = ($region ? ($stats['log_first_' . $system . '_' . $region] ?? '?') : ($stats['log_first_' . $system] ?? '?'));
+        $textResponse = new Response($date , 200);
         $textResponse->headers->set('Content-Type', 'text/plain');
 
         return $textResponse;
@@ -125,7 +145,8 @@ class Stats extends Base
      * @Route(
      *     "/{_locale}/{system}/stats/logs/last/{region}",
      *     requirements={
-     *        "system": "reu|rna|rww"
+     *        "system": "reu|rna|rww",
+     *        "region": "af|an|as|ca|eu|iw|na|oc|sa|xx"
      *     },
      *     name="stats_logs_last"
      * )
@@ -137,8 +158,10 @@ class Stats extends Base
         $system,
         $region = ''
     ) {
-        $dates =        $this->listenerRepository->getFirstAndLastLog($system, $region);
-        $textResponse = new Response($dates[ 'last' ] , 200);
+        $stats = $this->statsRepository->getStats();
+        $date = ($region ? ($stats['log_last_' . $system . '_' . $region] ?? '?') : ($stats['log_last_' . $system] ?? '?'));
+
+        $textResponse = new Response($date , 200);
         $textResponse->headers->set('Content-Type', 'text/plain');
 
         return $textResponse;
@@ -146,22 +169,24 @@ class Stats extends Base
 
     /**
      * @Route(
-     *     "/{_locale}/{system}/stats/signals/count/{sys}",
+     *     "/{_locale}/{system}/stats/signals/count/{region}",
      *     requirements={
-     *        "system": "reu|rna|rww",
-     *        "sys": "reu|rna|rna_reu|rww|unlogged"
+     *        "system": "reu|rna|reu_rww|rww|unlogged",
+     *        "region": "af|an|as|ca|eu|iw|na|oc|sa|xx"
      *     },
      *     name="stats_signals_count"
      * )
      * @param $system
+     * @param string $region
      * @return Response
      */
     public function signals_count (
         $system,
-        $sys
+        $region = ''
     ) {
-        $stats =        $this->signalRepository->getStats();
-        $textResponse = new Response($stats[ 'signals' ][ $sys ] , 200);
+        $stats = $this->statsRepository->getStats();
+        $count = ($region ? ($stats['signals_' . $system . '_' . $region] ?? '?') : ($stats['signals_' . $system] ?? '?'));
+        $textResponse = new Response($count , 200);
         $textResponse->headers->set('Content-Type', 'text/plain');
 
         return $textResponse;

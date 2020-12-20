@@ -346,27 +346,6 @@ class ListenerRepository extends ServiceEntityRepository
         return $qb->getQuery()->execute();
     }
 
-    public function getStats($system, $region)
-    {
-        $listeners =    $this->getFilteredListenersCount($system, [ 'region' => $region ]);
-        if (!$listeners) {
-            return [];
-        }
-        $loggings =     $this->logRepository->getFilteredLogsCount($system, $region);
-        $dates =        $this->getFirstAndLastLog($system, $region);
-
-        $stats = [
-            'focus' =>      ($region ? $this->regionRepository->get($region)->getName() : ""),
-            'locations' =>  (int) $listeners,
-            'logs' =>       (int) $loggings
-        ];
-        if ($loggings) {
-            $stats['first'] =   $dates['first'];
-            $stats['last'] =    $dates['last' ];
-        }
-        return [ 'listeners' => $stats ];
-    }
-
     public function getAll()
     {
         $sql = <<< EOD

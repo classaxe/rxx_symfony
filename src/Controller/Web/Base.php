@@ -14,6 +14,7 @@ use App\Repository\ModeRepository;
 use App\Repository\PaperRepository;
 use App\Repository\RegionRepository;
 use App\Repository\SignalRepository;
+use App\Repository\StatsRepository;
 use App\Repository\SystemRepository;
 use App\Repository\ToolRepository;
 use App\Repository\TypeRepository;
@@ -55,6 +56,7 @@ class Base extends AbstractController
     protected $paperRepository;
     protected $regionRepository;
     protected $signalRepository;
+    protected $statsRepository;
     protected $systemRepository;
     protected $toolRepository;
     protected $typeRepository;
@@ -84,6 +86,7 @@ class Base extends AbstractController
      * @param PaperRepository $paperRepository
      * @param RegionRepository $regionRepository
      * @param SignalRepository $signalRepository
+     * @param StatsRepository $statsRepository
      * @param SystemRepository $systemRepository
      * @param ToolRepository $toolRepository
      * @param TypeRepository $typeRepository
@@ -113,6 +116,7 @@ class Base extends AbstractController
         PaperRepository $paperRepository,
         RegionRepository $regionRepository,
         SignalRepository $signalRepository,
+        StatsRepository $statsRepository,
         SystemRepository $systemRepository,
         ToolRepository $toolRepository,
         TypeRepository $typeRepository,
@@ -138,6 +142,7 @@ class Base extends AbstractController
         $this->paperRepository =    $paperRepository;
         $this->regionRepository =   $regionRepository;
         $this->signalRepository =   $signalRepository;
+        $this->statsRepository =    $statsRepository;
         $this->systemRepository =   $systemRepository;
         $this->toolRepository =     $toolRepository;
         $this->typeRepository =     $typeRepository;
