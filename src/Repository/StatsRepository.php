@@ -15,7 +15,7 @@ class StatsRepository extends ServiceEntityRepository
 {
     private $connection;
     private $cache = null;
-    private $age = 4.75;
+    private $age = 5;
 
     /**
      * StatsRepository constructor.
@@ -38,7 +38,7 @@ class StatsRepository extends ServiceEntityRepository
             $this->cache = $stmt->fetchAssociative();
         }
         $timestamp = (new DateTime())->modify('-' . $this->age . 'minute')->format('Y-m-d H:i:s');
-        if ($timestamp >= $this->cache['timestamp']) {
+        if ($timestamp > $this->cache['timestamp']) {
             $data = [];
             $this->getListenerStats($data);
             $this->getLogStats($data);
