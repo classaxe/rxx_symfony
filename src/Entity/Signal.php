@@ -33,6 +33,7 @@ use Doctrine\ORM\Mapping as ORM;
  *          @ORM\Index(name="heard_in_na", columns={"heard_in_na"}),
  *          @ORM\Index(name="heard_in_oc", columns={"heard_in_oc"}),
  *          @ORM\Index(name="heard_in_sa", columns={"heard_in_sa"}),
+ *          @ORM\Index(name="heard_in_rna", columns={"heard_in_rna"}),
  *          @ORM\Index(name="region", columns={"region"})
  *     }
  * )
@@ -160,6 +161,13 @@ class Signal
      * @ORM\Column(name="heard_in_sa", type="boolean", nullable=false)
      */
     private $heardInSa = '0';
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="heard_in_rna", type="boolean", nullable=false)
+     */
+    private $heardInRna = '0';
 
     /**
      * @var string|null
@@ -490,6 +498,18 @@ class Signal
     public function setHeardInSa(bool $heardInSa): self
     {
         $this->heardInSa = $heardInSa;
+
+        return $this;
+    }
+
+    public function getHeardInRna(): ?bool
+    {
+        return $this->heardInRna;
+    }
+
+    public function setHeardInRna(bool $heardInRna): self
+    {
+        $this->heardInRna = $heardInRna;
 
         return $this;
     }

@@ -400,7 +400,7 @@ class ListenerRepository extends ServiceEntityRepository
 EOD;
         $stmt = $this->connection->prepare($sql);
         $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_COLUMN);
+        return $stmt->fetchFirstColumn();
     }
 
     public function getAllOptions(
@@ -570,6 +570,7 @@ EOD;
                 ->andWhere('(l.region = :region)')
                 ->setParameter('region', $region);
         }
+//        print "<pre>" . print_r($qb->getQuery()->getSQL(), true) . "</pre>";
         return $qb->getQuery()->getArrayResult()[0];
     }
 
@@ -843,6 +844,37 @@ EOD;
         }
         return $result;
     }
+
+    public function getAllStats()
+    {
+        $sql = <<< EOD
+            SELECT
+                'rww' AS `system`,
+                li_1.region,
+                COUNT(*) AS `count`,
+                MIN(li_1.log_earliest) AS `first`,
+                MAX(li_1.log_latest) AS `last`
+            FROM
+                listeners li_1
+            GROUP BY
+                li_1.region
+            UNION SELECT
+                'rna',
+                '',
+                COUNT(*),
+                MIN(li_2.log_earliest),
+                MAX(li_2.log_latest)
+            FROM
+                listeners li_2
+            WHERE
+                (li_2.region = 'oc' AND li_2.ITU = 'HWA') OR (li_2.region IN ('na','ca'));
+EOD;
+
+        $stmt = $this->connection->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAllAssociative();
+    }
+
 
     public function updateListenerStats($listenerId = false)
     {
