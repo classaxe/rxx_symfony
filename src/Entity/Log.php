@@ -16,6 +16,7 @@ use Doctrine\ORM\Mapping as ORM;
  *          @ORM\Index(name="idx_dx_miles", columns={"dx_miles"}),
  *          @ORM\Index(name="idx_heard_in", columns={"heard_in"}),
  *          @ORM\Index(name="idx_listenerID", columns={"listenerID"}),
+ *          @ORM\Index(name="idx_logSessionID", columns={"logSessionID"}),
  *          @ORM\Index(name="idx_signalID", columns={"signalID"}),
  *          @ORM\Index(name="idx_daytime", columns={"daytime"}),
  *          @ORM\Index(name="idx_region", columns={"region"})
@@ -39,7 +40,7 @@ class Log
      *
      * @ORM\Column(name="signalID", type="integer", nullable=false)
      */
-    private $signalid = '0';
+    private $signalId = '0';
 
     /**
      * @var \DateTime|null
@@ -81,7 +82,14 @@ class Log
      *
      * @ORM\Column(name="listenerID", type="integer", nullable=true, options={"unsigned"=true})
      */
-    private $listenerid;
+    private $listenerId;
+
+    /**
+     * @var int|null
+     *
+     * @ORM\Column(name="logSessionID", type="integer", nullable=true, options={"unsigned"=true})
+     */
+    private $logSessionId;
 
     /**
      * @var int|null
@@ -146,12 +154,12 @@ class Log
 
     public function getSignalId(): ?int
     {
-        return $this->signalid;
+        return $this->signalId;
     }
 
-    public function setSignalId(int $signalid): self
+    public function setSignalId(int $signalId): self
     {
-        $this->signalid = $signalid;
+        $this->signalId = $signalId;
 
         return $this;
     }
@@ -218,12 +226,24 @@ class Log
 
     public function getListenerId(): ?int
     {
-        return $this->listenerid;
+        return $this->listenerId;
     }
 
-    public function setListenerId(?int $listenerid): self
+    public function setListenerId(?int $listenerId): self
     {
-        $this->listenerid = $listenerid;
+        $this->listenerId = $listenerId;
+
+        return $this;
+    }
+
+    public function getLogSessionId(): ?int
+    {
+        return $this->logSessionId;
+    }
+
+    public function setLogSessionId(?int $logSessionId): self
+    {
+        $this->logSessionId = $logSessionId;
 
         return $this;
     }
