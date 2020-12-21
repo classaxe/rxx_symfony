@@ -969,9 +969,9 @@ EOD;
             ->createQueryBuilder('s')
             ->select($columns)
             ->innerJoin('\App\Entity\Log', 'l')
-            ->andWhere('l.signalid = s.id')
+            ->andWhere('l.signalId = s.id')
             ->innerJoin('\App\Entity\Listener', 'li')
-            ->andWhere('li.id = l.listenerid')
+            ->andWhere('li.id = l.listenerId')
             ->andWhere('s.id = :signalID')
             ->setParameter(':signalID', $signalID)
             ->addGroupBy('li.id');
@@ -1001,9 +1001,9 @@ EOD;
             ->createQueryBuilder('s')
             ->select($columns)
             ->innerJoin('\App\Entity\Log', 'l')
-            ->andWhere('l.signalid = s.id')
+            ->andWhere('l.signalId = s.id')
             ->innerJoin('\App\Entity\Listener', 'li')
-            ->andWhere('li.id = l.listenerid')
+            ->andWhere('li.id = l.listenerId')
             ->andWhere('s.id = :signalID')
             ->setParameter(':signalID', $signalID)
             ->addGroupBy('l.id');

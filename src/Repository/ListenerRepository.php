@@ -303,7 +303,7 @@ class ListenerRepository extends ServiceEntityRepository
                 '\App\Entity\Log',
                 'logs',
                 Join::WITH,
-                'logs.listenerid = l.id AND logs.signalid = :signalId'
+                'logs.listenerId = l.id AND logs.signalId = :signalId'
             )
             ->andWhere('(l.mapX != 0 OR l.mapY != 0)')
             ->andWhere('l.countLogs != 0')
@@ -332,8 +332,8 @@ class ListenerRepository extends ServiceEntityRepository
                 . 'MAX(logs.daytime) AS daytime'
             )
             ->innerJoin('\App\Entity\Log', 'logs')
-            ->andWhere('logs.listenerid = l.id')
-            ->andWhere('logs.signalid = :signalId')
+            ->andWhere('logs.listenerId = l.id')
+            ->andWhere('logs.signalId = :signalId')
             ->setParameter('signalId', $signalId)
             ->andWhere('(l.mapX != 0 OR l.mapY != 0)')
             ->andWhere('l.countLogs != 0')
@@ -672,10 +672,10 @@ EOD;
             ->createQueryBuilder('li')
             ->select($columns)
             ->innerJoin('\App\Entity\Log', 'l')
-            ->andWhere('l.listenerid = li.id')
+            ->andWhere('l.listenerId = li.id')
 
             ->innerJoin('\App\Entity\Signal', 's')
-            ->andWhere('l.signalid = s.id')
+            ->andWhere('l.signalId = s.id')
 
             ->andWhere('li.id = :listenerID')
             ->setParameter('listenerID', $listenerID);
@@ -719,10 +719,10 @@ EOD;
             ->createQueryBuilder('li')
             ->select('COUNT(distinct s.id) as count')
             ->innerJoin('\App\Entity\Log', 'l')
-            ->andWhere('l.listenerid = li.id')
+            ->andWhere('l.listenerId = li.id')
 
             ->innerJoin('\App\Entity\Signal', 's')
-            ->andWhere('l.signalid = s.id')
+            ->andWhere('l.signalId = s.id')
 
             ->andWhere('li.id = :listenerID')
             ->setParameter('listenerID', $listenerID);
@@ -755,7 +755,7 @@ EOD;
             .'s.heardIn,'
             .'l.dxKm,'
             .'l.dxMiles,'
-            .'COUNT(l.signalid) AS logs,'
+            .'COUNT(l.signalId) AS logs,'
             .'MAX(l.daytime) AS daytime,'
             .'MIN(l.date) AS earliest,'
             .'MAX(l.date) AS latest';
@@ -764,10 +764,10 @@ EOD;
             ->createQueryBuilder('li')
             ->select($columns)
             ->innerJoin('\App\Entity\Log', 'l')
-            ->andWhere('l.listenerid = li.id')
+            ->andWhere('l.listenerId = li.id')
 
             ->innerJoin('\App\Entity\Signal', 's')
-            ->andWhere('l.signalid = s.id')
+            ->andWhere('l.signalId = s.id')
 
             ->andWhere('li.id = :listenerID')
             ->setParameter('listenerID', $listenerID);

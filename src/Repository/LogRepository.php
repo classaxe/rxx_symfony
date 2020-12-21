@@ -208,10 +208,10 @@ EOD;
                 . 's.lon,'
                 . 's.qth'
             )
-            ->andWhere('l.listenerid = :listenerID')
+            ->andWhere('l.listenerId = :listenerID')
             ->setParameter('listenerID', $listenerID)
             ->innerJoin('\App\Entity\Signal', 's')
-            ->andWhere('l.signalid = s.id')
+            ->andWhere('l.signalId = s.id')
             ->orderBy(
                 'l.date',
                 'ASC'
