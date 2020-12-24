@@ -2,6 +2,7 @@
 namespace App\Controller\Web\Listeners;
 
 use App\Form\Listeners\LogUpload as LogUploadForm;
+use DateTime;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -129,6 +130,13 @@ class ListenerLogsUpload extends Base
                     );
                     $user = $this->userRepository->find($this->session->get('user_id'));
 
+                    $logSessionID = $this->logsessionRepository->addLogSession(
+                        new DateTime(),
+                        $user->getId(),
+                        $this->listener->getId(),
+                        $stats['logs']
+                    );
+
                     foreach($this->entries as $e) {
                         $stats['logs']++;
                         if ($this->logRepository->checkIfDuplicate($e['signalID'], $id, $e['YYYYMMDD'], $e['time'])) {
@@ -152,6 +160,7 @@ class ListenerLogsUpload extends Base
                         );
                         $stats['latest_for_signal'] += ($e['latest'] ? 1 : 0);
                         $this->logRepository->addLog(
+                            $logSessionID,
                             $e['signalID'],
                             $id,
                             $heardIn,

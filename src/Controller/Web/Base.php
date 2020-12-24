@@ -9,6 +9,7 @@ use App\Repository\IcaoRepository;
 use App\Repository\LanguageRepository;
 use App\Repository\ListenerRepository;
 use App\Repository\LogRepository;
+use App\Repository\LogsessionRepository;
 use App\Repository\MapRepository;
 use App\Repository\ModeRepository;
 use App\Repository\PaperRepository;
@@ -51,6 +52,7 @@ class Base extends AbstractController
     protected $listenerRepository;
     protected $logger;
     protected $logRepository;
+    protected $logsessionRepository;
     protected $mapRepository;
     protected $modeRepository;
     protected $paperRepository;
@@ -81,6 +83,7 @@ class Base extends AbstractController
      * @param ListenerRepository $listenerRepository
      * @param LoggerInterface $logger
      * @param LogRepository $logRepository
+     * @param LogsessionRepository $logsessionRepository
      * @param MapRepository $mapRepository
      * @param ModeRepository $modeRepository
      * @param PaperRepository $paperRepository
@@ -111,6 +114,7 @@ class Base extends AbstractController
         LanguageRepository $languageRepository,
         ListenerRepository $listenerRepository,
         LogRepository $logRepository,
+        LogsessionRepository $logsessionRepository,
         MapRepository $mapRepository,
         ModeRepository $modeRepository,
         PaperRepository $paperRepository,
@@ -137,6 +141,7 @@ class Base extends AbstractController
         $this->languageRepository = $languageRepository;
         $this->listenerRepository = $listenerRepository;
         $this->logRepository =      $logRepository;
+        $this->logsessionRepository = $logsessionRepository;
         $this->mapRepository =      $mapRepository;
         $this->modeRepository =     $modeRepository;
         $this->paperRepository =    $paperRepository;

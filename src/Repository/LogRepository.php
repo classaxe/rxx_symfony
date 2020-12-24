@@ -78,6 +78,7 @@ class LogRepository extends ServiceEntityRepository
     }
 
     public function addLog(
+        $logSessionId,
         $signalID,
         $listenerID,
         $heardIn,
@@ -94,60 +95,26 @@ class LogRepository extends ServiceEntityRepository
         $fmt,
         $sec
     ) {
-        $params = [
-            ':signalID' =>      $signalID,
-            ':listenerID' =>    $listenerID,
-            ':heardIn' =>       $heardIn,
-            ':region' =>        $region,
-            ':YYYYMMDD' =>      $YYYYMMDD,
-            ':hhmm' =>          $hhmm,
-            ':daytime' =>       $daytime,
-            ':dx_km' =>         $dx_km,
-            ':dx_miles' =>      $dx_miles,
-            ':LSB_approx' =>    $LSB_approx,
-            ':LSB' =>           $LSB ? $LSB : null,
-            ':USB_approx' =>    $USB_approx,
-            ':USB' =>           $USB ? $USB : null,
-            ':fmt' =>           $fmt,
-            ':sec' =>           $sec
-        ];
-        $sql = <<< EOD
-            INSERT INTO `logs` (
-                `signalID`,
-                `listenerID`,
-                `heard_in`,
-                `region`,
-                `date`,
-                `time`,
-                `daytime`,
-                `dx_km`,
-                `dx_miles`,
-                `LSB_approx`,
-                `LSB`,
-                `USB_approx`,
-                `USB`,
-                `format`,
-                `sec`
-            ) values (
-                :signalID,
-                :listenerID,
-                :heardIn,
-                :region,
-                :YYYYMMDD,
-                :hhmm,
-                :daytime,
-                :dx_km,
-                :dx_miles,
-                :LSB_approx,
-                :LSB,
-                :USB_approx,
-                :USB,
-                :fmt,
-                :sec
-            );
-EOD;
-        $stmt = $this->connection->prepare($sql);
-        $stmt->execute($params);
+        $log = new Log();
+        $log
+            ->setLogSessionId($logSessionId)
+            ->setSignalId($signalID)
+            ->setListenerId($listenerID)
+            ->setHeardIn($heardIn)
+            ->setRegion($region)
+            ->setDate(DateTime::createFromFormat('Y-m-d', $YYYYMMDD))
+            ->setTime($hhmm)
+            ->setDaytime($daytime)
+            ->setDxKm($dx_km)
+            ->setDxMiles($dx_miles)
+            ->setLsbApprox($LSB_approx)
+            ->setLsb($LSB ? $LSB : null)
+            ->setUsbApprox($USB_approx)
+            ->setUsb($USB ? $USB : null)
+            ->setFormat($fmt)
+            ->setSec($sec);
+        $this->getEntityManager()->persist($log);
+        $this->getEntityManager()->flush();
     }
 
     private function getLogWhereClause($listenerId = false, $signalId = false)
