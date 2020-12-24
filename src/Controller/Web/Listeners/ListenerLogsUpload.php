@@ -133,15 +133,24 @@ class ListenerLogsUpload extends Base
                     $logSessionID = $this->logsessionRepository->addLogSession(
                         new DateTime(),
                         $user->getId(),
-                        $this->listener->getId(),
-                        $stats['logs']
+                        $this->listener->getId()
                     );
 
+                    $firstLog = null;
+                    $lastLog = null;
                     foreach($this->entries as $e) {
                         $stats['logs']++;
                         if ($this->logRepository->checkIfDuplicate($e['signalID'], $id, $e['YYYYMMDD'], $e['time'])) {
                             $stats['duplicates']++;
                             continue;
+                        }
+                        $datestamp = $e['YYYYMMDD'] . ' ' . substr($e['time'], 0, 2) . ':' . substr($e['time'], 2). ':00';
+
+                        if ($firstLog === null || $firstLog > $datestamp) {
+                            $firstLog = $datestamp;
+                        }
+                        if ($lastLog === null || $lastLog < $datestamp) {
+                            $lastLog = $datestamp;
                         }
                         if ($this->logRepository->checkIfHeardAtPlace($e['signalID'], $heardIn)) {
                             if ($this->logRepository->countTimesHeardByListener($e['signalID'], $id)) {
@@ -179,6 +188,15 @@ class ListenerLogsUpload extends Base
                         );
                         $this->signalRepository->updateSignalStats($e['signalID'], $e['latest']);
                     }
+
+                    $logSession = $this->logsessionRepository->find($logSessionID);
+                    $logSession
+                        ->setFirstLog(DateTime::createFromFormat('Y-m-d H:i:s', $firstLog) ?? null)
+                        ->setLastLog(DateTime::createFromFormat('Y-m-d H:i:s', $lastLog) ?? null)
+                        ->setLogs($stats['logs']);
+                    $em = $this->getDoctrine()->getManager();
+                    $em->flush();
+
                     $this->listenerRepository->updateListenerStats($id);
                     $this->listenerRepository->clear();
                     $user->setCountLogSession($user->getCountLogSession() + 1);

@@ -45,6 +45,20 @@ class LogSession
     private $administratorId;
 
     /**
+     * @var \DateTime|null
+     *
+     * @ORM\Column(name="first_log", type="datetime", nullable=true)
+     */
+    private $firstLog;
+
+    /**
+     * @var \DateTime|null
+     *
+     * @ORM\Column(name="last_log", type="datetime", nullable=true)
+     */
+    private $lastLog;
+
+    /**
      * @var int|null
      *
      * @ORM\Column(name="listenerID", type="integer", nullable=true, options={"unsigned"=true})
@@ -97,6 +111,44 @@ class LogSession
     public function setAdministratorId(int $administratorId): self
     {
         $this->administratorId = $administratorId;
+
+        return $this;
+    }
+
+    /**
+     * @return DateTimeInterface|null
+     */
+    public function getFirstLog(): ?DateTimeInterface
+    {
+        return $this->firstLog;
+    }
+
+    /**
+     * @param DateTimeInterface|null $firstLog
+     * @return $this
+     */
+    public function setFirstLog(?DateTimeInterface $firstLog): self
+    {
+        $this->firstLog = $firstLog;
+
+        return $this;
+    }
+
+    /**
+     * @return DateTimeInterface|null
+     */
+    public function getLastLog(): ?DateTimeInterface
+    {
+        return $this->lastLog;
+    }
+
+    /**
+     * @param DateTimeInterface|null $lastLog
+     * @return $this
+     */
+    public function setLastLog(?DateTimeInterface $lastLog): self
+    {
+        $this->lastLog = $lastLog;
 
         return $this;
     }

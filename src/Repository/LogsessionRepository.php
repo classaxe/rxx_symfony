@@ -30,15 +30,13 @@ class LogsessionRepository extends ServiceEntityRepository
     public function addLogSession(
         $timestamp,
         $administratorID,
-        $listenerID,
-        $logs
+        $listenerID
     ) {
         $logsession = new LogSession();
         $logsession
             ->setTimestamp($timestamp)
             ->setAdministratorId($administratorID)
-            ->setListenerId($listenerID)
-            ->setLogs($logs);
+            ->setListenerId($listenerID);
         $this->getEntityManager()->persist($logsession);
         $this->getEntityManager()->flush();
         return $logsession->getId();
