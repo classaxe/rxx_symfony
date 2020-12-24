@@ -41,14 +41,14 @@ class LogSessions
      *
      * @ORM\Column(name="administratorID", type="integer", nullable=true, options={"unsigned"=true})
      */
-    private $administratorid;
+    private $administratorId;
 
     /**
      * @var int|null
      *
      * @ORM\Column(name="listenerID", type="integer", nullable=true, options={"unsigned"=true})
      */
-    private $listenerid;
+    private $listenerId;
 
     /**
      * @var int|null

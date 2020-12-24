@@ -220,19 +220,20 @@ var VALIDATE = {
 
 var COORDS = {
     init: function() {
-        var cmd_1, cmd_2, idx, modes;
+        var cmd_1, cmd_2, cmd_3, idx, modes;
         modes = [
-            ['dms_deg', 'deg_gsq'],
-            ['deg_dms', 'deg_gsq'],
-            ['gsq_deg', 'deg_dms']
+            ['dms_deg', 'deg_gsq', 'copy_dms'],
+            ['deg_dms', 'deg_gsq', 'copy_deg'],
+            ['gsq_deg', 'deg_dms', 'copy_gsq']
         ];
         for (idx = 0; idx < modes.length; idx++) {
             cmd_1 = 'COORDS.' + modes[idx][0] + '();';
             cmd_2 = 'COORDS.' + modes[idx][1] + '();';
-            (function (i, c1, c2) {
+            cmd_3 = 'COORDS.' + modes[idx][2] + '();';
+            (function (i, c1, c2, c3) {
                 $('#go_' + i).on('click', function () {
                     if (eval(c1)) {
-                        eval(c2)
+                        eval(c2);
                     }
                     return false;
                 });
@@ -245,21 +246,33 @@ var COORDS = {
                 });
                 $('#photo_' + i).on('click', function () {
                     if (eval(c1)) {
-                        eval(c2)
+                        eval(c2);
                         COORDS.map('photo');
                     }
                     return false;
                 });
-            })(idx + 1, cmd_1, cmd_2);
+                $('#copy_' + i).on('click', function() {
+                    if (eval(c1)) {
+                        eval(c2);
+                        eval(c3);
+                    }
+                    return false;
+                })
+
+            })(idx + 1, cmd_1, cmd_2, cmd_3);
         }
         $('#close').on('click', function(){
             window.close();
         })
     },
     map: function(mode) {
-        var hd, lat, lon, url;
-        lat = $('#lat_dddd').val();
-        lon = $('#lon_dddd').val();
+        var field_lat, field_lon, hd, lat, lon, url;
+        field_lat = $('#lat_dddd');
+        field_lon = $('#lon_dddd');
+        field_lat.val(field_lat.val().trim());
+        field_lon.val(field_lon.val().trim());
+        lat = field_lat.val();
+        lon = field_lon.val();
         if (lat === '' || lon === '') {
             return;
         }
@@ -267,10 +280,26 @@ var COORDS = {
         hd = '_' + lat + '_' + lon;
         window.open(url, hd, 'scrollbars=1,resizable=1,location=1,width=860,height=630');
     },
+    copy_dms: function(){
+        copyToClipboard($('#lat_dd_mm_ss').val() + ', ' + $('#lon_dd_mm_ss').val());
+        alert(msg.copied_x.replace('%s', 'DMS Coordinates'));
+    },
+    copy_deg: function(){
+        copyToClipboard($('#lat_dddd').val() + ', ' + $('#lon_dddd').val());
+        alert(msg.copied_x.replace('%s', 'Decimal Coordinates'));
+    },
+    copy_gsq: function(){
+        copyToClipboard($('#gsq').val());
+        alert(msg.copied_x.replace('%s', 'GSQ'));
+    },
     deg_gsq: function(){
-        var lat, lon;
-        lat = $('#lat_dddd').val();
-        lon = $('#lon_dddd').val();
+        var field_lat, field_lon, lat, lon;
+        field_lat = $('#lat_dddd');
+        field_lon = $('#lon_dddd');
+        field_lat.val(field_lat.val().trim());
+        field_lon.val(field_lon.val().trim());
+        lat = field_lat.val();
+        lon = field_lon.val();
         if (!VALIDATE.dec_lat(lat)) {
             alert(msg.tools.coords.lat_dec);
             return false;
@@ -282,8 +311,10 @@ var COORDS = {
         $('#gsq').val(CONVERT.deg_gsq(lat, lon));
     },
     gsq_deg: function() {
-        var gsq, result;
-        gsq = $('#gsq').val();
+        var field_gsq, gsq, result;
+        field_gsq = $('#gsq');
+        field_gsq.val(field_gsq.val().trim());
+        gsq = field_gsq.val().trim();
         if (!VALIDATE.gsq(gsq)) {
             alert(msg.tools.coords.gsq_format);
             return false;
