@@ -69,6 +69,13 @@ class Listener
     /**
      * @var int
      *
+     * @ORM\Column(name="count_logsessions", type="integer", nullable=false, options={"unsigned"=true})
+     */
+    private $countLogsessions = '0';
+
+    /**
+     * @var int
+     *
      * @ORM\Column(name="count_NAVTEX", type="integer", nullable=false, options={"unsigned"=true})
      */
     private $countNavtex = '0';
@@ -332,6 +339,25 @@ class Listener
     public function setCountLogs(int $countLogs): self
     {
         $this->countLogs = $countLogs;
+
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getCountLogsessions(): ?int
+    {
+        return $this->countLogsessions ? $this->countLogsessions : null;
+    }
+
+    /**
+     * @param int $countLogsessions
+     * @return Listener
+     */
+    public function setCountLogsesseions(int $countLogsessions): self
+    {
+        $this->countLogsessions = $countLogsessions;
 
         return $this;
     }

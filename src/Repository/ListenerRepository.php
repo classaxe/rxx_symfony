@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Columns\ListenerLogs as ListenerLogsColumns;
+use App\Columns\ListenerLogsessions as ListenerLogsessionsColumns;
 use App\Columns\ListenerSignals as ListenerSignalsColumns;
 use App\Entity\Listener;
 use App\Utils\Rxx;
@@ -16,9 +17,9 @@ use PDO;
 class ListenerRepository extends ServiceEntityRepository
 {
     const defaultLimit =    500;
-    const defaultOrder =    'a';
+    const defaultOrder =    'd';
     const defaultPage =     0;
-    const defaultSorting =  'name';
+    const defaultSorting =  'ls.timestamp';
 
     private $connection;
 
@@ -27,6 +28,7 @@ class ListenerRepository extends ServiceEntityRepository
         ['listener_signals', 'Signals (%%signals%%)'],
         ['listener_signalsmap', 'Signals Map'],
         ['listener_logs', 'Logs (%%logs%%)'],
+        ['listener_logsessions', 'Log Sessions (%%logsessions%%)'],
         ['listener_logsupload', 'Upload'],
         ['listener_map', 'Map'],
         ['listener_locatormap', 'Locator'],
@@ -37,6 +39,7 @@ class ListenerRepository extends ServiceEntityRepository
 
     private $listenersColumns;
     private $listenerLogsColumns;
+    private $listenerLogsessionsColumns;
     private $listenerSignalsColumns;
     private $logRepository;
     private $regionRepository;
@@ -47,6 +50,7 @@ class ListenerRepository extends ServiceEntityRepository
         ManagerRegistry $registry,
         ListenersColumns $listenersColumns,
         ListenerLogsColumns $listenerLogsColumns,
+        ListenerLogsessionsColumns $listenerLogsessionsColumns,
         ListenerSignalsColumns $listenerSignalsColumns,
         LogRepository $logRepository
     ) {
@@ -54,6 +58,7 @@ class ListenerRepository extends ServiceEntityRepository
         $this->connection = $connection;
         $this->listenersColumns = $listenersColumns->getColumns();
         $this->listenerLogsColumns = $listenerLogsColumns->getColumns();
+        $this->listenerLogsessionsColumns = $listenerLogsessionsColumns->getColumns();
         $this->listenerSignalsColumns = $listenerSignalsColumns->getColumns();
         $this->logRepository = $logRepository;
         $this->regionRepository = $regionRepository;
@@ -65,6 +70,7 @@ class ListenerRepository extends ServiceEntityRepository
             return [];
         }
         $logs =     $listener->getCountLogs();
+        $logsessions =  $listener->getCountLogsessions();
         $signals =  $listener->getCountSignals();
         $knownQth = ($listener->getLat() || $listener->getLon());
         $out = [];
@@ -79,6 +85,15 @@ class ListenerRepository extends ServiceEntityRepository
                         $out[] = str_replace(
                             ['%%logs%%', '%%signals%%'],
                             [$logs, $signals],
+                            $data
+                        );
+                    }
+                    break;
+                case 'listener_logsessions':
+                    if ($logsessions) {
+                        $out[] = str_replace(
+                            ['%%logsessions%%'],
+                            [$logsessions],
                             $data
                         );
                     }
@@ -246,6 +261,9 @@ class ListenerRepository extends ServiceEntityRepository
                 break;
             case 'logs':
                 return $this->listenerLogsColumns;
+                break;
+            case 'logsessions':
+                return $this->listenerLogsessionsColumns;
                 break;
             case 'signals':
                 return $this->listenerSignalsColumns;
@@ -713,6 +731,43 @@ EOD;
         return $result;
     }
 
+    public function getLogsessionsForListener($listenerID, array $args)
+    {
+        $columns =
+            'trim(ls.timestamp) as timestamp,'
+            .'u.name,'
+            .'trim(ls.firstLog) as firstLog,'
+            .'trim(ls.lastLog) as lastLog,'
+            .'ls.logs';
+
+        $qb = $this
+            ->createQueryBuilder('li')
+            ->select($columns)
+            ->innerJoin('\App\Entity\Logsession', 'ls', 'WITH', 'ls.listenerId = li.id')
+            ->innerJoin('\App\Entity\User', 'u', 'WITH', 'ls.administratorId = u.id')
+            ->andWhere('li.id = :listenerID')
+            ->setParameter('listenerID', $listenerID);
+
+        if (isset($args['limit']) && (int)$args['limit'] !== -1 && isset($args['page'])) {
+            $qb
+                ->setFirstResult($args['page'] * $args['limit'])
+                ->setMaxResults($args['limit']);
+        }
+
+        if (isset($args['sort']) && $this->listenerLogsessionsColumns[$args['sort']]['sort']) {
+            $idx = $this->listenerLogsessionsColumns[$args['sort']];
+            $qb
+                ->addOrderBy(
+                    ($idx['sort']),
+                    ($args['order'] === 'd' ? 'DESC' : 'ASC')
+                );
+        }
+
+        $result = $qb->getQuery()->execute();
+//        print "<pre>".print_r($result, true)."</pre>";
+        return $result;
+    }
+
     public function getSignalCountsForListener($listenerID)
     {
         $qb = $this
@@ -859,17 +914,18 @@ EOD;
 UPDATE
 	listeners l
 SET    
-    count_logs =    (SELECT COUNT(*) FROM logs WHERE logs.listenerId = l.id),
-    count_signals = (SELECT COUNT(DISTINCT signalId) FROM logs WHERE logs.listenerId = l.id),
-    count_NDB =     (SELECT COUNT(DISTINCT signalId) FROM logs INNER JOIN signals s ON logs.signalId = s.id AND s.type = 0 WHERE logs.listenerId = l.id),
-    count_DGPS =    (SELECT COUNT(DISTINCT signalId) FROM logs INNER JOIN signals s ON logs.signalId = s.id AND s.type = 1 WHERE logs.listenerId = l.id),
-    count_TIME =    (SELECT COUNT(DISTINCT signalId) FROM logs INNER JOIN signals s ON logs.signalId = s.id AND s.type = 2 WHERE logs.listenerId = l.id),
-    count_NAVTEX =  (SELECT COUNT(DISTINCT signalId) FROM logs INNER JOIN signals s ON logs.signalId = s.id AND s.type = 3 WHERE logs.listenerId = l.id),
-    count_HAMBCN =  (SELECT COUNT(DISTINCT signalId) FROM logs INNER JOIN signals s ON logs.signalId = s.id AND s.type = 4 WHERE logs.listenerId = l.id),
-    count_OTHER =   (SELECT COUNT(DISTINCT signalId) FROM logs INNER JOIN signals s ON logs.signalId = s.id AND s.type = 5 WHERE logs.listenerId = l.id),
-    count_DSC =     (SELECT COUNT(DISTINCT signalId) FROM logs INNER JOIN signals s ON logs.signalId = s.id AND s.type = 6 WHERE logs.listenerId = l.id),
-    log_earliest =  (SELECT MIN(date) FROM logs WHERE logs.listenerId = l.id),
-    log_latest =    (SELECT MAX(date) FROM logs WHERE logs.listenerId = l.id)
+    count_logs =        (SELECT COUNT(*) FROM logs WHERE logs.listenerId = l.id),
+    count_logsessions = (SELECT COUNT(*) FROM log_sessions WHERE log_sessions.listenerId = l.id),
+    count_signals =     (SELECT COUNT(DISTINCT signalId) FROM logs WHERE logs.listenerId = l.id),
+    count_NDB =         (SELECT COUNT(DISTINCT signalId) FROM logs INNER JOIN signals s ON logs.signalId = s.id AND s.type = 0 WHERE logs.listenerId = l.id),
+    count_DGPS =        (SELECT COUNT(DISTINCT signalId) FROM logs INNER JOIN signals s ON logs.signalId = s.id AND s.type = 1 WHERE logs.listenerId = l.id),
+    count_TIME =        (SELECT COUNT(DISTINCT signalId) FROM logs INNER JOIN signals s ON logs.signalId = s.id AND s.type = 2 WHERE logs.listenerId = l.id),
+    count_NAVTEX =      (SELECT COUNT(DISTINCT signalId) FROM logs INNER JOIN signals s ON logs.signalId = s.id AND s.type = 3 WHERE logs.listenerId = l.id),
+    count_HAMBCN =      (SELECT COUNT(DISTINCT signalId) FROM logs INNER JOIN signals s ON logs.signalId = s.id AND s.type = 4 WHERE logs.listenerId = l.id),
+    count_OTHER =       (SELECT COUNT(DISTINCT signalId) FROM logs INNER JOIN signals s ON logs.signalId = s.id AND s.type = 5 WHERE logs.listenerId = l.id),
+    count_DSC =         (SELECT COUNT(DISTINCT signalId) FROM logs INNER JOIN signals s ON logs.signalId = s.id AND s.type = 6 WHERE logs.listenerId = l.id),
+    log_earliest =      (SELECT MIN(date) FROM logs WHERE logs.listenerId = l.id),
+    log_latest =        (SELECT MAX(date) FROM logs WHERE logs.listenerId = l.id)
 EOT;
         if ($listenerId) {
             $sql .= "\nWHERE\n    l.id = $listenerId";

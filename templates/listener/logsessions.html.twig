@@ -1,0 +1,40 @@
+{% extends 'popup.html.twig' %}
+{% block body %}
+<div class="main fullwidth">
+{% set form_class='listener_logs' %}
+    {% include 'listener/tabs.html.twig' %}
+    <div class="controlPanel {{ form_class }}">
+        <div class="header">{{ mode|raw }}
+            <div class="export">{% trans %}Export{% endtrans %}
+                <a href="{{ url('listener_logs_export_csv', { 'system' : system, 'id': id }) }}">
+                    <span class='ui-icon ui-icon-document'></span>.csv
+                </a>
+                <a href="{{ url('listener_logs_export_txt', { 'system' : system, 'id': id }) }}">
+                    <span class='ui-icon ui-icon-document'></span>.txt
+                </a>
+            </div>
+        </div>
+        <div class="content scroll" id="list">
+            {% include 'status.html.twig' %}
+{{ form_start(form) }}
+            {% include 'forms/paging.html.twig' %}
+{{ form_end(form) }}
+{% include 'listener/logsessions.grid.html.twig' %}
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready( function() {
+        setExternalLinks();
+        setFormPagingActions();
+        setColumnSortActions();
+        setColumnSortedClass();
+        setClippedCellTitles();
+        $('#form_paging_status').html('{{ matched }}');
+        $('#list').height($(window).height() - 90);
+        $(window).resize(function () {
+            $('#list').height($(window).height() - 90);
+        });
+    });
+</script>
+{% endblock %}
