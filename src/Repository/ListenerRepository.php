@@ -17,9 +17,9 @@ use PDO;
 class ListenerRepository extends ServiceEntityRepository
 {
     const defaultLimit =    500;
-    const defaultOrder =    'd';
+    const defaultOrder =    'a';
     const defaultPage =     0;
-    const defaultSorting =  'ls.timestamp';
+    const defaultSorting =  'name';
 
     private $connection;
 
@@ -734,7 +734,8 @@ EOD;
     public function getLogsessionsForListener($listenerID, array $args)
     {
         $columns =
-            'trim(ls.timestamp) as timestamp,'
+             'ls.id,'
+            .'trim(ls.timestamp) as timestamp,'
             .'u.name,'
             .'trim(ls.firstLog) as firstLog,'
             .'trim(ls.lastLog) as lastLog,'
