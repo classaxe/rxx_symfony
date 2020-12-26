@@ -190,13 +190,17 @@ class ListenerLogsUpload extends Base
                     }
 
                     $logSession = $this->logsessionRepository->find($logSessionID);
-                    $logSession
-                        ->setFirstLog(DateTime::createFromFormat('Y-m-d H:i:s', $firstLog) ?? null)
-                        ->setLastLog(DateTime::createFromFormat('Y-m-d H:i:s', $lastLog) ?? null)
-                        ->setLogs($stats['logs']);
                     $em = $this->getDoctrine()->getManager();
-                    $em->flush();
-
+                    if ($firstLog !== null) {
+                        $logSession
+                            ->setFirstLog(DateTime::createFromFormat('Y-m-d H:i:s', $firstLog) ?? null)
+                            ->setLastLog(DateTime::createFromFormat('Y-m-d H:i:s', $lastLog) ?? null)
+                            ->setLogs($stats['logs']);
+                        $em->flush();
+                    } else {
+                        $em->remove($logSession);
+                        $em->flush();
+                    }
                     $this->listenerRepository->updateListenerStats($id);
                     $this->listenerRepository->clear();
                     $user->setCountLogSession($user->getCountLogSession() + 1);
