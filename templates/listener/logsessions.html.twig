@@ -20,6 +20,9 @@
             {% include 'forms/paging.html.twig' %}
 {{ form_end(form) }}
 {% include 'listener/logsessions.grid.html.twig' %}
+            <h2>{% trans %}Logs Included{% endtrans %} <small style="color:#000">{% trans %}(Click 'Logs' above to show these){% endtrans %}</small></h2>
+            <div class="scroll" style="background: #fff" id="list2">
+            </div>
         </div>
     </div>
 </div>
@@ -36,5 +39,10 @@
             $('#list').height($(window).height() - 90);
         });
     });
+    function getLogSessionLogs(id) {
+        var url = "{{ url('listener_logsession', { 'system' : system, 'id': id, 'logSessionId': 'XXX' }) }}".replace('XXX', id);
+        $('#list2').load(url);
+        return false;
+    }
 </script>
 {% endblock %}

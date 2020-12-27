@@ -704,6 +704,12 @@ EOD;
                 ->setParameter('type', $args['type']);
         }
 
+        if (isset($args['logSessionId']) && $args['logSessionId'] !== '') {
+            $qb
+                ->andWhere('l.logSessionId = :logSessionId')
+                ->setParameter('logSessionId', $args['logSessionId']);
+        }
+
         if (isset($args['limit']) && (int)$args['limit'] !== -1 && isset($args['page'])) {
             $qb
                 ->setFirstResult($args['page'] * $args['limit'])
@@ -735,6 +741,7 @@ EOD;
     {
         $columns =
              'ls.id,'
+            .'ls.listenerId,'
             .'trim(ls.timestamp) as timestamp,'
             .'u.name,'
             .'trim(ls.firstLog) as firstLog,'
@@ -767,23 +774,6 @@ EOD;
         $result = $qb->getQuery()->execute();
 //        print "<pre>".print_r($result, true)."</pre>";
         return $result;
-    }
-
-    public function getSignalCountsForListener($listenerID)
-    {
-        $qb = $this
-            ->createQueryBuilder('li')
-            ->select('COUNT(distinct s.id) as count')
-            ->innerJoin('\App\Entity\Log', 'l')
-            ->andWhere('l.listenerId = li.id')
-
-            ->innerJoin('\App\Entity\Signal', 's')
-            ->andWhere('l.signalId = s.id')
-
-            ->andWhere('li.id = :listenerID')
-            ->setParameter('listenerID', $listenerID);
-
-        return $qb->getQuery()->getSingleScalarResult();
     }
 
     public function getSignalsForListener($listenerID, array $args = [])

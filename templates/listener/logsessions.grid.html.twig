@@ -34,6 +34,8 @@
         %}{% if isAdmin %}<a href="{{ url('log', { 'system' : system, 'id' : ls.id }) }}" data-popup="1">{{ ls.id }}</a>{% endif %}{%
             elseif key == 'admin'
         %}{% if isAdmin %}<a href="{{ url('listener_log_delete', { 'system' : system, 'id' : id, 'log_id' : ls.id }) }}" class="delete" onclick="return confirm(msg.del_log);">X</a>{% endif %}{%
+            elseif key == 'logs'
+        %}<a href="#" onclick="return getLogSessionLogs({{ ls.id }});">{{ ls.logs }}</a>{%
             else
         %}{{ attribute(ls, column.field)|raw }}{%
             endif
