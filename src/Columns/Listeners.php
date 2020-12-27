@@ -133,6 +133,18 @@ class Listeners
                 'th_class' =>   'l2',
                 'tooltip' =>    '',
             ],
+            'logSessionLatest' => [
+                'admin' =>      false,
+                'arg' =>        '',
+                'field' =>      'formattedLogSessionLatest',
+                'highlight' =>  false,
+                'label' =>      'Latest Upload',
+                'order' =>      'd',
+                'sort' =>       'l.logSessionLatest',
+                'td_class' =>   'text-nowrap txt_r monospace l2',
+                'th_class' =>   'l2',
+                'tooltip' =>    '',
+            ],
             'countLogs' => [
                 'admin' =>      false,
                 'arg' =>        '',

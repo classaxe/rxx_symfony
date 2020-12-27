@@ -916,7 +916,8 @@ SET
     count_OTHER =       (SELECT COUNT(DISTINCT signalId) FROM logs INNER JOIN signals s ON logs.signalId = s.id AND s.type = 5 WHERE logs.listenerId = l.id),
     count_DSC =         (SELECT COUNT(DISTINCT signalId) FROM logs INNER JOIN signals s ON logs.signalId = s.id AND s.type = 6 WHERE logs.listenerId = l.id),
     log_earliest =      (SELECT MIN(date) FROM logs WHERE logs.listenerId = l.id),
-    log_latest =        (SELECT MAX(date) FROM logs WHERE logs.listenerId = l.id)
+    log_latest =        (SELECT MAX(date) FROM logs WHERE logs.listenerId = l.id),
+    logsession_latest = (SELECT MAX(timestamp) FROM log_sessions WHERE log_sessions.listenerId = l.id)
 EOT;
         if ($listenerId) {
             $sql .= "\nWHERE\n    l.id = $listenerId";

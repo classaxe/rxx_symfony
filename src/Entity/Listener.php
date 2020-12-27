@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Entity;
+use DateTime;
 use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -144,7 +145,7 @@ class Listener
     public $lat = '0';
 
     /**
-     * @var \DateTime
+     * @var DateTime
      *
      * @ORM\Column(name="log_earliest", type="date", nullable=true)
      */
@@ -157,11 +158,18 @@ class Listener
     private $logFormat = '';
 
     /**
-     * @var \DateTime
+     * @var DateTime|null
      *
      * @ORM\Column(name="log_latest", type="date", nullable=true)
      */
     private $logLatest = null;
+
+    /**
+     * @var DateTime
+     *
+     * @ORM\Column(name="logsession_latest", type="datetime", nullable=true)
+     */
+    private $logSessionLatest = null;
 
     /**
      * @var float
@@ -610,6 +618,25 @@ class Listener
     }
 
     /**
+     * @return DateTimeInterface|null
+     */
+    public function getLogSessionLatest(): ?DateTimeInterface
+    {
+        return $this->logSessionLatest;
+    }
+
+    /**
+     * @param DateTimeInterface $logLatest|null
+     * @return Listener
+     */
+    public function setLogSessionLatest(?DateTimeInterface $logSessionLatest): self
+    {
+        $this->logSessionLatest = $logSessionLatest;
+
+        return $this;
+    }
+
+    /**
      * @return float|null
      */
     public function getLon(): ?float
@@ -856,6 +883,17 @@ class Listener
             return '';
         }
         return $this->logLatest->format("Y-m-d");
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getFormattedLogSessionLatest(): ?string
+    {
+        if (null === $this->logSessionLatest || $this->logSessionLatest->format("Y-m-d") < '1900-01-01') {
+            return '';
+        }
+        return $this->logSessionLatest->format("Y-m-d H:i");
     }
 
     /**

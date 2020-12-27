@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use DateTime;
 use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -31,7 +32,7 @@ class LogSession
     private $id;
 
     /**
-     * @var \DateTime|null
+     * @var DateTime|null
      *
      * @ORM\Column(name="timestamp", type="datetime", nullable=true)
      */
@@ -45,14 +46,14 @@ class LogSession
     private $administratorId;
 
     /**
-     * @var \DateTime|null
+     * @var DateTime|null
      *
      * @ORM\Column(name="first_log", type="datetime", nullable=true)
      */
     private $firstLog;
 
     /**
-     * @var \DateTime|null
+     * @var DateTime|null
      *
      * @ORM\Column(name="last_log", type="datetime", nullable=true)
      */
