@@ -73,7 +73,7 @@ class ListenerLogsessions extends Base
             'form' =>               $form->createView(),
             '_locale' =>            $_locale,
             'matched' =>            'of '.$options['total']. ' log sessions.',
-            'mode' =>               'Logs for '.$listener->getFormattedNameAndLocation(),
+            'mode' =>               'Log Sessions Uploaded for '.$listener->getFormattedNameAndLocation(),
             'logsessions' =>        $logSessions,
             'results' => [
                 'limit' =>              isset($args['limit']) ? $args['limit'] : static::defaultlimit,
