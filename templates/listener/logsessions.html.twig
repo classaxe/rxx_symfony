@@ -31,6 +31,7 @@
         });
     });
     function getLogSessionLogs(id) {
+        $('#list2').html('<div style="position: relative;border: 1px solid #000; background: #eee"><h2 style="font-size: 200%; margin: 0; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">Loading...</h2></div>');
         var url = "{{ url('listener_logsession', { 'system' : system, 'id': id, 'logSessionId': 'XXX' }) }}".replace('XXX', id);
         $('#list2').load(url);
         return false;
