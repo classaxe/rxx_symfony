@@ -145,7 +145,7 @@ class ListenerLogsessions extends Base
             '_locale' =>            $_locale,
             'matched' =>            'of '.$options['total']. ' log sessions.',
             'mode' =>               'Logs for '.$listener->getFormattedNameAndLocation(),
-            'logsessionlogs' =>     $logs,
+            'logs' =>               $logs,
             'results' => [
                 'limit' =>              isset($args['limit']) ? $args['limit'] : static::defaultlimit,
                 'page' =>               isset($args['page']) ? $args['page'] : 0,
