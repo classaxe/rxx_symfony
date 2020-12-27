@@ -741,12 +741,19 @@ EOD;
     {
         $columns =
              'ls.id,'
-            .'ls.listenerId,'
-            .'trim(ls.timestamp) as timestamp,'
-            .'u.name,'
-            .'trim(ls.firstLog) as firstLog,'
-            .'trim(ls.lastLog) as lastLog,'
-            .'ls.logs';
+             . 'ls.listenerId,'
+             . 'trim(ls.timestamp) as timestamp,'
+             . 'u.name,'
+             . 'trim(ls.firstLog) as firstLog,'
+             . 'trim(ls.lastLog) as lastLog,'
+             . 'ls.logs,'
+             . 'ls.logsDgps,'
+             . 'ls.logsDsc,'
+             . 'ls.logsHambcn,'
+             . 'ls.logsNavtex,'
+             . 'ls.logsNdb,'
+             . 'ls.logsOther,'
+             . 'ls.logsTime';
 
         $qb = $this
             ->createQueryBuilder('li')

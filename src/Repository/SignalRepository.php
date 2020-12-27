@@ -912,6 +912,18 @@ EOD;
         return Rxx::getDx($qthLat, $qthLon, $record[0]['lat'], $record[0]['lon']);
     }
 
+    public function getSignalType($signalID)
+    {
+        $qb = $this
+            ->createQueryBuilder('s')
+            ->select('s.type')
+            ->andWhere('s.id = :signalID')
+            ->setParameter(':signalID', $signalID);
+
+        $record = $qb->getQuery()->execute();
+        return $record[0]['type'];
+    }
+
     public static function getSeeklistColumns($signals, $paper)
     {
         $col = 0;

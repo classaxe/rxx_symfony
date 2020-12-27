@@ -607,7 +607,8 @@ EOD;
                 'USB_approx' => '',
                 'ITU' => '',
                 'SP' => '',
-                'pwr' => ''
+                'pwr' => '',
+                'type' => ''
             ];
             foreach ($tokens as $token => $spec) {
                 if (in_array($token, ['x', 'X'])) {
@@ -701,6 +702,7 @@ EOD;
             $signalID = $signals[$key] ?? false;
             if ($signalID) {
                 $line['signalID'] = $signalID;
+                $line['type'] = $signalRepository->getSignalType($signalID);
                 $dx = $signalRepository->getDx($signalID, $listener->getLat(), $listener->getLon());
                 $line['dx_km'] =    $dx ? $dx['km'] : null;
                 $line['dx_miles'] = $dx ? $dx['miles'] : null;

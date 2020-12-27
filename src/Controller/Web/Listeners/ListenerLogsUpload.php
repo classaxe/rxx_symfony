@@ -68,6 +68,13 @@ class ListenerLogsUpload extends Base
             'first_for_place' => 0,
             'latest_for_signal' => 0,
             'logs' => 0,
+            'logs_dgps' => 0,
+            'logs_dsc' => 0,
+            'logs_hambcn' => 0,
+            'logs_navtex' => 0,
+            'logs_ndb' => 0,
+            'logs_other' => 0,
+            'logs_time' => 0,
             'repeat_for_listener' => 0
         ];
 
@@ -140,6 +147,8 @@ class ListenerLogsUpload extends Base
                     $lastLog = null;
                     foreach($this->entries as $e) {
                         $stats['logs']++;
+                        $type = $this->typeRepository->getTypeForCode($e['type']);
+                        $stats['logs_' . strtolower($type['class'])]++;
                         if ($this->logRepository->checkIfDuplicate($e['signalID'], $id, $e['YYYYMMDD'], $e['time'])) {
                             $stats['duplicates']++;
                             continue;
@@ -188,14 +197,21 @@ class ListenerLogsUpload extends Base
                         );
                         $this->signalRepository->updateSignalStats($e['signalID'], $e['latest']);
                     }
-
                     $logSession = $this->logsessionRepository->find($logSessionID);
                     $em = $this->getDoctrine()->getManager();
                     if ($firstLog !== null) {
                         $logSession
                             ->setFirstLog(DateTime::createFromFormat('Y-m-d H:i:s', $firstLog) ?? null)
                             ->setLastLog(DateTime::createFromFormat('Y-m-d H:i:s', $lastLog) ?? null)
-                            ->setLogs($stats['logs']);
+                            ->setLogs($stats['logs'])
+                            ->setLogsDgps($stats['logs_dgps'])
+                            ->setLogsDsc($stats['logs_dsc'])
+                            ->setLogsHambcn($stats['logs_hambcn'])
+                            ->setLogsNavtex($stats['logs_navtex'])
+                            ->setLogsNdb($stats['logs_ndb'])
+                            ->setLogsOther($stats['logs_other'])
+                            ->setLogsTime($stats['logs_time'])
+                        ;
                         $em->flush();
                     } else {
                         $em->remove($logSession);

@@ -73,6 +73,55 @@ class LogSession
      */
     private $logs;
 
+    /**
+     * @var int|null
+     *
+     * @ORM\Column(name="logs_DGPS", type="integer", nullable=true, options={"unsigned"=true})
+     */
+    private $logsDgps;
+
+    /**
+     * @var int|null
+     *
+     * @ORM\Column(name="logs_DSC", type="integer", nullable=true, options={"unsigned"=true})
+     */
+    private $logsDsc;
+
+    /**
+     * @var int|null
+     *
+     * @ORM\Column(name="logs_HAMBCN", type="integer", nullable=true, options={"unsigned"=true})
+     */
+    private $logsHambcn;
+
+    /**
+     * @var int|null
+     *
+     * @ORM\Column(name="logs_NAVTEX", type="integer", nullable=true, options={"unsigned"=true})
+     */
+    private $logsNavtex;
+
+    /**
+     * @var int|null
+     *
+     * @ORM\Column(name="logs_NDB", type="integer", nullable=true, options={"unsigned"=true})
+     */
+    private $logsNdb;
+
+    /**
+     * @var int|null
+     *
+     * @ORM\Column(name="logs_OTHER", type="integer", nullable=true, options={"unsigned"=true})
+     */
+    private $logsOther;
+
+    /**
+     * @var int|null
+     *
+     * @ORM\Column(name="logs_TIME", type="integer", nullable=true, options={"unsigned"=true})
+     */
+    private $logsTime;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -188,6 +237,139 @@ class LogSession
     public function setLogs(?int $logs): self
     {
         $this->logs = $logs;
+
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getLogsDgps(): ?int
+    {
+        return $this->logsDgps;
+    }
+
+    /**
+     * @param int|null $logsDgps
+     * @return $this
+     */
+    public function setLogsDgps(?int $logsDgps): self
+    {
+        $this->logsDgps = $logsDgps;
+
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getLogsDsc(): ?int
+    {
+        return $this->logsDsc;
+    }
+
+    /**
+     * @param int|null $logsDsc
+     * @return $this
+     */
+    public function setLogsDsc(?int $logsDsc): self
+    {
+        $this->logsDsc = $logsDsc;
+
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getLogsHambcn(): ?int
+    {
+        return $this->logsHambcn;
+    }
+
+    /**
+     * @param int|null $logsHambcn
+     * @return $this
+     */
+    public function setLogsHambcn(?int $logsHambcn): self
+    {
+        $this->logsHambcn = $logsHambcn;
+
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getLogsNavtex(): ?int
+    {
+        return $this->logsNavtex;
+    }
+
+    /**
+     * @param int|null $logsNavtex
+     * @return $this
+     */
+    public function setLogsNavtex(?int $logsNavtex): self
+    {
+        $this->logsNavtex = $logsNavtex;
+
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getLogsNdb(): ?int
+    {
+        return $this->logsNdb;
+    }
+
+    /**
+     * @param int|null $logsNdb
+     * @return $this
+     */
+    public function setLogsNdb(?int $logsNdb): self
+    {
+        $this->logsNdb = $logsNdb;
+
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getLogsOther(): ?int
+    {
+        return $this->logsOther;
+    }
+
+    /**
+     * @param int|null $logsOther
+     * @return $this
+     */
+    public function setLogsOther(?int $logsOther): self
+    {
+        $this->logsOther = $logsOther;
+
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getLogsTime(): ?int
+    {
+        return $this->logsTime;
+    }
+
+    /**
+     * @param int|null $logsTime
+     * @return $this
+     */
+    public function setLogsTime(?int $logsTime): self
+    {
+        $this->logsTime = $logsTime;
 
         return $this;
     }
