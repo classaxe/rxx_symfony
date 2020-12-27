@@ -25,11 +25,11 @@ class ListenerRepository extends ServiceEntityRepository
 
     private $tabs = [
         ['listener', 'Profile'],
+        ['listener_logsessions', 'Log Sessions (%%logsessions%%)'],
+        ['listener_logsupload', 'Upload'],
         ['listener_signals', 'Signals (%%signals%%)'],
         ['listener_signalsmap', 'Signals Map'],
         ['listener_logs', 'Logs (%%logs%%)'],
-        ['listener_logsessions', 'Log Sessions (%%logsessions%%)'],
-        ['listener_logsupload', 'Upload'],
         ['listener_map', 'Map'],
         ['listener_locatormap', 'Locator'],
         ['listener_weather', 'Weather'],
