@@ -157,6 +157,18 @@ class Listeners
                 'th_class' =>   'txt_vertical',
                 'tooltip' =>    'Total number of logs for all signals',
             ],
+            'countLogSessions' => [
+                'admin' =>      false,
+                'arg' =>        '',
+                'field' =>      'countLogSessions',
+                'highlight' =>  false,
+                'label' =>      'Log Sessions',
+                'order' =>      'd',
+                'sort' =>       'l.countLogSessions',
+                'td_class' =>   'txt_r',
+                'th_class' =>   'txt_vertical',
+                'tooltip' =>    'Number of log sessions uploaded',
+            ],
             'countDgps' => [
                 'admin' =>      false,
                 'arg' =>        'DGPS',

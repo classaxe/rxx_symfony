@@ -11,30 +11,15 @@
             {% include 'forms/paging.html.twig' %}
 {{ form_end(form) }}
 {% include 'listener/logsessions.grid.html.twig' %}
-            <h2>{% trans %}Logs Included{% endtrans %} <small style="color:#000">{% trans %}(Click 'Logs' above to show these){% endtrans %}</small></h2>
-            <div class="scroll" style="background: #fff" id="list2">
-            </div>
+            <h2>{% trans %}Logs Uploaded in Selected Session{% endtrans %}</h2>
+            <div class="scroll" style="background: #fff" id="list2"></div>
         </div>
     </div>
 </div>
 <script>
-    $(document).ready( function() {
-        setExternalLinks();
-        setFormPagingActions();
-        setColumnSortActions();
-        setColumnSortedClass();
-        setClippedCellTitles();
-        $('#form_paging_status').html('{{ matched }}');
-        $('#list').height($(window).height() - 90);
-        $(window).resize(function () {
-            $('#list').height($(window).height() - 90);
-        });
-    });
-    function getLogSessionLogs(id) {
-        $('#list2').html('<div style="position: relative;border: 1px solid #000; background: #eee"><h2 style="font-size: 200%; margin: 0; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">Loading...</h2></div>');
-        var url = "{{ url('listener_logsession', { 'system' : system, 'id': id, 'logSessionId': 'XXX' }) }}".replace('XXX', id);
-        $('#list2').load(url);
-        return false;
-    }
+    logSessions.init(
+        "{{ url('listener_logsession', { 'system' : system, 'id': id, 'logSessionId': 'XXX' }) }}",
+        "{{ matched }}"
+    );
 </script>
 {% endblock %}

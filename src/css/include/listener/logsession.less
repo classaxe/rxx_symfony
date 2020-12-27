@@ -1,0 +1,25 @@
+.logsession_loader {
+    position: relative;
+    border: 1px solid #000;
+    background: #eee;
+    h2 {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        font-size: 200%;
+        margin: 0;
+        transform: translate(-50%, -50%);
+    }
+}
+table.logsessions tbody {
+    tr {
+        cursor: pointer;
+        &.selected {
+            color: #080;
+            font-weight: bold;
+            td {
+                background: #ffffa0;
+            }
+        }
+    }
+}

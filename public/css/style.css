@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.20.27
- * Date:       2020-12-04
+ * Version:    2.23.14
+ * Date:       2020-12-27
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
  */
@@ -1831,6 +1831,29 @@ fieldset#form_range_units div label {
 .logon #form #form_submit {
   margin: 0 30%;
   width: 10em;
+}
+.logsession_loader {
+  position: relative;
+  border: 1px solid #000;
+  background: #eee;
+}
+.logsession_loader h2 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-size: 200%;
+  margin: 0;
+  transform: translate(-50%, -50%);
+}
+table.logsessions tbody tr {
+  cursor: pointer;
+}
+table.logsessions tbody tr.selected {
+  color: #080;
+  font-weight: bold;
+}
+table.logsessions tbody tr.selected td {
+  background: #ffffa0;
 }
 .listener_view #form label {
   width: 20%;

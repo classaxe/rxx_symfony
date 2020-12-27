@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.23.2
- * Date:       2020-12-24
+ * Version:    2.23.14
+ * Date:       2020-12-27
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
  */
@@ -28,6 +28,7 @@ var popWinSpecs = {
     'countries_sa' :                'width=320,height=600,resizable=1',
     'listeners_[id]' :              'width=1000,height=760,status=1,scrollbars=1,resizable=1',
     'listeners_[id]_logs' :         'width=1000,height=760,status=1,scrollbars=1,resizable=1',
+    'listeners_[id]_logsessions' :  'width=1000,height=760,status=1,scrollbars=1,resizable=1',
     'listeners_[id]_upload' :       'width=1000,height=760,status=1,scrollbars=1,resizable=1',
     'listeners_[id]_signals' :      'width=1000,height=760,status=1,scrollbars=1,resizable=1',
     'listeners_[id]_map' :          'width=1000,height=760,status=1,scrollbars=1,resizable=1',
@@ -1181,6 +1182,38 @@ function initListenersForm(pagingMsg, resultsCount) {
         RT.init($('#wide'), $('#narrow'));
     })
 }
+
+var logSessions = {
+    baseUrl : '',
+    init: function (baseUrl, matched) {
+        logSessions.baseUrl = baseUrl;
+        $(document).ready(function () {
+            setExternalLinks();
+            setFormPagingActions();
+            setColumnSortActions();
+            setColumnSortedClass();
+            setClippedCellTitles();
+            $('#form_paging_status').html(matched);
+            $('#list').height($(window).height() - 90);
+            $(window).resize(function () {
+                $('#list').height($(window).height() - 90);
+            });
+            $('.logsessions tbody tr').on('click', function () {
+                var id = $(this).closest('tr').attr('id').split('_')[2];
+                logSessions.getLogSessionLogs(id)
+            });
+            $('.logsessions tbody').children('tr:first').trigger('click');
+        });
+    },
+    getLogSessionLogs: function (id) {
+        $('.logsessions tbody tr').removeClass('selected');
+        $('#list2').html("<div class='logsession_loader'><h2>" + msg.loading + "</h2></div>");
+        $('.logsessions tbody tr#log_session_' + id).addClass('selected');
+        var url = logSessions.baseUrl.replace('XXX', id);
+        $('#list2').load(url);
+        return false;
+    }
+};
 
 function setFocusOnSearch() {
     var f = $('#form_q');
@@ -2826,7 +2859,7 @@ var VALIDATE = {
 
 var COORDS = {
     init: function() {
-        var cmd_1, cmd_2, idx, modes;
+        var cmd_1, cmd_2, cmd_3, idx, modes;
         modes = [
             ['dms_deg', 'deg_gsq', 'copy_dms'],
             ['deg_dms', 'deg_gsq', 'copy_deg'],

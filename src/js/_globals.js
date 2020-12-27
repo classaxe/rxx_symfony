@@ -20,6 +20,7 @@ var popWinSpecs = {
     'countries_sa' :                'width=320,height=600,resizable=1',
     'listeners_[id]' :              'width=1000,height=760,status=1,scrollbars=1,resizable=1',
     'listeners_[id]_logs' :         'width=1000,height=760,status=1,scrollbars=1,resizable=1',
+    'listeners_[id]_logsessions' :  'width=1000,height=760,status=1,scrollbars=1,resizable=1',
     'listeners_[id]_upload' :       'width=1000,height=760,status=1,scrollbars=1,resizable=1',
     'listeners_[id]_signals' :      'width=1000,height=760,status=1,scrollbars=1,resizable=1',
     'listeners_[id]_map' :          'width=1000,height=760,status=1,scrollbars=1,resizable=1',

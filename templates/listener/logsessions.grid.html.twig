@@ -25,7 +25,7 @@
         </thead>
         <tbody>
     {% for ls in logsessions %}
-            <tr>
+            <tr id="log_session_{{ ls.id }}" title="{% trans %}Click to view logs for this session{% endtrans %}">
     {% for key, column in columns %}
         {% if ((not column.admin or isAdmin) and (not column.arg or (column.arg and column.arg in args.types))) %}
                 <td{% if column.td_class %} class="{{ column.td_class }}"{% endif %}>
@@ -35,7 +35,7 @@
             elseif key == 'admin'
         %}{% if isAdmin %}<a href="{{ url('listener_log_delete', { 'system' : system, 'id' : id, 'log_id' : ls.id }) }}" class="delete" onclick="return confirm(msg.del_log);">X</a>{% endif %}{%
             elseif key in ['logs', 'logsDgps', 'logsDsc', 'logsHambcn', 'logsNavtex', 'logsNdb', 'logsOther', 'logsTime']
-        %}<a href="#" onclick="return getLogSessionLogs({{ ls.id }});">{{ attribute(ls, key) }}</a>{%
+        %}<strong>{{ attribute(ls, key) }}</strong>{%
             else
         %}{{ attribute(ls, column.field)|raw }}{%
             endif

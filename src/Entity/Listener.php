@@ -72,7 +72,7 @@ class Listener
      *
      * @ORM\Column(name="count_logsessions", type="integer", nullable=false, options={"unsigned"=true})
      */
-    private $countLogsessions = '0';
+    private $countLogSessions = '0';
 
     /**
      * @var int
@@ -354,18 +354,18 @@ class Listener
     /**
      * @return int|null
      */
-    public function getCountLogsessions(): ?int
+    public function getCountLogSessions(): ?int
     {
-        return $this->countLogsessions ? $this->countLogsessions : null;
+        return $this->countLogSessions ? $this->countLogSessions : null;
     }
 
     /**
-     * @param int $countLogsessions
+     * @param int $countLogSessions
      * @return Listener
      */
-    public function setCountLogsesseions(int $countLogsessions): self
+    public function setCountLogSesseions(int $countLogSessions): self
     {
-        $this->countLogsessions = $countLogsessions;
+        $this->countLogsSssions = $countLogSessions;
 
         return $this;
     }
