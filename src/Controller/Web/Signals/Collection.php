@@ -267,7 +267,7 @@ class Collection extends Base
         $this->setRegionFromRequest($args, $request);
         $this->setValueFromRequest($args, $request, 'gsq');
         $this->setValueFromRequest($args, $request, 'recently', ['logged', 'unlogged']);
-        $this->setValueFromRequest($args, $request, 'within', ['0.25', '0.5', '1', '2', '3', '4', '5', '10', '15']);
+        $this->setValueFromRequest($args, $request, 'within', array_values($this->signalRepository::withinPeriods));
         $this->setValueFromRequest($args, $request, 'active', ['1', '2']);
 
         $this->setListenersFromRequest($args, $request);

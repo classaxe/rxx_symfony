@@ -10,6 +10,7 @@ namespace App\Form\Signals;
 
 use App\Form\Base;
 
+use App\Repository\SignalRepository;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -137,17 +138,7 @@ class Collection extends Base
                 'within',
                 ChoiceType::class,
                 [
-                    'choices' =>        [
-                        '3 Months' =>   '0.25',
-                        '6 Months' =>   '0.5',
-                        '1 Year' =>     '1',
-                        '2 Years' =>    '2',
-                        '3 Years' =>    '3',
-                        '4 Years' =>    '4',
-                        '5 Years' =>    '5',
-                        '10 Years' =>   '10',
-                        '15 Years' =>   '15'
-                    ],
+                    'choices' =>        SignalRepository::withinPeriods,
                     'data' =>           $options['within'],
                     'label' =>          'In Last',
                     'required' =>       false

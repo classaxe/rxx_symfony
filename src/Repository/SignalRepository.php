@@ -19,6 +19,20 @@ class SignalRepository extends ServiceEntityRepository
     const defaultOrder =    'a';
     const defaultPage =     0;
     const defaultSorting =  'khz';
+    const withinPeriods = [
+        '1 Month' =>    0.0833,
+        '2 Months' =>   0.1667,
+        '3 Months' =>   0.25,
+        '6 Months' =>   0.5,
+        '9 Months' =>   0.75,
+        '1 Year' =>     1,
+        '2 Years' =>    2,
+        '3 Years' =>    3,
+        '4 Years' =>    4,
+        '5 Years' =>    5,
+        '10 Years' =>   10,
+        '15 Years' =>   15
+    ];
 
     const collapsable_sections = [
         'loggings' => [
@@ -279,13 +293,13 @@ class SignalRepository extends ServiceEntityRepository
         return $this;
     }
 
-    private function _addFilterRecent()
+    private function _addFilterRecently()
     {
         if (($this->args['recently'] ?? false) && ($this->args['within'] ?? false)) {
             $period = ((float) $this->args['within'] >= 1 ?
-                (float) $this->args['within'] . " year"
+                (int) $this->args['within'] . " year"
               :
-                ((float) $this->args['within'] * 12) . " month"
+                round($this->args['within'] * 12) . " month"
             );
             $within = DateTime::createFromFormat('Y-m-d', date('Y-m-d'))
                 ->modify('-' . $period)
@@ -769,7 +783,7 @@ EOD;
         $this
             ->_setArgs($system, $args)
             ->_addFromTables()
-            ->_addFilterRecent()
+            ->_addFilterRecently()
             ->_addFilterActive()
             ->_addFilterCall()
             ->_addFilterChannels()
@@ -862,7 +876,7 @@ EOD;
             ->_setArgs($system, $args)
             ->_addSelectColumnCountSignal()
             ->_addFromTables()
-            ->_addFilterRecent()
+            ->_addFilterRecently()
             ->_addFilterActive()
             ->_addFilterCall()
             ->_addFilterChannels()

@@ -1,5 +1,6 @@
 <?php
 namespace App\Form\Cle;
+use App\Repository\SignalRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -399,6 +400,138 @@ class Cle extends AbstractType
                 TextType::class,
                 [
                     'data' =>           $options['europeRange2Itu'],
+                    'empty_data' =>     '',
+                    'label' =>          '',
+                    'required' =>       false
+                ]
+            )
+            ->add(
+                'worldRange1Recently',
+                ChoiceType::class,
+                [
+                    'choices' =>        [ 'Logged' => 'logged', 'Not Logged' =>   'unlogged' ],
+                    'data' =>           $options['worldRange1Recently'],
+                    'empty_data' =>     '',
+                    'label' =>          '',
+                    'required' =>       false
+                ]
+            )
+            ->add(
+                'europeRange1Recently',
+                ChoiceType::class,
+                [
+                    'choices' =>        [ 'Logged' => 'logged', 'Not Logged' =>   'unlogged' ],
+                    'data' =>           $options['europeRange1Recently'],
+                    'empty_data' =>     '',
+                    'label' =>          '',
+                    'required' =>       false
+                ]
+            )
+            ->add(
+                'worldRange2Recently',
+                ChoiceType::class,
+                [
+                    'choices' =>        [ 'Logged' => 'logged', 'Not Logged' =>   'unlogged' ],
+                    'data' =>           $options['worldRange2Recently'],
+                    'empty_data' =>     '',
+                    'label' =>          '',
+                    'required' =>       false
+                ]
+            )
+            ->add(
+                'europeRange2Recently',
+                ChoiceType::class,
+                [
+                    'choices' =>        [ 'Logged' => 'logged', 'Not Logged' =>   'unlogged' ],
+                    'data' =>           $options['europeRange2Recently'],
+                    'empty_data' =>     '',
+                    'label' =>          '',
+                    'required' =>       false
+                ]
+            )
+            ->add(
+                'worldRange1Within',
+                ChoiceType::class,
+                [
+                    'choices' =>        SignalRepository::withinPeriods,
+                    'data' =>           $options['worldRange1Recently'],
+                    'empty_data' =>     '',
+                    'label' =>          '',
+                    'required' =>       false
+                ]
+            )
+            ->add(
+                'europeRange1Within',
+                ChoiceType::class,
+                [
+                    'choices' =>        SignalRepository::withinPeriods,
+                    'data' =>           $options['europeRange1Recently'],
+                    'empty_data' =>     '',
+                    'label' =>          '',
+                    'required' =>       false
+                ]
+            )
+            ->add(
+                'worldRange2Within',
+                ChoiceType::class,
+                [
+                    'choices' =>        SignalRepository::withinPeriods,
+                    'data' =>           $options['worldRange2Recently'],
+                    'empty_data' =>     '',
+                    'label' =>          '',
+                    'required' =>       false
+                ]
+            )
+            ->add(
+                'europeRange2Within',
+                ChoiceType::class,
+                [
+                    'choices' =>        SignalRepository::withinPeriods,
+                    'data' =>           $options['europeRange2Recently'],
+                    'empty_data' =>     '',
+                    'label' =>          '',
+                    'required' =>       false
+                ]
+            )
+            ->add(
+                'worldRange1Active',
+                ChoiceType::class,
+                [
+                    'choices' =>        [ 'All' => '', 'Active' => '1', 'Inactive' =>   '2' ],
+                    'data' =>           $options['worldRange1Active'],
+                    'empty_data' =>     '',
+                    'label' =>          '',
+                    'required' =>       false
+                ]
+            )
+            ->add(
+                'europeRange1Active',
+                ChoiceType::class,
+                [
+                    'choices' =>        [ 'All' => '', 'Active' => '1', 'Inactive' =>   '2' ],
+                    'data' =>           $options['europeRange1Active'],
+                    'empty_data' =>     '',
+                    'label' =>          '',
+                    'required' =>       false
+                ]
+            )
+            ->add(
+                'worldRange2Active',
+                ChoiceType::class,
+                [
+                    'choices' =>        [ 'All' => '', 'Active' => '1', 'Inactive' =>   '2' ],
+                    'data' =>           $options['worldRange2Active'],
+                    'empty_data' =>     '',
+                    'label' =>          '',
+                    'required' =>       false
+                ]
+            )
+            ->add(
+                'europeRange2Active',
+                ChoiceType::class,
+                [
+                    'choices' =>        [ 'All' => '', 'Active' => '1', 'Inactive' =>   '2' ],
+                    'data' =>           $options['europeRange2Active'],
                     'empty_data' =>     '',
                     'label' =>          '',
                     'required' =>       false

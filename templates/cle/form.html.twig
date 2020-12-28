@@ -122,6 +122,27 @@
                             <td>{{ form_widget(form.europeRange2Itu) }}</td>
                         </tr>
                         <tr>
+                            <th class="left">{% trans %}Most Recently{% endtrans %}</th>
+                            <td>{{ form_widget(form.worldRange1Recently) }}</td>
+                            <td>{{ form_widget(form.europeRange1Recently) }}</td>
+                            <td>{{ form_widget(form.worldRange2Recently) }}</td>
+                            <td>{{ form_widget(form.europeRange2Recently) }}</td>
+                        </tr>
+                        <tr>
+                            <th class="left">{% trans %}Within{% endtrans %}</th>
+                            <td>{{ form_widget(form.worldRange1Within) }}</td>
+                            <td>{{ form_widget(form.europeRange1Within) }}</td>
+                            <td>{{ form_widget(form.worldRange2Within) }}</td>
+                            <td>{{ form_widget(form.europeRange2Within) }}</td>
+                        </tr>
+                        <tr>
+                            <th class="left">{% trans %}Active{% endtrans %}</th>
+                            <td>{{ form_widget(form.worldRange1Active) }}</td>
+                            <td>{{ form_widget(form.europeRange1Active) }}</td>
+                            <td>{{ form_widget(form.worldRange2Active) }}</td>
+                            <td>{{ form_widget(form.europeRange2Active) }}</td>
+                        </tr>
+                        <tr>
                             <th class="left">{% trans %}Extra Filter{% endtrans %}</th>
                             <td>{{ form_widget(form.worldRange1FilterOther) }}</td>
                             <td>{{ form_widget(form.europeRange1FilterOther) }}</td>

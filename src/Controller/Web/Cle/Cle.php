@@ -44,6 +44,7 @@ class Cle extends Base
         $simpleFields = [
             'cle',
             'dateTimespan',
+            'europeRange1Active',
             'europeRange1Channels',
             'europeRange1FilterOther',
             'europeRange1Itu',
@@ -52,8 +53,11 @@ class Cle extends Base
             'europeRange1High',
             'europeRange1Sp',
             'europeRange1SpItuClause',
+            'europeRange1Recently',
             'europeRange1TextExtra',
             'europeRange1Type',
+            'europeRange1Within',
+            'europeRange2Active',
             'europeRange2Channels',
             'europeRange2FilterOther',
             'europeRange2Itu',
@@ -62,9 +66,12 @@ class Cle extends Base
             'europeRange2High',
             'europeRange2Sp',
             'europeRange2SpItuClause',
+            'europeRange2Recently',
             'europeRange2TextExtra',
             'europeRange2Type',
+            'europeRange2Within',
             'scope',
+            'worldRange1Active',
             'worldRange1Channels',
             'worldRange1FilterOther',
             'worldRange1Itu',
@@ -73,8 +80,11 @@ class Cle extends Base
             'worldRange1High',
             'worldRange1Sp',
             'worldRange1SpItuClause',
+            'worldRange1Recently',
             'worldRange1TextExtra',
             'worldRange1Type',
+            'worldRange1Within',
+            'worldRange2Active',
             'worldRange2Channels',
             'worldRange2FilterOther',
             'worldRange2Itu',
@@ -83,7 +93,9 @@ class Cle extends Base
             'worldRange2High',
             'worldRange2Sp',
             'worldRange2SpItuClause',
+            'worldRange2Recently',
             'worldRange2TextExtra',
+            'worldRange2Within',
             'worldRange2Type',
         ];
 
@@ -163,6 +175,15 @@ class Cle extends Base
         }
         if (($val = $cle->{ $prefix . 'SpItuClause'}()) && $cle->{ $prefix . 'Itu'}() && $cle->{ $prefix . 'Sp'}()) {
             $params[] = 'sp_itu_clause=' . urlencode($val);
+        }
+        if (($val = $cle->{ $prefix . 'Recently'}())) {
+            $params[] = 'recently=' . urlencode($val);
+        }
+        if (($val = $cle->{ $prefix . 'Within'}())) {
+            $params[] = 'within=' . urlencode($val);
+        }
+        if (($val = $cle->{ $prefix . 'Active'}())) {
+            $params[] = 'active=' . urlencode($val);
         }
         if ($val = $cle->{ $prefix . 'FilterOther'}()) {
             $args = explode('&', $val);

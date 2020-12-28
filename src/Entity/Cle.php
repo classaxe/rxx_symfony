@@ -123,6 +123,27 @@ class Cle
     /**
      * @var string|null
      *
+     * @ORM\Column(name="world_range_1_recently", type="string", length=0, nullable=true)
+     */
+    private $worldRange1Recently;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="world_range_1_within", type="string", length=0, nullable=true)
+     */
+    private $worldRange1Within;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="world_range_1_active", type="string", length=0, nullable=true)
+     */
+    private $worldRange1Active;
+
+    /**
+     * @var string|null
+     *
      * @ORM\Column(name="world_range_1_filter_other", type="text", length=65535, nullable=true)
      */
     private $worldRange1FilterOther;
@@ -189,6 +210,27 @@ class Cle
      * @ORM\Column(name="world_range_2_sp_itu_clause", type="string", length=0, nullable=true)
      */
     private $worldRange2SpItuClause;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="world_range_2_recently", type="string", length=0, nullable=true)
+     */
+    private $worldRange2Recently;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="world_range_2_within", type="string", length=0, nullable=true)
+     */
+    private $worldRange2Within;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="world_range_2_active", type="string", length=0, nullable=true)
+     */
+    private $worldRange2Active;
 
     /**
      * @var string|null
@@ -263,6 +305,27 @@ class Cle
     /**
      * @var string|null
      *
+     * @ORM\Column(name="europe_range_1_recently", type="string", length=0, nullable=true)
+     */
+    private $europeRange1Recently;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="europe_range_1_within", type="string", length=0, nullable=true)
+     */
+    private $europeRange1Within;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="europe_range_1_active", type="string", length=0, nullable=true)
+     */
+    private $europeRange1Active;
+
+    /**
+     * @var string|null
+     *
      * @ORM\Column(name="europe_range_1_filter_other", type="text", length=65535, nullable=true)
      */
     private $europeRange1FilterOther;
@@ -329,6 +392,27 @@ class Cle
      * @ORM\Column(name="europe_range_2_sp_itu_clause", type="string", length=0, nullable=true)
      */
     private $europeRange2SpItuClause;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="europe_range_2_recently", type="string", length=0, nullable=true)
+     */
+    private $europeRange2Recently;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="europe_range_2_within", type="string", length=0, nullable=true)
+     */
+    private $europeRange2Within;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="europe_range_2_active", type="string", length=0, nullable=true)
+     */
+    private $europeRange2Active;
 
     /**
      * @var string|null
@@ -517,6 +601,42 @@ class Cle
         return $this;
     }
 
+    public function getWorldRange1Recently(): ?string
+    {
+        return $this->worldRange1Recently;
+    }
+
+    public function setWorldRange1Recently(?string $worldRange1Recently): self
+    {
+        $this->worldRange1Recently = $worldRange1Recently;
+
+        return $this;
+    }
+
+    public function getWorldRange1Within(): ?string
+    {
+        return $this->worldRange1Within;
+    }
+
+    public function setWorldRange1Within(?string $worldRange1Within): self
+    {
+        $this->worldRange1Within = $worldRange1Within;
+
+        return $this;
+    }
+
+    public function getWorldRange1Active(): ?string
+    {
+        return $this->worldRange1Active;
+    }
+
+    public function setWorldRange1Active(?string $worldRange1Active): self
+    {
+        $this->worldRange1Active = $worldRange1Active;
+
+        return $this;
+    }
+
     public function getWorldRange1FilterOther(): ?string
     {
         return $this->worldRange1FilterOther;
@@ -633,6 +753,42 @@ class Cle
     public function setWorldRange2SpItuClause(?string $worldRange2SpItuClause): self
     {
         $this->worldRange2SpItuClause = $worldRange2SpItuClause;
+
+        return $this;
+    }
+
+    public function getWorldRange2Recently(): ?string
+    {
+        return $this->worldRange2Recently;
+    }
+
+    public function setWorldRange2Recently(?string $worldRange2Recently): self
+    {
+        $this->worldRange2Recently = $worldRange2Recently;
+
+        return $this;
+    }
+
+    public function getWorldRange2Within(): ?string
+    {
+        return $this->worldRange2Within;
+    }
+
+    public function setWorldRange2Within(?string $worldRange2Within): self
+    {
+        $this->worldRange2Within = $worldRange2Within;
+
+        return $this;
+    }
+
+    public function getWorldRange2Active(): ?string
+    {
+        return $this->worldRange2Active;
+    }
+
+    public function setWorldRange2Active(?string $worldRange2Active): self
+    {
+        $this->worldRange2Active = $worldRange2Active;
 
         return $this;
     }
@@ -757,6 +913,42 @@ class Cle
         return $this;
     }
 
+    public function getEuropeRange1Recently(): ?string
+    {
+        return $this->europeRange1Recently;
+    }
+
+    public function setEuropeRange1Recently(?string $europeRange1Recently): self
+    {
+        $this->europeRange1Recently = $europeRange1Recently;
+
+        return $this;
+    }
+
+    public function getEuropeRange1Within(): ?string
+    {
+        return $this->europeRange1Within;
+    }
+
+    public function setEuropeRange1Within(?string $europeRange1Within): self
+    {
+        $this->europeRange1Within = $europeRange1Within;
+
+        return $this;
+    }
+
+    public function getEuropeRange1Active(): ?string
+    {
+        return $this->europeRange1Active;
+    }
+
+    public function setEuropeRange1Active(?string $europeRange1Active): self
+    {
+        $this->europeRange1Active = $europeRange1Active;
+
+        return $this;
+    }
+
     public function getEuropeRange1FilterOther(): ?string
     {
         return $this->europeRange1FilterOther;
@@ -873,6 +1065,42 @@ class Cle
     public function setEuropeRange2SpItuClause(?string $europeRange2SpItuClause): self
     {
         $this->europeRange2SpItuClause = $europeRange2SpItuClause;
+
+        return $this;
+    }
+
+    public function getEuropeRange2Recently(): ?string
+    {
+        return $this->europeRange2Recently;
+    }
+
+    public function setEuropeRange2Recently(?string $europeRange2Recently): self
+    {
+        $this->europeRange2Recently = $europeRange2Recently;
+
+        return $this;
+    }
+
+    public function getEuropeRange2Within(): ?string
+    {
+        return $this->europeRange2Within;
+    }
+
+    public function setEuropeRange2Within(?string $europeRange2Within): self
+    {
+        $this->europeRange2Within = $europeRange2Within;
+
+        return $this;
+    }
+
+    public function getEuropeRange2Active(): ?string
+    {
+        return $this->europeRange2Active;
+    }
+
+    public function setEuropeRange2Active(?string $europeRange2Active): self
+    {
+        $this->europeRange2Active = $europeRange2Active;
 
         return $this;
     }
