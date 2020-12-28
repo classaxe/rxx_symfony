@@ -39,9 +39,12 @@
                     </div>
                     {{ form_row(form.countries) }}
                     {{ form_row(form.region) }}
+                    {{ form_row(form.gsq) }}
                     <div>
-                        {{ form_label(form.gsq) }}
-                        {{ form_widget(form.gsq) }}
+                        {{ form_label(form.recent) }}
+                        {{ form_widget(form.recent) }}
+                        {{ form_label(form.within) }}
+                        {{ form_widget(form.within) }}
                         {{ form_label(form.active) }}
                         {{ form_widget(form.active) }}
                     </div>

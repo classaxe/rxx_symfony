@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.23.14
- * Date:       2020-12-27
+ * Version:    2.24.0
+ * Date:       2020-12-28
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
  */
@@ -1580,6 +1580,122 @@ button.tiny {
 .cleForm div ul {
   display: none;
 }
+/* [ Forms ] */
+.listener_list {
+  width: 570px;
+}
+.listener_list input[type='text'],
+.listener_list select {
+  width: 435px;
+}
+.listener_list #form_timezone-button {
+  width: 435px;
+}
+.addLogFor a {
+  font-weight: normal;
+}
+.addLogFor a.pri {
+  font-weight: bold;
+}
+.logon #form {
+  width: 300px;
+}
+.logon #form label {
+  width: 150px !important;
+}
+.logon #form input[type='text'],
+.logon #form input[type='password'] {
+  width: 140px;
+}
+.logon #form #form_submit {
+  margin: 0 30%;
+  width: 10em;
+}
+.logsession_loader {
+  position: relative;
+  border: 1px solid #000;
+  background: #eee;
+}
+.logsession_loader h2 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-size: 200%;
+  margin: 0;
+  transform: translate(-50%, -50%);
+}
+table.logsessions tbody tr {
+  cursor: pointer;
+}
+table.logsessions tbody tr.selected {
+  color: #080;
+  font-weight: bold;
+}
+table.logsessions tbody tr.selected td {
+  background: #ffffa0;
+}
+.listener_view #form label {
+  width: 20%;
+}
+.listener_view #form label[for="form_timezone"],
+.listener_view #form label[for="form_timezone-button"] {
+  width: 10%;
+  min-width: auto;
+  text-align: right;
+  padding-right: 0.75em;
+}
+.listener_view #form input[type='text'],
+.listener_view #form textarea,
+.listener_view #form select {
+  width: 75%;
+  padding: 0.125em 0.25em;
+  margin: 0 0 0.25em 0;
+}
+.listener_view #form textarea {
+  height: 6em;
+}
+.listener_view #form #form_timezone-button {
+  width: 55%;
+}
+.listener_view #form div#form_gsq_suffix {
+  padding-left: 0.25em;
+  float: left;
+  width: 5%;
+  font-size: 80%;
+}
+.listener_stats div.stats {
+  clear: both;
+  border: 1px solid #ccc;
+  background: #ffffff;
+  padding: 0.25em 0.25em 0 0.25em;
+  margin: 0.25em 0;
+  width: 18em;
+}
+.listener_stats div.signal_stat {
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+  width: 20em;
+  line-height: initial;
+}
+.listener_stats div.signal_stat label {
+  font-weight: bold;
+  width: 15em;
+  margin: 0;
+  padding: 0.25em;
+  border: 1px solid #ccc;
+  float: left;
+  line-height: initial;
+}
+.listener_stats div.signal_stat div {
+  display: inline-block;
+  float: left;
+  margin: 0 0.25em;
+  padding: 0.25em;
+  width: 4em;
+  text-align: right;
+  line-height: initial;
+}
 /* [ Form Dimensions ] */
 .signal_list {
   width: 570px;
@@ -1638,11 +1754,21 @@ button.tiny {
 .signal_list #form_channels {
   width: 90px;
 }
-.signal_list #form_gsq {
-  width: 220px;
+.signal_list #form_recent {
+  width: 95px;
+}
+.signal_list label[for="form_within"] {
+  width: 75px !important;
+  padding-left: 1em !important;
+  padding-right: 0.25em !important;
+}
+.signal_list #form_within {
+  width: 95px;
 }
 .signal_list label[for="form_active"] {
+  width: 75px !important;
   padding-left: 1em !important;
+  padding-right: 0.25em !important;
 }
 .signal_list #form_active {
   width: 95px;
@@ -1800,122 +1926,6 @@ fieldset#form_range_units legend {
 }
 fieldset#form_range_units div label {
   margin: 0 0.25em;
-}
-/* [ Forms ] */
-.listener_list {
-  width: 570px;
-}
-.listener_list input[type='text'],
-.listener_list select {
-  width: 435px;
-}
-.listener_list #form_timezone-button {
-  width: 435px;
-}
-.addLogFor a {
-  font-weight: normal;
-}
-.addLogFor a.pri {
-  font-weight: bold;
-}
-.logon #form {
-  width: 300px;
-}
-.logon #form label {
-  width: 150px !important;
-}
-.logon #form input[type='text'],
-.logon #form input[type='password'] {
-  width: 140px;
-}
-.logon #form #form_submit {
-  margin: 0 30%;
-  width: 10em;
-}
-.logsession_loader {
-  position: relative;
-  border: 1px solid #000;
-  background: #eee;
-}
-.logsession_loader h2 {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  font-size: 200%;
-  margin: 0;
-  transform: translate(-50%, -50%);
-}
-table.logsessions tbody tr {
-  cursor: pointer;
-}
-table.logsessions tbody tr.selected {
-  color: #080;
-  font-weight: bold;
-}
-table.logsessions tbody tr.selected td {
-  background: #ffffa0;
-}
-.listener_view #form label {
-  width: 20%;
-}
-.listener_view #form label[for="form_timezone"],
-.listener_view #form label[for="form_timezone-button"] {
-  width: 10%;
-  min-width: auto;
-  text-align: right;
-  padding-right: 0.75em;
-}
-.listener_view #form input[type='text'],
-.listener_view #form textarea,
-.listener_view #form select {
-  width: 75%;
-  padding: 0.125em 0.25em;
-  margin: 0 0 0.25em 0;
-}
-.listener_view #form textarea {
-  height: 6em;
-}
-.listener_view #form #form_timezone-button {
-  width: 55%;
-}
-.listener_view #form div#form_gsq_suffix {
-  padding-left: 0.25em;
-  float: left;
-  width: 5%;
-  font-size: 80%;
-}
-.listener_stats div.stats {
-  clear: both;
-  border: 1px solid #ccc;
-  background: #ffffff;
-  padding: 0.25em 0.25em 0 0.25em;
-  margin: 0.25em 0;
-  width: 18em;
-}
-.listener_stats div.signal_stat {
-  margin: 0;
-  padding: 0;
-  display: inline-block;
-  width: 20em;
-  line-height: initial;
-}
-.listener_stats div.signal_stat label {
-  font-weight: bold;
-  width: 15em;
-  margin: 0;
-  padding: 0.25em;
-  border: 1px solid #ccc;
-  float: left;
-  line-height: initial;
-}
-.listener_stats div.signal_stat div {
-  display: inline-block;
-  float: left;
-  margin: 0 0.25em;
-  padding: 0.25em;
-  width: 4em;
-  text-align: right;
-  line-height: initial;
 }
 .signal_view #form label {
   width: 25%;

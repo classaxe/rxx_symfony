@@ -92,6 +92,8 @@ var shareableLink = {
             this.getFromField('countries') +
             this.getFromField('region') +
             this.getFromField('gsq') +
+            this.getFromField('recent') +
+            this.getFromField('within') +
             this.getFromField('active') +
 
             this.getFromListeners() +

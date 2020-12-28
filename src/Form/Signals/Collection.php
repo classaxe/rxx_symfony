@@ -124,12 +124,42 @@ class Collection extends Base
                 ]
             )
             ->add(
+                'recent',
+                ChoiceType::class,
+                [
+                    'choices' =>        [ 'Heard' => '1', 'Not Heard' =>   '2' ],
+                    'data' =>           $options['recent'],
+                    'label' =>          'Recently Heard',
+                    'required' =>       false
+                ]
+            )
+            ->add(
+                'within',
+                ChoiceType::class,
+                [
+                    'choices' =>        [
+                        '3 Months' =>   '0.25',
+                        '6 Months' =>   '0.5',
+                        '1 Year' =>     '1',
+                        '2 Years' =>    '2',
+                        '3 Years' =>    '3',
+                        '4 Years' =>    '4',
+                        '5 Years' =>    '5',
+                        '10 Years' =>   '10',
+                        '15 Years' =>   '15'
+                    ],
+                    'data' =>           $options['within'],
+                    'label' =>          'Within',
+                    'required' =>       false
+                ]
+            )
+            ->add(
                 'active',
                 ChoiceType::class,
                 [
                     'choices' =>        [ 'All' => '', 'Active' => '1', 'Inactive' =>   '2' ],
                     'data' =>           $options['active'],
-                    'label' =>          'Active Status',
+                    'label' =>          'Status',
                     'required' =>       false
                 ]
             )
