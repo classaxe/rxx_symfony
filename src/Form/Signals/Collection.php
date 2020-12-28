@@ -124,12 +124,12 @@ class Collection extends Base
                 ]
             )
             ->add(
-                'recent',
+                'recently',
                 ChoiceType::class,
                 [
-                    'choices' =>        [ 'Heard' => '1', 'Not Heard' =>   '2' ],
-                    'data' =>           $options['recent'],
-                    'label' =>          'Recently Heard',
+                    'choices' =>        [ 'Logged' => 'logged', 'Not Logged' =>   'unlogged' ],
+                    'data' =>           $options['recently'],
+                    'label' =>          'Most Recently',
                     'required' =>       false
                 ]
             )
@@ -149,7 +149,7 @@ class Collection extends Base
                         '15 Years' =>   '15'
                     ],
                     'data' =>           $options['within'],
-                    'label' =>          'Within',
+                    'label' =>          'In Last',
                     'required' =>       false
                 ]
             )

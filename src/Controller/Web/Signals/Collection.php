@@ -77,7 +77,7 @@ class Collection extends Base
             'range_min' =>      '',
             'range_max' =>      '',
             'range_units' =>    '',
-            'recent' =>         '',
+            'recently' =>       '',
             'region' =>         $_REQUEST['form']['region'] ?? '',
             'rww_focus' =>      '',
             'show' =>           '',
@@ -266,7 +266,7 @@ class Collection extends Base
         $this->setValueFromRequest($args, $request, 'countries');
         $this->setRegionFromRequest($args, $request);
         $this->setValueFromRequest($args, $request, 'gsq');
-        $this->setValueFromRequest($args, $request, 'recent', ['1', '2']);
+        $this->setValueFromRequest($args, $request, 'recently', ['logged', 'unlogged']);
         $this->setValueFromRequest($args, $request, 'within', ['0.25', '0.5', '1', '2', '3', '4', '5', '10', '15']);
         $this->setValueFromRequest($args, $request, 'active', ['1', '2']);
 

@@ -1,7 +1,7 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.24.0
+ * Version:    2.24.1
  * Date:       2020-12-28
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
@@ -1754,7 +1754,7 @@ table.logsessions tbody tr.selected td {
 .signal_list #form_channels {
   width: 90px;
 }
-.signal_list #form_recent {
+.signal_list #form_recently {
   width: 95px;
 }
 .signal_list label[for="form_within"] {

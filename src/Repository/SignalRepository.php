@@ -281,7 +281,7 @@ class SignalRepository extends ServiceEntityRepository
 
     private function _addFilterRecent()
     {
-        if (($this->args['recent'] ?? false) && ($this->args['within'] ?? false)) {
+        if (($this->args['recently'] ?? false) && ($this->args['within'] ?? false)) {
             $period = ((float) $this->args['within'] >= 1 ?
                 (float) $this->args['within'] . " year"
               :
@@ -290,11 +290,11 @@ class SignalRepository extends ServiceEntityRepository
             $within = DateTime::createFromFormat('Y-m-d', date('Y-m-d'))
                 ->modify('-' . $period)
                 ->format('Y-m-d');
-            if ($this->args['recent'] === '1') {
+            if ($this->args['recently'] === 'logged') {
                 $this->query['where'][] = "s.last_heard > :within";
                 $this->query['param']['within'] = $within;
             };
-            if ($this->args['recent'] === '2') {
+            if ($this->args['recently'] === 'unlogged') {
                 $this->query['where'][] = "s.last_heard < :within";
                 $this->query['param']['within'] = $within;
             };

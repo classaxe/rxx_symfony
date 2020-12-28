@@ -92,7 +92,7 @@ var shareableLink = {
             this.getFromField('countries') +
             this.getFromField('region') +
             this.getFromField('gsq') +
-            this.getFromField('recent') +
+            this.getFromField('recently', [ 'logged', 'unlogged' ]) +
             this.getFromField('within') +
             this.getFromField('active') +
 
