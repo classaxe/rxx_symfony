@@ -454,7 +454,7 @@ class Cle extends AbstractType
                 ChoiceType::class,
                 [
                     'choices' =>        SignalRepository::withinPeriods,
-                    'data' =>           $options['worldRange1Recently'],
+                    'data' =>           $options['worldRange1Within'],
                     'empty_data' =>     '',
                     'label' =>          '',
                     'required' =>       false
@@ -465,7 +465,7 @@ class Cle extends AbstractType
                 ChoiceType::class,
                 [
                     'choices' =>        SignalRepository::withinPeriods,
-                    'data' =>           $options['europeRange1Recently'],
+                    'data' =>           $options['europeRange1Within'],
                     'empty_data' =>     '',
                     'label' =>          '',
                     'required' =>       false
@@ -476,7 +476,7 @@ class Cle extends AbstractType
                 ChoiceType::class,
                 [
                     'choices' =>        SignalRepository::withinPeriods,
-                    'data' =>           $options['worldRange2Recently'],
+                    'data' =>           $options['worldRange2Within'],
                     'empty_data' =>     '',
                     'label' =>          '',
                     'required' =>       false
@@ -487,7 +487,7 @@ class Cle extends AbstractType
                 ChoiceType::class,
                 [
                     'choices' =>        SignalRepository::withinPeriods,
-                    'data' =>           $options['europeRange2Recently'],
+                    'data' =>           $options['europeRange2Within'],
                     'empty_data' =>     '',
                     'label' =>          '',
                     'required' =>       false
