@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.24.4
- * Date:       2020-12-28
+ * Version:    2.24.5
+ * Date:       2020-12-29
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
  */
@@ -52,9 +52,9 @@ var popWinSpecs = {
     'signals_[id]_listeners' :      'width=1040,height=800,status=1,scrollbars=1,resizable=1',
     'signals_[id]_map' :            'width=1040,height=800,status=1,scrollbars=1,resizable=1',
     'signals_[id]_weather' :        'width=1040,height=800,status=1,scrollbars=1,resizable=1',
-    'states_*' :                    'width=720,height=760,resizable=1',
+    'states_*' :                    'width=720,height=780,resizable=1',
     'states_aus' :                  'width=720,height=240,resizable=1',
-    'states_can_usa' :              'width=680,height=690,resizable=1',
+    'states_can_usa' :              'width=680,height=710,resizable=1',
     'tools_coordinates' :           'width=900,height=195,resizable=1',
     'tools_dgps' :                  'width=720,height=345,resizable=1',
     'tools_navtex' :                'width=420,height=580,resizable=1',
@@ -274,12 +274,13 @@ var commonForm = {
         });
     },
 
-/* [ Ensure that at least one option is checked for signal type checkboxes ] */
+    /* [ Ensure that at least one option is checked for signal type checkboxes ] */
     setTypesDefault : function() {
         if ($('fieldset#form_type div :checkbox:checked').length === 0) {
             $('fieldset#form_type div :checkbox[value=NDB]').prop('checked', true);
         }
     },
+
     /* [ Set css styles for signal type checkboxes ] */
     setTypesStyles : function() {
         $("fieldset#form_type div input").each(function() {
@@ -2309,6 +2310,7 @@ var signalsForm = {
             s.setOffsetsAction();
             s.setRangeAction();
             s.setRangeUnitsDefault();
+            s.setHeardIn();
             s.setSortByAction();
             s.setSortZaAction();
             s.setShowModeAction();
@@ -2347,6 +2349,13 @@ var signalsForm = {
 
         });
     },
+
+    ituSps: {
+        AUS : 'AT NN NW QD SA TA VI WE',
+        CAN : 'AB BC MB NB NL NS NT NU ON PE QC SK YT',
+        USA : 'AL AR AZ CA CO CT DC DE FL GA IA ID IL IN KS KY LA MA MD ME MI MN MO MS MT NC ND NE NH NJ NM NV NY OH OK OR PA RI SC SD TN TX UT VA VT WA WI WV WY'
+    },
+
     setActions : function() {
         $('#btn_csv_all').click(function () {
             if (confirm(
@@ -2461,6 +2470,22 @@ var signalsForm = {
         var f = $('#form_call');
         f.focus();
         f.select();
+    },
+
+    setHeardIn : function() {
+        $('#form_heard_in').on('keyup', function(){
+            $('#form_heard_in').val(function (_, val) {
+                return val.toUpperCase();
+            });
+            $.each(signalsForm.ituSps, function(itu, sps){
+                var field = $('#form_heard_in')
+                var heardIn = field.val();
+                if (heardIn.indexOf(itu) >= 0) {
+                    alert('Country code ' + itu + ' will be expanded to show all states, provinces and territories');
+                    field.val(field.val().replace(itu, sps));
+                }
+            })
+        });
     },
 
     setHeardInModDefault : function() {

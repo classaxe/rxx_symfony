@@ -63,8 +63,11 @@
                             </div>
                             {{ form_widget(form.listener) }}
                         </div>
-                        <div>{{ form_label(form.heard_in) }}{{ form_widget(form.heard_in) }}
-                            <div>{{ form_widget(form.heard_in_mod) }}</div>
+                        <div>
+                            <div id="heard_in_label">{{ form_label(form.heard_in) }}
+                                {{ form_widget(form.heard_in_mod) }}
+                            </div>
+                            {{ form_widget(form.heard_in) }}
                         </div>
                         <div>
                             {{  form_label(form.logged_date_1) }}

@@ -8,6 +8,7 @@ var signalsForm = {
             s.setOffsetsAction();
             s.setRangeAction();
             s.setRangeUnitsDefault();
+            s.setHeardIn();
             s.setSortByAction();
             s.setSortZaAction();
             s.setShowModeAction();
@@ -46,6 +47,13 @@ var signalsForm = {
 
         });
     },
+
+    ituSps: {
+        AUS : 'AT NN NW QD SA TA VI WE',
+        CAN : 'AB BC MB NB NL NS NT NU ON PE QC SK YT',
+        USA : 'AL AR AZ CA CO CT DC DE FL GA IA ID IL IN KS KY LA MA MD ME MI MN MO MS MT NC ND NE NH NJ NM NV NY OH OK OR PA RI SC SD TN TX UT VA VT WA WI WV WY'
+    },
+
     setActions : function() {
         $('#btn_csv_all').click(function () {
             if (confirm(
@@ -160,6 +168,22 @@ var signalsForm = {
         var f = $('#form_call');
         f.focus();
         f.select();
+    },
+
+    setHeardIn : function() {
+        $('#form_heard_in').on('keyup', function(){
+            $('#form_heard_in').val(function (_, val) {
+                return val.toUpperCase();
+            });
+            $.each(signalsForm.ituSps, function(itu, sps){
+                var field = $('#form_heard_in')
+                var heardIn = field.val();
+                if (heardIn.indexOf(itu) >= 0) {
+                    alert('Country code ' + itu + ' will be expanded to show all states, provinces and territories');
+                    field.val(field.val().replace(itu, sps));
+                }
+            })
+        });
     },
 
     setHeardInModDefault : function() {
