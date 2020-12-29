@@ -56,12 +56,12 @@ class SystemRepository
                     'role' =>       'NDBs and Ham Beacons',
                     'show_email' => true
                 ],
-                [
-                    'email' =>      'ndb.rna.logs@gmail.com',
-                    'name' =>       'Brandon Jordan - K2SWL',
-                    'role' =>       'NDBs and Ham Beacons',
-                    'show_email' => true
-                ],
+//                [
+//                    'email' =>      'ndb.rna.logs@gmail.com',
+//                    'name' =>       'Brandon Jordan - K2SWL',
+//                    'role' =>       'NDBs and Ham Beacons',
+//                    'show_email' => true
+//                ],
                 [
                     'email' =>      'roelof@ndb.demon.nl',
                     'name' =>       'Roelof Bakker',
@@ -96,12 +96,12 @@ class SystemRepository
                     'role' =>       'Ham Beacons',
                     'show_email' => true
                 ],
-                [
-                    'email' =>      'ndb.rna.logs@gmail.com',
-                    'name' =>       'Brandon Jordan - K2SWL',
-                    'role' =>       'Ham Beacons',
-                    'show_email' => true
-                ],
+//                [
+//                    'email' =>      'ndb.rna.logs@gmail.com',
+//                    'name' =>       'Brandon Jordan - K2SWL',
+//                    'role' =>       'Ham Beacons',
+//                    'show_email' => true
+//                ],
                 [
                     'email' =>      'roelof@ndb.demon.nl',
                     'name' =>       'Roelof Bakker',
@@ -130,12 +130,12 @@ class SystemRepository
                     'role' =>       'NDBs and Ham Beacons',
                     'show_email' => true
                 ],
-                [
-                    'email' =>      'ndb.rna.logs@gmail.com',
-                    'name' =>       'Brandon Jordan - K2SWL',
-                    'role' =>       'NDBs and Ham Beacons',
-                    'show_email' => true
-                ],
+//                [
+//                    'email' =>      'ndb.rna.logs@gmail.com',
+//                    'name' =>       'Brandon Jordan - K2SWL',
+//                    'role' =>       'NDBs and Ham Beacons',
+//                    'show_email' => true
+//                ],
                 [
                     'email' =>      'roelof@ndb.demon.nl',
                     'name' =>       'Roelof Bakker',
