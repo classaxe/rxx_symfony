@@ -25,7 +25,7 @@
         </thead>
         <tbody>
     {% for ls in logsessions %}
-            <tr id="log_session_{{ ls.id }}" title="{% trans %}Click to view logs for this session{% endtrans %}">
+            <tr id="log_session_{{ ls.listenerId }}_{{ ls.id }}" title="{% trans %}Click to view logs for this session{% endtrans %}">
     {% for key, column in columns %}
         {% if ((not column.admin or isAdmin) and (not column.arg or (column.arg and column.arg in args.types))) %}
                 <td{% if column.td_class %} class="{{ column.td_class }}"{% endif %}>

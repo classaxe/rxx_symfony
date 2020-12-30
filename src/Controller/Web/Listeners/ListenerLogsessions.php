@@ -115,44 +115,20 @@ class ListenerLogsessions extends Base
         if (!$listener = $this->getValidReportingListener($id)) {
             return $this->redirectToRoute('listeners', ['system' => $system]);
         }
-
-        $isAdmin = $this->parameters['isAdmin'];
-        $options = [
-            'limit' =>          static::defaultlimit,
-            'order' =>          static::defaultOrder,
-            'page' =>           0,
-            'sort' =>           static::defaultSorting,
-            'total' =>          $listener->getCountLogsessions()
-        ];
-        $form = $form->buildForm($this->createFormBuilder(), $options);
-        $form->handleRequest($request);
         $args = [
-            'limit' =>          -1,
             'order' =>          'd',
-            'page' =>           0,
             'sort' =>           'logDate',
+            'listenerId' =>     $id,
             'logSessionId' =>   $logSessionId
         ];
-        if ($form->isSubmitted() && $form->isValid()) {
-            $args = $form->getData();
-        }
         $logs =           $this->listenerRepository->getLogsForListener($id, $args);
         $parameters = [
             'args' =>               $args,
             'id' =>                 $id,
             'columns' =>            $this->listenerRepository->getColumns('logs'),
-            'form' =>               $form->createView(),
             '_locale' =>            $_locale,
-            'matched' =>            'of '.$options['total']. ' log sessions.',
-            'mode' =>               'Logs for '.$listener->getFormattedNameAndLocation(),
             'logs' =>               $logs,
-            'results' => [
-                'limit' =>              isset($args['limit']) ? $args['limit'] : static::defaultlimit,
-                'page' =>               isset($args['page']) ? $args['page'] : 0,
-                'total' =>              $options['total']
-            ],
             'system' =>             $system,
-            'tabs' =>               $this->listenerRepository->getTabs($listener, $isAdmin),
             'typeRepository' =>     $this->typeRepository
         ];
         return $this->render('listener/logsessionlogs.html.twig', $this->getMergedParameters($parameters));

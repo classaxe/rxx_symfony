@@ -28,3 +28,36 @@ function setListenerActions() {
         }
     });
 }
+
+var logSessions = {
+    baseUrl : '',
+    init: function (baseUrl, matched) {
+        logSessions.baseUrl = baseUrl;
+        $(document).ready(function () {
+            setExternalLinks();
+            setFormPagingActions();
+            setColumnSortActions();
+            setColumnSortedClass();
+            setClippedCellTitles();
+            $('#form_paging_status').html(matched);
+            $('#list').height($(window).height() - 90);
+            $(window).resize(function () {
+                $('#list').height($(window).height() - 90);
+            });
+            $('.logsessions tbody tr').on('click', function () {
+                var listenerId = $(this).closest('tr').attr('id').split('_')[2];
+                var logSessionId = $(this).closest('tr').attr('id').split('_')[3];
+                logSessions.getLogSessionLogs(listenerId, logSessionId)
+            });
+            $('.logsessions tbody').children('tr:first').trigger('click');
+        });
+    },
+    getLogSessionLogs: function (listenerId, logSessionId) {
+        $('.logsessions tbody tr').removeClass('selected');
+        $('#list2').html("<div class='logsession_loader'><h2>" + msg.loading + "</h2></div>");
+        $('.logsessions tbody tr#log_session_' + listenerId + '_' + logSessionId).addClass('selected');
+        var url = logSessions.baseUrl.replace('XXX', listenerId).replace('YYY', logSessionId);
+        $('#list2').load(url);
+        return false;
+    }
+};

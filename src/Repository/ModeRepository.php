@@ -144,7 +144,7 @@ class ModeRepository
                 'access' => User::ADMIN | User::MASTER,
                 'admin' =>  true,
                 'guest' =>  false,
-                'menu' =>   'System Info',
+                'menu' =>   'Info',
                 'title' =>  'System Info',
                 'url'=>     false
             ],
@@ -152,8 +152,16 @@ class ModeRepository
                 'access' => User::MASTER,
                 'admin' =>  true,
                 'guest' =>  false,
-                'menu' =>   'User Accounts',
+                'menu' =>   'Users',
                 'title' =>  'User Accounts',
+                'url'=>     false
+            ],
+            'admin/logsessions' => [
+                'access' => User::ADMIN | User::MASTER,
+                'admin' =>  true,
+                'guest' =>  false,
+                'menu' =>   'Log Sessions',
+                'title' =>  'Log Sessions',
                 'url'=>     false
             ],
             'admin/help' => [

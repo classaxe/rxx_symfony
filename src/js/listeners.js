@@ -106,35 +106,3 @@ var listenersForm = {
         }
     }
 }
-
-var logSessions = {
-    baseUrl : '',
-    init: function (baseUrl, matched) {
-        logSessions.baseUrl = baseUrl;
-        $(document).ready(function () {
-            setExternalLinks();
-            setFormPagingActions();
-            setColumnSortActions();
-            setColumnSortedClass();
-            setClippedCellTitles();
-            $('#form_paging_status').html(matched);
-            $('#list').height($(window).height() - 90);
-            $(window).resize(function () {
-                $('#list').height($(window).height() - 90);
-            });
-            $('.logsessions tbody tr').on('click', function () {
-                var id = $(this).closest('tr').attr('id').split('_')[2];
-                logSessions.getLogSessionLogs(id)
-            });
-            $('.logsessions tbody').children('tr:first').trigger('click');
-        });
-    },
-    getLogSessionLogs: function (id) {
-        $('.logsessions tbody tr').removeClass('selected');
-        $('#list2').html("<div class='logsession_loader'><h2>" + msg.loading + "</h2></div>");
-        $('.logsessions tbody tr#log_session_' + id).addClass('selected');
-        var url = logSessions.baseUrl.replace('XXX', id);
-        $('#list2').load(url);
-        return false;
-    }
-};
