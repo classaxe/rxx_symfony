@@ -1,7 +1,7 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.25.0
+ * Version:    2.25.1
  * Date:       2020-12-30
  * Licence:    LGPL
  * Copyright:  2020 Martin Francis
@@ -742,7 +742,7 @@ function setListenerActions() {
 
 var logSessions = {
     baseUrl : '',
-    init: function (baseUrl, matched) {
+    init: function (baseUrl, matched, offset) {
         logSessions.baseUrl = baseUrl;
         $(document).ready(function () {
             setExternalLinks();
@@ -751,9 +751,11 @@ var logSessions = {
             setColumnSortedClass();
             setClippedCellTitles();
             $('#form_paging_status').html(matched);
-            $('#list').height($(window).height() - 90);
+            $('#list').height(($(window).height() / 2) - offset);
+            $('#list2').height(($(window).height() / 2) - offset);
             $(window).resize(function () {
-                $('#list').height($(window).height() - 90);
+                $('#list').height(($(window).height() / 2) - offset);
+                $('#list2').height(($(window).height() / 2) - offset);
             });
             $('.logsessions tbody tr').on('click', function () {
                 var listenerId = $(this).closest('tr').attr('id').split('_')[2];

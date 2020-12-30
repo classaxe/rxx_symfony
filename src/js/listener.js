@@ -31,7 +31,7 @@ function setListenerActions() {
 
 var logSessions = {
     baseUrl : '',
-    init: function (baseUrl, matched) {
+    init: function (baseUrl, matched, offset) {
         logSessions.baseUrl = baseUrl;
         $(document).ready(function () {
             setExternalLinks();
@@ -40,9 +40,11 @@ var logSessions = {
             setColumnSortedClass();
             setClippedCellTitles();
             $('#form_paging_status').html(matched);
-            $('#list').height($(window).height() - 90);
+            $('#list').height(($(window).height() / 2) - offset);
+            $('#list2').height(($(window).height() / 2) - offset);
             $(window).resize(function () {
-                $('#list').height($(window).height() - 90);
+                $('#list').height(($(window).height() / 2) - offset);
+                $('#list2').height(($(window).height() / 2) - offset);
             });
             $('.logsessions tbody tr').on('click', function () {
                 var listenerId = $(this).closest('tr').attr('id').split('_')[2];

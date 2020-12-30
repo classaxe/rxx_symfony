@@ -1,13 +1,9 @@
-<div class="scroll" id="list2a">
+<div class="scroll">
 {% include 'listener/logsessionlogs.grid.html.twig' %}
 </div>
 <script>
     $(document).ready( function() {
         setExternalLinks();
         setClippedCellTitles();
-        $('#list2a').height($(window).height() - 90);
-        $(window).resize(function () {
-            $('#list2a').height($(window).height() - 90);
-        });
     });
 </script>

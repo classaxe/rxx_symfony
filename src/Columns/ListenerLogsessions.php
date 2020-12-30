@@ -50,7 +50,7 @@ class ListenerLogsessions
                 'admin'     =>  false,
                 'arg'       =>  '',
                 'field'     =>  'logs',
-                'label'     =>  'Total Logs',
+                'label'     =>  'Logs',
                 'order'     =>  'd',
                 'sort'      =>  'ls.logs',
                 'td_class'  =>  'txt_r',
