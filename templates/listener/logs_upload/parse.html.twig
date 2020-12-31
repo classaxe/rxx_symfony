@@ -117,9 +117,9 @@
         {% set o = e.options[0] %}
             {% set hi = o.heard_in|replace({ (heardIn) : '<em>' ~ heardIn ~ '</em>'}) %}
             {% set time_check = e.time|slice(0,1) == '!' %}
-            {% set lsb_check = (e.LSB and o.LSB and ((e.LSB + tol_offsets < o.LSB) or (e.LSB - tol_offsets > o.LSB))) %}
-            {% set usb_check = (e.USB and o.USB and ((e.USB + tol_offsets < o.USB) or (e.USB - tol_offsets > o.USB))) %}
-            {% set sec_check = (e.sec and o.sec and ((e.sec + tol_secs < o.sec) or (e.sec - tol_secs > o.sec))) %}
+            {% set lsb_check = (e.LSB and e.LSB is numeric and o.LSB and ((e.LSB + tol_offsets < o.LSB) or (e.LSB - tol_offsets > o.LSB))) %}
+            {% set usb_check = (e.USB and e.USB is numeric and o.USB and ((e.USB + tol_offsets < o.USB) or (e.USB - tol_offsets > o.USB))) %}
+            {% set sec_check = (e.sec and e.sec is numeric and o.sec and ((e.sec + tol_secs < o.sec) or (e.sec - tol_secs > o.sec))) %}
             {% set row_check = (time_check or lsb_check or usb_check or sec_check) %}
             {% set row_selected = ((row_check == false and e.options|length == 1 and selected == 'UNSET') or (selected[loop.index -1] is defined and selected[loop.index -1])) %}
             {% set has_error = e.options|length > 1 %}

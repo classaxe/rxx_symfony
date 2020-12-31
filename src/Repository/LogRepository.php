@@ -318,8 +318,7 @@ EOD;
                     $out[$token. '_approx'] = '~';
                     $out[$token] = substr($value, 1);
                 }
-                if ($value === '---') {
-                    // Andy Robins logs use --- as blank
+                if (in_array(trim($value), ['.', '-', '-', '---'])) {
                     $out['$token'] = '';
                 }
                 break;
