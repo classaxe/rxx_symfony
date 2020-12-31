@@ -156,17 +156,17 @@ class ListenerLogsessions
                 'th_class'  =>  '',
                 'tooltip'   =>  '',
             ],
-//            'admin' => [
-//                'admin'     =>  true,
-//                'arg'       =>  '',
-//                'field'     =>  'delete',
-//                'label'     =>  'Delete',
-//                'order'     =>  '',
-//                'sort'      =>  '',
-//                'td_class'  =>  '',
-//                'th_class'  =>  'txt_vertical',
-//                'tooltip'   =>  '',
-//            ],
+            'delete' => [
+                'admin'     =>  true,
+                'arg'       =>  '',
+                'field'     =>  'delete',
+                'label'     =>  'Delete',
+                'order'     =>  '',
+                'sort'      =>  '',
+                'td_class'  =>  '',
+                'th_class'  =>  'txt_vertical',
+                'tooltip'   =>  '',
+            ],
         ];
     }
 }

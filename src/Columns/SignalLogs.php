@@ -169,7 +169,7 @@ class SignalLogs
                 'th_class'  =>  'txt_r',
                 'tooltip'   =>  'Distance in Miles',
             ],
-            'admin' => [
+            'delete' => [
                 'admin'     =>  true,
                 'arg'       =>  '',
                 'field'     =>  'delete',

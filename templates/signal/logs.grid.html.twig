@@ -29,11 +29,8 @@
     %}{% if isAdmin %}<a href="{{ url('log', { 'system' : system, 'id' : r.log_id }) }}" data-popup="1">{{ r.log_id }}</a>{% endif %}{%
         elseif key == 'date'
     %}{{ attribute(r, column.field)|date('Y-m-d') }}{%
-        elseif key == 'admin'
-    %}{% if isAdmin
-        %}<a href="{{ url('signal_log_delete', { 'system' : system, 'id' : id, 'log_id' : r.log_id }) }}" class="delete" onclick="return confirm(msg.del_log);">X</a>{%
-        endif
-    %}{%
+        elseif key == 'delete' and isAdmin
+    %}<a href="{{ url('signal_log_delete', { 'system' : system, 'id' : id, 'log_id' : r.log_id }) }}" class="delete" onclick="return confirm(msg.del_log);">X</a>{%
         else
     %}{{ attribute(r, column.field)|raw }}{%
         endif

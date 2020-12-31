@@ -88,4 +88,73 @@ class Logsessions extends Base
         ];
         return $this->render('log_sessions/index.html.twig', $this->getMergedParameters($parameters));
     }
+
+    /**
+     * @Route(
+     *     "/{_locale}/{system}/admin/logssession/{logSessionId}/delete/{listenerId}",
+     *     requirements={
+     *        "_locale": "de|en|es|fr",
+     *        "system": "reu|rna|rww"
+     *     },
+     *     name="admin/logsession_delete"
+     * )
+     * @param $_locale
+     * @param $system
+     * @param $logSessionId
+     * @param $listenerId
+     * @return RedirectResponse
+     */
+    public function logSessionDelete(
+        $_locale,
+        $system,
+        $logSessionId,
+        $listenerId
+    ) {
+        if (!(int) $listenerId) {
+            return $this->redirectToRoute('listeners', ['_locale' => $_locale, 'system' => $system]);
+        }
+        $listener = $this->listenerRepository->find((int) $listenerId);
+        if (!$listener) {
+            return $this->redirectToRoute('listeners', ['_locale' => $_locale, 'system' => $system]);
+        }
+
+        if (!$this->parameters['isAdmin']) {
+            return $this->redirectToRoute('listeners', ['_locale' => $_locale, 'system' => $system]);
+        }
+
+        $logSession = $this->logsessionRepository->find((int) $logSessionId);
+        if (!$logSession) {
+            return $this->redirectToRoute('admin/logsessions', ['_locale' => $_locale, 'system' => $system]);
+        }
+
+        $args = [
+            'order' =>          'd',
+            'sort' =>           'logDate',
+            'logSessionId' =>   (int) $logSessionId
+        ];
+        $logRecords =           $this->listenerRepository->getLogsForListener($listenerId, $args);
+
+        $em = $this->getDoctrine()->getManager();
+        foreach($logRecords as $logRecord) {
+            if ($log = $this->logRepository->find($logRecord['log_id'])) {
+                $em->remove($log);
+                $em->flush();
+                $this->signalRepository->updateSignalStats($logRecord['id'], true, true);
+            }
+        }
+        $em->remove($logSession);
+        $em->flush();
+
+        $this->listenerRepository->updateListenerStats($listenerId);
+
+        $this->session->set(
+            'lastMessage',
+            sprintf(
+                $this->i18n("Log Session has been deleted. All affected signals and stats for %s have been updated."),
+                $listener->getName()
+            )
+        );
+        return $this->redirectToRoute('admin/logsessions', ['_locale' => $_locale, 'system' => $system]);
+    }
+
 }

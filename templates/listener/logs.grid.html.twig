@@ -35,8 +35,8 @@
         %}<a href="{{ url('signal', { 'system' : system, 'id': l.id }) }}" data-popup="1">{{ attribute(l, column.field)|raw }}</a>{%
             elseif key == 'id'
         %}{% if isAdmin %}<a href="{{ url('log', { 'system' : system, 'id' : l.log_id }) }}" data-popup="1">{{ l.log_id }}</a>{% endif %}{%
-            elseif key == 'admin'
-        %}{% if isAdmin %}<a href="{{ url('listener_log_delete', { 'system' : system, 'id' : id, 'log_id' : l.log_id }) }}" class="delete" onclick="return confirm(msg.del_log);">X</a>{% endif %}{%
+            elseif key == 'delete' and isAdmin
+        %}<a href="{{ url('listener_log_delete', { 'system' : system, 'id' : id, 'log_id' : l.log_id }) }}" class="delete" onclick="return confirm(msg.del_log);">X</a>{%
             else
         %}{{ attribute(l, column.field)|raw }}{%
             endif

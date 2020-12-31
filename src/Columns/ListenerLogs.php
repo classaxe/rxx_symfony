@@ -204,7 +204,7 @@ class ListenerLogs
                 'th_class'  =>  'txt_r',
                 'tooltip'   =>  '',
             ],
-            'admin' => [
+            'delete' => [
                 'admin'     =>  true,
                 'arg'       =>  '',
                 'field'     =>  'delete',
