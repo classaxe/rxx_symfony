@@ -76,7 +76,7 @@ class Log extends WebBase
             $listener =         $this->listenerRepository->find($data['listenerId']);
             $signal =           $this->signalRepository->find($data['signalId']);
             $daytime =          $listener->isDaytime($data['time']);
-            $heardIn =          $listener->getSp() ?? $listener->getItu();
+            $heardIn =          $listener->getSp() ? $listener->getSp() : $listener->getItu();
             $region =           $listener->getRegion();
             $dx =               $this->rxx->getDxGsq2Gsq($listener->getGsq(), $signal->getGsq());
             $log
@@ -105,9 +105,9 @@ class Log extends WebBase
                 $this->listenerRepository->updateListenerStats($oldListenerId);
             }
 
-            $this->signalRepository->updateSignalStats($newSignalId, true);
+            $this->signalRepository->updateSignalStats($newSignalId, true, true);
             if ($oldSignalId !== $newSignalId) {
-                $this->signalRepository->updateSignalStats($oldSignalId, true);
+                $this->signalRepository->updateSignalStats($oldSignalId, true, true);
             }
 
             if ($data['_close']) {
