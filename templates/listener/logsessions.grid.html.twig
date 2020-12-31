@@ -28,12 +28,18 @@
             <tr id="log_session_{{ ls.listenerId }}_{{ ls.id }}" title="{% trans %}Click to view logs for this session{% endtrans %}">
     {% for key, column in columns %}
         {% if ((not column.admin or isAdmin) and (not column.arg or (column.arg and column.arg in args.types))) %}
-                <td{% if column.td_class %} class="{{ column.td_class }}"{% endif %}>
+                <td{% if column.td_class %} class="{{ column.td_class }}"{% endif %}{%
+                    if key == 'listener'
+                %} title="{{ ls.primaryQth ? 'Primary Location' | trans : 'Secondary Location' | trans }}" class="{{ ls.primaryQth ? 'primaryQth' : 'secondaryQth' }} {{ column.td_class }}"{%
+                    elseif column.td_class
+                %} class="{{ column.td_class }}"{%
+                    endif
+                %}>
         {%
             if key == 'id'
         %}{% if isAdmin %}<a href="{{ url('log', { 'system' : system, 'id' : ls.id }) }}" data-popup="1">{{ ls.id }}</a>{% endif %}{%
             elseif key == 'listener'
-        %}{% if isAdmin %}<a href="{{ url('listener_logsessions', { 'system' : system, 'id' : ls.listenerId }) }}" data-popup="1" title="Click to view Log Sessions for this Listener">{{ ls.listener }}</a>{% endif %}{%
+        %}{% if isAdmin %}<a href="{{ url('listener_logsessions', { 'system' : system, 'id' : ls.listenerId }) }}" data-popup="1" title="Click to view Log Sessions for this Listener">{{ ls.listener|raw }}</a>{% endif %}{%
             elseif key == 'admin'
         %}{% if isAdmin %}<a href="{{ url('listener_log_delete', { 'system' : system, 'id' : ls.listenerId, 'log_id' : ls.id }) }}" class="delete" onclick="return confirm(msg.del_log);">X</a>{% endif %}{%
             elseif key in ['logs', 'logsDgps', 'logsDsc', 'logsHambcn', 'logsNavtex', 'logsNdb', 'logsOther', 'logsTime']

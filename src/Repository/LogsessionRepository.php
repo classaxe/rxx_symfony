@@ -57,7 +57,12 @@ class LogsessionRepository extends ServiceEntityRepository
         $columns =
             'ls.id,'
             . 'ls.listenerId,'
+            . 'li.primaryQth,'
             . 'li.name as listener,'
+            . 'li.callsign as callsign,'
+            . 'li.qth as qth,'
+            . 'li.sp as sp,'
+            . 'li.itu as itu,'
             . 'trim(ls.timestamp) as timestamp,'
             . 'u.name as uploader,'
             . 'trim(ls.firstLog) as firstLog,'
