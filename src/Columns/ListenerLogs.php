@@ -17,7 +17,7 @@ class ListenerLogs
                 'admin'     =>  true,
                 'arg'       =>  '',
                 'field'     =>  'log_id',
-                'label'     =>  'ID',
+                'label'     =>  'Log ID',
                 'order'     =>  'a',
                 'sort'      =>  'log_id',
                 'td_class'  =>  '',

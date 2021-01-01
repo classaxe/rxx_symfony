@@ -1,16 +1,15 @@
 <?php
-namespace App\Controller\Web\Listeners\Export;
+namespace App\Controller\Web\Listeners;
 
-use App\Controller\Web\Listeners\Base;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 
 /**
  * Class Listeners
- * @package App\Controller\Web\Listener\Export
+ * @package App\Controller\Web\Listeners
  */
-class Signalmap extends Base
+class LegacySignalsmap extends Base
 {
     // Exists only to support legacy listener maps
     /**
@@ -66,7 +65,6 @@ class Signalmap extends Base
             'signals' =>            $signals,
             'system' =>             $system,
             'listener' =>           $listener,
-            'logs' =>               $this->logRepository->getLogsForListener($id),
             'typeRepository' =>     $this->typeRepository
         ];
         $parameters = array_merge($parameters, $this->parameters);

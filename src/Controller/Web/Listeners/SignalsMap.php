@@ -62,7 +62,6 @@ class SignalsMap extends Base
             'box' =>                $box,
             'center' =>             $center,
             'listener' =>           $listener,
-            'logs' =>               $this->logRepository->getLogsForListener($id),
             'mode' =>               strToUpper($system).' Map of Signals received by '.$listener->getName(),
             'signals' =>            $signals,
             'system' =>             $system,
