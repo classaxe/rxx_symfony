@@ -58,20 +58,24 @@ class ListenerLogs extends Base
             'limit' =>          static::defaultlimit,
             'order' =>          static::defaultOrder,
             'page' =>           0,
-            'sort' =>           static::defaultSorting,
+            'sort' =>           static::defaultSorting
         ];
         if ($form->isSubmitted() && $form->isValid()) {
             $args = $form->getData();
         }
+        $args['listenerId'] =   $id;
+        $columns = $this->listenerRepository->getColumns('logs');
+        $logs = $this->logRepository->getLogs($args, $columns);
+
         $parameters = [
             'args' =>               $args,
             'id' =>                 $id,
-            'columns' =>            $this->listenerRepository->getColumns('logs'),
+            'columns' =>            $columns,
             'form' =>               $form->createView(),
             '_locale' =>            $_locale,
             'matched' =>            'of '.$options['total']. ' log records.',
             'mode' =>               'Logs for '.$listener->getFormattedNameAndLocation(),
-            'logs' =>               $this->listenerRepository->getLogsForListener($id, $args),
+            'logs' =>               $logs,
             'results' => [
                 'limit' =>              isset($args['limit']) ? $args['limit'] : static::defaultlimit,
                 'page' =>               isset($args['page']) ? $args['page'] : 0,

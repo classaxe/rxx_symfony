@@ -21,9 +21,9 @@
     trans %}Miles{% endtrans %}","{%
     trans %}Daytime{% endtrans%}"
 {% for l in logs %}"{{
-    l.date | date('Ymd') }}","{{
-    l.time }}","{{
-    0 + l.khz }}","{{
+    l.logDate }}","{{
+    l.logTime }}","{{
+    l.khz }}","{{
     l.call }}","{{
     typeRepository.typeForCode(l.type)['label']|trans }}","{{
     l.active ? 'Y' : 'N' }}","{{

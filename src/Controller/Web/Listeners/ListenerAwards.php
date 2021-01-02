@@ -101,10 +101,14 @@ class ListenerAwards extends Base
             $mailer->send($message);
         }
 
-        $this->signals = $this->listenerRepository->getLogsForListener(
-            $this->listener->getId(),
-            [ 'type' => 0, 'sort' => 'khz', 'order' => 'a']
-        );
+        $args = [
+            'listenerId' => $id,
+            'sort' =>       'khz',
+            'type' =>       0,
+            'order' =>      'a',
+        ];
+        $sortableColumns = $this->listenerRepository->getColumns('logs');
+        $this->signals = $this->logRepository->getLogs($args, $sortableColumns);
 
         $isAdmin = $this->parameters['isAdmin'];
         $award_types = array_keys($this->awardRepository::AWARDSPEC);

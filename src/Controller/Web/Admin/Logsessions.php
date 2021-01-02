@@ -67,23 +67,24 @@ class Logsessions extends Base
         if ($form->isSubmitted() && $form->isValid()) {
             $args = $form->getData();
         }
-        $logSessions = $this->logsessionRepository->getLogsessions($args);
+        $columns = $this->logsessionRepository->getColumns();
+        $logSessions = $this->logsessionRepository->getLogsessions($args, $columns);
         $parameters = [
-            'args' => $args,
-            'classic' => $this->systemRepository->getClassicUrl('log_sessions'),
-            'columns' => $this->logsessionRepository->getColumns(),
-            'form' => $form->createView(),
-            '_locale' => $_locale,
-            'matched' => 'of ' . $options['total'] . ' log sessions.',
-            'mode' => 'Log Sessions',
-            'logsessions' => $logSessions,
+            'args' =>           $args,
+            'classic' =>        $this->systemRepository->getClassicUrl('log_sessions'),
+            'columns' =>        $columns,
+            'form' =>           $form->createView(),
+            '_locale' =>        $_locale,
+            'matched' =>        'of ' . $options['total'] . ' log sessions.',
+            'mode' =>           'Log Sessions',
+            'logsessions' =>    $logSessions,
             'results' => [
-                'limit' => isset($args['limit']) ? $args['limit'] : static::defaultlimit,
-                'page' => isset($args['page']) ? $args['page'] : 0,
-                'total' => $options['total']
+                'limit' =>  isset($args['limit']) ? $args['limit'] : static::defaultlimit,
+                'page' =>   isset($args['page']) ? $args['page'] : 0,
+                'total' =>  $options['total']
             ],
-            'system' => $system,
-            'tabs' => [],
+            'system' =>         $system,
+            'tabs' =>           [],
             'typeRepository' => $this->typeRepository
         ];
         return $this->render('log_sessions/index.html.twig', $this->getMergedParameters($parameters));
@@ -91,7 +92,7 @@ class Logsessions extends Base
 
     /**
      * @Route(
-     *     "/{_locale}/{system}/admin/logssession/{logSessionId}/delete/{listenerId}",
+     *     "/{_locale}/{system}/admin/logsessions/{logSessionId}/delete",
      *     requirements={
      *        "_locale": "de|en|es|fr",
      *        "system": "reu|rna|rww"
@@ -101,23 +102,13 @@ class Logsessions extends Base
      * @param $_locale
      * @param $system
      * @param $logSessionId
-     * @param $listenerId
      * @return RedirectResponse
      */
     public function logSessionDelete(
         $_locale,
         $system,
-        $logSessionId,
-        $listenerId
+        $logSessionId
     ) {
-        if (!(int) $listenerId) {
-            return $this->redirectToRoute('listeners', ['_locale' => $_locale, 'system' => $system]);
-        }
-        $listener = $this->listenerRepository->find((int) $listenerId);
-        if (!$listener) {
-            return $this->redirectToRoute('listeners', ['_locale' => $_locale, 'system' => $system]);
-        }
-
         if (!$this->parameters['isAdmin']) {
             return $this->redirectToRoute('listeners', ['_locale' => $_locale, 'system' => $system]);
         }
@@ -127,12 +118,17 @@ class Logsessions extends Base
             return $this->redirectToRoute('admin/logsessions', ['_locale' => $_locale, 'system' => $system]);
         }
 
+        $listenerId = $logSession->getListenerId();
+        $listener = $this->listenerRepository->find($listenerId);
+
         $args = [
             'order' =>          'd',
             'sort' =>           'logDate',
             'logSessionId' =>   (int) $logSessionId
         ];
-        $logRecords =           $this->listenerRepository->getLogsForListener($listenerId, $args);
+
+        $sortableColumns =  $this->listenerRepository->getColumns('logs');
+        $logRecords =       $this->logRepository->getLogs($args, $sortableColumns);
 
         $em = $this->getDoctrine()->getManager();
         foreach($logRecords as $logRecord) {

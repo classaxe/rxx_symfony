@@ -9,9 +9,9 @@ YYYYMMDD UTC  KHz      ID         Type   A   LSB   USB    Sec  Format     PWR   
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------
 {% for l in logs %}
 {{
-    l.date | date('Ymd') }} {{
-    "% 4s"   | format(l.time) }} {{
-    "% -8s"  | format((0 + l.khz)) }} {{
+    l.logDate | date('Ymd') }} {{
+    "% 4s"   | format(l.logTime) }} {{
+    "% -8s"  | format(l.khz) }} {{
     "% -10s" | format(l.call) }} {{
     "% -6s"  | format( typeRepository.typeForCode(l.type)['label']|trans) }} {{
     "% -1s"  | format(l.active ? 'Y' : 'N') }} {{

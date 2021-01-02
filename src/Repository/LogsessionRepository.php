@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Columns\Logsessions as LogsessionsColumns;
+use App\Columns\ListenerLogs as LogsColumns;
 use App\Entity\LogSession;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -10,6 +11,7 @@ use Doctrine\Persistence\ManagerRegistry;
 class LogsessionRepository extends ServiceEntityRepository
 {
     private $logsessionsColumns;
+    private $logsColumns;
 
     /**
      * LogSessionRepository constructor.
@@ -17,10 +19,12 @@ class LogsessionRepository extends ServiceEntityRepository
      */
     public function __construct(
         ManagerRegistry $registry,
-        LogsessionsColumns $logsessionsColumns
+        LogsessionsColumns $logsessionsColumns,
+        LogsColumns $logsColumns
     ) {
         parent::__construct($registry, LogSession::class);
         $this->logsessionsColumns = $logsessionsColumns->getColumns();
+        $this->logsColumns = $logsColumns->getColumns();
     }
 
     /**
@@ -52,7 +56,7 @@ class LogsessionRepository extends ServiceEntityRepository
         return $this->logsessionsColumns;
     }
 
-    public function getLogsessions(array $args)
+    public function getLogsessions(array $args, $reportColumns = [])
     {
         $columns =
             'ls.id,'
@@ -82,14 +86,20 @@ class LogsessionRepository extends ServiceEntityRepository
             ->innerJoin('\App\Entity\Listener', 'li', 'WITH', 'ls.listenerId = li.id')
             ->innerJoin('\App\Entity\User', 'u', 'WITH', 'ls.administratorId = u.id');
 
+        if (isset($args['listenerId']) && $args['listenerId'] !== '') {
+            $qb
+                ->andWhere('li.id = :listenerID')
+                ->setParameter('listenerID', $args['listenerId']);
+        }
+
         if (isset($args['limit']) && (int)$args['limit'] !== -1 && isset($args['page'])) {
             $qb
                 ->setFirstResult($args['page'] * $args['limit'])
                 ->setMaxResults($args['limit']);
         }
 
-        if (isset($args['sort']) && $this->logsessionsColumns[$args['sort']]['sort']) {
-            $idx = $this->logsessionsColumns[$args['sort']];
+        if (isset($args['sort']) && $reportColumns[$args['sort']]['sort']) {
+            $idx = $reportColumns[$args['sort']];
             $qb
                 ->addOrderBy(
                     ($idx['sort']),

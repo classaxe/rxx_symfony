@@ -78,7 +78,15 @@ class Logs extends Base
                 ['system' => $system]
             );
         }
-        $logs = $this->logRepository->getLogsForListener($id);
+
+        $sortableColumns = $this->listenerRepository->getColumns('logs');
+        $args = [
+            'listenerId' => $id,
+            'sort' =>       'logDate',
+            'order' =>      'a',
+        ];
+        $logs = $this->logRepository->getLogs($args, $sortableColumns);
+
         $parameters = [
             '_locale' =>            $_locale,
             'title' =>              strToUpper($system) . ' log for '.$listener->getName() . " on " . date('Y-m-d'),

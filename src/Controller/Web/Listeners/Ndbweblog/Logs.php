@@ -38,12 +38,16 @@ class Logs extends Base
                 ['system' => $system]
             );
         }
+        $args = [
+            'listenerId' => (int)$id
+        ];
+        $logs = $this->logRepository->getLogs($args);
         $parameters = [
             '_locale' =>            $_locale,
             'title' =>              'NDB Weblog logs for '.$listener->getName(),
             'system' =>             $system,
             'listener' =>           $listener,
-            'logs' =>               $this->logRepository->getLogsForListener($id)
+            'logs' =>               $logs
         ];
         $parameters = array_merge($parameters, $this->parameters);
         $response = $this->render('listener/ndbweblog/logs.js.twig', $parameters);

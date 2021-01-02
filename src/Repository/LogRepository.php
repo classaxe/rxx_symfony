@@ -148,49 +148,85 @@ EOD;
         return $stmt->fetchColumn();
     }
 
-    public function getLogsForListener($listenerID)
+    public function getLogs(array $args, $reportColumns = [])
     {
+        $columns =
+            'trim(l.date) as logDate,'
+            .'trim(l.time) as logTime,'
+            .'s.id,'
+            .'trim(s.khz)+0 as khz,'
+            .'s.active,'
+            .'s.call,'
+            .'s.qth,'
+            .'s.sp,'
+            .'s.itu,'
+            .'s.region,'
+            .'s.gsq,'
+            .'s.type,'
+            .'(CASE when s.pwr = 0 THEN \'\' ELSE s.pwr END) AS pwr,'
+            .'s.lat,'
+            .'s.lon,'
+            .'(CASE WHEN s.sp = \'\' THEN s.itu ELSE s.sp END) as place,'
+            .'trim(l.sec)+0 as sec,'
+            .'(CASE WHEN trim(l.sec)+0 = 0 THEN \'\' ELSE trim(l.sec)+0 END) as secF,'
+            .'CONCAT(l.lsbApprox,l.lsb) AS lsb,'
+            .'CONCAT(l.usbApprox,l.usb) AS usb,'
+            .'l.id AS log_id,'
+            .'l.daytime,'
+            .'l.format,'
+            .'l.dxKm,'
+            .'l.dxMiles';
+
         $qb = $this
             ->createQueryBuilder('l')
-            ->select(
-                'l.date,'
-                . 'l.time,'
-                . 'l.daytime,'
-                . 'l.dxKm,'
-                . 'l.dxMiles,'
-                . 'CONCAT(l.lsbApprox, l.lsb) AS lsb,'
-                . 'CONCAT(l.usbApprox, l.usb) AS usb,'
-                . 'l.sec,'
-                . 'l.format,'
-                . 's.khz,'
-                . 's.call,'
-                . 's.type,'
-                . 's.active,'
-                . '(CASE WHEN s.pwr = 0 THEN \'\' ELSE s.pwr END) AS pwr,'
-                . 's.sp,'
-                . 's.itu,'
-                . 's.region,'
-                . 's.gsq,'
-                . 's.lat,'
-                . 's.lon,'
-                . 's.qth'
-            )
-            ->andWhere('l.listenerId = :listenerID')
-            ->setParameter('listenerID', $listenerID)
+            ->select($columns)
+            ->innerJoin('\App\Entity\Listener', 'li')
+            ->andWhere('l.listenerId = li.id')
+
             ->innerJoin('\App\Entity\Signal', 's')
-            ->andWhere('l.signalId = s.id')
-            ->orderBy(
-                'l.date',
-                'ASC'
-            )
-            ->addOrderBy(
-                'l.time',
-                'ASC'
-            );
-        $result = $qb->getQuery()->execute();
-        foreach ($result as &$row) {
-            $row['qth'] = str_replace("\"", "\\\"", html_entity_decode($row['qth']));
+            ->andWhere('l.signalId = s.id');
+
+
+        if (isset($args['listenerId']) && $args['listenerId'] !== '') {
+            $qb ->andWhere('li.id = :listenerID')
+                ->setParameter('listenerID', $args['listenerId']);
         }
+
+        if (isset($args['type']) && $args['type'] !== '') {
+            $qb ->andWhere('s.type in(:type)')
+                ->setParameter('type', $args['type']);
+        }
+
+        if (isset($args['logSessionId']) && $args['logSessionId'] !== '') {
+            $qb ->andWhere('l.logSessionId = :logSessionId')
+                ->setParameter('logSessionId', $args['logSessionId']);
+        }
+
+        if (isset($args['limit']) && (int)$args['limit'] !== -1 && isset($args['page'])) {
+            $qb ->setFirstResult($args['page'] * $args['limit'])
+                ->setMaxResults($args['limit']);
+        }
+
+        if (isset($args['sort']) && $reportColumns[$args['sort']]['sort']) {
+            $idx = $reportColumns[$args['sort']];
+            $qb ->addOrderBy(
+                ($idx['sort']),
+                ($args['order'] === 'd' ? 'DESC' : 'ASC')
+            );
+            if (isset($idx['sort_2']) && isset($idx['order_2'])) {
+                $qb ->addOrderBy(
+                    ($idx['sort_2']),
+                    ($args['order'] === 'd' ?
+                        ($idx['order_2'] == 'a' ? 'DESC' : 'ASC')
+                      :
+                        ($idx['order_2'] == 'd' ? 'DESC' : 'ASC')
+                    )
+                );
+            }
+        }
+
+        $result = $qb->getQuery()->execute();
+//        print "<pre>".print_r($qb->getQuery()->getSQL(), true)."</pre>";
         return $result;
     }
 

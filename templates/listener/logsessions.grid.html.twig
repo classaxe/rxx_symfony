@@ -35,9 +35,8 @@
                 %} class="{{ column.td_class }}"{%
                     endif
                 %}>
-        {%
-            if key == 'id'
-        %}{% if isAdmin %}<a href="{{ url('log', { 'system' : system, 'id' : ls.id }) }}" data-popup="1">{{ ls.id }}</a>{% endif %}{%
+        {% if key == 'id' and isAdmin
+        %}<a href="{{ url('log', { 'system' : system, 'id' : ls.id }) }}" data-popup="1">{{ ls.id }}</a>{%
             elseif key == 'listener'
         %}{% if isAdmin %}<a href="{{ url('listener_logsessions', { 'system' : system, 'id' : ls.listenerId }) }}" data-popup="1" title="Click to view Log Sessions for this Listener">{{ ls.listener|raw }}</a>{% endif %}{%
             elseif key == 'delete'

@@ -19,8 +19,7 @@
     {% if ((not column.admin or isAdmin) and (not column.arg or (column.arg and column.arg in args.types))) %}
             <td{% if column.td_class %} class="{{ column.td_class }}"{% endif %}>
     {%
-        if key == 'id'
-    %}{% if isAdmin %}<a href="{{ url('log', { 'system' : system, 'id' : l.log_id }) }}" data-popup="1">{{ l.log_id }}</a>{% endif %}{%
+        if key == 'id' and isAdmin %}<a href="{{ url('log', { 'system' : system, 'id' : l.log_id }) }}" data-popup="1">{{ l.log_id }}</a>{%
         elseif key == 'call'
     %}<a href="{{ url('signal', { 'system' : system, 'id': l.id }) }}" data-popup="1">{{ attribute(l, column.field)|raw }}</a>{%
         elseif key == 'delete' and isAdmin

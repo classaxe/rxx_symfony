@@ -64,12 +64,14 @@ class ListenerLogsessions extends Base
         if ($form->isSubmitted() && $form->isValid()) {
             $args = $form->getData();
         }
-        $logSessions = $this->listenerRepository->getLogsessionsForListener($id, $args);
+        $args['listenerId'] = $id;
+        $columns = $this->listenerRepository->getColumns('logsessions');
+        $logSessions = $this->logsessionRepository->getLogsessions($args, $columns);
 
         $parameters = [
             'args' =>               $args,
             'id' =>                 $id,
-            'columns' =>            $this->listenerRepository->getColumns('logsessions'),
+            'columns' =>            $columns,
             'form' =>               $form->createView(),
             '_locale' =>            $_locale,
             'matched' =>            'of '.$options['total']. ' log sessions.',
@@ -118,10 +120,9 @@ class ListenerLogsessions extends Base
         $args = [
             'order' =>          'd',
             'sort' =>           'logDate',
-            'listenerId' =>     $id,
             'logSessionId' =>   $logSessionId
         ];
-        $logs =           $this->listenerRepository->getLogsForListener($id, $args);
+        $logs =           $this->logRepository->getLogs($args, $this->listenerRepository->getColumns('logs'));
         $parameters = [
             'args' =>               $args,
             'id' =>                 $id,
@@ -178,7 +179,8 @@ class ListenerLogsessions extends Base
             'listenerId' =>     $id,
             'logSessionId' =>   (int) $logSessionId
         ];
-        $logRecords =           $this->listenerRepository->getLogsForListener($id, $args);
+        $sortableColumns =  $this->listenerRepository->getColumns('logs');
+        $logRecords =       $this->logRepository->getLogs($args, $sortableColumns);
 
         $em = $this->getDoctrine()->getManager();
         foreach($logRecords as $logRecord) {

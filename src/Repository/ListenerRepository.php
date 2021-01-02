@@ -42,6 +42,7 @@ class ListenerRepository extends ServiceEntityRepository
     private $listenerLogsessionsColumns;
     private $listenerSignalsColumns;
     private $logRepository;
+    private $logsessionRepository;
     private $regionRepository;
 
     public function __construct(
@@ -52,7 +53,8 @@ class ListenerRepository extends ServiceEntityRepository
         ListenerLogsColumns $listenerLogsColumns,
         ListenerLogsessionsColumns $listenerLogsessionsColumns,
         ListenerSignalsColumns $listenerSignalsColumns,
-        LogRepository $logRepository
+        LogRepository $logRepository,
+        LogsessionRepository $logsessionRepository
     ) {
         parent::__construct($registry, Listener::class);
         $this->connection = $connection;
@@ -61,6 +63,7 @@ class ListenerRepository extends ServiceEntityRepository
         $this->listenerLogsessionsColumns = $listenerLogsessionsColumns->getColumns();
         $this->listenerSignalsColumns = $listenerSignalsColumns->getColumns();
         $this->logRepository = $logRepository;
+        $this->logsessionRepository = $logsessionRepository;
         $this->regionRepository = $regionRepository;
     }
 
@@ -655,132 +658,6 @@ EOD;
         return $qb
             ->getQuery()
             ->getSingleScalarResult();
-    }
-
-    public function getLogsForListener($listenerID, array $args)
-    {
-        $columns =
-            'trim(l.date) as logDate,'
-            .'trim(l.time) as logTime,'
-            .'s.id,'
-            .'trim(s.khz)+0 as khz,'
-            .'s.active,'
-            .'s.call,'
-            .'s.qth,'
-            .'s.sp,'
-            .'s.itu,'
-            .'s.region,'
-            .'s.gsq,'
-            .'s.type,'
-            .'(CASE when s.pwr = 0 THEN \'\' ELSE s.pwr END) AS pwr,'
-            .'s.lat,'
-            .'s.lon,'
-            .'(CASE WHEN s.sp = \'\' THEN s.itu ELSE s.sp END) as place,'
-            .'trim(l.sec)+0 as sec,'
-            .'(CASE WHEN trim(l.sec)+0 = 0 THEN \'\' ELSE trim(l.sec)+0 END) as secF,'
-            .'CONCAT(l.lsbApprox,l.lsb) AS lsb,'
-            .'CONCAT(l.usbApprox,l.usb) AS usb,'
-            .'l.id AS log_id,'
-            .'l.daytime,'
-            .'l.format,'
-            .'l.dxKm,'
-            .'l.dxMiles';
-
-        $qb = $this
-            ->createQueryBuilder('li')
-            ->select($columns)
-            ->innerJoin('\App\Entity\Log', 'l')
-            ->andWhere('l.listenerId = li.id')
-
-            ->innerJoin('\App\Entity\Signal', 's')
-            ->andWhere('l.signalId = s.id')
-
-            ->andWhere('li.id = :listenerID')
-            ->setParameter('listenerID', $listenerID);
-
-        if (isset($args['type']) && $args['type'] !== '') {
-            $qb
-                ->andWhere('s.type in(:type)')
-                ->setParameter('type', $args['type']);
-        }
-
-        if (isset($args['logSessionId']) && $args['logSessionId'] !== '') {
-            $qb
-                ->andWhere('l.logSessionId = :logSessionId')
-                ->setParameter('logSessionId', $args['logSessionId']);
-        }
-
-        if (isset($args['limit']) && (int)$args['limit'] !== -1 && isset($args['page'])) {
-            $qb
-                ->setFirstResult($args['page'] * $args['limit'])
-                ->setMaxResults($args['limit']);
-        }
-
-        if (isset($args['sort']) && $this->listenerLogsColumns[$args['sort']]['sort']) {
-            $idx = $this->listenerLogsColumns[$args['sort']];
-            $qb
-                ->addOrderBy(
-                    ($idx['sort']),
-                    ($args['order'] == 'd' ? 'DESC' : 'ASC')
-                );
-            if (isset($idx['sort_2']) && isset($idx['order_2'])) {
-                $qb
-                    ->addOrderBy(
-                        ($idx['sort_2']),
-                        ($idx['order_2'] == 'd' ? 'DESC' : 'ASC')
-                    );
-            }
-        }
-
-        $result = $qb->getQuery()->execute();
-//        print "<pre>".print_r($result, true)."</pre>";
-        return $result;
-    }
-
-    public function getLogsessionsForListener($listenerID, array $args)
-    {
-        $columns =
-             'ls.id,'
-             . 'ls.listenerId,'
-             . 'trim(ls.timestamp) as timestamp,'
-             . 'u.name,'
-             . 'trim(ls.firstLog) as firstLog,'
-             . 'trim(ls.lastLog) as lastLog,'
-             . 'ls.logs,'
-             . 'ls.logsDgps,'
-             . 'ls.logsDsc,'
-             . 'ls.logsHambcn,'
-             . 'ls.logsNavtex,'
-             . 'ls.logsNdb,'
-             . 'ls.logsOther,'
-             . 'ls.logsTime';
-
-        $qb = $this
-            ->createQueryBuilder('li')
-            ->select($columns)
-            ->innerJoin('\App\Entity\Logsession', 'ls', 'WITH', 'ls.listenerId = li.id')
-            ->innerJoin('\App\Entity\User', 'u', 'WITH', 'ls.administratorId = u.id')
-            ->andWhere('li.id = :listenerID')
-            ->setParameter('listenerID', $listenerID);
-
-        if (isset($args['limit']) && (int)$args['limit'] !== -1 && isset($args['page'])) {
-            $qb
-                ->setFirstResult($args['page'] * $args['limit'])
-                ->setMaxResults($args['limit']);
-        }
-
-        if (isset($args['sort']) && $this->listenerLogsessionsColumns[$args['sort']]['sort']) {
-            $idx = $this->listenerLogsessionsColumns[$args['sort']];
-            $qb
-                ->addOrderBy(
-                    ($idx['sort']),
-                    ($args['order'] === 'd' ? 'DESC' : 'ASC')
-                );
-        }
-
-        $result = $qb->getQuery()->execute();
-//        print "<pre>".print_r($result, true)."</pre>";
-        return $result;
     }
 
     public function getSignalsForListener($listenerID, array $args = [])
