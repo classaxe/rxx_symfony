@@ -10,9 +10,9 @@
             {% include 'listeners/addlogfor.html.twig' %}
         {% else %}
             <p>
-                {{ "Log and station counts are updated each time new log data is added - figures are for logs in the system at this time." | trans }}<br />
-                {{ "To see stats for different types of signals, check the boxes shown for 'Types' below." | trans }}<br />
-                {{ "This report prints best in Portrait." | trans }}
+                {{ "<b>Signal Types</b> lets you view stats for specified signal types." | trans | raw }}<br />
+                {{ "Log and station counts are updated each time new log data is added." | trans | raw }}<br />
+                {{ "<b>Status</b> filter is disabled when <b>Search For</b> filter is used." | trans | raw }}<br />
             </p>
         {% endif %}
         {% set form_title='Customise %s Listeners List' | trans | format(system | upper) %}

@@ -76,7 +76,8 @@ var shareableLink = {
             this.getFromField('country') +
             this.getFromField('has_logs', [ 'N', 'Y' ], 'A') +
             this.getFromField('has_map_pos', [ 'N', 'Y' ], 'A') +
-            this.getFromField('timezone') +
+            (this.getFromField('timezone') !== '&timezone=ALL' ? this.getFromField('timezone') : '') +
+            this.getFromField('active', [ 'N', 'Y' ], 'A') +
             this.getFromPagingControls(100) +
             this.getFromSortingControls('name', 'a');
     },

@@ -93,6 +93,20 @@ class Collection extends Base
                 ]
             )
             ->add(
+                'active',
+                ChoiceType::class,
+                [
+                    'choices' =>        [
+                        'All' => '',
+                        'Active (locations with recent logs)' => 'Y',
+                        'Inactive (locations without recent logs)' => 'N'
+                    ],
+                    'data' =>           $options['active'],
+                    'label' =>          'Status',
+                    'required' =>       false
+                ]
+            )
+            ->add(
                 'submit',
                 SubmitType::class,
                 [

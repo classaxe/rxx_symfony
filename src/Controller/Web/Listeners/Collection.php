@@ -67,6 +67,7 @@ class Collection extends Base
             'page' =>       $this->listenerRepository::defaultPage,
             'sort' =>       $this->listenerRepository::defaultSorting,
 
+            'active' =>     '',
             'country' =>    '',
             'has_logs' =>   '',
             'has_map_pos' => '',
@@ -120,7 +121,7 @@ class Collection extends Base
             'form' =>               $form->createView(),
             'listeners' =>          $listeners,
             '_locale' =>            $_locale,
-            'mode' =>               'Listeners List',
+            'mode' =>               'Listeners and Locations',
             'results' => [
                 'limit' =>              isset($args['limit']) ? $args['limit'] : $this->listenerRepository::defaultLimit,
                 'page' =>               isset($args['page']) ? $args['page'] : $this->listenerRepository::defaultPage,
@@ -147,6 +148,7 @@ class Collection extends Base
         }
         $this->setValueFromRequest($args, $request, 'show', ['list', 'map'], 'a');
         $this->setTimezoneFromRequest($args, $request);
+        $this->setValueFromRequest($args, $request, 'active', ['', 'N', 'Y'], 'A');
         $this->setValueFromRequest($args, $request, 'country', false, 'A');
         $this->setValueFromRequest($args, $request, 'q');
     }

@@ -44,7 +44,7 @@ class ListenersTest extends Base
             $message =      $this->getError(1, [$url, $usertype, $expected, $actual]);
             $this->assertEquals($expected, $actual, $message);
 
-            $expected =     strToUpper($system) . ' > Listeners List';
+            $expected =     strToUpper($system) . ' > Listeners and Locations';
             $actual =       $this->getMyResponsePageTitle();
             $message =      $this->getError(2, [$url, $usertype, $expected, $actual]);
             $this->assertEquals($expected, $actual, $message);

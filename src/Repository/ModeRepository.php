@@ -21,7 +21,7 @@ class ModeRepository
                 'admin' =>  true,
                 'guest' =>  true,
                 'menu' =>   'Listeners',
-                'title' =>  'Listeners List',
+                'title' =>  'Listeners and Locations',
                 'url'=>     false
             ],
             'cle' => [

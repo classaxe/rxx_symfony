@@ -8,6 +8,7 @@ use App\Columns\ListenerSignals as ListenerSignalsColumns;
 use App\Entity\Listener;
 use App\Utils\Rxx;
 use App\Columns\Listeners as ListenersColumns;
+use DateTime;
 use Doctrine\DBAL\Driver\Connection;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
@@ -128,6 +129,25 @@ class ListenerRepository extends ServiceEntityRepository
             }
         }
         return $out;
+    }
+
+    private function addFilterActive(&$qb, $args)
+    {
+        if (empty($args['active'])) {
+            return;
+        }
+        if (!empty($args['q'])) {
+            return;
+        }
+        $recent = (new DateTime())->modify('-4 year')->format('Y-m-d');
+        switch ($args['active']) {
+            case 'Y':
+                $qb->andWhere('(l.logLatest > \'' . $recent .'\')');
+                break;
+            case 'N':
+                $qb->andWhere('(l.logLatest < \'' . $recent .'\')');
+                break;
+        }
     }
 
     private function addFilterCountry($qb, $args)
@@ -478,6 +498,7 @@ EOD;
         $this->addFilterCountry($qb, $args);
         $this->addFilterRegion($qb, $args);
         $this->addFilterTimezone($qb, $args);
+        $this->addFilterActive($qb, $args);
 
         if (isset($args['show']) && $args['show'] === 'map') {
             $qb
@@ -552,6 +573,7 @@ EOD;
         $this->addFilterCountry($qb, $args);
         $this->addFilterRegion($qb, $args);
         $this->addFilterTimezone($qb, $args);
+        $this->addFilterActive($qb, $args);
         return $qb->getQuery()->getSingleScalarResult();
     }
 

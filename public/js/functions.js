@@ -1,10 +1,10 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.25.1
- * Date:       2020-12-30
+ * Version:    2.26.0
+ * Date:       2021-01-02
  * Licence:    LGPL
- * Copyright:  2020 Martin Francis
+ * Copyright:  2021 Martin Francis
  */
 var gridColor = "#808080";
 var gridOpacity = 0.5;
@@ -932,6 +932,8 @@ var listenersForm = {
             l.setHasLogsAction();
             l.setHasMapPosAction();
             l.setTimezoneAction();
+            l.setActiveAction();
+            l.setSearchforAction();
             l.setResetAction();
             l.setFocusOnSearch();
             l.setActions();
@@ -958,6 +960,17 @@ var listenersForm = {
             window.open('./listeners/new', 'listener_new', popWinSpecs['listeners_[id]']);
             return false;
         });
+    },
+
+    setActiveAction : function(enable) {
+        enable = typeof enable !== 'undefined' ? enable : true;
+        if (enable) {
+            $('select#form_active').change(function () {
+                formSubmit();
+            });
+        } else {
+            $('select#form_active').off('change');
+        }
     },
 
     setFocusOnSearch : function() {
@@ -1000,18 +1013,34 @@ var listenersForm = {
             l.setHasLogsAction(false);
             l.setHasMapPosAction(false);
             l.setTimezoneAction(false);
+            l.setActiveAction(false);
+            $('#form_active').removeClass('inactive')
             $('select#form_region').prop('selectedIndex', 0);
             $('select#form_country').prop('selectedIndex', 0);
             $('select#form_has_map_pos').prop('selectedIndex', 0);
-            $('select#form_timezone').val('').selectmenu('refresh');
+            $('select#form_timezone').val('ALL').selectmenu('refresh');
+            $('select#form_active').prop('selectedIndex', 0);
             c.setCountryAction(true);
             c.setRegionAction(true);
             l.setHasLogsAction(true);
             l.setHasMapPosAction(true);
             l.setTimezoneAction(true);
+            l.setActiveAction(true);
             formSubmit();
             return false;
         })
+    },
+
+    setSearchforAction : function(enable) {
+        var form_q = $('#form_q');
+        $('#form_active').addClass(!! form_q.val() ? 'inactive' : '');
+        form_q.on('keyup', function () {
+            if (!! form_q.val()) {
+                $('#form_active').addClass('inactive');
+            } else {
+                $('#form_active').removeClass('inactive');
+            }
+        });
     },
 
     setTimezoneAction : function(enable) {
@@ -1872,7 +1901,8 @@ var shareableLink = {
             this.getFromField('country') +
             this.getFromField('has_logs', [ 'N', 'Y' ], 'A') +
             this.getFromField('has_map_pos', [ 'N', 'Y' ], 'A') +
-            this.getFromField('timezone') +
+            (this.getFromField('timezone') !== '&timezone=ALL' ? this.getFromField('timezone') : '') +
+            this.getFromField('active', [ 'N', 'Y' ], 'A') +
             this.getFromPagingControls(100) +
             this.getFromSortingControls('name', 'a');
     },

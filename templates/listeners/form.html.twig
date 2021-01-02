@@ -17,6 +17,7 @@
                 {{ form_label(form.timezone) }}
                 {{ form_widget(form.timezone) }}
             </div>
+            {{ form_row(form.active) }}
             {% if isAdmin %}
                 {% if system == 'rww' %}
                     {{ form_row(form.has_logs) }}
