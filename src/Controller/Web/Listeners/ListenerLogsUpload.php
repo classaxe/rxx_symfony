@@ -146,13 +146,13 @@ class ListenerLogsUpload extends Base
                     $firstLog = null;
                     $lastLog = null;
                     foreach($this->entries as $e) {
-                        $stats['logs']++;
-                        $type = $this->typeRepository->getTypeForCode($e['type']);
-                        $stats['logs_' . strtolower($type['class'])]++;
                         if ($this->logRepository->checkIfDuplicate($e['signalID'], $id, $e['YYYYMMDD'], $e['time'])) {
                             $stats['duplicates']++;
                             continue;
                         }
+                        $stats['logs']++;
+                        $type = $this->typeRepository->getTypeForCode($e['type']);
+                        $stats['logs_' . strtolower($type['class'])]++;
                         $datestamp = $e['YYYYMMDD'] . ' ' . substr($e['time'], 0, 2) . ':' . substr($e['time'], 2). ':00';
 
                         if ($firstLog === null || $firstLog > $datestamp) {
