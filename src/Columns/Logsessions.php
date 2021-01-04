@@ -13,17 +13,17 @@ class Logsessions
     public function getColumns()
     {
         return [
-//            'id' => [
-//                'admin'     =>  true,
-//                'arg'       =>  '',
-//                'field'     =>  'id',
-//                'label'     =>  'Session ID',
-//                'order'     =>  'a',
-//                'sort'      =>  'ls.id',
-//                'td_class'  =>  '',
-//                'th_class'  =>  '',
-//                'tooltip'   =>  '',
-//            ],
+            'id' => [
+                'admin'     =>  true,
+                'arg'       =>  '',
+                'field'     =>  'id',
+                'label'     =>  'Session ID',
+                'order'     =>  'a',
+                'sort'      =>  'ls.id',
+                'td_class'  =>  '',
+                'th_class'  =>  '',
+                'tooltip'   =>  '',
+            ],
             'uploader' => [
                 'admin'     =>  false,
                 'arg'       =>  '',
