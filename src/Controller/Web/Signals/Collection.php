@@ -90,13 +90,15 @@ class Collection extends Base
             'within' =>         ''
         ];
 
-        $cookies = $request->cookies;
-        if ($cookies && $cookies->has('signalsForm')) {
-            parse_str($cookies->get('signalsForm'), $cookieParams);
-            $this->setArgsFromRequest($args, $cookieParams);
+        if (empty($request->query->all())) {
+            $cookies = $request->cookies;
+            if ($cookies && $cookies->has('signalsForm')) {
+                parse_str($cookies->get('signalsForm'), $cookieParams);
+                $this->setArgsFromRequest($args, $cookieParams);
+            }
+        } else {
+            $this->setArgsFromRequest($args, $request);
         }
-
-        $this->setArgsFromRequest($args, $request);
 
         foreach (['logged_date_1', 'logged_date_2', 'logged_first_1', 'logged_first_2', 'logged_last_1', 'logged_last_2'] as $arg) {
             $args[$arg] = $args[$arg] ? new DateTime($args[$arg]) : null;
