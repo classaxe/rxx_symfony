@@ -11,6 +11,7 @@ namespace App\Form\Signals;
 use App\Form\Base;
 
 use App\Repository\SignalRepository;
+use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -405,6 +406,14 @@ class Collection extends Base
                 [
                     'attr' =>           [ 'class' => 'button small' ],
                     'label' =>          'Go'
+                ]
+            )
+            ->add(
+                'save',
+                ButtonType::class,
+                [
+                    'attr' =>           [ 'class' => 'button small' ],
+                    'label' =>          'Save'
                 ]
             )
             ->add(

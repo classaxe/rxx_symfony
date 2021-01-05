@@ -76,7 +76,14 @@ class Collection extends Base
             'show' =>       '',
             'timezone' =>   'ALL',
         ];
+        $cookies = $request->cookies;
+        if ($cookies && $cookies->has('listenersForm')) {
+            parse_str($cookies->get('listenersForm'), $cookieParams);
+            $this->setArgsFromRequest($args, $cookieParams);
+        }
+
         $this->setArgsFromRequest($args, $request);
+
         $form = $form->buildForm($this->createFormBuilder(), $args);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {

@@ -10,6 +10,7 @@ namespace App\Form\Listeners;
 
 use App\Form\Base;
 
+use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -112,6 +113,14 @@ class Collection extends Base
                 [
                     'label' =>          'Go',
                     'attr' =>           [ 'class' => 'button small']
+                ]
+            )
+            ->add(
+                'save',
+                ButtonType::class,
+                [
+                    'attr' =>           [ 'class' => 'button small' ],
+                    'label' =>          'Save'
                 ]
             )
             ->add(

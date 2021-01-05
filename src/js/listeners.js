@@ -15,6 +15,7 @@ var listenersForm = {
             l.setTimezoneAction();
             l.setActiveAction();
             l.setSearchforAction();
+            l.setSaveAction();
             l.setResetAction();
             l.setFocusOnSearch();
             l.setActions();
@@ -84,6 +85,9 @@ var listenersForm = {
 
     setResetAction : function() {
         $('button[type="reset"]').click(function () {
+            if (!confirm(msg.reset + "\n" + msg.cookie.reset)) {
+                return false;
+            }
             var c = commonForm;
             var l = listenersForm;
             $('fieldset#form_type div :checkbox').prop('checked', false);
@@ -112,6 +116,15 @@ var listenersForm = {
         })
     },
 
+    setSaveAction: function() {
+        $('#form_save').click(function(){
+            if (confirm(msg.cookie.save + "\n" + msg.cookie.usesCookie)) {
+                var value = shareableLink.listenersUrl().split('?')[1];
+                COOKIE.set('listenersForm', value, '/');
+                alert(msg.cookie.saved);
+            }
+        });
+    },
     setSearchforAction : function(enable) {
         var form_q = $('#form_q');
         $('#form_active').addClass(!! form_q.val() ? 'inactive' : '');

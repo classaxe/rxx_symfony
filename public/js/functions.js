@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.26.0
- * Date:       2021-01-02
+ * Version:    2.27.0
+ * Date:       2021-01-05
  * Licence:    LGPL
  * Copyright:  2021 Martin Francis
  */
@@ -673,6 +673,7 @@ function setFormPagingStatus(string, value) {
 
 function formSubmit() {
     $('#form_clear').prop('disabled', 'disabled');
+    $('#form_save').prop('disabled', 'disabled');
     $('#form_submit')
         .click()
         .prop('disabled', 'disabled');
@@ -934,6 +935,7 @@ var listenersForm = {
             l.setTimezoneAction();
             l.setActiveAction();
             l.setSearchforAction();
+            l.setSaveAction();
             l.setResetAction();
             l.setFocusOnSearch();
             l.setActions();
@@ -1003,6 +1005,9 @@ var listenersForm = {
 
     setResetAction : function() {
         $('button[type="reset"]').click(function () {
+            if (!confirm(msg.reset + "\n" + msg.cookie.reset)) {
+                return false;
+            }
             var c = commonForm;
             var l = listenersForm;
             $('fieldset#form_type div :checkbox').prop('checked', false);
@@ -1031,6 +1036,15 @@ var listenersForm = {
         })
     },
 
+    setSaveAction: function() {
+        $('#form_save').click(function(){
+            if (confirm(msg.cookie.save + "\n" + msg.cookie.usesCookie)) {
+                var value = shareableLink.listenersUrl().split('?')[1];
+                COOKIE.set('listenersForm', value, '/');
+                alert(msg.cookie.saved);
+            }
+        });
+    },
     setSearchforAction : function(enable) {
         var form_q = $('#form_q');
         $('#form_active').addClass(!! form_q.val() ? 'inactive' : '');
@@ -2361,6 +2375,7 @@ var signalsForm = {
             s.setHeardInModDefault();
             s.setListenerOptionsStyle();
             s.setCollapsableSections();
+            s.setSaveAction();
             s.setResetAction();
 
             setFormDatePickers();
@@ -2613,6 +2628,10 @@ var signalsForm = {
 
     setResetAction : function() {
         $('button[type="reset"]').click(function () {
+            if (!confirm(msg.reset + "\n" + msg.cookie.reset)) {
+                return false;
+            }
+            COOKIE.clear('signalsForm', '/');
             var c = commonForm;
             var s = signalsForm;
             var form_range_gsq = $('#form_range_gsq');
@@ -2631,6 +2650,8 @@ var signalsForm = {
             $('#form_khz_2').val('');
             $('#form_channels').prop('selectedIndex', 0);
             $('#form_active').prop('selectedIndex', 0);
+            $('#form_recently').prop('selectedIndex', 0);
+            $('#form_within').prop('selectedIndex', 0);
             $('#form_personalise').prop('selectedIndex', 0);
             $('#form_offsets').prop('selectedIndex', 0);
 
@@ -2669,6 +2690,17 @@ var signalsForm = {
             return false;
         });
     },
+
+    setSaveAction: function() {
+        $('#form_save').click(function(){
+            if (confirm(msg.cookie.save + "\n" + msg.cookie.usesCookie)) {
+                var value = shareableLink.signalsUrl().split('?')[1];
+                COOKIE.set('signalsForm', value, '/');
+                alert(msg.cookie.saved);
+            }
+        });
+    },
+
     setShowModeAction: function() {
         $('#seeklist_paper')
             .change(function() {

@@ -26,6 +26,7 @@ var signalsForm = {
             s.setHeardInModDefault();
             s.setListenerOptionsStyle();
             s.setCollapsableSections();
+            s.setSaveAction();
             s.setResetAction();
 
             setFormDatePickers();
@@ -278,6 +279,10 @@ var signalsForm = {
 
     setResetAction : function() {
         $('button[type="reset"]').click(function () {
+            if (!confirm(msg.reset + "\n" + msg.cookie.reset)) {
+                return false;
+            }
+            COOKIE.clear('signalsForm', '/');
             var c = commonForm;
             var s = signalsForm;
             var form_range_gsq = $('#form_range_gsq');
@@ -296,6 +301,8 @@ var signalsForm = {
             $('#form_khz_2').val('');
             $('#form_channels').prop('selectedIndex', 0);
             $('#form_active').prop('selectedIndex', 0);
+            $('#form_recently').prop('selectedIndex', 0);
+            $('#form_within').prop('selectedIndex', 0);
             $('#form_personalise').prop('selectedIndex', 0);
             $('#form_offsets').prop('selectedIndex', 0);
 
@@ -334,6 +341,17 @@ var signalsForm = {
             return false;
         });
     },
+
+    setSaveAction: function() {
+        $('#form_save').click(function(){
+            if (confirm(msg.cookie.save + "\n" + msg.cookie.usesCookie)) {
+                var value = shareableLink.signalsUrl().split('?')[1];
+                COOKIE.set('signalsForm', value, '/');
+                alert(msg.cookie.saved);
+            }
+        });
+    },
+
     setShowModeAction: function() {
         $('#seeklist_paper')
             .change(function() {

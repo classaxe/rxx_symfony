@@ -381,6 +381,7 @@ function setFormPagingStatus(string, value) {
 
 function formSubmit() {
     $('#form_clear').prop('disabled', 'disabled');
+    $('#form_save').prop('disabled', 'disabled');
     $('#form_submit')
         .click()
         .prop('disabled', 'disabled');

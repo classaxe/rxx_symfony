@@ -259,9 +259,19 @@ class Base extends AbstractController
         return $this->translator->trans($id, $parameters, $domain, $_locale);
     }
 
+    protected function getValueFromRequestOrCookie($request, $field, $default = null)
+    {
+        return (is_a($request, 'Symfony\Component\HttpFoundation\Request') ?
+            ($default === null ? $request->query->get($field) : $request->query->get($field, $default))
+        :
+            $request[$field] ?? false
+        );
+    }
+
     protected function setValueFromRequest(&$args, $request, $field, $options = false, $letterCase = false)
     {
-        if (($value = $request->query->get($field)) && $value !== '') {
+        $value = $this->getValueFromRequestOrCookie($request, $field);
+        if ($value && $value !== '') {
             switch ($letterCase) {
                 case 'a':
                     $value = strtolower($value);
@@ -278,9 +288,10 @@ class Base extends AbstractController
 
     protected function setListenersFromRequest(&$args, $request)
     {
-        if ($request->query->get('listeners')) {
+        $value = $this->getValueFromRequestOrCookie($request, 'listeners');
+        if ($value) {
             $args['listener'] = [];
-            $values = explode(',', $request->query->get('listeners'));
+            $values = explode(',', $value);
             foreach ($values as $v) {
                 if ($this->listenerRepository->find((int) $v)) {
                     $args['listener'][] = $v;
@@ -291,8 +302,9 @@ class Base extends AbstractController
 
     protected function setPairFromRequest(&$args, $request, $field)
     {
-        if ($request->query->get($field)) {
-            $values = explode(',', $request->query->get($field));
+        $value = $this->getValueFromRequestOrCookie($request, $field);
+        if ($value) {
+            $values = explode(',', $value);
             switch (count($values)) {
                 case 1:
                     $args[$field . '_1'] = addslashes($values[0]);
@@ -314,7 +326,8 @@ class Base extends AbstractController
         $orders = [ 'a', 'd' ];
         $this->setValueFromRequest($args, $request, 'order', $orders, 'a');
 
-        if ($page = (int) $request->query->get('page')) {
+        $value = $this->getValueFromRequestOrCookie($request, 'page');
+        if ($page = (int)$value) {
             if ($page >= 0) {
                 $args['page'] = $page;
             }
@@ -324,7 +337,8 @@ class Base extends AbstractController
 
     protected function setPersonaliseFromRequest(&$args, $request)
     {
-        if ($listenerID = (int) $request->query->get('personalise')) {
+        $value = $this->getValueFromRequestOrCookie($request, 'personalise');
+        if ($listenerID = (int) $value) {
             if ($this->listenerRepository->find($listenerID)) {
                 $args['personalise'] = $listenerID;
             }
@@ -347,16 +361,17 @@ class Base extends AbstractController
 
     protected function setTimezoneFromRequest(&$args, $request)
     {
-        $value = $request->query->get('timezone', false);
+        $value = $this->getValueFromRequestOrCookie($request, 'timezone', false);
         if ($value !== false) {
             $args['timezone'] = addslashes($value);
         }
-
     }
+
     protected function setTypeFromRequest(&$args, $request)
     {
-        if ($request->query->get('types')) {
-            $types =        strtoupper($request->query->get('types'));
+        $value = $this->getValueFromRequestOrCookie($request, 'types');
+        if ($value) {
+            $types =        strtoupper($value);
             $types =        'ALL' === $types ? $this->typeRepository->getAllTypesAsCsv() : $types;
             $values =       explode(',', $types);
             $args['type'] = [];
