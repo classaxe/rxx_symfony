@@ -47,25 +47,19 @@ class SystemRepository
                 [
                     'email' =>      'peterconway@talktalk.net',
                     'name' =>       'Peter Conway',
-                    'role' =>       'DSC Signals',
+                    'roles' =>      ['DSC'],
+                    'show_email' => true
+                ],
+                [
+                    'email' =>      'roelof@ndb.demon.nl',
+                    'name' =>       'Roelof Bakker',
+                    'roles' =>      ['DGPS', 'NAVTEX'],
                     'show_email' => true
                 ],
                 [
                     'email' =>      'vmath@eastlink.ca',
                     'name' =>       'Vernon Matheson',
-                    'role' =>       'NDBs and Ham Beacons',
-                    'show_email' => true
-                ],
-//                [
-//                    'email' =>      'ndb.rna.logs@gmail.com',
-//                    'name' =>       'Brandon Jordan - K2SWL',
-//                    'role' =>       'NDBs and Ham Beacons',
-//                    'show_email' => true
-//                ],
-                [
-                    'email' =>      'roelof@ndb.demon.nl',
-                    'name' =>       'Roelof Bakker',
-                    'role' =>       'DGPS and Navtex',
+                    'roles' =>      ['NDB', 'HAMBCN'],
                     'show_email' => true
                 ],
             ],
@@ -81,31 +75,25 @@ class SystemRepository
                 [
                     'email' =>      'aunumero73@gmail.com',
                     'name' =>       'Pat Vignoud',
-                    'role' =>       'NDBs',
+                    'roles' =>      ['NDB'],
                     'show_email' => true
                 ],
                 [
                     'email' =>      'peterconway@talktalk.net',
                     'name' =>       'Peter Conway',
-                    'role' =>       'DSC Signals',
+                    'roles' =>      ['DSC'],
+                    'show_email' => true
+                ],
+                [
+                    'email' =>      'roelof@ndb.demon.nl',
+                    'name' =>       'Roelof Bakker',
+                    'roles' =>      ['DGPS', 'NAVTEX'],
                     'show_email' => true
                 ],
                 [
                     'email' =>      'vmath@eastlink.ca',
                     'name' =>       'Vernon Matheson',
-                    'role' =>       'Ham Beacons',
-                    'show_email' => true
-                ],
-//                [
-//                    'email' =>      'ndb.rna.logs@gmail.com',
-//                    'name' =>       'Brandon Jordan - K2SWL',
-//                    'role' =>       'Ham Beacons',
-//                    'show_email' => true
-//                ],
-                [
-                    'email' =>      'roelof@ndb.demon.nl',
-                    'name' =>       'Roelof Bakker',
-                    'role' =>       'DGPS and Navtex',
+                    'roles' =>      ['HAMBCN'],
                     'show_email' => true
                 ],
             ],
@@ -121,25 +109,19 @@ class SystemRepository
                 [
                     'email' =>      'peterconway@talktalk.net',
                     'name' =>       'Peter Conway',
-                    'role' =>       'DSC Signals',
+                    'roles' =>      ['DSC'],
+                    'show_email' => true
+                ],
+                [
+                    'email' =>      'roelof@ndb.demon.nl',
+                    'name' =>       'Roelof Bakker',
+                    'roles' =>      ['DGPS', 'NAVTEX'],
                     'show_email' => true
                 ],
                 [
                     'email' =>      'vmath@eastlink.ca',
                     'name' =>       'Vernon Matheson',
-                    'role' =>       'NDBs and Ham Beacons',
-                    'show_email' => true
-                ],
-//                [
-//                    'email' =>      'ndb.rna.logs@gmail.com',
-//                    'name' =>       'Brandon Jordan - K2SWL',
-//                    'role' =>       'NDBs and Ham Beacons',
-//                    'show_email' => true
-//                ],
-                [
-                    'email' =>      'roelof@ndb.demon.nl',
-                    'name' =>       'Roelof Bakker',
-                    'role' =>       'DGPS and Navtex',
+                    'roles' =>      ['NDB', 'HAMBCN'],
                     'show_email' => true
                 ],
             ],

@@ -49,12 +49,12 @@
             {% endfor %}
         </ul>
 {% endif %}
-        <ul class="menu language">
-{% for key, label in languages %}
-            <li{% if (_locale == key) %} class="is-active"{% endif %}>
-                <a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale' : key})) }}">{{ label }}</a>
-            </li>
-{% endfor %}
-        </ul>
+{#        <ul class="menu language">#}
+{#{% for key, label in languages %}#}
+{#            <li{% if (_locale == key) %} class="is-active"{% endif %}>#}
+{#                <a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale' : key})) }}">{{ label }}</a>#}
+{#            </li>#}
+{#{% endfor %}#}
+{#        </ul>#}
     </div>
 </nav>
