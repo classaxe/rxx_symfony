@@ -45,15 +45,15 @@ class SystemRepository
             'awards' =>     self::AWARDS,
             'editors' =>    [
                 [
-                    'email' =>      'peterconway@talktalk.net',
-                    'name' =>       'Peter Conway',
-                    'roles' =>      ['DSC'],
+                    'email' =>      'ei4hq.mail@gmail.com',
+                    'name' =>       'Cormac EI4HQ',
+                    'roles' =>      ['DGPS', 'NAVTEX'],
                     'show_email' => true
                 ],
                 [
-                    'email' =>      'roelof@ndb.demon.nl',
-                    'name' =>       'Roelof Bakker',
-                    'roles' =>      ['DGPS', 'NAVTEX'],
+                    'email' =>      'peterconway@talktalk.net',
+                    'name' =>       'Peter Conway',
+                    'roles' =>      ['DSC'],
                     'show_email' => true
                 ],
                 [
@@ -73,9 +73,9 @@ class SystemRepository
             'awards' =>     self::AWARDS,
             'editors' =>    [
                 [
-                    'email' =>      'aunumero73@gmail.com',
-                    'name' =>       'Pat Vignoud',
-                    'roles' =>      ['NDB'],
+                    'email' =>      'ei4hq.mail@gmail.com',
+                    'name' =>       'Cormac EI4HQ',
+                    'roles' =>      ['DGPS', 'NAVTEX'],
                     'show_email' => true
                 ],
                 [
@@ -87,7 +87,7 @@ class SystemRepository
                 [
                     'email' =>      'roelof@ndb.demon.nl',
                     'name' =>       'Roelof Bakker',
-                    'roles' =>      ['DGPS', 'NAVTEX'],
+                    'roles' =>      ['NDB'],
                     'show_email' => true
                 ],
                 [
@@ -107,15 +107,15 @@ class SystemRepository
             'awards' =>     self::AWARDS,
             'editors' =>    [
                 [
-                    'email' =>      'peterconway@talktalk.net',
-                    'name' =>       'Peter Conway',
-                    'roles' =>      ['DSC'],
+                    'email' =>      'ei4hq.mail@gmail.com',
+                    'name' =>       'Cormac EI4HQ',
+                    'roles' =>      ['DGPS', 'NAVTEX'],
                     'show_email' => true
                 ],
                 [
-                    'email' =>      'roelof@ndb.demon.nl',
-                    'name' =>       'Roelof Bakker',
-                    'roles' =>      ['DGPS', 'NAVTEX'],
+                    'email' =>      'peterconway@talktalk.net',
+                    'name' =>       'Peter Conway',
+                    'roles' =>      ['DSC'],
                     'show_email' => true
                 ],
                 [
