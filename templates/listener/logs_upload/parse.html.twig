@@ -55,7 +55,7 @@
                 <td>{{ e.time }}</td>
                 <td>{{ e.daytime ? 'DT' : '' }}</td>
                 <td>{{ e.KHZ is numeric ? 0 + e.KHZ : e.KHZ }}</td>
-                <td>{{ e.ID }}</td>
+                <td>{{ e.ID|raw }}</td>
                 <td>{{ e.QTH }}</td>
                 <td>{{ e.SP }}</td>
                 <td>{{ e.ITU }}</td>
@@ -93,7 +93,7 @@
                 <td>{% if e.time|slice(0,1) == '!' %}<i class="check" title="Invalid Time">{{ e.time|slice(1) }}</i>{% else %}{{ e.time }}{% endif %}</td>
                 <td>{{ e.daytime ? 'DT' : '' }}</td>
                 <td>{{ e.KHZ is numeric ? 0 + e.KHZ : e.KHZ }}</td>
-                <td><a href="{{ url('signal', { 'system' : system, 'id' : o.ID }) }}" data-popup="1">{{ o.call }}</a></td>
+                <td><a href="{{ url('signal', { 'system' : system, 'id' : o.ID }) }}" data-popup="1">{{ o.call|raw }}</a></td>
                 <td>{{ o.QTH }}</td>
                 <td>{{ o.SP }}</td>
                 <td>{{ o.ITU }}</td>
@@ -145,7 +145,7 @@
                 <td>{{ e.issues | join(', ') }}<i>{{ e.time }}</i></td>
                 <td>{{ e.daytime ? 'DT' : '' }}</td>
                 <td>{{ 0 + o.khz }}</td>
-                <td><a href="{{ url('signal', { 'system' : system, 'id' : o.ID }) }}" data-popup="1">{{ o.call }}</a></td>
+                <td><a href="{{ url('signal', { 'system' : system, 'id' : o.ID }) }}" data-popup="1">{{ o.call|raw }}</a></td>
                 <td>{{ o.QTH }}</td>
                 <td>{{ o.SP }}</td>
                 <td>{{ o.ITU }}</td>
@@ -177,7 +177,7 @@
                 <td><i>{{ e.time }}</i></td>
                 <td>{{ e.daytime ? 'DT' : '' }}</td>
                 <td>{{ 0 + o.khz }}</td>
-                <td><a href="{{ url('signal', { 'system' : system, 'id' : o.ID }) }}" data-popup="1">{{ o.call }}</a></td>
+                <td><a href="{{ url('signal', { 'system' : system, 'id' : o.ID }) }}" data-popup="1">{{ o.call|raw }}</a></td>
                 <td>{{ o.QTH }}</td>
                 <td>{{ o.SP }}</td>
                 <td>{{ o.ITU }}</td>

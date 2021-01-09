@@ -121,7 +121,7 @@ class SignalRepository extends ServiceEntityRepository
     {
         if ($this->args['call'] ?? false) {
             $this->query['where'][] ='s.call LIKE :like_call';
-            $this->query['param']['like_call'] = '%' . $this->args['call'] . '%';
+            $this->query['param']['like_call'] = '%' . htmlentities($this->args['call']) . '%';
         }
         return $this;
     }
@@ -1337,7 +1337,7 @@ EOD;
                 `khz` <= :max
 EOD;
         $params = [
-            ':call' =>  $call,
+            ':call' =>  htmlentities($call),
             ':min' =>   $frequency - $swing,
             ':max' =>   $frequency + $swing
         ];
