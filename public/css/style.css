@@ -1,7 +1,7 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.27.2
+ * Version:    2.27.3
  * Date:       2021-01-08
  * Licence:    LGPL
  * Copyright:  2021 Martin Francis
@@ -564,7 +564,6 @@ tr.other td {
 }
 .footer .credits td,
 .footer .credits th {
-  background-color: #e0e0e0;
   font-size: 80%;
   min-width: 5em;
   white-space: nowrap;
@@ -577,12 +576,16 @@ tr.other td {
   text-align: center;
 }
 .footer .credits thead th {
-  background-color: #cccccc;
+  background-color: #c0c0c0;
   border-bottom-width: 2px;
 }
 .footer .credits tbody th {
+  background-color: #d0d0d0;
   font-weight: normal;
   width: 8em;
+}
+.footer .credits tbody td {
+  background-color: #e8e8e8;
 }
 label[for="seeklist_paper"] {
   font-weight: bold;

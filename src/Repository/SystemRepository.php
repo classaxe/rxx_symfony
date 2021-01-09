@@ -59,7 +59,7 @@ class SystemRepository
                 [
                     'email' =>      'vmath@eastlink.ca',
                     'name' =>       'Vernon Matheson',
-                    'roles' =>      ['NDB', 'HAMBCN'],
+                    'roles' =>      ['NDB', 'HAMBCN', 'TIME', 'OTHER'],
                     'show_email' => true
                 ],
             ],
@@ -93,7 +93,7 @@ class SystemRepository
                 [
                     'email' =>      'vmath@eastlink.ca',
                     'name' =>       'Vernon Matheson',
-                    'roles' =>      ['HAMBCN'],
+                    'roles' =>      ['HAMBCN', 'TIME', 'OTHER'],
                     'show_email' => true
                 ],
             ],
@@ -121,7 +121,7 @@ class SystemRepository
                 [
                     'email' =>      'vmath@eastlink.ca',
                     'name' =>       'Vernon Matheson',
-                    'roles' =>      ['NDB', 'HAMBCN'],
+                    'roles' =>      ['NDB', 'HAMBCN', 'TIME', 'OTHER'],
                     'show_email' => true
                 ],
             ],
