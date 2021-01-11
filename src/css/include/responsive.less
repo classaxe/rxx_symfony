@@ -22,21 +22,12 @@
     }
 }
 
-// Listeners:
-@media screen and (max-width: 639px) {
-    .listeners_container {
-        #wide { display: none; }
-    }
-}
-@media screen and (min-width: 640px) and (max-width: 1199px) {
-    .listeners_container {
-        table tbody td.rowspan2, table tbody th.rowspan2 { border-bottom: 1px solid transparent !important; }
-        #narrow, .l2 { display: none; }
-    }
-}
-@media screen and (min-width: 1200px) {
-    .listeners_container {
-        #narrow, .l2_alt { display: none; }
+.listeners_container tr.l2_alt td{
+    table {
+        width: 20em;
+        tbody {
+            border: none;
+        }
     }
 }
 

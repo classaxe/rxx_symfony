@@ -1,3 +1,26 @@
+<style>
+@media screen and (max-width: {{ width.narrow -1 }}px) {
+    .listeners_container #wide {
+        display: none;
+    }
+}
+@media screen and (min-width: {{ width.narrow }}px) and (max-width: {{ width.medium -1 }}px) {
+    .listeners_container table tbody .rowspan2 {
+        border-bottom: 1px solid transparent !important;
+    }
+    .listeners_container #narrow,
+    .listeners_container .l2 {
+        display: none;
+    }
+}
+@media screen and (min-width: {{ width.medium }}px) {
+    .listeners_container #narrow,
+    .listeners_container .l2_alt {
+        display: none;
+    }
+}
+</style>
+
 <h2>{{ system|upper }} {% trans %}Listeners and Locations{% endtrans %}</h2>
 {% if listeners|length > 0 %}
 <table id="wide" class="listener results">
@@ -64,6 +87,8 @@
                     %}{% if l.region in ['ca','eu','na'] or l.itu == 'HWA'%}<a href="{{ url('listener_locatormap', { 'system' : system, 'id' : l.ID }) }}" data-popup="1">{{ l.formattedMapPos }}</a>{% endif %}{%
                 elseif key == 'nwl'
                     %}{% if l.ndbWebLog %}<a href="{{ url('listener_ndbweblog', { 'system' : system, 'id' : l.ID }) }}" data-popup="1">{% trans %}NWL{% endtrans %}</a>{% endif %}{%
+                elseif key == 'email'
+                    %}{% if l.email %}<a href="mailto:{{ l.email }}">{{ l.email|raw }}</a>{% endif %}{%
                 elseif key == 'website'
                     %}{% if l.website %}<a href="{{ l.website }}" data-popup="www_{{ l.id }}|width=640,height=480,status=1,scrollbars=1,resizable=1">{% trans %}Link...{% endtrans %}</a>{% endif %}{%
                 elseif key == 'addlog'

@@ -121,6 +121,10 @@ class Collection extends Base
                 break;
             }
         }
+        $width = [
+            'narrow' => 640,
+            'medium' => 1035 + (22 * count($args['type'])) + ($isAdmin ? 300 : 0)
+        ];
         $parameters = [
             'args' =>               $args,
             'box' =>                $box,
@@ -137,7 +141,8 @@ class Collection extends Base
                 'total' =>              $total
             ],
             'system' =>             $system,
-            'tabs' =>               $tabs
+            'tabs' =>               $tabs,
+            'width' =>              $width
         ];
         if ($this->parameters['isAdmin']) {
             $parameters['latestListeners'] =    $this->listenerRepository->getLatestLoggedListeners($system);
