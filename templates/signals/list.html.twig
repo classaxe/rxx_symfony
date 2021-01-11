@@ -34,156 +34,40 @@
         </tr>
         </thead>
         <tbody id="signals_list">
-{% if not ajax %}
-        {% for signal in signals %}
-            {% set type = typeRepository.TypeForCode(signal.type) %}
-            <tr class="{% if signal.active == 0 %}inactive {% endif %}type_{{ type.class|lower }}{% if (args.personalise)%} {% if not signal.personalise %}un{% endif %}logged{% endif %}"
-                title="{{ type.title|trans }}{% if signal.active == 0 %} {% trans %}(inactive){% endtrans %}{% endif %}">
-                {% if args.personalise %}<th title="{% trans %}Logged by Personalised Listener{% endtrans %}" class="rowspan2">{{ signal.personalise ? '&#x2714;' : '&nbsp;' }}</th>{% endif %}
-                {% for key, column in columns %}
-                    {% if ((not column.admin or isAdmin) and (not column.arg or (column.arg in args|keys and attribute(args, column.arg) != ''))) %}
-                        {% set value = attribute(signal, column.field) %}
-                        {% if (column.highlight and args[column.highlight] is defined and args[column.highlight] is not empty) %}
-                            {% for repl in args[column.highlight] | split(' ') %}
-                                {% set value = value | ireplace({ (repl) : '<em>' ~ repl|upper ~ '</em>' }) %}
-                            {% endfor %}
-                        {% endif %}
-                        <td {% if column.td_class %} class="{{ column.td_class }}"{% endif %}>
-                            {%
-                                if (column.field == 'ID')
-                            %}{% if isAdmin %}<a href="{{ url('signal_delete', { 'system' : system, 'id' : signal.ID }) }}" class="delete" onclick="return confirm(msg.del_signal)">X</a>{% endif %}{%
-                                elseif (column.field == 'call')
-                            %}<a href="{{ url('signal', { 'system' : system, 'id' : signal.ID }) }}" data-popup="1">{{ signal.call }}</a>{%
-                                elseif (column.field == 'pwr')
-                            %}{% if signal.pwr %}{{ value | raw }}{% endif %}{%
-                                elseif (column.field == 'GSQ')
-                            %}{% if signal.GSQ %}<a data-gsq="{{ signal.ID }}">{{ value | raw }}</a>{% endif %}{%
-                                elseif (column.field == 'ITU')
-                            %}{% if signal.ITU %}<a data-set="itu">{{ value | raw }}</a>{% endif %}{%
-                                elseif (column.field == 'khz')
-                            %}<a data-set="khz">{{ value | float }}</a>{%
-                                elseif (column.field == 'listeners')
-                            %}{% if signal.listeners %}<a href="{{ url('signal_listeners', { 'system' : system, 'id' : signal.ID }) }}" data-popup="1">{{ signal.listeners }}</a>{% endif %}{%
-                                elseif (column.field == 'logs')
-                            %}{% if signal.logs %}<a href="{{ url('signal_logs', { 'system' : system, 'id' : signal.ID }) }}" data-popup="1">{{ signal.logs }}</a>{% endif %}{%
-                                elseif (column.field == 'LSB' or column.field == 'USB')
-                            %}{%  if value | float != 0 %}{% if (args.offsets == '1') %}{{ value | number_format(3) }}{% else %}{{ value }}{% endif %}{% endif %}{%
-                                elseif (column.field == 'SP')
-                            %}{% if signal.SP %}<a data-set="sp">{{ value | raw }}</a>{% endif %}{%
-                                else
-                            %}{{ value | raw }}{%
-                                endif
-                            %}</td>
-                    {% endif %}{% endfor %}
-            </tr>
-        {% endfor %}
-{% else %}
-    <tr><th colspan="{{ columns|length }}">{% trans %}Loading... Please wait{% endtrans %}</th></tr>
-{% endif %}
+            <tr><th colspan="{{ columns|length }}">{% trans %}Loading... Please wait{% endtrans %}</th></tr>
         </tbody>
     </table>
     <div id="narrow"></div>
-{% if ajax %}
 <script>
-var columns = [
+var args = {
+  columns: [
 {% for key, column in columns %}{% if ((not column.admin or isAdmin) and (not column.arg or (column.arg in args|keys and attribute(args, column.arg) != ''))) %}
-    '{{ key }}|{{ column.highlight ? 1 : 0 }}|{{ column.td_class }}',
+    '{{ key }}|{{ column.highlight ? 1 : 0 }}|{{ column.td_class }}'{% if not loop.last %},
+{% endif %}
 {% endif %}{% endfor %}
-];
-var types = {
-{% for key, type in types %}{{ key }} : { classname: 'type_{{ type.class|lower }}', title: '{{ type.title|trans }}' }{% if not loop.last %},
-{% endif %}{% endfor %}
+
+  ],
+  offsets: {{ args.offsets ? 1 : 0 }},
+  personalise: {{ args.personalise ? 1 : 0 }},
+  types: {
+{% for key, type in types %}
+    {{ key }} : { classname: 'type_{{ type.class|lower }}', title: '{{ type.title|trans }}' }{% if not loop.last %},
+{% endif %}
+{% endfor %}
+
+  },
+  urls: {
+    delete:     '{{ url('signal_delete', { 'system' : system, 'id' : '*' }) }}',
+    listeners:  '{{ url('signal_listeners', { 'system' : system, 'id' : '*' }) }}',
+    logs:       '{{ url('signal_logs', { 'system' : system, 'id' : '*' }) }}',
+    merge:      '{{ url('signal_merge', { 'system' : system, 'id' : '*' }) }}',
+    profile:    '{{ url('signal', { 'system' : system, 'id' : '*' }) }}'
+  }
 }
-$(document).ready( function() {
-    var url;
-    url = shareableLink.signalsUrl() + '&show=json';
-    $.get(url, function(data) {
-        var admin, c, html, i, id, j, key, link_d, link_li, link_lo, link_s, offsets, row, s, tde, tds, value;
-        admin = {{ isAdmin ? 1 : 0 }};
-        html = []
-        link_d =    '{{ url('signal_delete', { 'system' : system, 'id' : '*' }) }}';
-        link_li =   '{{ url('signal_listeners', { 'system' : system, 'id' : '*' }) }}';
-        link_lo =   '{{ url('signal_logs', { 'system' : system, 'id' : '*' }) }}';
-        link_s =    '{{ url('signal', { 'system' : system, 'id' : '*' }) }}';
-        offsets =   '{{ args.offsets }}';
-
-        for (i = 0; i<data.types.length; i++) {
-            $('#ref_type_' + data.types[i]).show();
-        }
-
-        for (i = 0; i<data.signals.length; i++) {
-            s = data.signals[i];
-            row = '<tr class="' +
-                (s.active === '0' ? 'inactive ' : '') + types[s.type].classname +
-                {% if (args.personalise)%}(s.personalise ? '' : 'un') + 'logged' + {% endif %}'"' +
-                ' title="' + types[s.type].title + (s.active === '0' ? ' {% trans %}(Inactive){% endtrans %}' : '' ) + '">'{% if args.personalise %} +
-                '<th title="{% trans %}Logged by Personalised Listener{% endtrans %}" class="rowspan2">' + (s.personalise === '1' ? '&#x2714;' : '&nbsp;') + '</th>'
-                {% endif %};
-            for (j = 0; j<columns.length; j++) {
-                c = columns[j].split('|');
-                key = c[0];
-                value = s[key];
-                id = s['ID'];
-                tds = '<td' + (c[2] ? ' class="' + c[2] + '"' : '') + '>';
-                tde = '</td>';
-                switch (key) {
-                    case 'call':
-                        row += tds + '<a href="' + link_s.replace('*', id) + '" data-popup="1">' + value + '</a>' + tde;
-                        break;
-                    case 'delete':
-                        row += tds + '<a href="' + link_d.replace('*', id) + '" class="delete" onclick="return confirm(msg.del_signal)">X</a>' + tde;
-                        break;
-                    case 'GSQ':
-                        row += tds + (value !=='' ? '<a data-gsq="' + id + '">' + value + '</a>' : '') + tde;
-                        break;
-                    case 'first_heard':
-                    case 'last_heard':
-                        row += tds + (value !== null ? value : '') + tde;
-                        break;
-                    case 'heard_in':
-                        row += tds + s['heard_in_html'] + tde;
-                        break;
-                    case 'ITU':
-                        row += tds + (value !=='' ? '<a data-set="itu">' + value + '</a>' : '') + tde;
-                        break;
-                    case 'khz':
-                        row += tds + parseFloat(value) + tde;
-                        break;
-                    case 'listeners':
-                        row += tds + (value !=='0' ? '<a href="' + link_li.replace('*', id) + '" data-popup="1">' : '') + value + '</a>' + tde;
-                        break;
-                    case 'logs':
-                        row += tds + (value !=='0' ? '<a href="' + link_lo.replace('*', id) + '" data-popup="1">' : '') + value + '</a>' + tde;
-                        break;
-                    case 'LSB':
-                    case 'USB':
-                        row += tds + (parseFloat(value) ? ('1' === offsets ? parseFloat(value).toFixed(3) : value) : '') + tde;
-                        break;
-                    case 'pwr':
-                        row += tds + (value !== '0'  ? value : '') + tde;
-                        break;
-                    case 'SP':
-                        row += tds + (value !=='' ? '<a data-set="sp">' + value + '</a>' : '') + tde;
-                        break;
-                    case 'type':
-                        break;
-                    default:
-                        row += tds + value + tde;
-                        break;
-                }
-            }
-            row += "</tr>";
-            html.push(row);
-        }
-        $( "#signals_list" ).html( html.join(''));
-
-        setExternalLinks();
-        scrollToResults()
-        RT.init($('#wide'), $('#narrow'));
-    });
+$(document).ready(function() {
+    SIGNALS.load(args);
 });
 </script>
-{% endif %}
 {% else %}
     <p class="no-results">{% trans %}(No signals found matching your criteria){% endtrans %}</p>
 {% endif %}

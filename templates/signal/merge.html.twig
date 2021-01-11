@@ -1,0 +1,35 @@
+{% extends 'popup.html.twig' %}
+{% block body %}
+<div class="main fullwidth">
+{% set form_class='sigbal_merge' %}
+    <div class="controlPanel {{ form_class }}">
+        <div class="header">{{ mode|raw }}</div>
+        <div class="content">
+            {{ form_start(form) }}
+            <div id="form">
+                {{ form_row(form._token) }}
+                {{ form_row(form.id) }}
+                {{ form_row(form._close) }}
+                {{ form_row(form.reload) }}
+                <div>
+                    {{ form_label(form.signalId) }}
+                    {{ form_widget(form.signalId) }}
+                </div>
+                <fieldset id="group_">
+                    {{ form_row(form.close) }}
+                    {{ form_row(form.save) }}
+                    {{ form_row(form.saveClose) }}
+                </fieldset>
+            </div>
+            {{ form_end(form, {'render_rest': false}) }}
+        </div>
+    </div>
+<script src="{{ path('js_signals') }}"></script>
+<script>
+$(document).ready(function () {
+    SIGNAL_MERGE.init()
+    {% if doReload %}window.opener.document.getElementsByName('form')[0].submit();{% endif %}
+});
+</script>
+</div>
+{% endblock %}

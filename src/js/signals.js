@@ -398,3 +398,135 @@ var signalsForm = {
     }
 }
 
+var SIGNALS = {
+    load: function(args) {
+        var url = shareableLink.signalsUrl() + '&show=json';
+        $.get(url, function(data) {
+            var c, html, i, id, j, key, row, s, tde, tds, value;
+            html = []
+            for (i = 0; i<data.types.length; i++) {
+                $('#ref_type_' + data.types[i]).show();
+            }
+
+            for (i = 0; i<data.signals.length; i++) {
+                s = data.signals[i];
+                row = '<tr class="' +
+                    (s.active === '0' ? 'inactive ' : '') + args.types[s.type].classname +
+                    (args.personalise ? (s.personalise === '0' ? '' : 'un') + 'logged' : '') + '"' +
+                    ' title="' + args.types[s.type].title + (s.active === '0' ? ' (' + msg.inactive + ')' : '' ) + '">' +
+                    (args.personalise ?
+                            '<th title="' + (s.personalise === '0' ? msg.unlogged_by : msg.logged_by) + '" class="rowspan2">' +
+                            (s.personalise === '1' ? '&#x2714;' : '&nbsp;') +
+                            '</th>'
+                            :
+                            ''
+                    );
+                for (j = 0; j < args.columns.length; j++) {
+                    c = args.columns[j].split('|');
+                    key = c[0];
+                    value = s[key];
+                    id = s['ID'];
+                    tds = '<td' + (c[2] ? ' class="' + c[2] + '"' : '') + '>';
+                    tde = '</td>';
+                    switch (key) {
+                        case 'call':
+                            row += tds + '<a href="' + args.urls.profile.replace('*', id) + '" data-popup="1">' + value + '</a>' + tde;
+                            break;
+                        case 'delete':
+                            row += tds + '<a href="' + args.urls.delete.replace('*', id) + '" class="delete" onclick="return confirm(msg.del_signal)">X</a>' + tde;
+                            break;
+                        case 'GSQ':
+                            row += tds + (value !=='' ? '<a data-gsq="' + id + '">' + value + '</a>' : '') + tde;
+                            break;
+                        case 'first_heard':
+                        case 'last_heard':
+                            row += tds + (value !== null ? value : '') + tde;
+                            break;
+                        case 'heard_in':
+                            row += tds + s['heard_in_html'] + tde;
+                            break;
+                        case 'ITU':
+                            row += tds + (value !=='' ? '<a data-set="itu">' + value + '</a>' : '') + tde;
+                            break;
+                        case 'khz':
+                            row += tds + parseFloat(value) + tde;
+                            break;
+                        case 'listeners':
+                            row += tds + (value !=='0' ? '<a href="' + args.urls.listeners.replace('*', id) + '" data-popup="1">' : '') + value + '</a>' + tde;
+                            break;
+                        case 'logs':
+                            row += tds + (value !=='0' ? '<a href="' + args.urls.logs.replace('*', id) + '" data-popup="1">' : '') + value + '</a>' + tde;
+                            break;
+                        case 'LSB':
+                        case 'USB':
+                            row += tds + (parseFloat(value) ? (args.offsets ? parseFloat(value).toFixed(3) : value) : '') + tde;
+                            break;
+                        case 'merge':
+                            row += tds + '<a href="' + args.urls.merge.replace('*', id) + '" class="merge">M</a>' + tde;
+                            break;
+                        case 'pwr':
+                            row += tds + (value !== '0'  ? value : '') + tde;
+                            break;
+                        case 'SP':
+                            row += tds + (value !=='' ? '<a data-set="sp">' + value + '</a>' : '') + tde;
+                            break;
+                        case 'type':
+                            break;
+                        default:
+                            row += tds + value + tde;
+                            break;
+                    }
+                }
+                row += "</tr>";
+                html.push(row);
+            }
+            $( "#signals_list" ).html( html.join(''));
+
+            setExternalLinks();
+            scrollToResults()
+            RT.init($('#wide'), $('#narrow'));
+        });
+    }
+}
+
+var SIGNAL_MERGE = {
+    init: function() {
+        $('#form_save').on('click', function(){
+            $('#form_reload').val(1);
+        })
+        $('#form_saveClose').on('click', function(){
+            $('#form_reload').val(1);
+            $('#form__close').val(1);
+        })
+        SIGNAL_MERGE.initSignalsSelector(signals);
+    },
+
+    initSignalsSelector: function(data) {
+        var element, i, out, r, s;
+        element = $('#form_signalId');
+        s  = element.val();
+        out = "<select id=\"form_signalId\" name=\"form[signalId]\" required=\"required\" size=\"10\">\n";
+        for (i in data) {
+            r = data[i].split('|');
+            out +=
+                "<option value='" + r[0] + "'" +
+                (r[5] === '0' ? " title='" + msg.inactive + "'" : '') +
+                " class='type_" +r[3] + (r[5] === '0' ? ' inactive' : '') + "'" +
+                " data-gsq='" + r[4] + "'" +
+                (r[0] === s ? " selected='selected'" : '') +
+                ">" +
+                pad(parseFloat(r[2]), 10, '&nbsp;') +
+                pad(r[1], 10, '&nbsp;') +
+                pad(r[6], 41, '&nbsp;') +
+                pad(r[7], 3, '&nbsp;') +
+                r[8] + ' ' +
+                "</option>";
+        }
+        out += "</select>";
+        element.replaceWith(out);
+        $('#form_' + 'signalId')
+            .on('change', function(){
+                LOG_EDIT.getDx();
+            })
+    },
+}

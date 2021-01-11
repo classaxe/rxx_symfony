@@ -17,40 +17,31 @@
             </tr>
             </thead>
             <tbody>
-            {% for person in systems[system]['editors'] %}
+{% for person in systems[system]['editors'] %}
             <tr>
-                <th>{% if person.email and person.show_email %}
-                    <a href="#" data-contact="{{
-                        ('mailto:' ~ person.email ~ '?subject=' ~ system | upper ~ ' system') | obfuscateEmail
-                    }}">{{ person.name }}</a>
-                    {% else %}
-                        {{ person.name }}
-                    {% endif %}</th>
-                {% for type in ['DGPS', 'DSC', 'HAMBCN', 'NAVTEX', 'NDB', 'TIME', 'OTHER'] %}
-                    {%
-                        if type in person.roles
-                    %}<td class="type_{{ type | lower }}">Y</td>{%
-                    else %}<td>&nbsp;</td>{% endif %}
-                {% endfor %}
+                <th>{% if person.email and person.show_email
+                    %}<a href="#" data-contact="{{ ('mailto:' ~ person.email ~ '?subject=' ~ system | upper ~ ' system') | obfuscateEmail }}">{{ person.name }}</a>{%
+                else
+                    %}{{ person.name }}{% endif
+                %}</th>
+{% for type in ['DGPS', 'DSC', 'HAMBCN', 'NAVTEX', 'NDB', 'TIME', 'OTHER'] %}
+                {% if type in person.roles %}<td class="type_{{ type | lower }}">Y</td>{% else %}<td>&nbsp;</td>{% endif %}
+
+{% endfor %}
             </tr>
-            {% endfor %}
+{% endfor %}
             </tbody>
         </table>
         <p>
-    {% set credits = ['awards', 'authors'] %}
-    {% for credit in credits %}
-    {% for person in systems[system][credit] %}
-            <strong>
-    {% if person.email and person.show_email %}
-        <a href="#" data-contact="{{
-            ('mailto:' ~ person.email ~ '?subject=' ~ system | upper ~ ' system') | obfuscateEmail
-        }}">{{ person.name }}</a>
-    {% else %}
-            {{ person.name }}
-    {% endif %}
-            </strong> ({{ person.role | trans }})<br />
-    {% endfor %}
-    {% endfor %}
+{% set credits = ['awards', 'authors'] %}
+{% for credit in credits %}
+{% for person in systems[system][credit] %}
+            <strong>{% if person.email and person.show_email %}<a href="#" data-contact="{{
+    ('mailto:' ~ person.email ~ '?subject=' ~ system | upper ~ ' system') | obfuscateEmail
+}}">{{ person.name }}</a>{% else %}{{ person.name }}{% endif %}
+</strong> ({{ person.role | trans }})<br />
+{% endfor %}
+{% endfor %}
         </p>
         <p class="copyright"><strong>&copy;{{ "now"|date("Y") }} Martin Francis</strong></p>
     </div>
