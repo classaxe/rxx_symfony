@@ -7,15 +7,15 @@
             <tr class="sl_1">
                 <td colspan="{{ paper.cols }}">
                     <div class="row">
-                        <h2 class="small-{{ personalised ? 2 : 6 }} text-left">{{ '%s Seeklist'|trans|format(system|upper) }}</h2>
-                        {% if personalised %}<h3 class="small-8 text-center">
+                        <h2 class="small-{{ personalise ? 2 : 6 }} text-left">{{ '%s Seeklist'|trans|format(system|upper) }}</h2>
+                        {% if personalise.id %}<h3 class="small-8 text-center">
                             {{ 'Personalised for %s%s%s'|trans|format(
-                                    "<a href='" ~ url('listener', { 'system' : system, 'id' : args.personalise }) ~ "' data-popup='1'>",
-                                    personalised,
+                                    "<a href='" ~ url('listener', { 'system' : system, 'id' : personalise.id }) ~ "' data-popup='1'>",
+                                    personalise.name,
                                     '</a>'
                                 )|raw }}
                             </h3>{% endif %}
-                        <h4 class="small-{{ personalised ? 2 : 6 }} text-right">{{ 'Page %s of %s'|trans|format(page, pages) }}</h4>
+                        <h4 class="small-{{ personalise ? 2 : 6 }} text-right">{{ 'Page %s of %s'|trans|format(page, pages) }}</h4>
                     </div>
                 </td>
             </tr>
@@ -33,7 +33,7 @@
                             {% if args.active == ''  %}
                                 {% trans %}Signals including <i>Inactive</i> stations{% endtrans %}
                             {% endif %}
-                            {% if personalised %}
+                            {% if personalise.id %}
                                 {{ '(received %s of %s)' | trans | format(attribute(seeklistStats, 'all').heard, attribute(seeklistStats, 'all').total) }}
                             {% else %}
                                 {{ '(total: %s)' | trans | format(attribute(seeklistStats, 'all').total) }}

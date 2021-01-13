@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.28.0
- * Date:       2021-01-11
+ * Version:    2.28.1
+ * Date:       2021-01-13
  * Licence:    LGPL
  * Copyright:  2021 Martin Francis
  */
@@ -2746,31 +2746,47 @@ var signalsForm = {
         });
     }
 }
+
 var SIGNALS = {
     load: function(args) {
         var url = shareableLink.signalsUrl() + '&show=json';
         $.get(url, function(data) {
-            var c, html, i, id, j, key, row, s, tde, tds, value;
-            html = []
+            var c, html, i, id, j, key, row, s, tde, tds, title, value;
+            html = [];
+            switch(data.title) {
+                case 1:
+                    title = msg.signals.title.unlogged;
+                    break;
+                case 2:
+                    title = msg.signals.title.both;
+                    break;
+                default:
+                    title = msg.signals.title.normal.replace('%s', system.toUpperCase());
+                    break;
+            }
+            $('#signals_title').html(title);
+            $('#signals_personalise').html(data.personalise.name ? msg.signals.personalise.replace(
+                '%s',
+                '<a href="' + args.urls.listeners.replace('*', data.personalise.id) + '" data-popup="1">' + data.personalise.name + "<\/a>"
+            ) : '');
             for (i = 0; i<data.types.length; i++) {
                 $('#ref_type_' + data.types[i]).show();
             }
-
             for (i = 0; i<data.signals.length; i++) {
                 s = data.signals[i];
                 row = '<tr class="' +
                     (s.active === '0' ? 'inactive ' : '') + args.types[s.type].classname +
-                    (args.personalise ? (s.personalise === '0' ? '' : 'un') + 'logged' : '') + '"' +
+                    (data.personalise.id ? (s.personalise === '0' ? '' : 'un') + 'logged' : '') + '"' +
                     ' title="' + args.types[s.type].title + (s.active === '0' ? ' (' + msg.inactive + ')' : '' ) + '">' +
-                    (args.personalise ?
+                    (data.personalise.id ?
                             '<th title="' + (s.personalise === '0' ? msg.unlogged_by : msg.logged_by) + '" class="rowspan2">' +
                             (s.personalise === '1' ? '&#x2714;' : '&nbsp;') +
                             '</th>'
                             :
                             ''
                     );
-                for (j = 0; j < args.columns.length; j++) {
-                    c = args.columns[j].split('|');
+                for (j = 0; j < data.columns.length; j++) {
+                    c = data.columns[j].split('|');
                     key = c[0];
                     value = s[key];
                     id = s['ID'];
@@ -2807,7 +2823,7 @@ var SIGNALS = {
                             break;
                         case 'LSB':
                         case 'USB':
-                            row += tds + (parseFloat(value) ? (args.offsets ? parseFloat(value).toFixed(3) : value) : '') + tde;
+                            row += tds + (parseFloat(value) ? (data.args.offsets ? parseFloat(value).toFixed(3) : value) : '') + tde;
                             break;
                         case 'merge':
                             row += tds + '<a href="' + args.urls.merge.replace('*', id) + '" class="merge">M</a>' + tde;

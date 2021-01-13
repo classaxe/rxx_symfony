@@ -45,9 +45,9 @@ $(document).ready( function() {
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCmvsfY0bgnVB-gl_nMHGQ71rp1WTz9tGM&callback=SMap.init"></script>
 <div class="row">
     <div class="small-6 text-left"><h2>{{ system|upper }} {% trans %}Signals Map{% endtrans %}</h2></div>
-    <div class="small-6 text-right">{% if personalised %}<h3>{{ 'Personalised for %s%s%s'|trans|format(
-            "<a href='" ~ url('listener', { 'system' : system, 'id' : args.personalise }) ~ "' data-popup='1'>",
-            personalised,
+    <div class="small-6 text-right">{% if personalise.id %}<h3>{{ 'Personalised for %s%s%s'|trans|format(
+            "<a href='" ~ url('listener', { 'system' : system, 'id' : personalise.id }) ~ "' data-popup='1'>",
+            personalise.name,
             '</a>'
         )|raw }}</h3>{% endif %}</div>
 </div>
@@ -60,7 +60,7 @@ $(document).ready( function() {
                     <table class="results" id="markerlist" style="display:none; margin: 0; max-width: 500px">
                         <thead>
                         <tr>
-{% if personalised %}
+{% if personalise.id %}
                             <th class="txt_vertical"><div>{% trans %}Logged{% endtrans %}</div></th>
 {% endif %}
                             <th>{% trans %}KHz{% endtrans %}</th>

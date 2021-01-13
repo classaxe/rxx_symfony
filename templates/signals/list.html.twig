@@ -1,21 +1,7 @@
 {#<pre>{{ dump(signals[0]) }}</pre>#}
 <div class="row">
-    <div class="small-6 text-left">
-        <h2>
-            {% if (isAdmin and args.admin_mode == 1) %}
-                {% trans %}Showing Unlogged Signals for all systems{% endtrans %}
-            {% elseif (isAdmin and args.admin_mode == 2) %}
-                {% trans %}Showing Logged and Unlogged Signals for all systems{% endtrans %}
-            {% else %}
-                {{ system|upper }} {% trans %}Signals List{% endtrans %}
-            {% endif %}
-        </h2>
-    </div>
-    <div class="small-6 text-right">{% if personalised %}<h3>{{ 'Personalised for %s%s%s'|trans|format(
-            "<a href='" ~ url('listener', { 'system' : system, 'id' : args.personalise }) ~ "' data-popup='1'>",
-            personalised,
-            '</a>'
-        )|raw }}</h3>{% endif %}</div>
+    <div class="small-6 text-left"><h2 id="signals_title"></h2></div>
+    <div class="small-6 text-right"><h3 id="signals_personalise"></h3></div>
 </div>
 
 {% if signals|length > 0 %}
@@ -40,15 +26,6 @@
     <div id="narrow"></div>
 <script>
 var args = {
-  columns: [
-{% for key, column in columns %}{% if ((not column.admin or isAdmin) and (not column.arg or (column.arg in args|keys and attribute(args, column.arg) != ''))) %}
-    '{{ key }}|{{ column.highlight ? 1 : 0 }}|{{ column.td_class }}'{% if not loop.last %},
-{% endif %}
-{% endif %}{% endfor %}
-
-  ],
-  offsets: {{ args.offsets ? 1 : 0 }},
-  personalise: {{ args.personalise ? 1 : 0 }},
   types: {
 {% for key, type in types %}
     {{ key }} : { classname: 'type_{{ type.class|lower }}', title: '{{ type.title|trans }}' }{% if not loop.last %},

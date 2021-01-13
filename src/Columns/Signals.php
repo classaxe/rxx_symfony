@@ -312,18 +312,18 @@ class Signals
                 'th_class'  =>  'txt_vertical',
                 'tooltip'   =>  '',
             ],
-//            'merge' => [
-//                'admin'     =>  true,
-//                'arg'       =>  '',
-//                'field'     =>  'ID',
-//                'highlight' =>  false,
-//                'label'     =>  'Merge',
-//                'order'     =>  '',
-//                'sort'      =>  '',
-//                'td_class'  =>  '',
-//                'th_class'  =>  'txt_vertical',
-//                'tooltip'   =>  '',
-//            ],
+            'merge' => [
+                'admin'     =>  true,
+                'arg'       =>  '',
+                'field'     =>  'ID',
+                'highlight' =>  false,
+                'label'     =>  'Merge',
+                'order'     =>  '',
+                'sort'      =>  '',
+                'td_class'  =>  '',
+                'th_class'  =>  'txt_vertical',
+                'tooltip'   =>  '',
+            ],
         ];
     }
 }

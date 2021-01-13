@@ -14,6 +14,10 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class Collection extends Base
 {
+    private $args;
+    private $columns;
+    private $isAdmin;
+
     /**
      * @Route(
      *     "/{_locale}/{system}/signals",
@@ -40,11 +44,11 @@ class Collection extends Base
             REU - list all NDBs (no ajax):   26.6MB and 84 seconds
             REU - list all NDBs (with ajax):  6.4MB and 18 seconds
         */
-        $isAdmin = $this->parameters['isAdmin'];
+        $this->isAdmin = $this->parameters['isAdmin'];
         $ajax = true;
-        $args = [
+        $this->args = [
             'admin_mode' =>     0,
-            'isAdmin' =>        $isAdmin,
+            'isAdmin' =>        $this->isAdmin,
             'sortby' =>         '',
             'za' =>             '',
 
@@ -94,41 +98,41 @@ class Collection extends Base
             $cookies = $request->cookies;
             if ($cookies && $cookies->has('signalsForm')) {
                 parse_str($cookies->get('signalsForm'), $cookieParams);
-                $this->setArgsFromRequest($args, $cookieParams);
+                $this->setArgsFromRequest($cookieParams);
             }
         } else {
-            $this->setArgsFromRequest($args, $request);
+            $this->setArgsFromRequest($request);
         }
 
         foreach (['logged_date_1', 'logged_date_2', 'logged_first_1', 'logged_first_2', 'logged_last_1', 'logged_last_2'] as $arg) {
-            $args[$arg] = $args[$arg] ? new DateTime($args[$arg]) : null;
+            $this->args[$arg] = $this->args[$arg] ? new DateTime($this->args[$arg]) : null;
         }
-        $args['total'] =        $this->signalRepository->getFilteredSignalsCount($system, $args); // forces paging - will be made accurate later on
-        $form = $form->buildForm($this->createFormBuilder(), $args);
+        $this->args['total'] =        $this->signalRepository->getFilteredSignalsCount($system, $this->args); // forces paging - will be made accurate later on
+        $form = $form->buildForm($this->createFormBuilder(), $this->args);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $args = $form->getData();
+            $this->args = $form->getData();
         }
-        if (empty($args['type'])) {
-            $args['type'][] = 'NDB';
+        if (empty($this->args['type'])) {
+            $this->args['type'][] = 'NDB';
         }
-        if ([''] === $args['listener']) {
-            $args['listener'] = [];
+        if ([''] === $this->args['listener']) {
+            $this->args['listener'] = [];
         }
-        $args['isAdmin'] =      $isAdmin;
-        $args['signalTypes'] =  $this->typeRepository->getSignalTypesSearched($args['type']);
-        $paper =                isset($args['paper']) ? $this->paperRepository->getSpecifications($args['paper']) : false;
-        $signals =              $this->signalRepository->getFilteredSignals($system, $args);
-        $total =                $this->signalRepository->getFilteredSignalsCount($system, $args);
+        $this->args['isAdmin'] =      $this->isAdmin;
+        $this->args['signalTypes'] =  $this->typeRepository->getSignalTypesSearched($this->args['type']);
+        $paper =                isset($this->args['paper']) ? $this->paperRepository->getSpecifications($this->args['paper']) : false;
+        $signals =              $this->signalRepository->getFilteredSignals($system, $this->args);
+        $total =                $this->signalRepository->getFilteredSignalsCount($system, $this->args);
         $seeklistStats =        [];
         $seeklistColumns =      [];
-        if ('seeklist' === $args['show']) {
+        if ('seeklist' === $this->args['show']) {
             $seeklistStats =    $this->signalRepository::getSeeklistStats($signals);
             $seeklistColumns =  $this->signalRepository::getSeeklistColumns($signals, $paper);
         }
         $box =          false;
         $center =       false;
-        if ('map' === $args['show'] && $signals) {
+        if ('map' === $this->args['show'] && $signals) {
             $lats =     array_column($signals, 'lat');
             $lons =     array_column($signals, 'lon');
             $lat_min =  min($lats);
@@ -141,7 +145,7 @@ class Collection extends Base
             $center =   [$lat_cen, $lon_cen];
         }
         foreach ($signals as $signal) {
-            if ('seeklist' !== $args['show']) {
+            if ('seeklist' !== $this->args['show']) {
                 $signal['first_heard'] =    $signal['first_heard'] ? new DateTime($signal['first_heard']) : null;
                 $signal['last_heard'] =     $signal['last_heard'] ? new DateTime($signal['last_heard']) : null;
             }
@@ -151,7 +155,7 @@ class Collection extends Base
         foreach ($this->signalRepository::collapsable_sections as $section => $fields) {
             $expanded[$section] = 0;
             foreach ($fields as $field) {
-                if ($args[$field]) {
+                if ($this->args[$field]) {
                     $expanded[$section] = 1;
                     break;
                 }
@@ -160,21 +164,24 @@ class Collection extends Base
         $parameters = [
             '_locale' =>            $_locale,
             'ajax' =>               $ajax,
-            'args' =>               $args,
+            'args' =>               $this->args,
             'box' =>                $box,
             'center' =>             $center,
-            'classic' =>            $this->systemRepository->getClassicUrl('signals', $args['show']),
+            'classic' =>            $this->systemRepository->getClassicUrl('signals', $this->args['show']),
             'columns' =>            $this->signalRepository->getColumns('signals'),
             'expanded' =>           $expanded,
             'form' =>               $form->createView(),
-            'isAdmin' =>            $isAdmin,
+            'isAdmin' =>            $this->isAdmin,
             'mode' =>               $this->i18n('Signals'),
             'paper' =>              $paper,
             'paperChoices' =>       $this->paperRepository->getAllChoices(),
-            'personalised' =>       isset($args['personalise']) ? $this->listenerRepository->getDescription($args['personalise']) : false,
+            'personalise' =>       [
+                'id' =>     $this->args['personalise'] ?? false,
+                'name' =>   (isset($this->args['personalise']) ? $this->listenerRepository->getDescription($this->args['personalise']) : '')
+            ],
             'results' => [
-                'limit' =>              isset($args['limit']) ? $args['limit'] : $this->signalRepository::defaultlimit,
-                'page' =>               isset($args['page']) ? $args['page'] : 0,
+                'limit' =>              isset($this->args['limit']) ? $this->args['limit'] : $this->signalRepository::defaultlimit,
+                'page' =>               isset($this->args['page']) ? $this->args['page'] : 0,
                 'total' =>              $total
             ],
             'seeklistColumns' =>    $seeklistColumns,
@@ -190,26 +197,31 @@ class Collection extends Base
             'types' =>              $this->typeRepository->getAll(),
             'typeRepository' =>     $this->typeRepository
         ];
-        if (isset($args['show']) && $args['show'] === 'csv') {
+        if (isset($this->args['show']) && $this->args['show'] === 'csv') {
             $response = $this->render("signals/export/signals.csv.twig", $this->getMergedParameters($parameters));
             $response->headers->set('Content-Type', 'text/plain');
             $response->headers->set('Content-Disposition',"attachment;filename={$system}_signals.csv");
             return $response;
         }
-        if (isset($args['show']) && $args['show'] === 'json') {
+        if (isset($this->args['show']) && $this->args['show'] === 'json') {
+            $title = ($this->isAdmin && $this->args['admin_mode'] === '1' ? 1 : ($this->isAdmin && $this->args['admin_mode'] === '2' ? 2 : 0));
             return $this->json([
-                'results' =>    $parameters['results'],
-                'signals' =>    $signals,
-                'types' =>      $args['signalTypes']
+                'args' =>           $this->args,
+                'columns' =>        $this->getActiveColumns(),
+                'personalise' =>    $parameters['personalise'],
+                'results' =>        $parameters['results'],
+                'signals' =>        $signals,
+                'title' =>          $title,
+                'types' =>          $this->args['signalTypes']
             ]);
         }
-        if (isset($args['show']) && $args['show'] === 'kml') {
+        if (isset($this->args['show']) && $this->args['show'] === 'kml') {
             $response = $this->render("signals/export/signals.kml.twig", $this->getMergedParameters($parameters));
             $response->headers->set('Content-Type', 'application/vnd.google-earth.kml+xml');
             $response->headers->set('Content-Disposition',"attachment;filename={$system}_signals.kml");
             return $response;
         }
-        if (isset($args['show']) && $args['show'] === 'txt') {
+        if (isset($this->args['show']) && $this->args['show'] === 'txt') {
             $response = $this->render("signals/export/signals.txt.twig", $this->getMergedParameters($parameters));
             $response->headers->set('Content-Type', 'text/plain');
             $response->headers->set('Content-Disposition',"attachment;filename={$system}_signals.txt");
@@ -218,6 +230,20 @@ class Collection extends Base
         return $this->render('signals/index.html.twig', $this->getMergedParameters($parameters));
     }
 
+    private function getActiveColumns() {
+        $out = [];
+        $columns  = $this->signalRepository->getColumns('signals');
+        foreach ($columns as $key => $column) {
+            if ($column['admin'] && !$this->isAdmin) {
+                continue;
+            }
+            if ($column['arg'] && $this->args[$column['arg']]==='') {
+                continue;
+            }
+            $out[] = $key . '|' . ($column['highlight'] ? 1 : 0) . '|' . $column['td_class'];
+        }
+        return $out;
+    }
     /**
      * @Route(
      *     "/{_locale}/{system}/signals/stats",
@@ -260,41 +286,41 @@ class Collection extends Base
         return $this->json($out);
     }
 
-    private function setArgsFromRequest(&$args, $request)
+    private function setArgsFromRequest($request)
     {
-        $this->setPagingFromRequest($args, $request);
+        $this->setPagingFromRequest($this->args, $request);
 
-        $this->setTypeFromRequest($args, $request);
-        $this->setRwwFocusFromRequest($args, $request);
-        $this->setValueFromRequest($args, $request, 'call');
-        $this->setPairFromRequest($args, $request, 'khz');
-        $this->setValueFromRequest($args, $request, 'channels', ['1', '2']);
-        $this->setValueFromRequest($args, $request, 'states');
-        $this->setValueFromRequest($args, $request, 'sp_itu_clause', ['OR']);
-        $this->setValueFromRequest($args, $request, 'countries');
-        $this->setRegionFromRequest($args, $request);
-        $this->setValueFromRequest($args, $request, 'gsq');
-        $this->setValueFromRequest($args, $request, 'recently', ['logged', 'unlogged']);
-        $this->setValueFromRequest($args, $request, 'within', array_values($this->signalRepository::withinPeriods));
-        $this->setValueFromRequest($args, $request, 'active', ['1', '2']);
+        $this->setTypeFromRequest($this->args, $request);
+        $this->setRwwFocusFromRequest($this->args, $request);
+        $this->setValueFromRequest($this->args, $request, 'call');
+        $this->setPairFromRequest($this->args, $request, 'khz');
+        $this->setValueFromRequest($this->args, $request, 'channels', ['1', '2']);
+        $this->setValueFromRequest($this->args, $request, 'states');
+        $this->setValueFromRequest($this->args, $request, 'sp_itu_clause', ['OR']);
+        $this->setValueFromRequest($this->args, $request, 'countries');
+        $this->setRegionFromRequest($this->args, $request);
+        $this->setValueFromRequest($this->args, $request, 'gsq');
+        $this->setValueFromRequest($this->args, $request, 'recently', ['logged', 'unlogged']);
+        $this->setValueFromRequest($this->args, $request, 'within', array_values($this->signalRepository::withinPeriods));
+        $this->setValueFromRequest($this->args, $request, 'active', ['1', '2']);
 
-        $this->setListenersFromRequest($args, $request);
-        $this->setValueFromRequest($args, $request, 'listener_invert', ['0', '1']);
-        $this->setValueFromRequest($args, $request, 'heard_in');
-        $this->setValueFromRequest($args, $request, 'heard_in_mod', ['any', 'all'], 'a');
-        $this->setPairFromRequest($args, $request, 'logged_date');
-        $this->setPairFromRequest($args, $request, 'logged_first');
-        $this->setPairFromRequest($args, $request, 'logged_last');
+        $this->setListenersFromRequest($this->args, $request);
+        $this->setValueFromRequest($this->args, $request, 'listener_invert', ['0', '1']);
+        $this->setValueFromRequest($this->args, $request, 'heard_in');
+        $this->setValueFromRequest($this->args, $request, 'heard_in_mod', ['any', 'all'], 'a');
+        $this->setPairFromRequest($this->args, $request, 'logged_date');
+        $this->setPairFromRequest($this->args, $request, 'logged_first');
+        $this->setPairFromRequest($this->args, $request, 'logged_last');
 
-        $this->setPersonaliseFromRequest($args, $request);
-        $this->setValueFromRequest($args, $request, 'offsets', ['1']);
-        $this->setValueFromRequest($args, $request, 'range_gsq');
-        $this->setValueFromRequest($args, $request, 'range_min');
-        $this->setValueFromRequest($args, $request, 'range_max');
-        $this->setValueFromRequest($args, $request, 'range_units', ['km', 'mi']);
-        $this->setValueFromRequest($args, $request, 'admin_mode', ['0', '1', '2']);
+        $this->setPersonaliseFromRequest($this->args, $request);
+        $this->setValueFromRequest($this->args, $request, 'offsets', ['1']);
+        $this->setValueFromRequest($this->args, $request, 'range_gsq');
+        $this->setValueFromRequest($this->args, $request, 'range_min');
+        $this->setValueFromRequest($this->args, $request, 'range_max');
+        $this->setValueFromRequest($this->args, $request, 'range_units', ['km', 'mi']);
+        $this->setValueFromRequest($this->args, $request, 'admin_mode', ['0', '1', '2']);
 
-        $this->setValueFromRequest($args, $request, 'show', ['csv', 'json', 'kml', 'list', 'map', 'pskov', 'seeklist', 'txt'], 'a');
-        $this->setValueFromRequest($args, $request, 'paper', ['a4', 'a4_l', 'lgl', 'lgl_l', 'ltr', 'ltr_l'], 'a');
+        $this->setValueFromRequest($this->args, $request, 'show', ['csv', 'json', 'kml', 'list', 'map', 'pskov', 'seeklist', 'txt'], 'a');
+        $this->setValueFromRequest($this->args, $request, 'paper', ['a4', 'a4_l', 'lgl', 'lgl_l', 'ltr', 'ltr_l'], 'a');
     }
 }
