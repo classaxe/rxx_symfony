@@ -8,7 +8,7 @@ var signals = [
     {% set type = typeRepository.TypeForCode(row.type) %}{ 'id':{{
     row.ID }}, 'khz':{{
     row.khz }}, 'call':'{{
-    row.call|raw|unescape }}', 'active':{{
+    row.call|raw|unescape|raw }}', 'active':{{
     row.active ? '1' : '0' }}, 'className':'{{
     type.class|lower }} {{ row.active == '0' ? 'inactive' : 'active' }}', 'type':'{{
     type.title|trans }}{% if row.active == 0 %} {% trans %}(inactive){% endtrans %}{% endif %}', 'typeId':{{
@@ -16,8 +16,8 @@ var signals = [
     row.pwr }}', 'qth':'{{
     row.QTH|raw|unescape }}', 'icon':'{{
     type.class|lower }}', 'itu':'{{
-    row.ITU }}', 'sp':'{{
-    row.SP }}', 'lat':{{
+    row.ITU|raw }}', 'sp':'{{
+    row.SP|raw }}', 'lat':{{
     row.lat }}, 'lon':{{
     row.lon }}, 'gsq':'{{
     row.GSQ }}', 'lsb':'{{

@@ -144,10 +144,33 @@ class Collection extends Base
             $box =      [[$lat_min, $lon_min], [$lat_max, $lon_max]];
             $center =   [$lat_cen, $lon_cen];
         }
-        foreach ($signals as $signal) {
-            if ('seeklist' !== $this->args['show']) {
-                $signal['first_heard'] =    $signal['first_heard'] ? new DateTime($signal['first_heard']) : null;
-                $signal['last_heard'] =     $signal['last_heard'] ? new DateTime($signal['last_heard']) : null;
+
+        if (in_array($this->args['show'], ['map', 'json'])) {
+            $highlights = [
+                'call' =>       ['find' => [$this->args['call']], 'repl' => []],
+                'ITU' =>        ['find' => explode(' ', $this->args['countries']), 'repl' => []],
+                'GSQ' =>        ['find' => explode(' ', $this->args['gsq']), 'repl' => []],
+                'heard_in_html' =>   ['find' => explode(' ', $this->args['heard_in']), 'repl' => []],
+                'region' =>     ['find' => [$this->args['region']], 'repl' => []],
+                'SP' =>         ['find' => explode(' ', $this->args['states']), 'repl' => []]
+            ];
+            foreach ($highlights as $key => &$data) {
+                foreach ($data['find'] as $find) {
+                    $data['repl'][] = '<em>' . $find . '</em>';
+                }
+            }
+            foreach ($signals as &$signal) {
+                foreach ($highlights as $key => $highlight) {
+                    if ($highlight['find'] === '') {
+                        continue;
+                    }
+                    $signal[$key] = str_replace(
+                        $highlight['find'],
+                        $highlight['repl'],
+                        $signal[$key]
+                    );
+
+                }
             }
         }
 
@@ -240,7 +263,7 @@ class Collection extends Base
             if ($column['arg'] && $this->args[$column['arg']]==='') {
                 continue;
             }
-            $out[] = $key . '|' . ($column['highlight'] ? 1 : 0) . '|' . $column['td_class'];
+            $out[] = [ $key, $column['highlight'], $column['td_class']];
         }
         return $out;
     }

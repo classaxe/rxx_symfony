@@ -402,27 +402,14 @@ var SIGNALS = {
     load: function(args) {
         var url = shareableLink.signalsUrl() + '&show=json';
         $.get(url, function(data) {
-            var c, html, i, id, j, key, row, s, tde, tds, title, value;
+            var c, cols, html, i, id, j, key, row, s, tde, tds, title, value;
             html = [];
-            switch(data.title) {
-                case 1:
-                    title = msg.signals.title.unlogged;
-                    break;
-                case 2:
-                    title = msg.signals.title.both;
-                    break;
-                default:
-                    title = msg.signals.title.normal.replace('%s', system.toUpperCase());
-                    break;
-            }
-            $('#signals_title').html(title);
-            $('#signals_personalise').html(data.personalise.name ? msg.signals.personalise.replace(
-                '%s',
-                '<a href="' + args.urls.listeners.replace('*', data.personalise.id) + '" data-popup="1">' + data.personalise.name + "<\/a>"
-            ) : '');
+            SIGNALS.setHeadingTitle(data);
+            SIGNALS.setHeadingPersonalise(data)
             for (i = 0; i<data.types.length; i++) {
                 $('#ref_type_' + data.types[i]).show();
             }
+            cols = data.columns;
             for (i = 0; i<data.signals.length; i++) {
                 s = data.signals[i];
                 row = '<tr class="' +
@@ -436,8 +423,8 @@ var SIGNALS = {
                             :
                             ''
                     );
-                for (j = 0; j < data.columns.length; j++) {
-                    c = data.columns[j].split('|');
+                for (j = 0; j < cols.length; j++) {
+                    c = cols[j];
                     key = c[0];
                     value = s[key];
                     id = s['ID'];
@@ -501,6 +488,31 @@ var SIGNALS = {
             scrollToResults()
             RT.init($('#wide'), $('#narrow'));
         });
+    },
+    setHeadingPersonalise: function(data) {
+        if (!data.personalise.name) {
+            return;
+        }
+        $('#signals_personalise').html(
+            msg.signals.personalise.replace(
+                '%s',
+                '<a href="' + args.urls.listeners.replace('*', data.personalise.id) + '" data-popup="1">' + data.personalise.name + "<\/a>"
+            )
+        );
+    },
+    setHeadingTitle: function(data) {
+        switch(data.title) {
+            case 1:
+                title = msg.signals.title.unlogged;
+                break;
+            case 2:
+                title = msg.signals.title.both;
+                break;
+            default:
+                title = msg.signals.title.normal.replace('%s', system.toUpperCase());
+                break;
+        }
+        $('#signals_title').html(title);
     }
 }
 
