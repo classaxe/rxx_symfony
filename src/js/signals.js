@@ -383,7 +383,10 @@ var signalsForm = {
     },
 
     showStats : function() {
-        url = base_url + 'signals/stats?rww_focus=' + $('#form_rww_focus').val();
+        var rwwFocus = $('#form_rww_focus')
+        url = base_url +
+            'signals/stats' +
+            (typeof rwwFocus.val() !== 'undefined' ? '?rww_focus=' + rwwFocus.val() : '');
         $.get(url, function(data) {
             $.each(data.signals, function(key, value){
                 $('#stats_' + key).text(value.numberFormat());
