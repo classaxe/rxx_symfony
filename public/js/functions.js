@@ -1,7 +1,7 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.28.5
+ * Version:    2.28.6
  * Date:       2021-01-15
  * Licence:    LGPL
  * Copyright:  2021 Martin Francis
@@ -2384,8 +2384,6 @@ var SIGNALS_FORM = {
             s.setResetAction();
 
             c.setDatePickerActions();
-            setColumnSortActions();
-            setColumnSortedClass();
             if (resultsCount) {
                 setFormPagingStatus(msg.paging_s, resultsCount);
             }
@@ -2753,18 +2751,36 @@ var SIGNALS = {
     load: function(args) {
         var url = shareableLink.signalsUrl() + '&show=json';
         $.get(url, function(data) {
-            var c, cols, html, i, id, j, key, row, s, tde, tds, title, value;
+            var c, cols, html, i, id, j, key, paging, row, s, tde, tds, title, value;
             html = [];
             paging = data.results;
+            cols = data.columns;
             COMMON_FORM.setPagingControls();
             setFormPagingStatus(msg.paging_s, paging.total);
 
             SIGNALS.setHeadingTitle(data);
-            SIGNALS.setHeadingPersonalise(data)
+            SIGNALS.setHeadingPersonalise(data);
+            html.push('<tr>');
+            if (data.personalise.id) {
+                html.push('<th class="txt_vertical nosort rowspan2 th"><div>Logged</div></th>');
+            }
+            for (j = 0; j < cols.length; j++) {
+                c = cols[j];
+                html.push(
+                    '  <th' +
+                    (c.key && c.order ? ' id="' + c.key + '|' + c.order + '"' : '') +
+                    (c.th_class || c.sort ? ' class="' + c.th_class  + (c.sort ? ' sort' : '') + '"' : '') +
+                    (c.tooltip ? ' title="' + c.tooltip + '"' : '') + '>' +
+                    (c.th_class === 'txt_vertical' ? '<div>' + c.label + '<\/div>' : c.label) +
+                    '</th>'
+                );
+            }
+            html.push('<\/tr>\n');
+            $('.signal.results thead').html(html.join('\n'));
+            html = [];
             for (i = 0; i<data.types.length; i++) {
                 $('#ref_type_' + data.types[i]).show();
             }
-            cols = data.columns;
             if (data.signals.length === 0) {
                 $( "#signals_list").html(
                     "<tr><th class='no-results' colspan='" + cols.length + "'>" + "No signals found matching your criteria" + "</th></tr>"
@@ -2786,12 +2802,12 @@ var SIGNALS = {
                     );
                 for (j = 0; j < cols.length; j++) {
                     c = cols[j];
-                    key = c[0];
-                    value = s[key];
+
+                    value = s[c.key];
                     id = s['ID'];
-                    tds = '<td' + (c[2] ? ' class="' + c[2] + '"' : '') + '>';
+                    tds = '<td' + (c.td_class ? ' class="' + c.td_class + '"' : '') + '>';
                     tde = '</td>';
-                    switch (key) {
+                    switch (c.key) {
                         case 'call':
                             row += tds + '<a href="' + args.urls.profile.replace('*', id) + '" data-popup="1">' + value + '</a>' + tde;
                             break;
@@ -2843,7 +2859,9 @@ var SIGNALS = {
                 row += "</tr>";
                 html.push(row);
             }
-            $( "#signals_list" ).html( html.join(''));
+            $( "#signals_list" ).html( html.join('\n'));
+            setColumnSortActions();
+            setColumnSortedClass();
             setExternalLinks();
             scrollToResults()
             RT.init($('#wide'), $('#narrow'));

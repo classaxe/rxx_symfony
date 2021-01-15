@@ -5,21 +5,9 @@
 </div>
 
 <table id="wide" class="signal results">
-    <thead>
-    <tr>
-        {% if args.personalise %}<th class="txt_vertical nosort rowspan2 th"><div>{% trans %}Logged{% endtrans %}</div></th>{% endif %}
-        {% for key, column in columns %}
-            {% if ((not column.admin or isAdmin) and (not column.arg or (column.arg in args|keys and attribute(args, column.arg) != ''))) %}
-                <th{%  if key and column.order %} id="{{ key }}|{{ column.order }}"{% endif %}
-                        {% if column.th_class or column.sort%} class="{{ column.th_class }}{% if column.sort %} sort{% endif %}"{% endif %}
-                        {% if column.tooltip %} title="{{ column.tooltip | trans }}"{% endif %}
-                >{% if column.th_class == 'txt_vertical' %}<div>{{ column.label | trans | raw }}</div>{% else %}{{ column.label | trans | raw }}{% endif %}</th>
-            {% endif %}
-        {% endfor %}
-    </tr>
-    </thead>
+    <thead></thead>
     <tbody id="signals_list">
-        <tr><th colspan="{{ columns|length }}">{% trans %}Loading... Please wait{% endtrans %}</th></tr>
+        <tr><th colspan="{{ columns|length }}" style="line-height: 3em">{% trans %}Loading... Please wait{% endtrans %}</th></tr>
     </tbody>
 </table>
 <div id="narrow"></div>

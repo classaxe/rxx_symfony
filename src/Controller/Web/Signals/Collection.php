@@ -268,7 +268,15 @@ class Collection extends Base
             if ($column['arg'] && $this->args[$column['arg']]==='') {
                 continue;
             }
-            $out[] = [ $key, $column['highlight'], $column['td_class']];
+            $out[] = [
+                'key' =>        $key,
+                'label' =>      $column['label'],
+                'order' =>      $column['order'],
+                'sort' =>       $column['sort'],
+                'td_class' =>   $column['td_class'],
+                'th_class' =>   $column['th_class'],
+                'tooltip' =>    $column['tooltip'],
+            ];
         }
         return $out;
     }
