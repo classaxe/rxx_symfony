@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.28.4
- * Date:       2021-01-14
+ * Version:    2.28.5
+ * Date:       2021-01-15
  * Licence:    LGPL
  * Copyright:  2021 Martin Francis
  */
@@ -1873,7 +1873,7 @@ table.logsessions tbody tr.selected td {
 .signal_list #form_logged_last_2 {
   width: 95px;
   padding: 0 1.75em 0 0.25em !important;
-  background: #ffffff url("../../image/calendar.png") no-repeat;
+  background: #ffffff url("../../../image/calendar.png") no-repeat;
   background-size: auto 100%;
   background-position: right;
 }
@@ -2324,7 +2324,7 @@ fieldset#form_range_units div label {
 .logUpload #form #form_logs {
   width: 100%;
   height: 420px;
-  background-image: url("/image/log_grid.png");
+  background-image: url("../../../image/log_grid.png");
   background-position-x: 4px;
   background-size: 78px;
   font-family: "Courier New", Courier, monospace;
@@ -2493,7 +2493,7 @@ div.scroll div table.parse.results tbody tr {
 .log_edit #form select#form_date {
   width: 95px;
   padding: 0 1.75em 0 0.25em !important;
-  background: #ffffff url("../../image/calendar.png") no-repeat;
+  background: #ffffff url("../../../image/calendar.png") no-repeat;
   background-size: auto 100%;
   background-position: right;
 }
@@ -2559,7 +2559,7 @@ div.scroll div table.parse.results tbody tr {
 .cle_editor #form_dateEnd {
   width: 95px;
   padding: 0 1.75em 0 0.25em !important;
-  background: #ffffff url("../../image/calendar.png") no-repeat;
+  background: #ffffff url("../../../image/calendar.png") no-repeat;
   background-size: auto 100%;
   background-position: right;
 }

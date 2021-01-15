@@ -1,6 +1,6 @@
 function initUsersForm(pagingMsg, resultsCount) {
     $(document).ready( function() {
-        setFormPagingActions();
+        COMMON_FORM.setPagingControls();
 
         setColumnSortActions();
         setColumnSortedClass();

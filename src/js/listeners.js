@@ -1,9 +1,9 @@
-var listenersForm = {
+var LISTENERS_FORM = {
     init : function(resultsCount) {
         $(document).ready(function () {
-            var c = commonForm;
-            var l = listenersForm;
-            setFormPagingActions();
+            var c = COMMON_FORM;
+            var l = LISTENERS_FORM;
+            c.setPagingControls();
             c.setTypesStyles();
             c.setTypesDefault();
             $('#form_timezone').selectmenu();
@@ -88,8 +88,9 @@ var listenersForm = {
             if (!confirm(msg.reset + "\n" + msg.cookie.reset)) {
                 return false;
             }
-            var c = commonForm;
-            var l = listenersForm;
+            COOKIE.clear('listenersForm', '/');
+            var c = COMMON_FORM;
+            var l = LISTENERS_FORM;
             $('fieldset#form_type div :checkbox').prop('checked', false);
             $('fieldset#form_type div :checkbox[value=NDB]').prop('checked', true);
             $('#form_q').val('');
@@ -119,7 +120,7 @@ var listenersForm = {
     setSaveAction: function() {
         $('#form_save').click(function(){
             if (confirm(msg.cookie.save + "\n" + msg.cookie.usesCookie)) {
-                var value = shareableLink.listenersUrl().split('?')[1];
+                var value = shareableLink.listenersUrl(false).split('?')[1];
                 COOKIE.set('listenersForm', value, '/');
                 alert(msg.cookie.saved);
             }

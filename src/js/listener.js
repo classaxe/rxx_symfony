@@ -35,7 +35,7 @@ var logSessions = {
         logSessions.baseUrl = baseUrl;
         $(document).ready(function () {
             setExternalLinks();
-            setFormPagingActions();
+            COMMON_FORM.setPagingControls();
             setColumnSortActions();
             setColumnSortedClass();
             setClippedCellTitles();

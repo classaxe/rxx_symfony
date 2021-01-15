@@ -1,10 +1,10 @@
-var signalsForm = {
+var SIGNALS_FORM = {
     init : function(resultsCount) {
         $(document).ready( function() {
-            var c = commonForm;
-            var s = signalsForm;
+            var c = COMMON_FORM;
+            var s = SIGNALS_FORM;
             if (resultsCount) {
-                setFormPagingActions();
+                c.setPagingControls();
             }
             s.setPersonaliseAction();
             s.setOffsetsAction();
@@ -31,7 +31,7 @@ var signalsForm = {
             s.setSaveAction();
             s.setResetAction();
 
-            setFormDatePickers();
+            c.setDatePickerActions();
             setColumnSortActions();
             setColumnSortedClass();
             if (resultsCount) {
@@ -172,7 +172,7 @@ var signalsForm = {
             $('#form_heard_in').val(function (_, val) {
                 return val.toUpperCase();
             });
-            $.each(signalsForm.ituSps, function(itu, sps){
+            $.each(SIGNALS_FORM.ituSps, function(itu, sps){
                 var field = $('#form_heard_in')
                 var heardIn = field.val();
                 if (heardIn.indexOf(itu) >= 0) {
@@ -279,8 +279,8 @@ var signalsForm = {
                 return false;
             }
             COOKIE.clear('signalsForm', '/');
-            var c = commonForm;
-            var s = signalsForm;
+            var c = COMMON_FORM;
+            var s = SIGNALS_FORM;
             var form_range_gsq = $('#form_range_gsq');
             var form_range_min = $('#form_range_min');
             s.setAdminAction(false);
@@ -404,7 +404,7 @@ var SIGNALS = {
             var c, cols, html, i, id, j, key, row, s, tde, tds, title, value;
             html = [];
             paging = data.results;
-            setFormPagingActions();
+            COMMON_FORM.setPagingControls();
             setFormPagingStatus(msg.paging_s, paging.total);
 
             SIGNALS.setHeadingTitle(data);

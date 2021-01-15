@@ -99,7 +99,7 @@ class Collection extends Base
             $cookies = $request->cookies;
             if ($cookies && $cookies->has('signalsForm')) {
                 parse_str($cookies->get('signalsForm'), $cookieParams);
-                $this->setArgsFromRequest($cookieParams);
+                $this->setArgsFromRequest($cookieParams, false);
             }
         } else {
             $this->setArgsFromRequest($request);
@@ -314,9 +314,9 @@ class Collection extends Base
         return $this->json($out);
     }
 
-    private function setArgsFromRequest($request)
+    private function setArgsFromRequest($request, $withPageNumber = true)
     {
-        $this->setPagingFromRequest($this->args, $request);
+        $this->setPagingFromRequest($this->args, $request, $withPageNumber);
 
         $this->setTypeFromRequest($this->args, $request);
         $this->setRwwFocusFromRequest($this->args, $request);

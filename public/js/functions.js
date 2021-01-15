@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.28.4
- * Date:       2021-01-14
+ * Version:    2.28.5
+ * Date:       2021-01-15
  * Licence:    LGPL
  * Copyright:  2021 Martin Francis
  */
@@ -244,7 +244,7 @@ var cle = {
     }
 }
 
-var commonForm = {
+var COMMON_FORM = {
     setCountryAction : function(enable) {
         enable = typeof enable !== 'undefined' ? enable : true;
         if (enable) {
@@ -254,6 +254,141 @@ var commonForm = {
         } else {
             $('select#form_country').off('change');
         }
+    },
+
+    setDatePickerActions: function() {
+        $.datepicker.setDefaults({
+            changeMonth: true,
+            changeYear: true,
+            dateFormat: 'yy-mm-dd',
+            yearRange: '1970:+0'
+        });
+        $('.js-datepicker').datepicker({ });
+    },
+
+    setPagingControls: function() {
+        var filter =    $('#form_filter');
+        var prev =      $('#form_prev');
+        var next =      $('#form_next');
+        var limit =     $('#form_limit');
+        var page =      $('#form_page');
+        if (limit.length) {
+            limit[0].outerHTML =
+                "<select id=\"form_limit\" name=\"form[limit]\" required=\"required\">" +
+                getLimitOptions(paging.total, limit.val(), paging.limit) +
+                "</select>";
+            limit =     $('#form_limit');
+        }
+
+        if (page.length) {
+            page[0].outerHTML =
+                "<label class=\"sr-only\" for=\"form_page\">Page Control</label>\n" +
+                "<select id=\"form_page\" name=\"form[page\]\" style=\"display:none\">" +
+                getPagingOptions(paging.total, limit.val(), paging.page) +
+                "</select>";
+            page =  $('#form_page');
+        }
+
+        var options =   $('#form_page option');
+
+        if (limit.val() !== '-1') {
+            prev.show();
+            next.show();
+            page.show();
+        }
+
+        limit.change(
+            function() {
+                var form =      $('form[name="form"]');
+                var limit =     $('#form_limit');
+                var options =   $('#form_page option');
+                var prev =      $('#form_prev');
+                var next =      $('#form_next');
+                options.eq(0).prop('selected', true);
+                page.prop('selectedIndex', 0);
+                if (limit.val() !== "-1") {
+                    prev.show();
+                    next.show();
+                    page.show();
+                    options.eq(0).prop('text', '1-' + limit.val());
+                    prev.prop('disabled', 'disabled');
+                    next.prop('disabled', 'disabled');
+                } else {
+                    page.hide();
+                    prev.hide();
+                    next.hide();
+                }
+                page.prop('selectedIndex', 0);
+                form.submit();
+            }
+        );
+        if (paging.page > 0) {
+            prev.prop('disabled', false);
+            prev.click(
+                function () {
+                    var form =      $('form[name="form"]');
+                    var page =      $('#form_page');
+                    var options =   $('#form_page option');
+                    var prev =      $('#form_prev');
+                    var next =      $('#form_next');
+                    prev.prop('disabled', 'disabled');
+                    next.prop('disabled', 'disabled');
+                    options.eq(paging.page - 1).prop('selected', true);
+                    page.prop('selectedIndex', paging.page - 1);
+                    form.submit();
+                    return false;
+                }
+            );
+        } else {
+            prev.prop('disabled', 'disabled');
+        }
+
+        if (paging.page + 1 < options.length) {
+            next.prop('disabled', false);
+            next.click(
+                function() {
+                    var form =      $('form[name="form"]');
+                    var page =      $('#form_page');
+                    var options =   $('#form_page option');
+                    var prev =      $('#form_prev');
+                    var next =      $('#form_next');
+                    prev.prop('disabled', 'disabled');
+                    next.prop('disabled', 'disabled');
+                    options.eq(paging.page + 1).prop('selected', true);
+                    page.prop('selectedIndex', paging.page + 1);
+                    form.submit();
+                    return false;
+                }
+            );
+        } else {
+            next.prop('disabled', 'disabled');
+        }
+
+        page.change(
+            function() {
+                var form =      $('form[name="form"]');
+                var prev =      $('#form_prev');
+                var next =      $('#form_next');
+                prev.prop('disabled', 'disabled');
+                next.prop('disabled', 'disabled');
+                form.submit();
+            }
+        );
+
+        filter.change(
+            function() {
+                var form =      $('form[name="form"]');
+                var page =      $('#form_page');
+                var options =   $('#form_page option');
+                var prev =      $('#form_prev');
+                var next =      $('#form_next');
+                options.eq(0).prop('selected', true);
+                page.prop('selectedIndex', 0);
+                prev.prop('disabled', 'disabled');
+                next.prop('disabled', 'disabled');
+                form.submit();
+            }
+        );
     },
 
     setRegionAction : function(enable) {
@@ -524,141 +659,6 @@ function setExternalLinks() {
         .attr('class', 'hover');
 }
 
-function setFormDatePickers() {
-    $.datepicker.setDefaults({
-        changeMonth: true,
-        changeYear: true,
-        dateFormat: 'yy-mm-dd',
-        yearRange: '1970:+0'
-    });
-    $('.js-datepicker').datepicker({ });
-}
-
-function setFormPagingActions() {
-    var filter =    $('#form_filter');
-    var prev =      $('#form_prev');
-    var next =      $('#form_next');
-    var limit =     $('#form_limit');
-    var page =      $('#form_page');
-    if (limit.length) {
-        limit[0].outerHTML =
-            "<select id=\"form_limit\" name=\"form[limit]\" required=\"required\">" +
-            getLimitOptions(paging.total, limit.val(), paging.limit) +
-            "</select>";
-        limit =     $('#form_limit');
-    }
-
-    if (page.length) {
-        page[0].outerHTML =
-            "<label class=\"sr-only\" for=\"form_page\">Page Control</label>\n" +
-            "<select id=\"form_page\" name=\"form[page\]\" style=\"display:none\">" +
-            getPagingOptions(paging.total, limit.val(), paging.page) +
-            "</select>";
-        page =  $('#form_page');
-    }
-
-    var options =   $('#form_page option');
-
-    if (limit.val() !== '-1') {
-        prev.show();
-        next.show();
-        page.show();
-    }
-
-    limit.change(
-        function() {
-            var form =      $('form[name="form"]');
-            var limit =     $('#form_limit');
-            var options =   $('#form_page option');
-            var prev =      $('#form_prev');
-            var next =      $('#form_next');
-            options.eq(0).prop('selected', true);
-            page.prop('selectedIndex', 0);
-            if (limit.val() !== "-1") {
-                prev.show();
-                next.show();
-                page.show();
-                options.eq(0).prop('text', '1-' + limit.val());
-                prev.prop('disabled', 'disabled');
-                next.prop('disabled', 'disabled');
-            } else {
-                page.hide();
-                prev.hide();
-                next.hide();
-            }
-            page.prop('selectedIndex', 0);
-            form.submit();
-        }
-    );
-    if (paging.page > 0) {
-        prev.prop('disabled', false);
-        prev.click(
-            function () {
-                var form =      $('form[name="form"]');
-                var page =      $('#form_page');
-                var options =   $('#form_page option');
-                var prev =      $('#form_prev');
-                var next =      $('#form_next');
-                prev.prop('disabled', 'disabled');
-                next.prop('disabled', 'disabled');
-                options.eq(paging.page - 1).prop('selected', true);
-                page.prop('selectedIndex', paging.page - 1);
-                form.submit();
-                return false;
-            }
-        );
-    } else {
-        prev.prop('disabled', 'disabled');
-    }
-
-    if (paging.page + 1 < options.length) {
-        next.prop('disabled', false);
-        next.click(
-            function() {
-                var form =      $('form[name="form"]');
-                var page =      $('#form_page');
-                var options =   $('#form_page option');
-                var prev =      $('#form_prev');
-                var next =      $('#form_next');
-                prev.prop('disabled', 'disabled');
-                next.prop('disabled', 'disabled');
-                options.eq(paging.page + 1).prop('selected', true);
-                page.prop('selectedIndex', paging.page + 1);
-                form.submit();
-                return false;
-            }
-        );
-    } else {
-        next.prop('disabled', 'disabled');
-    }
-
-    page.change(
-        function() {
-            var form =      $('form[name="form"]');
-            var prev =      $('#form_prev');
-            var next =      $('#form_next');
-            prev.prop('disabled', 'disabled');
-            next.prop('disabled', 'disabled');
-            form.submit();
-        }
-    );
-
-    filter.change(
-        function() {
-            var form =      $('form[name="form"]');
-            var page =      $('#form_page');
-            var options =   $('#form_page option');
-            var prev =      $('#form_prev');
-            var next =      $('#form_next');
-            options.eq(0).prop('selected', true);
-            page.prop('selectedIndex', 0);
-            prev.prop('disabled', 'disabled');
-            next.prop('disabled', 'disabled');
-            form.submit();
-        }
-    );
-}
-
 function copyToClipboard(text) {
     var temp = $("<textarea>");
     $("body").append(temp);
@@ -749,7 +749,7 @@ var logSessions = {
         logSessions.baseUrl = baseUrl;
         $(document).ready(function () {
             setExternalLinks();
-            setFormPagingActions();
+            COMMON_FORM.setPagingControls();
             setColumnSortActions();
             setColumnSortedClass();
             setClippedCellTitles();
@@ -920,12 +920,12 @@ var LMap = {
     }
 };
 
-var listenersForm = {
+var LISTENERS_FORM = {
     init : function(resultsCount) {
         $(document).ready(function () {
-            var c = commonForm;
-            var l = listenersForm;
-            setFormPagingActions();
+            var c = COMMON_FORM;
+            var l = LISTENERS_FORM;
+            c.setPagingControls();
             c.setTypesStyles();
             c.setTypesDefault();
             $('#form_timezone').selectmenu();
@@ -1010,8 +1010,9 @@ var listenersForm = {
             if (!confirm(msg.reset + "\n" + msg.cookie.reset)) {
                 return false;
             }
-            var c = commonForm;
-            var l = listenersForm;
+            COOKIE.clear('listenersForm', '/');
+            var c = COMMON_FORM;
+            var l = LISTENERS_FORM;
             $('fieldset#form_type div :checkbox').prop('checked', false);
             $('fieldset#form_type div :checkbox[value=NDB]').prop('checked', true);
             $('#form_q').val('');
@@ -1041,7 +1042,7 @@ var listenersForm = {
     setSaveAction: function() {
         $('#form_save').click(function(){
             if (confirm(msg.cookie.save + "\n" + msg.cookie.usesCookie)) {
-                var value = shareableLink.listenersUrl().split('?')[1];
+                var value = shareableLink.listenersUrl(false).split('?')[1];
                 COOKIE.set('listenersForm', value, '/');
                 alert(msg.cookie.saved);
             }
@@ -1505,7 +1506,7 @@ var LOG_EDIT = {
         LOG_EDIT.initListenersSelector(listeners);
         LOG_EDIT.initSignalsSelector(signals);
         LOG_EDIT.initTimeControl();
-        setFormDatePickers();
+        COMMON_FORM.setDatePickerActions();
     },
 
     initListenersSelector: function(data) {
@@ -2349,13 +2350,13 @@ var SMap = {
     }
 };
 
-var signalsForm = {
+var SIGNALS_FORM = {
     init : function(resultsCount) {
         $(document).ready( function() {
-            var c = commonForm;
-            var s = signalsForm;
+            var c = COMMON_FORM;
+            var s = SIGNALS_FORM;
             if (resultsCount) {
-                setFormPagingActions();
+                c.setPagingControls();
             }
             s.setPersonaliseAction();
             s.setOffsetsAction();
@@ -2382,7 +2383,7 @@ var signalsForm = {
             s.setSaveAction();
             s.setResetAction();
 
-            setFormDatePickers();
+            c.setDatePickerActions();
             setColumnSortActions();
             setColumnSortedClass();
             if (resultsCount) {
@@ -2523,7 +2524,7 @@ var signalsForm = {
             $('#form_heard_in').val(function (_, val) {
                 return val.toUpperCase();
             });
-            $.each(signalsForm.ituSps, function(itu, sps){
+            $.each(SIGNALS_FORM.ituSps, function(itu, sps){
                 var field = $('#form_heard_in')
                 var heardIn = field.val();
                 if (heardIn.indexOf(itu) >= 0) {
@@ -2630,8 +2631,8 @@ var signalsForm = {
                 return false;
             }
             COOKIE.clear('signalsForm', '/');
-            var c = commonForm;
-            var s = signalsForm;
+            var c = COMMON_FORM;
+            var s = SIGNALS_FORM;
             var form_range_gsq = $('#form_range_gsq');
             var form_range_min = $('#form_range_min');
             s.setAdminAction(false);
@@ -2755,7 +2756,7 @@ var SIGNALS = {
             var c, cols, html, i, id, j, key, row, s, tde, tds, title, value;
             html = [];
             paging = data.results;
-            setFormPagingActions();
+            COMMON_FORM.setPagingControls();
             setFormPagingStatus(msg.paging_s, paging.total);
 
             SIGNALS.setHeadingTitle(data);
@@ -3881,7 +3882,7 @@ function GMST0( dayDiff ) {
 
 function initUsersForm(pagingMsg, resultsCount) {
     $(document).ready( function() {
-        setFormPagingActions();
+        COMMON_FORM.setPagingControls();
 
         setColumnSortActions();
         setColumnSortedClass();

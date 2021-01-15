@@ -507,12 +507,6 @@ EOD;
                 ->andWhere('(l.lat != 0 OR l.lon !=0)');
         }
 
-        if (isset($args['limit']) && (int)$args['limit'] !== -1 && isset($args['page']) && isset($args['show']) && $args['show'] !== 'map') {
-            $qb
-                ->setFirstResult((int)$args['page'] * (int)$args['limit'])
-                ->setMaxResults($args['limit']);
-        }
-
         if (isset($args['sort']) && ($this->listenersColumns[$args['sort']]['sort'] ?? false)) {
             switch ($args['sort']) {
                 case 'name':
@@ -550,6 +544,12 @@ EOD;
                     break;
             }
         }
+        if ((int)$args['limit'] !== -1) {
+            $qb
+                ->setFirstResult((int)$args['page'] * (int)$args['limit'])
+                ->setMaxResults($args['limit']);
+        }
+
         $result = $qb->getQuery()->execute();
 
         // Necessary to resolve extra nesting in results caused by extra select to ignore empty fields in sort order

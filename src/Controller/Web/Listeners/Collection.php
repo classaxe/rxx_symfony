@@ -80,7 +80,7 @@ class Collection extends Base
             $cookies = $request->cookies;
             if ($cookies && $cookies->has('listenersForm')) {
                 parse_str($cookies->get('listenersForm'), $cookieParams);
-                $this->setArgsFromRequest($args, $cookieParams);
+                $this->setArgsFromRequest($args, $cookieParams, false);
             }
         } else {
             $this->setArgsFromRequest($args, $request);
@@ -151,9 +151,9 @@ class Collection extends Base
         return $this->render('listeners/index.html.twig', $this->getMergedParameters($parameters));
     }
 
-    private function setArgsFromRequest(&$args, $request)
+    private function setArgsFromRequest(&$args, $request, $withPageNumber = true)
     {
-        $this->setPagingFromRequest($args, $request);
+        $this->setPagingFromRequest($args, $request, $withPageNumber);
         $this->setTypeFromRequest($args, $request);
         $this->setRegionFromRequest($args, $request);
         if ($args['isAdmin']) {

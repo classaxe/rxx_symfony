@@ -352,7 +352,7 @@ var LOG_EDIT = {
         LOG_EDIT.initListenersSelector(listeners);
         LOG_EDIT.initSignalsSelector(signals);
         LOG_EDIT.initTimeControl();
-        setFormDatePickers();
+        COMMON_FORM.setDatePickerActions();
     },
 
     initListenersSelector: function(data) {

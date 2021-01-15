@@ -318,7 +318,7 @@ class Base extends AbstractController
         }
 
     }
-    protected function setPagingFromRequest(&$args, $request)
+    protected function setPagingFromRequest(&$args, $request, $withPageNumber = true)
     {
         $limits = [ -1, 10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 100000, 20000, 50000, 100000 ];
         $this->setValueFromRequest($args, $request, 'limit', $limits);
@@ -327,7 +327,7 @@ class Base extends AbstractController
         $this->setValueFromRequest($args, $request, 'order', $orders, 'a');
 
         $value = $this->getValueFromRequestOrCookie($request, 'page');
-        if ($page = (int)$value) {
+        if ($withPageNumber && $page = (int)$value) {
             if ($page >= 0) {
                 $args['page'] = $page;
             }
