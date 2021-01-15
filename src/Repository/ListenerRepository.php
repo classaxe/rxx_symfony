@@ -23,6 +23,7 @@ class ListenerRepository extends ServiceEntityRepository
     const defaultSorting =  'name';
 
     private $connection;
+    private $optionsCache = [];
 
     private $tabs = [
         ['listener', 'Profile'],
@@ -422,58 +423,59 @@ EOD;
     }
 
     public function getAllOptions(
-        $system = false,
-        $region = false,
+        $system = 0,
+        $region = 0,
         $placeholder = false,
         $simple = false
     ) {
-        $qb =
-            $this
-                ->createQueryBuilder('l')
-                ->select('l')
-                ->addOrderBy('l.name', 'ASC')
-                ->addOrderBy('l.primaryQth', 'DESC')
-        ;
-        $this->addFilterSystem($qb, $system);
-        if ($region) {
-            $qb
-                ->andWhere('(l.region = :region)')
-                ->setParameter('region', $region);
+        if (!isset($this->optionsCache[$system . '|'. $region])) {
+            $qb =
+                $this
+                    ->createQueryBuilder('l')
+                    ->select('l.id, l.name, l.qth, l.sp, l.itu, l.gsq, l.primaryQth, l.callsign')
+                    ->addOrderBy('l.name', 'ASC')
+                    ->addOrderBy('l.primaryQth', 'DESC');
+            $this->addFilterSystem($qb, $system);
+            if ($region) {
+                $qb
+                    ->andWhere('(l.region = :region)')
+                    ->setParameter('region', $region);
+            }
+            $this->optionsCache[$system . '|' . $region] = $qb->getQuery()->execute();
         }
 
-        $result = $qb->getQuery()->execute();
-
+        $result = $this->optionsCache[$system . '|'. $region];
         if ($placeholder) {
             $out = [ $placeholder => '' ];
         }
         foreach ($result as $row) {
             if ($simple) {
                 $out[
-                    ($row->getPrimaryQth() ? '' : html_entity_decode('&nbsp; '))
+                    ($row['primaryQth'] ? '' : html_entity_decode('&nbsp; '))
                     . " "
-                    . html_entity_decode($row->getName())
+                    . html_entity_decode($row['name'])
                     . ", "
-                    . html_entity_decode($row->getQth())
-                    . ($row->getSp() ? " " . $row->getSp() : "")
+                    . html_entity_decode($row['qth'])
+                    . ($row['sp'] ? ' ' . $row['sp'] : '')
                     . " "
-                    . $row->getItu()
-                    . ($row->getGsq() ? ' | ' . $row->getGsq() : '')
-                ] = $row->getId();
+                    . $row['itu']
+                    . ($row['gsq'] ? ' | ' . $row['gsq'] : '')
+                ] = $row['id'];
             } else {
                 $out[
                     Rxx::pad_dot(
-                        ($row->getPrimaryQth() ? "" : ". ")
-                        . $row->getName()
+                        ($row['primaryQth'] ? "" : ". ")
+                        . $row['name']
                         . ", "
-                        . $row->getQth()
+                        . $row['qth']
                         . " "
-                        . $row->getCallsign(),
+                        . $row['callsign'],
                         55
                     )
-                    . ($row->getSp() ? " " . $row->getSp() : "...")
+                    . ($row['sp'] ? " " . $row['sp'] : "...")
                     . " "
-                    . $row->getItu()
-                ] = $row->getId();
+                    . $row['itu']
+                ] = $row['id'];
             }
         }
         return $out;

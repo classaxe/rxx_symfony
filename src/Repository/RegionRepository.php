@@ -8,6 +8,8 @@ use Doctrine\Persistence\ManagerRegistry;
 
 class RegionRepository extends ServiceEntityRepository
 {
+    private $cacheOne = [];
+    private $cacheMany = [];
     private $country;
 
     public function __construct(
@@ -18,14 +20,18 @@ class RegionRepository extends ServiceEntityRepository
         $this->country = $country;
     }
 
-    public function get($code)
+    public function getOne($code)
     {
-        return $this
+        if (isset($this->cacheOne[$code])) {
+            return $this->cacheOne[$code];
+        }
+        $this->cache[$code] = $this
             ->createQueryBuilder('region')
             ->andWhere('region.region = :region')
             ->setParameter('region', $code)
             ->getQuery()
             ->getSingleResult();
+        return $this->cacheOne[$code];
     }
 
     public function getAllOptions($withUnknown = true)
@@ -53,8 +59,10 @@ class RegionRepository extends ServiceEntityRepository
 
     public function getRegions($regions = null)
     {
-        $qb = $this
-            ->createQueryBuilder('r');
+        if (isset($this->cacheMany[$regions])) {
+            return $this->cacheMany[$regions];
+        }
+        $qb = $this->createQueryBuilder('r');
         if ($regions) {
             $qb
                 ->andWhere(
@@ -63,10 +71,10 @@ class RegionRepository extends ServiceEntityRepository
                 ->setParameter('region', explode(',', $regions))
             ;
         }
-        return
-            $qb
-                ->orderBy('r.name', 'ASC')
-                ->getQuery()
-                ->execute();
+        $this->cacheMany[$regions] = $qb
+            ->orderBy('r.name', 'ASC')
+            ->getQuery()
+            ->execute();
+        return $this->cacheMany[$regions];
     }
 }

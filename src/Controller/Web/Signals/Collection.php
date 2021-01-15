@@ -56,6 +56,7 @@ class Collection extends Base
             'order' =>          $this->signalRepository::defaultOrder,
             'page' =>           $this->signalRepository::defaultPage,
             'sort' =>           $this->signalRepository::defaultSorting,
+            'total' =>          0,
 
             'active' =>         '',
             'call' =>           '',
@@ -107,7 +108,6 @@ class Collection extends Base
         foreach (['logged_date_1', 'logged_date_2', 'logged_first_1', 'logged_first_2', 'logged_last_1', 'logged_last_2'] as $arg) {
             $this->args[$arg] = $this->args[$arg] ? new DateTime($this->args[$arg]) : null;
         }
-        $this->args['total'] =        $this->signalRepository->getFilteredSignalsCount($system, $this->args); // forces paging - will be made accurate later on
         $form = $form->buildForm($this->createFormBuilder(), $this->args);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -122,8 +122,13 @@ class Collection extends Base
         $this->args['isAdmin'] =      $this->isAdmin;
         $this->args['signalTypes'] =  $this->typeRepository->getSignalTypesSearched($this->args['type']);
         $paper =                isset($this->args['paper']) ? $this->paperRepository->getSpecifications($this->args['paper']) : false;
-        $signals =              $this->signalRepository->getFilteredSignals($system, $this->args);
-        $total =                $this->signalRepository->getFilteredSignalsCount($system, $this->args);
+        if (in_array($this->args['show'], ['', 'list'])) {
+            $signals =  [];
+            $total =    0;
+        } else {
+            $signals =  $this->signalRepository->getFilteredSignals($system, $this->args);
+            $total =    $this->signalRepository->getFilteredSignalsCount($system, $this->args);
+        }
         $seeklistStats =        [];
         $seeklistColumns =      [];
         if ('seeklist' === $this->args['show']) {
@@ -199,8 +204,8 @@ class Collection extends Base
             'paper' =>              $paper,
             'paperChoices' =>       $this->paperRepository->getAllChoices(),
             'personalise' =>       [
-                'id' =>     $this->args['personalise'] ?? false,
-                'name' =>   (isset($this->args['personalise']) ? $this->listenerRepository->getDescription($this->args['personalise']) : '')
+                'id' =>     ($this->args['personalise'] ?? false),
+                'name' =>   ($this->args['personalise'] ?? false) ? $this->listenerRepository->getDescription($this->args['personalise']) : ''
             ],
             'results' => [
                 'limit' =>              isset($this->args['limit']) ? $this->args['limit'] : $this->signalRepository::defaultlimit,
@@ -299,7 +304,7 @@ class Collection extends Base
                 'unlogged' =>   (int) $stats['signals_unlogged'],
             ],
             'listeners' => [
-                'focus' =>      ($args['rww_focus'] ? $this->regionRepository->get($args['rww_focus'])->getName() : ''),
+                'focus' =>      ($args['rww_focus'] ? $this->regionRepository->getOne($args['rww_focus'])->getName() : ''),
                 'locations' =>  (int) $stats['listeners_' . $system . ($args['rww_focus'] ? '_' . $args['rww_focus'] : '')],
                 'logs' =>       (int) $stats['logs_' . $system . ($args['rww_focus'] ? '_' . $args['rww_focus'] : '')],
                 'first' =>      $stats['log_first_' . $system . ($args['rww_focus'] ? '_' . $args['rww_focus'] : '')],

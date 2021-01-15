@@ -1,9 +1,11 @@
 var signalsForm = {
-    init : function(pagingMsg, resultsCount, forAjax) {
+    init : function(resultsCount) {
         $(document).ready( function() {
             var c = commonForm;
             var s = signalsForm;
-            setFormPagingActions();
+            if (resultsCount) {
+                setFormPagingActions();
+            }
             s.setPersonaliseAction();
             s.setOffsetsAction();
             s.setRangeAction();
@@ -32,19 +34,13 @@ var signalsForm = {
             setFormDatePickers();
             setColumnSortActions();
             setColumnSortedClass();
-            setFormPagingStatus(pagingMsg, resultsCount);
+            if (resultsCount) {
+                setFormPagingStatus(msg.paging_s, resultsCount);
+            }
 
             s.setActions();
             s.setFocusOnCall();
             s.showStats();
-
-            if (forAjax) {
-                return;
-            }
-
-            setExternalLinks();
-            scrollToResults();
-            RT.init($('#wide'), $('#narrow'));
 
         });
     },
@@ -407,12 +403,22 @@ var SIGNALS = {
         $.get(url, function(data) {
             var c, cols, html, i, id, j, key, row, s, tde, tds, title, value;
             html = [];
+            paging = data.results;
+            setFormPagingActions();
+            setFormPagingStatus(msg.paging_s, paging.total);
+
             SIGNALS.setHeadingTitle(data);
             SIGNALS.setHeadingPersonalise(data)
             for (i = 0; i<data.types.length; i++) {
                 $('#ref_type_' + data.types[i]).show();
             }
             cols = data.columns;
+            if (data.signals.length === 0) {
+                $( "#signals_list").html(
+                    "<tr><th class='no-results' colspan='" + cols.length + "'>" + "No signals found matching your criteria" + "</th></tr>"
+                );
+                return;
+            }
             for (i = 0; i<data.signals.length; i++) {
                 s = data.signals[i];
                 row = '<tr class="' +
@@ -486,7 +492,6 @@ var SIGNALS = {
                 html.push(row);
             }
             $( "#signals_list" ).html( html.join(''));
-
             setExternalLinks();
             scrollToResults()
             RT.init($('#wide'), $('#narrow'));

@@ -299,6 +299,7 @@ function setFormPagingActions() {
         }
     );
     if (paging.page > 0) {
+        prev.prop('disabled', false);
         prev.click(
             function () {
                 var form =      $('form[name="form"]');
@@ -319,6 +320,7 @@ function setFormPagingActions() {
     }
 
     if (paging.page + 1 < options.length) {
+        next.prop('disabled', false);
         next.click(
             function() {
                 var form =      $('form[name="form"]');

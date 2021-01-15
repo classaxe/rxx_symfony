@@ -1,5 +1,5 @@
 var listenersForm = {
-    init : function(pagingMsg, resultsCount) {
+    init : function(resultsCount) {
         $(document).ready(function () {
             var c = commonForm;
             var l = listenersForm;
@@ -23,7 +23,7 @@ var listenersForm = {
             setColumnSortActions();
             setColumnSortedClass();
             setExternalLinks();
-            setFormPagingStatus(pagingMsg, resultsCount);
+            setFormPagingStatus(msg.paging_l, resultsCount);
             scrollToResults();
             RT.init($('#wide'), $('#narrow'));
         });
