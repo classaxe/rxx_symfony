@@ -1,7 +1,7 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.28.6
+ * Version:    2.28.7
  * Date:       2021-01-15
  * Licence:    LGPL
  * Copyright:  2021 Martin Francis
@@ -2751,15 +2751,15 @@ var SIGNALS = {
     load: function(args) {
         var url = shareableLink.signalsUrl() + '&show=json';
         $.get(url, function(data) {
-            var c, cols, html, i, id, j, key, paging, row, s, tde, tds, title, value;
+            var c, cols, html, i, id, j, key, row, s, tde, tds, title, value;
             html = [];
-            paging = data.results;
+            paging = data.results;  // Global object set in paging.html.twig
             cols = data.columns;
-            COMMON_FORM.setPagingControls();
-            setFormPagingStatus(msg.paging_s, paging.total);
 
             SIGNALS.setHeadingTitle(data);
             SIGNALS.setHeadingPersonalise(data);
+            COMMON_FORM.setPagingControls();
+            setFormPagingStatus(msg.paging_s, paging.total);
             html.push('<tr>');
             if (data.personalise.id) {
                 html.push('<th class="txt_vertical nosort rowspan2 th"><div>Logged</div></th>');

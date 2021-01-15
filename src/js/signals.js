@@ -401,13 +401,13 @@ var SIGNALS = {
         $.get(url, function(data) {
             var c, cols, html, i, id, j, key, row, s, tde, tds, title, value;
             html = [];
-            paging = data.results;
+            paging = data.results;  // Global object set in paging.html.twig
             cols = data.columns;
-            COMMON_FORM.setPagingControls();
-            setFormPagingStatus(msg.paging_s, paging.total);
 
             SIGNALS.setHeadingTitle(data);
             SIGNALS.setHeadingPersonalise(data);
+            COMMON_FORM.setPagingControls();
+            setFormPagingStatus(msg.paging_s, paging.total);
             html.push('<tr>');
             if (data.personalise.id) {
                 html.push('<th class="txt_vertical nosort rowspan2 th"><div>Logged</div></th>');

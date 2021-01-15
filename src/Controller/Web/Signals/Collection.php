@@ -210,7 +210,7 @@ class Collection extends Base
             'results' => [
                 'limit' =>              isset($this->args['limit']) ? $this->args['limit'] : $this->signalRepository::defaultlimit,
                 'page' =>               isset($this->args['page']) ? $this->args['page'] : 0,
-                'total' =>              $total
+                'total' =>              (int) $total
             ],
             'seeklistColumns' =>    $seeklistColumns,
             'seeklistStats' =>      $seeklistStats,
