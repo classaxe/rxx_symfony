@@ -8,11 +8,11 @@
             <div id="form">
                 {{ form_widget(form.paper) }}
                 {{ form_widget(form.show) }}
-                <fieldset class="section">
+                <fieldset class='section' style='display:none' id='paging'>
 {% include 'forms/paging.html.twig' %}
                 </fieldset>
                 <fieldset class="section">
-                    <legend class="line">{% trans %}Signal Details{% endtrans %}</legend>
+                    <legend id="signalDetails">{% trans %}Signal Details{% endtrans %}</legend>
                     {% if system == 'rww' %}
                         {{ form_row(form.rww_focus) }}
                     {% endif %}

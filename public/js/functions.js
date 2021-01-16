@@ -1,7 +1,7 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.28.7
+ * Version:    2.28.8
  * Date:       2021-01-15
  * Licence:    LGPL
  * Copyright:  2021 Martin Francis
@@ -2365,7 +2365,7 @@ var SIGNALS_FORM = {
             s.setHeardIn();
             s.setSortByAction();
             s.setSortZaAction();
-            s.setShowModeAction();
+            s.setPaperSizeAction();
 
             s.setRwwFocusAction();
             c.setTypesStyles();
@@ -2698,7 +2698,7 @@ var SIGNALS_FORM = {
         });
     },
 
-    setShowModeAction: function() {
+    setPaperSizeAction: function() {
         $('#seeklist_paper')
             .change(function() {
                 $('#form_paper').val($('#seeklist_paper option:selected').val());
@@ -2748,7 +2748,7 @@ var SIGNALS_FORM = {
 }
 
 var SIGNALS = {
-    load: function(args) {
+    loadList: function(args) {
         var url = shareableLink.signalsUrl() + '&show=json';
         $.get(url, function(data) {
             var c, cols, html, i, id, j, key, row, s, tde, tds, title, value;
@@ -2760,6 +2760,8 @@ var SIGNALS = {
             SIGNALS.setHeadingPersonalise(data);
             COMMON_FORM.setPagingControls();
             setFormPagingStatus(msg.paging_s, paging.total);
+            $('#signalDetails').addClass('line')
+            $('#paging').show();
             html.push('<tr>');
             if (data.personalise.id) {
                 html.push('<th class="txt_vertical nosort rowspan2 th"><div>Logged</div></th>');
@@ -2866,6 +2868,14 @@ var SIGNALS = {
             scrollToResults()
             RT.init($('#wide'), $('#narrow'));
         });
+    },
+    loadMap: function() {
+        $('#signalDetails').addClass('line')
+        $('#paging').show();
+    },
+    loadSeeklist: function() {
+        $('#signalDetails').removeClass('line')
+        $('#paging').hide();
     },
     setHeadingPersonalise: function(data) {
         if (!data.personalise.name) {
