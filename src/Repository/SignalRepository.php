@@ -15,6 +15,14 @@ use PDO;
 
 class SignalRepository extends ServiceEntityRepository
 {
+    const dateFields = [
+        'logged_date_1',
+        'logged_date_2',
+        'logged_first_1',
+        'logged_first_2',
+        'logged_last_1',
+        'logged_last_2'
+    ];
     const defaultlimit =    50;
     const defaultOrder =    'a';
     const defaultPage =     0;
@@ -964,13 +972,13 @@ EOD;
         return $record[0]['type'];
     }
 
-    public static function getSeeklistColumns($signals, $paper)
+    public static function getSeeklistTabulatedData($signals, $paper)
     {
         $col = 0;
         $col_length = 0;
         $old_place = false;
 
-        $columns = [];
+        $data = [];
         foreach ($signals as $s) {
             $place = $s['itu'] . '_' . $s['sp'];
             if ($place !== $old_place) {
@@ -981,13 +989,13 @@ EOD;
                 $col_length = 0;
                 $col++;
             }
-            if (!isset($columns[$col])) {
-                $columns[$col] = [];
+            if (!isset($data[$col])) {
+                $data[$col] = [];
             }
-            $columns[$col][] = $s;
+            $data[$col][] = $s;
             $col_length ++;
         }
-        return $columns;
+        return $data;
     }
 
     public static function getSeeklistStats($signals)

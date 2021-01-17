@@ -1,3 +1,4 @@
+{% if signals|length %}
 <script>
 //<!--
 var box = [{ lat: {{ box[0][0] }}, lon: {{ box[0][1] }}}, { lat: {{ box[1][0] }}, lon: {{ box[1][1] }} }];
@@ -44,6 +45,7 @@ $(document).ready( function() {
 // -->
 </script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCmvsfY0bgnVB-gl_nMHGQ71rp1WTz9tGM&callback=SMap.init"></script>
+{% endif %}
 <div class="row">
     <div class="small-6 text-left"><h2>{{ system|upper }} {% trans %}Signals Map{% endtrans %}</h2></div>
     <div class="small-6 text-right">{% if personalise.id %}<h3>{{ 'Personalised for %s%s%s'|trans|format(
@@ -52,6 +54,7 @@ $(document).ready( function() {
             '</a>'
         )|raw }}</h3>{% endif %}</div>
 </div>
+{% if signals|length %}
 <table class="map_layout">
     <tbody>
     <tr>
@@ -75,7 +78,6 @@ $(document).ready( function() {
                     </table>
                 </div>
             </div>
-            <p class="no-results">{% trans %}(No signals found matching your criteria){% endtrans %}</p>
         </td>
         <td>
             <div class="content map">
@@ -122,3 +124,6 @@ $(document).ready( function() {
     </tr>
     </tbody>
 </table>
+{% else %}
+    <p class="no-results">{% trans %}(No signals found matching your criteria){% endtrans %}</p>
+{% endif %}

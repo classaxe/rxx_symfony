@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.28.8
- * Date:       2021-01-15
+ * Version:    2.29.0
+ * Date:       2021-01-17
  * Licence:    LGPL
  * Copyright:  2021 Martin Francis
  */
@@ -2749,7 +2749,7 @@ var SIGNALS_FORM = {
 
 var SIGNALS = {
     loadList: function(args) {
-        var url = shareableLink.signalsUrl() + '&show=json';
+        var url = shareableLink.signalsUrl() + '&show=list';
         $.get(url, function(data) {
             var c, cols, html, i, id, j, key, row, s, tde, tds, title, value;
             html = [];

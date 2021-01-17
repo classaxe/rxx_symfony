@@ -1,11 +1,11 @@
 {% set itu, sp = '', ''  %}
-{% set pages = (seeklistColumns|length / paper.cols)|round(0, 'ceil') %}
+{% set pages = (seeklistData|length / pageLayout.cols)|round(0, 'ceil') %}
 {% if pages == 0 %}{% set pages = 1 %}{% endif %}
 {% for page in range(1, pages) %}
     <table class="seeklist">
         <thead>
             <tr class="sl_1">
-                <td colspan="{{ paper.cols }}">
+                <td colspan="{{ pageLayout.cols }}">
                     <div class="row">
                         <h2 class="small-{{ personalise ? 2 : 6 }} text-left">{{ '%s Seeklist'|trans|format(system|upper) }}</h2>
                         {% if personalise.id %}<h3 class="small-8 text-center">
@@ -20,7 +20,7 @@
                 </td>
             </tr>
             <tr class="sl_2">
-                <td colspan="{{ paper.cols }}" class="head">
+                <td colspan="{{ pageLayout.cols }}" class="head">
                     <div class="row">
                         <div class="small-6 text-left">
                         {% if page == 1 %}
@@ -65,11 +65,11 @@
         </thead>
         <tbody>
             <tr>
-            {% if seeklistColumns|length %}
-            {% for col in range(1, paper.cols) %}
-                <td style="vertical-align: top; width: {{ (100/paper.cols)|round(2) }}%">
-                {% if seeklistColumns|length >= (col) + ((page -1) * paper.cols) %}
-                    {% for signal in seeklistColumns[ (col) + ((page -1) * paper.cols) - 1] %}
+            {% if seeklistData|length %}
+            {% for col in range(1, pageLayout.cols) %}
+                <td style="vertical-align: top; width: {{ (100/pageLayout.cols)|round(2) }}%">
+                {% if seeklistData|length >= (col) + ((page -1) * pageLayout.cols) %}
+                    {% for signal in seeklistData[ (col) + ((page -1) * pageLayout.cols) - 1] %}
                         {% if itu != signal.itu or sp != signal.sp %}
                             {% set itu, sp, key = signal.itu, signal.sp , signal.itu ~ '_' ~ signal.sp %}
                             {% set sl_stats = attribute(seeklistStats, key) %}
@@ -88,7 +88,7 @@
                 </td>
             {% endfor %}
             {% else %}
-                <td colspan="{{ paper.cols }}">
+                <td colspan="{{ pageLayout.cols }}">
                     {% trans %}(No signals found matching your criteria){% endtrans %}
                 </td>
             {% endif %}

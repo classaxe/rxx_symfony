@@ -25,7 +25,7 @@ class RegionRepository extends ServiceEntityRepository
         if (isset($this->cacheOne[$code])) {
             return $this->cacheOne[$code];
         }
-        $this->cache[$code] = $this
+        $this->cacheOne[$code] = $this
             ->createQueryBuilder('region')
             ->andWhere('region.region = :region')
             ->setParameter('region', $code)

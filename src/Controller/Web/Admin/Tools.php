@@ -6,6 +6,7 @@ use App\Controller\Web\Base;
 use Swift_Mailer;
 use Swift_Message;
 use Swift_Transport_EsmtpTransport;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -16,6 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class Tools extends Base
 {
     private $mailer;
+    private $request;
     private $system;
 
     /**
@@ -31,6 +33,7 @@ class Tools extends Base
      * @param $_locale
      * @param $system
      * @param $tool
+     * @param Request $request
      * @param Swift_Mailer $mailer
      * @return Response|void
      */
@@ -38,9 +41,11 @@ class Tools extends Base
         $_locale,
         $system,
         $tool,
+        Request $request,
         Swift_Mailer $mailer
     ) {
         $this->system = $system;
+        $this->request = $request;
         $this->mailer = $mailer;
         if (!$this->parameters['isAdmin']) {
             $this->session->set('route', 'admin/tools');
@@ -151,7 +156,7 @@ class Tools extends Base
 
     private function systemEmailTest()
     {
-        $email = $_REQUEST['email'] ?? '';
+        $email = $this->request->query->get('email') ?? '';
         if ('' === $email) {
             $message = sprintf(
                 $this->i18n('<strong>%s / %s</strong><br />No valid email was provided'),
