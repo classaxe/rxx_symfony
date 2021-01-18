@@ -20,6 +20,12 @@ var COMMON_FORM = {
         $('.js-datepicker').datepicker({ });
     },
 
+    setPagingStatus: function(string, value) {
+        $('#form_paging_status').html(
+            string.replace('%s', value.toLocaleString())
+        );
+    },
+
     setPagingControls: function() {
         var filter =    $('#form_filter');
         var prev =      $('#form_prev');
@@ -36,10 +42,10 @@ var COMMON_FORM = {
 
         if (page.length) {
             page[0].outerHTML =
-                "<label class=\"sr-only\" for=\"form_page\">Page Control</label>\n" +
-                "<select id=\"form_page\" name=\"form[page\]\" style=\"display:none\">" +
+                '<label class="sr-only" for="form_page">Page Control</label>\n' +
+                '<select id="form_page" name="form[page]" style="display:none">' +
                 getPagingOptions(paging.total, limit.val(), paging.page) +
-                "</select>";
+                '</select>';
             page =  $('#form_page');
         }
 

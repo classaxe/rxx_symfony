@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.29.0
- * Date:       2021-01-17
+ * Version:    2.29.1
+ * Date:       2021-01-18
  * Licence:    LGPL
  * Copyright:  2021 Martin Francis
  */
@@ -266,6 +266,12 @@ var COMMON_FORM = {
         $('.js-datepicker').datepicker({ });
     },
 
+    setPagingStatus: function(string, value) {
+        $('#form_paging_status').html(
+            string.replace('%s', value.toLocaleString())
+        );
+    },
+
     setPagingControls: function() {
         var filter =    $('#form_filter');
         var prev =      $('#form_prev');
@@ -282,10 +288,10 @@ var COMMON_FORM = {
 
         if (page.length) {
             page[0].outerHTML =
-                "<label class=\"sr-only\" for=\"form_page\">Page Control</label>\n" +
-                "<select id=\"form_page\" name=\"form[page\]\" style=\"display:none\">" +
+                '<label class="sr-only" for="form_page">Page Control</label>\n' +
+                '<select id="form_page" name="form[page]" style="display:none">' +
                 getPagingOptions(paging.total, limit.val(), paging.page) +
-                "</select>";
+                '</select>';
             page =  $('#form_page');
         }
 
@@ -667,12 +673,6 @@ function copyToClipboard(text) {
     temp.remove();
 }
 
-function setFormPagingStatus(string, value) {
-    $('#form_paging_status').html(
-        string.replace('%s', value.toLocaleString())
-    );
-}
-
 function formSubmit() {
     $('#form_clear').prop('disabled', 'disabled');
     $('#form_save').prop('disabled', 'disabled');
@@ -945,7 +945,7 @@ var LISTENERS_FORM = {
             setColumnSortActions();
             setColumnSortedClass();
             setExternalLinks();
-            setFormPagingStatus(msg.paging_l, resultsCount);
+            c.setPagingStatus(msg.paging_l, resultsCount);
             scrollToResults();
             RT.init($('#wide'), $('#narrow'));
         });
@@ -2355,9 +2355,6 @@ var SIGNALS_FORM = {
         $(document).ready( function() {
             var c = COMMON_FORM;
             var s = SIGNALS_FORM;
-            if (resultsCount) {
-                c.setPagingControls();
-            }
             s.setPersonaliseAction();
             s.setOffsetsAction();
             s.setRangeAction();
@@ -2384,8 +2381,9 @@ var SIGNALS_FORM = {
             s.setResetAction();
 
             c.setDatePickerActions();
-            if (resultsCount) {
-                setFormPagingStatus(msg.paging_s, resultsCount);
+            if (resultsCount !== false) {
+                c.setPagingControls();
+                c.setPagingStatus(msg.paging_s, resultsCount);
             }
 
             s.setActions();
@@ -2759,7 +2757,7 @@ var SIGNALS = {
             SIGNALS.setHeadingTitle(data);
             SIGNALS.setHeadingPersonalise(data);
             COMMON_FORM.setPagingControls();
-            setFormPagingStatus(msg.paging_s, paging.total);
+            COMMON_FORM.setPagingStatus(msg.paging_s, paging.total);
             $('#signalDetails').addClass('line')
             $('#paging').show();
             html.push('<tr>');
@@ -2861,7 +2859,7 @@ var SIGNALS = {
                 row += "</tr>";
                 html.push(row);
             }
-            $( "#signals_list" ).html( html.join('\n'));
+            $('#signals_list').html( html.join('\n'));
             setColumnSortActions();
             setColumnSortedClass();
             setExternalLinks();
@@ -2920,7 +2918,7 @@ var SIGNAL_MERGE = {
         var element, i, out, r, s;
         element = $('#form_signalId');
         s  = element.val();
-        out = "<select id=\"form_signalId\" name=\"form[signalId]\" required=\"required\" size=\"10\">\n";
+        out = '<select id="form_signalId" name="form[signalId]" required="required" size="10">\n';
         for (i in data) {
             r = data[i].split('|');
             out +=
@@ -3916,7 +3914,7 @@ function initUsersForm(pagingMsg, resultsCount) {
         setColumnSortedClass();
         setExternalLinks();
 
-        setFormPagingStatus(pagingMsg, resultsCount);
+        COMMON_FORM.setPagingStatus(pagingMsg, resultsCount);
         setUserActions();
     });
 }

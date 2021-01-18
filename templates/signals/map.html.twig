@@ -1,6 +1,17 @@
-{% if signals|length %}
 <script>
 //<!--
+$(document).ready( function() {
+    $('#map').height($(window).height() - 120);
+    $('#scrollablelist').height($('#map').height() + 40);
+    $(window).resize(function () {
+        $('#map').height($(window).height() - 120);
+        $('#scrollablelist').height($('#map').height() + 40);
+    });
+    SIGNALS_FORM.init({{ results.total }});
+    SIGNALS.loadMap();
+});
+
+{% if signals|length %}
 var box = [{ lat: {{ box[0][0] }}, lon: {{ box[0][1] }}}, { lat: {{ box[1][0] }}, lon: {{ box[1][1] }} }];
 var center = { lat: {{ center[0] }}, lon: {{ center[1] }} };
 
@@ -32,18 +43,10 @@ var signals = [
 ];
 
 var types = [ {{ types|keys|join(', ') }} ];
-
-$(document).ready( function() {
-    $('#map').height($(window).height() - 120);
-    $('#scrollablelist').height($('#map').height() + 40);
-    $(window).resize(function () {
-        $('#map').height($(window).height() - 120);
-        $('#scrollablelist').height($('#map').height() + 40);
-    });
-    SIGNALS.loadMap();
-});
+{% endif %}
 // -->
 </script>
+{% if signals|length %}
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCmvsfY0bgnVB-gl_nMHGQ71rp1WTz9tGM&callback=SMap.init"></script>
 {% endif %}
 <div class="row">

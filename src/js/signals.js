@@ -3,9 +3,6 @@ var SIGNALS_FORM = {
         $(document).ready( function() {
             var c = COMMON_FORM;
             var s = SIGNALS_FORM;
-            if (resultsCount) {
-                c.setPagingControls();
-            }
             s.setPersonaliseAction();
             s.setOffsetsAction();
             s.setRangeAction();
@@ -32,8 +29,9 @@ var SIGNALS_FORM = {
             s.setResetAction();
 
             c.setDatePickerActions();
-            if (resultsCount) {
-                setFormPagingStatus(msg.paging_s, resultsCount);
+            if (resultsCount !== false) {
+                c.setPagingControls();
+                c.setPagingStatus(msg.paging_s, resultsCount);
             }
 
             s.setActions();
@@ -407,7 +405,7 @@ var SIGNALS = {
             SIGNALS.setHeadingTitle(data);
             SIGNALS.setHeadingPersonalise(data);
             COMMON_FORM.setPagingControls();
-            setFormPagingStatus(msg.paging_s, paging.total);
+            COMMON_FORM.setPagingStatus(msg.paging_s, paging.total);
             $('#signalDetails').addClass('line')
             $('#paging').show();
             html.push('<tr>');
@@ -509,7 +507,7 @@ var SIGNALS = {
                 row += "</tr>";
                 html.push(row);
             }
-            $( "#signals_list" ).html( html.join('\n'));
+            $('#signals_list').html( html.join('\n'));
             setColumnSortActions();
             setColumnSortedClass();
             setExternalLinks();
@@ -568,7 +566,7 @@ var SIGNAL_MERGE = {
         var element, i, out, r, s;
         element = $('#form_signalId');
         s  = element.val();
-        out = "<select id=\"form_signalId\" name=\"form[signalId]\" required=\"required\" size=\"10\">\n";
+        out = '<select id="form_signalId" name="form[signalId]" required="required" size="10">\n';
         for (i in data) {
             r = data[i].split('|');
             out +=

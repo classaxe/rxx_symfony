@@ -15,16 +15,17 @@ use Symfony\Component\HttpFoundation\Request;
 class Collection extends Base
 {
     private $args;
+    private $expandedSections = [];
     private $isAdmin;
-    private $mapBox =           [[0,0], [0,0]];
-    private $mapCenter =        [0,0];
+    private $mapBox =           [];
+    private $mapCenter =        [];
     private $pageLayout =       [];
     private $request;
     private $seeklistData =     [];
     private $seeklistStats =    [];
     private $signals =          [];
     private $system;
-    private $total =            0;
+    private $total =            false;
 
     /**
      * @Route(
@@ -42,7 +43,7 @@ class Collection extends Base
      * @return Response
      * @throws Exception
      */
-    public function controller(
+    public function signals(
         $_locale,
         $system,
         Request $request,
@@ -68,17 +69,7 @@ class Collection extends Base
         }
         $this->setMapViewport();
         $this->setHighlighting();
-
-        $expanded = [];
-        foreach ($this->signalRepository::collapsable_sections as $section => $fields) {
-            $expanded[$section] = 0;
-            foreach ($fields as $field) {
-                if ($this->args[$field]) {
-                    $expanded[$section] = 1;
-                    break;
-                }
-            }
-        }
+        $this->setExpandedSections();
         $this->setSeeklistFormattedLayout();
         $parameters = [
             '_locale' =>            $_locale,
@@ -87,7 +78,7 @@ class Collection extends Base
             'center' =>             $this->mapCenter,
             'classic' =>            $this->systemRepository->getClassicUrl('signals', $this->args['show']),
             'columns' =>            $this->signalRepository->getColumns('signals'),
-            'expanded' =>           $expanded,
+            'expanded' =>           $this->expandedSections,
             'form' =>               $form->createView(),
             'isAdmin' =>            $this->isAdmin,
             'mode' =>               $this->i18n('Signals'),
@@ -115,40 +106,105 @@ class Collection extends Base
             'types' =>              $this->typeRepository->getAll(),
             'typeRepository' =>     $this->typeRepository
         ];
+
         if (isset($this->args['show']) && $this->args['show'] === 'csv') {
-            $response = $this->render("signals/export/signals.csv.twig", $this->getMergedParameters($parameters));
-            $response->headers->set('Content-Type', 'text/plain');
-            $response->headers->set('Content-Disposition',"attachment;filename={$this->system}_signals.csv");
-            return $response;
-        }
-        if ($this->request->isXmlHttpRequest() && isset($this->args['show']) && $this->args['show'] === 'list') {
-            $title = ($this->isAdmin && $this->args['admin_mode'] === '1' ? 1 : ($this->isAdmin && $this->args['admin_mode'] === '2' ? 2 : 0));
-            return $this->json([
-                'args' =>           $this->args,
-                'columns' =>        $this->getActiveColumns(),
-                'personalise' =>    $parameters['personalise'],
-                'results' =>        $parameters['results'],
-                'signals' =>        $this->signals,
-                'title' =>          $title,
-                'types' =>          $this->args['signalTypes']
-            ]);
+            return $this->renderCsv($parameters);
         }
         if (isset($this->args['show']) && $this->args['show'] === 'kml') {
-            $response = $this->render("signals/export/signals.kml.twig", $this->getMergedParameters($parameters));
-            $response->headers->set('Content-Type', 'application/vnd.google-earth.kml+xml');
-            $response->headers->set('Content-Disposition',"attachment;filename={$this->system}_signals.kml");
-            return $response;
+            return $this->renderKml($parameters);
         }
         if (isset($this->args['show']) && $this->args['show'] === 'txt') {
-            $response = $this->render("signals/export/signals.txt.twig", $this->getMergedParameters($parameters));
-            $response->headers->set('Content-Type', 'text/plain');
-            $response->headers->set('Content-Disposition',"attachment;filename={$this->system}_signals.txt");
-            return $response;
+            return $this->renderTxt($parameters);
+        }
+        if ($this->request->isXmlHttpRequest() && isset($this->args['show']) && $this->args['show'] === 'list') {
+            return $this->renderJsonList($parameters);
         }
         return $this->render('signals/index.html.twig', $this->getMergedParameters($parameters));
     }
 
-    private function getActiveColumns() {
+    /**
+     * @Route(
+     *     "/{_locale}/{system}/signals/stats",
+     *     requirements={
+     *        "_locale": "de|en|es|fr",
+     *        "system": "reu|rna|rww"
+     *     },
+     *     name="signals_stats"
+     * )
+     * @param $system
+     * @param Request $request
+     * @throws Exception
+     */
+    public function stats(
+        $system,
+        Request $request
+    ) {
+        $args = [
+            'rww_focus' =>      '',
+            'system' =>         $system
+        ];
+        $this->setRwwFocusFromRequest($args, $request);
+        $stats = $this->statsRepository->getStats();
+        $out = [
+            'signals' => [
+                'reu' =>        (int) $stats['signals_reu'],
+                'rna' =>        (int) $stats['signals_rna'],
+                'rna_reu' =>    (int) $stats['signals_rna_reu'],
+                'rww' =>        (int) $stats['signals_rww'],
+                'unlogged' =>   (int) $stats['signals_unlogged'],
+            ],
+            'listeners' => [
+                'focus' =>      ($args['rww_focus'] ? $this->regionRepository->getOne($args['rww_focus'])->getName() : ''),
+                'locations' =>  (int) $stats['listeners_' . $system . ($args['rww_focus'] ? '_' . $args['rww_focus'] : '')],
+                'logs' =>       (int) $stats['logs_' . $system . ($args['rww_focus'] ? '_' . $args['rww_focus'] : '')],
+                'first' =>      $stats['log_first_' . $system . ($args['rww_focus'] ? '_' . $args['rww_focus'] : '')],
+                'last' =>       $stats['log_last_' . $system . ($args['rww_focus'] ? '_' . $args['rww_focus'] : '')]
+            ]
+        ];
+        return $this->json($out);
+    }
+
+    private function renderCsv($parameters)
+    {
+        $response = $this->render("signals/export/signals.csv.twig", $this->getMergedParameters($parameters));
+        $response->headers->set('Content-Type', 'text/plain');
+        $response->headers->set('Content-Disposition',"attachment;filename={$this->system}_signals.csv");
+        return $response;
+    }
+
+    private function renderJsonList($parameters)
+    {
+        $title = ($this->isAdmin && $this->args['admin_mode'] === '1' ?
+            1 : ($this->isAdmin && $this->args['admin_mode'] === '2' ? 2 : 0)
+        );
+        return $this->json([
+            'args' =>           $this->args,
+            'columns' =>        $this->setActiveColumns(),
+            'personalise' =>    $parameters['personalise'],
+            'results' =>        $parameters['results'],
+            'signals' =>        $this->signals,
+            'title' =>          $title,
+            'types' =>          $this->args['signalTypes']
+        ]);
+    }
+
+    private function renderKml($parameters)
+    {
+        $response = $this->render("signals/export/signals.kml.twig", $this->getMergedParameters($parameters));
+        $response->headers->set('Content-Type', 'application/vnd.google-earth.kml+xml');
+        $response->headers->set('Content-Disposition',"attachment;filename={$this->system}_signals.kml");
+        return $response;
+    }
+
+    private function renderTxt($parameters)
+    {
+        $response = $this->render("signals/export/signals.txt.twig", $this->getMergedParameters($parameters));
+        $response->headers->set('Content-Type', 'text/plain');
+        $response->headers->set('Content-Disposition',"attachment;filename={$this->system}_signals.txt");
+        return $response;
+    }
+
+    private function setActiveColumns() {
         $out = [];
         $columns  = $this->signalRepository->getColumns('signals');
         foreach ($columns as $key => $column) {
@@ -252,6 +308,19 @@ class Collection extends Base
         ];
     }
 
+    private function setExpandedSections()
+    {
+        foreach ($this->signalRepository::collapsable_sections as $section => $fields) {
+            $this->expandedSections[$section] = 0;
+            foreach ($fields as $field) {
+                if ($this->args[$field]) {
+                    $this->expandedSections[$section] = 1;
+                    break;
+                }
+            }
+        }
+    }
+
     private function setHighlighting()
     {
         if (!in_array($this->args['show'], ['list', 'map'])) {
@@ -312,48 +381,6 @@ class Collection extends Base
         $this->pageLayout =     isset($this->args['paper']) ? $this->paperRepository->getSpecifications($this->args['paper']) : false;
         $this->seeklistStats =  $this->signalRepository::getSeeklistStats($this->signals);
         $this->seeklistData =   $this->signalRepository::getSeeklistTabulatedData($this->signals, $this->pageLayout);
-    }
-
-    /**
-     * @Route(
-     *     "/{_locale}/{system}/signals/stats",
-     *     requirements={
-     *        "_locale": "de|en|es|fr",
-     *        "system": "reu|rna|rww"
-     *     },
-     *     name="signals_stats"
-     * )
-     * @param $system
-     * @param Request $request
-     * @throws Exception
-     */
-    public function stats(
-        $system,
-        Request $request
-    ) {
-        $args = [
-            'rww_focus' =>      '',
-            'system' =>         $system
-        ];
-        $this->setRwwFocusFromRequest($args, $request);
-        $stats = $this->statsRepository->getStats();
-        $out = [
-            'signals' => [
-                'reu' =>        (int) $stats['signals_reu'],
-                'rna' =>        (int) $stats['signals_rna'],
-                'rna_reu' =>    (int) $stats['signals_rna_reu'],
-                'rww' =>        (int) $stats['signals_rww'],
-                'unlogged' =>   (int) $stats['signals_unlogged'],
-            ],
-            'listeners' => [
-                'focus' =>      ($args['rww_focus'] ? $this->regionRepository->getOne($args['rww_focus'])->getName() : ''),
-                'locations' =>  (int) $stats['listeners_' . $system . ($args['rww_focus'] ? '_' . $args['rww_focus'] : '')],
-                'logs' =>       (int) $stats['logs_' . $system . ($args['rww_focus'] ? '_' . $args['rww_focus'] : '')],
-                'first' =>      $stats['log_first_' . $system . ($args['rww_focus'] ? '_' . $args['rww_focus'] : '')],
-                'last' =>       $stats['log_last_' . $system . ($args['rww_focus'] ? '_' . $args['rww_focus'] : '')]
-            ]
-        ];
-        return $this->json($out);
     }
 
     private function setArgsFromRequest($r, $withPageNumber = true)

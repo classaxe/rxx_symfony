@@ -6,7 +6,7 @@ function initUsersForm(pagingMsg, resultsCount) {
         setColumnSortedClass();
         setExternalLinks();
 
-        setFormPagingStatus(pagingMsg, resultsCount);
+        COMMON_FORM.setPagingStatus(pagingMsg, resultsCount);
         setUserActions();
     });
 }

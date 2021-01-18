@@ -240,12 +240,6 @@ function copyToClipboard(text) {
     temp.remove();
 }
 
-function setFormPagingStatus(string, value) {
-    $('#form_paging_status').html(
-        string.replace('%s', value.toLocaleString())
-    );
-}
-
 function formSubmit() {
     $('#form_clear').prop('disabled', 'disabled');
     $('#form_save').prop('disabled', 'disabled');

@@ -23,7 +23,7 @@ var LISTENERS_FORM = {
             setColumnSortActions();
             setColumnSortedClass();
             setExternalLinks();
-            setFormPagingStatus(msg.paging_l, resultsCount);
+            c.setPagingStatus(msg.paging_l, resultsCount);
             scrollToResults();
             RT.init($('#wide'), $('#narrow'));
         });
