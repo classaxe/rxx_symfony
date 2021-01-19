@@ -4,11 +4,11 @@
 <div class="main">
     <div class="text-center center-block">
         {% include 'status.html.twig' %}
-        <h1>{{ mode | trans }}
+        <h1>{{ mode | trans }}{% if not isAdmin %}
             <span class="section_toggle">
                 <span id="section_tips_show">{% trans %}Show tips{% endtrans %} [+]</span>
                 <span id="section_tips_hide">{% trans %}Hide tips{% endtrans %} [-]</span>
-            </span>
+            </span>{% endif %}
         </h1>
         {% if isAdmin %}
             {% include 'listeners/latestlogs.html.twig' %}
@@ -37,7 +37,7 @@
 </div>
 <script>
     LISTENERS_FORM.init({{ results.total }});
-    COMMON_FORM.setTipsHideShowActions()
+    {% if not isAdmin %}COMMON_FORM.setTipsHideShowActions();{% endif %}
 </script>
 
 {% endblock %}
