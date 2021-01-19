@@ -1,5 +1,8 @@
 <?php
-
+$pitchMin = 300;
+$pitchMax = 1100;
+$speedMin = 5;
+$speedMax = 20;
 if ($_POST["MorseCode"] ?? false) {
     $myPitch = isset($_POST["myPitch"]) ? $_POST["myPitch"] : "550";
     $mySpeed = isset($_POST["mySpeed"]) ? $_POST["mySpeed"] : "10";
@@ -224,17 +227,17 @@ function morse_encoder($word) {
                 Play positive <button onclick="return PlayMorse('{$m_pos_play}');"><img src="/image/play.png" alt="Play+"></button><br><br>
                 Play negative <button onclick="return PlayMorse('{$m_neg_play}');"><img src="/image/play.png" alt="Play-"></button><br><br>
                 Pitch [<input type="text" id="myFR" value="{$myPitch}" size="3" style="border-style:none;background: transparent">&nbsp;Hz]:
-                <input id="frequency" type="range" min="400" max="700" step="10" value="{$myPitch}" onchange="updateText(this.value, myFR, myFR2, frequency2, myPitch);" ><br><br>
+                <input id="frequency" type="range" min="{$pitchMin}" max="{$pitchMax}" step="10" value="{$myPitch}" onchange="updateText(this.value, myFR, myFR2, frequency2, myPitch);" ><br><br>
                 Speed [<input type="text" id="mySP" value="{$mySpeed}" size="3" style="border-style:none;background: transparent">WPM]:
-                <input id="speed" type="range" min="5" max="15" step="1" value="{$mySpeed}" onchange="updateText(this.value, mySP, mySP2, speed2, mySpeed);">
+                <input id="speed" type="range" min="{$speedMin}" max="{$speedMax}" step="1" value="{$mySpeed}" onchange="updateText(this.value, mySP, mySP2, speed2, mySpeed);">
             </div>
             <div id="myDIV2">
                 Play positive <button disabled="disabled"><img src="/image/no-play.png" alt="Play+" style="width:30px;height:30px;"></button><br><br>
                 Play negative <button disabled="disabled"><img src="/image/no-play.png" alt="Play-" style="width:30px;height:30px;"></button><br><br>
                 Pitch [<input type="text" disabled="disabled" id="myFR2" value="{$myPitch}" size="3" style="border-style:none;background: transparent">&nbsp;Hz]:
-                <input id="frequency2" type="range" min="400" max="700" step="10" value="{$myPitch}" disabled="disabled"><br><br>
+                <input id="frequency2" type="range" min="{$pitchMin}" max="{$pitchMax}" step="10" value="{$myPitch}" disabled="disabled"><br><br>
                 Speed [<input type="text" disabled="disabled" id="mySP2" value="{$mySpeed}" size="3" style="border-style:none;background: transparent">WPM]:
-                <input id="speed2" type="range" min="5" max="15" step="1" value="{$mySpeed}" disabled="disabled">
+                <input id="speed2" type="range" min="{$speedMin}" max="{$speedMax}" step="1" value="{$mySpeed}" disabled="disabled">
             </div>
         </td>
     </tr>
