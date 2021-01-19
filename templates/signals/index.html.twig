@@ -6,8 +6,15 @@
     <div class="main">
         <div class="text-center center-block">
             {% include 'status.html.twig' %}
-            <h1>{{ mode }}</h1>
+            <h1>{{ mode }}
+                <span class="section_toggle">
+                    <span id="section_tips_show">{% trans %}Show tips{% endtrans %} [+]</span>
+                    <span id="section_tips_hide">{% trans %}Hide tips{% endtrans %} [-]</span>
+                </span>
+            </h1>
+            <div id="section_tips" style="display: none">
             {% include 'signals/tipsRefsStats.html.twig' %}
+            </div>
             {% include 'signals/form.html.twig' %}
         </div>
 
@@ -23,4 +30,7 @@
 
         </div>
      </div>
+<script>
+    COMMON_FORM.setTipsHideShowActions()
+</script>
 {% endblock %}

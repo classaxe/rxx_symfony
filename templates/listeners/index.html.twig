@@ -4,16 +4,23 @@
 <div class="main">
     <div class="text-center center-block">
         {% include 'status.html.twig' %}
-        <h1>{{ mode | trans }}</h1>
+        <h1>{{ mode | trans }}
+            <span class="section_toggle">
+                <span id="section_tips_show">{% trans %}Show tips{% endtrans %} [+]</span>
+                <span id="section_tips_hide">{% trans %}Hide tips{% endtrans %} [-]</span>
+            </span>
+        </h1>
         {% if isAdmin %}
             {% include 'listeners/latestlogs.html.twig' %}
             {% include 'listeners/addlogfor.html.twig' %}
         {% else %}
-            <p>
-                {{ "<b>Signal Types</b> lets you view stats for specified signal types." | trans | raw }}<br />
-                {{ "Log and station counts are updated each time new log data is added." | trans | raw }}<br />
-                {{ "<b>Status</b> filter is disabled when <b>Search For</b> filter is used." | trans | raw }}<br />
-            </p>
+            <div id="section_tips" style="display: none">
+                <p>
+                    {{ "<b>Signal Types</b> lets you view stats for specified signal types." | trans | raw }}<br />
+                    {{ "Log and station counts are updated each time new log data is added." | trans | raw }}<br />
+                    {{ "<b>Status</b> filter is disabled when <b>Search For</b> filter is used." | trans | raw }}<br />
+                </p>
+            </div>
         {% endif %}
         {% set form_title='Customise %s Listeners List' | trans | format(system | upper) %}
         {% set form_class='listener_list' %}
@@ -30,6 +37,7 @@
 </div>
 <script>
     LISTENERS_FORM.init({{ results.total }});
+    COMMON_FORM.setTipsHideShowActions()
 </script>
 
 {% endblock %}

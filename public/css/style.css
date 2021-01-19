@@ -1,7 +1,7 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.29.2
+ * Version:    2.29.3
  * Date:       2021-01-19
  * Licence:    LGPL
  * Copyright:  2021 Martin Francis
@@ -1412,6 +1412,20 @@ label[for="form_limit"] {
 button.tiny {
   font-size: 0.4rem !important;
   line-height: 0.6em;
+}
+.section_toggle {
+  font-size: 70%;
+  position: relative;
+  top: -0.5em;
+  left: 0.5em;
+}
+.section_toggle * {
+  display: none;
+}
+.section_toggle *:hover {
+  color: #0000ff;
+  text-decoration: underline;
+  cursor: pointer;
 }
 #form button,
 .cleForm button {

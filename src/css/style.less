@@ -321,6 +321,22 @@ button.tiny {
     line-height: 0.6em;
 }
 
+.section_toggle {
+    font-size: 70%;
+    position: relative;
+    top: -0.5em;
+    left: 0.5em;
+    & * {
+        display: none;
+        &:hover {
+            color: #0000ff;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+    }
+}
+
 #form, .cleForm{
     button {
         margin: 0.25em 50%;

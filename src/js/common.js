@@ -27,32 +27,11 @@ var COMMON_FORM = {
     },
 
     setCreditsHideShowActions: function() {
-        var credits = $('#section_credits');
-        var hide = $('#section_credits_hide');
-        var show = $('#section_credits_show');
-        show.on('click', function(){
-            COOKIE.set('credits_hide', 'no');
-            $('#section_credits').show();
-            $('#section_credits_hide').show();
-            $(this).hide();
-            $(window).trigger('resize');
-        });
-        hide.on('click', function(){
-            COOKIE.set('credits_hide', 'yes');
-            $('#section_credits').hide();
-            $('#section_credits_show').show();
-            $(this).hide();
-            $(window).trigger('resize');
-        });
-        if (COOKIE.get('credits_hide') === 'yes') {
-            credits.hide();
-            hide.hide();
-            show.show();
-        } else {
-            credits.show();
-            hide.show();
-            show.hide();
-        }
+        COMMON_FORM.setSectionToggleWithCookie('section_credits')
+    },
+
+    setTipsHideShowActions: function() {
+        COMMON_FORM.setSectionToggleWithCookie('section_tips')
     },
 
     setPagingControls: function() {
@@ -188,6 +167,35 @@ var COMMON_FORM = {
             });
         } else {
             $('select#form_region').off('change');
+        }
+    },
+
+    setSectionToggleWithCookie: function(id) {
+        var container = $('#' + id);
+        var hide = $('#' + id + '_hide');
+        var show = $('#' + id + '_show');
+        show.on('click', function(){
+            COOKIE.set(id + '_hide', 'no');
+            $('#' + id).show();
+            $('#' + id + '_hide').show();
+            $(this).hide();
+            $(window).trigger('resize');
+        });
+        hide.on('click', function(){
+            COOKIE.set(id + '_hide', 'yes');
+            $('#' + id).hide();
+            $('#' + id + '_show').show();
+            $(this).hide();
+            $(window).trigger('resize');
+        });
+        if (COOKIE.get(id + '_hide') === 'yes') {
+            container.hide();
+            hide.hide();
+            show.show();
+        } else {
+            container.show();
+            hide.show();
+            show.hide();
         }
     },
 
