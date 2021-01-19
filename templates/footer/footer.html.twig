@@ -1,51 +1,57 @@
 <footer>
     <div class="footer" id="footer">
         <p class="preamble">
-            <strong>{{ 'Your %s Administrators are:' | trans | format(system|upper) }}</strong>
+            <strong>{{ '%s Administrators / Credits' | trans | format(system|upper) }} [
+                <a id="section_credits_show" style="display:none">{% trans %}Show{% endtrans %}</a>
+                <a id="section_credits_hide" style="display:none">{% trans %}Hide{% endtrans %}</a>
+            ]</strong>
         </p>
-        <table class="credits">
-            <thead>
-            <tr>
-                <th>{% trans %}Editors{% endtrans %}</th>
-                <th class="type_dgps">DGPS</th>
-                <th class="type_dsc">DSC</th>
-                <th class="type_hambcn">Ham Bcn</th>
-                <th class="type_navtex">Navtex</th>
-                <th class="type_ndb">NDB</th>
-                <th class="type_time">Time</th>
-                <th class="type_other">Other</th>
-            </tr>
-            </thead>
-            <tbody>
+        <div id="section_credits" style="display:none">
+            <table class="credits">
+                <thead>
+                <tr>
+                    <th>{% trans %}Editors{% endtrans %}</th>
+                    <th class="type_dgps">DGPS</th>
+                    <th class="type_dsc">DSC</th>
+                    <th class="type_hambcn">Ham Bcn</th>
+                    <th class="type_navtex">Navtex</th>
+                    <th class="type_ndb">NDB</th>
+                    <th class="type_time">Time</th>
+                    <th class="type_other">Other</th>
+                </tr>
+                </thead>
+                <tbody>
 {% for person in systems[system]['editors'] %}
-            <tr>
-                <th>{% if person.email and person.show_email
-                    %}<a href="#" data-contact="{{ ('mailto:' ~ person.email ~ '?subject=' ~ system | upper ~ ' system') | obfuscateEmail }}">{{ person.name }}</a>{%
-                else
-                    %}{{ person.name }}{% endif
-                %}</th>
+                    <tr>
+                        <th>{% if person.email and person.show_email
+                            %}<a href="#" data-contact="{{ ('mailto:' ~ person.email ~ '?subject=' ~ system | upper ~ ' system') | obfuscateEmail }}">{{ person.name }}</a>{%
+                    else
+                        %}{{ person.name }}{% endif
+                    %}</th>
 {% for type in ['DGPS', 'DSC', 'HAMBCN', 'NAVTEX', 'NDB', 'TIME', 'OTHER'] %}
-                {% if type in person.roles %}<td class="type_{{ type | lower }}">Y</td>{% else %}<td>&nbsp;</td>{% endif %}
+                        {% if type in person.roles %}<td class="type_{{ type | lower }}">Y</td>{% else %}<td>&nbsp;</td>{% endif %}
 
 {% endfor %}
-            </tr>
+                    </tr>
 {% endfor %}
-            </tbody>
-        </table>
-        <p>
+                </tbody>
+            </table>
+            <p>
 {% set credits = ['awards', 'authors'] %}
 {% for credit in credits %}
 {% for person in systems[system][credit] %}
-            <strong>{% if person.email and person.show_email %}<a href="#" data-contact="{{
+                <strong>{% if person.email and person.show_email %}<a href="#" data-contact="{{
     ('mailto:' ~ person.email ~ '?subject=' ~ system | upper ~ ' system') | obfuscateEmail
 }}">{{ person.name }}</a>{% else %}{{ person.name }}{% endif %}
 </strong> ({{ person.role | trans }})<br />
 {% endfor %}
 {% endfor %}
-        </p>
+            </p>
+        </div>
         <p class="copyright"><strong>&copy;{{ "now"|date("Y") }} Martin Francis</strong></p>
     </div>
 </footer>
 <script>
+    COMMON_FORM.setCreditsHideShowActions()
     setEmailLinks();
 </script>

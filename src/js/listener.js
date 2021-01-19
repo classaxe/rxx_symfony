@@ -40,11 +40,13 @@ var logSessions = {
             setColumnSortedClass();
             setClippedCellTitles();
             $('#form_paging_status').html(matched);
-            $('#list').height(($(window).height() / 2) - offset);
-            $('#list2').height(($(window).height() / 2) - offset);
-            $(window).resize(function () {
-                $('#list').height(($(window).height() / 2) - offset);
-                $('#list2').height(($(window).height() / 2) - offset);
+            var footerOffset = (COOKIE.get('credits_hide') !== 'yes' ? 74 : 0);
+            $('#list').height(($(window).height() / 2) - offset - footerOffset);
+            $('#list2').height(($(window).height() / 2) - offset - footerOffset);
+            $(window).on('resize', function () {
+                var footerOffset = (COOKIE.get('credits_hide') !== 'yes' ? 74 : 0);
+                $('#list').height(($(window).height() / 2) - offset - footerOffset);
+                $('#list2').height(($(window).height() / 2) - offset - footerOffset);
             });
             $('.logsessions tbody tr').on('click', function () {
                 var listenerId = $(this).closest('tr').attr('id').split('_')[2];

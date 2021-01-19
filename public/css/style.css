@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.28.5
- * Date:       2021-01-15
+ * Version:    2.29.2
+ * Date:       2021-01-19
  * Licence:    LGPL
  * Copyright:  2021 Martin Francis
  */
@@ -397,7 +397,7 @@ tr.other td {
 }
 @media (min-width: 40em) {
   .menu-centered {
-    width: 572px;
+    width: 573px;
   }
   .menu-centered h2 {
     font-size: 130%;

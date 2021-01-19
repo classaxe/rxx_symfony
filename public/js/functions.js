@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.29.1
- * Date:       2021-01-18
+ * Version:    2.29.2
+ * Date:       2021-01-19
  * Licence:    LGPL
  * Copyright:  2021 Martin Francis
  */
@@ -270,6 +270,35 @@ var COMMON_FORM = {
         $('#form_paging_status').html(
             string.replace('%s', value.toLocaleString())
         );
+    },
+
+    setCreditsHideShowActions: function() {
+        var credits = $('#section_credits');
+        var hide = $('#section_credits_hide');
+        var show = $('#section_credits_show');
+        show.on('click', function(){
+            COOKIE.set('credits_hide', 'no');
+            $('#section_credits').show();
+            $('#section_credits_hide').show();
+            $(this).hide();
+            $(window).trigger('resize');
+        });
+        hide.on('click', function(){
+            COOKIE.set('credits_hide', 'yes');
+            $('#section_credits').hide();
+            $('#section_credits_show').show();
+            $(this).hide();
+            $(window).trigger('resize');
+        });
+        if (COOKIE.get('credits_hide') === 'yes') {
+            credits.hide();
+            hide.hide();
+            show.show();
+        } else {
+            credits.show();
+            hide.show();
+            show.hide();
+        }
     },
 
     setPagingControls: function() {
@@ -754,11 +783,13 @@ var logSessions = {
             setColumnSortedClass();
             setClippedCellTitles();
             $('#form_paging_status').html(matched);
-            $('#list').height(($(window).height() / 2) - offset);
-            $('#list2').height(($(window).height() / 2) - offset);
-            $(window).resize(function () {
-                $('#list').height(($(window).height() / 2) - offset);
-                $('#list2').height(($(window).height() / 2) - offset);
+            var footerOffset = (COOKIE.get('credits_hide') !== 'yes' ? 74 : 0);
+            $('#list').height(($(window).height() / 2) - offset - footerOffset);
+            $('#list2').height(($(window).height() / 2) - offset - footerOffset);
+            $(window).on('resize', function () {
+                var footerOffset = (COOKIE.get('credits_hide') !== 'yes' ? 74 : 0);
+                $('#list').height(($(window).height() / 2) - offset - footerOffset);
+                $('#list2').height(($(window).height() / 2) - offset - footerOffset);
             });
             $('.logsessions tbody tr').on('click', function () {
                 var listenerId = $(this).closest('tr').attr('id').split('_')[2];
