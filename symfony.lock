@@ -74,6 +74,9 @@
     "egulias/email-validator": {
         "version": "2.1.4"
     },
+    "friendsofphp/proxy-manager-lts": {
+        "version": "v1.0.3"
+    },
     "geoip2/geoip2": {
         "version": "v2.9.0"
     },
@@ -85,6 +88,15 @@
     },
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
+    },
+    "laminas/laminas-code": {
+        "version": "3.4.1"
+    },
+    "laminas/laminas-eventmanager": {
+        "version": "3.3.0"
+    },
+    "laminas/laminas-zendframework-bridge": {
+        "version": "1.1.1"
     },
     "maxmind-db/reader": {
         "version": "v1.3.0"
@@ -133,6 +145,18 @@
             "version": "4.0",
             "ref": "aaddfdf43cdecd4cf91f992052d76c2cadc04543"
         }
+    },
+    "sensiolabs/security-checker": {
+        "version": "4.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "4.0",
+            "ref": "160c9b600564faa1224e8f387d49ef13ceb8b793"
+        },
+        "files": [
+            "config/packages/security_checker.yaml"
+        ]
     },
     "swiftmailer/swiftmailer": {
         "version": "v6.0.2"
@@ -242,6 +266,9 @@
             "ref": "c0c0bf94174609d740ca2a61e0201949c5683d50"
         }
     },
+    "symfony/http-client": {
+        "version": "v5.2.1"
+    },
     "symfony/http-client-contracts": {
         "version": "v2.2.0"
     },
@@ -262,6 +289,9 @@
             "version": "1.0",
             "ref": "fadbfe33303a76e25cb63401050439aa9b1a9c7f"
         }
+    },
+    "symfony/mime": {
+        "version": "v5.2.1"
     },
     "symfony/monolog-bridge": {
         "version": "v4.1.0"
@@ -328,6 +358,9 @@
     },
     "symfony/property-info": {
         "version": "v4.1.0"
+    },
+    "symfony/proxy-manager-bridge": {
+        "version": "v4.4.18"
     },
     "symfony/routing": {
         "version": "4.0",
