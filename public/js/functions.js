@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.29.3
- * Date:       2021-01-19
+ * Version:    2.29.8
+ * Date:       2021-01-30
  * Licence:    LGPL
  * Copyright:  2021 Martin Francis
  */
@@ -1118,7 +1118,7 @@ var LocatorMap = {
         if (!rx_map.height()) {
             return window.setTimeout(function(){ LocatorMap.init(xpos, ypos); }, 100);
         }
-        rx_map.on('click', function () {
+        rx_map.on('click', function (e) {
             var x = parseInt(e.pageX - $(this).offset().left);
             var y = parseInt(e.pageY - $(this).offset().top);
             LocatorMap.setPos(x, y);

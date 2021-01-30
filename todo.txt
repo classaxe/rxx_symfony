@@ -2,3 +2,4 @@ TODO:
 1) Take repositories that do not deal with database entities and make them services - e.g. lat / lon conversions
 2) Use Event Subscriber to handle authentication for restricted admin modes
 3) Move code to Symfony 5.2 framework - allegedly 7% faster - apparently an upgrade path is possible.
+4) Use DAO - Data access object for classes such as 'Paper' that have no DB entity representations

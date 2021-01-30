@@ -5,7 +5,7 @@ var LocatorMap = {
         if (!rx_map.height()) {
             return window.setTimeout(function(){ LocatorMap.init(xpos, ypos); }, 100);
         }
-        rx_map.on('click', function () {
+        rx_map.on('click', function (e) {
             var x = parseInt(e.pageX - $(this).offset().left);
             var y = parseInt(e.pageY - $(this).offset().top);
             LocatorMap.setPos(x, y);
