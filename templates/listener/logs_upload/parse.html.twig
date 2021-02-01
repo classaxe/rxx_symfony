@@ -25,6 +25,7 @@
                 <th>{% trans %}QTH{% endtrans %}</th>
                 <th>{% trans %}SP{% endtrans %}</th>
                 <th>{% trans %}ITU{% endtrans %}</th>
+                <th>{% trans %}Region{% endtrans %}</th>
                 <th>{% trans %}GSQ{% endtrans %}</th>
                 <th class="num">{% trans %}KM{% endtrans %}</th>
                 <th class="num">{% trans %}Miles{% endtrans %}</th>
@@ -59,6 +60,7 @@
                 <td>{{ e.QTH }}</td>
                 <td>{{ e.SP }}</td>
                 <td>{{ e.ITU }}</td>
+                <td>{{ e.region }}</td>
                 <td>{{ e.GSQ }}</td>
                 <td></td>
                 <td>{{ e.pwr ? e.pwr : '' }}</td>
@@ -97,6 +99,7 @@
                 <td>{{ o.QTH }}</td>
                 <td>{{ o.SP }}</td>
                 <td>{{ o.ITU }}</td>
+                <td>{{ o.region }}</td>
                 <td>{{ o.GSQ }}</td>
                 <td>{{ o.dx_km }}</td>
                 <td>{{ o.dx_miles }}</td>
@@ -149,6 +152,7 @@
                 <td>{{ o.QTH }}</td>
                 <td>{{ o.SP }}</td>
                 <td>{{ o.ITU }}</td>
+                <td>{{ o.region }}</td>
                 <td>{{ o.GSQ }}</td>
                 <td>{{ o.dx_km }}</td>
                 <td>{{ o.dx_miles }}</td>
@@ -181,6 +185,7 @@
                 <td>{{ o.QTH }}</td>
                 <td>{{ o.SP }}</td>
                 <td>{{ o.ITU }}</td>
+                <td>{{ o.region }}</td>
                 <td>{{ o.GSQ }}</td>
                 <td>{{ o.dx_km }}</td>
                 <td>{{ o.dx_miles }}</td>

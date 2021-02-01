@@ -63,8 +63,6 @@ class SignalView extends Base
                     ->setGsq($d['GSQ'])
                     ->setHeardIn('');
             }
-
-//            print "<pre>" . print_r($data, true) . "</pre>";
         }
         $isAdmin = $this->parameters['isAdmin'];
         if (!$id && !$isAdmin) {
@@ -117,6 +115,10 @@ class SignalView extends Base
 
             foreach (static::EDITABLE_FIELDS as $f) {
                 $signal->{'set' . ucfirst($f)}($form_data[$f]);
+            }
+            if ($signal->getItu()) {
+                $region = $this->countryRepository->getRegionForCountry($signal->getItu());
+                $signal->setRegion($region);
             }
             $signal
                 ->setGsq($GSQ)

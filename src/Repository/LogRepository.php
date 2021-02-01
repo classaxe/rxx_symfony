@@ -642,6 +642,7 @@ EOD;
                 'USB_approx' => '',
                 'ITU' => '',
                 'SP' => '',
+                'region' => '',
                 'pwr' => '',
                 'type' => ''
             ];
