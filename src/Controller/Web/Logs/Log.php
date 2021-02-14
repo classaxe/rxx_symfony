@@ -88,13 +88,13 @@ class Log extends WebBase
                 ->setFormat($data['format'])
                 ->setListenerId($data['listenerId'])
                 ->setLsb($data['lsb']!=='' ? (int)$data['lsb'] : null)
-                ->setLsbApprox($data['lsbApprox'])
+                ->setLsbApprox(!empty($request->request->get('form')['lsbApprox']))
                 ->setHeardIn($heardIn)
                 ->setRegion($region)
                 ->setSec($data['sec'])
                 ->setTime($data['time'])
                 ->setUsb($data['usb']!=='' ? (int)$data['usb'] : null)
-                ->setUsbApprox($data['usbApprox']);
+                ->setUsbApprox(!empty($request->request->get('form')['usbApprox']));
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($log);

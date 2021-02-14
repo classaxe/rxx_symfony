@@ -99,9 +99,9 @@ class Log
     private $lsb;
 
     /**
-     * @var string|null
+     * @var string
      *
-     * @ORM\Column(name="LSB_approx", type="string", length=1, nullable=true, options={"fixed"=true})
+     * @ORM\Column(name="LSB_approx", type="string", length=1, nullable=false, options={"fixed"=true})
      */
     private $lsbApprox;
 
@@ -141,9 +141,9 @@ class Log
     private $usb;
 
     /**
-     * @var string|null
+     * @var string
      *
-     * @ORM\Column(name="USB_approx", type="string", length=1, nullable=true, options={"fixed"=true})
+     * @ORM\Column(name="USB_approx", type="string", length=1, nullable=false, options={"fixed"=true})
      */
     private $usbApprox;
 
@@ -260,14 +260,14 @@ class Log
         return $this;
     }
 
-    public function getLsbApprox(): ?string
+    public function getLsbApprox(): ?bool
     {
-        return $this->lsbApprox;
+        return $this->lsbApprox !== '';
     }
 
-    public function setLsbApprox(?string $lsbApprox): self
+    public function setLsbApprox(?int $lsbApprox): self
     {
-        $this->lsbApprox = $lsbApprox;
+        $this->lsbApprox = $lsbApprox ? '~' : '';
 
         return $this;
     }
@@ -332,14 +332,14 @@ class Log
         return $this;
     }
 
-    public function getUsbApprox(): ?string
+    public function getUsbApprox(): ?bool
     {
-        return $this->usbApprox;
+        return $this->usbApprox !== '';
     }
 
-    public function setUsbApprox(?string $usbApprox): self
+    public function setUsbApprox(?bool $usbApprox): self
     {
-        $this->usbApprox = $usbApprox;
+        $this->usbApprox = $usbApprox ? '~' : '';
 
         return $this;
     }

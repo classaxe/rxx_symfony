@@ -155,6 +155,7 @@ class Log extends Base
                     'data' =>           $options['lsbApprox'],
                     'empty_data' =>     '',
                     'label' =>          'LSB Approx',
+                    'mapped' =>         false,
                     'required' =>       false
                 ]
             )
@@ -175,6 +176,7 @@ class Log extends Base
                     'data' =>           $options['usbApprox'],
                     'empty_data' =>     '',
                     'label' =>          'USB Approx',
+                    'mapped' =>         false,
                     'required' =>       false
                 ]
             )
