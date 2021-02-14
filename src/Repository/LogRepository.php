@@ -342,16 +342,16 @@ EOD;
         $out = [
             'fmt' =>        '',
             'LSB' =>        '',
-            'LSB_approx' => '',
+            'LSB_approx' => 0,
             'USB' =>        '',
-            'USB_approx' => '',
+            'USB_approx' => 0,
         ];
         switch ($token) {
             case 'LSB':
             case 'USB':
                 $out[$token] = $value;
                 if (substr($value, 0, 1) === '~') {
-                    $out[$token. '_approx'] = '~';
+                    $out[$token. '_approx'] = 1;
                     $out[$token] = substr($value, 1);
                 }
                 if (in_array(trim($value), ['.', '-', '-', '---'])) {
@@ -362,7 +362,7 @@ EOD;
             case '~LSB':
             case '~USB':
                 $token = substr($token, 1);
-                $out[$token. '_approx'] = '~';
+                $out[$token. '_approx'] = 1;
                 $out[$token] = $value;
                 break;
 
@@ -398,9 +398,9 @@ EOD;
                         $out['USB'] = abs(substr($sb, 2));
                         $out['LSB'] = $out['USB'];
                     } else {
-                        $approx =    '';
+                        $approx =    0;
                         if (substr($sb, 0, 1) === '~') {
-                            $approx = '~';
+                            $approx = 1;
                             $sb = substr($sb, 1);
                         }
                         if (substr($sb, 0, 1) === '+' || substr($sb, strlen($sb)-1, 1) === '+') {
@@ -421,8 +421,8 @@ EOD;
                         }
                     }
                     if ($token === '+~SB-') {
-                        $out['USB_approx'] =    "~";
-                        $out['LSB_approx'] =    "~";
+                        $out['USB_approx'] =    1;
+                        $out['LSB_approx'] =    1;
                     }
                 }
                 break;
@@ -432,31 +432,31 @@ EOD;
                 $value = str_replace('–', '-', $value);
                 switch ($value) {
                     case '0.4':
-                        $out['USB_approx'] =    '~';
+                        $out['USB_approx'] =    1;
                         $out['USB'] =           '400';
-                        $out['LSB_approx'] =    '~';
+                        $out['LSB_approx'] =    1;
                         $out['LSB'] =           '400';
                         break;
                     case '+0.4':
-                        $out['USB_approx'] =    '~';
+                        $out['USB_approx'] =    1;
                         $out['USB'] =           '400';
                         break;
                     case '-0.4':
-                        $out['LSB_approx'] =    '~';
+                        $out['LSB_approx'] =    1;
                         $out['LSB'] =           '400';
                         break;
                     case '1':
-                        $out['USB_approx'] =    '~';
+                        $out['USB_approx'] =    1;
                         $out['USB'] =           '1020';
-                        $out['LSB_approx'] =    '~';
+                        $out['LSB_approx'] =    1;
                         $out['LSB'] =           '1020';
                         break;
                     case '+1':
-                        $out['USB_approx'] =    '~';
+                        $out['USB_approx'] =    1;
                         $out['USB'] =           '1020';
                         break;
                     case '-1':
-                        $out['LSB_approx'] =    '~';
+                        $out['LSB_approx'] =    1;
                         $out['LSB'] =           '1020';
                         break;
                 }
@@ -475,8 +475,8 @@ EOD;
                             $out['LSB'] = round((1000 * ($KHZ - $ABS)));
                         }
                         if ($token === '~ABS') {
-                            $out['USB_approx'] =    "~";
-                            $out['LSB_approx'] =    "~";
+                            $out['USB_approx'] =    1;
+                            $out['LSB_approx'] =    1;
                         }
                     }
                 }
@@ -626,9 +626,9 @@ EOD;
                 'date' => [],
                 'offsets' => [
                     'LSB' => '',
-                    'LSB_approx' => '',
+                    'LSB_approx' => 0,
                     'USB' => '',
-                    'USB_approx' => ''
+                    'USB_approx' => 0
                 ],
                 'time' => '',
                 'daytime' => false,
@@ -637,9 +637,9 @@ EOD;
                 'QTH' => '',
                 'GSQ' => '',
                 'LSB' => '',
-                'LSB_approx' => '',
+                'LSB_approx' => 0,
                 'USB' => '',
-                'USB_approx' => '',
+                'USB_approx' => 0,
                 'ITU' => '',
                 'SP' => '',
                 'region' => '',
