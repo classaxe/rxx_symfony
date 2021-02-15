@@ -8,7 +8,12 @@ $(document).ready( function() {
     setExternalLinks();
 });
 </script>
-
+{% if disableLogon %}
+<div style="width: 20em; text-align: center; border: 3px solid #ff0000; margin: 1em auto; background: #ffe0e0; color: #ff0000">
+    <h2>STOP</h2>
+    <p>Please do not upload any logs at this time. Maintenance operation in progress.</p>
+</div>
+{% endif %}
 <div class="main">
     <div>{% include 'status.html.twig' %}</div>
     <h1>{% trans %}Log On{% endtrans %}</h1>

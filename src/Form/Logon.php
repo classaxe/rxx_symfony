@@ -55,7 +55,8 @@ class Logon extends \App\Controller\Web\Base
                 SubmitType::class,
                 [
                     'attr'          => [
-                        'class'         => 'button small'
+                        'class' =>      'button small',
+                        'disabled' =>   ($options['disableLogon'] ?? false)
                     ],
                     'label'         => 'Log On',
                 ]

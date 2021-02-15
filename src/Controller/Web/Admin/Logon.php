@@ -34,7 +34,8 @@ class Logon extends Base
      */
     public function logonController($_locale, $system, Request $request, LogonForm $form)
     {
-        $form = $form->buildForm($this->createFormBuilder(), ['system' => $system]);
+        $disableLogon = getenv('DISABLE_LOGON') ?? false;
+        $form = $form->buildForm($this->createFormBuilder(), ['system' => $system, 'disableLogon' => $disableLogon]);
         $form->handleRequest($request);
         $args = [
             'user' =>       '',
@@ -96,6 +97,7 @@ class Logon extends Base
         $parameters = [
             'args' =>       $args,
             'classic' =>    $this->systemRepository->getClassicUrl('logon'),
+            'disableLogon' =>   $disableLogon,
             'form' =>       $form->createView(),
             'form_class' => 'logon',
             '_locale' =>    $_locale,
