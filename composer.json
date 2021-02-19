@@ -14,7 +14,6 @@
         "doctrine/doctrine-bundle": "^1.9",
         "gpslab/geoip2": "^1.1.6",
         "sensio/framework-extra-bundle": "^5.2.4",
-        "sensiolabs/security-checker": "^6.0",
         "symfony/apache-pack": "^1.0",
         "symfony/asset": "^4.1",
         "symfony/console": "^4.1",
@@ -72,8 +71,7 @@
     "scripts": {
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
-            "assets:install %PUBLIC_DIR%": "symfony-cmd",
-            "security-checker security:check": "script"
+            "assets:install %PUBLIC_DIR%": "symfony-cmd"
         },
         "post-install-cmd": [
             "@auto-scripts"
