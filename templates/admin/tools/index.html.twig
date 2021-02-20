@@ -28,6 +28,14 @@
                     </li>
                 </ul>
             </li>
+            <li>{% trans %}Log Sessions{% endtrans %}:
+                <ul>
+                    <li><a class="button" href="{{ url('admin/tools', {'system' : system, 'tool' : 'logSessionStats'}) }}">{% trans %}Go{% endtrans %}</a>
+                        <strong>{% trans %}Recalculate all Log Session Stats{% endtrans %}</strong>
+                        {% trans %}(run if log sessions showing blank stats are seen){% endtrans %}
+                    </li>
+                </ul>
+            </li>
             <li>{% trans %}Listeners{% endtrans %}:
                 <ul>
                     <li><a class="button" href="{{ url('admin/tools', {'system' : system, 'tool' : 'listenersStats'}) }}">{% trans %}Go{% endtrans %}</a>

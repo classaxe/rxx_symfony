@@ -5,7 +5,9 @@ namespace App\Repository;
 use App\Columns\Logsessions as LogsessionsColumns;
 use App\Columns\ListenerLogs as LogsColumns;
 use App\Entity\LogSession;
+use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\DBAL\Driver\Connection;
 use Doctrine\Persistence\ManagerRegistry;
 
 class LogsessionRepository extends ServiceEntityRepository
@@ -13,11 +15,15 @@ class LogsessionRepository extends ServiceEntityRepository
     private $logsessionsColumns;
     private $logsColumns;
 
+    /** @var Connection */
+    private $connection;
+
     /**
      * LogSessionRepository constructor.
      * @param ManagerRegistry $registry
      */
     public function __construct(
+        Connection $connection,
         ManagerRegistry $registry,
         LogsessionsColumns $logsessionsColumns,
         LogsColumns $logsColumns
@@ -25,6 +31,7 @@ class LogsessionRepository extends ServiceEntityRepository
         parent::__construct($registry, LogSession::class);
         $this->logsessionsColumns = $logsessionsColumns->getColumns();
         $this->logsColumns = $logsColumns->getColumns();
+        $this->connection = $connection;
     }
 
     /**
@@ -122,5 +129,4 @@ class LogsessionRepository extends ServiceEntityRepository
 
         return $qb->getQuery()->getSingleScalarResult();
     }
-
 }

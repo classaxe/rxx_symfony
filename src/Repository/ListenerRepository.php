@@ -6,6 +6,7 @@ use App\Columns\ListenerLogs as ListenerLogsColumns;
 use App\Columns\ListenerLogsessions as ListenerLogsessionsColumns;
 use App\Columns\ListenerSignals as ListenerSignalsColumns;
 use App\Entity\Listener;
+use App\Entity\LogSession;
 use App\Utils\Rxx;
 use App\Columns\Listeners as ListenersColumns;
 use DateTime;
@@ -835,4 +836,83 @@ EOT;
 
         return $stmt->rowCount();
     }
+
+    public function getAllInvalidLogSessions()
+    {
+        $sql = <<< EOD
+            SELECT
+                ID
+            FROM
+                log_sessions
+            WHERE
+                ID IN(
+                    SELECT
+                        ID
+                    FROM
+                        log_sessions
+                    WHERE
+                        (logs IS NULL) OR
+                        (logs != (SELECT COUNT(*) FROM logs l2 where l2.logSessionID = log_sessions.ID))
+                )
+            GROUP BY
+                ID
+EOD;
+        $stmt = $this->connection->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchFirstColumn();
+    }
+
+    public function updateStats($id)
+    {
+        $sql = <<< EOD
+            SELECT
+                (SELECT MIN(CONCAT(`date`, ' ', INSERT(`time`,3,0,':'), ':00')) FROM `logs` WHERE `logSessionId`=:logSessionId) AS `setFirstLog`,
+                (SELECT MAX(CONCAT(`date`, ' ', INSERT(`time`,3,0,':'), ':00')) FROM `logs` WHERE `logSessionId`=:logSessionId) AS `setLastLog`,
+                (SELECT COUNT(*) FROM `logs` WHERE `logSessionId`=:logSessionId) AS `setLogs`,
+                (SELECT COUNT(*) FROM `logs` INNER JOIN `signals` ON `logs`.`signalID` = `signals`.`ID` WHERE `logs`.`logSessionId`=:logSessionId AND `signals`.`type`=1) AS `setLogsDgps`,
+                (SELECT COUNT(*) FROM `logs` INNER JOIN `signals` ON `logs`.`signalID` = `signals`.`ID` WHERE `logs`.`logSessionId`=:logSessionId AND `signals`.`type`=6) AS `setLogsDsc`,
+                (SELECT COUNT(*) FROM `logs` INNER JOIN `signals` ON `logs`.`signalID` = `signals`.`ID` WHERE `logs`.`logSessionId`=:logSessionId AND `signals`.`type`=4) AS `setLogsHambcn`,
+                (SELECT COUNT(*) FROM `logs` INNER JOIN `signals` ON `logs`.`signalID` = `signals`.`ID` WHERE `logs`.`logSessionId`=:logSessionId AND `signals`.`type`=3) AS `setLogsNavtex`,
+                (SELECT COUNT(*) FROM `logs` INNER JOIN `signals` ON `logs`.`signalID` = `signals`.`ID` WHERE `logs`.`logSessionId`=:logSessionId AND `signals`.`type`=0) AS `setLogsNdb`,
+                (SELECT COUNT(*) FROM `logs` INNER JOIN `signals` ON `logs`.`signalID` = `signals`.`ID` WHERE `logs`.`logSessionId`=:logSessionId AND `signals`.`type`=5) AS `setLogsOther`,
+                (SELECT COUNT(*) FROM `logs` INNER JOIN `signals` ON `logs`.`signalID` = `signals`.`ID` WHERE `logs`.`logSessionId`=:logSessionId AND `signals`.`type`=2) AS `setLogsTime`;
+EOD;
+        $params = ['logSessionId' => $id];
+        $stmt = $this->connection->prepare($sql);
+        $stmt->execute($params);
+        $stats = $stmt->fetchAssociative();
+
+        /** @var LogSession $logSession */
+        $logSession = $this->logsessionRepository->find($id);
+        $em = $this->logsessionRepository->getEntityManager();
+        if ($stats['setFirstLog'] === null) {
+            $listenerId = $logSession->getListenerId();
+            $em->remove($logSession);
+            $em->flush();
+            $this->updateListenerStats($listenerId);
+            return;
+        }
+        $logSession
+            ->setFirstLog(DateTime::createFromFormat('Y-m-d H:i:s', $stats['setFirstLog']) ?? null)
+            ->setLastLog(DateTime::createFromFormat('Y-m-d H:i:s', $stats['setLastLog']) ?? null)
+            ->setLogs($stats['setLogs'])
+            ->setLogsDgps($stats['setLogsDgps'])
+            ->setLogsDsc($stats['setLogsDsc'])
+            ->setLogsHambcn($stats['setLogsHambcn'])
+            ->setLogsNavtex($stats['setLogsNavtex'])
+            ->setLogsNdb($stats['setLogsNdb'])
+            ->setLogsOther($stats['setLogsOther'])
+            ->setLogsTime($stats['setLogsTime']);
+        $em->flush();
+    }
+
+    public function updateAllInvalidLogSessions()
+    {
+        $ids = $this->getAllInvalidLogSessions();
+        foreach ($ids as $id) {
+            $this->updateStats($id);
+        }
+        return count($ids);
+    }
+
 }

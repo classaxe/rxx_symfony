@@ -61,6 +61,8 @@ class Tools extends Base
                 return $this->logsDx();
             case 'logsDaytime':
                 return $this->logsDaytime();
+            case 'logSessionStats':
+                return $this->logsSessionStats();
             case 'signalsLatLon':
                 return $this->signalsLatLon();
             case 'signalsStats':
@@ -128,6 +130,14 @@ class Tools extends Base
         $start =    time();
         $affected = $this->logRepository->updateDaytime();
         $this->setMessage('Logs', 'Mark daytime loggings', $affected, $start);
+
+        return $this->redirectToRoute('admin/tools', [ 'system' => $this->system ]);
+    }
+
+    private function logsSessionStats() {
+        $start =    time();
+        $affected = $this->listenerRepository->updateAllInvalidLogSessions();
+        $this->setMessage('Logs', 'Update Log Session Stats', $affected, $start);
 
         return $this->redirectToRoute('admin/tools', [ 'system' => $this->system ]);
     }
