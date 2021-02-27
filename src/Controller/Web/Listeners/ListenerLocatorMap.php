@@ -42,7 +42,9 @@ class ListenerLocatorMap extends Base
         if (!$isAdmin || !$listener = $this->getValidListener($id)) {
             return $this->redirectToRoute('listener', ['system' => $system, 'id' => $id]);
         }
-        $map = ('HWA' === $listener->getItu() ? 'na' : 'ca' === $listener->getRegion() ? 'na' : $listener->getRegion());
+        $map = ('HWA' === $listener->getItu() ?
+            'na' : ('ca' === $listener->getRegion() ? 'na' : $listener->getRegion())
+        );
         if (!in_array($map, ['eu', 'na'])) {
             return $this->redirectToRoute('listener', ['system' => $system, 'id' => $id]);
         }
