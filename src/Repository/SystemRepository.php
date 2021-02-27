@@ -245,6 +245,7 @@ class SystemRepository
         $doc = new DOMDocument();
         ob_start();
         phpinfo();
+        libxml_use_internal_errors(true);
         $doc->loadHtml(ob_get_contents());
         ob_get_clean();
         return $this->innerHTML(
