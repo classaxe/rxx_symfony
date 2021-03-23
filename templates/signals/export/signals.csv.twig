@@ -7,7 +7,7 @@
     trans %}USB{% endtrans %}","{%
     trans %}Sec{% endtrans %}","{%
     trans %}Fmt{% endtrans %}","{%
-    trans %}'Name' and Location'{% endtrans %}","{%
+    trans %}'Name' and Location{% endtrans %}","{%
     trans %}SP{% endtrans %}","{%
     trans %}ITU{% endtrans %}","{%
     trans %}Region{% endtrans %}","{%
@@ -34,8 +34,8 @@
     s.LSB }}","{{
     s.USB }}","{{
     s.sec }}","{{
-    s.format|raw }}","{{
-    s.QTH|raw }}","{{
+    s.format|raw|replace({'"' : '""'})|raw }}","{{
+    s.QTH|raw|replace({'"' : '""'})|raw }}","{{
     s.SP }}","{{
     s.ITU }}","{{
     s.region }}","{{
@@ -43,7 +43,7 @@
     s.lat }}","{{
     s.lon }}","{{
     s.pwr ? s.pwr : '' }}","{{
-    s.notes|raw }}","{{
+    s.notes|raw|replace({'"': '""'})|raw }}","{{
     s.heard_in }}","{{
     s.logs }}","{{
     s.first_heard|date('Y-m-d') }}","{{
