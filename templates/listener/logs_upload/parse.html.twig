@@ -123,7 +123,9 @@
             {% set lsb_check = (e.LSB and e.LSB is numeric and o.LSB and ((e.LSB + tol_offsets < o.LSB) or (e.LSB - tol_offsets > o.LSB))) %}
             {% set usb_check = (e.USB and e.USB is numeric and o.USB and ((e.USB + tol_offsets < o.USB) or (e.USB - tol_offsets > o.USB))) %}
             {% set sec_check = (e.sec and e.sec is numeric and o.sec and ((e.sec + tol_secs < o.sec) or (e.sec - tol_secs > o.sec))) %}
-            {% set row_check = (time_check or lsb_check or usb_check or sec_check) %}
+            {% set active_check = false %}
+            {% for otmp in e.options %}{% if otmp.active == false %}{% set active_check = true %}{% endif %}{% endfor %}
+            {% set row_check = (time_check or lsb_check or usb_check or sec_check or active_check) %}
             {% set row_selected = ((row_check == false and e.options|length == 1 and selected == 'UNSET') or (selected[loop.index -1] is defined and selected[loop.index -1])) %}
             {% set has_error = e.options|length > 1 %}
             {% set has_issue = has_error or row_check %}
@@ -133,9 +135,16 @@
             {% if lsb_check %}{% set issues = issues|merge(['LSB changed more than ' ~ tol_offsets ~ 'Hz']) %}{% endif %}
             {% if usb_check %}{% set issues = issues|merge(['USB changed more than ' ~ tol_offsets ~ 'Hz']) %}{% endif %}
             {% if sec_check %}{% set issues = issues|merge(['Cycle time changed more than ' ~ tol_secs ~ ' sec']) %}{% endif %}
+            {% if active_check %}
+                {% if e.options|length > 1 %}
+                    {% set issues = issues|merge(['At least one candidate is reported to be inactive']) %}
+                {% else %}
+                    {% set issues = issues|merge(['Signal is reported to be inactive']) %}
+                {% endif %}
+            {% endif %}
 
-            <tr class="{% if e.options|length>1 %}choice start{% endif %}{% if not o.active %} inactive{% endif %}{% if has_error %} question{% endif %}"
-                id="row_{{ loop.index -1 }}" data-issues="{{ issues|join(', ') }}"
+            <tr class="{% if e.options|length>1 %}choice start{% endif %}{% if e.options[0].active == false %} inactive{% endif %}{% if has_error %} question{% endif %}"
+                id="row_{{ loop.index -1 }}" data-issues="{{ issues|join(', ') }}"{% if e.options[0].active == false %} title="Inactive"{% endif %}
             >
                 <th class="jump"{% if has_issue %} id="jump_{{ jump_anchor }}"{% endif %}>
                     {% if has_issue %}{% if jump_anchor > 0 %}<span class="up"></span>{% endif %}<br><span class="down"></span>{% endif %}
@@ -172,8 +181,11 @@
             {% set lsb_check = (e.LSB and o.LSB and ((e.LSB + tol_offsets < o.LSB) or (e.LSB - tol_offsets > o.LSB))) %}
             {% set usb_check = (e.USB and o.USB and ((e.USB + tol_offsets < o.USB) or (e.USB - tol_offsets > o.USB))) %}
             {% set sec_check = (e.sec and o.sec and ((e.sec + tol_secs < o.sec) or (e.sec - tol_secs > o.sec))) %}
+            {% set active_check = o.active == false%}
 
-            <tr class="choice{% if not o.active %} inactive{% endif %}{% if loop.last %} end{% endif %}" data-issues="">
+            <tr class="choice{% if not o.active %} inactive{% endif %}{% if loop.last %} end{% endif %}"
+                data-issues=""{% if active_check %} title="Inactive"{% endif %}
+            >
                 <th class="jump"></th>
                 <th class="error">
                     <input type="checkbox" title="{% trans %}Include this log{% endtrans %}" data-idx="{{ loop.parent.loop.index -1 }}" value="{{ loop.parent.loop.index -1 }}|{{ o.ID }}" /></th>
