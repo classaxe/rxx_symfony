@@ -236,7 +236,7 @@ class ListenerLogsUpload extends Base
             $step
         );
         $form_logs_height =
-            420 - ($this->errors ? 90 + (23 * count($this->errors)) : 0) - ($this->logHas['partial'] ? 28 : 0);
+            420 - ($this->errors ? 90 + (23 * count($this->errors)) : 0) - ($this->logHas && $this->logHas['partial'] ? 28 : 0);
 
         if ('UNSET' !== $selected) {
             $_sels = explode(',', $selected);

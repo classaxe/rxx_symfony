@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.29.3
- * Date:       2021-01-19
+ * Version:    2.30.7
+ * Date:       2021-04-04
  * Licence:    LGPL
  * Copyright:  2021 Martin Francis
  */
@@ -200,6 +200,7 @@ body.rww .button.is-inactive {
 tr.inactive td {
   color: #a0a0a0;
   font-style: italic;
+  text-decoration: line-through;
 }
 .inactive a,
 tr.inactive td a {
