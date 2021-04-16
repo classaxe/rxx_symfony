@@ -351,7 +351,7 @@ class ListenerRepository extends ServiceEntityRepository
             ->andWhere('(l.mapX != 0 OR l.mapY != 0)')
             ->andWhere('l.countLogs != 0')
             ->setParameter('signalId', $signalId)
-            ->addGroupBy('l.id');
+            ->addGroupBy('l.id, logs.id');
 
         $this->addFilterMap($qb, $map);
 
@@ -380,7 +380,7 @@ class ListenerRepository extends ServiceEntityRepository
             ->setParameter('signalId', $signalId)
             ->andWhere('(l.mapX != 0 OR l.mapY != 0)')
             ->andWhere('l.countLogs != 0')
-            ->addGroupBy('l.id')
+            ->addGroupBy('l.id, logs.dxKm, logs.dxMiles, logs.heardIn')
             ->addOrderBy('logs.heardIn', 'ASC')
             ->addOrderBy('l.name', 'ASC');
 
@@ -745,7 +745,7 @@ EOD;
         }
 
         $qb
-            ->groupBy('s.id');
+            ->groupBy('s.id, l.dxKm, l.dxMiles');
 
         if (isset($args['limit']) && (int)$args['limit'] !== -1 && isset($args['page'])) {
             $qb

@@ -94,7 +94,7 @@
 award = {
     'admin' : "{{ systems[system]['awards'][0]['name'] }}",
     'from' :  "{{ l.formattedNameAndLocation|raw }}",
-    'name' :  "{{ l.name }}",
+    'name' :  "{{ l.name|raw }}",
     'url' :   "{{ url('listener_awards', { 'system' : system, 'id' : id}) }}",
 };
 $(document).ready( function() {
