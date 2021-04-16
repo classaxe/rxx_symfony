@@ -8,7 +8,7 @@
         <div class="header">{{ mode|raw }}</div>
         <div class="content">
 {% if message %}
-            <h2>Success - Your request was sent:</h2>
+            <h2>{% trans %}Success - Your request was sent:{% endtrans %}</h2>
             <div style="border: 1px solid #000; margin: 1em; padding: 0.25em 1em; background: #fff">{{ message|raw }}</div>
             <div class="text-center">
                 <button type="button" id="form_done" class="button" style="padding: 0.25em 1em; width: auto">Done</button>
@@ -56,6 +56,23 @@
                         {{ form_widget(form.email) }}
                     </div>
                 </div>
+                <div class="row">
+                    <div class="small-1 columns">
+                        {{ form_label(form.captcha) }}
+                    </div>
+                    <div class="small-2 columns">
+                        {{ form_widget(form.captcha) }}
+                    </div>
+                    <div class="small-9 columns">
+                        <img src="{{ url('captcha') }}" alt="{% trans %}Verification image{% endtrans %}" title="{% trans %}Verification image{% endtrans %}">
+                        &lt;---
+                        {% if captchaErr %}
+                            {% trans %}Incorrect verification code entered{% endtrans %}
+                        {% else %}
+                            {% trans %}Please type this code{% endtrans %}
+                        {% endif %}
+                    </div>
+                </div>
                 <div class="row" style="height:16em">
                     <div class="small-1 columns">
                         {{ form_label(form.body) }}
@@ -76,7 +93,7 @@
 <script>
 award = {
     'admin' : "{{ systems[system]['awards'][0]['name'] }}",
-    'from' :  "{{ l.formattedNameAndLocation }}",
+    'from' :  "{{ l.formattedNameAndLocation|raw }}",
     'name' :  "{{ l.name }}",
     'url' :   "{{ url('listener_awards', { 'system' : system, 'id' : id}) }}",
 };

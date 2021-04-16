@@ -53,6 +53,7 @@ class ListenerAwards extends Base
                 return $this->redirectToRoute('listeners', ['system' => $system]);
             }
         }
+        $captchaErr = false;
         $options = [
             'email' =>  $this->listener->getEmail(),
             'id' =>     $this->listener->getId(),
@@ -65,40 +66,43 @@ class ListenerAwards extends Base
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $form_data = $form->getData();
-            $data['form'] = $form_data;
-            $admin = $this->systemRepository::AWARDS[0];
-            $cc =    $this->systemRepository::AUTHORS[0];
-            $html =  $this->renderView('emails/listener/award.html.twig', [
-                'admin' => $admin['name'] . ' ' . $admin['role'],
-                'awards' => explode(',', $form_data['awards']),
-                'filter' => $form_data['filter'],
-                'id' => $this->listener->getId(),
-                'name' => $this->listener->getName(),
-                'system' => $system
-            ]);
-            $text = $this->renderView('emails/listener/award.txt.twig', [
-                'admin' => $admin['name'] . ' ' . $admin['role'],
-                'awards' => explode(',', $form_data['awards']),
-                'filter' => $form_data['filter'],
-                'id' => $this->listener->getId(),
-                'name' => $this->listener->getName(),
-                'system' => $system
-            ]);
-            $message = (new Swift_Message('NDB LIST AWARD REQUEST'))
-                ->setReplyTo( [ $form_data['email'] =>  $this->listener->getName() ] )
-                ->setFrom('rxx@classaxe.com')
-                ->setTo( [ $admin['email'] => $admin['name'] . ' ' . $admin['role']])
-                ->setCc( [ $cc['email'] => $cc['name'] ])
-                ->setBody($html,'text/html')
-                ->addPart($text,'text/plain');
-
-            $transport = $mailer->getTransport();
-            if ($transport instanceof Swift_Transport_EsmtpTransport){
-                $transport->setStreamOptions([
-                    'ssl' => ['allow_self_signed' => true, 'verify_peer' => false, 'verify_peer_name' => false]
+            if ($form_data['captcha'] !== $this->session->get('captcha')) {
+                $captchaErr = true;
+            } else {
+                $admin = $this->systemRepository::AWARDS[0];
+                $cc =    $this->systemRepository::AUTHORS[0];
+                $html =  $this->renderView('emails/listener/award.html.twig', [
+                    'admin' => $admin['name'] . ' ' . $admin['role'],
+                    'awards' => explode(',', $form_data['awards']),
+                    'filter' => $form_data['filter'],
+                    'id' => $this->listener->getId(),
+                    'name' => $this->listener->getName(),
+                    'system' => $system
                 ]);
+                $text = $this->renderView('emails/listener/award.txt.twig', [
+                    'admin' => $admin['name'] . ' ' . $admin['role'],
+                    'awards' => explode(',', $form_data['awards']),
+                    'filter' => $form_data['filter'],
+                    'id' => $this->listener->getId(),
+                    'name' => $this->listener->getName(),
+                    'system' => $system
+                ]);
+                $message = (new Swift_Message('NDB LIST AWARD REQUEST'))
+                    ->setReplyTo( [ $form_data['email'] =>  $this->listener->getName() ] )
+                    ->setFrom('rxx@classaxe.com')
+                    ->setTo( [ $admin['email'] => $admin['name'] . ' ' . $admin['role']])
+                    ->setCc( [ $cc['email'] => $cc['name'] ])
+                    ->setBody($html,'text/html')
+                    ->addPart($text,'text/plain');
+
+                $transport = $mailer->getTransport();
+                if ($transport instanceof Swift_Transport_EsmtpTransport){
+                    $transport->setStreamOptions([
+                        'ssl' => ['allow_self_signed' => true, 'verify_peer' => false, 'verify_peer_name' => false]
+                    ]);
+                }
+                $mailer->send($message);
             }
-            $mailer->send($message);
         }
 
         $args = [
@@ -159,6 +163,7 @@ class ListenerAwards extends Base
             'mode' =>               'Awards Available for '.$this->listener->getFormattedNameAndLocation(),
             'award_types' =>        $award_types,
             'awards' =>             $awards,
+            'captchaErr' =>         $captchaErr,
             'daytime_start' =>      $daytime['start'],
             'daytime_end' =>        $daytime['end'],
             'form' =>               $form->createView(),
@@ -172,6 +177,32 @@ class ListenerAwards extends Base
         ];
         $parameters = array_merge($parameters, $this->parameters);
         return $this->render('listener/awards/awards.html.twig', $parameters);
+    }
+
+    /**
+     * @Route(
+     *     "/captcha",
+     *     name="captcha"
+     * )
+     * @return void
+     */
+    public function captcha() {
+        $height = 30;
+        $width = 90;
+        $this->image = imageCreate($width, $height);
+        $text = (string) rand(10000,999999);
+        $this->session->set('captcha', $text);
+        $im = imagecreate($width, $height);
+        $background = imagecolorallocate($im, 160, 160, 160);
+        $black = imagecolorallocate($im, 0, 0, 0);
+        $grey = imagecolorallocate($im, 128, 128, 128);
+
+        $font = '../fonts/comic.ttf';
+        imagettftext($im, 14, 0, 11, 21, $grey, $font, $text);
+        imagettftext($im, 14, 0, 10, 20, $black, $font, $text);
+        header('Content-Type: image/jpeg');
+        imagejpeg($im, null, 5);
+        die;
     }
 
     /**

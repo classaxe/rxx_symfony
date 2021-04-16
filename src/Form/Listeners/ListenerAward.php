@@ -50,6 +50,15 @@ class ListenerAward extends AbstractType
                 ]
             )
             ->add(
+                'captcha',
+                TextType::class,
+                [
+                    'data' =>       '',
+                    'empty_data' => '',
+                    'label' =>      'Verification:',
+                ]
+            )
+            ->add(
                 'email',
                 TextType::class,
                 [
