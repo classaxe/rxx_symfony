@@ -892,6 +892,12 @@ EOD;
             $this->updateListenerStats($listenerId);
             return;
         }
+        if (is_bool(DateTime::createFromFormat('Y-m-d H:i:s', $stats['setFirstLog']))) {
+            die("<h1>Error</h1><p>Invalid timestamp for first log in session $id: ". $stats['setFirstLog'] . "</p>");
+        }
+        if (is_bool(DateTime::createFromFormat('Y-m-d H:i:s', $stats['setLastLog']))) {
+            die("<h1>Error</h1><p>Invalid timestamp for last log in session $id: ". $stats['setLastLog'] . "</p>");
+        }
         $logSession
             ->setFirstLog(DateTime::createFromFormat('Y-m-d H:i:s', $stats['setFirstLog']) ?? null)
             ->setLastLog(DateTime::createFromFormat('Y-m-d H:i:s', $stats['setLastLog']) ?? null)
