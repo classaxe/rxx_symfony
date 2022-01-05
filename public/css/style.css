@@ -1,10 +1,10 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.30.7
- * Date:       2021-04-04
+ * Version:    2.31.2
+ * Date:       2022-01-05
  * Licence:    LGPL
- * Copyright:  2021 Martin Francis
+ * Copyright:  2022 Martin Francis
  */
 /* [ System Colours ] */
 body.reu {
@@ -200,7 +200,6 @@ body.rww .button.is-inactive {
 tr.inactive td {
   color: #a0a0a0;
   font-style: italic;
-  text-decoration: line-through;
 }
 .inactive a,
 tr.inactive td a {
