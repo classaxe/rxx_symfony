@@ -1354,8 +1354,8 @@ EOD;
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
         foreach ($results as &$r) {
             $dx = Rxx::getDx($lat, $lon, $r['lat'], $r['lon']);
-            $r['dx_miles'] = $dx['miles'];
-            $r['dx_km'] = $dx['km'];
+            $r['dx_miles'] = $dx ? $dx['miles'] : '?';
+            $r['dx_km'] = $dx ? $dx['km'] : '?';
         }
         usort($results, function($a, $b) {
             if($a['dx_km']===$b['dx_km']){

@@ -75,7 +75,7 @@
 {# END - No matches for signal #}
 
 {# START - Errors in Date, Time, KHZ or ID #}
-        {% elseif (e.YYYYMMDD|slice(0,1) == '!' or e.time|slice(0,1) == '!' or e.KHZ is not numeric or not e.ID) and e.comment == 0 %}
+        {% elseif (e.YYYYMMDD|slice(0,1) == '!' or e.time|slice(0,1) == '!' or e.KHZ is not numeric or e.ID == '') and e.comment == 0 %}
             {% set e = e|merge({ 'row' : 'row_' ~ (loop.index - 1) }) %}
             {% set o = e.options[0] %}
             {% set hi=o.heard_in|replace({ (heardIn) : '<em>' ~ heardIn ~ '</em>'}) %}
