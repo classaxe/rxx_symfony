@@ -35,6 +35,7 @@ var SIGNALS_FORM = {
             }
 
             s.setActions();
+            s.setIdentTip();
             s.setFocusOnCall();
             s.showStats();
 
@@ -161,6 +162,15 @@ var SIGNALS_FORM = {
         var f = $('#form_call');
         f.focus();
         f.select();
+    },
+
+    setIdentTip : function() {
+        var frmCall = $('#form_call');
+        if (frmCall.val() !== '') {
+            var tip = $('#exact');
+            tip.html(tip.html().replace('%s', "<b>'" + frmCall.val() + "'</b>"))
+            tip.show();
+        }
     },
 
     setHeardIn : function() {

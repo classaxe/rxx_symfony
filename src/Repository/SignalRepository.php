@@ -127,7 +127,7 @@ class SignalRepository extends ServiceEntityRepository
 
     private function _addFilterCall()
     {
-        if ($this->args['call'] ?? false) {
+        if ($this->args['call'] !== '' ?? false) {
             $this->query['where'][] ='s.call LIKE :like_call';
             $this->query['param']['like_call'] = '%' . htmlentities($this->args['call']) . '%';
         }
@@ -458,7 +458,7 @@ class SignalRepository extends ServiceEntityRepository
 
     private function _addOrderPrioritizeExactCall()
     {
-        if ($this->args['call'] ?? false) {
+        if ($this->args['call'] !== '' ?? false) {
             $this->_addOrder('_call','DESC');
         }
         return $this;
@@ -466,6 +466,10 @@ class SignalRepository extends ServiceEntityRepository
 
     private function _addOrderPrioritizeSelected()
     {
+        if (!$this->args['sort']) {
+            return $this;
+        }
+
         if ($this->signalsColumns[$this->args['sort']]['sort']) {
             $this->_addOrder(
                 '_empty',
@@ -603,7 +607,7 @@ EOD;
 
     private function _addSelectPriotitizeExactCall()
     {
-        if ($this->args['call'] ?? false) {
+        if ($this->args['call'] !== '' ?? false) {
             $this->query['select'][] =
                 "(CASE WHEN s.call = :call THEN 1 ELSE 0 END) AS _call";
             $this->query['param']['call'] = $this->args['call'];
@@ -613,6 +617,9 @@ EOD;
 
     private function _addSelectPrioritizeNonEmpty()
     {
+        if (!$this->args['sort']) {
+            return $this;
+        }
         $column = $this->signalsColumns[$this->args['sort']]['sort'];
         switch($column) {
             case "" :
