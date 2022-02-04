@@ -64,6 +64,10 @@
                         <strong>{% trans %}Send Test Email to:{% endtrans %}</strong>
                         <label class="sr-only" for="email">Email Address</label><input type="text" name="email" id="email" />
                     </li>
+                    <li><a class="button geoip" href="{{ url('admin/tools', {'system' : system, 'tool' : 'systemGeoIpTest'}) }}">{% trans %}Go{% endtrans %}</a>
+                        <strong>{% trans %}Check location info for IP Address:{% endtrans %}</strong>
+                        <label class="sr-only" for="ip">IP Address</label><input type="text" name="ip" id="ip" value="{{ ip }}"/>
+                    </li>
                 </ul>
             </li>
         </ol>
@@ -83,6 +87,18 @@
                     }
                     buttons.attr('disabled', 'disabled');
                     href=($(this).attr('href').split('?')[0]) + '?email=' + email;
+                    window.location.href = href;
+                }
+                if ($(this).hasClass('geoip')) {
+                    var ip, href;
+                    e.preventDefault();
+                    ip = $('#ip').val();
+                    if (ip.length < 7 || (ip.match(/\./g) || []).length !== 3) {
+                        alert(msg.ip_needed);
+                        return false;
+                    }
+                    buttons.attr('disabled', 'disabled');
+                    href=($(this).attr('href').split('?')[0]) + '?ip=' + ip;
                     window.location.href = href;
                 }
                 if ($(this).hasClass('no-disable')) {

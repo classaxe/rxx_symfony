@@ -5107,6 +5107,130 @@
         <source>Received N+C America</source>
         <target>Received N+C America</target>
       </trans-unit>
+      <trans-unit id="9WQbF8w" resname="%s Administrators / Credits">
+        <source>%s Administrators / Credits</source>
+        <target>%s Administrators / Credits</target>
+      </trans-unit>
+      <trans-unit id="ux1hmGD" resname="Editors">
+        <source>Editors</source>
+        <target>Editors</target>
+      </trans-unit>
+      <trans-unit id="72R1Pcp" resname="Click to view logs for this session">
+        <source>Click to view logs for this session</source>
+        <target>Click to view logs for this session</target>
+      </trans-unit>
+      <trans-unit id="3sK5KZb" resname="Logs Uploaded in Selected Session">
+        <source>Logs Uploaded in Selected Session</source>
+        <target>Logs Uploaded in Selected Session</target>
+      </trans-unit>
+      <trans-unit id="EkX57Gi" resname="Success - Your request was sent:">
+        <source>Success - Your request was sent:</source>
+        <target>Success - Your request was sent:</target>
+      </trans-unit>
+      <trans-unit id="jSUgJPi" resname="Verification image">
+        <source>Verification image</source>
+        <target>Verification image</target>
+      </trans-unit>
+      <trans-unit id="QOK.49U" resname="Incorrect verification code entered">
+        <source>Incorrect verification code entered</source>
+        <target>Incorrect verification code entered</target>
+      </trans-unit>
+      <trans-unit id="S1Oi6GL" resname="Please type this code">
+        <source>Please type this code</source>
+        <target>Please type this code</target>
+      </trans-unit>
+      <trans-unit id="dU4ZZTb" resname="Show tips">
+        <source>Show tips</source>
+        <target>Show tips</target>
+      </trans-unit>
+      <trans-unit id="dtx.cJP" resname="Hide tips">
+        <source>Hide tips</source>
+        <target>Hide tips</target>
+      </trans-unit>
+      <trans-unit id="XALsiFJ" resname="Recalculate all Log Session Stats">
+        <source>Recalculate all Log Session Stats</source>
+        <target>Recalculate all Log Session Stats</target>
+      </trans-unit>
+      <trans-unit id="23zP0wS" resname="(run if log sessions showing blank stats are seen)">
+        <source>(run if log sessions showing blank stats are seen)</source>
+        <target>(run if log sessions showing blank stats are seen)</target>
+      </trans-unit>
+      <trans-unit id="psR7Ni0" resname="Check location info for IP Address:">
+        <source>Check location info for IP Address:</source>
+        <target>Check location info for IP Address:</target>
+      </trans-unit>
+      <trans-unit id="h9aFKzz" resname="Any preferences set using 'Save' will also be removed.">
+        <source>Any preferences set using 'Save' will also be removed.</source>
+        <target>Any preferences set using 'Save' will also be removed.</target>
+      </trans-unit>
+      <trans-unit id="OwnmB8O" resname="Save these settings as the default for this form?">
+        <source>Save these settings as the default for this form?</source>
+        <target>Save these settings as the default for this form?</target>
+      </trans-unit>
+      <trans-unit id="Pz0eBHJ" resname="Your preferences have been saved.\nPressing 'Clear' will reset the form and remove the cookie.">
+        <source>Your preferences have been saved.\nPressing 'Clear' will reset the form and remove the cookie.</source>
+        <target>Your preferences have been saved.\nPressing 'Clear' will reset the form and remove the cookie.</target>
+      </trans-unit>
+      <trans-unit id="_j5coMB" resname="A cookie will be used to store this setting.">
+        <source>A cookie will be used to store this setting.</source>
+        <target>A cookie will be used to store this setting.</target>
+      </trans-unit>
+      <trans-unit id="3BSDG_e" resname="Delete this entire Log Session?  Are you sure?">
+        <source>Delete this entire Log Session?  Are you sure?</source>
+        <target>Delete this entire Log Session?  Are you sure?</target>
+      </trans-unit>
+      <trans-unit id="9_7uQxr" resname="Please provide a valid IP4 address">
+        <source>Please provide a valid IP4 address</source>
+        <target>Please provide a valid IP4 address</target>
+      </trans-unit>
+      <trans-unit id="R9KlFe8" resname="Loading...">
+        <source>Loading...</source>
+        <target>Loading...</target>
+      </trans-unit>
+      <trans-unit id="AwZpqM." resname="Reset this form?">
+        <source>Reset this form?</source>
+        <target>Reset this form?</target>
+      </trans-unit>
+      <trans-unit id="OB8Er9t" resname="Showing Logged and Unlogged Signals for All systems">
+        <source>Showing Logged and Unlogged Signals for All systems</source>
+        <target>Showing Logged and Unlogged Signals for All systems</target>
+      </trans-unit>
+      <trans-unit id="hS0ZA36" resname="%s Signals List">
+        <source>%s Signals List</source>
+        <target>%s Signals List</target>
+      </trans-unit>
+      <trans-unit id="i_FCTqv" resname="Unlogged by Personalised Listener">
+        <source>Unlogged by Personalised Listener</source>
+        <target>Unlogged by Personalised Listener</target>
+      </trans-unit>
+      <trans-unit id="_JDRnaD" resname="&lt;b&gt;Signal Types&lt;/b&gt; lets you view stats for specified signal types.">
+        <source>&lt;b&gt;Signal Types&lt;/b&gt; lets you view stats for specified signal types.</source>
+        <target><![CDATA[<b>Signal Types</b> lets you view stats for specified signal types.]]></target>
+      </trans-unit>
+      <trans-unit id="K8AnhUF" resname="Log and station counts are updated each time new log data is added.">
+        <source>Log and station counts are updated each time new log data is added.</source>
+        <target>Log and station counts are updated each time new log data is added.</target>
+      </trans-unit>
+      <trans-unit id="oyjCW_d" resname="&lt;b&gt;Status&lt;/b&gt; filter is disabled when &lt;b&gt;Search For&lt;/b&gt; filter is used.">
+        <source>&lt;b&gt;Status&lt;/b&gt; filter is disabled when &lt;b&gt;Search For&lt;/b&gt; filter is used.</source>
+        <target><![CDATA[<b>Status</b> filter is disabled when <b>Search For</b> filter is used.]]></target>
+      </trans-unit>
+      <trans-unit id="UUtuJkf" resname="Listeners and Locations">
+        <source>Listeners and Locations</source>
+        <target>Listeners and Locations</target>
+      </trans-unit>
+      <trans-unit id="IM3SEav" resname="Listeners and Locations Map">
+        <source>Listeners and Locations Map</source>
+        <target>Listeners and Locations Map</target>
+      </trans-unit>
+      <trans-unit id="RvDJhzn" resname="Most Recently">
+        <source>Most Recently</source>
+        <target>Most Recently</target>
+      </trans-unit>
+      <trans-unit id="LEapHcX" resname="Within">
+        <source>Within</source>
+        <target>Within</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

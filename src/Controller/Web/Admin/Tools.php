@@ -3,6 +3,8 @@ namespace App\Controller\Web\Admin;
 
 use App\Controller\Web\Base;
 
+use App\Service\GeoService;
+use App\Service\Visitor;
 use Swift_Mailer;
 use Swift_Message;
 use Swift_Transport_EsmtpTransport;
@@ -16,9 +18,11 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class Tools extends Base
 {
+    private $geoService;
     private $mailer;
     private $request;
     private $system;
+    private $visitor;
 
     /**
      * @Route(
@@ -35,6 +39,8 @@ class Tools extends Base
      * @param $tool
      * @param Request $request
      * @param Swift_Mailer $mailer
+     * @param GeoService $GeoService
+     * @param Visitor $visitor
      * @return Response|void
      */
     public function controller(
@@ -42,11 +48,15 @@ class Tools extends Base
         $system,
         $tool,
         Request $request,
-        Swift_Mailer $mailer
+        Swift_Mailer $mailer,
+        GeoService $GeoService,
+        Visitor $visitor
     ) {
         $this->system = $system;
         $this->request = $request;
         $this->mailer = $mailer;
+        $this->geoService = $GeoService;
+        $this->visitor = $visitor;
         if (!$this->parameters['isAdmin']) {
             $this->session->set('route', 'admin/tools');
             return $this->redirectToRoute('logon', ['system' => $system]);
@@ -71,6 +81,8 @@ class Tools extends Base
                 return $this->systemExportDb();
             case 'systemEmailTest':
                 return $this->systemEmailTest();
+            case 'systemGeoIpTest':
+                return $this->systemGeoIpTest();
         }
         $this->session->set('lastError', '');
         $this->session->set('lastMessage', '');
@@ -78,6 +90,7 @@ class Tools extends Base
         $parameters = [
             '_locale' =>        $_locale,
             'classic' =>        $this->systemRepository->getClassicUrl('admin/tools'),
+            'ip' =>             $this->visitor->getIpAddress(),
             'mode' =>           'Administrator Management Tools',
             'system' =>         $system,
         ];
@@ -212,4 +225,29 @@ class Tools extends Base
 
         return $this->redirectToRoute('admin/tools', [ 'system' => $this->system ]);
     }
+
+    private function systemGeoIpTest() {
+        $IP = $this->request->query->get('ip') ?? '';
+        if ('' === $IP) {
+            $message = sprintf(
+                $this->i18n('<strong>%s / %s</strong><br />No valid IP address was provided'),
+                $this->i18n('System'),
+                $this->i18n('GeoIP Test')
+            );
+            $this->session->set('lastError', $message);
+
+            return $this->redirectToRoute('admin/tools', [ 'system' => $this->system ]);
+        }
+
+        $result = $this->geoService->getDetailsForIP($IP);
+        $message = "<pre style='border: none; background: transparent; margin: 0;'>"
+            . "GEOIP LOOKUP RESULT:\n--------------------\n"
+            . preg_replace(
+                '/(^Array|^\\(\n|^\\)\n|^\s*)/m',
+                '', print_r($result, true))."</pre>";
+        $this->session->set('lastMessage', $message);
+
+        return $this->redirectToRoute('admin/tools', [ 'system' => $this->system ]);
+    }
+
 }

@@ -29,7 +29,7 @@ class Visitor
                                     getenv('REMOTE_ADDR');
 
 //        $ip = '206.248.171.206'; // Canada, Ontario
-//        $ip = '72.130.194.78';   // USA, Minnesota
+//        $ip = '72.130.194.78';   // USA, Honolulu Hawaii
 //        $ip = '213.219.36.56';   // UK, London
 //        $ip = '95.31.18.119';    // Russia, Moscow
 //        $ip = '202.86.32.122';   // Brisbane, Australia
