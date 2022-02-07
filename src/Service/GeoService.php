@@ -11,8 +11,9 @@ namespace App\Service;
 use App\Utils\Rxx;
 use Exception;
 use GeoIp2\Exception\AddressNotFoundException;
-use GeoIp2\Database\Reader;
+use GpsLab\Bundle\GeoIP2Bundle\Reader\ReaderFactory;
 use MaxMind\Db\Reader\InvalidDatabaseException;
+use Symfony\Component\HttpKernel\KernelInterface;
 
 /**
  * Class GeoService
@@ -24,16 +25,28 @@ class GeoService
      * @var Visitor
      */
     private $visitor;
-
-    private $dbPath = '/usr/share/GeoIP/GeoLite2-City.mmdb';
+    private $reader;
+    private $dbPath;
 
     /**
      * GeoService constructor.
      * @param \App\Service\Visitor $visitor
+     * @param ReaderFactory
      */
-    public function __construct(Visitor $visitor)
+    public function __construct(KernelInterface $kernel, Visitor $visitor, ReaderFactory $factory)
     {
         $this->visitor = $visitor;
+        $this->dbPath = $kernel->getCacheDir() . '/GeoLite2-City.mmdb';
+        try {
+            $this->reader = $factory->create('default');
+        } catch (Exception $e) {
+            $binPath = substr(dirname(__DIR__), 0, -4) . "/bin/";
+            die(
+                "<h1>GeoIP Error</h1>\n"
+                . "Please run this command to download the latest GeoIP Database:</p>"
+                . "<pre>{$binPath}console geoip2:update</pre>"
+            );
+        }
     }
 
     /**
@@ -46,24 +59,7 @@ class GeoService
             return 'NA';
         }
         try {
-            $reader = new Reader($this->dbPath);
-        } catch (Exception $e) {
-            $user =     posix_getpwuid(posix_geteuid());
-            $uName =    $user['name'];
-            $group =    posix_getgrgid($user['gid']);
-            $gName =    $group['name'];
-            $binPath = substr(dirname(__DIR__), 0, -4)."/bin/";
-            die(
-                "<h1>GeoIP Error</h1>\n"
-                ."<p>{$this->dbPath} is missing.<br />\n"
-                ."Please run these commands:</p>"
-                ."<pre>sudo mkdir -p ".dirname($this->dbPath).";\n"
-                ."sudo chown $uName:$gName ".dirname($this->dbPath).";\n"
-                ."{$binPath}console geoip2:update</pre>"
-            );
-        }
-        try {
-            $record = $reader->city($ip);
+            $record = $this->reader->city($ip);
             return $record->continent->code;
         } catch (AddressNotFoundException $e) {
             return 'NA';
@@ -74,32 +70,15 @@ class GeoService
 
     /**
      * @param $ip
-     * @return \GeoIp2\Model\City|string|void
+     * @return array
      */
     public function getDetailsForIp($ip)
     {
         if (!$ip) {
-            return 'NA';
+            return [ 'Result' => 'No IP address given' ];
         }
         try {
-            $reader = new Reader($this->dbPath);
-        } catch (Exception $e) {
-            $user =     posix_getpwuid(posix_geteuid());
-            $uName =    $user['name'];
-            $group =    posix_getgrgid($user['gid']);
-            $gName =    $group['name'];
-            $binPath = substr(dirname(__DIR__), 0, -4)."/bin/";
-            die(
-                "<h1>GeoIP Error</h1>\n"
-                ."<p>{$this->dbPath} is missing.<br />\n"
-                ."Please run these commands:</p>"
-                ."<pre>sudo mkdir -p ".dirname($this->dbPath).";\n"
-                ."sudo chown $uName:$gName ".dirname($this->dbPath).";\n"
-                ."{$binPath}console geoip2:update</pre>"
-            );
-        }
-        try {
-            $record = $reader->city($ip);
+            $record = $this->reader->city($ip);
             return [
                 'IP' =>             $ip,
                 'City' =>           $record->city->name,
@@ -112,22 +91,28 @@ class GeoService
                 'GSQ' =>            Rxx::convertDegreesToGSQ($record->location->latitude, $record->location->longitude),
                 'System' =>         strtoupper($this->getDefaultSystem()),
                 'GeoIP2DB' =>       $this->dbPath,
-                'GeoIP2Age' =>      date('Y-m-d h:i:s', filemtime($this->dbPath))
+                'GeoIP2Age' =>      date('Y-m-d H:i:s', filemtime($this->dbPath))
             ];
         } catch (AddressNotFoundException $e) {
             return [
                 'IP' =>             $ip,
-                'Result' =>         'Address not found'
+                'Result' =>         'Address not found',
+                'GeoIP2DB' =>       $this->dbPath,
+                'GeoIP2Age' =>      date('Y-m-d H:i:s', filemtime($this->dbPath))
             ];
         } catch (InvalidDatabaseException $e) {
             return [
                 'IP' =>             $ip,
-                'Result' =>         'Invalid Database'
+                'Result' =>         'Invalid Database',
+                'GeoIP2DB' =>       $this->dbPath,
+                'GeoIP2Age' =>      date('Y-m-d H:i:s', filemtime($this->dbPath))
             ];
         } catch (Exception $e) {
             return [
                 'IP' =>             $ip,
-                'Result' =>         'Invalid Request'
+                'Result' =>         'Invalid Request',
+                'GeoIP2DB' =>       $this->dbPath,
+                'GeoIP2Age' =>      date('Y-m-d h:i:s', filemtime($this->dbPath))
             ];
         }
     }
