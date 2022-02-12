@@ -12,9 +12,12 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\DBAL\Driver\Connection;
 use Doctrine\Persistence\ManagerRegistry;
 use PDO;
+use Psr\Log\LoggerInterface;
 
 class SignalRepository extends ServiceEntityRepository
 {
+    private $debug = 0;  // 1 = log, 2 = screen
+
     const dateFields = [
         'logged_date_1',
         'logged_date_2',
@@ -65,7 +68,6 @@ class SignalRepository extends ServiceEntityRepository
 
     private $args;
     private $connection;
-    private $debug = false;
     private $query = [
         'from' =>   [],
         'having' => [],
@@ -76,6 +78,8 @@ class SignalRepository extends ServiceEntityRepository
         'where' =>  [],
     ];
     private $logRepository;
+    /** @var LoggerInterface */
+    private $logger;
     private $signalsColumns;
     private $signalListenersColumns;
     private $signalLogsColumns;
@@ -90,7 +94,6 @@ class SignalRepository extends ServiceEntityRepository
         [ 'signal_rx_map_eu' , 'Reception Map (EU)'],
         [ 'signal_weather', 'Weather' ],
     ];
-
     /**
      * SignalRepository constructor.
      * @param ManagerRegistry $registry
@@ -104,6 +107,7 @@ class SignalRepository extends ServiceEntityRepository
         ManagerRegistry $registry,
         Connection $connection,
         LogRepository $logRepository,
+        LoggerInterface $logger,
         SignalsColumns $signalsColumns,
         SignalListenersColumns $signalListenersColumns,
         SignalLogsColumns $signalLogsColumns
@@ -111,6 +115,7 @@ class SignalRepository extends ServiceEntityRepository
         parent::__construct($registry, Signal::class);
         $this->connection = $connection;
         $this->logRepository = $logRepository;
+        $this->logger = $logger;
         $this->signalsColumns = $signalsColumns->getColumns();
         $this->signalListenersColumns = $signalListenersColumns->getColumns();
         $this->signalLogsColumns = $signalLogsColumns->getColumns();
@@ -783,7 +788,7 @@ EOD;
         foreach ($params as $key => $value) {
             $sql_view = str_replace(':' . $key, "/***/'" . $value . "'/***/", $sql_view);
         }
-        return "<pre>" . $sql_view . "</pre>";
+        return $sql_view;
     }
 
     private function _setArgs($system, $args)
@@ -791,6 +796,19 @@ EOD;
         $this->system = $system;
         $this->args = $args;
         return $this;
+    }
+
+    private function debug($string, $source)
+    {
+        $message = 'Source: ' . $source . "\n" . $string;
+        switch ($this->debug) {
+            case 1:
+                $this->logger->error($message);
+                break;
+            case 2:
+                print "<pre>" . $message . "</pre>";
+                break;
+        }
     }
 
     public function getFilteredSignals($system, $args)
@@ -865,10 +883,7 @@ EOD;
         $sql = $this->_buildQuery();
 
         $stmt = $this->connection->prepare($sql);
-
-        if ($this->debug) {
-            print $this->_debugQuery($sql, $this->query['param']);
-        }
+        $this->debug($this->_debugQuery($sql, $this->query['param']), $this->args['source']);
 
         foreach ($this->query['param'] as $key => $value) {
             $stmt->bindValue($key, $value);
@@ -921,9 +936,7 @@ EOD;
         }
         $sql = $this->_buildQuery();
 
-        if ($this->debug) {
-            print $this->_debugQuery($sql, $this->query['param']);
-        }
+        $this->debug($this->_debugQuery($sql, $this->query['param']), $this->args['source']);
 
         $stmt = $this->connection->prepare($sql);
         foreach ($this->query['param'] as $key => $value) {

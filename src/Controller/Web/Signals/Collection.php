@@ -63,6 +63,7 @@ class Collection extends Base
             $this->args = $form->getData();
         }
         $this->setArgsAfterPostTweaks();
+        $this->args['source'] = $this->request->isXmlHttpRequest() ? 'xmlhttp' : 'page';
         if ($this->request->isXmlHttpRequest() || !in_array($this->args['show'], ['list'])) {
             $this->signals =    $this->signalRepository->getFilteredSignals($this->system, $this->args);
             $this->total =      $this->signalRepository->getFilteredSignalsCount($this->system, $this->args);
