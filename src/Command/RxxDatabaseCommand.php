@@ -71,7 +71,7 @@ class RxxDatabaseCommand extends Command
         $io->comment(sprintf($messages[5], $tmp_gz));
 
         $io->comment(sprintf($messages[6], $newPwd));
-        exec("echo \"UPDATE rxx.users SET password='\$2y\$10\$WPcwyLosEfHA.tk3LKcBluumFLaLQJGcIfU7eo/i5z5YWzIEy4DGO'\" | MYSQL_PWD=root mysql -uroot");
+        exec("echo \"UPDATE rxx.users SET password='\\\$2y\\\$10\\\$WPcwyLosEfHA.tk3LKcBluumFLaLQJGcIfU7eo/i5z5YWzIEy4DGO'\" | MYSQL_PWD=root mysql -uroot");
         $io->comment(sprintf($messages[7], $newPwd));
 
         $io->success($messages[8]);
