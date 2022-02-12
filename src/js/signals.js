@@ -49,6 +49,12 @@ var SIGNALS_FORM = {
     },
 
     setActions : function() {
+        $('#form_call').keyup(function() {
+            $(this).val($(this).val().toUpperCase());
+        });
+        $('#form_call').change(function() {
+            $(this).val($(this).val().toUpperCase());
+        });
         $('#btn_csv_all').click(function () {
             if (confirm(
                 msg.export
@@ -406,6 +412,7 @@ var SIGNALS_FORM = {
 var SIGNALS = {
     loadList: function(args) {
         var url = shareableLink.signalsUrl() + '&show=list';
+        console.log(url);
         $.get(url, function(data) {
             var c, cols, html, i, id, j, key, row, s, tde, tds, title, value;
             html = [];
