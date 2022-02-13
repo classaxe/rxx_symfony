@@ -55,7 +55,7 @@
             </li>
 
             <li>{% trans %}System{% endtrans %}:
-                <ul>
+                <ul style="width: 720px">
                     <li><a class="button no-disable" href="{{ url('admin/tools', {'system' : system, 'tool' : 'systemExportDb'}) }}">{% trans %}Go{% endtrans %}</a>
                         <strong>{% trans %}Export Database{% endtrans %}</strong>
                         {% trans %}(run as needed){% endtrans %}
@@ -66,13 +66,14 @@
                     </li>
                     <li><a class="button geoip" href="{{ url('admin/tools', {'system' : system, 'tool' : 'systemGeoIpTest'}) }}">{% trans %}Go{% endtrans %}</a>
                         <strong>{% trans %}Check location info for IP Address:{% endtrans %}</strong>
-                        <label class="sr-only" for="ip">IP Address</label><input type="text" name="ip" id="ip" value="{{ ip }}"/><br />
-                        <span class="ip-examples">Examples: [
-                            <span data-ip="206.248.171.206">Toronto, Canada</span> |
+                        <label class="sr-only" for="ip">IP Address</label><input type="text" name="ip" id="ip" value="{{ ip }}"/><br>
+                        <span class="ip-examples clearfix"><b>Examples:</b> [
+                            IP4: <span data-ip="206.248.171.206">Toronto, Canada</span> |
                             <span data-ip="72.130.194.78">Hawaii, USA</span> |
                             <span data-ip="213.219.36.56">London, UK</span> |
                             <span data-ip="95.31.18.119">Moscow, Russia</span> |
-                            <span data-ip="202.86.32.122">Brisbane, Australia</span>
+                            <span data-ip="202.86.32.122">Brisbane, Australia</span> |
+                            IP6: <span data-ip="2607:f2c0:ea85:ff40:ed3f:a600:5266:e35a">Aurora, Canada</span>
                         ]</span>
                     </li>
                 </ul>
@@ -100,7 +101,7 @@
                     var ip, href;
                     e.preventDefault();
                     ip = $('#ip').val();
-                    if (ip.length < 7 || (ip.match(/\./g) || []).length !== 3) {
+                    if (ip.length < 7) {
                         alert(msg.ip_needed);
                         return false;
                     }
@@ -115,7 +116,6 @@
             });
             $('.ip-examples span').on('click', function(e){
                 $('#ip').val($(this).data('ip'));
-                $('.admin_tools a.geoip').trigger('click');
             })
         });
     </script>
