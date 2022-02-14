@@ -16,6 +16,7 @@ class Collection extends Base
 {
     private $args;
     private $expandedSections = [];
+    private $filename;
     private $isAdmin;
     private $mapBox =           [];
     private $mapCenter =        [];
@@ -64,6 +65,7 @@ class Collection extends Base
         }
         $this->setArgsAfterPostTweaks();
         $this->args['source'] = $this->request->isXmlHttpRequest() ? 'xmlhttp' : 'page';
+        $this->filename =       $this->args['filename'] ?? false;
         if ($this->request->isXmlHttpRequest() || !in_array($this->args['show'], ['list'])) {
             $this->signals =    $this->signalRepository->getFilteredSignals($this->system, $this->args);
             $this->total =      $this->signalRepository->getFilteredSignalsCount($this->system, $this->args);
@@ -167,9 +169,10 @@ class Collection extends Base
 
     private function renderCsv($parameters)
     {
+        $filename = ($this->filename ? $this->filename : $this->system .'_signals.csv');
         $response = $this->render("signals/export/signals.csv.twig", $this->getMergedParameters($parameters));
         $response->headers->set('Content-Type', 'text/plain');
-        $response->headers->set('Content-Disposition',"attachment;filename={$this->system}_signals.csv");
+        $response->headers->set('Content-Disposition',"attachment;filename={$filename}");
         return $response;
     }
 
@@ -191,17 +194,19 @@ class Collection extends Base
 
     private function renderKml($parameters)
     {
+        $filename = ($this->filename ? $this->filename : $this->system .'_signals.kml');
         $response = $this->render("signals/export/signals.kml.twig", $this->getMergedParameters($parameters));
         $response->headers->set('Content-Type', 'application/vnd.google-earth.kml+xml');
-        $response->headers->set('Content-Disposition',"attachment;filename={$this->system}_signals.kml");
+        $response->headers->set('Content-Disposition',"attachment;filename={$filename}");
         return $response;
     }
 
     private function renderTxt($parameters)
     {
+        $filename = ($this->filename ? $this->filename : $this->system .'_signals.txt');
         $response = $this->render("signals/export/signals.txt.twig", $this->getMergedParameters($parameters));
         $response->headers->set('Content-Type', 'text/plain');
-        $response->headers->set('Content-Disposition',"attachment;filename={$this->system}_signals.txt");
+        $response->headers->set('Content-Disposition',"attachment;filename={$filename}");
         return $response;
     }
 
@@ -275,6 +280,7 @@ class Collection extends Base
             'call' =>           '',
             'channels' =>       '',
             'countries' =>      '',
+            'filename' =>       '',
             'gsq' =>            '',
             'heard_in' =>       '',
             'heard_in_mod' =>   'any',
@@ -420,5 +426,6 @@ class Collection extends Base
 
         $this->setValueFromRequest($this->args, $r, 'show', ['csv', 'kml', 'list', 'map', 'pskov', 'seeklist', 'txt'], 'a');
         $this->setValueFromRequest($this->args, $r, 'paper', ['a4', 'a4_l', 'lgl', 'lgl_l', 'ltr', 'ltr_l'], 'a');
+        $this->setValueFromRequest($this->args, $r, 'filename');
     }
 }

@@ -52,6 +52,13 @@ class Collection extends Base
                 ]
             )
             ->add(
+                'filename',
+                HiddenType::class,
+                [
+                    'data' =>           ''
+                ]
+            )
+            ->add(
                 'paper',
                 HiddenType::class,
                 [

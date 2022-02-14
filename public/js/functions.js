@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.33.5
- * Date:       2022-02-12
+ * Version:    2.34.0
+ * Date:       2022-02-14
  * Licence:    LGPL
  * Copyright:  2022 Martin Francis
  */
@@ -2488,23 +2488,41 @@ var SIGNALS_FORM = {
             }
         });
         $('#btn_csv_fil').click(function () {
+            var filename = prompt('Filename', system + '_signals.csv');
+            if (filename === null) {
+                return;
+            }
             var form_show = $('#form_show');
+            var form_filename = $('#form_filename');
             var show = form_show.val();
             form_show.val('csv');
+            form_filename.val(filename);
             $('#form_submit').click();
             form_show.val(show);
         });
         $('#btn_kml_fil').click(function () {
+            var filename = prompt('Filename', system + '_signals.kml');
+            if (filename === null) {
+                return;
+            }
             var form_show = $('#form_show');
+            var form_filename = $('#form_filename');
             var show = form_show.val();
             form_show.val('kml');
+            form_filename.val(filename);
             $('#form_submit').click();
             form_show.val(show);
         });
         $('#btn_txt_fil').click(function () {
+            var filename = prompt('Filename', system + '_signals.txt');
+            if (filename === null) {
+                return;
+            }
             var form_show = $('#form_show');
+            var form_filename = $('#form_filename');
             var show = form_show.val();
             form_show.val('txt');
+            form_filename.val(filename);
             $('#form_submit').click();
             form_show.val(show);
         });

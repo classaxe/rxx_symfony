@@ -24,6 +24,7 @@
     <h2>{% trans %}Links for Each Region{% endtrans %}</h2>
     <div class="row cle_links">
         {% set link = {
+            'fileprefix' : 'CLE' ~ cle.cle ~ '_RNA',
             'focus' : '',
             'r1' : { 'min' : cle.worldRange1Low, 'max' : cle.worldRange1High, 'url' : rww1, 'textExtra' : cle.worldRange1TextExtra },
             'r2' : { 'min' : cle.worldRange2Low, 'max' : cle.worldRange2High, 'url' : rww2, 'textExtra' : cle.worldRange2TextExtra },
@@ -34,6 +35,7 @@
         {% include 'cle/links.html.twig' %}
 
         {% set link = {
+            'fileprefix' : 'CLE' ~ cle.cle ~ '_REU',
             'focus' : '',
             'r1' : { 'min' : cle.europeRange1Low, 'max' : cle.europeRange1High, 'url' : reu1, 'textExtra' : cle.europeRange1TextExtra },
             'r2' : { 'min' : cle.europeRange2Low, 'max' : cle.europeRange2High, 'url' : reu2, 'textExtra' : cle.europeRange2TextExtra },
@@ -44,6 +46,7 @@
         {% include 'cle/links.html.twig' %}
 
         {% set link = {
+            'fileprefix' : 'CLE' ~ cle.cle ~ '_RWW',
             'focus' : '',
             'r1' : { 'min' : cle.worldRange1Low, 'max' : cle.worldRange1High, 'url' : rww1, 'textExtra' : cle.worldRange1TextExtra },
             'r2' : { 'min' : cle.worldRange2Low, 'max' : cle.worldRange2High, 'url' : rww2, 'textExtra' : cle.worldRange2TextExtra },
@@ -54,6 +57,7 @@
         {% include 'cle/links.html.twig' %}
 
         {% set link = {
+            'fileprefix' : 'CLE' ~ cle.cle ~ '_RWW_Africa',
             'focus' : 'af',
             'r1' : { 'min' : cle.worldRange1Low, 'max' : cle.worldRange1High, 'url' : rww1, 'textExtra' : cle.worldRange1TextExtra },
             'r2' : { 'min' : cle.worldRange2Low, 'max' : cle.worldRange2High, 'url' : rww2, 'textExtra' : cle.worldRange2TextExtra },
@@ -64,6 +68,7 @@
         {% include 'cle/links.html.twig' %}
 
         {% set link = {
+            'fileprefix' : 'CLE' ~ cle.cle ~ '_RWW_Asia',
             'focus' : 'as',
             'r1' : { 'min' : cle.worldRange1Low, 'max' : cle.worldRange1High, 'url' : rww1, 'textExtra' : cle.worldRange1TextExtra },
             'r2' : { 'min' : cle.worldRange2Low, 'max' : cle.worldRange2High, 'url' : rww2, 'textExtra' : cle.worldRange2TextExtra },
@@ -74,6 +79,7 @@
         {% include 'cle/links.html.twig' %}
 
         {% set link = {
+            'fileprefix' : 'CLE' ~ cle.cle ~ '_RWW_Pacific',
             'focus' : 'oc',
             'r1' : { 'min' : cle.worldRange1Low, 'max' : cle.worldRange1High, 'url' : rww1, 'textExtra' : cle.worldRange1TextExtra },
             'r2' : { 'min' : cle.worldRange2Low, 'max' : cle.worldRange2High, 'url' : rww2, 'textExtra' : cle.worldRange2TextExtra },
@@ -84,6 +90,7 @@
         {% include 'cle/links.html.twig' %}
 
         {% set link = {
+            'fileprefix' : 'CLE' ~ cle.cle ~ '_RWW_South_America',
             'focus' : 'sa',
             'r1' : { 'min' : cle.worldRange1Low, 'max' : cle.worldRange1High, 'url' : rww1, 'textExtra' : cle.worldRange1TextExtra },
             'r2' : { 'min' : cle.worldRange2Low, 'max' : cle.worldRange2High, 'url' : rww2, 'textExtra' : cle.worldRange2TextExtra },
