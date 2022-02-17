@@ -49,12 +49,6 @@ var SIGNALS_FORM = {
     },
 
     setActions : function() {
-        $('#form_call').keyup(function() {
-            $(this).val($(this).val().toUpperCase());
-        });
-        $('#form_call').change(function() {
-            $(this).val($(this).val().toUpperCase());
-        });
         $('#btn_csv_all').click(function () {
             if (confirm(
                 msg.export
@@ -146,6 +140,9 @@ var SIGNALS_FORM = {
         $('#btn_new').click(function() {
             window.open('./signals/new', 'signal_new', popWinSpecs['signals_[id]']);
             return false;
+        });
+        $('form[name="form"]').on('submit', function() {
+            $('#form_call').val($('#form_call').val().toUpperCase());
         });
     },
 

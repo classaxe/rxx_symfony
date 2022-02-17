@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.34.0
- * Date:       2022-02-14
+ * Version:    2.34.1
+ * Date:       2022-02-17
  * Licence:    LGPL
  * Copyright:  2022 Martin Francis
  */
@@ -2440,12 +2440,6 @@ var SIGNALS_FORM = {
     },
 
     setActions : function() {
-        $('#form_call').keyup(function() {
-            $(this).val($(this).val().toUpperCase());
-        });
-        $('#form_call').change(function() {
-            $(this).val($(this).val().toUpperCase());
-        });
         $('#btn_csv_all').click(function () {
             if (confirm(
                 msg.export
@@ -2537,6 +2531,9 @@ var SIGNALS_FORM = {
         $('#btn_new').click(function() {
             window.open('./signals/new', 'signal_new', popWinSpecs['signals_[id]']);
             return false;
+        });
+        $('form[name="form"]').on('submit', function() {
+            $('#form_call').val($('#form_call').val().toUpperCase());
         });
     },
 
