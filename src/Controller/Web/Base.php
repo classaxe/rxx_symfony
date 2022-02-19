@@ -271,7 +271,7 @@ class Base extends AbstractController
     protected function setValueFromRequest(&$args, $request, $field, $options = false, $letterCase = false)
     {
         $value = $this->getValueFromRequestOrCookie($request, $field);
-        if ($value && $value !== '') {
+        if ($value !== '' && $value !== null) {
             switch ($letterCase) {
                 case 'a':
                     $value = strtolower($value);

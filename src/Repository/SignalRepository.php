@@ -132,7 +132,7 @@ class SignalRepository extends ServiceEntityRepository
 
     private function _addFilterCall()
     {
-        if ($this->args['call'] ?? false) {
+        if ($this->args['call'] !== '') {
             $this->query['where'][] ='s.call LIKE :like_call';
             $this->query['param']['like_call'] = '%' . htmlentities($this->args['call']) . '%';
         }
@@ -463,7 +463,7 @@ class SignalRepository extends ServiceEntityRepository
 
     private function _addOrderPrioritizeExactCall()
     {
-        if ($this->args['call'] ?? false) {
+        if ($this->args['call'] !== '') {
             $this->_addOrder('_call','DESC');
         }
         return $this;
@@ -608,7 +608,7 @@ EOD;
 
     private function _addSelectPriotitizeExactCall()
     {
-        if ($this->args['call'] ?? false) {
+        if ($this->args['call'] !== '') {
             $this->query['select'][] =
                 "(CASE WHEN s.call = :call THEN 1 ELSE 0 END) AS _call";
             $this->query['param']['call'] = $this->args['call'];
