@@ -1047,7 +1047,7 @@ EOD;
             ->andWhere('li.id = l.listenerId')
             ->andWhere('s.id = :signalID')
             ->setParameter(':signalID', $signalID)
-            ->addGroupBy('li.id');
+            ->addGroupBy('li.id, l.dxKm, l.dxMiles');
 
         $this->addSimpleLimit($qb, $args);
         $this->addSimpleSort($qb, $args, $this->signalListenersColumns);
@@ -1100,11 +1100,11 @@ EOD;
     {
         $idx = $refColumns[$args['sort']];
         if (isset($idx['sort'])) {
-            $qb->addSelect('CASE WHEN ' . $idx['sort'] . ' IS NULL OR ' . $idx['sort'] . ' = \'\' THEN 1 ELSE 0 END AS N1');
+            $qb->addSelect('CASE WHEN ' . $idx['sort'] . ' IS NULL THEN 1 ELSE 0 END AS N1');
             $qb->addOrderBy('N1', 'ASC');
             $qb->addOrderBy($idx['sort'], ('d' === $args['order'] ? 'DESC' : 'ASC'));
             if (isset($idx['sort_2'])) {
-                $qb->addSelect('CASE WHEN ' . $idx['sort_2'] . ' IS NULL OR ' . $idx['sort_2'] . ' = \'\' THEN 1 ELSE 0 END AS N2');
+                $qb->addSelect('CASE WHEN ' . $idx['sort_2'] . ' IS NULL THEN 1 ELSE 0 END AS N2');
                 $qb->addOrderBy('N2', 'ASC');
                 $qb->addOrderBy($idx['sort_2'], ('d' === $args['order'] ? 'DESC' : 'ASC'));
             }
