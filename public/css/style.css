@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.33.6
- * Date:       2022-02-12
+ * Version:    2.34.4
+ * Date:       2022-02-19
  * Licence:    LGPL
  * Copyright:  2022 Martin Francis
  */
@@ -863,6 +863,20 @@ table.responsive tbody tr td b {
   position: relative;
   top: -1em;
   font-size: 50%;
+}
+.changelog-tips {
+  padding: 0.5em;
+  margin: 0.5em 0 1em 0;
+  border: 1px solid #ccc;
+  display: inline-block;
+  background-color: #e0ffe0;
+}
+.changelog-tips span {
+  padding: 0 0.25em;
+  border: 1px solid #dd0;
+  background-color: #ffc;
+  font-style: italic;
+  font-weight: bold;
 }
 /* [ Help dialogs ] */
 .main .help {

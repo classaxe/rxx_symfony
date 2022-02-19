@@ -7,6 +7,7 @@ use DOMDocument;
 class SystemRepository
 {
     const NEW_VERSION_AGE = 2;
+    const REPO_BASE = "https://github.com/classaxe/rxx_symfony";
 
     const AUTHORS = [
         [
@@ -218,7 +219,7 @@ class SystemRepository
 
     public function getGitInfo(int $new_days = 0)
     {
-        $changelog = explode("\n", `git log master --pretty=format:"%ad %s" --date=short`);
+        $changelog = explode("\n", `git log master --pretty=format:"%ad %H %s" --date=short`);
         $entries = [];
         foreach ($changelog as &$entry) {
             $bits =     explode(' ', $entry);
@@ -226,13 +227,14 @@ class SystemRepository
             $new =      round(
                 $datediff = (time() - strtotime($date)) / (60 * 60 * 24)
             ) <= $new_days;
+            $hash =     trim(array_shift($bits), ':');
             $version =  trim(array_shift($bits), ':');
             $details =  implode(' ', $bits);
             $entries[] =
                 '<li id="' . $version .'">'
-                . '<a href="#' . $version .'"><strong>'.$version.'</strong></a>'
-                . ' <em>('.$date.')</em>'
-                .($new ? ' <span class="new">NEW</span>' : '')
+                . '<a href="' . static::REPO_BASE . '/commit/' . $hash .'" target="_blank"><strong>'.$version.'</strong></a> '
+                . ' <em>('.$date.')</em> '
+                .($new ? '<span class="new">NEW</span> ' : '')
                 . '<br />'
                 . $details
                 . '</li>';
