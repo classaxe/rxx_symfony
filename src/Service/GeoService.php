@@ -36,7 +36,7 @@ class GeoService
     public function __construct(KernelInterface $kernel, Visitor $visitor, ReaderFactory $factory)
     {
         $this->visitor = $visitor;
-        $this->dbPath = $kernel->getCacheDir() . '/GeoLite2-City.mmdb';
+        $this->dbPath = $kernel->getProjectDir() . '/var/GeoLite2-City.mmdb';
         try {
             $this->reader = $factory->create('default');
         } catch (Exception $e) {
