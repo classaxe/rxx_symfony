@@ -52,8 +52,8 @@ class SystemRepository
                     'show_email' => true
                 ],
                 [
-                    'email' =>      'peterconway@talktalk.net',
-                    'name' =>       'Peter Conway',
+                    'email' =>      'ros.palermo@libero.it',
+                    'name' =>       'Rosario Palermo',
                     'roles' =>      ['DSC'],
                     'show_email' => true
                 ],
@@ -80,8 +80,8 @@ class SystemRepository
                     'show_email' => true
                 ],
                 [
-                    'email' =>      'peterconway@talktalk.net',
-                    'name' =>       'Peter Conway',
+                    'email' =>      'ros.palermo@libero.it',
+                    'name' =>       'Rosario Palermo',
                     'roles' =>      ['DSC'],
                     'show_email' => true
                 ],
@@ -114,8 +114,8 @@ class SystemRepository
                     'show_email' => true
                 ],
                 [
-                    'email' =>      'peterconway@talktalk.net',
-                    'name' =>       'Peter Conway',
+                    'email' =>      'ros.palermo@libero.it',
+                    'name' =>       'Rosario Palermo',
                     'roles' =>      ['DSC'],
                     'show_email' => true
                 ],
