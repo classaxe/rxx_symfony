@@ -30,3 +30,4 @@ services:
 gpslab_geoip:
     license: 'UFzmNoddqV9v4upp'
     edition: 'GeoLite2-City'
+    path: '%kernel.project_dir%/var/GeoLite2-City.mmdb'
