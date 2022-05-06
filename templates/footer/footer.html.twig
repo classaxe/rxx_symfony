@@ -13,11 +13,11 @@
                     <th>{% trans %}Editors{% endtrans %}</th>
                     <th class="type_dgps">DGPS</th>
                     <th class="type_dsc">DSC</th>
-                    <th class="type_hambcn">Ham Bcn</th>
+                    <th class="type_hambcn">10M Ham Bcn</th>
                     <th class="type_navtex">Navtex</th>
                     <th class="type_ndb">NDB</th>
-                    <th class="type_time">Time</th>
-                    <th class="type_other">Other</th>
+{#                    <th class="type_time">Time</th>#}
+{#                    <th class="type_other">Other</th>#}
                 </tr>
                 </thead>
                 <tbody>
@@ -28,7 +28,7 @@
                     else
                         %}{{ person.name }}{% endif
                     %}</th>
-{% for type in ['DGPS', 'DSC', 'HAMBCN', 'NAVTEX', 'NDB', 'TIME', 'OTHER'] %}
+{% for type in ['DGPS', 'DSC', 'HAMBCN', 'NAVTEX', 'NDB'] %}
                         {% if type in person.roles %}<td class="type_{{ type | lower }}">Y</td>{% else %}<td>&nbsp;</td>{% endif %}
 
 {% endfor %}
