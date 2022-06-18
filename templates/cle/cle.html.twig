@@ -14,12 +14,14 @@
     <p>{% trans with {
             '%URL1%' : '<a href="https://groups.io/g/ndblist" rel="external">NDB List</a>',
             '%URL2%' : '<a href="https://groups.io/g/ndblist" rel="external">https://groups.io/g/ndblist</a>'
-            } %}Co-ordinated Listening Events (or 'CLEs') take place several times a year and provide opportunities for listeners of all ranges of experience to practice our hobby and learn more about it. To learn more about the %URL1%, or to join (it's free!), visit %URL2%{% endtrans %}
+            } %}Co-ordinated Listening Events (or 'CLEs') take place several times a year and provide opportunities for listeners of all ranges of experience to practice our hobby and learn more about it.<br>
+            To learn more about the %URL1%, or to join (it's free!), visit %URL2%{% endtrans %}
     </p>
+    <hr>
     <h2>{{ mode }}</h2>
     <p><strong>{% trans %}Dates:{% endtrans %}</strong> {{ cle.dateTimespan }}<br />
     <strong>{% trans %}Scope:{% endtrans %}</strong> {{ cle.scope }}<br />
-    <strong>{% trans %}Details:{% endtrans %}</strong> {{ cle.additional|unescape|raw|replace({'<p>' : '', '</p>' : ''})|raw }}
+    {% if (cle.additional) %}<strong>{% trans %}Details:{% endtrans %}</strong> {{ cle.additional|unescape|raw|replace({'<p>' : '', '</p>' : ''})|raw }}{% endif %}
 
     <h2>{% trans %}Links for Each Region{% endtrans %}</h2>
     <div class="row cle_links">
