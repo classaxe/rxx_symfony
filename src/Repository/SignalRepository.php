@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Repository;
 
 use App\Columns\Signals as SignalsColumns;
@@ -147,6 +146,12 @@ class SignalRepository extends ServiceEntityRepository
                 break;
             case 2:
                 $this->query['where'][] ='MOD(s.khz * 1000, 1000) != 0';
+                break;
+            case 3:
+                $this->query['where'][] ='MOD(s.khz * 100, 1000) = 0';
+                break;
+            case 4:
+                $this->query['where'][] ='MOD(s.khz * 100, 1000) != 0';
                 break;
         }
         return $this;

@@ -398,7 +398,7 @@ class Collection extends Base
         $this->setRwwFocusFromRequest($this->args, $r);
         $this->setValueFromRequest($this->args, $r, 'call');
         $this->setPairFromRequest($this->args, $r, 'khz');
-        $this->setValueFromRequest($this->args, $r, 'channels', ['1', '2']);
+        $this->setValueFromRequest($this->args, $r, 'channels', ['1', '2', '3', '4']);
         $this->setValueFromRequest($this->args, $r, 'states');
         $this->setValueFromRequest($this->args, $r, 'sp_itu_clause', ['OR']);
         $this->setValueFromRequest($this->args, $r, 'countries');

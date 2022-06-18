@@ -127,7 +127,7 @@ class Collection extends Base
                 'channels',
                 ChoiceType::class,
                 [
-                    'choices' =>        [ 'All' => '', 'Only 1 KHz' => '1', 'Not 1 KHz' =>  '2' ],
+                    'choices' =>        [ 'All' => '', 'Only 1 KHz' => '1', 'Not 1 KHz' =>  '2', 'Only 10 KHz' => '3', 'Not 10 KHz' => '4' ],
                     'data' =>           $options['channels'],
                     'label' =>          'Channels',
                     'required' =>       false

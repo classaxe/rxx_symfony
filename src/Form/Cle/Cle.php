@@ -181,7 +181,7 @@ class Cle extends AbstractType
                 'worldRange1Channels',
                 ChoiceType::class,
                 [
-                    'choices' =>        [ 'All' => '', 'Only 1 KHz' => '1', 'Not 1 KHz' =>  '2' ],
+                    'choices' =>        [ 'All' => '', 'Only 1 KHz' => '1', 'Not 1 KHz' =>  '2', 'Only 10 KHz' => '3', 'Not 10 KHz' => '4' ],
                     'data' =>           $options['worldRange1Channels'],
                     'label' =>          '',
                     'required' =>       false
@@ -191,7 +191,7 @@ class Cle extends AbstractType
                 'europeRange1Channels',
                 ChoiceType::class,
                 [
-                    'choices' =>        [ 'All' => '', 'Only 1 KHz' => '1', 'Not 1 KHz' =>  '2' ],
+                    'choices' =>        [ 'All' => '', 'Only 1 KHz' => '1', 'Not 1 KHz' =>  '2', 'Only 10 KHz' => '3', 'Not 10 KHz' => '4' ],
                     'data' =>           $options['europeRange1Channels'],
                     'label' =>          '',
                     'required' =>       false
@@ -201,7 +201,7 @@ class Cle extends AbstractType
                 'worldRange2Channels',
                 ChoiceType::class,
                 [
-                    'choices' =>        [ 'All' => '', 'Only 1 KHz' => '1', 'Not 1 KHz' =>  '2' ],
+                    'choices' =>        [ 'All' => '', 'Only 1 KHz' => '1', 'Not 1 KHz' =>  '2', 'Only 10 KHz' => '3', 'Not 10 KHz' => '4' ],
                     'data' =>           $options['worldRange2Channels'],
                     'label' =>          '',
                     'required' =>       false
@@ -211,7 +211,7 @@ class Cle extends AbstractType
                 'europeRange2Channels',
                 ChoiceType::class,
                 [
-                    'choices' =>        [ 'All' => '', 'Only 1 KHz' => '1', 'Not 1 KHz' =>  '2' ],
+                    'choices' =>        [ 'All' => '', 'Only 1 KHz' => '1', 'Not 1 KHz' =>  '2', 'Only 10 KHz' => '3', 'Not 10 KHz' => '4' ],
                     'data' =>           $options['europeRange2Channels'],
                     'label' =>          '',
                     'required' =>       false
