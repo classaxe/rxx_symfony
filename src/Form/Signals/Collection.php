@@ -129,7 +129,7 @@ class Collection extends Base
                 [
                     'choices' =>        [ 'All' => '', 'Only 1 KHz' => '1', 'Not 1 KHz' =>  '2', 'Only 10 KHz' => '3', 'Not 10 KHz' => '4' ],
                     'data' =>           $options['channels'],
-                    'label' =>          'Channels',
+                    'label' =>          'Chan.',
                     'required' =>       false
                 ]
             )
