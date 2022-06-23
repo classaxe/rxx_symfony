@@ -145,6 +145,18 @@ class Listeners
                 'th_class' =>   'l2',
                 'tooltip' =>    '',
             ],
+            'equipment' => [
+                'admin' =>      false,
+                'arg' =>        '',
+                'field' =>      'equipment',
+                'highlight' =>  'equipment',
+                'label' =>      'Equipment',
+                'order' =>      'a',
+                'sort' =>       'l.equipment',
+                'td_class' =>   '',
+                'th_class' =>   'l2',
+                'tooltip' =>    '',
+            ],
             'logLatest' => [
                 'admin' =>      false,
                 'arg' =>        '',

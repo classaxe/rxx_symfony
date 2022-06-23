@@ -69,6 +69,7 @@ class Collection extends Base
 
             'active' =>     '',
             'country' =>    '',
+            'equipment' =>    '',
             'has_logs' =>   '',
             'has_map_pos' => '',
             'q' =>          '',
@@ -165,5 +166,6 @@ class Collection extends Base
         $this->setValueFromRequest($args, $request, 'active', ['', 'N', 'Y'], 'A');
         $this->setValueFromRequest($args, $request, 'country', false, 'A');
         $this->setValueFromRequest($args, $request, 'q');
+        $this->setValueFromRequest($args, $request, 'equipment');
     }
 }

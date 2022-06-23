@@ -141,7 +141,7 @@ class ListenerRepository extends ServiceEntityRepository
         if (!empty($args['q'])) {
             return;
         }
-        $recent = (new DateTime())->modify('-4 year')->format('Y-m-d');
+        $recent = (new DateTime())->modify('-2 year')->format('Y-m-d');
         switch ($args['active']) {
             case 'Y':
                 $qb->andWhere('(l.logLatest > \'' . $recent .'\')');
@@ -152,7 +152,7 @@ class ListenerRepository extends ServiceEntityRepository
         }
     }
 
-    private function addFilterCountry($qb, $args)
+    private function addFilterCountry(&$qb, $args)
     {
         if (empty($args['country'])) {
             return;
@@ -162,7 +162,23 @@ class ListenerRepository extends ServiceEntityRepository
             ->setParameter('country', $args['country']);
     }
 
-    private function addFilterHasLogs($qb, $args)
+    private function addFilterEquipment(&$qb, $args)
+    {
+        if (empty($args['equipment'])) {
+            return;
+        }
+        $equipment_entries = explode(' ', $args['equipment']);
+        $options = [];
+        foreach($equipment_entries as $idx => $ee) {
+            $options[] = 'l.equipment like :equipment_' . $idx;
+        }
+        $qb->andWhere('(' . implode(' AND ', $options) . ')');
+        foreach($equipment_entries as $idx => $ee) {
+            $qb->setParameter('equipment_'.$idx, '%' . $ee . '%');
+        }
+    }
+
+    private function addFilterHasLogs(&$qb, $args)
     {
         if (!isset($args['has_logs'])) {
             return;
@@ -177,7 +193,7 @@ class ListenerRepository extends ServiceEntityRepository
         }
     }
 
-    private function addFilterHasMapPos($qb, $args)
+    private function addFilterHasMapPos(&$qb, $args)
     {
         if (!isset($args['has_map_pos'])) {
             return;
@@ -238,7 +254,7 @@ class ListenerRepository extends ServiceEntityRepository
             ->setParameter('region', $args['region']);
     }
 
-    private function addFilterSearch($qb, $args)
+    private function addFilterSearch(&$qb, $args)
     {
         if (empty($args['q'])) {
             return;
@@ -502,6 +518,7 @@ EOD;
         $this->addFilterRegion($qb, $args);
         $this->addFilterTimezone($qb, $args);
         $this->addFilterActive($qb, $args);
+        $this->addFilterEquipment($qb, $args);
 
         if (isset($args['show']) && $args['show'] === 'map') {
             $qb
@@ -577,6 +594,7 @@ EOD;
         $this->addFilterRegion($qb, $args);
         $this->addFilterTimezone($qb, $args);
         $this->addFilterActive($qb, $args);
+        $this->addFilterEquipment($qb, $args);
         return $qb->getQuery()->getSingleScalarResult();
     }
 

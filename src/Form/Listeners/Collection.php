@@ -99,11 +99,20 @@ class Collection extends Base
                 [
                     'choices' =>        [
                         'All' => '',
-                        'Active (locations with recent logs)' => 'Y',
-                        'Inactive (locations without recent logs)' => 'N'
+                        'Active (with logs in last two years)' => 'Y',
+                        'Inactive (no logs in last two years)' => 'N'
                     ],
                     'data' =>           $options['active'],
                     'label' =>          'Status',
+                    'required' =>       false
+                ]
+            )
+            ->add(
+                'equipment',
+                TextType::class,
+                [
+                    'data' =>           $options['equipment'],
+                    'label' =>          'Equipment',
                     'required' =>       false
                 ]
             )

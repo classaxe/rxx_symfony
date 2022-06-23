@@ -100,6 +100,7 @@ var LISTENERS_FORM = {
             l.setHasMapPosAction(false);
             l.setTimezoneAction(false);
             l.setActiveAction(false);
+            $('#form_equipment').val('');
             $('#form_active').removeClass('inactive')
             $('select#form_region').prop('selectedIndex', 0);
             $('select#form_country').prop('selectedIndex', 0);
