@@ -20,6 +20,7 @@
             {{ form_row(form.active) }}
             {{ form_row(form.equipment) }}
             {% if isAdmin %}
+                {{ form_row(form.rxx_id) }}
                 {% if system == 'rww' %}
                     {{ form_row(form.has_logs) }}
                 {% endif %}

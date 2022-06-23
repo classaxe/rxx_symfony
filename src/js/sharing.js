@@ -74,6 +74,7 @@ var shareableLink = {
             this.getFromField('q') +
             this.getFromField('region') +
             this.getFromField('country') +
+            this.getFromField('rxx_id') +
             this.getFromField('has_logs', [ 'N', 'Y' ], 'A') +
             this.getFromField('has_map_pos', [ 'N', 'Y' ], 'A') +
             (this.getFromField('timezone') !== '&timezone=ALL' ? this.getFromField('timezone') : '') +

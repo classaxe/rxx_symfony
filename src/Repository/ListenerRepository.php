@@ -254,6 +254,16 @@ class ListenerRepository extends ServiceEntityRepository
             ->setParameter('region', $args['region']);
     }
 
+    private function addFilterRxxId(&$qb, $args)
+    {
+        if (empty($args['rxx_id'])) {
+            return;
+        }
+        $qb
+            ->andWhere('(l.id = :rxx_id)')
+            ->setParameter('rxx_id', $args['rxx_id']);
+    }
+
     private function addFilterSearch(&$qb, $args)
     {
         if (empty($args['q'])) {
@@ -519,6 +529,7 @@ EOD;
         $this->addFilterTimezone($qb, $args);
         $this->addFilterActive($qb, $args);
         $this->addFilterEquipment($qb, $args);
+        $this->addFilterRxxId($qb, $args);
 
         if (isset($args['show']) && $args['show'] === 'map') {
             $qb
@@ -595,6 +606,7 @@ EOD;
         $this->addFilterTimezone($qb, $args);
         $this->addFilterActive($qb, $args);
         $this->addFilterEquipment($qb, $args);
+        $this->addFilterRxxId($qb, $args);
         return $qb->getQuery()->getSingleScalarResult();
     }
 

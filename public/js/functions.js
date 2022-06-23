@@ -1,7 +1,7 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.37.0
+ * Version:    2.37.1
  * Date:       2022-06-23
  * Licence:    LGPL
  * Copyright:  2022 Martin Francis
@@ -1055,6 +1055,7 @@ var LISTENERS_FORM = {
             $('fieldset#form_type div :checkbox').prop('checked', false);
             $('fieldset#form_type div :checkbox[value=NDB]').prop('checked', true);
             $('#form_q').val('');
+            $('#form_rxx_id').val('');
             c.setCountryAction(false);
             c.setRegionAction(false);
             l.setHasLogsAction(false);
@@ -1791,14 +1792,14 @@ var RT = {
             if (RT.fields[i].rowspan2) {
                 RT.preamble += ('th' === RT.fields[i].type ? '<th></th>' : '<td></td>');
             } else {
-                colspan ++;
+                colspan++;
             }
         }
         i = 0;
         this.source.find('tbody tr').each(function () {
             var classname, ele = $(this), html, j;
 
-            html = '<table>';
+            html = '<table style="width:100%">';
             for (j in RT.fields) {
                 if (!RT.rows[i][RT.fields[j].idx]) {
                     continue;
@@ -1956,6 +1957,7 @@ var shareableLink = {
             this.getFromField('q') +
             this.getFromField('region') +
             this.getFromField('country') +
+            this.getFromField('rxx_id') +
             this.getFromField('has_logs', [ 'N', 'Y' ], 'A') +
             this.getFromField('has_map_pos', [ 'N', 'Y' ], 'A') +
             (this.getFromField('timezone') !== '&timezone=ALL' ? this.getFromField('timezone') : '') +

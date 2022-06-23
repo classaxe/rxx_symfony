@@ -94,6 +94,7 @@ var LISTENERS_FORM = {
             $('fieldset#form_type div :checkbox').prop('checked', false);
             $('fieldset#form_type div :checkbox[value=NDB]').prop('checked', true);
             $('#form_q').val('');
+            $('#form_rxx_id').val('');
             c.setCountryAction(false);
             c.setRegionAction(false);
             l.setHasLogsAction(false);

@@ -17,14 +17,14 @@ var RT = {
             if (RT.fields[i].rowspan2) {
                 RT.preamble += ('th' === RT.fields[i].type ? '<th></th>' : '<td></td>');
             } else {
-                colspan ++;
+                colspan++;
             }
         }
         i = 0;
         this.source.find('tbody tr').each(function () {
             var classname, ele = $(this), html, j;
 
-            html = '<table>';
+            html = '<table style="width:100%">';
             for (j in RT.fields) {
                 if (!RT.rows[i][RT.fields[j].idx]) {
                     continue;

@@ -43,6 +43,18 @@ class ListenerView extends Base
             ]
         )
         ->add(
+            'rxx_id',
+            TextType::class,
+            [
+                'attr' => [
+                    'readonly' => "readonly",
+                    'style' =>      "margin: 0 0.5em 1.25em 0;width: 3em;"
+                ],
+                'data' =>           $options['id'],
+                'label' =>          'RXX ID',
+            ]
+        )
+        ->add(
             'name',
             TextType::class,
             [

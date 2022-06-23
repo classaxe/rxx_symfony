@@ -13,6 +13,18 @@ class Listeners
     public function getColumns()
     {
         return [
+            'id' => [
+                'admin' =>      false,
+                'arg' =>        '',
+                'field' =>      'id',
+                'highlight' =>  '',
+                'label' =>      'ID',
+                'order' =>      'a',
+                'sort' =>       'l.id',
+                'td_class' =>   'rowspan2',
+                'th_class' =>   'rowspan2',
+                'tooltip' =>    '',
+            ],
             'name' => [
                 'admin' =>      false,
                 'arg' =>        '',
@@ -109,6 +121,18 @@ class Listeners
                 'th_class' =>   'txt_vertical',
                 'tooltip' =>    'Timezone (relative to UTC)',
             ],
+            'equipment' => [
+                'admin' =>      false,
+                'arg' =>        '',
+                'field' =>      'equipment',
+                'highlight' =>  'equipment',
+                'label' =>      'Equipment',
+                'order' =>      'a',
+                'sort' =>       'l.equipment',
+                'td_class' =>   'l2',
+                'th_class' =>   'l2',
+                'tooltip' =>    '',
+            ],
             'logSessionLatest' => [
                 'admin' =>      false,
                 'arg' =>        '',
@@ -142,18 +166,6 @@ class Listeners
                 'order' =>      'a',
                 'sort' =>       'l.logEarliest',
                 'td_class' =>   'text-nowrap txt_r monospace l2',
-                'th_class' =>   'l2',
-                'tooltip' =>    '',
-            ],
-            'equipment' => [
-                'admin' =>      false,
-                'arg' =>        '',
-                'field' =>      'equipment',
-                'highlight' =>  'equipment',
-                'label' =>      'Equipment',
-                'order' =>      'a',
-                'sort' =>       'l.equipment',
-                'td_class' =>   '',
                 'th_class' =>   'l2',
                 'tooltip' =>    '',
             ],

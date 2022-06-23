@@ -81,6 +81,8 @@
                     %}{% if l.gsq %}<a href="{{ url('listener_map', { 'system' : system, 'id' : l.ID }) }}" data-popup="1">{{ value }}</a>{% endif %}{%
                 elseif key == 'timezone'
                     %}{% if l.timezone != '' %}{{ value|formatTimeZone }}{% else %}&nbsp;{% endif %}{%
+                elseif key == 'equipment'
+                    %}{% if l.equipment != '' %}{{ value|formatNl2br|raw }}{% else %}&nbsp;{% endif %}{%
                 elseif key == 'map'
                     %}{% if l.signalsMap %}<a href="{{ url('listener_signalsmap', { 'system' : system, 'id' : l.ID }) }}" data-popup="1">{% trans %}Map{% endtrans %}</a>{% endif %}{%
                 elseif key == 'mapPos'

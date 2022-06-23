@@ -15,6 +15,7 @@ class CustomExtensions extends AbstractExtension
         return [
             new TwigFilter('float', function ($val) { return (float)$val; }),
             new TwigFilter('formatTimeZone', [$this, '_formatTimezone']),
+            new TwigFilter('formatNl2br', [$this, '_formatNl2br']),
             new TwigFilter('ireplace', [$this, '_ireplace']),
             new TwigFilter('obfuscateEmail', [$this, '_obfuscateEmail']),
             new TwigFilter('unescape', [$this, '_unescape'])
@@ -44,6 +45,11 @@ class CustomExtensions extends AbstractExtension
     public function _ireplace($input, array $replace)
     {
         return str_ireplace(array_keys($replace), array_values($replace), $input);
+    }
+
+    public static function _formatNl2br($text)
+    {
+        return nl2br($text);
     }
 
     public static function _formatTimezone($num)

@@ -157,6 +157,19 @@ class Collection extends Base
         }
 
         if ($options['isAdmin']) {
+            $formBuilder
+                ->add(
+                    'rxx_id',
+                    TextType::class,
+                    [
+                        'attr' => [
+                            'style' => 'width: 3em;'
+                        ],
+                        'data' =>           $options['rxx_id'],
+                        'label' =>          'RXX ID',
+                        'required' =>       false
+                    ]
+                );
             if ($system=='rww') {
                 $formBuilder
                     ->add(
