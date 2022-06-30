@@ -8,7 +8,7 @@
                 <fieldset id="group_contact_details">
                     <legend style="margin-bottom: 0.5em;">{% trans %}Contact Details{% endtrans %}</legend>
                     {{ form_row(form.rxx_id) }}
-                    <small>(Quote this when requesting profile updates)<br></small>
+                    <small>({% trans %}Quote this when requesting profile updates or submitting logs{% endtrans %})<br></small>
                     {{ form_row(form.name) }}
                     {{ form_row(form.callsign) }}
                     {% if isAdmin %}

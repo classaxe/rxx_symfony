@@ -698,7 +698,7 @@ class Listener
      */
     public function getName(): ?string
     {
-        return html_entity_decode($this->name);
+        return html_entity_decode($this->name . ' [' . $this->id . ']');
     }
 
     /**
@@ -910,10 +910,10 @@ class Listener
     public function getFormattedNameAndLocation(): ?string
     {
         return
-            $this->name . ', '
+            $this->name . ' [' . $this->id . '], '
             . $this->qth.($this->sp ? ', '.$this->sp : '') . ', '
             . $this->itu
-            . ' ['.$this->gsq.']';
+            . ' - ' . $this->gsq;
     }
 
 

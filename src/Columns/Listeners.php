@@ -18,11 +18,11 @@ class Listeners
                 'arg' =>        '',
                 'field' =>      'id',
                 'highlight' =>  '',
-                'label' =>      'ID',
+                'label' =>      'RXX ID',
                 'order' =>      'a',
                 'sort' =>       'l.id',
                 'td_class' =>   'rowspan2',
-                'th_class' =>   'rowspan2',
+                'th_class' =>   'txt_vertical rowspan2',
                 'tooltip' =>    '',
             ],
             'name' => [

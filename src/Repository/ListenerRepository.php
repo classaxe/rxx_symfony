@@ -339,6 +339,7 @@ class ListenerRepository extends ServiceEntityRepository
         }
         return
             $l->getName()
+            . ' [' . $id . '] '
             . ($l->getQth() ? ', ' . $l->getQth() : '')
             . ($l->getSp() ? ' ' . $l->getSp() : '')
             . ($l->getItu() ? ' ' . $l->getItu() : '')
@@ -481,7 +482,7 @@ EOD;
                     ($row['primaryQth'] ? '' : html_entity_decode('&nbsp; '))
                     . " "
                     . html_entity_decode($row['name'])
-                    . ", "
+                    . ' [' . $row['id'] . '] '
                     . html_entity_decode($row['qth'])
                     . ($row['sp'] ? ' ' . $row['sp'] : '')
                     . " "
@@ -493,7 +494,7 @@ EOD;
                     Rxx::pad_dot(
                         ($row['primaryQth'] ? "" : ". ")
                         . $row['name']
-                        . ", "
+                        . " [" . $row['id'] . "] "
                         . $row['qth']
                         . " "
                         . $row['callsign'],
