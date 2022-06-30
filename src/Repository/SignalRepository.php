@@ -860,11 +860,17 @@ EOD;
                     ->_addSelectColumnRangeMiles()
                     ->_addSelectPrioritizeNonEmpty()
                     ->_addSelectPriotitizeActive()
-                    ->_addSelectPriotitizeExactCall()
-
-                    ->_addOrderPrioritizeExactCall()
-                    ->_addOrderPrioritizeActive()
-                    ->_addOrderPrioritizeSelected();
+                    ->_addSelectPriotitizeExactCall();
+                if (isset($args['isAdmin']) && $args['isAdmin'] && in_array($args['admin_mode'], ['1', '2'])) {
+                    $this
+                        ->_addOrderPrioritizeExactCall()
+                        ->_addOrderPrioritizeSelected();
+                } else {
+                    $this
+                        ->_addOrderPrioritizeExactCall()
+                        ->_addOrderPrioritizeActive()
+                        ->_addOrderPrioritizeSelected();
+                }
                 break;
         }
         switch ($this->args['show'] ?? false) {
