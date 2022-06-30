@@ -40,6 +40,55 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Signal
 {
+    const morse = [
+        '0' => '-----',
+        '1' => '.----',
+        '2' => '..---',
+        '3' => '...--',
+        '4' => '....-',
+        '5' => '.....',
+        '6' => '-....',
+        '7' => '--...',
+        '8' => '---..',
+        '9' => '----.',
+        'a' => '.-',
+        'b' => '-...',
+        'c' => '-.-.',
+        'd' => '-..',
+        'e' => '.',
+        'f' => '..-.',
+        'g' => '--.',
+        'h' => '....',
+        'i' => '..',
+        'j' => '.---',
+        'k' => '-.-',
+        'l' => '.-..',
+        'm' => '--',
+        'n' => '-.',
+        'o' => '---',
+        'p' => '.--.',
+        'q' => '--.-',
+        'r' => '.-.',
+        's' => '...',
+        't' => '-',
+        'u' => '..-',
+        'v' => '...-',
+        'w' => '.--',
+        'x' => '-..-',
+        'y' => '-.--',
+        'z' => '--..',
+        '.' => '.-.-.-',
+        ',' => '--..--',
+        '?' => '..--..',
+        '!' => '-.-.--',
+        '-' => '-....-',
+        '/' => '-..-.',
+        '@' => '.--.-.',
+        '(' => '-.--.',
+        ')' => '-.--.-',
+        ' ' => ' ',
+    ];
+
     /**
      * @var int
      *
@@ -749,6 +798,15 @@ class Signal
     /**
      * @return null|string
      */
+    public function getFormattedMorse(): ?string
+    {
+        // For NDBs (type 0) and HAM Beacons (type 4)
+        return (in_array($this->type, ['0', '4']) ? static::encodeMorse(html_entity_decode($this->call)) : '');
+    }
+
+    /**
+     * @return null|string
+     */
     public function getFormattedRegion(): ?string
     {
         return strtoupper($this->region);
@@ -792,6 +850,16 @@ class Signal
     public function getActions(): int
     {
         return $this->id;
+    }
+
+    public static function encodeMorse($string)
+    {
+        $chars = preg_split('//u', strtolower($string), 0, PREG_SPLIT_NO_EMPTY);
+        $out = [];
+        foreach($chars as $char) {
+            $out[] = static::morse[$char] ?? '?';
+        }
+        return implode(' / ', $out);
     }
 
     public function loadFromArray(array $array)

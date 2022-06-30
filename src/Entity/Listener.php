@@ -698,7 +698,7 @@ class Listener
      */
     public function getName(): ?string
     {
-        return html_entity_decode($this->name . ' [' . $this->id . ']');
+        return html_entity_decode($this->name);
     }
 
     /**

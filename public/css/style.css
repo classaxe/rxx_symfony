@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.36.2
- * Date:       2022-06-18
+ * Version:    2.38.3
+ * Date:       2022-06-30
  * Licence:    LGPL
  * Copyright:  2022 Martin Francis
  */
@@ -2050,6 +2050,19 @@ fieldset#form_range_units div label {
   padding: 1px;
   border: 1px solid #b0b000;
   border-radius: 2px;
+}
+.signal_view #form #show_morse {
+  width: 40%;
+  font-weight: bold;
+  white-space: nowrap;
+  color: #f00;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 100%;
+  line-height: 2em;
+  text-align: center;
+  margin: 0 auto 1em auto;
+  background: #e8e8e8;
+  border: 1px solid #cccccc;
 }
 .signal_view #form input[type='text'],
 .signal_view #form textarea,

@@ -174,6 +174,7 @@ class SignalView extends Base
                     )
                 ),
             'doReloadOpener' =>     $doReloadOpener,
+            'morse' =>              $signal->getFormattedMorse(),
             'reloadOpener' =>       $reloadOpener,
             'system' =>             $system,
             'tabs' =>               $this->signalRepository->getTabs($signal),
