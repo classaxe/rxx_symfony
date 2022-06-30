@@ -38,6 +38,8 @@ var COMMON_FORM = {
         var filter =    $('#form_filter');
         var prev =      $('#form_prev');
         var next =      $('#form_next');
+        var prevbot =   $('#form_prevbottom');
+        var nextbot =   $('#form_nextbottom');
         var limit =     $('#form_limit');
         var page =      $('#form_page');
         if (limit.length) {
@@ -63,6 +65,10 @@ var COMMON_FORM = {
             prev.show();
             next.show();
             page.show();
+            if (prevbot.length) {
+                prevbot.show();
+                nextbot.show();
+            }
         }
 
         limit.change(
@@ -81,10 +87,20 @@ var COMMON_FORM = {
                     options.eq(0).prop('text', '1-' + limit.val());
                     prev.prop('disabled', 'disabled');
                     next.prop('disabled', 'disabled');
+                    if (prevbot.length) {
+                        prevbot.prop('disabled', 'disabled');
+                        nextbot.prop('disabled', 'disabled');
+                        prevbot.show();
+                        nextbot.show();
+                    }
                 } else {
                     page.hide();
                     prev.hide();
                     next.hide();
+                    if (prevbot.length) {
+                        prevbot.hide();
+                        nextbot.hide();
+                    }
                 }
                 page.prop('selectedIndex', 0);
                 form.submit();
@@ -99,20 +115,30 @@ var COMMON_FORM = {
                     var options =   $('#form_page option');
                     var prev =      $('#form_prev');
                     var next =      $('#form_next');
+                    var prevbot =   $('#form_prevbottom');
+                    var nextbot =   $('#form_nextbottom');
                     prev.prop('disabled', 'disabled');
                     next.prop('disabled', 'disabled');
                     options.eq(paging.page - 1).prop('selected', true);
                     page.prop('selectedIndex', paging.page - 1);
+                    if (prevbot.length) {
+                        prevbot.prop('disabled', 'disabled');
+                        nextbot.prop('disabled', 'disabled');
+                    }
                     form.submit();
                     return false;
                 }
             );
         } else {
             prev.prop('disabled', 'disabled');
+            if (prevbot.length) {
+                prevbot.prop('disabled', 'disabled');
+            }
         }
 
         if (paging.page + 1 < options.length) {
             next.prop('disabled', false);
+            nextbot.prop('disabled', false);
             next.click(
                 function() {
                     var form =      $('form[name="form"]');
@@ -120,16 +146,25 @@ var COMMON_FORM = {
                     var options =   $('#form_page option');
                     var prev =      $('#form_prev');
                     var next =      $('#form_next');
+                    var prevbot =   $('#form_prevbottom');
+                    var nextbot =   $('#form_nextbottom');
                     prev.prop('disabled', 'disabled');
                     next.prop('disabled', 'disabled');
                     options.eq(paging.page + 1).prop('selected', true);
                     page.prop('selectedIndex', paging.page + 1);
+                    if (prevbot.length) {
+                        prevbot.prop('disabled', 'disabled');
+                        nextbot.prop('disabled', 'disabled');
+                    }
                     form.submit();
                     return false;
                 }
             );
         } else {
             next.prop('disabled', 'disabled');
+            if (prevbot.length) {
+                nextbot.prop('disabled', 'disabled');
+            }
         }
 
         page.change(
@@ -137,8 +172,14 @@ var COMMON_FORM = {
                 var form =      $('form[name="form"]');
                 var prev =      $('#form_prev');
                 var next =      $('#form_next');
+                var prevbot =   $('#form_prev');
+                var nextbot =   $('#form_next');
                 prev.prop('disabled', 'disabled');
                 next.prop('disabled', 'disabled');
+                if (prevbot.length) {
+                    prevbot.prop('disabled', 'disabled');
+                    nextbot.prop('disabled', 'disabled');
+                }
                 form.submit();
             }
         );
@@ -150,10 +191,16 @@ var COMMON_FORM = {
                 var options =   $('#form_page option');
                 var prev =      $('#form_prev');
                 var next =      $('#form_next');
+                var prevbot =   $('#form_prevbottom');
+                var nextbot =   $('#form_nextbottom');
                 options.eq(0).prop('selected', true);
                 page.prop('selectedIndex', 0);
                 prev.prop('disabled', 'disabled');
                 next.prop('disabled', 'disabled');
+                if (prevbot.length) {
+                    prevbot.prop('disabled', 'disabled');
+                    nextbot.prop('disabled', 'disabled');
+                }
                 form.submit();
             }
         );

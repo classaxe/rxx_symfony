@@ -38,6 +38,7 @@ class Collection extends Base
     {
         $system =   $options['system'];
         $this->addPaging($formBuilder, $options);
+        $this->addPagingBottom($formBuilder, $options);
         $this->addSorting($formBuilder, $options);
 
         $i18n = $this->translator;

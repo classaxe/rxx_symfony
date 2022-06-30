@@ -38,6 +38,7 @@ class Collection extends Base
         $region =   $options['region'];
 
         $this->addPaging($formBuilder, $options);
+        $this->addPagingBottom($formBuilder, $options);
         $this->addSorting($formBuilder, $options);
 
         $formBuilder

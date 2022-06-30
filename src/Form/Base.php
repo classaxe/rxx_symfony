@@ -95,7 +95,9 @@ class Base extends AbstractType
                 'limit',
                 TextType::class,
                 [
-                    'attr' =>       ['style' => 'display:none'],
+                    'attr' => [
+                        'style' => 'display:none'
+                    ],
                     'data' =>       $options['limit'],
                     'label' =>      'Show',
                 ]
@@ -104,7 +106,9 @@ class Base extends AbstractType
                 'page',
                 TextType::class,
                 [
-                    'attr' =>       ['style' => 'display:none'],
+                    'attr' =>       [
+                        'style' => 'display:none'
+                    ],
                     'data' =>       $options['page'],
                     'label' =>      ' ',
                 ]
@@ -113,7 +117,10 @@ class Base extends AbstractType
                 'prev',
                 ButtonType::class,
                 [
-                    'attr' =>       ['class' => 'button tiny', 'style' => 'display:none'],
+                    'attr' => [
+                        'class' => 'button tiny',
+                        'style' => 'display:none'
+                    ],
                     'label' =>      '<',
                 ]
             )
@@ -121,10 +128,47 @@ class Base extends AbstractType
                 'next',
                 ButtonType::class,
                 [
-                    'attr' =>       ['class' => 'button tiny', 'style' => 'display:none'],
+                    'attr' => [
+                        'class' => 'button tiny',
+                        'style' => 'display:none'
+                    ],
                     'label' =>      '>',
                 ]
             );
+    }
+
+    /**
+     * @param FormBuilderInterface $formBuilder
+     */
+    public function addPagingBottom(FormBuilderInterface &$formBuilder, array $options)
+    {
+        $formBuilder
+
+            ->add(
+                'prevbottom',
+                ButtonType::class,
+                [
+                    'attr' => [
+                        'class' => 'button tiny',
+                        'style' => 'display:none',
+                        'onclick' => '$("#form_prev").trigger("click")'
+                    ],
+                    'label' =>      '<',
+                ]
+            )
+            ->add(
+                'nextbottom',
+                ButtonType::class,
+                [
+                    'attr' => [
+                        'class' => 'button tiny',
+                        'style' => 'display:none',
+                        'onclick' => '$("#form_next").trigger("click")'
+                    ],
+                    'label' =>      '>',
+                ]
+            );
+
     }
 
     /**
