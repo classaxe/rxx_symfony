@@ -58,6 +58,7 @@ class SignalRepository extends ServiceEntityRepository
         ],
         'customise' => [
             'personalise',
+            'morse',
             'offsets',
             'range_gsq',
             'range_min',
@@ -476,7 +477,7 @@ class SignalRepository extends ServiceEntityRepository
 
     private function _addOrderPrioritizeSelected()
     {
-        if ($this->signalsColumns[$this->args['sort']]['sort']) {
+        if ($this->signalsColumns[$this->args['sort']]['sort'] ?? null) {
             $this->_addOrder(
                 '_empty',
                 'ASC'
@@ -495,6 +496,18 @@ class SignalRepository extends ServiceEntityRepository
             if ($this->args['sort'] === 'khz') {
                 $this->_addOrder('s.call', 'ASC');
             }
+        }
+        return $this;
+    }
+
+    private function _addSelectColumnMorse()
+    {
+
+        if ($this->args['morse'] ?? false === '1') {
+            $this->query['select'][] =
+                's.call AS morse';
+        } else {
+            $this->query['select'][] = "'' as morse";
         }
         return $this;
     }
@@ -623,7 +636,7 @@ EOD;
 
     private function _addSelectPrioritizeNonEmpty()
     {
-        $column = $this->signalsColumns[$this->args['sort']]['sort'];
+        $column = $this->signalsColumns[$this->args['sort']]['sort'] ?? null;
         switch($column) {
             case "" :
                 break;
@@ -853,6 +866,7 @@ EOD;
             default:
                 $this
                     ->_addSelectColumnsAllSignal()
+                    ->_addSelectColumnMorse()
                     ->_addSelectColumnPersonalise()
                     ->_addSelectColumnsOffsets()
                     ->_addSelectColumnRangeDeg()

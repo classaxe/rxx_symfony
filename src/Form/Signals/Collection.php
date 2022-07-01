@@ -177,6 +177,16 @@ class Collection extends Base
                 ]
             )
             ->add(
+                'morse',
+                ChoiceType::class,
+                [
+                    'choices' =>        [ 'Hide' => '', 'Show' =>   '1' ],
+                    'data' =>           $options['morse'],
+                    'label' =>          'Morse Code',
+                    'required' =>       false
+                ]
+            )
+            ->add(
                 'offsets',
                 ChoiceType::class,
                 [

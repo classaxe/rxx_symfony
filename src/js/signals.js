@@ -4,6 +4,7 @@ var SIGNALS_FORM = {
             var c = COMMON_FORM;
             var s = SIGNALS_FORM;
             s.setPersonaliseAction();
+            s.setMorseAction();
             s.setOffsetsAction();
             s.setRangeAction();
             s.setRangeUnitsDefault();
@@ -236,6 +237,17 @@ var SIGNALS_FORM = {
         });
     },
 
+    setMorseAction : function(enable) {
+        enable = typeof enable !== 'undefined' ? enable : true;
+        if (enable) {
+            $('#form_morse').change(function () {
+                formSubmit();
+            });
+        } else {
+            $('#form_morse').off('change');
+        }
+    },
+
     setOffsetsAction : function(enable) {
         enable = typeof enable !== 'undefined' ? enable : true;
         if (enable) {
@@ -313,6 +325,7 @@ var SIGNALS_FORM = {
             s.setAdminAction(false);
             c.setRegionAction(false);
             s.setRwwFocusAction(false);
+            s.setMorseAction(false);
             s.setOffsetsAction(false);
             s.setPersonaliseAction(false);
 
@@ -327,6 +340,7 @@ var SIGNALS_FORM = {
             $('#form_recently').prop('selectedIndex', 0);
             $('#form_within').prop('selectedIndex', 0);
             $('#form_personalise').prop('selectedIndex', 0);
+            $('#form_morse').prop('selectedIndex', 0);
             $('#form_offsets').prop('selectedIndex', 0);
 
             $('#form_states').val('');
@@ -356,6 +370,7 @@ var SIGNALS_FORM = {
             $('#form_admin_mode').prop('selectedIndex', 0);
 
             s.setPersonaliseAction(true);
+            s.setMorseAction(true);
             s.setOffsetsAction(true);
             s.setAdminAction(true);
             c.setRegionAction(true);
@@ -446,6 +461,10 @@ var SIGNALS = {
             }
             for (j = 0; j < cols.length; j++) {
                 c = cols[j];
+                if (c.key === 'morse' && args.morse !== 1) {
+                    console.log(args)
+                    continue;
+                }
                 html.push(
                     '  <th' +
                     (c.key && c.order ? ' id="' + c.key + '|' + c.order + '"' : '') +
@@ -522,6 +541,11 @@ var SIGNALS = {
                             break;
                         case 'merge':
                             row += tds + '<a href="' + args.urls.merge.replace('*', id) + '" class="merge">M</a>' + tde;
+                            break;
+                        case 'morse':
+                            if (args.morse === 1) {
+                                row += tds + (s.morse !=='' ? encodeMorse(s.morse) : '?') + tde;
+                            }
                             break;
                         case 'pwr':
                             row += tds + (value !== '0'  ? value : '') + tde;

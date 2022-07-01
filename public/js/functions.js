@@ -1,7 +1,7 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.38.0
+ * Version:    2.39.0
  * Date:       2022-06-30
  * Licence:    LGPL
  * Copyright:  2022 Martin Francis
@@ -531,6 +531,64 @@ function changeShowMode(mode) {
 
 function decodeHtmlEntities(value) {
     return $("<div/>").html(value).text();
+}
+
+function encodeMorse(value) {
+    var chars, i, morse, out;
+    morse = {
+        '0': '-----',
+        '1': '.----',
+        '2': '..---',
+        '3': '...--',
+        '4': '....-',
+        '5': '.....',
+        '6': '-....',
+        '7': '--...',
+        '8': '---..',
+        '9': '----.',
+        'a': '.-',
+        'b': '-...',
+        'c': '-.-.',
+        'd': '-..',
+        'e': '.',
+        'f': '..-.',
+        'g': '--.',
+        'h': '....',
+        'i': '..',
+        'j': '.---',
+        'k': '-.-',
+        'l': '.-..',
+        'm': '--',
+        'n': '-.',
+        'o': '---',
+        'p': '.--.',
+        'q': '--.-',
+        'r': '.-.',
+        's': '...',
+        't': '-',
+        'u': '..-',
+        'v': '...-',
+        'w': '.--',
+        'x': '-..-',
+        'y': '-.--',
+        'z': '--..',
+        '.': '.-.-.-',
+        ',': '--..--',
+        '?': '..--..',
+        '!': '-.-.--',
+        '-': '-....-',
+        '/': '-..-.',
+        '@': '.--.-.',
+        '(': '-.--.',
+        ')': '-.--.-',
+        ' ': ' ',
+    };
+    chars = value.toLowerCase().split('');
+    out = [];
+    for (i=0; i<chars.length; i++) {
+        out.push(typeof morse[chars[i]] !== 'undefined' ? morse[chars[i]] : '?');
+    }
+    return out.join('/');
 }
 
 function getMetar(decoded) {
@@ -2040,6 +2098,7 @@ var shareableLink = {
             this.getFromPagingControls(50) +
             this.getFromSortingControls('khz', 'a') +
             this.getFromField('personalise') +
+            this.getFromField('morse', ['1']) +
             this.getFromField('offsets', ['1']) +
             this.getFromField('range_gsq') +
             this.getFromField('range_min') +
@@ -2446,6 +2505,7 @@ var SIGNALS_FORM = {
             var c = COMMON_FORM;
             var s = SIGNALS_FORM;
             s.setPersonaliseAction();
+            s.setMorseAction();
             s.setOffsetsAction();
             s.setRangeAction();
             s.setRangeUnitsDefault();
@@ -2678,6 +2738,17 @@ var SIGNALS_FORM = {
         });
     },
 
+    setMorseAction : function(enable) {
+        enable = typeof enable !== 'undefined' ? enable : true;
+        if (enable) {
+            $('#form_morse').change(function () {
+                formSubmit();
+            });
+        } else {
+            $('#form_morse').off('change');
+        }
+    },
+
     setOffsetsAction : function(enable) {
         enable = typeof enable !== 'undefined' ? enable : true;
         if (enable) {
@@ -2755,6 +2826,7 @@ var SIGNALS_FORM = {
             s.setAdminAction(false);
             c.setRegionAction(false);
             s.setRwwFocusAction(false);
+            s.setMorseAction(false);
             s.setOffsetsAction(false);
             s.setPersonaliseAction(false);
 
@@ -2769,6 +2841,7 @@ var SIGNALS_FORM = {
             $('#form_recently').prop('selectedIndex', 0);
             $('#form_within').prop('selectedIndex', 0);
             $('#form_personalise').prop('selectedIndex', 0);
+            $('#form_morse').prop('selectedIndex', 0);
             $('#form_offsets').prop('selectedIndex', 0);
 
             $('#form_states').val('');
@@ -2798,6 +2871,7 @@ var SIGNALS_FORM = {
             $('#form_admin_mode').prop('selectedIndex', 0);
 
             s.setPersonaliseAction(true);
+            s.setMorseAction(true);
             s.setOffsetsAction(true);
             s.setAdminAction(true);
             c.setRegionAction(true);
@@ -2888,6 +2962,10 @@ var SIGNALS = {
             }
             for (j = 0; j < cols.length; j++) {
                 c = cols[j];
+                if (c.key === 'morse' && args.morse !== 1) {
+                    console.log(args)
+                    continue;
+                }
                 html.push(
                     '  <th' +
                     (c.key && c.order ? ' id="' + c.key + '|' + c.order + '"' : '') +
@@ -2964,6 +3042,11 @@ var SIGNALS = {
                             break;
                         case 'merge':
                             row += tds + '<a href="' + args.urls.merge.replace('*', id) + '" class="merge">M</a>' + tde;
+                            break;
+                        case 'morse':
+                            if (args.morse === 1) {
+                                row += tds + (s.morse !=='' ? encodeMorse(s.morse) : '?') + tde;
+                            }
                             break;
                         case 'pwr':
                             row += tds + (value !== '0'  ? value : '') + tde;

@@ -17,8 +17,7 @@ var args = {
   types: {
 {% for key, type in types %}
     {{ key }} : { classname: 'type_{{ type.class|lower }}', title: '{{ type.title|trans }}' }{% if not loop.last %},
-{% endif %}
-{% endfor %}
+{% endif %}{% endfor %}
 
   },
   urls: {
@@ -27,7 +26,8 @@ var args = {
     logs:       '{{ url('signal_logs', { 'system' : system, 'id' : '*' }) }}',
     merge:      '{{ url('signal_merge', { 'system' : system, 'id' : '*' }) }}',
     profile:    '{{ url('signal', { 'system' : system, 'id' : '*' }) }}'
-  }
+  },
+  morse: {{ args.morse ? 1 : 0 }}
 }
 $(document).ready(function() {
     SIGNALS.loadList(args);

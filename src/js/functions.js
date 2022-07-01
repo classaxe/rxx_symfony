@@ -16,6 +16,64 @@ function decodeHtmlEntities(value) {
     return $("<div/>").html(value).text();
 }
 
+function encodeMorse(value) {
+    var chars, i, morse, out;
+    morse = {
+        '0': '-----',
+        '1': '.----',
+        '2': '..---',
+        '3': '...--',
+        '4': '....-',
+        '5': '.....',
+        '6': '-....',
+        '7': '--...',
+        '8': '---..',
+        '9': '----.',
+        'a': '.-',
+        'b': '-...',
+        'c': '-.-.',
+        'd': '-..',
+        'e': '.',
+        'f': '..-.',
+        'g': '--.',
+        'h': '....',
+        'i': '..',
+        'j': '.---',
+        'k': '-.-',
+        'l': '.-..',
+        'm': '--',
+        'n': '-.',
+        'o': '---',
+        'p': '.--.',
+        'q': '--.-',
+        'r': '.-.',
+        's': '...',
+        't': '-',
+        'u': '..-',
+        'v': '...-',
+        'w': '.--',
+        'x': '-..-',
+        'y': '-.--',
+        'z': '--..',
+        '.': '.-.-.-',
+        ',': '--..--',
+        '?': '..--..',
+        '!': '-.-.--',
+        '-': '-....-',
+        '/': '-..-.',
+        '@': '.--.-.',
+        '(': '-.--.',
+        ')': '-.--.-',
+        ' ': ' ',
+    };
+    chars = value.toLowerCase().split('');
+    out = [];
+    for (i=0; i<chars.length; i++) {
+        out.push(typeof morse[chars[i]] !== 'undefined' ? morse[chars[i]] : '?');
+    }
+    return out.join('/');
+}
+
 function getMetar(decoded) {
     window.open('https://www.aviationweather.gov/metar/data' +
         '?ids='+$('#form_icao').val() +
