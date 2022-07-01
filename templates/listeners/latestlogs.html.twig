@@ -4,7 +4,7 @@
         <div class="small-12 medium-11">
             {% for l in latestLogs['listeners'] %}
                 <a href="{{ url('listener_logs', { 'system' : system, 'id': l.id }) }}"
-                   title="{{ l.name|raw}}, {{ l.qth }}{% if l.sp %}, {{ l.sp }}{% endif %}, {{ l.itu }} [{{ l.gsq }}]"
+                   title="{{ l.id }} | {{ l.name|raw}}, {{ l.qth }}{% if l.sp %}, {{ l.sp }}{% endif %}, {{ l.itu }} [{{ l.gsq }}]"
                    data-popup="1"{% if l.primaryQth %} class="pri"{% endif %}>
                     {{ l.name|raw }}
                 </a> ({{ l.sp ? l.sp : l.itu }})
