@@ -1,7 +1,7 @@
 function initListenersLogUploadForm() {
     var std_formats = {
         'pskov': '  DD.MM.YYYY  hhmm  KHZ    ID    LSB    USB    sec            X',
-        'wwsu':  'YYYY-MM-DD UTC    KHZ     ID         X       QTH',
+        'wwsu':  'YYYY.MM.DD hh:mm  KHZ     ID        X     QTH',
         'yand':  'YYYYMMDD hhmm KHZ ID   X          QTH           X'
     }
     var formFormat = $('#form_format');

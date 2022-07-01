@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.39.0
- * Date:       2022-06-30
+ * Version:    2.39.1
+ * Date:       2022-07-01
  * Licence:    LGPL
  * Copyright:  2022 Martin Francis
  */
@@ -1301,7 +1301,7 @@ var LocatorMap = {
 function initListenersLogUploadForm() {
     var std_formats = {
         'pskov': '  DD.MM.YYYY  hhmm  KHZ    ID    LSB    USB    sec            X',
-        'wwsu':  'YYYY-MM-DD UTC    KHZ     ID         X       QTH',
+        'wwsu':  'YYYY.MM.DD hh:mm  KHZ     ID        X     QTH',
         'yand':  'YYYYMMDD hhmm KHZ ID   X          QTH           X'
     }
     var formFormat = $('#form_format');
