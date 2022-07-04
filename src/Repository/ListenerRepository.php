@@ -264,32 +264,32 @@ class ListenerRepository extends ServiceEntityRepository
             case 'N':
                 $qb->andWhere('(l.active = \'N\')');
                 break;
-            case '30d':
+            case '30D':
                 $recent = (new DateTime())->modify('-30 day')->format('Y-m-d');
                 $qb->andWhere('(l.active = \'Y\')');
                 $qb->andWhere('(l.logLatest >= \'' . $recent .'\')');
                 break;
-            case '3m':
+            case '3M':
                 $recent = (new DateTime())->modify('-3 month')->format('Y-m-d');
                 $qb->andWhere('(l.active = \'Y\')');
                 $qb->andWhere('(l.logLatest >= \'' . $recent .'\')');
                 break;
-            case '6m':
+            case '6M':
                 $recent = (new DateTime())->modify('-6 month')->format('Y-m-d');
                 $qb->andWhere('(l.active = \'Y\')');
                 $qb->andWhere('(l.logLatest >= \'' . $recent .'\')');
                 break;
-            case '1y':
+            case '1Y':
                 $recent = (new DateTime())->modify('-1 year')->format('Y-m-d');
                 $qb->andWhere('(l.active = \'Y\')');
                 $qb->andWhere('(l.logLatest >= \'' . $recent .'\')');
                 break;
-            case '2y':
+            case '2Y':
                 $recent = (new DateTime())->modify('-2 year')->format('Y-m-d');
                 $qb->andWhere('(l.active = \'Y\')');
                 $qb->andWhere('(l.logLatest >= \'' . $recent .'\')');
                 break;
-            case '5y':
+            case '5Y':
                 $recent = (new DateTime())->modify('-5 year')->format('Y-m-d');
                 $qb->andWhere('(l.active = \'Y\')');
                 $qb->andWhere('(l.logLatest >= \'' . $recent .'\')');
