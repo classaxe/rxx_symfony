@@ -13,7 +13,7 @@ var LISTENERS_FORM = {
             l.setHasLogsAction();
             l.setHasMapPosAction();
             l.setTimezoneAction();
-            l.setActiveAction();
+            l.setStatusAction();
             l.setSearchforAction();
             l.setSaveAction();
             l.setResetAction();
@@ -47,17 +47,6 @@ var LISTENERS_FORM = {
             return false;
         });
 
-    },
-
-    setActiveAction : function(enable) {
-        enable = typeof enable !== 'undefined' ? enable : true;
-        if (enable) {
-            $('select#form_active').change(function () {
-                formSubmit();
-            });
-        } else {
-            $('select#form_active').off('change');
-        }
     },
 
     setFocusOnSearch : function() {
@@ -105,20 +94,20 @@ var LISTENERS_FORM = {
             l.setHasLogsAction(false);
             l.setHasMapPosAction(false);
             l.setTimezoneAction(false);
-            l.setActiveAction(false);
+            l.setStatusAction(false);
             $('#form_equipment').val('');
             $('#form_active').removeClass('inactive')
             $('select#form_region').prop('selectedIndex', 0);
             $('select#form_country').prop('selectedIndex', 0);
             $('select#form_has_map_pos').prop('selectedIndex', 0);
             $('select#form_timezone').val('ALL').selectmenu('refresh');
-            $('select#form_active').prop('selectedIndex', 0);
+            $('select#form_status').prop('selectedIndex', 0);
             c.setCountryAction(true);
             c.setRegionAction(true);
             l.setHasLogsAction(true);
             l.setHasMapPosAction(true);
             l.setTimezoneAction(true);
-            l.setActiveAction(true);
+            l.setStatusAction(true);
             formSubmit();
             return false;
         })
@@ -133,6 +122,7 @@ var LISTENERS_FORM = {
             }
         });
     },
+
     setSearchforAction : function(enable) {
         var form_q = $('#form_q');
         $('#form_active').addClass(!! form_q.val() ? 'inactive' : '');
@@ -143,6 +133,17 @@ var LISTENERS_FORM = {
                 $('#form_active').removeClass('inactive');
             }
         });
+    },
+
+    setStatusAction : function(enable) {
+        enable = typeof enable !== 'undefined' ? enable : true;
+        if (enable) {
+            $('select#form_status').change(function () {
+                formSubmit();
+            });
+        } else {
+            $('select#form_status').off('change');
+        }
     },
 
     setTimezoneAction : function(enable) {

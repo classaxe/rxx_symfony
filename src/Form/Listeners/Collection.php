@@ -95,15 +95,21 @@ class Collection extends Base
                 ]
             )
             ->add(
-                'active',
+                'status',
                 ChoiceType::class,
                 [
                     'choices' =>        [
                         'All' => '',
-                        'Active (with logs in last two years)' => 'Y',
-                        'Inactive (no logs in last two years)' => 'N'
+                        'Active' => 'Y',
+                        'Inactive' => 'N',
+                        'Active (with logs in last 30 days)' => '30d',
+                        'Active (with logs in last 3 months)' => '3m',
+                        'Active (with logs in last 6 months)' => '6m',
+                        'Active (with logs in last year)' => '1y',
+                        'Active (with logs in last two years)' => '2y',
+                        'Active (with logs in last five years)' => '5y',
                     ],
-                    'data' =>           $options['active'],
+                    'data' =>           $options['status'],
                     'label' =>          'Status',
                     'required' =>       false
                 ]

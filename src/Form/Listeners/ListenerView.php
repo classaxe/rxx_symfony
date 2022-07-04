@@ -55,6 +55,21 @@ class ListenerView extends Base
             ]
         )
         ->add(
+            'active',
+            ChoiceType::class,
+            [
+                'attr' => [
+                    'style' =>      "width: 6em;margin-right: 1em"
+                ],
+                'choices' => [
+                    'No' =>     'N',
+                    'Yes' =>    'Y',
+                ],
+                'data' =>           $options['active'],
+                'label' =>          'Active Profile',
+            ]
+        )
+        ->add(
             'name',
             TextType::class,
             [

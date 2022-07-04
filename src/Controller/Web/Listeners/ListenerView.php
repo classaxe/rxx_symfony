@@ -4,6 +4,7 @@ namespace App\Controller\Web\Listeners;
 use App\Entity\Listener as ListenerEntity;
 use App\Form\Listeners\ListenerView as ListenerViewForm;
 
+use App\Utils\Rxx;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
@@ -17,7 +18,7 @@ use Symfony\Component\HttpFoundation\Request;
 class ListenerView extends Base
 {
     const EDITABLE_FIELDS = [
-        'callsign', 'email', 'equipment', 'itu', 'mapX', 'mapY', 'name', 'notes', 'primaryQth', 'qth', 'sp', 'timezone', 'website'
+        'active', 'callsign', 'email', 'equipment', 'itu', 'mapX', 'mapY', 'name', 'notes', 'primaryQth', 'qth', 'sp', 'timezone', 'website'
     ];
 
     /**

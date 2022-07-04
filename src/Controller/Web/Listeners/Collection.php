@@ -68,7 +68,7 @@ class Collection extends Base
             'sort' =>       $this->listenerRepository::defaultSorting,
 
             'rxx_id' =>     '',
-            'active' =>     '',
+            'status' =>     '',
             'country' =>    '',
             'equipment' =>    '',
             'has_logs' =>   '',
@@ -164,7 +164,7 @@ class Collection extends Base
         }
         $this->setValueFromRequest($args, $request, 'show', ['list', 'map'], 'a');
         $this->setTimezoneFromRequest($args, $request);
-        $this->setValueFromRequest($args, $request, 'active', ['', 'N', 'Y'], 'A');
+        $this->setValueFromRequest($args, $request, 'status', ['', 'N', 'Y', '30d', '3m', '6m', '1y', '2y', '5y'], 'A');
         $this->setValueFromRequest($args, $request, 'country', false, 'A');
         $this->setValueFromRequest($args, $request, 'rxx_id');
         $this->setValueFromRequest($args, $request, 'q');

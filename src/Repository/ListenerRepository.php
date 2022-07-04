@@ -133,25 +133,6 @@ class ListenerRepository extends ServiceEntityRepository
         return $out;
     }
 
-    private function addFilterActive(&$qb, $args)
-    {
-        if (empty($args['active'])) {
-            return;
-        }
-        if (!empty($args['q'])) {
-            return;
-        }
-        $recent = (new DateTime())->modify('-2 year')->format('Y-m-d');
-        switch ($args['active']) {
-            case 'Y':
-                $qb->andWhere('(l.logLatest > \'' . $recent .'\')');
-                break;
-            case 'N':
-                $qb->andWhere('(l.logLatest < \'' . $recent .'\')');
-                break;
-        }
-    }
-
     private function addFilterCountry(&$qb, $args)
     {
         if (empty($args['country'])) {
@@ -272,6 +253,54 @@ class ListenerRepository extends ServiceEntityRepository
         $qb
             ->andWhere('(l.name like :filter or l.qth like :filter or l.callsign like :filter)')
             ->setParameter('filter', '%' . $args['q'] . '%');
+    }
+
+    private function addFilterStatus(&$qb, $args)
+    {
+        if (empty($args['status'])) {
+            return;
+        }
+        if (!empty($args['q'])) {
+            return;
+        }
+        switch ($args['status']) {
+            case 'Y':
+                $qb->andWhere('(l.active = \'Y\')');
+                break;
+            case 'N':
+                $qb->andWhere('(l.active = \'N\')');
+                break;
+            case '30d':
+                $recent = (new DateTime())->modify('-30 day')->format('Y-m-d');
+                $qb->andWhere('(l.active = \'Y\')');
+                $qb->andWhere('(l.logLatest >= \'' . $recent .'\')');
+                break;
+            case '3m':
+                $recent = (new DateTime())->modify('-3 month')->format('Y-m-d');
+                $qb->andWhere('(l.active = \'Y\')');
+                $qb->andWhere('(l.logLatest >= \'' . $recent .'\')');
+                break;
+            case '6m':
+                $recent = (new DateTime())->modify('-6 month')->format('Y-m-d');
+                $qb->andWhere('(l.active = \'Y\')');
+                $qb->andWhere('(l.logLatest >= \'' . $recent .'\')');
+                break;
+            case '1y':
+                $recent = (new DateTime())->modify('-1 year')->format('Y-m-d');
+                $qb->andWhere('(l.active = \'Y\')');
+                $qb->andWhere('(l.logLatest >= \'' . $recent .'\')');
+                break;
+            case '2y':
+                $recent = (new DateTime())->modify('-2 year')->format('Y-m-d');
+                $qb->andWhere('(l.active = \'Y\')');
+                $qb->andWhere('(l.logLatest >= \'' . $recent .'\')');
+                break;
+            case '5y':
+                $recent = (new DateTime())->modify('-5 year')->format('Y-m-d');
+                $qb->andWhere('(l.active = \'Y\')');
+                $qb->andWhere('(l.logLatest >= \'' . $recent .'\')');
+                break;
+        }
     }
 
     private function addFilterSystem(&$qb, $system)
@@ -424,6 +453,7 @@ class ListenerRepository extends ServiceEntityRepository
                     CONCAT_WS(
                         '|',
                         id,
+                        active,
                         name,
                         callsign,
                         gsq,
@@ -528,7 +558,7 @@ EOD;
         $this->addFilterCountry($qb, $args);
         $this->addFilterRegion($qb, $args);
         $this->addFilterTimezone($qb, $args);
-        $this->addFilterActive($qb, $args);
+        $this->addFilterStatus($qb, $args);
         $this->addFilterEquipment($qb, $args);
         $this->addFilterRxxId($qb, $args);
 
@@ -605,7 +635,7 @@ EOD;
         $this->addFilterCountry($qb, $args);
         $this->addFilterRegion($qb, $args);
         $this->addFilterTimezone($qb, $args);
-        $this->addFilterActive($qb, $args);
+        $this->addFilterStatus($qb, $args);
         $this->addFilterEquipment($qb, $args);
         $this->addFilterRxxId($qb, $args);
         return $qb->getQuery()->getSingleScalarResult();

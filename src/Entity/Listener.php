@@ -33,6 +33,13 @@ class Listener
     private $id;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="active", type="string", length=1, nullable=false)
+     */
+    private $active = '';
+
+    /**
      * @var string
      *
      * @ORM\Column(name="callsign", type="string", length=12, nullable=false)
@@ -44,70 +51,70 @@ class Listener
      *
      * @ORM\Column(name="count_DGPS", type="integer", nullable=false, options={"unsigned"=true})
      */
-    private $countDgps = '0';
+    private $countDgps = 0;
 
     /**
      * @var int
      *
      * @ORM\Column(name="count_DSC", type="integer", nullable=false, options={"unsigned"=true})
      */
-    private $countDsc = '0';
+    private $countDsc = 0;
 
     /**
      * @var int
      *
      * @ORM\Column(name="count_HAMBCN", type="integer", nullable=false, options={"unsigned"=true})
      */
-    private $countHambcn = '0';
+    private $countHambcn = 0;
 
     /**
      * @var int
      *
      * @ORM\Column(name="count_logs", type="integer", nullable=false, options={"unsigned"=true})
      */
-    private $countLogs = '0';
+    private $countLogs = 0;
 
     /**
      * @var int
      *
      * @ORM\Column(name="count_logsessions", type="integer", nullable=false, options={"unsigned"=true})
      */
-    private $countLogSessions = '0';
+    private $countLogSessions = 0;
 
     /**
      * @var int
      *
      * @ORM\Column(name="count_NAVTEX", type="integer", nullable=false, options={"unsigned"=true})
      */
-    private $countNavtex = '0';
+    private $countNavtex = 0;
 
     /**
      * @var int
      *
      * @ORM\Column(name="count_NDB", type="integer", nullable=false, options={"unsigned"=true})
      */
-    private $countNdb = '0';
+    private $countNdb = 0;
 
     /**
      * @var int
      *
      * @ORM\Column(name="count_OTHER", type="integer", nullable=false, options={"unsigned"=true})
      */
-    private $countOther = '0';
+    private $countOther = 0;
 
     /**
      * @var int
      *
      * @ORM\Column(name="count_TIME", type="integer", nullable=false, options={"unsigned"=true})
      */
-    private $countTime = '0';
+    private $countTime = 0;
 
     /**
      * @var int
      *
      * @ORM\Column(name="count_signals", type="integer", nullable=false, options={"unsigned"=true})
      */
-    private $countSignals = '0';
+    private $countSignals = 0;
 
     /**
      * @var string
@@ -254,6 +261,25 @@ class Listener
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getActive(): ?string
+    {
+        return $this->active;
+    }
+
+    /**
+     * @param string $active
+     * @return Listener
+     */
+    public function setActive(?string $active): self
+    {
+        $this->active = $active;
+
+        return $this;
     }
 
     /**
