@@ -80,6 +80,7 @@ var shareableLink = {
             (this.getFromField('timezone') !== '&timezone=ALL' ? this.getFromField('timezone') : '') +
             this.getFromField('status', [ 'N', 'Y', '30D', '3M', '6M', '1Y', '2Y', '5Y' ], 'A') +
             this.getFromField('equipment') +
+            this.getFromField('notes') +
             this.getFromPagingControls(100) +
             this.getFromSortingControls('name', 'a');
     },

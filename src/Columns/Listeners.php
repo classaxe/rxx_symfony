@@ -145,6 +145,18 @@ class Listeners
                 'th_class' =>   'l2',
                 'tooltip' =>    '',
             ],
+            'notes' => [
+                'admin' =>      true,
+                'arg' =>        '',
+                'field' =>      'notes',
+                'highlight' =>  false,
+                'label' =>      'Notes',
+                'order' =>      'a',
+                'sort' =>       'l.notes',
+                'td_class' =>   'l2',
+                'th_class' =>   'l2',
+                'tooltip' =>    '',
+            ],
             'logSessionLatest' => [
                 'admin' =>      false,
                 'arg' =>        '',

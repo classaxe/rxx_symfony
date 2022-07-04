@@ -1,7 +1,7 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.40.3
+ * Version:    2.40.5
  * Date:       2022-07-04
  * Licence:    LGPL
  * Copyright:  2022 Martin Francis
@@ -1162,6 +1162,7 @@ var LISTENERS_FORM = {
             l.setTimezoneAction(false);
             l.setStatusAction(false);
             $('#form_equipment').val('');
+            $('#form_notes').val('');
             $('#form_active').removeClass('inactive')
             $('select#form_region').prop('selectedIndex', 0);
             $('select#form_country').prop('selectedIndex', 0);
@@ -2074,6 +2075,7 @@ var shareableLink = {
             (this.getFromField('timezone') !== '&timezone=ALL' ? this.getFromField('timezone') : '') +
             this.getFromField('status', [ 'N', 'Y', '30D', '3M', '6M', '1Y', '2Y', '5Y' ], 'A') +
             this.getFromField('equipment') +
+            this.getFromField('notes') +
             this.getFromPagingControls(100) +
             this.getFromSortingControls('name', 'a');
     },

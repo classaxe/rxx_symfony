@@ -70,9 +70,10 @@ class Collection extends Base
             'rxx_id' =>     '',
             'status' =>     '',
             'country' =>    '',
-            'equipment' =>    '',
+            'equipment' =>  '',
             'has_logs' =>   '',
             'has_map_pos' => '',
+            'notes' =>      '',
             'q' =>          '',
             'region' =>     '',
             'show' =>       '',
@@ -169,5 +170,6 @@ class Collection extends Base
         $this->setValueFromRequest($args, $request, 'rxx_id');
         $this->setValueFromRequest($args, $request, 'q');
         $this->setValueFromRequest($args, $request, 'equipment');
+        $this->setValueFromRequest($args, $request, 'notes');
     }
 }

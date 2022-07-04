@@ -96,6 +96,7 @@ var LISTENERS_FORM = {
             l.setTimezoneAction(false);
             l.setStatusAction(false);
             $('#form_equipment').val('');
+            $('#form_notes').val('');
             $('#form_active').removeClass('inactive')
             $('select#form_region').prop('selectedIndex', 0);
             $('select#form_country').prop('selectedIndex', 0);

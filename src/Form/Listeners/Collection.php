@@ -174,6 +174,16 @@ class Collection extends Base
                         'required' =>       false
                     ]
                 );
+            $formBuilder
+                ->add(
+                    'notes',
+                    TextType::class,
+                    [
+                        'data' =>           $options['notes'],
+                        'label' =>          'Notes',
+                        'required' =>       false
+                    ]
+                );
             if ($system=='rww') {
                 $formBuilder
                     ->add(
