@@ -431,7 +431,7 @@ class Collection extends Base
                 ButtonType::class,
                 [
                     'attr' =>           [ 'class' => 'button small' ],
-                    'label' =>          'Save'
+                    'label' =>          'Set Default'
                 ]
             )
             ->add(
