@@ -257,12 +257,6 @@ class ListenerRepository extends ServiceEntityRepository
 
     private function addFilterStatus(&$qb, $args)
     {
-        if (empty($args['status'])) {
-            return;
-        }
-        if (!empty($args['q'])) {
-            return;
-        }
         switch ($args['status']) {
             case 'Y':
                 $qb->andWhere('(l.active = \'Y\')');
