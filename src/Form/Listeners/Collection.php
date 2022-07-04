@@ -169,11 +169,8 @@ class Collection extends Base
                     'rxx_id',
                     TextType::class,
                     [
-                        'attr' => [
-                            'style' => 'width: 3em;'
-                        ],
                         'data' =>           $options['rxx_id'],
-                        'label' =>          'RXX ID',
+                        'label' =>          'RXX ID(s)',
                         'required' =>       false
                     ]
                 );

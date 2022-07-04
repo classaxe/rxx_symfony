@@ -240,9 +240,13 @@ class ListenerRepository extends ServiceEntityRepository
         if (empty($args['rxx_id'])) {
             return;
         }
-        $qb
-            ->andWhere('(l.id = :rxx_id)')
-            ->setParameter('rxx_id', $args['rxx_id']);
+        $in_arr = [];
+        $rxx_id_arr = explode(' ', str_replace(',', ' ', $args['rxx_id']));
+        foreach($rxx_id_arr as $idx => $value) {
+            $qb->setParameter('rxx_id_' . $idx, $value);
+            $in_arr[] = ':rxx_id_' . $idx;
+        }
+        $qb->andWhere('l.id IN(' . implode(',', $in_arr) . ')');
     }
 
     private function addFilterSearch(&$qb, $args)
