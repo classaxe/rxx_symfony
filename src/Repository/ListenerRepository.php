@@ -391,6 +391,21 @@ class ListenerRepository extends ServiceEntityRepository
         return $out;
     }
 
+    public function getListenerForWwsuKey($wwsu_key)
+    {
+        $qb = $this
+            ->createQueryBuilder('l', 'l.id')
+            ->select('l.name, l.qth, l.gsq, l.wwsu_enable, l.wwsu_perm_cycle, l.wwsu_perm_offsets')
+            ->andWhere('l.wwsu_key = :wwsu_key')
+            ->setParameter('wwsu_key', $wwsu_key)
+            ->andWhere('l.id = :rxx_id')
+            ->setParameter('rxx_id', explode('|', $wwsu_key)[0]);
+
+        $result = $qb->getQuery()->execute();
+
+        return ['key' => $wwsu_key, 'result' => $result[0]];
+    }
+
     public function getSignalListenersMapCoords($map, $signalId)
     {
         $qb = $this

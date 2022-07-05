@@ -18,7 +18,7 @@ function setListenerActions() {
             checkItuSp();
         });
         $('#btn_generate').on('click', function() {
-            $('#form_wwsuKey').val($('#form_rxx_id').val() + '|' + Math.random().toString(36).substr(2, 10));
+            $('#form_wwsuKey').val($('#form_rxx_id').val() + '-' + Math.random().toString(36).substr(2, 10));
         })
         $('#btn_copy').on('click', function() {
             var key = $('#form_wwsuKey').val();
