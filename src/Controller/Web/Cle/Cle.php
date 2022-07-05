@@ -154,15 +154,17 @@ class Cle extends Base
     private function getUrlForRegion($cle, $region, $range) {
         $params = [];
         $prefix = "get{$region}Range$range";
+        if ($val = $cle->{ $prefix . 'Type'}()) {
+            $types = explode('&amp;', str_replace([ 'type_', '=1' ], '', $val));
+            if (implode(',', $types) !== 'NDB') {
+                $params[] = 'types=' . implode(',', $types);
+            }
+        }
         if (($val1 = $cle->{ $prefix . 'Low'}()) && ($val2 = $cle->{ $prefix . 'High'}())) {
             $params[] = 'khz=' . $val1 . ',' . $val2;
         }
         if ($val = $cle->{ $prefix . 'Channels'}()) {
             $params[] = 'channels=' . $val;
-        }
-        if ($val = $cle->{ $prefix . 'Type'}()) {
-            $types = explode('&amp;', str_replace([ 'type_', '=1' ], '', $val));
-            $params[] = 'types=' . implode(',', $types);
         }
         if ($val = $cle->{ $prefix . 'Locator'}()) {
             $params[] = 'gsq=' . urlencode($val);

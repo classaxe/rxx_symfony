@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.40.5
- * Date:       2022-07-04
+ * Version:    2.40.6
+ * Date:       2022-07-05
  * Licence:    LGPL
  * Copyright:  2022 Martin Francis
  */
@@ -227,7 +227,7 @@ var cle = {
         types = ['#form_worldRange1Type', '#form_worldRange2Type', '#form_europeRange1Type', '#form_europeRange2Type'];
         for (i in types) {
             value = $(types[i]).val();
-            if (value !== '') {
+            if (typeof value !== 'undefined') {
                 typeArray = value.split('&amp;');
                 $(types[i]).parent().find('input:checkbox').each(function () {
                     var j, type;
@@ -2049,7 +2049,7 @@ var shareableLink = {
             (defaultOrder !== f2.val() ? '&order=' + f2.val() : '');
     },
     getFromTypes: function() {
-        var types = [];
+        var types = [], url;
         $("fieldset#form_type div input").each(function() {
             if ($(this).is(':checked') && 'ALL' !== $(this).prop('value')) {
                 types.push($(this).prop('value'));
@@ -2061,10 +2061,12 @@ var shareableLink = {
         if (7 === types.length) {
             types = ['ALL'];
         }
-        return '?types=' + $.uniqueSort(types).join(',');
+        url = '&types=' + $.uniqueSort(types).join(',');
+        return (url === '&types=NDB' ? '' : url);
     },
-    listenersUrl: function() {
-        return this.getBaseUrl('listeners') +
+    listenersUrl: function(suffix) {
+        var base = this.getBaseUrl('listeners');
+        var url =
             this.getFromTypes() +
             this.getFromField('q') +
             this.getFromField('region') +
@@ -2076,11 +2078,15 @@ var shareableLink = {
             this.getFromField('status', [ 'N', 'Y', '30D', '3M', '6M', '1Y', '2Y', '5Y' ], 'A') +
             this.getFromField('equipment') +
             this.getFromField('notes') +
-            this.getFromPagingControls(100) +
-            this.getFromSortingControls('name', 'a');
+            this.getFromPagingControls(500) +
+            this.getFromSortingControls('name', 'a') +
+            (typeof suffix !== 'undefined' ? suffix : '');
+
+        return base + (url.substring(0,1) === '&' ? '?' + url.substring(1) : url);
     },
-    signalsUrl: function() {
-        return this.getBaseUrl('signals') +
+    signalsUrl: function(suffix) {
+        var base = this.getBaseUrl('signals');
+        var url =
             this.getFromTypes() +
             this.getFromField('rww_focus') +
             this.getFromField('call') +
@@ -2114,8 +2120,10 @@ var shareableLink = {
             (this.getFromField('range_gsq') ? this.getFromRadioGroup('range_units') : '') +
 
             this.getFromRadioGroup('paper', [ 'a4', 'a4_l', 'lgl', 'lgl_l', 'ltr', 'ltr_l' ]) +
-            this.getFromField('admin_mode');
+            this.getFromField('admin_mode') +
+            (typeof suffix !== 'undefined' ? suffix : '');
 
+        return base + (url.substring(0,1) === '&' ? '?' + url.substring(1) : url);
     }
 };
 
@@ -2950,7 +2958,7 @@ var SIGNALS_FORM = {
 
 var SIGNALS = {
     loadList: function(args) {
-        var url = shareableLink.signalsUrl() + '&show=list';
+        var url = shareableLink.signalsUrl('&show=list');
         console.log(url);
         $.get(url, function(data) {
             var c, cols, html, i, id, j, key, row, s, tde, tds, title, value;

@@ -441,7 +441,7 @@ var SIGNALS_FORM = {
 
 var SIGNALS = {
     loadList: function(args) {
-        var url = shareableLink.signalsUrl() + '&show=list';
+        var url = shareableLink.signalsUrl('&show=list');
         console.log(url);
         $.get(url, function(data) {
             var c, cols, html, i, id, j, key, row, s, tde, tds, title, value;

@@ -48,7 +48,7 @@ var cle = {
         types = ['#form_worldRange1Type', '#form_worldRange2Type', '#form_europeRange1Type', '#form_europeRange2Type'];
         for (i in types) {
             value = $(types[i]).val();
-            if (value !== '') {
+            if (typeof value !== 'undefined') {
                 typeArray = value.split('&amp;');
                 $(types[i]).parent().find('input:checkbox').each(function () {
                     var j, type;
