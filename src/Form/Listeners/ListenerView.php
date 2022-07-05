@@ -196,7 +196,7 @@ class ListenerView extends Base
             [
                 'attr' => [
                     'cols' =>       80,
-                    'rows' =>       5,
+                    'rows' =>       3,
                 ],
                 'data' =>           $options['notes'],
                 'empty_data' =>     '',
@@ -268,6 +268,62 @@ class ListenerView extends Base
                     'required' =>       false
                 ]
             )
+            ->add(
+                'wwsuEnable',
+                ChoiceType::class,
+                [
+                    'attr' => [
+                        'style' =>      "width: 4em;margin-right: 0.5em"
+                    ],
+                    'choices' => [
+                        'No' =>     'N',
+                        'Yes' =>    'Y',
+                    ],
+                    'data' =>           $options['wwsuEnable'],
+                    'label' =>          'WWSU Import',
+                ]
+            )
+            ->add(
+                'wwsuKey',
+                TextType::class,
+                [
+                    'data' =>       $options['wwsuKey'],
+                    'empty_data' => '',
+                    'label' =>      'Key',
+                    'required' =>   false
+                ]
+            )
+            ->add(
+                'wwsuPermCycle',
+                ChoiceType::class,
+                [
+                    'attr' => [
+                        'style' =>      "width: 4em;margin-right: 0.5em"
+                    ],
+                    'choices' => [
+                        'No' =>     'N',
+                        'Yes' =>    'Y',
+                    ],
+                    'data' =>           $options['wwsuPermCycle'],
+                    'label' =>          'Cycle',
+                ]
+            )
+            ->add(
+                'wwsuPermOffsets',
+                ChoiceType::class,
+                [
+                    'attr' => [
+                        'style' =>      "width: 4em;margin-right: 0.5em"
+                    ],
+                    'choices' => [
+                        'No' =>     'N',
+                        'Yes' =>    'Y',
+                    ],
+                    'data' =>           $options['wwsuPermOffsets'],
+                    'label' =>          'Offsets',
+                ]
+            )
+
             ->add(
                 'save',
                 SubmitType::class,

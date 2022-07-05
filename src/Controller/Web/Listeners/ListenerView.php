@@ -18,7 +18,24 @@ use Symfony\Component\HttpFoundation\Request;
 class ListenerView extends Base
 {
     const EDITABLE_FIELDS = [
-        'active', 'callsign', 'email', 'equipment', 'itu', 'mapX', 'mapY', 'name', 'notes', 'primaryQth', 'qth', 'sp', 'timezone', 'website'
+        'active',
+        'callsign',
+        'email',
+        'equipment',
+        'itu',
+        'mapX',
+        'mapY',
+        'name',
+        'notes',
+        'primaryQth',
+        'qth',
+        'sp',
+        'timezone',
+        'website',
+        'wwsuEnable',
+        'wwsuKey',
+        'wwsuPermCycle',
+        'wwsuPermOffsets',
     ];
 
     /**

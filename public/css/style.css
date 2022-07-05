@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.40.2
- * Date:       2022-07-04
+ * Version:    2.41.0
+ * Date:       2022-07-05
  * Licence:    LGPL
  * Copyright:  2022 Martin Francis
  */
@@ -1726,6 +1726,14 @@ table.logsessions tbody tr.selected td {
   text-align: right;
   padding-right: 0.75em;
 }
+.listener_view #form label[for="form_wwsuKey"],
+.listener_view #form label[for="form_wwsuPermCycle"],
+.listener_view #form label[for="form_wwsuPermOffsets"] {
+  width: 8%;
+  min-width: auto;
+  text-align: right;
+  padding-right: 0.75em;
+}
 .listener_view #form input[type='text'],
 .listener_view #form textarea,
 .listener_view #form select {
@@ -1733,17 +1741,32 @@ table.logsessions tbody tr.selected td {
   padding: 0.125em 0.25em;
   margin: 0 0 0.25em 0;
 }
-.listener_view #form textarea {
-  height: 6em;
+.listener_view #form textarea#form_equipment {
+  height: 5em;
+}
+.listener_view #form textarea#form_notes {
+  height: 3em;
 }
 .listener_view #form #form_timezone-button {
   width: 55%;
+}
+.listener_view #form #form_wwsuKey {
+  width: 10em;
+  margin-right: 0.5em;
+  font-family: "Courier New bold", Courier, monospace;
 }
 .listener_view #form div#form_gsq_suffix {
   padding-left: 0.25em;
   float: left;
   width: 5%;
   font-size: 80%;
+}
+.listener_view #form #btn_generate,
+.listener_view #form #btn_copy {
+  height: 1.75em;
+  padding: 0 0.25em;
+  margin-right: 0.25em;
+  float: left;
 }
 .listener_stats div.stats {
   clear: both;

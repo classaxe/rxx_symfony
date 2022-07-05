@@ -25,7 +25,6 @@ class Listener
 {
     /**
      * @var int
-     *
      * @ORM\Column(name="ID", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
@@ -34,226 +33,218 @@ class Listener
 
     /**
      * @var int
-     *
      * @ORM\Column(name="active", type="string", length=1, nullable=false)
      */
     private $active = '';
 
     /**
      * @var string
-     *
      * @ORM\Column(name="callsign", type="string", length=12, nullable=false)
      */
     private $callsign = '';
 
     /**
      * @var int
-     *
      * @ORM\Column(name="count_DGPS", type="integer", nullable=false, options={"unsigned"=true})
      */
     private $countDgps = 0;
 
     /**
      * @var int
-     *
      * @ORM\Column(name="count_DSC", type="integer", nullable=false, options={"unsigned"=true})
      */
     private $countDsc = 0;
 
     /**
      * @var int
-     *
      * @ORM\Column(name="count_HAMBCN", type="integer", nullable=false, options={"unsigned"=true})
      */
     private $countHambcn = 0;
 
     /**
      * @var int
-     *
      * @ORM\Column(name="count_logs", type="integer", nullable=false, options={"unsigned"=true})
      */
     private $countLogs = 0;
 
     /**
      * @var int
-     *
      * @ORM\Column(name="count_logsessions", type="integer", nullable=false, options={"unsigned"=true})
      */
     private $countLogSessions = 0;
 
     /**
      * @var int
-     *
      * @ORM\Column(name="count_NAVTEX", type="integer", nullable=false, options={"unsigned"=true})
      */
     private $countNavtex = 0;
 
     /**
      * @var int
-     *
      * @ORM\Column(name="count_NDB", type="integer", nullable=false, options={"unsigned"=true})
      */
     private $countNdb = 0;
 
     /**
      * @var int
-     *
      * @ORM\Column(name="count_OTHER", type="integer", nullable=false, options={"unsigned"=true})
      */
     private $countOther = 0;
 
     /**
      * @var int
-     *
      * @ORM\Column(name="count_TIME", type="integer", nullable=false, options={"unsigned"=true})
      */
     private $countTime = 0;
 
     /**
      * @var int
-     *
      * @ORM\Column(name="count_signals", type="integer", nullable=false, options={"unsigned"=true})
      */
     private $countSignals = 0;
 
     /**
      * @var string
-     *
      * @ORM\Column(name="email", type="string", length=40, nullable=false)
      */
     private $email = '';
 
     /**
      * @var string
-     *
      * @ORM\Column(name="equipment", type="text", length=65535, nullable=false)
      */
     private $equipment;
 
     /**
      * @var string
-     *
      * @ORM\Column(name="GSQ", type="string", length=6, nullable=false)
      */
     private $gsq = '';
 
     /**
      * @var string
-     *
      * @ORM\Column(name="ITU", type="string", length=3, nullable=false)
      */
     private $itu = '';
 
     /**
      * @var float
-     *
      * @ORM\Column(name="lat", type="float", precision=10, scale=0, nullable=false)
      */
     public $lat = '0';
 
     /**
      * @var DateTime
-     *
      * @ORM\Column(name="log_earliest", type="date", nullable=true)
      */
     private $logEarliest = null;
     /**
      * @var string
-     *
      * @ORM\Column(name="log_format", type="string", length=255, nullable=false)
      */
     private $logFormat = '';
 
     /**
      * @var DateTime|null
-     *
      * @ORM\Column(name="log_latest", type="date", nullable=true)
      */
     private $logLatest = null;
 
     /**
      * @var DateTime
-     *
      * @ORM\Column(name="logsession_latest", type="datetime", nullable=true)
      */
     private $logSessionLatest = null;
 
     /**
      * @var float
-     *
      * @ORM\Column(name="lon", type="float", precision=10, scale=0, nullable=false)
      */
     public $lon = '0';
 
     /**
      * @var int
-     *
      * @ORM\Column(name="map_x", type="smallint", nullable=false)
      */
     private $mapX = '0';
 
     /**
      * @var int
-     *
      * @ORM\Column(name="map_y", type="smallint", nullable=false)
      */
     private $mapY = '0';
 
     /**
      * @var string
-     *
      * @ORM\Column(name="name", type="string", length=40, nullable=false)
      */
     private $name = '';
 
     /**
      * @var string
-     *
      * @ORM\Column(name="notes", type="string", length=255, nullable=false)
      */
     private $notes = '';
 
     /**
      * @var bool
-     *
      * @ORM\Column(name="primary_QTH", type="boolean", nullable=false)
      */
     private $primaryQth = '0';
 
     /**
      * @var string
-     *
      * @ORM\Column(name="QTH", type="string", length=255, nullable=false)
      */
     private $qth = '';
 
     /**
      * @var string
-     *
      * @ORM\Column(name="region", type="string", length=2, nullable=false)
      */
     private $region = '';
 
     /**
      * @var string
-     *
      * @ORM\Column(name="SP", type="string", length=6, nullable=false)
      */
     private $sp = '';
 
     /**
      * @var string
-     *
      * @ORM\Column(name="timezone", type="string", length=5, nullable=false)
      */
-    private $timezone = '0';
+    private $timezone = '';
 
     /**
      * @var string
-     *
      * @ORM\Column(name="website", type="text", length=65535, nullable=false)
      */
     private $website;
+
+    /**
+     * @var string
+     * @ORM\Column(name="wwsu_enable", type="text", nullable=false)
+     */
+    private $wwsu_enable = 0;
+
+    /**
+     * @var string
+     * @ORM\Column(name="wwsu_key", type="string", length=20, nullable=false)
+     */
+    private $wwsu_key = '';
+
+    /**
+     * @var string
+     * @ORM\Column(name="wwsu_perm_cycle", type="text", nullable=false)
+     */
+    private $wwsu_perm_cycle = 0;
+
+    /**
+     * @var string
+     * @ORM\Column(name="wwsu_perm_offsets", type="text", nullable=false)
+     */
+    private $wwsu_perm_offsets = 0;
 
     /**
      * @return int|null
@@ -867,6 +858,82 @@ class Listener
     public function setWebsite(?string $website): self
     {
         $this->website = $website;
+
+        return $this;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getWwsuEnable(): ?string
+    {
+        return $this->wwsu_enable;
+    }
+
+    /**
+     * @param string $WwsuEnable
+     * @return Listener
+     */
+    public function setWwsuEnable(?string $WwsuEnable): self
+    {
+        $this->wwsu_enable = $WwsuEnable;
+
+        return $this;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getWwsuKey(): ?string
+    {
+        return $this->wwsu_key;
+    }
+
+    /**
+     * @param string $WwsuKey
+     * @return Listener
+     */
+    public function setWwsuKey(?string $WwsuKey): self
+    {
+        $this->wwsu_key = $WwsuKey;
+
+        return $this;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getWwsuPermCycle(): ?string
+    {
+        return $this->wwsu_perm_cycle;
+    }
+
+    /**
+     * @param string $WwsuPermCycle
+     * @return Listener
+     */
+    public function setWwsuPermCycle(?string $WwsuPermCycle): self
+    {
+        $this->wwsu_perm_cycle = $WwsuPermCycle;
+
+        return $this;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getWwsuPermOffsets(): ?string
+    {
+        return $this->wwsu_perm_offsets;
+    }
+
+    /**
+     * @param string $WwsuPermOffsets
+     * @return Listener
+     */
+    public function setWwsuPermOffsets(?string $WwsuPermOffsets): self
+    {
+        $this->wwsu_perm_offsets = $WwsuPermOffsets;
 
         return $this;
     }

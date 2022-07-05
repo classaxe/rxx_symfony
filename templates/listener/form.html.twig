@@ -18,6 +18,23 @@
                     {% endif %}
                     {{ form_row(form.website) }}
                 </fieldset>
+                {% if isAdmin%}
+                    <fieldset id="group_wwsu_integration">
+                        <legend>{% trans %}WWSU Integration <i style="color: red">(Coming soon!)</i>{% endtrans %}</legend>
+                        <div>
+                            {{ form_label(form.wwsuEnable) }}
+                            {{ form_widget(form.wwsuEnable) }}
+                            {{ form_label(form.wwsuKey) }}
+                            {{ form_widget(form.wwsuKey) }}
+                            <input type="button" id="btn_generate" class="button small" value="Generate">
+                            <input type="button" id="btn_copy" class="button small" value="Copy">
+                            {{ form_label(form.wwsuPermCycle) }}
+                            {{ form_widget(form.wwsuPermCycle) }}
+                            {{ form_label(form.wwsuPermOffsets) }}
+                            {{ form_widget(form.wwsuPermOffsets) }}
+                        </div>
+                    </fieldset>
+                {% endif %}
                 <fieldset id="group_location">
                     <legend>{% trans %}Location{% endtrans %}</legend>
                     {{ form_row(form.qth) }}
