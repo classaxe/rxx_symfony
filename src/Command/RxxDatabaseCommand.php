@@ -59,7 +59,8 @@ class RxxDatabaseCommand extends Command
             $io->error($messages[1]);
             return 1;
         }
-
+        $b = parse_url(getenv('DATABASE_URL'));
+        $mysql = 'mysql --user=' . $b['user'] . ' --host=' . $b['host'] . ' --port=' . $b['port'] . ' --password=' . $b['pass'] . ' ' . trim($b['path'], '/') . " 2>&1";
         $this->stopwatch->start('update');
 
         $io->comment(sprintf($messages[2], $url));
@@ -67,11 +68,11 @@ class RxxDatabaseCommand extends Command
         $io->comment(sprintf($messages[3], $tmp_gz));
 
         $io->comment(sprintf($messages[4], $tmp_gz));
-        exec('zcat /tmp/rxx.sql.gz | MYSQL_PWD=root mysql -uroot rxx');
+        exec('zcat /tmp/rxx.sql.gz | ' . $mysql, $ignore );
         $io->comment(sprintf($messages[5], $tmp_gz));
 
         $io->comment(sprintf($messages[6], $newPwd));
-        exec("echo \"UPDATE rxx.users SET password='\\\$2y\\\$10\\\$WPcwyLosEfHA.tk3LKcBluumFLaLQJGcIfU7eo/i5z5YWzIEy4DGO'\" | MYSQL_PWD=root mysql -uroot");
+        exec("echo \"UPDATE rxx.users SET password='\\\$2y\\\$10\\\$WPcwyLosEfHA.tk3LKcBluumFLaLQJGcIfU7eo/i5z5YWzIEy4DGO'\" | " . $mysql);
         $io->comment(sprintf($messages[7], $newPwd));
 
         $io->success($messages[8]);
