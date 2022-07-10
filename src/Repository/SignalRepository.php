@@ -132,7 +132,7 @@ class SignalRepository extends ServiceEntityRepository
 
     private function _addFilterCall()
     {
-        if ($this->args['call'] !== '') {
+        if ($this->args['call'] ?? '') {
             $this->query['where'][] ='s.call LIKE :like_call';
             $this->query['param']['like_call'] = '%' . htmlentities($this->args['call']) . '%';
         }
@@ -469,7 +469,7 @@ class SignalRepository extends ServiceEntityRepository
 
     private function _addOrderPrioritizeExactCall()
     {
-        if ($this->args['call'] !== '') {
+        if ($this->args['call'] ?? '') {
             $this->_addOrder('_call','DESC');
         }
         return $this;
@@ -626,7 +626,7 @@ EOD;
 
     private function _addSelectPriotitizeExactCall()
     {
-        if ($this->args['call'] !== '') {
+        if ($this->args['call'] ?? '') {
             $this->query['select'][] =
                 "(CASE WHEN s.call = :call THEN 1 ELSE 0 END) AS _call";
             $this->query['param']['call'] = $this->args['call'];
@@ -901,7 +901,7 @@ EOD;
         $sql = $this->_buildQuery();
 
         $stmt = $this->connection->prepare($sql);
-        $this->debug($this->_debugQuery($sql, $this->query['param']), $this->args['source']);
+        $this->debug($this->_debugQuery($sql, $this->query['param']), ($this->args['source'] ?? ''));
 
         foreach ($this->query['param'] as $key => $value) {
             $stmt->bindValue($key, $value);

@@ -81,7 +81,7 @@ var SIGNALS_FORM = {
                 window.location.assign(window.location + '/export/txt' + shareableLink.getFromTypes());
             }
         });
-        $('#btn_xls_all').click(function () {
+        $('#btn_psk_all').click(function () {
             if (confirm(
                 msg.export
                     .replace(':system', system.toUpperCase())

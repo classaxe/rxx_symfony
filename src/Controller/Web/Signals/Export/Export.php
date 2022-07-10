@@ -129,9 +129,8 @@ class Export extends Base
             'system' =>         $system,
         ];
         $this->setTypeFromRequest($args, $request);
-        $args['signalTypes'] =  $this->typeRepository->getSignalTypesSearched($args['type']);
+        $args['signalTypes'] =  $this->typeRepository->getSignalTypesSearched($args['type'] ?? ['NDB']);
         $signals = $this->signalRepository->getFilteredSignals($system, $args);
-        $signalEntities = [];
         $signalTypes = [];
         foreach ($signals as $signal) {
             $signal['first_heard'] =    $signal['first_heard'] ? new DateTime($signal['first_heard']) : null;
