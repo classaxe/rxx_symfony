@@ -3,9 +3,9 @@
     <div class="menu-centered" role="navigation">
         <ul class="menu header">
             <li>
-                <h2 title="RXX Version {{ gitTag }}">
-                    <span class="show-for-medium">{{ systems[system]['title']|trans }}</span>
-                    <span class="show-for-small-only">{{ systems[system]['title_s']|trans }}</span>
+                <h2>
+                    <span class="show-for-medium">{{ systems[system]['title']|trans }} - v{{ gitTag }}</span>
+                    <span class="show-for-small-only">{{ systems[system]['title_s']|trans }}<br>v{{ gitTag }}</span>
                 </h2>
             </li>
         </ul>
