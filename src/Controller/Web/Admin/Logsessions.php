@@ -71,7 +71,6 @@ class Logsessions extends Base
         $logSessions = $this->logsessionRepository->getLogsessions($args, $columns);
         $parameters = [
             'args' =>           $args,
-            'classic' =>        $this->systemRepository->getClassicUrl('log_sessions'),
             'columns' =>        $columns,
             'form' =>           $form->createView(),
             '_locale' =>        $_locale,

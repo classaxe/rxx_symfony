@@ -60,7 +60,6 @@ class Changes extends Base
             '_locale' =>    $_locale,
             'mode' =>       'Change Log',
             'system' =>     $system,
-            'classic' =>    $this->systemRepository->getClassicUrl('changes'),
             'changelog' =>  $changelog,
             'count' =>      count($entries),
             'first' =>      static::FIRST_COMMIT

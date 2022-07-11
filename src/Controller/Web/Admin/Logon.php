@@ -96,7 +96,6 @@ class Logon extends Base
         }
         $parameters = [
             'args' =>       $args,
-            'classic' =>    $this->systemRepository->getClassicUrl('logon'),
             'disableLogon' =>   $disableLogon,
             'form' =>       $form->createView(),
             'form_class' => 'logon',

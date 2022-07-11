@@ -131,7 +131,6 @@ class Cle extends Base
             '_locale' =>    $_locale,
             'mode' =>       $i18n->trans('CLE %NUMBER%', [ '%NUMBER%' => $cle->getCle() ]),
             'system' =>     $system,
-            'classic' =>    $this->systemRepository->getClassicUrl('cle'),
             'admin' =>      (int)$this->parameters['access'] & UserEntity::CLE,
             'cle' =>        $cle,
             'form' =>       $form->createView(),

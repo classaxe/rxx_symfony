@@ -102,7 +102,6 @@ class Users extends Base
         $parameters = [
             '_locale' =>            $_locale,
             'id' =>                 $id,
-            'classic' =>            $this->systemRepository->getClassicUrl('profile'),
             'form' =>               $form->createView(),
             'u' =>                  $user,
             'mode' =>               'Your Profile',
@@ -267,7 +266,6 @@ class Users extends Base
         }
         $parameters = [
             'args' =>               $args,
-            'classic' =>            $this->systemRepository->getClassicUrl('users'),
             'columns' =>            $this->userRepository->getColumns(),
             'form' =>               $form->createView(),
             '_locale' =>            $_locale,

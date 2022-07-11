@@ -30,7 +30,6 @@ class Donate extends Base
             '_locale' =>    $_locale,
             'mode' =>       'Donate',
             'system' =>     $system,
-            'classic' =>    $this->systemRepository->getClassicUrl('donate'),
             'admins' =>     $admins,
             'domain' =>     static::DOMAIN_COST,
             'monthly' =>    static::MONTHLY_COST

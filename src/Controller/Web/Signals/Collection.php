@@ -79,7 +79,6 @@ class Collection extends Base
             'args' =>               $this->args,
             'box' =>                $this->mapBox,
             'center' =>             $this->mapCenter,
-            'classic' =>            $this->systemRepository->getClassicUrl('signals', $this->args['show']),
             'columns' =>            $this->signalRepository->getColumns('signals'),
             'expanded' =>           $this->expandedSections,
             'form' =>               $form->createView(),

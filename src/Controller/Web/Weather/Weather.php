@@ -52,7 +52,6 @@ class Weather extends Base
             'mode' =>       'Weather',
             'system' =>     $system,
             'centers' =>    $this->weatherRepository->getCenters(),
-            'classic' =>    $this->systemRepository->getClassicUrl('weather'),
             'widgets' =>    $widgets,
             'zoom' =>       $zoom
         ];

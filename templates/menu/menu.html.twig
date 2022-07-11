@@ -3,7 +3,7 @@
     <div class="menu-centered" role="navigation">
         <ul class="menu header">
             <li>
-                <h2>
+                <h2 title="RXX Version {{ gitTag }}">
                     <span class="show-for-medium">{{ systems[system]['title']|trans }}</span>
                     <span class="show-for-small-only">{{ systems[system]['title_s']|trans }}</span>
                 </h2>
@@ -23,7 +23,7 @@
 {% for key, modeRepo in modes[0] %}{% if ((isAdmin and modeRepo.admin) or (not isAdmin and modeRepo.guest))%}
             <li{% if (app.request.get('_route') == key) %} class="is-active"{% endif %}>
                 <a href="{% if modeRepo.url %}{{ modeRepo.url }}{% else %}{{ url(key, { 'system' : system}) }}{% endif %}"{% if modeRepo.url %} rel="external"{% endif %}>
-                    <span>{{ modeRepo['menu']|trans }}</span>
+                    <span>{{ modeRepo['menu']|trans|raw }}</span>
                     {% if modeRepo['menu'] == 'Changes' and gitAge <= gitNew %}<span class="new">&#9673;</span>{% endif %}
                 </a>
             </li>
@@ -33,7 +33,7 @@
             {% for key, modeRepo in modes[1] %}{% if ((isAdmin and modeRepo.admin) or (not isAdmin and modeRepo.guest))%}
                 <li{% if (app.request.get('_route') == key) %} class="is-active"{% endif %}>
                     <a href="{% if modeRepo.url %}{{ modeRepo.url }}{% else %}{{ url(key, { 'system' : system}) }}{% endif %}"{% if modeRepo.url %} rel="external"{% endif %}>
-                        {{ modeRepo['menu']|trans }}
+                        {{ modeRepo['menu']|trans|raw }}
                     </a>
                 </li>
             {% endif %}{% endfor %}
@@ -43,7 +43,7 @@
             {% for key, modeRepo in modes[2] %}
                 {% if (access b-and modeRepo['access'])%}
                     <li{% if (app.request.get('_route') == key) %} class="is-active"{% endif %}>
-                        <a href="{{ url(key, { 'system' : system }) }}">{{ modeRepo['menu']|trans }}</a>
+                        <a href="{{ url(key, { 'system' : system }) }}">{{ modeRepo['menu']|trans|raw }}</a>
                     </li>
                 {% endif %}
             {% endfor %}

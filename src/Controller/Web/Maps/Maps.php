@@ -31,7 +31,6 @@ class Maps extends Base
 
         $parameters = [
             '_locale' =>    $_locale,
-            'classic' =>    $this->systemRepository->getClassicUrl('maps'),
             'mode' =>       'Maps',
             'system' =>     $system,
             'title' =>      $maps['title'],

@@ -164,49 +164,6 @@ class SystemRepository
         return $admins;
     }
 
-    public function getClassicUrl($mode='', $submode='')
-    {
-        $response = [ 'type' => 'url', 'value' => '' ];
-        switch ($mode) {
-            case 'admin/help':
-                $response['value'] = 'admin_help';
-                break;
-            case 'admin/info':
-                $response['value'] = 'sys_info';
-                break;
-            case 'admin/tools':
-                $response['value'] = 'admin_manage';
-                break;
-            case 'changes':
-            case 'cle':
-            case 'donate':
-            case 'help':
-            case 'logon':
-            case 'maps':
-            case 'tools':
-            case 'weather':
-                $response['value'] = $mode;
-                break;
-            case 'listeners':
-                $response['value'] = 'listener_list';
-                break;
-            case 'signals':
-                switch ($submode) {
-                    case 'map':
-                        $response['value'] = 'signal_list?show=map';
-                        break;
-                    case 'seeklist':
-                        $response['value'] = 'signal_seeklist';
-                        break;
-                    default:
-                        $response['value'] = 'signal_list';
-                        break;
-                }
-                break;
-        }
-        return $response;
-    }
-
     public function get($code)
     {
         return self::SYSTEMS[$code];

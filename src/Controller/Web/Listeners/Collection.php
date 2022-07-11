@@ -132,12 +132,11 @@ class Collection extends Base
             'args' =>               $args,
             'box' =>                $box,
             'center' =>             $center,
-            'classic' =>            $this->systemRepository->getClassicUrl('listeners'),
             'columns' =>            $this->listenerRepository->getColumns('listeners'),
             'form' =>               $form->createView(),
             'listeners' =>          $listeners,
             '_locale' =>            $_locale,
-            'mode' =>               'Listeners and Locations',
+            'mode' =>               'Locations',
             'results' => [
                 'limit' =>              isset($args['limit']) ? $args['limit'] : $this->listenerRepository::defaultLimit,
                 'page' =>               isset($args['page']) ? $args['page'] : $this->listenerRepository::defaultPage,

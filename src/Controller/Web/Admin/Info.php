@@ -34,7 +34,6 @@ class Info extends Base
         }
         $parameters = [
             '_locale' =>        $_locale,
-            'classic' =>        $this->systemRepository->getClassicUrl('admin/info'),
             'mode' =>           'System Info',
             'info' =>           $this->systemRepository->getPhpInfo(),
             'mysql_version' =>  $this->systemRepository->getMySQLVersion(),

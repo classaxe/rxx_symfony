@@ -36,7 +36,6 @@ class Tools extends Base
             'args' =>       $request->query->get('args'),
             'mode' =>       'Tools',
             'system' =>     $system,
-            'classic' =>    $this->systemRepository->getClassicUrl('tools'),
             'widgets' =>    $widgets
         ];
 

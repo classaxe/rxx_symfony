@@ -31,7 +31,6 @@ class Help extends Base
         $this->session->set('route', '');
         $parameters = [
             '_locale' =>    $_locale,
-            'classic' =>    $this->systemRepository->getClassicUrl('admin/help'),
             'mode' =>       'Admin Help',
             'system' =>     $system,
         ];

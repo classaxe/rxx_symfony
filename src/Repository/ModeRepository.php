@@ -20,8 +20,8 @@ class ModeRepository
                 'access' => User::ALL,
                 'admin' =>  true,
                 'guest' =>  true,
-                'menu' =>   'Listeners',
-                'title' =>  'Listeners and Locations',
+                'menu' =>   'Locations',
+                'title' =>  'Listening Posts',
                 'url'=>     false
             ],
             'cle' => [
@@ -64,12 +64,54 @@ class ModeRepository
                 'title' =>  'Changes',
                 'url'=>     false
             ],
-            'help' => [
+        ],
+        [
+            'ndblistWebsite' => [
                 'access' => User::ALL,
                 'admin' =>  true,
                 'guest' =>  true,
-                'menu' =>   'Help',
-                'title' =>  'Help',
+                'menu' =>   'Ndblist.info',
+                'title' =>  'NDB List Group Information Website',
+                'url'=>     'http://ndblist.info/'
+            ],
+            'NdbGroup' => [
+                'access' => User::ALL,
+                'admin' =>  true,
+                'guest' =>  true,
+                'menu' =>   'NDB Grp',
+                'title' =>  'NDB at Groups.io',
+                'url'=>     'https://groups.io/g/ndblist'
+            ],
+            'DscGroup' => [
+                'access' => User::ALL,
+                'admin' =>  true,
+                'guest' =>  true,
+                'menu' =>   'DSC Grp',
+                'title' =>  'DSC at Groups.io',
+                'url'=>     'https://groups.io/g/dsc-list'
+            ],
+            'DgpsGroup' => [
+                'access' => User::ALL,
+                'admin' =>  true,
+                'guest' =>  true,
+                'menu' =>   'DGPS Grp',
+                'title' =>  'DGPS at Groups.io',
+                'url'=>     'https://groups.io/g/dgpslist'
+            ],
+            'NavtexGroup' => [
+                'access' => User::ALL,
+                'admin' =>  true,
+                'guest' =>  true,
+                'menu' =>   'NAVTEX Grp',
+                'title' =>  'Navtex at Groups.io',
+                'url'=>     'https://groups.io/g/navtexdx'
+            ],
+            'logon' => [
+                'access' => User::PUBLIC,
+                'admin' =>  false,
+                'guest' =>  true,
+                'menu' =>   'Logon',
+                'title' =>  'Logon',
                 'url'=>     false
             ],
             'donate' => [
@@ -80,54 +122,12 @@ class ModeRepository
                 'title' =>  'Donate',
                 'url'=>     false
             ],
-        ],
-        [
-            'ndblistWebsite' => [
+            'help' => [
                 'access' => User::ALL,
                 'admin' =>  true,
                 'guest' =>  true,
-                'menu' =>   'NDB List Website',
-                'title' =>  'NDB List Group Information Website',
-                'url'=>     'http://ndblist.info/'
-            ],
-            'NdbGroup' => [
-                'access' => User::ALL,
-                'admin' =>  true,
-                'guest' =>  true,
-                'menu' =>   'NDB Group',
-                'title' =>  'NDB at Groups.io',
-                'url'=>     'https://groups.io/g/ndblist'
-            ],
-            'DscGroup' => [
-                'access' => User::ALL,
-                'admin' =>  true,
-                'guest' =>  true,
-                'menu' =>   'DSC Group',
-                'title' =>  'DSC at Groups.io',
-                'url'=>     'https://groups.io/g/dsc-list'
-            ],
-            'DgpsGroup' => [
-                'access' => User::ALL,
-                'admin' =>  true,
-                'guest' =>  true,
-                'menu' =>   'DGPS Group',
-                'title' =>  'DGPS at Groups.io',
-                'url'=>     'https://groups.io/g/dgpslist'
-            ],
-            'NavtexGroup' => [
-                'access' => User::ALL,
-                'admin' =>  true,
-                'guest' =>  true,
-                'menu' =>   'NAVTEX Group',
-                'title' =>  'Navtex at Groups.io',
-                'url'=>     'https://groups.io/g/navtexdx'
-            ],
-            'logon' => [
-                'access' => User::PUBLIC,
-                'admin' =>  false,
-                'guest' =>  true,
-                'menu' =>   'Log On',
-                'title' =>  'Logon',
+                'menu' =>   'Help',
+                'title' =>  'Help',
                 'url'=>     false
             ],
         ],

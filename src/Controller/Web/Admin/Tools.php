@@ -89,7 +89,6 @@ class Tools extends Base
 
         $parameters = [
             '_locale' =>        $_locale,
-            'classic' =>        $this->systemRepository->getClassicUrl('admin/tools'),
             'ip' =>             $this->visitor->getIpAddress(),
             'mode' =>           'Administrator Management Tools',
             'system' =>         $system,
