@@ -124,7 +124,7 @@ function isLocalDaylight(hours, offset) {
     var hour_start = 10;
     var hour_end = 14;
     var dt = (24 + hours + offset) % 24;
-    return (dt >= hour_start && dt <= hour_end);
+    return (dt >= hour_start && dt < hour_end);
 }
 
 // ++++++++++++++++++++++++++++++++++
