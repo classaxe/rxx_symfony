@@ -3,9 +3,9 @@
 // *******************************************
 // * Project:   NDB Web Log                  *
 // * Filename:  functions.js                 *
-// * Created:   01/09/2003 (MF)              *
+// * Created:   2022-07-11 (MF)              *
 // *******************************************
-version = "1.1.29";
+version = "1.1.30";
 // ###########################################
 // # Inline code:                            #
 // ###########################################
@@ -14,6 +14,29 @@ version = "1.1.29";
 // 1) Inline code
 // 2) Object constructors in alphabetical order of object name
 // 3) Functions in alphabetical order of function name
+
+
+// ++++++++++++++++++++++++++++++++++
+// + Initialse data container arrays+
+// ++++++++++++++++++++++++++++++++++
+stats = [];	                    // Global variable hold stats data.
+station = [];	                // Global variable to hold station data
+logbook = [];	                // Used when printing out text listing
+unregistered_countries = [];    // Used if countries are logged but not defined in countries.js
+unregistered_stations = [];	    // Used if stations are logged but not defined in stations.js
+cnt_arr = [];	                // Used to hold details on countries
+rgn_arr = [];	                // Used to hold details on regions
+sta_arr = [];	                // Holds data on states (Australia, US and Canada only)
+
+cookie = [];
+var now = new Date();
+var cur_yyyy = now.getFullYear();				// Default value for year on entry
+var cur_mm = ("0" + (now.getMonth() + 1));		// Default value for month (requires a leading zero)
+cur_mm = cur_mm.substr((cur_mm.length - 2), 2)
+var txt_options, i;
+
+var list_selected = false
+
 
 // Add (ID) to mark station as OTA
 css = (document.location.protocol == 'file:' ? '' : '../../../../css/ndbweblog/') + 'style.css';
@@ -52,16 +75,9 @@ progress();
 // ++++++++++++++++++++++++++++++++++
 // + Find values for user selection +
 // ++++++++++++++++++++++++++++++++++
-cookie = new Array();
-var now = new Date();
-var cur_yyyy = now.getFullYear();				// Default value for year on entry
-var cur_mm = ("0" + (now.getMonth() + 1));		// Default value for month (requires a leading zero)
-cur_mm = cur_mm.substr((cur_mm.length - 2), 2)
-
-var list_selected = false
 if (get_cookie('list_selected')) {
-    var txt_options = get_cookie("list_selected").split("|");
-    var i = 0;
+    txt_options = get_cookie("list_selected").split("|");
+    i = 0;
     cookie['sel_mm'] = txt_options[i++];
     cookie['sel_sort'] = txt_options[i++];
     cookie['sel_yyyy'] = txt_options[i++];
@@ -73,8 +89,8 @@ sel_yyyy = (cookie['sel_yyyy'] ? cookie['sel_yyyy'] : cur_yyyy);
 
 var list_options = false;
 if (get_cookie("list_options")) {
-    var txt_options = get_cookie("list_options").split("|");
-    var i = 0;
+    txt_options = get_cookie("list_options").split("|");
+    i = 0;
     cookie['format'] = txt_options[i++];
     cookie['h_dxw'] = txt_options[i++];
     cookie['h_gsq'] = txt_options[i++];
@@ -100,21 +116,16 @@ cookie['map_zoom'] = (cookie["map_zoom"] ? cookie["map_zoom"] : "5");
 utc_daylight = 10 + utc_offset;
 utc_daylight_array = new Array();
 
-for (var i = utc_daylight; i < utc_daylight + 4; i++) {
+for (i = utc_daylight; i < utc_daylight + 4; i++) {
     utc_daylight_array[i - utc_daylight] = lead(i);
 }
 
-// ++++++++++++++++++++++++++++++++++
-// + Initialse data container arrays+
-// ++++++++++++++++++++++++++++++++++
-stats = new Array();	// Global variable hold stats data.
-station = new Array();	// Global variable to hold station data
-logbook = new Array();	// Used when printing out text listing
-unregistered_countries = new Array();	// Used if countries are logged but not defined in countries.js
-unregistered_stations = new Array();	// Used if stations are logged but not defined in stations.js
-cnt_arr = new Array();	// Used to hold details on countries
-rgn_arr = new Array();	// Used to hold details on regions
-sta_arr = new Array();	// Holds data on states (Australia, US and Canada only)
+function isLocalDaylight(hours, offset) {
+    var hour_start = 10;
+    var hour_end = 14;
+    var dt = (24 + hours + offset) % 24;
+    return (dt >= hour_start && dt <= hour_end);
+}
 
 // ++++++++++++++++++++++++++++++++++
 // + Initialise month name arrays   +
@@ -122,26 +133,26 @@ sta_arr = new Array();	// Holds data on states (Australia, US and Canada only)
 
 switch (cookie['language']) {
     case "French":
-        months = new Array('Janvier', 'F�vrier', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Ao�t', 'Septembre', 'Octobre', 'Novembre', 'D�cembre');
+        months = ['Janvier', 'F�vrier', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Ao�t', 'Septembre', 'Octobre', 'Novembre', 'D�cembre'];
         break;
     case "German":
-        months = new Array('Januar', 'Februar', 'M�rz', 'April', 'Mag', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember');
+        months = ['Januar', 'Februar', 'M�rz', 'April', 'Mag', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
         break;
     case "Italian":
-        months = new Array('Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Pu�', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre');
+        months = ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Pu�', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'];
         break;
     case "Portuguese":
-        months = new Array('Janeiro', 'Fevereiro', 'Mar�o', 'Abril', 'Pode', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro');
+        months = ['Janeiro', 'Fevereiro', 'Mar�o', 'Abril', 'Pode', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
         break;
     case "Spanish":
-        months = new Array('Enero', 'Febrero', 'Marcha', 'Abril', 'Puede', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre');
+        months = ['Enero', 'Febrero', 'Marcha', 'Abril', 'Puede', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
         break;
     default:
-        months = new Array('January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December');
+        months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
         break
 }
 
-mm_arr = new Array('01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12');
+mm_arr = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
 
 
 // ###########################################
@@ -151,7 +162,7 @@ mm_arr = new Array('01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '
 // * COUNTRY Constructor:             *
 // ************************************
 function COUNTRY(cnt, name, rgn) {
-    var a = new Array();
+    var a = [];
     a.name = name;
     a.rgn = rgn;
     cnt_arr[cnt] = a;
@@ -630,16 +641,6 @@ function fnTimerEnd(strIdentifier, numMetric) {
     arrTimer[strIdentifier][3] = numMetric
 }
 
-function fnDisplayTimers() {
-    refDisplayTimers = window.open('', 'Timers', 'width=400,height=500,resizable=yes,scrollbars=1,menubar=0,location=0,toolbar=0')
-    var arrOutput = ["<head><title>Timers</title></head><body><table><tr><td><b>Timer</b></td><td><b>Time</b> (ms)</td><td><b>Metric</b></td></tr>"]
-    for (i in arrTimer)
-        arrOutput = arrOutput.concat("<tr><td>" + i + "</td><td>" + arrTimer[i][2] + "</td><td>" + arrTimer[i][3] + "</tr>")
-    refDisplayTimers.document.write(arrOutput.join("") + "</table>")
-    refDisplayTimers.focus();
-}
-
-
 // ************************************
 // * get_cookie()                     *
 // ************************************
@@ -750,7 +751,7 @@ function get_ident(cal) {
     morse['9'] = "----.";
     morse['0'] = "-----";
 
-    var out = new Array;
+    var out = [];
     var n = 0;
     for (var a = 0; a < cal.length; a++) {
         out[n++] = morse[cal.substr(a, 1)];
@@ -785,14 +786,11 @@ function get_range_bearing(qth_lat, qth_lon, dx_lat, dx_lon, units) {
     }
     switch (units) {
         case "mi":
-            return new Array(Math.round(incourse), Math.round(Math.abs(rgcdist) * 3958.284));
-            break;
+            return [Math.round(incourse), Math.round(Math.abs(rgcdist) * 3958.284)];
         case "nm":
-            return new Array(Math.round(incourse), Math.round(Math.abs(rgcdist) * 3439.719));
-            break;
+            return [Math.round(incourse), Math.round(Math.abs(rgcdist) * 3439.719)];
         default:
-            return new Array(Math.round(incourse), Math.round(Math.abs(rgcdist) * 6370.614));
-            break;
+            return [Math.round(incourse), Math.round(Math.abs(rgcdist) * 6370.614)];
     }
 }
 
@@ -938,7 +936,6 @@ function pad(txt, len) {
 // * popup_details()                  *
 // ************************************
 function popup_details(id) {
-    var out = '';
     var km = get_range_bearing(qth_lat, qth_lon, station[id].lat, station[id].lon, 'km');
     var miles = get_range_bearing(qth_lat, qth_lon, station[id].lat, station[id].lon, 'mi');
     if (cookie['mod_abs'] == '1') {
@@ -952,7 +949,7 @@ function popup_details(id) {
     var gsq = ((station[id].lat + station[id].lon != "") ?
         ("<a href='#' onclick='window.opener.top.popup_map(\"" + station[id].lat + "\",\"" + station[id].lon + "\",\"" + station[id].id + "\");return false;' title='Click to show a map of this location'>" + station[id].gsq + "</a>") :
         ("&nbsp;"));
-    out +=
+    var out =
         "<html><title>NDB WebLog > Details > " + station[id].display + "</title>\n" +
         "<link TITLE='new' REL='stylesheet' href=\"" + css + "\" type='text/css'>\n" +
         "</head>" +
@@ -1038,16 +1035,24 @@ function popup_details(id) {
 // * popup_help()                     *
 // ************************************
 function popup_help() {
-    var help_h = window.open('help.html', 'helpViewer', 'width=800,height=400,status=1,resizable=1,menubar=0,location=0,toolbar=0,scrollbars=1');
-    help_h.focus();
+    var h = window.open('https://classaxe.com/dx/ndb/log/help.html', 'helpViewer', 'width=800,height=400,status=1,resizable=1,menubar=0,location=0,toolbar=0,scrollbars=1');
+    h.focus();
 }
 
 // ************************************
 // * popup_home()                     *
 // ************************************
 function popup_home() {
-    var home_h = window.open(qth_home, 'homePage', 'width=800,height=400,status=1,resizable=1,menubar=0,location=0,toolbar=0,scrollbars=1');
-    home_h.focus();
+    var h = window.open(qth_home, 'homePage', 'width=800,height=400,status=1,resizable=1,menubar=0,location=0,toolbar=0,scrollbars=1');
+    h.focus();
+}
+
+// ************************************
+// * popup_map()                      *
+// ************************************
+function popup_map() {
+    var h = window.open('map.html', 'mapViewer', 'width=800,height=400,status=1,resizable=1,menubar=0,location=0,toolbar=0,scrollbars=1');
+    h.focus();
 }
 
 // ************************************
@@ -1241,10 +1246,17 @@ function popup_stats() {
     var rexp_country = /([A-Z\?]*)\_([A-Z\?]*)/
     var yyyy = 0
 
-    var out = new Array();
     var n = 0;
-    out[n++] = "<!doctype html public '-//W3C//DTD HTML 4.01 Transitional//EN'>\n<html><head>\n<title>NDB WebLog for " + qth_name + " > Statistics</title>\n<META HTTP-EQUIV='Content-Type' CONTENT='text/html; charset=windows-1252'><link TITLE=\"new\" REL=\"stylesheet\" href=\"" + css + "\" type=\"text/css\">\n</head>\n";
-    out[n++] = "<body onload='document.body.focus()' onkeydown=\"window.opener.keydown('popup_stats',event)\"><h2 align='center'><a name='top'></a><u>Statistics and Awards Qualifications Page</u></h2>\n";
+    var out =
+        "<!doctype html public '-//W3C//DTD HTML 4.01 Transitional//EN'>\n" +
+        "<html>\n" +
+        "<head>\n\n" +
+        "<title>NDB WebLog for " + qth_name + " > Statistics</title>\n" +
+        "<META HTTP-EQUIV='Content-Type' CONTENT='text/html; charset=windows-1252'>\n" +
+        "<link TITLE=\"new\" REL=\"stylesheet\" href=\"" + css + "\" type=\"text/css\">\n\n" +
+        "</head>\n" +
+        "<body onload='document.body.focus()' onkeydown=\"window.opener.keydown('popup_stats',event)\">\n" +
+        "<h2 align='center'><a name='top'></a><u>Statistics and Awards Qualifications Page</u></h2>\n";
 
     if (monthly) {
         // +++++++++++++++++++
@@ -1282,11 +1294,11 @@ function popup_stats() {
             if (stats.year[yyyy].n60) {
                 quicklinks[qk_i++] = "<a href='#" + yyyy + "n60' onclick='return window.opener.checkScrollNecessary(\"stat_h\", this)'>North of 60</a>";
             }
-            out[n++] = "<p align='center' class='links'><small><a href='#year" + yyyy + "' onclick='return window.opener.checkScrollNecessary(\"stat_h\", this)'><b>Reports for " + yyyy + "</b></a><br>[ " + quicklinks.join(" | ") + " ]</small></p>\n";
+            out += "<p align='center' class='links'><small><a href='#year" + yyyy + "' onclick='return window.opener.checkScrollNecessary(\"stat_h\", this)'><b>Reports for " + yyyy + "</b></a><br>[ " + quicklinks.join(" | ") + " ]</small></p>\n";
         }
-        out[n++] = "<p align='center' class='links'><small>[ <a href='#awards' onclick='return window.opener.checkScrollNecessary(\"stat_h\", this)'>About NDB Awards...</a> ]</small></p>\n";
+        out += "<p align='center' class='links'><small>[ <a href='#awards' onclick='return window.opener.checkScrollNecessary(\"stat_h\", this)'>About NDB Awards...</a> ]</small></p>\n";
 
-        out[n++] = "<hr width='75%' align='center'>\n\n"
+        out += "<hr width='75%' align='center'>\n\n"
 
         // +++++++++++++++++++
         // + clear old stats:+
@@ -1402,21 +1414,21 @@ function popup_stats() {
                 }
             }
 
-            out[n++] = "<h2 align='center'><u><a name='year" + yyyy + "'></a>Reports for " + yyyy + "</u></h2>\n";
+            out += "<h2 align='center'><u><a name='year" + yyyy + "'></a>Reports for " + yyyy + "</u></h2>\n";
 
             var month_columns = "<th width='30'>" + months[0].substr(0, 3) + "</th>\n    <th width='30'>" + months[1].substr(0, 3) + "</th>\n    <th width='30'>" + months[2].substr(0, 3) + "</th>\n    <th width='30'>" + months[3].substr(0, 3) + "</th>\n    <th width='30'>" + months[4].substr(0, 3) + "</th>\n    <th width='30'>" + months[5].substr(0, 3) + "</th>\n    <th width='30'>" + months[6].substr(0, 3) + "</th>\n    <th width='30'>" + months[7].substr(0, 3) + "</th>\n    <th width='30'>" + months[8].substr(0, 3) + "</th>\n    <th width='30'>" + months[9].substr(0, 3) + "</th>\n    <th width='30'>" + months[10].substr(0, 3) + "</th>\n    <th width='30'>" + months[11].substr(0, 3) + "</th>\n    <th>" + yyyy + "</th>\n";
             // +++++++++++++++++++
             // + stations Report: +
             // +++++++++++++++++++
             // Day + Night stations report:
-            out[n++] = "<big><a name='" + yyyy + "br'></a>" + yyyy + " All Stations Report (with UNIDs)" + link_top + "</big><br>\n<small>Daytime: " + lead(utc_daylight) + ":00-" + lead((utc_daylight + 3) % 24) + ":59, Night: " + lead((utc_daylight + 4) % 24) + ":00-" + lead((utc_daylight - 1) % 24) + ":59</small>\n\n";
-            out[n++] = "<table cellpadding='1' cellspacing='0' border='0'>\n  <tr>\n    <th width='120' class='l_edge'>&nbsp;</th>\n" + month_columns + "  </tr>\n";
+            out += "<big><a name='" + yyyy + "br'></a>" + yyyy + " All Stations Report (with UNIDs)" + link_top + "</big><br>\n<small>Daytime: " + lead(utc_daylight) + ":00-" + lead((utc_daylight + 3) % 24) + ":59, Night: " + lead((utc_daylight + 4) % 24) + ":00-" + lead((utc_daylight - 1) % 24) + ":59</small>\n\n";
+            out += "<table cellpadding='1' cellspacing='0' border='0'>\n  <tr>\n    <th width='120' class='l_edge'>&nbsp;</th>\n" + month_columns + "  </tr>\n";
 
 
             // +++++++++++++++++++
             // + Day:            +
             // +++++++++++++++++++
-            out[n++] = "  <tr>\n    <th nowrap class='l_edge_l'>Day only</th>\n" +
+            out += "  <tr>\n    <th nowrap class='l_edge_l'>Day only</th>\n" +
                 "    <td bgcolor='" + get_graph_color((stats.year[yyyy]["01"] ? stats.year[yyyy]["01"].rx_d : 0), max_count['br']) + "' class='r'>" + (stats.year[yyyy]["01"] ? stats.year[yyyy]["01"].rx_d : "&nbsp;") + "</td>\n" +
                 "    <td bgcolor='" + get_graph_color((stats.year[yyyy]["02"] ? stats.year[yyyy]["02"].rx_d : 0), max_count['br']) + "' class='r'>" + (stats.year[yyyy]["02"] ? stats.year[yyyy]["02"].rx_d : "&nbsp;") + "</td>\n" +
                 "    <td bgcolor='" + get_graph_color((stats.year[yyyy]["03"] ? stats.year[yyyy]["03"].rx_d : 0), max_count['br']) + "' class='r'>" + (stats.year[yyyy]["03"] ? stats.year[yyyy]["03"].rx_d : "&nbsp;") + "</td>\n" +
@@ -1435,7 +1447,7 @@ function popup_stats() {
             // +++++++++++++++++++
             // + Day / Night:    +
             // +++++++++++++++++++
-            out[n++] = "  <tr>\n    <th nowrap class='l_edge_l'>Day + Night</th>\n" +
+            out += "  <tr>\n    <th nowrap class='l_edge_l'>Day + Night</th>\n" +
                 "    <td bgcolor='" + get_graph_color((stats.year[yyyy]["01"] ? stats.year[yyyy]["01"].rx_x : 0), max_count['br']) + "' class='r'>" + (stats.year[yyyy]["01"] ? stats.year[yyyy]["01"].rx_x : "&nbsp;") + "</td>\n" +
                 "    <td bgcolor='" + get_graph_color((stats.year[yyyy]["02"] ? stats.year[yyyy]["02"].rx_x : 0), max_count['br']) + "' class='r'>" + (stats.year[yyyy]["02"] ? stats.year[yyyy]["02"].rx_x : "&nbsp;") + "</td>\n" +
                 "    <td bgcolor='" + get_graph_color((stats.year[yyyy]["03"] ? stats.year[yyyy]["03"].rx_x : 0), max_count['br']) + "' class='r'>" + (stats.year[yyyy]["03"] ? stats.year[yyyy]["03"].rx_x : "&nbsp;") + "</td>\n" +
@@ -1454,7 +1466,7 @@ function popup_stats() {
             // +++++++++++++++++++
             // + Night:          +
             // +++++++++++++++++++
-            out[n++] = "  <tr>\n    <th nowrap class='l_edge_l'>Night only</th>\n" +
+            out += "  <tr>\n    <th nowrap class='l_edge_l'>Night only</th>\n" +
                 "    <td bgcolor='" + get_graph_color((stats.year[yyyy]["01"] ? stats.year[yyyy]["01"].rx_n : 0), max_count['br']) + "' class='r'>" + (stats.year[yyyy]["01"] ? stats.year[yyyy]["01"].rx_n : "&nbsp;") + "</td>\n" +
                 "    <td bgcolor='" + get_graph_color((stats.year[yyyy]["02"] ? stats.year[yyyy]["02"].rx_n : 0), max_count['br']) + "' class='r'>" + (stats.year[yyyy]["02"] ? stats.year[yyyy]["02"].rx_n : "&nbsp;") + "</td>\n" +
                 "    <td bgcolor='" + get_graph_color((stats.year[yyyy]["03"] ? stats.year[yyyy]["03"].rx_n : 0), max_count['br']) + "' class='r'>" + (stats.year[yyyy]["03"] ? stats.year[yyyy]["03"].rx_n : "&nbsp;") + "</td>\n" +
@@ -1473,7 +1485,7 @@ function popup_stats() {
             // +++++++++++++++++++
             // + Total results:  +
             // +++++++++++++++++++
-            out[n++] = "  <tr>\n" +
+            out += "  <tr>\n" +
                 "    <th class='l_edge_l'>Total</th>\n" +
                 "    <th class='r'>" + ((stats.year[yyyy]["01"]) ? (stats.year[yyyy]["01"].rx_d + stats.year[yyyy]["01"].rx_x + stats.year[yyyy]["01"].rx_n) : ("&nbsp;")) + "</th>\n" +
                 "    <th class='r'>" + ((stats.year[yyyy]["02"]) ? (stats.year[yyyy]["02"].rx_d + stats.year[yyyy]["02"].rx_x + stats.year[yyyy]["02"].rx_n) : ("&nbsp;")) + "</th>\n" +
@@ -1524,40 +1536,40 @@ function popup_stats() {
                         total_ever++;
                     }
                 }
-                out[n++] = "<big><a name='" + yyyy + "new'></a>" + yyyy + " New Stations Report (with UNIDs)" + link_top + "</big><br>\n";
-                out[n++] = "<small>Total for all time: " + total_ever + "</small>\n"
-                out[n++] = "<table cellpadding='1' cellspacing='0' border='0'>\n  <tr>\n    <th width='120' class='l_edge'>&nbsp;</th>\n" + month_columns + "  </tr>\n";
-                out[n++] = "  <tr>\n"
-                out[n++] = "    <th class='l_edge_l'>New (All time)</th>\n";
+                out += "<big><a name='" + yyyy + "new'></a>" + yyyy + " New Stations Report (with UNIDs)" + link_top + "</big><br>\n";
+                out += "<small>Total for all time: " + total_ever + "</small>\n"
+                out += "<table cellpadding='1' cellspacing='0' border='0'>\n  <tr>\n    <th width='120' class='l_edge'>&nbsp;</th>\n" + month_columns + "  </tr>\n";
+                out += "  <tr>\n"
+                out += "    <th class='l_edge_l'>New (All time)</th>\n";
                 for (var c = 0; c < 12; c++) {
                     var mm = mm_arr[c];
-                    out[n++] = "    <td bgcolor='" + get_graph_color(new_stations_ever[c], max_count['new_stations_ever']) + "' class='r'>" + ((new_stations_ever[c]) ? (new_stations_ever[c]) : ("&nbsp;")) + "</td>\n";
+                    out += "    <td bgcolor='" + get_graph_color(new_stations_ever[c], max_count['new_stations_ever']) + "' class='r'>" + ((new_stations_ever[c]) ? (new_stations_ever[c]) : ("&nbsp;")) + "</td>\n";
                 }
-                out[n++] = "    <th class='r'>" + stats.year[yyyy].new_stations_ever + "</th>\n";
-                out[n++] = "  </tr>\n";
+                out += "    <th class='r'>" + stats.year[yyyy].new_stations_ever + "</th>\n";
+                out += "  </tr>\n";
 
-                out[n++] = "  <tr>\n"
-                out[n++] = "    <th class='l_edge_l'>New for " + yyyy + "</th>\n";
+                out += "  <tr>\n"
+                out += "    <th class='l_edge_l'>New for " + yyyy + "</th>\n";
                 for (var c = 0; c < 12; c++) {
                     var mm = mm_arr[c];
-                    out[n++] = "    <td bgcolor='" + get_graph_color(new_stations[c], max_count['new_stations']) + "' class='r'>" + ((new_stations[c]) ? (new_stations[c]) : ("&nbsp;")) + "</td>\n";
+                    out += "    <td bgcolor='" + get_graph_color(new_stations[c], max_count['new_stations']) + "' class='r'>" + ((new_stations[c]) ? (new_stations[c]) : ("&nbsp;")) + "</td>\n";
                 }
-                out[n++] = "    <th class='r'>" + stats.year[yyyy].new_stations + "</th>\n";
-                out[n++] = "  </tr>\n";
-                out[n++] = "</table>\n<p> </p>\n"
+                out += "    <th class='r'>" + stats.year[yyyy].new_stations + "</th>\n";
+                out += "  </tr>\n";
+                out += "</table>\n<p> </p>\n"
             }
 
             // +++++++++++++++++++++++++++++++++
             // + Daytime DX Stations Report:    +
             // +++++++++++++++++++++++++++++++++
-            out[n++] = "<big><a name='" + yyyy + "dx_d'></a>" + yyyy + " Day-time Distances Report (" + units_long + ") " + link_top + "</big><br>\n"
-            out[n++] = "<small>Daytime: " + lead(utc_daylight) + ":00-" + lead((utc_daylight + 3) % 24) + ":59</small>"
+            out += "<big><a name='" + yyyy + "dx_d'></a>" + yyyy + " Day-time Distances Report (" + units_long + ") " + link_top + "</big><br>\n"
+            out += "<small>Daytime: " + lead(utc_daylight) + ":00-" + lead((utc_daylight + 3) % 24) + ":59</small>"
 
-            out[n++] = "<table cellpadding='1' cellspacing='0' border='0'>\n  <tr>\n    <th width='120' class='l_edge_r'>" + units_long + "</th>\n" + month_columns + "  </tr>\n";
+            out += "<table cellpadding='1' cellspacing='0' border='0'>\n  <tr>\n    <th width='120' class='l_edge_r'>" + units_long + "</th>\n" + month_columns + "  </tr>\n";
 
             for (var dx = 0; dx < (dx_max_day / dx_step); dx++) {
-                out[n++] = "  <tr>\n"
-                out[n++] = "    <th nowrap class='l_edge_r'>" + (dx * dx_step) + " - " + ((dx_step * (dx + 1)) - 1) + "</th>\n";
+                out += "  <tr>\n"
+                out += "    <th nowrap class='l_edge_r'>" + (dx * dx_step) + " - " + ((dx_step * (dx + 1)) - 1) + "</th>\n";
                 for (var b = 0; b < 12; b++) {
                     var mm = mm_arr[b]
                     var val = 0;
@@ -1565,34 +1577,34 @@ function popup_stats() {
                         val = (stats.year[yyyy][mm].dx_d[dx] ? stats.year[yyyy][mm].dx_d[dx] : 0) +
                             (stats.year[yyyy][mm].dx_x[dx] ? stats.year[yyyy][mm].dx_x[dx] : 0);
                     }
-                    out[n++] = "    <td bgcolor='" + get_graph_color(val, max_count['dx']) + "' class='r'>" + ((val) ? (val) : ("&nbsp;")) + "</td>\n";
+                    out += "    <td bgcolor='" + get_graph_color(val, max_count['dx']) + "' class='r'>" + ((val) ? (val) : ("&nbsp;")) + "</td>\n";
                 }
                 dx_d = (stats.year[yyyy].dx_d[dx] ? stats.year[yyyy].dx_d[dx] : 0) +
                     (stats.year[yyyy].dx_x[dx] ? stats.year[yyyy].dx_x[dx] : 0);
-                out[n++] = "<th class='r'>" + ((dx_d) ? (dx_d) : ("&nbsp;")) + "</th>\n";
-                out[n++] = "  </tr>\n"
+                out += "<th class='r'>" + ((dx_d) ? (dx_d) : ("&nbsp;")) + "</th>\n";
+                out += "  </tr>\n"
             }
-            out[n++] = "  <tr>\n"
-            out[n++] = "    <th class='l_edge_r'>Max " + units_long + "</th>\n"
+            out += "  <tr>\n"
+            out += "    <th class='l_edge_r'>Max " + units_long + "</th>\n"
             for (var b = 0; b < 12; b++) {
                 var mm = mm_arr[b]
-                out[n++] = "    <th class='l_edge_r'>" + ((stats.year[yyyy] && stats.year[yyyy][mm] && stats.year[yyyy][mm].max_day) ? (stats.year[yyyy][mm].max_day) : ("&nbsp;")) + "</th>\n";
+                out += "    <th class='l_edge_r'>" + ((stats.year[yyyy] && stats.year[yyyy][mm] && stats.year[yyyy][mm].max_day) ? (stats.year[yyyy][mm].max_day) : ("&nbsp;")) + "</th>\n";
             }
-            out[n++] = "    <th>" + ((stats.year[yyyy] && stats.year[yyyy].max_day) ? (stats.year[yyyy].max_day) : ("&nbsp;")) + "</th>\n"
-            out[n++] = "  </tr>\n"
-            out[n++] = "</table>\n<p> </p>\n\n"
+            out += "    <th>" + ((stats.year[yyyy] && stats.year[yyyy].max_day) ? (stats.year[yyyy].max_day) : ("&nbsp;")) + "</th>\n"
+            out += "  </tr>\n"
+            out += "</table>\n<p> </p>\n\n"
 
             // +++++++++++++++++++++++++++++++++
             // + Nighttime DX Stations Report: +
             // +++++++++++++++++++++++++++++++++
-            out[n++] = "<big><a name='" + yyyy + "dx_n'></a>" + yyyy + " Night-time Distances Report (" + units_long + ") " + link_top + "</big><br>"
-            out[n++] = "<small>Night: " + lead((utc_daylight + 4) % 24) + ":00-" + lead((utc_daylight - 1) % 24) + ":59</small>"
+            out += "<big><a name='" + yyyy + "dx_n'></a>" + yyyy + " Night-time Distances Report (" + units_long + ") " + link_top + "</big><br>"
+            out += "<small>Night: " + lead((utc_daylight + 4) % 24) + ":00-" + lead((utc_daylight - 1) % 24) + ":59</small>"
 
-            out[n++] = "<table cellpadding='1' cellspacing='0' border='0'>\n  <tr>\n    <th width='120' class='l_edge_r'>" + units_long + "</th>\n" + month_columns + "  </tr>\n";
+            out += "<table cellpadding='1' cellspacing='0' border='0'>\n  <tr>\n    <th width='120' class='l_edge_r'>" + units_long + "</th>\n" + month_columns + "  </tr>\n";
 
             for (var dx = 0; dx < (dx_max_night / dx_step); dx++) {
-                out[n++] = "  <tr>\n"
-                out[n++] = "  <th nowrap class='l_edge_r'>" + (dx * dx_step) + " - " + ((dx_step * (dx + 1)) - 1) + "</th>";
+                out += "  <tr>\n"
+                out += "  <th nowrap class='l_edge_r'>" + (dx * dx_step) + " - " + ((dx_step * (dx + 1)) - 1) + "</th>";
                 for (var b = 0; b < 12; b++) {
                     var mm = mm_arr[b]
                     var val = 0;
@@ -1600,23 +1612,23 @@ function popup_stats() {
                         val = (stats.year[yyyy][mm].dx_n[dx] ? stats.year[yyyy][mm].dx_n[dx] : 0) +
                             (stats.year[yyyy][mm].dx_x[dx] ? stats.year[yyyy][mm].dx_x[dx] : 0);
                     }
-                    out[n++] = "<td bgcolor='" + get_graph_color(val, max_count['dx']) + "' class='r'>" + ((val) ? (val) : ("&nbsp;")) + "</td>";
+                    out += "<td bgcolor='" + get_graph_color(val, max_count['dx']) + "' class='r'>" + ((val) ? (val) : ("&nbsp;")) + "</td>";
                 }
                 dx_n = (stats.year[yyyy].dx_n[dx] ? stats.year[yyyy].dx_n[dx] : 0) +
                     (stats.year[yyyy].dx_x[dx] ? stats.year[yyyy].dx_x[dx] : 0);
-                out[n++] = "<th class='r'>" + ((dx_n) ? (dx_n) : ("&nbsp;")) + "</td>\n";
-                out[n++] = "  </tr>\n"
+                out += "<th class='r'>" + ((dx_n) ? (dx_n) : ("&nbsp;")) + "</td>\n";
+                out += "  </tr>\n"
             }
-            out[n++] = "  </tr>\n"
+            out += "  </tr>\n"
 
-            out[n++] = "  <tr><th class='l_edge_r'>Max " + units_long + "</th>\n"
+            out += "  <tr><th class='l_edge_r'>Max " + units_long + "</th>\n"
             for (var b = 0; b < 12; b++) {
                 var mm = mm_arr[b]
-                out[n++] = "<th>" + ((stats.year[yyyy] && stats.year[yyyy][mm] && stats.year[yyyy][mm].max_night) ? (stats.year[yyyy][mm].max_night) : ("&nbsp;")) + "</th>";
+                out += "<th>" + ((stats.year[yyyy] && stats.year[yyyy][mm] && stats.year[yyyy][mm].max_night) ? (stats.year[yyyy][mm].max_night) : ("&nbsp;")) + "</th>";
             }
-            out[n++] = "<th>" + ((stats.year[yyyy] && stats.year[yyyy].max_night) ? (stats.year[yyyy].max_night) : ("&nbsp;")) + "</th>"
-            out[n++] = "  </tr>\n"
-            out[n++] = "</table>\n<p> </p>\n\n"
+            out += "<th>" + ((stats.year[yyyy] && stats.year[yyyy].max_night) ? (stats.year[yyyy].max_night) : ("&nbsp;")) + "</th>"
+            out += "  </tr>\n"
+            out += "</table>\n<p> </p>\n\n"
 
             // +++++++++++++++++
             // + DX/W Report:  +
@@ -1631,18 +1643,18 @@ function popup_stats() {
                     max_count['dxw'] = val;
                 }
             }
-            out[n++] = "<big><a name='" + yyyy + "dx_w'></a>" + yyyy + " DX per Watt " + units_long + link_top + "</big></br>\n";
+            out += "<big><a name='" + yyyy + "dx_w'></a>" + yyyy + " DX per Watt " + units_long + link_top + "</big></br>\n";
 
-            out[n++] = "<table cellpadding='1' cellspacing='0' border='0'>\n  <tr>\n    <th width='120' class='l_edge'>&nbsp;</th>\n" + month_columns + "  </tr>\n";
+            out += "<table cellpadding='1' cellspacing='0' border='0'>\n  <tr>\n    <th width='120' class='l_edge'>&nbsp;</th>\n" + month_columns + "  </tr>\n";
 
-            out[n++] = "<tr><th class='l_edge_l'>Stations</th>";
+            out += "<tr><th class='l_edge_l'>Stations</th>";
             for (var c = 0; c < 12; c++) {
                 val = dx_w[c]
-                out[n++] = "<td bgcolor='" + get_graph_color(val, max_count['dxw']) + "'>" + ((val) ? (val) : ("&nbsp;")) + "</td>";
+                out += "<td bgcolor='" + get_graph_color(val, max_count['dxw']) + "'>" + ((val) ? (val) : ("&nbsp;")) + "</td>";
             }
-            out[n++] = "<th class='l_edge_r'>" + stats.year[yyyy].max_dxw + "</th>";
-            out[n++] = "</tr>\n";
-            out[n++] = "</table>\n<p> </p>\n\n"
+            out += "<th class='l_edge_r'>" + stats.year[yyyy].max_dxw + "</th>";
+            out += "</tr>\n";
+            out += "</table>\n<p> </p>\n\n"
 
             // ++++++++++++++++++++++
             // + Countries Report:  +
@@ -1681,7 +1693,7 @@ function popup_stats() {
                 }
             }
 
-            out[n++] =
+            out +=
                 "<big><a name='" + yyyy + "cr'></a>" + yyyy + " Countries Report" + link_top + "</big></br>\n" +
                 "<table cellpadding='1' cellspacing='0' border='0'>\n" +
                 "  <tr>\n" +
@@ -1693,7 +1705,7 @@ function popup_stats() {
                 "</tr>\n";
 
             for (b = 0; b < countries.length; b++) {
-                out[n++] =
+                out +=
                     "<tr>\n" +
                     "<th class='l_edge_l'><a class='info' href='javascript:void 0' " +
                     "onmouseover='window.status=\"" + countries[b].full + "\";return true;' onmouseout='window.status=\"\";return true;' " +
@@ -1711,10 +1723,10 @@ function popup_stats() {
                     "<td bgcolor='" + get_graph_color(countries[b].mm[10], max_count['cnt']) + "' class='r'>" + (countries[b].mm[10] ? countries[b].mm[10] : "&nbsp;") + "</td>" +
                     "<td bgcolor='" + get_graph_color(countries[b].mm[11], max_count['cnt']) + "' class='r'>" + (countries[b].mm[11] ? countries[b].mm[11] : "&nbsp;") + "</td>";
 
-                out[n++] = "<th class='r'>"
+                out += "<th class='r'>"
                 if (stats.year[yyyy] && stats.year[yyyy].cnt[sorted_cnt[b]]) {
                     year_count += stats.year[yyyy].cnt[sorted_cnt[b]].count;
-                    out[n++] =
+                    out +=
                         stats.year[yyyy].cnt[sorted_cnt[b]].count +
                         "</th>" +
                         "<td nowrap>" +
@@ -1722,56 +1734,56 @@ function popup_stats() {
                         "</td>" +
                         "<td>";
                     if (!stats.year[yyyy].cnt[sorted_cnt[b]].best_dx_ndb) {
-                        out[n++] = "&nbsp;";
+                        out += "&nbsp;";
                     }
                     else {
-                        out[n++] = ((stats.year[yyyy].cnt[sorted_cnt[b]].best_dx_ndb != -1) ? (stats.year[yyyy].cnt[sorted_cnt[b]].best_dx_ndb) : ("?"))
+                        out += ((stats.year[yyyy].cnt[sorted_cnt[b]].best_dx_ndb != -1) ? (stats.year[yyyy].cnt[sorted_cnt[b]].best_dx_ndb) : ("?"))
                         if (stats.year[yyyy].cnt[sorted_cnt[b]].best_dx_ndb > year_best_dx_ndb) {
                             year_best_dx_ndb = stats.year[yyyy].cnt[sorted_cnt[b]].best_dx_ndb;
                             year_best_id_ndb = stats.year[yyyy].cnt[sorted_cnt[b]].best_id_ndb;
                         }
                     }
-                    out[n++] =
+                    out +=
                         "</td>" +
                         "<td nowrap>" +
                         (typeof stats.year[yyyy].cnt[sorted_cnt[b]].best_id_dgps != "undefined" ? stats.year[yyyy].cnt[sorted_cnt[b]].best_id_dgps : "&nbsp;") +
                         "</td>" +
                         "<td>";
                     if (!stats.year[yyyy].cnt[sorted_cnt[b]].best_dx_dgps) {
-                        out[n++] = "&nbsp;";
+                        out += "&nbsp;";
                     }
                     else {
-                        out[n++] = ((stats.year[yyyy].cnt[sorted_cnt[b]].best_dx_dgps != -1) ? (stats.year[yyyy].cnt[sorted_cnt[b]].best_dx_dgps) : ("?"));
+                        out += ((stats.year[yyyy].cnt[sorted_cnt[b]].best_dx_dgps != -1) ? (stats.year[yyyy].cnt[sorted_cnt[b]].best_dx_dgps) : ("?"));
                         if (stats.year[yyyy].cnt[sorted_cnt[b]].best_dx_dgps > year_best_dx_dgps) {
                             year_best_dx_dgps = stats.year[yyyy].cnt[sorted_cnt[b]].best_dx_dgps;
                             year_best_id_dgps = stats.year[yyyy].cnt[sorted_cnt[b]].best_id_dgps;
                         }
                     }
-                    out[n++] =
+                    out +=
                         "</td>" +
                         "<td nowrap>" +
                         (typeof stats.year[yyyy].cnt[sorted_cnt[b]].best_id_navtex != "undefined" ? stats.year[yyyy].cnt[sorted_cnt[b]].best_id_navtex : "&nbsp;") +
                         "</td>" +
                         "<td>";
                     if (!stats.year[yyyy].cnt[sorted_cnt[b]].best_dx_navtex) {
-                        out[n++] = "&nbsp;";
+                        out += "&nbsp;";
                     }
                     else {
-                        out[n++] = ((stats.year[yyyy].cnt[sorted_cnt[b]].best_dx_navtex != -1) ? (stats.year[yyyy].cnt[sorted_cnt[b]].best_dx_navtex) : ("?"));
+                        out += ((stats.year[yyyy].cnt[sorted_cnt[b]].best_dx_navtex != -1) ? (stats.year[yyyy].cnt[sorted_cnt[b]].best_dx_navtex) : ("?"));
                         if (stats.year[yyyy].cnt[sorted_cnt[b]].best_dx_navtex > year_best_dx_navtex) {
                             year_best_dx_navtex = stats.year[yyyy].cnt[sorted_cnt[b]].best_dx_navtex;
                             year_best_id_navtex = stats.year[yyyy].cnt[sorted_cnt[b]].best_id_navtex;
                         }
                     }
-                    out[n++] = "</td>";
+                    out += "</td>";
                 }
                 else {
-                    out[n++] = "&nbsp;</th><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>"
+                    out += "&nbsp;</th><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>"
                 }
-                out[n++] = "</td></tr>\n"
+                out += "</td></tr>\n"
             }
-            out[n++] = "<tr>\n"
-            out[n++] = "<th class='l_edge_l'>Countries:</th>\n"
+            out += "<tr>\n"
+            out += "<th class='l_edge_l'>Countries:</th>\n"
             for (var c = 0; c < 12; c++) {
                 var mm = mm_arr[c];
                 var month_count = 0;
@@ -1780,9 +1792,9 @@ function popup_stats() {
                         month_count++;
                     }
                 }
-                out[n++] = "<th class='r'>" + ((month_count) ? (month_count) : ("&nbsp;")) + "</th>";
+                out += "<th class='r'>" + ((month_count) ? (month_count) : ("&nbsp;")) + "</th>";
             }
-            out[n++] =
+            out +=
                 "<th class='r'>" +
                 sorted_cnt.length +
                 "</th>\n" +
@@ -1815,22 +1827,22 @@ function popup_stats() {
                     }
                 }
             }
-            out[n++] = "<big><a name='" + yyyy + "rr'></a>" + yyyy + " Regions Report" + link_top + "</big></br>\n";
-            out[n++] = "<table cellpadding='1' cellspacing='0' border='0'>\n  <tr>\n    <th width='120' class='l_edge'>&nbsp;</th>\n" + month_columns + "  </tr>\n";
+            out += "<big><a name='" + yyyy + "rr'></a>" + yyyy + " Regions Report" + link_top + "</big></br>\n";
+            out += "<table cellpadding='1' cellspacing='0' border='0'>\n  <tr>\n    <th width='120' class='l_edge'>&nbsp;</th>\n" + month_columns + "  </tr>\n";
 
             for (c in regions) {
                 if (stats.year[yyyy].rgn[c]) {
 
-                    out[n++] = "<tr><th class='l_edge_l'>" + regions[c].name + "</th>";
+                    out += "<tr><th class='l_edge_l'>" + regions[c].name + "</th>";
                     for (var b = 0; b < 12; b++) {
                         var val = regions[c].mm[b]
-                        out[n++] = "<td bgcolor='" + get_graph_color(val, max_count['rgn']) + "' class='r'>" + ((val) ? (val) : ("&nbsp;")) + "</td>";
+                        out += "<td bgcolor='" + get_graph_color(val, max_count['rgn']) + "' class='r'>" + ((val) ? (val) : ("&nbsp;")) + "</td>";
                     }
-                    out[n++] = "<th class='r'>" + stats.year[yyyy].rgn[c] + "</th>";
-                    out[n++] = "</tr>\n";
+                    out += "<th class='r'>" + stats.year[yyyy].rgn[c] + "</th>";
+                    out += "</tr>\n";
                 }
             }
-            out[n++] = "</table>\n<p> </p>\n\n"
+            out += "</table>\n<p> </p>\n\n"
 
             // ++++++++++++++++++++++
             // + North of 60 Report:+
@@ -1845,20 +1857,20 @@ function popup_stats() {
                         max_count['n60'] = val;
                     }
                 }
-                out[n++] = "<big><a name='" + yyyy + "n60'></a>" + yyyy + " North of 60 Degrees Report" + link_top + "</big></br>\n";
+                out += "<big><a name='" + yyyy + "n60'></a>" + yyyy + " North of 60 Degrees Report" + link_top + "</big></br>\n";
 
-                out[n++] = "<table cellpadding='1' cellspacing='0' border='0'>\n  <tr>\n    <th width='120' class='l_edge'>&nbsp;</th>\n" + month_columns + "  </tr>\n";
-                out[n++] = "<tr><th class='l_edge_l'>Stations</th>";
+                out += "<table cellpadding='1' cellspacing='0' border='0'>\n  <tr>\n    <th width='120' class='l_edge'>&nbsp;</th>\n" + month_columns + "  </tr>\n";
+                out += "<tr><th class='l_edge_l'>Stations</th>";
                 for (var c = 0; c < 12; c++) {
                     var mm = mm_arr[c];
                     var val = n60[c];
-                    out[n++] = "<td bgcolor='" + get_graph_color(val, max_count['n60']) + "'>" + ((val) ? (val) : ("&nbsp;")) + "</td>";
+                    out += "<td bgcolor='" + get_graph_color(val, max_count['n60']) + "'>" + ((val) ? (val) : ("&nbsp;")) + "</td>";
                 }
-                out[n++] = "<th class='r'>" + stats.year[yyyy].n60 + "</th>";
-                out[n++] = "</tr>\n";
-                out[n++] = "</table>\n<p> </p>\n\n"
+                out += "<th class='r'>" + stats.year[yyyy].n60 + "</th>";
+                out += "</tr>\n";
+                out += "</table>\n<p> </p>\n\n"
             }
-            out[n++] = "<hr width='75%' align='center'>\n"
+            out += "<hr width='75%' align='center'>\n"
         }
     }
     else {
@@ -1871,11 +1883,11 @@ function popup_stats() {
         // +++++++++++++++++++
         if (document.all) {	// for some reason NS 4.7 doesn't set bookmarks correctly when contents dynamically generated.
             var link_top = " <span class='links'>[ <a href='#top'>Top</a> ]</span>"
-            out[n++] = "<p align='center'><span class='links'>[ "
-            out[n++] = "<a href='#summary'>Summary</a> | ";
-            out[n++] = "<a href='#country'>Countries</a> | ";
-            out[n++] = "<a href='#region'>Regions</a> ";
-            out[n++] = "]</span></p>";
+            out += "<p align='center'><span class='links'>[ "
+            out += "<a href='#summary'>Summary</a> | ";
+            out += "<a href='#country'>Countries</a> | ";
+            out += "<a href='#region'>Regions</a> ";
+            out += "]</span></p>";
         }
         else {
             var link_top = "";
@@ -1963,42 +1975,42 @@ function popup_stats() {
         rgn_sorted.sort(sortBy_life_rgn);
 
 
-        out[n++] = "<big><a name='summary'></a>Summary" + link_top + "</big></br>\n"
-        out[n++] = "<table cellpadding='1' cellspacing='0' border='1' class='r'>";
-        out[n++] = "  <tr>\n";
-        out[n++] = "    <th class='l'>Statistics</th>\n";
-        out[n++] = "    <th colspan='2' class='l'>Value</th>\n";
-        out[n++] = "  </tr>\n";
-        out[n++] = "  <tr>\n";
-        out[n++] = "    <th class='l'>Total Stations received:</th>\n"
-        out[n++] = "    <td colspan='2' class='l'>" + all_stations + "</td>\n"
-        out[n++] = "  </tr>\n";
-        out[n++] = "  <tr>\n";
-        out[n++] = "    <th class='l'>Stations North of 60 Degrees:</th>\n"
-        out[n++] = "    <td class='l'>" + all_n60 + "</td>"
-        out[n++] = "    <td class='l'><nobr>" + all_n60_names.join("</nobr>, <nobr>") + "</nobr></td>"
-        out[n++] = "  </tr>\n";
-        out[n++] = "  <tr>\n";
-        out[n++] = "    <th class='l'>Maximum DX:</th>\n"
-        out[n++] = "    <td class='l' nowrap>" + all_dx_max + " " + units_long + "</td>"
-        out[n++] = "    <td class='l'>" + all_dx_name + "</td>"
-        out[n++] = "  </tr>\n";
-        out[n++] = "  <tr>\n";
-        out[n++] = "    <th class='l'>Maximum DX/W:</th>\n"
-        out[n++] = "    <td class='l' nowrap>" + all_dxw + " " + units_long + "</td>"
-        out[n++] = "    <td class='l'>" + all_dxw_name + "</td>"
-        out[n++] = "  </tr>\n";
-        out[n++] = "</table>\n<p> </p>\n"
+        out += "<big><a name='summary'></a>Summary" + link_top + "</big></br>\n"
+        out += "<table cellpadding='1' cellspacing='0' border='1' class='r'>";
+        out += "  <tr>\n";
+        out += "    <th class='l'>Statistics</th>\n";
+        out += "    <th colspan='2' class='l'>Value</th>\n";
+        out += "  </tr>\n";
+        out += "  <tr>\n";
+        out += "    <th class='l'>Total Stations received:</th>\n"
+        out += "    <td colspan='2' class='l'>" + all_stations + "</td>\n"
+        out += "  </tr>\n";
+        out += "  <tr>\n";
+        out += "    <th class='l'>Stations North of 60 Degrees:</th>\n"
+        out += "    <td class='l'>" + all_n60 + "</td>"
+        out += "    <td class='l'><nobr>" + all_n60_names.join("</nobr>, <nobr>") + "</nobr></td>"
+        out += "  </tr>\n";
+        out += "  <tr>\n";
+        out += "    <th class='l'>Maximum DX:</th>\n"
+        out += "    <td class='l' nowrap>" + all_dx_max + " " + units_long + "</td>"
+        out += "    <td class='l'>" + all_dx_name + "</td>"
+        out += "  </tr>\n";
+        out += "  <tr>\n";
+        out += "    <th class='l'>Maximum DX/W:</th>\n"
+        out += "    <td class='l' nowrap>" + all_dxw + " " + units_long + "</td>"
+        out += "    <td class='l'>" + all_dxw_name + "</td>"
+        out += "  </tr>\n";
+        out += "</table>\n<p> </p>\n"
 
         // ++++++++++++++++++++++
         // + Countries Report:  +
         // ++++++++++++++++++++++
-        out[n++] = "<big><a name='country'></a>Countries Report" + link_top + "</big></br>\n"
-        out[n++] = "<table cellpadding='1' cellspacing='0' border='1' class='r'>\n";
-        out[n++] = "  <tr>\n";
-        out[n++] = "    <th class='l'>Country</th>\n";
-        out[n++] = "    <th class='l'>Stations</th>\n";
-        out[n++] = "  </tr>\n";
+        out += "<big><a name='country'></a>Countries Report" + link_top + "</big></br>\n"
+        out += "<table cellpadding='1' cellspacing='0' border='1' class='r'>\n";
+        out += "  <tr>\n";
+        out += "    <th class='l'>Country</th>\n";
+        out += "    <th class='l'>Stations</th>\n";
+        out += "  </tr>\n";
 
         for (var i = 0; i < all_countries_sorted.length; i++) {
             var name = all_countries_sorted[i].cnt.match(rexp_country);
@@ -2006,47 +2018,47 @@ function popup_stats() {
             var sta = ((name[2]) ? (" (" + name[2] + ")") : (""));
             full = cnt_arr[name[1]] + ((name[2]) ? (" (" + sta_arr[name[1]][name[2]] + ")") : (""));
             var val = all_countries_sorted[i].stations
-            out[n++] = "  <tr>\n";
-            out[n++] = "<th class='l'><a class='info' href='javascript:void 0' "
-            out[n++] = "onmouseover='window.status=\"" + full + "\";return true;' onmouseout='window.status=\"\";return true;' "
-            out[n++] = "title='" + full + "'>" + cnt + sta + "</th>\n"
-            out[n++] = "    <td class='r' bgcolor='" + get_graph_color(val, max_count['cnt']) + "'>" + val + "</td>\n"
-            out[n++] = "  </tr>\n";
+            out += "  <tr>\n";
+            out += "<th class='l'><a class='info' href='javascript:void 0' "
+            out += "onmouseover='window.status=\"" + full + "\";return true;' onmouseout='window.status=\"\";return true;' "
+            out += "title='" + full + "'>" + cnt + sta + "</th>\n"
+            out += "    <td class='r' bgcolor='" + get_graph_color(val, max_count['cnt']) + "'>" + val + "</td>\n"
+            out += "  </tr>\n";
         }
-        out[n++] = "  <tr>\n";
-        out[n++] = "    <th class='l'>Countries:</th>\n"
-        out[n++] = "    <th class='r'>" + all_countries_sorted.length + "</th>\n"
-        out[n++] = "  </tr>\n";
-        out[n++] = "</table>\n<p> </p>\n\n"
+        out += "  <tr>\n";
+        out += "    <th class='l'>Countries:</th>\n"
+        out += "    <th class='r'>" + all_countries_sorted.length + "</th>\n"
+        out += "  </tr>\n";
+        out += "</table>\n<p> </p>\n\n"
 
 
         // ++++++++++++++++++++++
         // + Regions Report:    +
         // ++++++++++++++++++++++
-        out[n++] = "<big><a name='region'></a>Regions Report" + link_top + "</big></br>\n"
-        out[n++] = "<table cellpadding='1' cellspacing='0' border='1' class='r'>";
-        out[n++] = "  <tr>\n";
-        out[n++] = "    <th class='l'>Region</th>\n";
-        out[n++] = "    <th class='l'>Stations</th>\n";
-        out[n++] = "  </tr>\n";
+        out += "<big><a name='region'></a>Regions Report" + link_top + "</big></br>\n"
+        out += "<table cellpadding='1' cellspacing='0' border='1' class='r'>";
+        out += "  <tr>\n";
+        out += "    <th class='l'>Region</th>\n";
+        out += "    <th class='l'>Stations</th>\n";
+        out += "  </tr>\n";
         for (var i = 0; i < rgn_sorted.length; i++) {
-            out[n++] = "  <tr>\n";
-            out[n++] = "    <th class='l'>" + rgn_sorted[i].rgn + "</th>\n"
-            out[n++] = "    <td class='r' bgcolor='" + get_graph_color(rgn_sorted[i].cnt, max_count['rgn']) + "'>" + rgn_sorted[i].cnt + "</td>\n"
-            out[n++] = "  </tr>\n";
+            out += "  <tr>\n";
+            out += "    <th class='l'>" + rgn_sorted[i].rgn + "</th>\n"
+            out += "    <td class='r' bgcolor='" + get_graph_color(rgn_sorted[i].cnt, max_count['rgn']) + "'>" + rgn_sorted[i].cnt + "</td>\n"
+            out += "  </tr>\n";
         }
-        out[n++] = "  <tr>\n";
-        out[n++] = "    <th class='l'>Regions:</th>\n"
-        out[n++] = "    <th class='r'>" + rgn_sorted.length + "</th>\n"
-        out[n++] = "  </tr>\n";
-        out[n++] = "</table>\n<p> </p>\n\n"
+        out += "  <tr>\n";
+        out += "    <th class='l'>Regions:</th>\n"
+        out += "    <th class='r'>" + rgn_sorted.length + "</th>\n"
+        out += "  </tr>\n";
+        out += "</table>\n<p> </p>\n\n"
     }
 
-    out[n++] = "<p><a name='awards'></a><small><b>See <a href='http://www.beaconworld.org.uk' target='_blank'>http://www.beaconworld.org.uk</a> for details on how to join the NDB List and qualify for awards</b></small></p>";
-    out[n++] = "</body></html>\n"
+    out += "<p><a name='awards'></a><small><b>See <a href='http://www.beaconworld.org.uk' target='_blank'>http://www.beaconworld.org.uk</a> for details on how to join the NDB List and qualify for awards</b></small></p>";
+    out += "</body></html>\n"
     stat_h = window.open('', 'statsViewer', 'width=700,height=480,status=1,resizable=1,menubar=1,location=0,toolbar=0,scrollbars=1');
     stat_h.focus();
-    stat_h.document.write(out.join(""));
+    stat_h.document.write(out);
     stat_h.document.close();
     if (progress_hd) {
         progress_hd.close();
@@ -2132,8 +2144,6 @@ function popup_text() {
         }
     }
     // Output data
-    var out = new Array()
-    var n = 0;
     var total = 0;
 
     var start_dd = lead(cookie['txt_date1'].substr(6, 2));
@@ -2143,225 +2153,225 @@ function popup_text() {
     var end_mm = lead(cookie['txt_date2'].substr(4, 2) - 1);	// Months begin at 0
     var end_yyyy = cookie['txt_date2'].substr(0, 4);
 
-    out[n++] = "Log showing " + ((cookie['txt_showAll'] == '1') ? ("all receptions") : ("first reception")) + " of each "
+    var out = "Log showing " + ((cookie['txt_showAll'] == '1') ? ("all receptions") : ("first reception")) + " of each "
     switch (cookie['txt_type']) {
         case "dgps":
-            out[n++] = "DGPS station ";
+            out += "DGPS station ";
             break;
         case "ndb":
-            out[n++] = "NDB ";
+            out += "NDB ";
             break;
         case "navtex":
-            out[n++] = "Naxtex station ";
+            out += "Naxtex station ";
             break;
         case "all":
-            out[n++] = "signal "
+            out += "signal "
     }
 
     if (cookie['txt_date1'] == cookie['txt_date2']) {
-        out[n++] = "on day " + start_dd;
+        out += "on day " + start_dd;
     }
     else {
         if (cookie['txt_date1'] != "19000001" && cookie['txt_date2'] != "21000001") {
             switch (cookie['txt_format']) {
                 case "dd":
-                    out[n++] = "between day " + start_dd + " and " + end_dd;
+                    out += "between day " + start_dd + " and " + end_dd;
                     break
                 case "ddmmyyyy":
-                    out[n++] = "between " + start_dd + "/" + start_mm + "/" + start_yyyy + " and " + end_dd + "/" + end_mm + "/" + end_yyyy;
+                    out += "between " + start_dd + "/" + start_mm + "/" + start_yyyy + " and " + end_dd + "/" + end_mm + "/" + end_yyyy;
                     break
                 case "dd.mm.yyyy":
-                    out[n++] = "between " + start_dd + "." + start_mm + "." + start_yyyy + " and " + end_dd + "." + end_mm + "." + end_yyyy;
+                    out += "between " + start_dd + "." + start_mm + "." + start_yyyy + " and " + end_dd + "." + end_mm + "." + end_yyyy;
                     break
                 case "mmddyyyy":
-                    out[n++] = "between " + start_mm + "/" + start_dd + "/" + start_yyyy + " and " + end_mm + "/" + end_dd + "/" + end_yyyy;
+                    out += "between " + start_mm + "/" + start_dd + "/" + start_yyyy + " and " + end_mm + "/" + end_dd + "/" + end_yyyy;
                     break
                 case "yyyy-mm-dd":
-                    out[n++] = "between " + start_yyyy + "-" + start_mm + "-" + start_dd + " and " + end_yyyy + "." + end_mm + "." + end_dd;
+                    out += "between " + start_yyyy + "-" + start_mm + "-" + start_dd + " and " + end_yyyy + "." + end_mm + "." + end_dd;
                     break
                 default:
-                    out[n++] = "between " + cookie['txt_date1'] + " and " + cookie['txt_date2'];
+                    out += "between " + cookie['txt_date1'] + " and " + cookie['txt_date2'];
                     break
             }
         }
         if (cookie['txt_date1'] != "19000001" && cookie['txt_date2'] == "21000001") {
             switch (cookie['txt_format']) {
                 case "dd":
-                    out[n++] = "from day " + start_dd + " onwards";
+                    out += "from day " + start_dd + " onwards";
                     break
                 case "ddmmyyyy":
-                    out[n++] = "from " + start_dd + "/" + start_mm + "/" + start_yyyy + " onwards";
+                    out += "from " + start_dd + "/" + start_mm + "/" + start_yyyy + " onwards";
                     break
                 case "dd.mm.yyyy":
-                    out[n++] = "from " + start_dd + "." + start_mm + "." + start_yyyy + " onwards";
+                    out += "from " + start_dd + "." + start_mm + "." + start_yyyy + " onwards";
                     break
                 case "mmddyyyy":
-                    out[n++] = "from " + start_mm + "/" + start_dd + "/" + start_yyyy + " onwards";
+                    out += "from " + start_mm + "/" + start_dd + "/" + start_yyyy + " onwards";
                     break
                 case "yyyy-mm-dd":
-                    out[n++] = "from " + start_yyyy + "-" + start_mm + "-" + start_dd + " onwards";
+                    out += "from " + start_yyyy + "-" + start_mm + "-" + start_dd + " onwards";
                     break
                 default:
-                    out[n++] = "from " + cookie['txt_date1'] + " onwards.";
+                    out += "from " + cookie['txt_date1'] + " onwards.";
                     break
             }
         }
         if (cookie['txt_date1'] == "19000001" && cookie['txt_date2'] != "21000001") {
             switch (cookie['txt_format']) {
                 case "dd":
-                    out[n++] = "until day " + end_dd + "\n\n";
+                    out += "until day " + end_dd + "\n\n";
                     break
                 case "ddmmyyyy":
-                    out[n++] = "until " + end_dd + "/" + end_mm + "/" + end_yyyy;
+                    out += "until " + end_dd + "/" + end_mm + "/" + end_yyyy;
                     break
                 case "dd.mm.yyyy":
-                    out[n++] = "until " + end_dd + "." + end_mm + "." + end_yyyy;
+                    out += "until " + end_dd + "." + end_mm + "." + end_yyyy;
                     break
                 case "mmddyyyy":
-                    out[n++] = "until " + end_mm + "/" + end_dd + "/" + end_yyyy;
+                    out += "until " + end_mm + "/" + end_dd + "/" + end_yyyy;
                     break
                 case "yyyy-mm-dd":
-                    out[n++] = "until " + end_yyyy + "-" + end_mm + "-" + end_dd;
+                    out += "until " + end_yyyy + "-" + end_mm + "-" + end_dd;
                     break
                 default:
-                    out[n++] = "until " + cookie['txt_date2'] + " onwards.";
+                    out += "until " + cookie['txt_date2'] + " onwards.";
                     break
             }
         }
     }
 
     if (!(start_khz == 0 && end_khz == 100000)) {
-        out[n++] = "\nAll frequencies"
+        out += "\nAll frequencies"
         if (start_khz != 0) {
-            out[n++] = " from " + start_khz + "KHz";
+            out += " from " + start_khz + "KHz";
         }
         if (end_khz != 100000) {
-            out[n++] = " to " + end_khz + "KHz";
+            out += " to " + end_khz + "KHz";
         }
     }
 
     if (!(cookie['txt_dx1'] == 0 && cookie['txt_dx2'] == 100000)) {
-        out[n++] = "\nAll distances"
+        out += "\nAll distances"
         if (cookie['txt_dx1'] != 0) {
-            out[n++] = " from " + cookie['txt_dx1'] + " " + get_units();
+            out += " from " + cookie['txt_dx1'] + " " + get_units();
         }
         if (cookie['txt_dx2'] != 100000) {
-            out[n++] = " to " + cookie['txt_dx2'] + " " + get_units();
+            out += " to " + cookie['txt_dx2'] + " " + get_units();
         }
     }
 
     if (!(cookie['txt_lat1'] == -90 && cookie['txt_lat2'] == 90)) {
-        out[n++] = "\nAll Latitudes"
+        out += "\nAll Latitudes"
         if (cookie['txt_lat11'] != -90) {
-            out[n++] = " from " + cookie['txt_lat1'];
+            out += " from " + cookie['txt_lat1'];
         }
         if (cookie['txt_lat2'] != 90) {
-            out[n++] = " to " + cookie['txt_lat2'];
+            out += " to " + cookie['txt_lat2'];
         }
     }
 
     if (!(cookie['txt_lon1'] == -180 && cookie['txt_lon2'] == 180)) {
-        out[n++] = "\nAll Longitudes"
+        out += "\nAll Longitudes"
         if (cookie['txt_lon1'] != -180) {
-            out[n++] = " from " + cookie['txt_lon1'];
+            out += " from " + cookie['txt_lon1'];
         }
         if (cookie['txt_lon2'] != 180) {
-            out[n++] = " to " + cookie['txt_lon2'];
+            out += " to " + cookie['txt_lon2'];
         }
     }
 
     if (cookie['txt_dayNight'] != "x") {
         if (cookie['txt_dayNight'] == "d") {
-            out[n++] = "\nDaytime loggings only";
+            out += "\nDaytime loggings only";
         }
         else {
-            out[n++] = "\nNight-time loggings only";
+            out += "\nNight-time loggings only";
         }
     }
 
-    out[n++] = "\nDaytime: " + lead(utc_daylight) + ":00-" + lead((utc_daylight + 4) % 24) + ":59, ";
-    out[n++] = "Night: " + lead((utc_daylight + 5) % 24) + ":00-" + lead((utc_daylight - 1) % 24) + ":59\n";
+    out += "\nDaytime: " + lead(utc_daylight) + ":00-" + lead((utc_daylight + 4) % 24) + ":59, ";
+    out += "Night: " + lead((utc_daylight + 5) % 24) + ":00-" + lead((utc_daylight - 1) % 24) + ":59\n";
 
-    out[n++] = "\nOutput sorted by ";
+    out += "\nOutput sorted by ";
     switch (cookie['txt_sortBy']) {
         case "call":
-            out[n++] = "callsign";
+            out += "callsign";
             break;
         case "cnt":
-            out[n++] = "country";
+            out += "country";
             break;
         case "yyyymmddhhmm":
-            out[n++] = "date";
+            out += "date";
             break;
         case "dx":
-            out[n++] = "distance";
+            out += "distance";
             break;
         case "dxw":
-            out[n++] = "distance per watt";
+            out += "distance per watt";
             break;
         case "gsq":
-            out[n++] = "Grid Square";
+            out += "Grid Square";
             break;
         case "lsb":
-            out[n++] = "LSB Mod Offset";
+            out += "LSB Mod Offset";
             break;
         case "pwr":
-            out[n++] = "transmitter power";
+            out += "transmitter power";
             break;
         case "qth":
-            out[n++] = "town";
+            out += "town";
             break;
         case "sta":
-            out[n++] = "state / province";
+            out += "state / province";
             break;
         case "hhmm":
-            out[n++] = "time";
+            out += "time";
             break;
         case "usb":
-            out[n++] = "USB Mod Offset";
+            out += "USB Mod Offset";
             break;
         default:
-            out[n++] = "Frequency";
+            out += "Frequency";
             break;
     }
-    out[n++] = "\n";
+    out += "\n";
 
 
-    out[n++] = "----------------------------------------------------------------------\n";
+    out += "----------------------------------------------------------------------\n";
     switch (cookie['txt_format']) {
         case "dd":
-            out[n++] = "DD ";
+            out += "DD ";
             break
         case "ddmmyyyy":
-            out[n++] = "DD/MM/YYYY ";
+            out += "DD/MM/YYYY ";
             break
         case "dd.mm.yyyy":
-            out[n++] = "DD.MM.YYYY ";
+            out += "DD.MM.YYYY ";
             break
         case "mmddyyyy":
-            out[n++] = "MM/DD/YYYY ";
+            out += "MM/DD/YYYY ";
             break
         case "yyyymmdd":
-            out[n++] = "YYYYMMDD ";
+            out += "YYYYMMDD ";
             break
         case "yyyy-mm-dd":
-            out[n++] = "YYYY-MM-DD ";
+            out += "YYYY-MM-DD ";
             break
         case "no_date" :
             break;
     }
-    out[n++] = (cookie['txt_format'] == 'no_date' ? "" : "UTC   ");
-    out[n++] = "kHz   Call  ";
-    out[n++] = (cookie['txt_h_mod'] != '1' && cookie['mod_abs'] != '1' ? "LSB  USB  " : "");
-    out[n++] = (cookie['txt_h_mod'] != '1' && cookie['mod_abs'] == '1' ? "LSB     USB     " : "");
-    out[n++] = (cookie['txt_h_cyc'] != '1' ? "Cyc.  " : "");
-    out[n++] = (cookie['txt_h_pwr'] != '1' ? "Pwr. " : "");
-    out[n++] = (cookie['txt_h_dx'] != '1' ? pad(get_units(), 6) : "");
-    out[n++] = (cookie['txt_h_dxw'] != '1' ? "dx/w " : "");
-    out[n++] = (cookie['txt_h_new'] != '1' ? "+ " : "");
-    out[n++] = (cookie['txt_h_gsq'] != '1' ? "GSQ    " : "");
-    out[n++] = "Location\n";
-    out[n++] = "----------------------------------------------------------------------\n";
+    out += (cookie['txt_format'] == 'no_date' ? "" : "UTC   ");
+    out += "kHz   Call  ";
+    out += (cookie['txt_h_mod'] != '1' && cookie['mod_abs'] != '1' ? "LSB  USB  " : "");
+    out += (cookie['txt_h_mod'] != '1' && cookie['mod_abs'] == '1' ? "LSB     USB     " : "");
+    out += (cookie['txt_h_cyc'] != '1' ? "Cyc.  " : "");
+    out += (cookie['txt_h_pwr'] != '1' ? "Pwr. " : "");
+    out += (cookie['txt_h_dx'] != '1' ? pad(get_units(), 6) : "");
+    out += (cookie['txt_h_dxw'] != '1' ? "dx/w " : "");
+    out += (cookie['txt_h_new'] != '1' ? "+ " : "");
+    out += (cookie['txt_h_gsq'] != '1' ? "GSQ    " : "");
+    out += "Location\n";
+    out += "----------------------------------------------------------------------\n";
 
     var temp_shown = 0;
     var temp_new = 0;
@@ -2476,39 +2486,39 @@ function popup_text() {
     text_array.sort(sortBy_call).sort(sortBy_khz).sort(eval("sortBy_" + cookie['txt_sortBy']));
 
     for (var k = 0; k < text_array.length; k++) {
-        out[n++] =
+        out +=
             text_array[k].date +
             text_array[k].hhmm +
             pad(text_array[k].khz, 5) + " " +
             pad(text_array[k].display, 5) + " ";
         if (cookie['txt_h_mod'] != '1' && cookie['mod_abs'] != '1') {
-            out[n++] =
+            out +=
                 (text_array[k].lsb ? pad(text_array[k].lsb, 4) + " " : "     ") +
                 (text_array[k].usb ? pad(text_array[k].usb, 4) + " " : "     ");
         }
         if (cookie['txt_h_mod'] != '1' && cookie['mod_abs'] == '1') {
-            out[n++] =
+            out +=
                 (text_array[k].lsb ? pad(text_array[k].lsb, 7) + " " : "        ") +
                 (text_array[k].usb ? pad(text_array[k].usb, 7) + " " : "        ");
         }
-        out[n++] =
+        out +=
             (cookie['txt_h_cyc'] != '1' ? pad(text_array[k].cyc, 5) + " " : "") +
             (cookie['txt_h_pwr'] != '1' ? pad(text_array[k].pwr, 4) + " " : "") +
             (cookie['txt_h_dx'] != '1' ? pad((text_array[k].dx != -1 ? text_array[k].dx : ""), 5) + " " : "");
         if (cookie['txt_h_dxw'] != '1') {
-            out[n++] = ((text_array[k].dxw) ? (pad(text_array[k].dxw, 4) + " ") : ("     "));
+            out += ((text_array[k].dxw) ? (pad(text_array[k].dxw, 4) + " ") : ("     "));
         }
         if (cookie['txt_h_new'] != '1') {
-            out[n++] = (text_array[k].nu ? "Y" : " ") + " ";
+            out += (text_array[k].nu ? "Y" : " ") + " ";
         }
-        out[n++] =
+        out +=
             (cookie['txt_h_gsq'] != '1' ? (text_array[k].gsq ? text_array[k].gsq : "      ") + " " : "") +
             text_array[k].qth + ", " +
             (text_array[k].sta != "" ? text_array[k].sta + ", " : "") +
             text_array[k].cnt + "\n";
     }
 
-    out[n++] =
+    out +=
         "----------------------------------------------------------------------\n" +
         temp_shown + " stations shown listed" +
         ((temp_new && cookie['txt_h_new'] != '1') ? (", including " + temp_new + " stations new to log (shown in + column)") : ("")) + ".\n" +
@@ -2516,8 +2526,11 @@ function popup_text() {
     list_h = window.open('', 'textOutput', 'width=800,height=600,status=1,resizable=1,menubar=1,location=0,toolbar=1,scrollbars=1');
     list_h.focus();
     list_h.document.open("text/plain");
-    if (document.all) list_h.document.write(out.join(""));
-    else list_h.document.write("<pre>" + out.join("") + "</pre>");
+    if (document.all) {
+        list_h.document.write(out);
+    } else {
+        list_h.document.write("<pre>" + out + "</pre>");
+    }
     list_h.document.close();
 }
 
@@ -2560,9 +2573,7 @@ function popup_text_options() {
         cookie['txt_sortBy'] = 'khz';
     }
 
-    var out = new Array()
-    var n = 0;
-    out[n++] = "<!doctype html public '-//W3C//DTD HTML 4.01 Transitional//EN'>\n" +
+    var out = "<!doctype html public '-//W3C//DTD HTML 4.01 Transitional//EN'>\n" +
         "<html><head><title>NDB WebLog > Text List Setup</title>\n" +
         "<meta HTTP-EQUIV=\"Content-Type\" CONTENT=\"text/html; charset=windows-1252\">\n" +
         "<link TITLE=\"new\" REL=\"stylesheet\" href=\"" + css + "\" type=\"text/css\">\n" +
@@ -2797,7 +2808,7 @@ function popup_text_options() {
         "</form>\n";
     text_options_h = window.open('', 'zoneSelector', 'width=360,height=570,status=0,resizable=1,menubar=0,location=0,toolbar=0,scrollbars=0');
     text_options_h.focus();
-    text_options_h.document.write(out.join(""));
+    text_options_h.document.write(out);
     text_options_h.document.close();
 }
 
@@ -2861,9 +2872,7 @@ function search(form) {
             search_h.focus()
         }
         else {
-            var out = new Array();
-            var n = 0;
-            out[n++] =
+            var out =
                 "<!doctype html public '-//W3C//DTD HTML 4.01 Transitional//EN'>\n" +
                 "<html><head><title>NDB WebLog > Search > Results</title>\n" +
                 "<meta HTTP-EQUIV=\"Content-Type\" CONTENT=\"text/html; charset=windows-1252\">\n" +
@@ -2880,10 +2889,10 @@ function search(form) {
                 "<th>USB</th>" +
                 "<th colspan='2'>Last RX</th>" +
                 "<th>Logs</th>\n"
-            out[n++] = "  </tr>\n"
+            out += "  </tr>\n"
             for (var k in result) {
                 var id = result[k];
-                out[n++] =
+                out +=
                     "  <tr title='Notes: " + station[id].notes + "'>\n" +
                     "    <td class='l_edge'>" + station[id].khz + "</td>\n" +
                     "    <td><a href='javascript:void window.opener.popup_details(\"" + id + "\");'>" + station[id].display + "</a></td>\n" +
@@ -2897,23 +2906,23 @@ function search(form) {
                     var log_HH = logbook[id]['entry'][logbook[id]['entry'].length - 1]['yyyymmddhhmm'].substr(8, 2);
                     var log_MM = logbook[id]['entry'][logbook[id]['entry'].length - 1]['yyyymmddhhmm'].substr(10, 2);
 
-                    out[n++] =
+                    out +=
                         "  <td>" + format_date(log_yyyymmdd) + "</td>\n" +
                         "  <td>" + log_HH + ":" + log_MM + "</td>\n" +
                         "  <td>" + logbook[id]['entry'].length + "</td>\n";
                 }
                 else {
-                    out[n++] =
+                    out +=
                         "    <td>&nbsp;</th>\n" +
                         "    <td>&nbsp;</th>\n" +
                         "    <td>&nbsp;</th>\n";
                 }
-                out[n++] = "  </tr>\n"
+                out += "  </tr>\n"
             }
-            out[n++] = "</table></body></html>"
+            out += "</table></body></html>"
             result_h = window.open('', 'resultSelector', 'width=600,height=300,status=0,resizable=1,menubar=0,location=0,toolbar=0,scrollbars=1');
             result_h.focus();
-            result_h.document.write(out.join(""));
+            result_h.document.write(out);
             result_h.document.close();
         }
     }
@@ -2948,13 +2957,13 @@ function show_date_heading() {
 // * show_time()                      *
 // ************************************
 function show_time() {
-    var now = new Date()
-    var hhmm = lead(now.getUTCHours()) + ":" + lead(now.getUTCMinutes());
-    date = format_date(now.getUTCFullYear() + "" + lead(now.getUTCMonth() + 1) + "" + lead(now.getUTCDate()));
-    var msg = "UTC Time: " + hhmm + " (" + ((now.getUTCHours() >= utc_daylight && now.getUTCHours() < utc_daylight + 4) ? ("Day") : ("Night")) + "), Date: " + date;
-    if (window.defaultStatus != msg) {
-        window.defaultStatus = msg;
-    }
+    var now =       new Date()
+    var hhmmss =    lead(now.getUTCHours()) + ":" + lead(now.getUTCMinutes()) + ":" + lead(now.getUTCSeconds());
+    var date =      format_date(now.getUTCFullYear()  + lead(now.getUTCMonth() + 1) + lead(now.getUTCDate()));
+    top.main.document.getElementById('clock').innerHTML = date + ' ' + hhmmss + '<br>' +
+        (isLocalDaylight(now.getUTCHours(), utc_offset) ?
+            '<b>Daytime</b> (10am - 2pm Local Standard time)' : '<b>Nighttime</b> (2pm - 10am Local Standard time)'
+        );
     setTimeout("top.show_time()", 1000)
 }
 
@@ -3284,13 +3293,13 @@ function version_check() {
 // * list()                           *
 // ************************************
 function list(yyyy, mm) {
-    var out = new Array();
-    var n = 0;
+    var out = '';
 
     // Check that system has been correctly set up:
     // First check config.js variables are set:
 
-    if ((typeof qth_lat == "undefined") || (typeof qth_lon == "undefined") || (typeof qth_name == "undefined") || (typeof qth_home == "undefined") ||
+    if ((typeof qth_lat == "undefined") || (typeof qth_lon == "undefined") || (typeof qth_name == "undefined") ||
+        (typeof qth_home == "undefined") ||
         (typeof qth_email == "undefined") || (typeof monthly == "undefined") || (typeof utc_offset == "undefined")) {
         if (progress_hd) {
             progress_hd.close();
@@ -3350,7 +3359,7 @@ function list(yyyy, mm) {
         sel_sort = "khz";  // If user just hid the sorted column, change order back to default.
     }
 
-    out[n++] =
+    out +=
         "<!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 4.01 Transitional//EN'>\n" +
         "<head><link TITLE='new' REL='stylesheet' href=\"" + css + "\" type='text/css'>\n" +
         "<style type='text/css'>\n" +
@@ -3373,33 +3382,35 @@ function list(yyyy, mm) {
         "<form name='form' action='./'>\n" +
         "<p><b>" + ((qth_email) ? ("<a href=\"mailto:" + qth_email + "?subject=" + qth_name + " NDB%20WebLog\"" + msg_e + " title='Send me an email!'>" + qth_name + "</a>") : (qth_name)) +
         ((monthly) ? (" - " + months[sel_mm - 1] + " " + sel_yyyy) : ("")) + "<br>\n" +
-        "<a href='javascript:void top.popup_map(top.qth_lat,top.qth_lon,top.qth_name)'" + msg_m + " title='Click to see a map of this location'>Location</a> " + qth_lat + "," + qth_lon + " (" + get_gsq(qth_lat, qth_lon) + ")</b><br>\r\n" +
+        "<a onclick='popup_map(top.qth_lat,top.qth_lon,top.qth_name)'" + msg_m + " title='Click to see a map of this location'>Location</a> " + qth_lat + "," + qth_lon + " (" + get_gsq(qth_lat, qth_lon) + ")</b><br>\r\n" +
         "<small>NDB WebLog Software: " + version + " by\r\n" +
         "<a href='mailto:martin@classaxe.com' title='Bug reports? Suggestions? Contact the programmer'><b>Martin Francis</b></a>, &copy; 2003-2013<br>\r\n" +
         "This <a href='http://www.classaxe.com/dx' target='_blank'" + msg_dl + " title='NDB WebLog is free - get it here!'><b>NDB WebLog</b></a>\r\n" +
         "is configured as a <b>" + ((monthly) ? ("Monthly") : ("Lifetime")) + " list</b>,\r\n" +
         "all <b>times</b> are in <a href='http://www.timeanddate.com/worldclock' target='_blank'" + msg_utc + " title='View world clock'><b>UTC</b></a>,\r\n" +
         "and the <b>last log entry</b> was recorded on <b>" + format_date(stats.last_date) + " at " + stats.last_time + " UTC</b></small></p>\r\n" +
+        "<p><small><b>UTC Time</b> <span id='clock'></span></small></p>\r\n" +
         "<p><small>Download Files: [ <a href='" + urls.package + "' target='_blank'>NDBWebLog</a> | <a href='" + urls.config + "'>config.js</a> | " +
-        "<a href='" + urls.logs + "'>logs.js</a> | <a href='" + urls.stations + "'>stations.js</a> ]</small></p>";
+        "<a href='" + urls.logs + "'>logs.js</a> | <a href='" + urls.stations + "'>stations.js</a> ]</small></p>"
+    ;
 
     // Add year selection buttons
     if (monthly) {	// Find out if more than 1 years log results are recorded - if so, put year selector links on page:
-        var years = new Array();
+        var years = [];
         var i = 0;
         for (link_yyyy in stats.year) {
             years[i++] = link_yyyy;
         }
         years.sort();
-        var years_out = new Array();
+        var years_out = [];
         for (var i = 0; i < years.length; i++) {
             years_out[i] = (years[i] == sel_yyyy ? "<font color='red'>" + years[i] + "</font>" : "<a href='javascript:top.goto_page(\"" + years[i] + "\",\"" + sel_mm + "\",\"" + sel_sort + "\")'>" + years[i] + "</a>");
         }
         if (years.length > 1 || (years.length == 1 && years[0] != sel_yyyy)) {
-            out[n++] = "<p align='center'><b>Year: [ " + years_out.join(" | ") + " ]</b></p>\r\n";
+            out += "<p align='center'><b>Year: [ " + years_out.join(" | ") + " ]</b></p>\r\n";
         }
     }
-    out[n++] =
+    out +=
         "<p align='center'><input type='button' class='120px' value='Statistics' onclick='void top.popup_stats()' title='[CTRL]+1'>" +
         "<input type='button' class='120px' value='Preferences' onclick='void top.popup_prefs()' title='[CTRL]+2'>" +
         "<input type='button' class='120px' value='Search' onclick='void top.popup_search()' title='[CTRL]+3'>" +
@@ -3413,10 +3424,10 @@ function list(yyyy, mm) {
     var href = ((monthly) ? ("href='javascript:top.goto_page(\"" + sel_yyyy + "\",\"" + sel_mm + "\",\"") : ("href='javascript:top.goto_page(\"\",\"\",\""))
 
     // Begin main output (apply borders if NS is in use)
-    out[n++] = "<table border='" + ((document.all) ? ("0") : ("1")) + "' cellspacing='0' cellpadding='0'>\n";
+    out += "<table border='" + ((document.all) ? ("0") : ("1")) + "' cellspacing='0' cellpadding='0'>\n";
 
     // Table Headings:
-    out[n++] =
+    out +=
         "<tr>\n" +
         "<th rowspan=" + rows + (sel_sort == "khz" || sel_sort == "khz_d" ? " class='khz_sort" + (sel_sort == "khz_d" ? "_d" : "") + "'" : " class='khz'") + ">" +
         "<a " + href + "khz" + (sel_sort == "khz" ? "_d" : "") + "\")'" + (sel_sort == "khz" ? msg_d : msg) + " title='Frequency in Kilohertz'>KHz</a></th>\n" +
@@ -3430,34 +3441,34 @@ function list(yyyy, mm) {
         "<a " + href + "cnt" + (sel_sort == "cnt" ? "_d" : "") + "\")'" + (sel_sort == "cnt" ? msg_d : msg) + " title='NDB List approved Country Code'>C<br>o<br>u<br>n<br>t<br>r<br>y</a></th>\n";
 
     if (cookie['h_gsq'] != '1') {
-        out[n++] =
+        out +=
             "<th rowspan=" + rows + (sel_sort == "gsq" || sel_sort == "gsq_d" ? " class='sort" + (sel_sort == "gsq_d" ? "_d" : "") + "'" : "") + ">" +
             "<a " + href + "gsq" + (sel_sort == "gsq" ? "_d" : "") + "\")'" + (sel_sort == "gsq" ? msg_d : msg) + " title='ITU Grid Square locator'>GSQ</a></th>\n";
     }
     if (cookie['h_ident'] != '1') {
-        out[n++] = "<th rowspan=" + rows + ">Morse / DGPS ID</th>\n";
+        out += "<th rowspan=" + rows + ">Morse / DGPS ID</th>\n";
     }
-    out[n++] =
+    out +=
         "<th rowspan=" + rows + (sel_sort == "daid" || sel_sort == "daid_d" ? " class='sort" + (sel_sort == "daid_d" ? "_d" : "") + "'" : "") + ">" +
         "<a " + href + "daid" + (sel_sort == "daid" ? "_d" : "") + "\")'" + (sel_sort == "daid" ? msg_d : msg) + " title='Dash After Identification?'>D<br>A<br>I<br>D</a></th>\n" +
         "<th rowspan=" + rows + (sel_sort == "cyc" || sel_sort == "cyc_d" ? " class='sort" + (sel_sort == "cyc_d" ? "_d" : "") + "'" : "") + ">" +
         "<a " + href + "cyc" + (sel_sort == "cyc" ? "_d" : "") + "\")'" + (sel_sort == "cyc" ? msg_d : msg) + " title='Period in seconds OR format of repetitions'>Cycle</a></th>\n";
 
     if (cookie['mod_abs'] == '1') {
-        out[n++] =
+        out +=
             "<th rowspan=" + rows + (sel_sort == "lsb" || sel_sort == "lsb_d" ? " class='sort" : "") + (sel_sort == "lsb_d" ? "_d" : "") + "'" + ">" +
             "<a " + href + "lsb" + (sel_sort == "lsb" ? "_d" : "") + "\")'" + (sel_sort == "lsb" ? msg_d : msg) + " title='Negative Mod Offset'>LSB<br>KHz<br>(Abs)</a></th>\n" +
             "<th rowspan=" + rows + (sel_sort == "usb" || sel_sort == "usb_d" ? " class='sort" + (sel_sort == "usb_d" ? "_d" : "") + "'" : "") + ">" +
             "<a " + href + "usb" + (sel_sort == "usb" ? "_d" : "") + "\")'" + (sel_sort == "usb" ? msg_d : msg) + " title='Positive Mod Offset'>USB<br>KHz<br>(Abs)</a></th>\n";
     }
     else {
-        out[n++] =
+        out +=
             "<th rowspan=" + rows + (sel_sort == "lsb" || sel_sort == "lsb_d" ? " class='sort" + (sel_sort == "lsb_d" ? "_d" : "") + "'" : "") + ">" +
             "<a " + href + "lsb" + (sel_sort == "lsb" ? "_d" : "") + "\")'" + (sel_sort == "lsb" ? msg_d : msg) + " title='Negative Mod Frequency'>LSB<br>Hz<br>(Rel)</a></th>\n" +
             "<th rowspan=" + rows + (sel_sort == "usb" || sel_sort == "usb_d" ? " class='sort" + (sel_sort == "usb_d" ? "_d" : "") + "'" : "") + ">" +
             "<a " + href + "usb" + (sel_sort == "usb" ? "_d" : "") + "\")'" + (sel_sort == "usb" ? msg_d : msg) + " title='Positive Mod Frequency'>USB<br>Hz<br>(Rel)</a></th>\n";
     }
-    out[n++] =
+    out +=
         "<th rowspan=" + rows + (sel_sort == "pwr" || sel_sort == "pwr_d" ? " class='sort" + (sel_sort == "pwr_d" ? "_d" : "") + "'" : "") + ">" +
         "<a " + href + "pwr" + (sel_sort == "pwr" ? "_d" : "") + "\")'" + (sel_sort == "pwr" ? msg_d : msg) + " title='Power in Watts (where known)'>Pwr</a></th>\n" +
         "<th rowspan=" + rows + (sel_sort == "dir" || sel_sort == "dir_d" ? " class='sort" + (sel_sort == "dir_d" ? "_d" : "") + "'" : "") + ">" +
@@ -3467,30 +3478,30 @@ function list(yyyy, mm) {
         get_units() + "</a></th>\n";
 
     if (cookie['h_dxw'] != '1') {
-        out[n++] =
+        out +=
             "<th rowspan=" + rows + (sel_sort == "dxw" || sel_sort == "dxw_d" ? " class='sort" + (sel_sort == "dxw_d" ? "_d" : "") + "'" : "") + ">" +
             "<a " + href + "dxw" + (sel_sort == "dxw" ? "_d" : "") + "\")'" + (sel_sort == "dxw" ? msg_d : msg) + " title='Distance covered by a single Watt (where DX and power are both known)'>" +
             get_units() + "<br>per<br>W</a></th>\n";
     }
     if (monthly) {
-        out[n++] =
+        out +=
             "<th class='sel' rowspan='1' colspan='12'>&nbsp;" + sel_yyyy + " Summary<br>&nbsp; N&#9;Nighttime<br>&nbsp; D&#9;Daytime<br>&nbsp; X&#9;Both</th>\n" +
             "<th colspan='4' class='sel'>Details for<br>" + months[sel_mm - 1] + " " + sel_yyyy + "<br><br>(UTC)<br></th>\n";
     }
     if (cookie['h_lifelist'] != '1' && monthly) {
-        out[n++] = "<th rowspan='2' colspan='2' class='all_log'>First<br>\nReceived</th>\n";
+        out += "<th rowspan='2' colspan='2' class='all_log'>First<br>\nReceived</th>\n";
     }
 
     if (cookie['h_lifelist'] != '1' && !monthly) {
-        out[n++] = "<th rowspan='1' colspan='2' class='all_log'>First RXed</th>\n";
+        out += "<th rowspan='1' colspan='2' class='all_log'>First RXed</th>\n";
     }
     if (cookie['h_logs'] != '1') {
-        out[n++] = "<th rowspan=" + rows + " class='notes'>L<br>o<br>g<br>s</th>\n";
+        out += "<th rowspan=" + rows + " class='notes'>L<br>o<br>g<br>s</th>\n";
     }
     if (cookie['h_notes'] != '1') {
-        out[n++] = "<th rowspan=" + rows + " class='notes'>Notes" + (monthly ? "<br><span class='normal'>(D:Day, N: Night)</span>" : "") + "</th>\n";
+        out += "<th rowspan=" + rows + " class='notes'>Notes" + (monthly ? "<br><span class='normal'>(D:Day, N: Night)</span>" : "") + "</th>\n";
     }
-    out[n++] = "</tr>\n\n";
+    out += "</tr>\n\n";
 
 
     if (monthly) {
@@ -3506,7 +3517,7 @@ function list(yyyy, mm) {
         //   class=((mm==mm_arr[i])?(sorted_d):(mm_abr[i]))
         //   click reverses sort order in month
 
-        out[n++] = "<TR>\n";
+        out += "<TR>\n";
         var sorting_months = false;
         for (var i = 0; i < 12; i++) {
             if (sel_sort == mm_arr[i] || sel_sort == mm_arr[i] + "_d") {
@@ -3516,24 +3527,24 @@ function list(yyyy, mm) {
 
         for (var i = 0; i < 12; i++) {
             if (!sorting_months) {
-                out[n++] = "<th rowspan='2'><a href='javascript:top.goto_page(\"" + sel_yyyy + "\",\"" + mm_arr[i] + "\",\"" + (sel_mm == mm_arr[i] ? mm_arr[i] : sel_sort) + "\")' " + (mm_arr[i] != sel_mm ? msg_s : msg) + " title='" + months[i] + "'>";
+                out += "<th rowspan='2'><a href='javascript:top.goto_page(\"" + sel_yyyy + "\",\"" + mm_arr[i] + "\",\"" + (sel_mm == mm_arr[i] ? mm_arr[i] : sel_sort) + "\")' " + (mm_arr[i] != sel_mm ? msg_s : msg) + " title='" + months[i] + "'>";
             }
             else {
                 if (sel_mm == mm_arr[i]) {		// The current month is selected already
                     if (sel_sort == sel_mm) {	// Sorting on this month already, so next time sort decending:
-                        out[n++] = "<th rowspan='2' class='sort'><a href='javascript:top.goto_page(\"" + sel_yyyy + "\",\"" + mm_arr[i] + "\",\"" + mm_arr[i] + "_d\")'" + msg_d + " title='" + months[i] + "'>";
+                        out += "<th rowspan='2' class='sort'><a href='javascript:top.goto_page(\"" + sel_yyyy + "\",\"" + mm_arr[i] + "\",\"" + mm_arr[i] + "_d\")'" + msg_d + " title='" + months[i] + "'>";
                     }
                     else {					// Not sorting on this month already, so next time sort ascending:
-                        out[n++] = "<th rowspan='2' class='sort_d'><a href='javascript:top.goto_page(\"" + sel_yyyy + "\",\"" + mm_arr[i] + "\",\"" + mm_arr[i] + "\")'" + msg + " title='" + months[i] + "'>";
+                        out += "<th rowspan='2' class='sort_d'><a href='javascript:top.goto_page(\"" + sel_yyyy + "\",\"" + mm_arr[i] + "\",\"" + mm_arr[i] + "\")'" + msg + " title='" + months[i] + "'>";
                     }
                 }
                 else {
-                    out[n++] = "<th rowspan='2' class='" + mm_arr[i] + "'><a href='javascript:top.goto_page(\"" + sel_yyyy + "\",\"" + mm_arr[i] + "\",\"" + mm_arr[i] + "\")'" + (mm_arr[i] != sel_mm ? msg_s : msg) + " title='" + months[i] + "'>";
+                    out += "<th rowspan='2' class='" + mm_arr[i] + "'><a href='javascript:top.goto_page(\"" + sel_yyyy + "\",\"" + mm_arr[i] + "\",\"" + mm_arr[i] + "\")'" + (mm_arr[i] != sel_mm ? msg_s : msg) + " title='" + months[i] + "'>";
                 }
             }
-            out[n++] = months[i].substr(0, 1) + "</a></th>\n";
+            out += months[i].substr(0, 1) + "</a></th>\n";
         }
-        out[n++] =
+        out +=
             "<th COLSPAN=2>Night<br>" + lead((utc_daylight + 4) % 24) + ":00-<br>" + lead((utc_daylight - 1) % 24) + ":59</th>\n<th colspan='2'>Day<br>" + lead(utc_daylight) + ":00-<br>" + lead((utc_daylight + 3) % 24) + ":59</th>\n</TR>\n\n" +
             "<tr>\n<th" + ((sel_sort == "ndd") ? (" class='sort'") : ("")) + ((sel_sort == "ndd_d") ? (" class='sort_d'") : ("")) + "><a " + href + "ndd" + ((sel_sort == "ndd") ? ("_d") : ("")) + "\")'" + ((sel_sort == "ndd") ? (msg_d) : (msg)) + " title='Day of Month'>D</a></th>\n" +
             "<th" + ((sel_sort == "nhhmm") ? (" class='sort'") : ("")) + ((sel_sort == "nhhmm_d") ? (" class='sort_d'") : ("")) + "><a " + href + "nhhmm" + ((sel_sort == "nhhmm") ? ("_d") : ("")) + "\")'" + ((sel_sort == "nhhmm") ? (msg_d) : (msg)) + " title='Time (UTC)'>UTC</a></th>\n" +
@@ -3542,12 +3553,12 @@ function list(yyyy, mm) {
     }
 
     if (cookie['h_lifelist'] != '1') {
-        out[n++] =
+        out +=
             "<th " + ((sel_sort == "all_date") ? (" class='sort'") : ("")) + ((sel_sort == "all_date_d") ? (" class='sort_d'") : ("")) + "><a " + href + "all_date" + ((sel_sort == "all_date") ? ("_d") : ("")) + "\")'" + ((sel_sort == "all_date") ? (msg_d) : (msg)) + " title='Date (in format shown in column)'>" + show_date_heading() + "</a></th>\r\n" +
             "<th " + ((sel_sort == "all_time") ? (" class='sort'") : ("")) + ((sel_sort == "all_time_d") ? (" class='sort_d'") : ("")) + "><a " + href + "all_time" + ((sel_sort == "all_time") ? ("_d") : ("")) + "\")'" + ((sel_sort == "all_time") ? (msg_d) : (msg)) + " title='Time (UTC)'>UTC</a></th>\n";
     }
 
-    out[n++] = "</tr>\n\n";
+    out += "</tr>\n\n";
 
     // Process data - convert from associative array into linear to allow sorting by column headings:
     var sorted = new Array();
@@ -3742,7 +3753,7 @@ function list(yyyy, mm) {
         }
         cnt_name = (cnt_arr[sorted[a].cnt] ? cnt_arr[sorted[a].cnt].name : sorted[a].cnt);
         sta_name = (sta_arr[sorted[a].cnt] ? sta_arr[sorted[a].cnt][sorted[a].sta] : "?");
-        out[n++] =
+        out +=
             "<tr>\n" +
             "<td class='khz'><a name='" + sorted[a].id + "'></a>" + sorted[a].khz + "</td>\n" +
             "<td class='call'><a title='Display details for this station' href='javascript:void top.popup_details(\"" + sorted[a].id + "\")'>" + sorted[a].display + "</a></td>\n" +
@@ -3751,58 +3762,58 @@ function list(yyyy, mm) {
             "<td class='cnt'>" + (sorted[a].cnt ? "<a class='info' href='javascript:void 0' " + status_msg("Country = " + cnt_name) + " title='" + cnt_name + "'>" + sorted[a].cnt + "</a>" : "&nbsp;") + "</td>\n";
 
         if (cookie['h_gsq'] != '1') {
-            out[n++] = "<td class='gsq'>" + (sorted[a].gsq ? "<a href='javascript:top.popup_map(\"" + sorted[a].lat + "\",\"" + sorted[a].lon + "\",\"" + sorted[a].id + "\")'" + msg_m + " title='Click to show a map of this location'>" + sorted[a].gsq + "</a>" : "&nbsp;") + "</td>\n";
+            out += "<td class='gsq'>" + (sorted[a].gsq ? "<a href='javascript:top.popup_map(\"" + sorted[a].lat + "\",\"" + sorted[a].lon + "\",\"" + sorted[a].id + "\")'" + msg_m + " title='Click to show a map of this location'>" + sorted[a].gsq + "</a>" : "&nbsp;") + "</td>\n";
         }
         if (cookie['h_ident'] != '1') {
-            out[n++] = "<td class='ident'>" + sorted[a].ident + "</td>\n";
+            out += "<td class='ident'>" + sorted[a].ident + "</td>\n";
         }
-        out[n++] = "<td class='daid'>" + (sorted[a].daid != "" ? sorted[a].daid : "&nbsp;") + "</td>\n<td class='cyc'>" + (sorted[a].cyc != "" ? sorted[a].cyc : "&nbsp;") + "</td>\n<td class='lsb'>" + (sorted[a].lsb != "" ? sorted[a].lsb : "&nbsp;") + "</td>\n<td class='usb'>" + (sorted[a].usb != "" ? sorted[a].usb : "&nbsp;") + "</td>\n<td class='pwr'>" + (sorted[a].pwr != "" ? sorted[a].pwr : "&nbsp;") + "</td>\n<td class='dir'>" + (sorted[a].dir != -1 ? sorted[a].dir : "&nbsp;") + "</td>\n<td class='dx'>" + (sorted[a].dx != -1 ? sorted[a].dx : "&nbsp;") + "</td>\n";
+        out += "<td class='daid'>" + (sorted[a].daid != "" ? sorted[a].daid : "&nbsp;") + "</td>\n<td class='cyc'>" + (sorted[a].cyc != "" ? sorted[a].cyc : "&nbsp;") + "</td>\n<td class='lsb'>" + (sorted[a].lsb != "" ? sorted[a].lsb : "&nbsp;") + "</td>\n<td class='usb'>" + (sorted[a].usb != "" ? sorted[a].usb : "&nbsp;") + "</td>\n<td class='pwr'>" + (sorted[a].pwr != "" ? sorted[a].pwr : "&nbsp;") + "</td>\n<td class='dir'>" + (sorted[a].dir != -1 ? sorted[a].dir : "&nbsp;") + "</td>\n<td class='dx'>" + (sorted[a].dx != -1 ? sorted[a].dx : "&nbsp;") + "</td>\n";
         if (cookie['h_dxw'] != '1') {
-            out[n++] = "<td class='dxw'>" + (sorted[a].dxw != "" ? sorted[a].dxw : "&nbsp;") + "</td>\n";
+            out += "<td class='dxw'>" + (sorted[a].dxw != "" ? sorted[a].dxw : "&nbsp;") + "</td>\n";
         }
         if (monthly) {
             if (sorted[a].log[sel_yyyy]) {
                 total_year++;
-                out[n++] = "<td class='01'>" + (sorted[a].log[sel_yyyy].rx["01"] ? sorted[a].log[sel_yyyy].rx["01"] : "&nbsp;") + "</td>\n<td class='02'>" + (sorted[a].log[sel_yyyy].rx["02"] ? sorted[a].log[sel_yyyy].rx["02"] : "&nbsp;") + "</td>\n<td class='03'>" + (sorted[a].log[sel_yyyy].rx["03"] ? sorted[a].log[sel_yyyy].rx["03"] : "&nbsp;") + "</td>\n<td class='04'>" + (sorted[a].log[sel_yyyy].rx["04"] ? sorted[a].log[sel_yyyy].rx["04"] : "&nbsp;") + "</td>\n<td class='05'>" + (sorted[a].log[sel_yyyy].rx["05"] ? sorted[a].log[sel_yyyy].rx["05"] : "&nbsp;") + "</td>\n<td class='06'>" + (sorted[a].log[sel_yyyy].rx["06"] ? sorted[a].log[sel_yyyy].rx["06"] : "&nbsp;") + "</td>\n<td class='07'>" + (sorted[a].log[sel_yyyy].rx["07"] ? sorted[a].log[sel_yyyy].rx["07"] : "&nbsp;") + "</td>\n<td class='08'>" + (sorted[a].log[sel_yyyy].rx["08"] ? sorted[a].log[sel_yyyy].rx["08"] : "&nbsp;") + "</td>\n<td class='09'>" + (sorted[a].log[sel_yyyy].rx["09"] ? sorted[a].log[sel_yyyy].rx["09"] : "&nbsp;") + "</td>\n<td class='10'>" + (sorted[a].log[sel_yyyy].rx["10"] ? sorted[a].log[sel_yyyy].rx["10"] : "&nbsp;") + "</td>\n<td class='11'>" + (sorted[a].log[sel_yyyy].rx["11"] ? sorted[a].log[sel_yyyy].rx["11"] : "&nbsp;") + "</td>\n<td class='12'>" + (sorted[a].log[sel_yyyy].rx["12"] ? sorted[a].log[sel_yyyy].rx["12"] : "&nbsp;") + "</td>\n";
+                out += "<td class='01'>" + (sorted[a].log[sel_yyyy].rx["01"] ? sorted[a].log[sel_yyyy].rx["01"] : "&nbsp;") + "</td>\n<td class='02'>" + (sorted[a].log[sel_yyyy].rx["02"] ? sorted[a].log[sel_yyyy].rx["02"] : "&nbsp;") + "</td>\n<td class='03'>" + (sorted[a].log[sel_yyyy].rx["03"] ? sorted[a].log[sel_yyyy].rx["03"] : "&nbsp;") + "</td>\n<td class='04'>" + (sorted[a].log[sel_yyyy].rx["04"] ? sorted[a].log[sel_yyyy].rx["04"] : "&nbsp;") + "</td>\n<td class='05'>" + (sorted[a].log[sel_yyyy].rx["05"] ? sorted[a].log[sel_yyyy].rx["05"] : "&nbsp;") + "</td>\n<td class='06'>" + (sorted[a].log[sel_yyyy].rx["06"] ? sorted[a].log[sel_yyyy].rx["06"] : "&nbsp;") + "</td>\n<td class='07'>" + (sorted[a].log[sel_yyyy].rx["07"] ? sorted[a].log[sel_yyyy].rx["07"] : "&nbsp;") + "</td>\n<td class='08'>" + (sorted[a].log[sel_yyyy].rx["08"] ? sorted[a].log[sel_yyyy].rx["08"] : "&nbsp;") + "</td>\n<td class='09'>" + (sorted[a].log[sel_yyyy].rx["09"] ? sorted[a].log[sel_yyyy].rx["09"] : "&nbsp;") + "</td>\n<td class='10'>" + (sorted[a].log[sel_yyyy].rx["10"] ? sorted[a].log[sel_yyyy].rx["10"] : "&nbsp;") + "</td>\n<td class='11'>" + (sorted[a].log[sel_yyyy].rx["11"] ? sorted[a].log[sel_yyyy].rx["11"] : "&nbsp;") + "</td>\n<td class='12'>" + (sorted[a].log[sel_yyyy].rx["12"] ? sorted[a].log[sel_yyyy].rx["12"] : "&nbsp;") + "</td>\n";
             }
             else {
-                out[n++] = "<td class='01'>&nbsp;</td>\n<td class='02'>&nbsp;</td>\n<td class='03'>&nbsp;</td>\n<td class='04'>&nbsp;</td>\n<td class='05'>&nbsp;</td>\n<td class='06'>&nbsp;</td>\n<td class='07'>&nbsp;</td>\n<td class='08'>&nbsp;</td>\n<td class='09'>&nbsp;</td>\n<td class='10'>&nbsp;</td>\n<td class='11'>&nbsp;</td>\n<td class='12'>&nbsp;</td>\n";
+                out += "<td class='01'>&nbsp;</td>\n<td class='02'>&nbsp;</td>\n<td class='03'>&nbsp;</td>\n<td class='04'>&nbsp;</td>\n<td class='05'>&nbsp;</td>\n<td class='06'>&nbsp;</td>\n<td class='07'>&nbsp;</td>\n<td class='08'>&nbsp;</td>\n<td class='09'>&nbsp;</td>\n<td class='10'>&nbsp;</td>\n<td class='11'>&nbsp;</td>\n<td class='12'>&nbsp;</td>\n";
             }
             if (sorted[a].log[sel_yyyy] && sorted[a].log[sel_yyyy].rx[sel_mm]) {
                 total_month++;
             }
             if (sorted[a].log[sel_yyyy] && sorted[a].log[sel_yyyy][sel_mm]) {
-                out[n++] = "<td class='n_yymmdd'>" + ((sorted[a].log[sel_yyyy][sel_mm].night_dd) ? (parseFloat(sorted[a].log[sel_yyyy][sel_mm].night_dd)) : ("&nbsp;")) + "</td>\n<td class='n_hhmm'>" + ((sorted[a].log[sel_yyyy][sel_mm].night_hhmm) ? (sorted[a].log[sel_yyyy][sel_mm].night_hhmm) : ("&nbsp;")) + "</td>\n<td class='d_yymmdd'>" + ((sorted[a].log[sel_yyyy][sel_mm].day_dd) ? (parseFloat(sorted[a].log[sel_yyyy][sel_mm].day_dd)) : ("&nbsp;")) + "</td>\n<td class='d_hhmm'>" + ((sorted[a].log[sel_yyyy][sel_mm].day_hhmm) ? (sorted[a].log[sel_yyyy][sel_mm].day_hhmm) : ("&nbsp;")) + "</td>\n";
+                out += "<td class='n_yymmdd'>" + ((sorted[a].log[sel_yyyy][sel_mm].night_dd) ? (parseFloat(sorted[a].log[sel_yyyy][sel_mm].night_dd)) : ("&nbsp;")) + "</td>\n<td class='n_hhmm'>" + ((sorted[a].log[sel_yyyy][sel_mm].night_hhmm) ? (sorted[a].log[sel_yyyy][sel_mm].night_hhmm) : ("&nbsp;")) + "</td>\n<td class='d_yymmdd'>" + ((sorted[a].log[sel_yyyy][sel_mm].day_dd) ? (parseFloat(sorted[a].log[sel_yyyy][sel_mm].day_dd)) : ("&nbsp;")) + "</td>\n<td class='d_hhmm'>" + ((sorted[a].log[sel_yyyy][sel_mm].day_hhmm) ? (sorted[a].log[sel_yyyy][sel_mm].day_hhmm) : ("&nbsp;")) + "</td>\n";
             }
             else {
-                out[n++] = "<td class='n_yymmdd'>&nbsp;</td>\n<td class='n_hhmm'>&nbsp;</td>\n<td class='d_yymmdd'>&nbsp;</td>\n<td class='d_hhmm'>&nbsp;</td>\n";
+                out += "<td class='n_yymmdd'>&nbsp;</td>\n<td class='n_hhmm'>&nbsp;</td>\n<td class='d_yymmdd'>&nbsp;</td>\n<td class='d_hhmm'>&nbsp;</td>\n";
             }
         }
         if (cookie['h_lifelist'] != '1') {
-            out[n++] = "<td class='all_log'>" + ((sorted[a].all_date) ? (sorted[a].all_date) : ("&nbsp;")) + "</td>\n<td class='all_log'>" + ((sorted[a].all_time) ? (sorted[a].all_time) : ("&nbsp;")) + "</td>\n";
+            out += "<td class='all_log'>" + ((sorted[a].all_date) ? (sorted[a].all_date) : ("&nbsp;")) + "</td>\n<td class='all_log'>" + ((sorted[a].all_time) ? (sorted[a].all_time) : ("&nbsp;")) + "</td>\n";
         }
         if (cookie['h_logs'] != '1') {
-            out[n++] = "<td class='logs'>" + ((logbook[sorted[a].khz + '-' + sorted[a].call]) ? (logbook[sorted[a].khz + '-' + sorted[a].call]['entry'].length) : ("&nbsp;")) + "</td>\n";
+            out += "<td class='logs'>" + ((logbook[sorted[a].khz + '-' + sorted[a].call]) ? (logbook[sorted[a].khz + '-' + sorted[a].call]['entry'].length) : ("&nbsp;")) + "</td>\n";
         }
         if (cookie['h_notes'] != '1') {
-            out[n++] = "<td class='notes'>" + ((sorted[a].notes) ? sorted[a].notes : '');
+            out += "<td class='notes'>" + ((sorted[a].notes) ? sorted[a].notes : '');
             if (monthly) {
-                out[n++] = (sorted[a].log && sorted[a].log[sel_yyyy] && sorted[a].log[sel_yyyy][sel_mm] && sorted[a].log[sel_yyyy][sel_mm].notes && sorted[a].log[sel_yyyy][sel_mm].notes.length ? sorted[a].log[sel_yyyy][sel_mm].notes.join(", ") : "&nbsp;");
+                out += (sorted[a].log && sorted[a].log[sel_yyyy] && sorted[a].log[sel_yyyy][sel_mm] && sorted[a].log[sel_yyyy][sel_mm].notes && sorted[a].log[sel_yyyy][sel_mm].notes.length ? sorted[a].log[sel_yyyy][sel_mm].notes.join(", ") : "&nbsp;");
             }
             else {
-                out[n++] = (sorted[a].all_notes.length ? sorted[a].all_notes : "&nbsp;");
+                out += (sorted[a].all_notes.length ? sorted[a].all_notes : "&nbsp;");
             }
-            out[n++] = "</td>\n";
+            out += "</td>\n";
         }
-        out[n++] = "</tr>\n\n";
+        out += "</tr>\n\n";
     }
-    out[n++] = "</table>\n";
-    out[n++] = "<b><a name='bottom'></a>ALL TIME: " + count_NDB_ever + " NDBs, " + count_DGPS_ever + " DGPS, " + count_NAVTEX_ever + " NAVTEX stations and " + count_UNID_ever + " UNIDS";
+    out += "</table>\n";
+    out += "<b><a name='bottom'></a>ALL TIME: " + count_NDB_ever + " NDBs, " + count_DGPS_ever + " DGPS, " + count_NAVTEX_ever + " NAVTEX stations and " + count_UNID_ever + " UNIDS";
     if (monthly) {
-        out[n++] = " with a total of " + total_year + " stations received in " + sel_yyyy + (top.stats.year[sel_yyyy] ? " (including " + top.stats.year[sel_yyyy]['new_stations_ever'] + " new)" : "");
-        out[n++] = " and " + total_month + " in " + months[sel_mm - 1] + " " + sel_yyyy + (top.stats.year[sel_yyyy] && top.stats.year[sel_yyyy][sel_mm] && top.stats.year[sel_yyyy][sel_mm]['new_stations_ever'] ? " (including " + top.stats.year[sel_yyyy][sel_mm]['new_stations_ever'] + " new)" : "");
+        out += " with a total of " + total_year + " stations received in " + sel_yyyy + (top.stats.year[sel_yyyy] ? " (including " + top.stats.year[sel_yyyy]['new_stations_ever'] + " new)" : "");
+        out += " and " + total_month + " in " + months[sel_mm - 1] + " " + sel_yyyy + (top.stats.year[sel_yyyy] && top.stats.year[sel_yyyy][sel_mm] && top.stats.year[sel_yyyy][sel_mm]['new_stations_ever'] ? " (including " + top.stats.year[sel_yyyy][sel_mm]['new_stations_ever'] + " new)" : "");
     }
-    out[n++] = ".</b><br><br>\n<script language='javascript' type='text/javascript'>if(top.show_time) { top.show_time()}</script></form></body></html>"
+    out += ".</b><br><br>\n<script>if(top.show_time) { top.show_time()}</script></form></body></html>"
 //  fnTimerEnd("List_0",0);
 
 
@@ -3831,12 +3842,6 @@ function list(yyyy, mm) {
     if (progress_hd) {
         progress_hd.close();
     }
-    top.main.document.write(out.join(""));
+    top.main.document.write(out);
     top.main.document.close();
-    top.main.document.focus();
-//  fnDisplayTimers();
 }
-
-
-
-
