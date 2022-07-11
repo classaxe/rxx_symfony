@@ -114,7 +114,7 @@ cookie['map_zoom'] = (cookie["map_zoom"] ? cookie["map_zoom"] : "5");
 // + Establish daylight for location+
 // ++++++++++++++++++++++++++++++++++
 utc_daylight = 10 + utc_offset;
-utc_daylight_array = new Array();
+utc_daylight_array = [];
 
 for (i = utc_daylight; i < utc_daylight + 4; i++) {
     utc_daylight_array[i - utc_daylight] = lead(i);
@@ -201,16 +201,16 @@ function LOG(khz, call, yyyymmdd, hhmm, notes) {
     // Stats counters used in Statistics output
     // Prepare for global stats counts:
     if (!stats.all) {
-        stats.all = new Array();	// Tally Stations (lifetime log)
-        stats.year = new Array();	// Tally Stations (monthly log)
+        stats.all = [];	// Tally Stations (lifetime log)
+        stats.year = [];	// Tally Stations (monthly log)
     }
 
     // Prepare for annual stats counts:
     if (!stats.year[yyyy]) {
-        stats.year[yyyy] = new Array();	// Initialise year
-        stats.year[yyyy].id = new Array();	// Tally stations
-        stats.year[yyyy].cnt = new Array();	// Tally countries (with states)
-        stats.year[yyyy].rgn = new Array();	// Tally countries (with states)
+        stats.year[yyyy] = [];	// Initialise year
+        stats.year[yyyy].id = [];	// Tally stations
+        stats.year[yyyy].cnt = [];	// Tally countries (with states)
+        stats.year[yyyy].rgn = [];	// Tally countries (with states)
         for (i in rgn_arr) {
             stats.year[yyyy].rgn[i] = 0;	// Count
         }
@@ -224,16 +224,16 @@ function LOG(khz, call, yyyymmdd, hhmm, notes) {
 
     // Prepare for monthly stats counts
     if (!stats.year[yyyy][mm]) {
-        stats.year[yyyy][mm] = new Array();	// Prepare structure
-        stats.year[yyyy][mm].id = new Array();	// Tally stations
-        stats.year[yyyy][mm].cnt = new Array();	// Tally countries (with states)
-        stats.year[yyyy][mm].rgn = new Array();	// Tally countries (with states)
+        stats.year[yyyy][mm] = [];	// Prepare structure
+        stats.year[yyyy][mm].id = [];	// Tally stations
+        stats.year[yyyy][mm].cnt = [];	// Tally countries (with states)
+        stats.year[yyyy][mm].rgn = [];	// Tally countries (with states)
         for (i in rgn_arr) {
             stats.year[yyyy][mm].rgn[i] = 0;	// Count
         }
-        stats.year[yyyy][mm].dx_d = new Array();
-        stats.year[yyyy][mm].dx_n = new Array();
-        stats.year[yyyy][mm].dx_x = new Array();
+        stats.year[yyyy][mm].dx_d = [];
+        stats.year[yyyy][mm].dx_n = [];
+        stats.year[yyyy][mm].dx_x = [];
         stats.year[yyyy][mm].new_stations = 0;		// Count new stations
         stats.year[yyyy][mm].new_stations_ever = 0;		// Count new stations
         stats.year[yyyy][mm].n60 = 0;		// Count stations North of 60
@@ -247,10 +247,10 @@ function LOG(khz, call, yyyymmdd, hhmm, notes) {
     // ++++++++++++++++++++++++++++++++++
     // logbook used for text output and popup_details modes
     if (!logbook[id]) {	// Then station never logged before
-        logbook[id] = new Array();
-        logbook[id]['entry'] = new Array();
+        logbook[id] = [];
+        logbook[id]['entry'] = [];
     }
-    var entry = new Array();
+    var entry = [];
     entry['yyyymmddhhmm'] = yyyymmdd + "" + hhmm;
     entry['notes'] = notes;
     logbook[id]['entry'][logbook[id]['entry'].length] = entry;
@@ -277,7 +277,7 @@ function LOG(khz, call, yyyymmdd, hhmm, notes) {
                 break;
         }
         station[id].all_time = hhmm;
-        station[id].all_notes = new Array();
+        station[id].all_notes = [];
         if (!stats.all[id]) {
             stats.year[yyyy][mm].new_stations_ever++
             stats.year[yyyy].new_stations_ever++
@@ -285,12 +285,12 @@ function LOG(khz, call, yyyymmdd, hhmm, notes) {
         }
     }
     if (!station[id].log[yyyy]) {
-        station[id].log[yyyy] = new Array();
-        station[id].log[yyyy].rx = new Array();
+        station[id].log[yyyy] = [];
+        station[id].log[yyyy].rx = [];
     }
     if (!station[id].log[yyyy][mm]) {
-        station[id].log[yyyy][mm] = new Array();
-        station[id].log[yyyy][mm].notes = new Array();
+        station[id].log[yyyy][mm] = [];
+        station[id].log[yyyy][mm].notes = [];
     }
 
     if (!stats.year[yyyy].id[id]) {
@@ -303,7 +303,7 @@ function LOG(khz, call, yyyymmdd, hhmm, notes) {
     // ++++++++++++++++++++++++++++++++++
     // Input latest logging for the month
     // Daytime or nighttime logging?
-    if (utc_daylight_array[0] == hh || utc_daylight_array[1] == hh || utc_daylight_array[2] == hh || utc_daylight_array[3] == hh) {
+    if (isLocalDaylight(hh, -1 * utc_offset)) {
         station[id].log[yyyy][mm].day_hhmm = hhmm;
         station[id].log[yyyy][mm].day_dd = dd;
         station[id].log[yyyy].day_dd = dd;				// Put a daytime value in if you have one - doesn't matter which one
@@ -345,7 +345,7 @@ function LOG(khz, call, yyyymmdd, hhmm, notes) {
                 stats.year[yyyy].n60++;				// Add it to N of 60 count.
             }
             if (!stats.year[yyyy].cnt[cnt]) {			// ... and check if the country has been logged
-                stats.year[yyyy].cnt[cnt] = new Array();
+                stats.year[yyyy].cnt[cnt] = [];
                 stats.year[yyyy].cnt[cnt].count = 1;	// No, Record the country
                 stats.year[yyyy].cnt[cnt].best_dx_ndb = 0;
                 stats.year[yyyy].cnt[cnt].best_dx_dgps = 0;
@@ -460,7 +460,7 @@ function REGION(rgn, name) {
 // ************************************
 function STATE(sta, name, cnt) {
     if (!sta_arr[cnt]) {
-        sta_arr[cnt] = new Array();
+        sta_arr[cnt] = [];
     }
     sta_arr[cnt][sta] = name;
 }
@@ -473,7 +473,7 @@ function STATION(khz, call, qth, sta, cnt, cyc, daid, lsb, usb, pwr, lat, lon, n
         unregistered_countries[unregistered_countries.length] = khz + "-" + call + " - code given was " + cnt;
         return;
     }
-    var a = new Array()
+    var a = []
     a.id = khz + "-" + call;
     a.khz = khz;
     a.call = call;
@@ -515,7 +515,7 @@ function STATION(khz, call, qth, sta, cnt, cyc, daid, lsb, usb, pwr, lat, lon, n
         a.dxw = 0;
         a.gsq = "";
     }
-    a.log = new Array();
+    a.log = [];
     a.rww = (arguments.length > 13 ? rww : "");
 
     station[a.id] = a;
@@ -621,7 +621,7 @@ function format_date(yyyymmdd) {
 
 function fnTimerStart(strIdentifier) {
     if (typeof(arrTimer) == "undefined")
-        arrTimer = new Array()
+        arrTimer = []
     if (typeof(arrTimer[strIdentifier]) == "undefined")
         arrTimer[strIdentifier] = [(new Date()).getTime()]
     else
@@ -704,7 +704,7 @@ function get_ident(cal) {
     if (cal.substr(0, 1) == "$") {		// Detects DGPS Idents
         return "Navtex " + cal.substr(cal.length - 1, 1);
     }
-    morse = new Array();
+    morse = [];
     morse['A'] = ".-";
     morse['�'] = ".-.-";  // German
     morse['�'] = ".-.-";  // Scandanavian
@@ -1262,7 +1262,7 @@ function popup_stats() {
         // +++++++++++++++++++
         // + Monthly Report  +
         // +++++++++++++++++++
-        var max_count = new Array();		// Used to calculate contrast settings for colour graduated boxes
+        var max_count = [];		// Used to calculate contrast settings for colour graduated boxes
         max_count['br'] = 0;
         max_count['dx'] = 0;
         max_count['cnt'] = 0;
@@ -1276,11 +1276,11 @@ function popup_stats() {
         // +++++++++++++++++++
         var link_top = " <span class='links'><small>[ <a href='#top' onclick='return window.opener.checkScrollNecessary(\"stat_h\", this)'>Top</a> ]</small></span>"
         // Repeat for each available year:
-        var years = new Array();
+        var years = [];
         for (yyyy in stats.year) {
             yyyy = "" + yyyy
             // Quick links:
-            var quicklinks = new Array();
+            var quicklinks = [];
             var qk_i = 0;
             quicklinks[qk_i++] = "<a href='#" + yyyy + "br' onclick='return window.opener.checkScrollNecessary(\"stat_h\", this)'>Stations</a>";
             if (stats.year[yyyy].new_stations) {
@@ -1307,9 +1307,9 @@ function popup_stats() {
             stats.year[yyyy].rx_x = 0;	// Clear out old stats
             stats.year[yyyy].rx_d = 0;
             stats.year[yyyy].rx_n = 0;
-            stats.year[yyyy].dx_d = new Array();
-            stats.year[yyyy].dx_n = new Array();
-            stats.year[yyyy].dx_x = new Array();
+            stats.year[yyyy].dx_d = [];
+            stats.year[yyyy].dx_n = [];
+            stats.year[yyyy].dx_x = [];
 
             for (var dx = 0; dx < (max_dx / dx_step); dx++) {
                 stats.year[yyyy].dx_d[dx] = 0;
@@ -1507,8 +1507,8 @@ function popup_stats() {
             // + New Stations Report: +
             // +++++++++++++++++++++++
             if (stats.year[yyyy].new_stations) {
-                var new_stations = new Array();
-                var new_stations_ever = new Array();
+                var new_stations = [];
+                var new_stations_ever = [];
 
                 // +++++++++++++++++++
                 // + Count for month:+
@@ -1633,7 +1633,7 @@ function popup_stats() {
             // +++++++++++++++++
             // + DX/W Report:  +
             // +++++++++++++++++
-            var dx_w = new Array();
+            var dx_w = [];
             max_count['dxw'] = 0
             for (var c = 0; c < 12; c++) {
                 var mm = mm_arr[c];
@@ -1659,7 +1659,7 @@ function popup_stats() {
             // ++++++++++++++++++++++
             // + Countries Report:  +
             // ++++++++++++++++++++++
-            var sorted_cnt = new Array();
+            var sorted_cnt = [];
             var s_c = 0;
             for (b in stats.year[yyyy].cnt) {
                 sorted_cnt[s_c++] = b;
@@ -1673,9 +1673,9 @@ function popup_stats() {
             var year_best_id_dgps = "";
             var year_best_id_navtex = "";
             var year_best_id_ndb = "";
-            var countries = new Array()
+            var countries = []
             for (b = 0; b < sorted_cnt.length; b++) {
-                countries[b] = new Array()
+                countries[b] = []
                 var name = sorted_cnt[b].match(rexp_country);
                 cnt_name = (cnt_arr[name[1]] ? cnt_arr[name[1]].name : sorted[a].cnt);
                 sta_name = (sta_arr[name[1]] && sta_arr[name[1]][name[2]] ? sta_arr[name[1]][name[2]] : name[2]);
@@ -1683,7 +1683,7 @@ function popup_stats() {
                 countries[b].full = cnt_arr[name[1]].name + ((sta_name) ? (" (" + sta_name + ")") : (""));
 
                 countries[b].qth = name[1] + ((name[2]) ? (" (" + name[2] + ")") : (""))
-                countries[b].mm = new Array()
+                countries[b].mm = []
                 for (var c = 0; c < 12; c++) {
                     var mm = mm_arr[c];
                     countries[b].mm[c] = ((stats.year[yyyy][mm] && stats.year[yyyy][mm].cnt[sorted_cnt[b]]) ? (stats.year[yyyy][mm].cnt[sorted_cnt[b]]) : (0))
@@ -1811,12 +1811,12 @@ function popup_stats() {
             // ++++++++++++++++++++++
             // + Regions Report:    +
             // ++++++++++++++++++++++
-            var regions = new Array()
+            var regions = []
             for (c in rgn_arr) {
                 if (stats.year[yyyy].rgn[c]) {
-                    regions[c] = new Array();
+                    regions[c] = [];
                     regions[c].name = rgn_arr[c];
-                    regions[c].mm = new Array();
+                    regions[c].mm = [];
                     for (var b = 0; b < 12; b++) {
                         var mm = mm_arr[b];
                         var val = ((stats.year[yyyy][mm] && stats.year[yyyy][mm].rgn[c]) ? (stats.year[yyyy][mm].rgn[c]) : (0))
@@ -1848,7 +1848,7 @@ function popup_stats() {
             // + North of 60 Report:+
             // ++++++++++++++++++++++
             if (stats.year[yyyy].n60) {
-                n60 = new Array()
+                n60 = []
                 for (var c = 0; c < 12; c++) {
                     var mm = mm_arr[c];
                     var val = ((stats.year[yyyy][mm] && stats.year[yyyy][mm].n60) ? (stats.year[yyyy][mm].n60) : (0))
@@ -1893,15 +1893,15 @@ function popup_stats() {
             var link_top = "";
         }
 
-        var max_count = new Array();		// Used to calculate contrast settings for colour graduated boxes
+        var max_count = [];		// Used to calculate contrast settings for colour graduated boxes
         max_count['cnt'] = 0;
         var all_stations = 0;
         var all_n60 = 0;
-        var all_n60_names = new Array();
+        var all_n60_names = [];
         var all_dxw = 0;
         var all_dxw_name = "";
-        var all_countries = new Array();
-        var all_rgn = new Array();
+        var all_countries = [];
+        var all_rgn = [];
         var all_dx_max = 0;
         for (var id in stats.all) {
             var cnt = station[id].cnt + "_" + station[id].sta;
@@ -1922,7 +1922,7 @@ function popup_stats() {
                 all_countries[cnt] = 0;		// Initialise count
                 var rgn = station[id].rgn;
                 if (!all_rgn[rgn]) {
-                    all_rgn[rgn] = new Array();
+                    all_rgn[rgn] = [];
                     all_rgn[rgn].cnt = 0;
                     all_rgn[rgn].rgn = rgn;
                 }
@@ -1932,11 +1932,11 @@ function popup_stats() {
         }
 
 
-        var rgn_sorted = new Array();
+        var rgn_sorted = [];
         var i = 0
         max_count['rgn'] = 0;
         for (var rgn in all_rgn) {
-            rgn_sorted[i] = new Array()
+            rgn_sorted[i] = []
             rgn_sorted[i].rgn = rgn;
             rgn_sorted[i].cnt = all_rgn[rgn];
             if (rgn_sorted[i].cnt > max_count['rgn']) {
@@ -1944,10 +1944,10 @@ function popup_stats() {
             }
         }
 
-        var all_countries_sorted = new Array();
+        var all_countries_sorted = [];
         var i = 0
         for (var cnt in all_countries) {
-            all_countries_sorted[i] = new Array()
+            all_countries_sorted[i] = []
             all_countries_sorted[i].cnt = cnt;
             all_countries_sorted[i].stations = all_countries[cnt]
             if (all_countries_sorted[i].stations > max_count['cnt']) {
@@ -1958,12 +1958,12 @@ function popup_stats() {
 
         all_countries_sorted.sort(sortBy_life_country);
 
-        var rgn_sorted = new Array();
+        var rgn_sorted = [];
         var i = 0;
         for (c in rgn_arr) {
             if (all_rgn[c]) {
                 all_rgn[rgn]
-                rgn_sorted[i] = new Array();
+                rgn_sorted[i] = [];
                 rgn_sorted[i].rgn = rgn_arr[c];
                 rgn_sorted[i].cnt = all_rgn[c].cnt;
                 if (rgn_sorted[i].cnt > max_count['rgn']) {
@@ -2127,7 +2127,7 @@ function popup_text() {
     if (cookie['txt_date2'].toLowerCase() == "all") cookie['txt_date2'] = "21000001";
 
 
-    var sorted = new Array();
+    var sorted = [];
     var i = 0;
     for (a in station) {
         if ((parseFloat(station[a].khz) >= start_khz && parseFloat(station[a].khz) <= end_khz) &&
@@ -2397,7 +2397,7 @@ function popup_text() {
     var start = new Date(start_yyyy, start_mm, start_dd)
     var end = new Date(end_yyyy, end_mm, end_dd, 23, 59, 59, 0)
 
-    var text_array = new Array();
+    var text_array = [];
     var k = 0;
     for (var a = 0; a < sorted.length; a++) {
         var id = sorted[a].id
@@ -2855,7 +2855,7 @@ function rww(ID) {
 // ************************************
 function search(form) {
     var term = form.term.value.toUpperCase();
-    var result = new Array()
+    var result = []
     if (term) {
         for (var i in station) {
             if (station[i].khz == term) {
@@ -3561,7 +3561,7 @@ function list(yyyy, mm) {
     out += "</tr>\n\n";
 
     // Process data - convert from associative array into linear to allow sorting by column headings:
-    var sorted = new Array();
+    var sorted = [];
     var i = 0;
 
     if (sel_sort) {
