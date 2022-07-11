@@ -86,7 +86,8 @@ var SIGNALS_FORM = {
                 msg.export
                     .replace(':system', system.toUpperCase())
                     .replace(':format', 'PSKOV') +
-                "\n" + msg.export2
+                "\n" + msg.export2 +
+                (system.toUpperCase() === 'RWW' ? '' : "\n\n" + msg.export3)
             )) {
                 window.location.assign(window.location + '/export/xls' + shareableLink.getFromTypes());
             }
