@@ -78,6 +78,13 @@ class Log
     private $format = '';
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="heard_in", type="string", length=3, nullable=false)
+     */
+    private $heardIn = '';
+
+    /**
      * @var int|null
      *
      * @ORM\Column(name="listenerID", type="integer", nullable=true, options={"unsigned"=true})
@@ -106,11 +113,11 @@ class Log
     private $lsbApprox;
 
     /**
-     * @var string
+     * @var int|null
      *
-     * @ORM\Column(name="heard_in", type="string", length=3, nullable=false)
+     * @ORM\Column(name="operatorID", type="integer", nullable=true, options={"unsigned"=true})
      */
-    private $heardIn = '';
+    private $operatorId;
 
     /**
      * @var string|null
@@ -147,16 +154,26 @@ class Log
      */
     private $usbApprox;
 
+    /**
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * @return int|null
+     */
     public function getSignalId(): ?int
     {
         return $this->signalId;
     }
 
+    /**
+     * @param int $signalId
+     * @return $this
+     */
     public function setSignalId(int $signalId): self
     {
         $this->signalId = $signalId;
@@ -164,11 +181,18 @@ class Log
         return $this;
     }
 
+    /**
+     * @return DateTimeInterface|null
+     */
     public function getDate(): ?DateTimeInterface
     {
         return $this->date;
     }
 
+    /**
+     * @param DateTimeInterface|null $date
+     * @return $this
+     */
     public function setDate(?DateTimeInterface $date): self
     {
         $this->date = $date;
@@ -176,11 +200,18 @@ class Log
         return $this;
     }
 
+    /**
+     * @return bool|null
+     */
     public function getDaytime(): ?bool
     {
         return $this->daytime;
     }
 
+    /**
+     * @param bool $daytime
+     * @return $this
+     */
     public function setDaytime(bool $daytime): self
     {
         $this->daytime = $daytime;
@@ -188,11 +219,18 @@ class Log
         return $this;
     }
 
+    /**
+     * @return int|null
+     */
     public function getDxKm(): ?int
     {
         return $this->dxKm;
     }
 
+    /**
+     * @param int|null $dxKm
+     * @return $this
+     */
     public function setDxKm(?int $dxKm): self
     {
         $this->dxKm = $dxKm;
@@ -200,11 +238,18 @@ class Log
         return $this;
     }
 
+    /**
+     * @return int|null
+     */
     public function getDxMiles(): ?int
     {
         return $this->dxMiles;
     }
 
+    /**
+     * @param int|null $dxMiles
+     * @return $this
+     */
     public function setDxMiles(?int $dxMiles): self
     {
         $this->dxMiles = $dxMiles;
@@ -212,11 +257,18 @@ class Log
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getFormat(): ?string
     {
         return $this->format;
     }
 
+    /**
+     * @param string $format
+     * @return $this
+     */
     public function setFormat(string $format): self
     {
         $this->format = $format;
@@ -224,59 +276,18 @@ class Log
         return $this;
     }
 
-    public function getListenerId(): ?int
-    {
-        return $this->listenerId;
-    }
-
-    public function setListenerId(?int $listenerId): self
-    {
-        $this->listenerId = $listenerId;
-
-        return $this;
-    }
-
-    public function getLogSessionId(): ?int
-    {
-        return $this->logSessionId;
-    }
-
-    public function setLogSessionId(?int $logSessionId): self
-    {
-        $this->logSessionId = $logSessionId;
-
-        return $this;
-    }
-
-    public function getLsb(): ?int
-    {
-        return $this->lsb;
-    }
-
-    public function setLsb(?int $lsb): self
-    {
-        $this->lsb = $lsb;
-
-        return $this;
-    }
-
-    public function getLsbApprox(): ?bool
-    {
-        return $this->lsbApprox !== '';
-    }
-
-    public function setLsbApprox(?int $lsbApprox): self
-    {
-        $this->lsbApprox = $lsbApprox ? '~' : '';
-
-        return $this;
-    }
-
+    /**
+     * @return string|null
+     */
     public function getHeardIn(): ?string
     {
         return $this->heardIn;
     }
 
+    /**
+     * @param string $heardIn
+     * @return $this
+     */
     public function setHeardIn(string $heardIn): self
     {
         $this->heardIn = $heardIn;
@@ -284,11 +295,113 @@ class Log
         return $this;
     }
 
+    /**
+     * @return int|null
+     */
+    public function getListenerId(): ?int
+    {
+        return $this->listenerId;
+    }
+
+    /**
+     * @param int|null $listenerId
+     * @return $this
+     */
+    public function setListenerId(?int $listenerId): self
+    {
+        $this->listenerId = $listenerId;
+
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getLogSessionId(): ?int
+    {
+        return $this->logSessionId;
+    }
+
+    /**
+     * @param int|null $logSessionId
+     * @return $this
+     */
+    public function setLogSessionId(?int $logSessionId): self
+    {
+        $this->logSessionId = $logSessionId;
+
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getLsb(): ?int
+    {
+        return $this->lsb;
+    }
+
+    /**
+     * @param int|null $lsb
+     * @return $this
+     */
+    public function setLsb(?int $lsb): self
+    {
+        $this->lsb = $lsb;
+
+        return $this;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getLsbApprox(): ?bool
+    {
+        return $this->lsbApprox !== '';
+    }
+
+    /**
+     * @param int|null $lsbApprox
+     * @return $this
+     */
+    public function setLsbApprox(?int $lsbApprox): self
+    {
+        $this->lsbApprox = $lsbApprox ? '~' : '';
+
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getOperatorId(): ?int
+    {
+        return $this->operatorId;
+    }
+
+    /**
+     * @param int|null $operatorId
+     * @return $this
+     */
+    public function setOperatorId(?int $operatorId): self
+    {
+        $this->operatorId = $operatorId;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
     public function getRegion(): ?string
     {
         return $this->region;
     }
 
+    /**
+     * @param string|null $region
+     * @return $this
+     */
     public function setRegion(?string $region): self
     {
         $this->region = $region;
@@ -296,11 +409,18 @@ class Log
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getSec(): ?string
     {
         return $this->sec;
     }
 
+    /**
+     * @param string $sec
+     * @return $this
+     */
     public function setSec(string $sec): self
     {
         $this->sec = $sec;
@@ -308,11 +428,18 @@ class Log
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getTime(): ?string
     {
         return $this->time;
     }
 
+    /**
+     * @param string $time
+     * @return $this
+     */
     public function setTime(string $time): self
     {
         $this->time = $time;
@@ -320,11 +447,18 @@ class Log
         return $this;
     }
 
+    /**
+     * @return int|null
+     */
     public function getUsb(): ?int
     {
         return $this->usb;
     }
 
+    /**
+     * @param int|null $usb
+     * @return $this
+     */
     public function setUsb(?int $usb): self
     {
         $this->usb = $usb;
@@ -332,11 +466,18 @@ class Log
         return $this;
     }
 
+    /**
+     * @return bool|null
+     */
     public function getUsbApprox(): ?bool
     {
         return $this->usbApprox !== '';
     }
 
+    /**
+     * @param bool|null $usbApprox
+     * @return $this
+     */
     public function setUsbApprox(?bool $usbApprox): self
     {
         $this->usbApprox = $usbApprox ? '~' : '';

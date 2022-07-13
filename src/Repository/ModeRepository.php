@@ -20,8 +20,8 @@ class ModeRepository
                 'access' => User::ALL,
                 'admin' =>  true,
                 'guest' =>  true,
-                'menu' =>   'Locations',
-                'title' =>  'Listening Posts',
+                'menu' =>   'Listener Locations',
+                'title' =>  'Listener',
                 'url'=>     false
             ],
             'cle' => [
@@ -62,6 +62,14 @@ class ModeRepository
                 'guest' =>  true,
                 'menu' =>   'Changes',
                 'title' =>  'Changes',
+                'url'=>     false
+            ],
+            'donate' => [
+                'access' => User::ALL,
+                'admin' =>  true,
+                'guest' =>  true,
+                'menu' =>   'Donate',
+                'title' =>  'Donate',
                 'url'=>     false
             ],
         ],
@@ -112,14 +120,6 @@ class ModeRepository
                 'guest' =>  true,
                 'menu' =>   'Logon',
                 'title' =>  'Logon',
-                'url'=>     false
-            ],
-            'donate' => [
-                'access' => User::ALL,
-                'admin' =>  true,
-                'guest' =>  true,
-                'menu' =>   'Donate',
-                'title' =>  'Donate',
                 'url'=>     false
             ],
             'help' => [

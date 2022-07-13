@@ -175,16 +175,16 @@ EOD;
             .'l.daytime,'
             .'l.format,'
             .'l.dxKm,'
-            .'l.dxMiles';
+            .'l.dxMiles,'
+            .'(CASE WHEN op.name IS NULL THEN \'\' ELSE op.name END) as operator';
 
         $qb = $this
             ->createQueryBuilder('l')
             ->select($columns)
-            ->innerJoin('\App\Entity\Listener', 'li')
-            ->andWhere('l.listenerId = li.id')
-
-            ->innerJoin('\App\Entity\Signal', 's')
-            ->andWhere('l.signalId = s.id');
+            ->innerJoin('\App\Entity\Listener', 'li', 'WITH', 'l.listenerId = li.id')
+            ->innerJoin('\App\Entity\Signal', 's', 'WITH', 'l.signalId = s.id')
+            ->leftJoin('\App\Entity\Listener', 'op', 'WITH', 'l.operatorId = op.id')
+        ;
 
 
         if (isset($args['listenerId']) && $args['listenerId'] !== '') {

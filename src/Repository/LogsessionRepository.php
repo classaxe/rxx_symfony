@@ -74,6 +74,7 @@ class LogsessionRepository extends ServiceEntityRepository
             . 'li.qth as qth,'
             . 'li.sp as sp,'
             . 'li.itu as itu,'
+            . 'op.name as operator,'
             . 'trim(ls.timestamp) as timestamp,'
             . 'u.name as uploader,'
             . 'trim(ls.firstLog) as firstLog,'
@@ -91,7 +92,9 @@ class LogsessionRepository extends ServiceEntityRepository
             ->createQueryBuilder('ls')
             ->select($columns)
             ->innerJoin('\App\Entity\Listener', 'li', 'WITH', 'ls.listenerId = li.id')
-            ->innerJoin('\App\Entity\User', 'u', 'WITH', 'ls.administratorId = u.id');
+            ->innerJoin('\App\Entity\User', 'u', 'WITH', 'ls.administratorId = u.id')
+            ->leftJoin('\App\Entity\Listener', 'op', 'WITH', 'ls.operatorId = op.id')
+        ;
 
         if (isset($args['listenerId']) && $args['listenerId'] !== '') {
             $qb

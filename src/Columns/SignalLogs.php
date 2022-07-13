@@ -92,6 +92,17 @@ class SignalLogs
                 'th_class'  =>  '',
                 'tooltip'   =>  'Format of signal',
             ],
+            'operator' => [
+                'admin'     =>  false,
+                'arg'       =>  '',
+                'field'     =>  'operator',
+                'label'     =>  'Operator',
+                'order'     =>  'a',
+                'sort'      =>  'op.name',
+                'td_class'  =>  '',
+                'th_class'  =>  '',
+                'tooltip'   =>  '',
+            ],
             'name' => [
                 'admin'     =>  false,
                 'arg'       =>  '',

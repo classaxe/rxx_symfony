@@ -28,11 +28,11 @@ class ListenerRepository extends ServiceEntityRepository
 
     private $tabs = [
         ['listener', 'Profile'],
-        ['listener_logsessions', 'Log Sessions (%%logsessions%%)'],
         ['listener_logsupload', 'Upload'],
+        ['listener_logsessions', 'Log Sessions (%%logsessions%%)'],
+        ['listener_logs', 'Logs (%%logs%%)'],
         ['listener_signals', 'Signals (%%signals%%)'],
         ['listener_signalsmap', 'Signals Map'],
-        ['listener_logs', 'Logs (%%logs%%)'],
         ['listener_map', 'Map'],
         ['listener_locatormap', 'Locator'],
         ['listener_weather', 'Weather'],
@@ -221,6 +221,21 @@ class ListenerRepository extends ServiceEntityRepository
                     ->setParameter('na_ca', ['na','ca'])
                     ->setParameter('oc', 'oc')
                     ->setParameter('hwa', 'hwa');
+                break;
+        }
+    }
+
+    private function addFilterMultiop(&$qb, $args)
+    {
+        if (!isset($args['multiop'])) {
+            return;
+        }
+        switch ($args['multiop']) {
+            case 'N':
+                $qb->andWhere('(l.multiOperator = \'N\')');
+                break;
+            case 'Y':
+                $qb->andWhere('(l.multiOperator = \'Y\')');
                 break;
         }
     }
@@ -572,6 +587,7 @@ EOD;
         $this->addFilterRegion($qb, $args);
         $this->addFilterTimezone($qb, $args);
         $this->addFilterStatus($qb, $args);
+        $this->addFilterMultiop($qb, $args);
         $this->addFilterEquipment($qb, $args);
         $this->addFilterRxxId($qb, $args);
 
@@ -649,6 +665,7 @@ EOD;
         $this->addFilterRegion($qb, $args);
         $this->addFilterTimezone($qb, $args);
         $this->addFilterStatus($qb, $args);
+        $this->addFilterMultiop($qb, $args);
         $this->addFilterEquipment($qb, $args);
         $this->addFilterRxxId($qb, $args);
         return $qb->getQuery()->getSingleScalarResult();

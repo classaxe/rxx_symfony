@@ -95,6 +95,20 @@ class Collection extends Base
                 ]
             )
             ->add(
+                'multiop',
+                ChoiceType::class,
+                [
+                    'choices' =>        [
+                        '' => '',
+                        'Individual' => 'N',
+                        'Multi-Operator (shared radio - e.g. Kiwi SDR or Global Tuners)' => 'Y',
+                    ],
+                    'data' =>           $options['multiop'],
+                    'label' =>          'Operators',
+                    'required' =>       false
+                ]
+            )
+            ->add(
                 'status',
                 ChoiceType::class,
                 [

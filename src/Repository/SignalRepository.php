@@ -1092,16 +1092,16 @@ EOD;
             li.itu,
             CONCAT(COALESCE(l.lsbApprox, ''), l.lsb) AS lsb,
             CONCAT(COALESCE(l.usbApprox, ''), l.usb) AS usb,
-            MAX(l.daytime) AS daytime
+            MAX(l.daytime) AS daytime,
+            (CASE WHEN op.name IS NULL THEN '' ELSE op.name END) as operator
 EOD;
 
         $qb = $this
             ->createQueryBuilder('s')
             ->select($columns)
-            ->innerJoin('\App\Entity\Log', 'l')
-            ->andWhere('l.signalId = s.id')
-            ->innerJoin('\App\Entity\Listener', 'li')
-            ->andWhere('li.id = l.listenerId')
+            ->innerJoin('\App\Entity\Log', 'l', 'WITH', 'l.signalId = s.id')
+            ->innerJoin('\App\Entity\Listener', 'li', 'WITH', 'li.id = l.listenerId')
+            ->leftJoin('\App\Entity\Listener', 'op', 'WITH', 'l.operatorId = op.id')
             ->andWhere('s.id = :signalID')
             ->setParameter(':signalID', $signalID)
             ->addGroupBy('l.id');

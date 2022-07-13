@@ -37,6 +37,18 @@ class Listeners
                 'th_class' =>   'txt_vertical',
                 'tooltip' =>    'Inactive listeners are either Silent Key or those who have moved house',
             ],
+            'multiOperator' => [
+                'admin' =>      false,
+                'arg' =>        '',
+                'field' =>      'multiOperator',
+                'highlight' =>  false,
+                'label' =>      'Multi-Op.',
+                'order' =>      'd',
+                'sort' =>       'l.multiOperator',
+                'td_class' =>   'txt_c',
+                'th_class' =>   'txt_vertical',
+                'tooltip' =>    'This Listener Location may have loggings from several different operators',
+            ],
             'name' => [
                 'admin' =>      false,
                 'arg' =>        '',

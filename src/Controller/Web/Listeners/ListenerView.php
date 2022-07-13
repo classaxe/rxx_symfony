@@ -25,6 +25,7 @@ class ListenerView extends Base
         'itu',
         'mapX',
         'mapY',
+        'multiOperator',
         'name',
         'notes',
         'primaryQth',

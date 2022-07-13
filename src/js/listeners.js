@@ -13,6 +13,7 @@ var LISTENERS_FORM = {
             l.setHasLogsAction();
             l.setHasMapPosAction();
             l.setTimezoneAction();
+            l.setMultiopAction();
             l.setStatusAction();
             l.setSearchforAction();
             l.setSaveAction();
@@ -77,6 +78,17 @@ var LISTENERS_FORM = {
         }
     },
 
+    setMultiopAction : function(enable) {
+        enable = typeof enable !== 'undefined' ? enable : true;
+        if (enable) {
+            $('select#form_multiop').change(function () {
+                formSubmit();
+            });
+        } else {
+            $('select#form_multiop').off('change');
+        }
+    },
+
     setResetAction : function() {
         $('button[type="reset"]').click(function () {
             if (!confirm(msg.reset + "\n" + msg.cookie.reset)) {
@@ -95,6 +107,7 @@ var LISTENERS_FORM = {
             l.setHasMapPosAction(false);
             l.setTimezoneAction(false);
             l.setStatusAction(false);
+            l.setMultiopAction(false);
             $('#form_equipment').val('');
             $('#form_notes').val('');
             $('#form_active').removeClass('inactive')
@@ -103,12 +116,14 @@ var LISTENERS_FORM = {
             $('select#form_has_map_pos').prop('selectedIndex', 0);
             $('select#form_timezone').val('ALL').selectmenu('refresh');
             $('select#form_status').prop('selectedIndex', 0);
+            $('select#form_multiop').prop('selectedIndex', 0);
             c.setCountryAction(true);
             c.setRegionAction(true);
             l.setHasLogsAction(true);
             l.setHasMapPosAction(true);
             l.setTimezoneAction(true);
             l.setStatusAction(true);
+            l.setMultiopAction(true);
             formSubmit();
             return false;
         })

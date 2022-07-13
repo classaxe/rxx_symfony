@@ -122,6 +122,16 @@ class LogSession
      */
     private $logsTime;
 
+    /**
+     * @var int|null
+     *
+     * @ORM\Column(name="operatorID", type="integer", nullable=true, options={"unsigned"=true})
+     */
+    private $operatorId;
+
+    /**
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
@@ -370,6 +380,25 @@ class LogSession
     public function setLogsTime(?int $logsTime): self
     {
         $this->logsTime = $logsTime;
+
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getOperatorId(): ?int
+    {
+        return $this->operatorId;
+    }
+
+    /**
+     * @param int|null $operatorId
+     * @return $this
+     */
+    public function setOperatorId(?int $operatorId): self
+    {
+        $this->operatorId = $operatorId;
 
         return $this;
     }

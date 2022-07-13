@@ -69,6 +69,21 @@ class ListenerView extends Base
                 'label' =>          'Active Profile',
             ]
         )
+            ->add(
+                'multiOperator',
+                ChoiceType::class,
+                [
+                    'attr' => [
+                        'style' =>      "width: 6em;margin-right: 1em"
+                    ],
+                    'choices' => [
+                        'No' =>     'N',
+                        'Yes' =>    'Y',
+                    ],
+                    'data' =>           $options['multiOperator'],
+                    'label' =>          'Multi-Operator',
+                ]
+            )
         ->add(
             'name',
             TextType::class,

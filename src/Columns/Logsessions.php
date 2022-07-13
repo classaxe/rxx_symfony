@@ -57,6 +57,17 @@ class Logsessions
                 'th_class'  =>  '',
                 'tooltip'   =>  '',
             ],
+            'operator' => [
+                'admin'     =>  false,
+                'arg'       =>  '',
+                'field'     =>  'operator',
+                'label'     =>  'Operator',
+                'order'     =>  'a',
+                'sort'      =>  'op.name',
+                'td_class'  =>  '',
+                'th_class'  =>  '',
+                'tooltip'   =>  '',
+            ],
             'callsign' => [
                 'admin' =>      false,
                 'arg' =>        '',

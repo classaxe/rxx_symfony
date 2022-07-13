@@ -68,6 +68,7 @@ class Collection extends Base
             'sort' =>       $this->listenerRepository::defaultSorting,
 
             'rxx_id' =>     '',
+            'multiop' =>    '',
             'status' =>     '',
             'country' =>    '',
             'equipment' =>  '',
@@ -136,7 +137,7 @@ class Collection extends Base
             'form' =>               $form->createView(),
             'listeners' =>          $listeners,
             '_locale' =>            $_locale,
-            'mode' =>               'Locations',
+            'mode' =>               'Listeners and Locations',
             'results' => [
                 'limit' =>              isset($args['limit']) ? $args['limit'] : $this->listenerRepository::defaultLimit,
                 'page' =>               isset($args['page']) ? $args['page'] : $this->listenerRepository::defaultPage,

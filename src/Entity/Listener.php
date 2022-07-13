@@ -175,6 +175,12 @@ class Listener
     private $mapY = '0';
 
     /**
+     * @var int
+     * @ORM\Column(name="multi_operator", type="string", length=1, nullable=false)
+     */
+    private $multiOperator = '';
+
+    /**
      * @var string
      * @ORM\Column(name="name", type="string", length=40, nullable=false)
      */
@@ -510,7 +516,7 @@ class Listener
     }
 
     /**
-     * @param string $equipment
+     * @param string|null $equipment
      * @return Listener
      */
     public function setEquipment(?string $equipment): self
@@ -529,7 +535,7 @@ class Listener
     }
 
     /**
-     * @param string $gsq
+     * @param string|null $gsq
      * @return Listener
      */
     public function setGsq(?string $gsq): self
@@ -548,7 +554,7 @@ class Listener
     }
 
     /**
-     * @param string $itu
+     * @param string|null $itu
      * @return Listener
      */
     public function setItu(?string $itu): self
@@ -567,7 +573,7 @@ class Listener
     }
 
     /**
-     * @param float $lat
+     * @param float|null $lat
      * @return Listener
      */
     public function setLat(?float $lat): self
@@ -586,10 +592,10 @@ class Listener
     }
 
     /**
-     * @param DateTimeInterface $logEarliest
+     * @param DateTimeInterface|null $logEarliest
      * @return Listener
      */
-    public function setLogEarliest(DateTimeInterface $logEarliest): self
+    public function setLogEarliest(?DateTimeInterface $logEarliest): self
     {
         $this->logEarliest = $logEarliest;
 
@@ -605,7 +611,7 @@ class Listener
     }
 
     /**
-     * @param string $logFormat
+     * @param string|null $logFormat
      * @return Listener
      */
     public function setLogFormat(?string $logFormat): self
@@ -624,7 +630,7 @@ class Listener
     }
 
     /**
-     * @param DateTimeInterface $logLatest|null
+     * @param DateTimeInterface|null $logLatest
      * @return Listener
      */
     public function setLogLatest(?DateTimeInterface $logLatest): self
@@ -643,7 +649,7 @@ class Listener
     }
 
     /**
-     * @param DateTimeInterface $logLatest|null
+     * @param DateTimeInterface|null $logSessionLatest
      * @return Listener
      */
     public function setLogSessionLatest(?DateTimeInterface $logSessionLatest): self
@@ -662,7 +668,7 @@ class Listener
     }
 
     /**
-     * @param float $lon
+     * @param float|null $lon
      * @return Listener
      */
     public function setLon(?float $lon): self
@@ -681,7 +687,7 @@ class Listener
     }
 
     /**
-     * @param int $mapX
+     * @param int|null $mapX
      * @return Listener
      */
     public function setMapX(?int $mapX): self
@@ -700,12 +706,31 @@ class Listener
     }
 
     /**
-     * @param int $mapY
+     * @param int|null $mapY
      * @return Listener
      */
     public function setMapY(?int $mapY): self
     {
         $this->mapY = $mapY;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMultiOperator(): ?string
+    {
+        return $this->multiOperator;
+    }
+
+    /**
+     * @param string|null $multiOperator
+     * @return Listener
+     */
+    public function setMultiOperator(?string $multiOperator): self
+    {
+        $this->multiOperator = $multiOperator;
 
         return $this;
     }
@@ -1003,8 +1028,9 @@ class Listener
     public function getFormattedNameAndLocation(): ?string
     {
         return
-            $this->name . ' [' . $this->id . '], '
-            . $this->qth.($this->sp ? ', '.$this->sp : '') . ', '
+            ($this->multiOperator ? 'Multi-Operator: ' : '')
+            . $this->name . ' [' . $this->id . '], '
+            . $this->qth  . ($this->sp ? ', ' . $this->sp : '') . ', '
             . $this->itu
             . ' - ' . $this->gsq;
     }
@@ -1031,7 +1057,11 @@ class Listener
         return $this->id;
     }
 
-    public function isDaytime($hhmm)
+    /**
+     * @param $hhmm
+     * @return bool
+     */
+    public function isDaytime($hhmm): bool
     {
         if (!is_numeric($hhmm)) {
             return false;
