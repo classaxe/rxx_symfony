@@ -55,6 +55,7 @@ class ListenerLogs extends Base
         $form = $form->buildForm($this->createFormBuilder(), $options);
         $form->handleRequest($request);
         $args = [
+            'isMultiOperator' =>    ($listener->getMultiOperator() === 'Y'),
             'limit' =>          static::defaultlimit,
             'order' =>          static::defaultOrder,
             'page' =>           0,
@@ -73,6 +74,7 @@ class ListenerLogs extends Base
             'columns' =>            $columns,
             'form' =>               $form->createView(),
             '_locale' =>            $_locale,
+            'isMultiOperator' =>    ($listener->getMultiOperator() === 'Y'),
             'matched' =>            'of '.$options['total']. ' log records.',
             'mode' =>               'Logs for '.$listener->getFormattedNameAndLocation(),
             'logs' =>               $logs,

@@ -38,6 +38,7 @@ class LogsessionRepository extends ServiceEntityRepository
      * @param $timestamp
      * @param $administratorID
      * @param $listenerID
+     * @param $operatorID
      * @param $logs
      * @return int|null
      * @throws \Doctrine\ORM\ORMException
@@ -46,13 +47,15 @@ class LogsessionRepository extends ServiceEntityRepository
     public function addLogSession(
         $timestamp,
         $administratorID,
-        $listenerID
+        $listenerID,
+        $operatorID
     ) {
         $logsession = new LogSession();
         $logsession
             ->setTimestamp($timestamp)
             ->setAdministratorId($administratorID)
-            ->setListenerId($listenerID);
+            ->setListenerId($listenerID)
+            ->setOperatorId($operatorID);
         $this->getEntityManager()->persist($logsession);
         $this->getEntityManager()->flush();
         return $logsession->getId();
@@ -74,7 +77,7 @@ class LogsessionRepository extends ServiceEntityRepository
             . 'li.qth as qth,'
             . 'li.sp as sp,'
             . 'li.itu as itu,'
-            . 'op.name as operator,'
+            . '(CASE WHEN op.name IS NULL THEN \'\' ELSE CONCAT(op.name, \' \', op.sp, \' \', op.itu, \' [\', op.gsq, \']\') END) as operator,'
             . 'trim(ls.timestamp) as timestamp,'
             . 'u.name as uploader,'
             . 'trim(ls.firstLog) as firstLog,'

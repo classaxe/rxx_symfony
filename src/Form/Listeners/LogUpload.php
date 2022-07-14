@@ -1,8 +1,10 @@
 <?php
 namespace App\Form\Listeners;
 
+use App\Form\Base;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -13,7 +15,7 @@ use Symfony\Component\Form\FormBuilderInterface;
  * Class Listeners
  * @package App\Form
  */
-class LogUpload extends AbstractType
+class LogUpload extends Base
 {
     /**
      * @param FormBuilderInterface $formBuilder
@@ -84,6 +86,21 @@ class LogUpload extends AbstractType
                 ]
             )
             ->add(
+                'operatorID',
+                ChoiceType::class,
+                [
+                    'choices' => $this->listenerRepository->getOperators(
+                        $options['system'],
+                        $this->translator->trans('(None specified)'),
+                    ),
+                    'choice_translation_domain' => false,
+                    'data' =>           $options['operatorID'],
+                    'expanded' =>       false,
+                    'label' =>          'Operator:',
+                    'required' =>       false
+                ]
+            )
+            ->add(
                 'YYYY',
                 TextType::class,
                 [
@@ -91,7 +108,7 @@ class LogUpload extends AbstractType
                         'maxlength' => 4,
                         'placeholder' => 'YYYY'
                     ],
-                    'label' =>          'Year',
+                    'label' =>          'Year:',
                     'required' =>       false
                 ]
             )
@@ -103,7 +120,7 @@ class LogUpload extends AbstractType
                         'maxlength' => 2,
                         'placeholder' => 'MM'
                     ],
-                    'label' =>          'Month',
+                    'label' =>          'Month:',
                     'required' =>       false
                 ]
             )
@@ -115,7 +132,7 @@ class LogUpload extends AbstractType
                         'maxlength' => 2,
                         'placeholder' => 'DD'
                     ],
-                    'label' =>          'Date',
+                    'label' =>          'Date:',
                     'required' =>       false
                 ]
             )

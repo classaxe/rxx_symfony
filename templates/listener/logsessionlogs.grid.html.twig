@@ -3,7 +3,7 @@
     <thead>
         <tr>
 {% for key, column in columns %}
-    {% if ((not column.admin or isAdmin) and (not column.arg or (column.arg and column.arg in args.types))) %}
+    {% if ((not column.admin or isAdmin) and not (key == 'operator' and not isMultiOperator)) %}
             <th class="{{ column.th_class }}"{% if column.tooltip %} title="{{ column.tooltip }}"{% endif %}>
     {% if column.th_class == 'txt_vertical' %}<div>{{ column.label | trans | raw }}</div>{% else %}{{ column.label | trans | raw }}{% endif %}
             </th>
@@ -16,10 +16,13 @@
     {% set type = typeRepository.TypeForCode(l.type) %}
     <tr class="{% if l.active == '0' %}inactive {% endif %}{% if l.daytime %}daytime {% endif %}type_{{ type.class|lower }}" title="{{ type.title }}{% if l.daytime %} {% trans %}Logged betweeen 10am and 2pm local time{% endtrans %}{% endif %}{% if l.active == '0' %} (inactive){% endif %}">
 {% for key, column in columns %}
-    {% if ((not column.admin or isAdmin) and (not column.arg or (column.arg and column.arg in args.types))) %}
-            <td{% if column.td_class %} class="{{ column.td_class }}"{% endif %}>
+    {% if ((not column.admin or isAdmin) and not (key == 'operator' and not isMultiOperator))
+    %}<td{% if column.td_class %} class="{{ column.td_class }}"{% endif %}>
     {%
-        if key == 'id' and isAdmin %}<a href="{{ url('log', { 'system' : system, 'id' : l.log_id }) }}" data-popup="1">{{ l.log_id }}</a>{%
+        if key == 'id' and isAdmin
+    %}<a href="{{ url('log', { 'system' : system, 'id' : l.log_id }) }}" data-popup="1">{{ l.log_id }}</a>{%
+        elseif key == 'operator'
+    %}<a href="{{ url('listener', { 'system' : system, 'id': l.operatorId }) }}" data-popup="1">{{ attribute(l, column.field)|raw }}</a>{%
         elseif key == 'call'
     %}<a href="{{ url('signal', { 'system' : system, 'id': l.id }) }}" data-popup="1">{{ attribute(l, column.field)|raw }}</a>{%
         elseif key == 'delete' and isAdmin

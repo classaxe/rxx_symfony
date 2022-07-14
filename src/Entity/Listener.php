@@ -1028,8 +1028,8 @@ class Listener
     public function getFormattedNameAndLocation(): ?string
     {
         return
-            ($this->multiOperator ? 'Multi-Operator: ' : '')
-            . $this->name . ' [' . $this->id . '], '
+            ($this->multiOperator === 'Y' ? 'Multi-Operator: ' : '')
+            . $this->name . ', '
             . $this->qth  . ($this->sp ? ', ' . $this->sp : '') . ', '
             . $this->itu
             . ' - ' . $this->gsq;

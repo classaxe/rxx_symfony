@@ -74,6 +74,7 @@ class ListenerLogsessions extends Base
             'columns' =>            $columns,
             'form' =>               $form->createView(),
             '_locale' =>            $_locale,
+            'isMultiOperator' =>    ($listener->getMultiOperator() === 'Y'),
             'matched' =>            'of '.$options['total']. ' log sessions.',
             'mode' =>               'Log Sessions Uploaded for '.$listener->getFormattedNameAndLocation(),
             'logsessions' =>        $logSessions,
@@ -118,6 +119,7 @@ class ListenerLogsessions extends Base
             return $this->redirectToRoute('listeners', ['system' => $system]);
         }
         $args = [
+            'isMultiOperator' =>    ($listener->getMultiOperator() === 'Y'),
             'order' =>          'd',
             'sort' =>           'logDate',
             'logSessionId' =>   $logSessionId
@@ -128,6 +130,7 @@ class ListenerLogsessions extends Base
             'id' =>                 $id,
             'columns' =>            $this->listenerRepository->getColumns('logs'),
             '_locale' =>            $_locale,
+            'isMultiOperator' =>    ($listener->getMultiOperator() === 'Y'),
             'logs' =>               $logs,
             'system' =>             $system,
             'typeRepository' =>     $this->typeRepository

@@ -1,0 +1,6 @@
+<fieldset id="operatorField"{% if (step != '1' or not multiOperator) %} style="display:none"{% endif %}>
+    <legend>{% trans %}This is a Multi-Operator receiver:{% endtrans %}</legend>
+    <div>
+        {{ form_label(form.operatorID) }}{{ form_widget(form.operatorID) }}
+    </div>
+</fieldset>

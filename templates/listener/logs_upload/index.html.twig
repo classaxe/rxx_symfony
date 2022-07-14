@@ -30,6 +30,7 @@
                 <div class="clearfix"{% if (step != 1) %} style="display:none"{% endif %}>
                     {{ form_widget(form.logs) }}
                 </div>
+                {% include('listener/logs_upload/operator.html.twig') %}
                 {% include('listener/logs_upload/datefields.html.twig') %}
                 <fieldset id="group_">
                     <span{% if (step != 1) %} style="display:none"{% endif %}>

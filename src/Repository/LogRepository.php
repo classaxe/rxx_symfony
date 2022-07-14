@@ -77,10 +77,32 @@ class LogRepository extends ServiceEntityRepository
         $this->connection = $connection;
     }
 
+    /**
+     * @param $logSessionId
+     * @param $signalID
+     * @param $listenerID
+     * @param $operatorID
+     * @param $heardIn
+     * @param $region
+     * @param $YYYYMMDD
+     * @param $hhmm
+     * @param $daytime
+     * @param $dx_km
+     * @param $dx_miles
+     * @param $LSB_approx
+     * @param $LSB
+     * @param $USB_approx
+     * @param $USB
+     * @param $fmt
+     * @param $sec
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
     public function addLog(
         $logSessionId,
         $signalID,
         $listenerID,
+        $operatorID,
         $heardIn,
         $region,
         $YYYYMMDD,
@@ -100,6 +122,7 @@ class LogRepository extends ServiceEntityRepository
             ->setLogSessionId($logSessionId)
             ->setSignalId($signalID)
             ->setListenerId($listenerID)
+            ->setOperatorId($operatorID)
             ->setHeardIn($heardIn)
             ->setRegion($region)
             ->setDate(DateTime::createFromFormat('Y-m-d', $YYYYMMDD))
@@ -176,7 +199,8 @@ EOD;
             .'l.format,'
             .'l.dxKm,'
             .'l.dxMiles,'
-            .'(CASE WHEN op.name IS NULL THEN \'\' ELSE op.name END) as operator';
+            .'l.operatorId,'
+            .'(CASE WHEN op.name IS NULL THEN \'\' ELSE CONCAT(op.name, \' \', op.sp, \' \', op.itu, \' [\', op.gsq, \']\') END) as operator';
 
         $qb = $this
             ->createQueryBuilder('l')

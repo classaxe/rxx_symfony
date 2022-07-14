@@ -19,6 +19,7 @@ class ListenerLogsUpload extends Base
     private $listener;
     private $logs;
     private $logHas;
+    private $operatorID;
     private $tokens = [];
     private $system;
 
@@ -51,6 +52,8 @@ class ListenerLogsUpload extends Base
         if (!$isAdmin || !$this->listener = $this->getValidListener($id)) {
             return $this->redirectToRoute('listener', ['system' => $this->system, 'id' => $id]);
         }
+        $this->operatorID = false;
+        $this->operator = null;
         $heardIn = $this->listener->getSp() ? $this->listener->getSp() : $this->listener->getItu();
         $region = $this->listener->getRegion();
         $step = $request->get('step', '1');
@@ -60,7 +63,9 @@ class ListenerLogsUpload extends Base
             'id' =>         $this->listener->getId(),
             'step' =>       $step,
             'selected' =>   $selected,
-            'format' =>     $format
+            'format' =>     $format,
+            'system' =>     $system,
+            'operatorID' => $this->operatorID
         ];
         $stats = [
             'duplicates' => 0,
@@ -84,10 +89,12 @@ class ListenerLogsUpload extends Base
         );
         $form->handleRequest($request);
         if ($isAdmin && $form->isSubmitted() && $form->isValid()) {
-            $data = $form->getData();
-            $step = $data['step'];
-            $format = $data['format'];
+            $data =         $form->getData();
+            $step =         $data['step'];
+            $format =       $data['format'];
             $this->logs =   $data['logs'];
+            $this->operatorID = $data['operatorID'];
+            $this->operator = $this->getValidListener($this->operatorID);
             $selected =     $data['selected'];
             $this->errors = [];
             $this->logRepository->parseFormat($format, $this->tokens, $this->errors, $this->logHas);
@@ -104,7 +111,12 @@ class ListenerLogsUpload extends Base
                     $step = '1';
                     break;
                 case '2':
-                    if ($this->errors || (!$this->logHas['YYYY'] && !$YYYY) || (!$this->logHas['MM'] && !$MM) || (!$this->logHas['DD'] && !$DD)) {
+                    if ($this->errors ||
+                        (!$this->logHas['YYYY'] && !$YYYY) ||
+                        (!$this->logHas['MM'] && !$MM) ||
+                        (!$this->logHas['DD'] && !$DD) ||
+                        (!$this->operatorID && $this->listener->getMultiOperator() === 'Y')
+                    ) {
                         $step = '1';
                         break;
                     }
@@ -140,7 +152,8 @@ class ListenerLogsUpload extends Base
                     $logSessionID = $this->logsessionRepository->addLogSession(
                         new DateTime(),
                         $user->getId(),
-                        $this->listener->getId()
+                        $this->listener->getId(),
+                        ($this->operatorID ? $this->operatorID : null)
                     );
 
                     $firstLog = null;
@@ -181,6 +194,7 @@ class ListenerLogsUpload extends Base
                             $logSessionID,
                             $e['signalID'],
                             $id,
+                            ($this->operatorID ? $this->operatorID : null),
                             $heardIn,
                             $region,
                             $e['YYYYMMDD'],
@@ -265,6 +279,9 @@ class ListenerLogsUpload extends Base
             'logData' =>            $this->logs,
             'logEmail' =>           $this->listener->getFormattedEmail(),
             'logOwner' =>           $this->listener->getFormattedNameAndLocation(),
+            'multiOperator' =>      $this->listener->getMultiOperator() === 'Y',
+            'operatorID' =>         $this->operatorID,
+            'operator' =>           $this->operator,
             'region' =>             $region,
             'selected' =>           $selected,
             'signals' =>            $this->listener->getCountSignals(),

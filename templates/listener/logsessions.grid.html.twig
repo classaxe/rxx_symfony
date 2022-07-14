@@ -4,7 +4,7 @@
         <thead>
             <tr>
     {% for key, column in columns %}
-    {% if ((not column.admin or isAdmin) and (not column.arg or (column.arg and column.arg in args.types))) %}
+    {% if ((not column.admin or isAdmin) and not (key == 'operator' and not isMultiOperator)) %}
                 <th{% if key and column.order %} id="{{ key }}|{{ column.order }}"{% endif
     %}{%
         if column.th_class or column.sort
@@ -27,7 +27,7 @@
     {% for ls in logsessions %}
             <tr id="log_session_{{ ls.listenerId }}_{{ ls.id }}" title="{% trans %}Click to view logs for this session{% endtrans %}">
     {% for key, column in columns %}
-        {% if ((not column.admin or isAdmin) and (not column.arg or (column.arg and column.arg in args.types))) %}
+        {% if ((not column.admin or isAdmin) and not (key == 'operator' and not isMultiOperator)) %}
                 <td{% if column.td_class %} class="{{ column.td_class }}"{% endif %}{%
                     if key == 'listener'
                 %} title="{{ ls.primaryQth ? 'Primary Location' | trans : 'Secondary Location' | trans }}" class="{{ ls.primaryQth ? 'primaryQth' : 'secondaryQth' }} {{ column.td_class }}"{%

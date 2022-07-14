@@ -763,6 +763,37 @@ EOD;
         ];
     }
 
+    public function getOperators(
+        $system = 0,
+        $placeholder = false
+    ) {
+        $qb =
+            $this
+                ->createQueryBuilder('l')
+                ->select('l.id, l.name, l.qth, l.sp, l.itu, l.gsq, l.primaryQth, l.callsign')
+                ->andWhere('l.multiOperator = \'N\'')
+                ->andWhere('l.primaryQth = 1')
+                ->addOrderBy('l.name', 'ASC')
+        ;
+        $this->addFilterSystem($qb, $system);
+        $result = $qb->getQuery()->execute();
+        if ($placeholder) {
+            $out = [ $placeholder => '' ];
+        }
+        foreach ($result as $row) {
+            $out[
+                  html_entity_decode($row['name'])
+                . ' [' . $row['id'] . '] '
+                . html_entity_decode($row['qth'])
+                . ($row['sp'] ? ' ' . $row['sp'] : '')
+                . " "
+                . $row['itu']
+                . ($row['gsq'] ? ' | ' . $row['gsq'] : '')
+            ] = $row['id'];
+        }
+        return $out;
+    }
+
     public function getTotalListeners($system)
     {
         $qb = $this
