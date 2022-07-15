@@ -72,12 +72,11 @@ class LogsessionRepository extends ServiceEntityRepository
             'ls.id,'
             . 'ls.listenerId,'
             . 'li.primaryQth,'
-            . 'li.name as listener,'
+            . '(CASE WHEN li.name IS NULL THEN \'\' ELSE CONCAT(li.name, \' | \', li.qth, \' \', li.sp, \' \', li.itu, \' [\', li.gsq, \']\') END) as listener,'
             . 'li.callsign as callsign,'
             . 'li.qth as qth,'
             . 'li.sp as sp,'
             . 'li.itu as itu,'
-            . '(CASE WHEN op.name IS NULL THEN \'\' ELSE CONCAT(op.name, \' \', op.sp, \' \', op.itu, \' [\', op.gsq, \']\') END) as operator,'
             . 'trim(ls.timestamp) as timestamp,'
             . 'u.name as uploader,'
             . 'trim(ls.firstLog) as firstLog,'
@@ -89,7 +88,9 @@ class LogsessionRepository extends ServiceEntityRepository
             . 'ls.logsNavtex,'
             . 'ls.logsNdb,'
             . 'ls.logsOther,'
-            . 'ls.logsTime';
+            . 'ls.logsTime,'
+            . 'ls.operatorId,'
+            . '(CASE WHEN op.name IS NULL THEN \'\' ELSE op.name END) as operator';
 
         $qb = $this
             ->createQueryBuilder('ls')

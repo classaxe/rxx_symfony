@@ -39,7 +39,7 @@
             if key == 'id'
         %}{{ ls.id }}{%
             elseif key == 'listener'
-        %}<a href="{{ url('listener_logsessions', { 'system' : system, 'id' : ls.listenerId }) }}" data-popup="1" title="Click to view Log Sessions for this Listener">{{ ls.listener|raw }}</a>{%
+        %}<a href="{{ url('listener_logsessions', { 'system' : system, 'id' : ls.listenerId }) }}" data-popup="1" title="Click to view Log Sessions for this Listener Location">{{ ls.listener|raw }}</a>{%
             elseif key == 'delete' and isAdmin
         %}<a href="{{ url('admin/logsession_delete', { 'system' : system, 'logSessionId' : ls.id }) }}" class="delete" onclick="return confirm(msg.del_log_session);">X</a>{%
             elseif key in ['logs', 'logsDgps', 'logsDsc', 'logsHambcn', 'logsNavtex', 'logsNdb', 'logsOther', 'logsTime']

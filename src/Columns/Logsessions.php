@@ -50,7 +50,7 @@ class Logsessions
                 'admin'     =>  false,
                 'arg'       =>  '',
                 'field'     =>  'listener',
-                'label'     =>  'Listener',
+                'label'     =>  'Listener Location',
                 'order'     =>  'a',
                 'sort'      =>  'li.name',
                 'td_class'  =>  '',
@@ -66,7 +66,7 @@ class Logsessions
                 'sort'      =>  'op.name',
                 'td_class'  =>  '',
                 'th_class'  =>  '',
-                'tooltip'   =>  '',
+                'tooltip'   =>  'For multi-operator locations',
             ],
             'callsign' => [
                 'admin' =>      false,
