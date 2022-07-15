@@ -200,7 +200,7 @@ EOD;
             .'l.dxKm,'
             .'l.dxMiles,'
             .'l.operatorId,'
-            .'(CASE WHEN op.name IS NULL THEN \'\' ELSE CONCAT(op.name, \' \', op.sp, \' \', op.itu, \' [\', op.gsq, \']\') END) as operator';
+            .'(CASE WHEN op.name IS NULL THEN \'\' ELSE op.name END) as operator';
 
         $qb = $this
             ->createQueryBuilder('l')

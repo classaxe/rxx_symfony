@@ -19,11 +19,11 @@
         if ((not column.admin or isAdmin) and not (key == 'operator')) %}{# Hide in logs for log session - waste of space #}
     <td{% if column.td_class %} class="{{ column.td_class }}"{% endif %}>{%
         if key == 'id' and isAdmin
-    %}<a href="{{ url('log', { 'system' : system, 'id' : l.log_id }) }}" data-popup="1">{{ l.log_id }}</a>{%
+    %}<a href="{{ url('log', { 'system' : system, 'id' : l.log_id }) }}" data-popup="1" title="Click to edit this log record">{{ l.log_id }}</a>{%
         elseif key == 'call'
-    %}<a href="{{ url('signal', { 'system' : system, 'id': l.id }) }}" data-popup="1">{{ attribute(l, column.field)|raw }}</a>{%
+    %}<a href="{{ url('signal', { 'system' : system, 'id': l.id }) }}" data-popup="1" title="Click to view details for this signal">{{ attribute(l, column.field)|raw }}</a>{%
         elseif key == 'delete' and isAdmin
-    %}<a href="{{ url('listener_log_delete', { 'system' : system, 'id' : id, 'log_id' : l.log_id }) }}" class="delete" onclick="return confirm(msg.del_log);">X</a>{%
+    %}<a href="{{ url('listener_log_delete', { 'system' : system, 'id' : id, 'log_id' : l.log_id }) }}" class="delete" onclick="return confirm(msg.del_log);" title="Click to delete this log">X</a>{%
         else
     %}{{ attribute(l, column.field)|raw }}{%
         endif
