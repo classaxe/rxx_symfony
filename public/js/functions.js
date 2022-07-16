@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.42.3
- * Date:       2022-07-13
+ * Version:    2.42.7
+ * Date:       2022-07-16
  * Licence:    LGPL
  * Copyright:  2022 Martin Francis
  */
@@ -1159,11 +1159,11 @@ var LISTENERS_FORM = {
     setMultiopAction : function(enable) {
         enable = typeof enable !== 'undefined' ? enable : true;
         if (enable) {
-            $('select#form_multiop').change(function () {
+            $('input[type=radio][name=\'form[multiop]\']').change(function () {
                 formSubmit();
             });
         } else {
-            $('select#form_multiop').off('change');
+            $('input[type=radio][name=\'form[multiop]\']').off('change');
         }
     },
 
@@ -1194,7 +1194,7 @@ var LISTENERS_FORM = {
             $('select#form_has_map_pos').prop('selectedIndex', 0);
             $('select#form_timezone').val('ALL').selectmenu('refresh');
             $('select#form_status').prop('selectedIndex', 0);
-            $('select#form_multiop').prop('selectedIndex', 0);
+            $('input[type=radio][name=\'form[multiop]\'][value=\'\']').prop('checked', true);
             c.setCountryAction(true);
             c.setRegionAction(true);
             l.setHasLogsAction(true);

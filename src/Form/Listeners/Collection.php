@@ -98,12 +98,14 @@ class Collection extends Base
                 'multiop',
                 ChoiceType::class,
                 [
+                    'attr' =>           [ 'title' => 'Does the listening location allow for multiple operators?' ],
                     'choices' =>        [
-                        '' => '',
-                        'Individual' => 'N',
-                        'Multi-Operator (shared radio - e.g. Kiwi SDR or Global Tuners)' => 'Y',
+                        'Show all' => '',
+                        'Single Operator' => 'N',
+                        'Multi-Operator (e.g. Kiwi)' => 'Y',
                     ],
                     'data' =>           $options['multiop'],
+                    'expanded' =>       true,
                     'label' =>          'Operators',
                     'required' =>       false
                 ]
