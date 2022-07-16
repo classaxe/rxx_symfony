@@ -33,6 +33,7 @@ class ListenerRepository extends ServiceEntityRepository
         ['listener_logs', 'Logs (%%logs%%)'],
         ['listener_signals', 'Signals (%%signals%%)'],
         ['listener_signalsmap', 'Signals Map'],
+        ['listener_remote_logs', 'Remote Logs (%%remotelogs%%)'],
         ['listener_map', 'Map'],
         ['listener_locatormap', 'Locator'],
         ['listener_weather', 'Weather'],
@@ -75,10 +76,11 @@ class ListenerRepository extends ServiceEntityRepository
         if (!$listener->getId()) {
             return [];
         }
-        $logs =     $listener->getCountLogs();
+        $logs =         $listener->getCountLogs();
+        $remotelogs =   $listener->getCountRemoteLogs();
         $logsessions =  $listener->getCountLogsessions();
-        $signals =  $listener->getCountSignals();
-        $knownQth = ($listener->getLat() || $listener->getLon());
+        $signals =      $listener->getCountSignals();
+        $knownQth =     ($listener->getLat() || $listener->getLon());
         $out = [];
         foreach ($this->tabs as $idx => $data) {
             $route = $data[0];
@@ -107,6 +109,15 @@ class ListenerRepository extends ServiceEntityRepository
                 case 'listener_map':
                     if ($knownQth) {
                         $out[] = $data;
+                    }
+                    break;
+                case 'listener_remote_logs':
+                    if ($remotelogs) {
+                        $out[] = str_replace(
+                            ['%%remotelogs%%'],
+                            [$remotelogs],
+                            $data
+                        );
                     }
                     break;
                 case 'listener_signalsmap':

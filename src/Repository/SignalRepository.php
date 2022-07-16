@@ -1083,7 +1083,15 @@ EOD;
     public function getLogsForSignal($signalID, array $args)
     {
         $columns = <<< EOD
-            l.id AS log_id, l.date, l.dxKm, l.dxMiles, l.format, l.sec, l.time,
+            l.id AS log_id,
+            l.operatorId,
+            (CASE WHEN op.name IS NULL THEN '' ELSE op.name END) as operator,
+            l.date,
+            l.dxKm,
+            l.dxMiles,
+            l.format,
+            l.sec,
+            l.time,
             li.id,
             li.name,
             li.qth,
@@ -1092,8 +1100,7 @@ EOD;
             li.itu,
             CONCAT(COALESCE(l.lsbApprox, ''), l.lsb) AS lsb,
             CONCAT(COALESCE(l.usbApprox, ''), l.usb) AS usb,
-            MAX(l.daytime) AS daytime,
-            (CASE WHEN op.name IS NULL THEN '' ELSE op.name END) as operator
+            MAX(l.daytime) AS daytime
 EOD;
 
         $qb = $this
