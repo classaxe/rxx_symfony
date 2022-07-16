@@ -162,14 +162,17 @@ class ListenerRepository extends ServiceEntityRepository
     private function addFilterHasLogs(&$qb, $args)
     {
         if (!isset($args['has_logs'])) {
+            $qb->andWhere('(l.countLogs != 0)');
             return;
         }
         switch ($args['has_logs']) {
+            case 'Y':
+                $qb->andWhere('(l.countLogs != 0)');
+                break;
             case 'N':
                 $qb->andWhere('(l.countLogs = 0)');
                 break;
-            case 'Y':
-                $qb->andWhere('(l.countLogs != 0)');
+            case '-':
                 break;
         }
     }

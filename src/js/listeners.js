@@ -59,18 +59,18 @@ var LISTENERS_FORM = {
     setHasLogsAction : function(enable) {
         enable = typeof enable !== 'undefined' ? enable : true;
         if (enable) {
-            $('select#form_has_logs').change(function () {
+            $('input[type=radio][name=\'form[has_logs]\']').change(function () {
                 formSubmit();
             });
         } else {
-            $('select#form_has_logs').off('change');
+            $('input[type=radio][name=\'form[has_logs]\']').off('change');
         }
     },
 
     setHasMapPosAction : function(enable) {
         enable = typeof enable !== 'undefined' ? enable : true;
         if (enable) {
-            $('select#form_has_map_pos').change(function () {
+            $('input[type=radio][name=\'form[has_map_pos]\']').change(function () {
                 formSubmit();
             });
         } else {
@@ -113,7 +113,8 @@ var LISTENERS_FORM = {
             $('#form_active').removeClass('inactive')
             $('select#form_region').prop('selectedIndex', 0);
             $('select#form_country').prop('selectedIndex', 0);
-            $('select#form_has_map_pos').prop('selectedIndex', 0);
+            $('input[type=radio][name=\'form[has_map_pos]\'][value=\'\']').prop('checked', true);
+            $('input[type=radio][name=\'form[has_logs]\'][value=\'\']').prop('checked', true);
             $('select#form_timezone').val('ALL').selectmenu('refresh');
             $('select#form_status').prop('selectedIndex', 0);
             $('input[type=radio][name=\'form[multiop]\'][value=\'\']').prop('checked', true);

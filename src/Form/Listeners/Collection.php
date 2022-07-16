@@ -185,6 +185,9 @@ class Collection extends Base
                     'rxx_id',
                     TextType::class,
                     [
+                        'attr' => [
+                            'placeholder' => 'id1, id2, id3 ...',
+                        ],
                         'data' =>           $options['rxx_id'],
                         'label' =>          'RXX ID(s)',
                         'required' =>       false
@@ -207,13 +210,14 @@ class Collection extends Base
                         ChoiceType::class,
                         [
                             'choices' => [
-                                '' => '',
+                                'Yes (Default)' => 'Y',
                                 'No' => 'N',
-                                'Yes' => 'Y'
+                                'Show All' => '-'
                             ],
                             'data' => $options['has_logs'],
-                            'label' => 'Has Logs',
-                            'required' => false
+                            'expanded' => true,
+                            'label' => 'Has Logs (RWW)',
+                            'required' => true
                         ]
                     );
             }
@@ -223,13 +227,14 @@ class Collection extends Base
                     ChoiceType::class,
                     [
                         'choices' =>        [
-                            '' =>      '',
-                            'No' =>    'N',
-                            'Yes' =>   'Y'
+                            'Show All (Default)' =>   '',
+                            'No' =>         'N',
+                            'Yes' =>        'Y'
                         ],
                         'data' =>           $options['has_map_pos'],
+                        'expanded' =>       true,
                         'label' =>          'Has Map Pos',
-                        'required' =>       false
+                        'required' =>       true
                     ]
                 );
         }

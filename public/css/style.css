@@ -1,7 +1,7 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.42.7
+ * Version:    2.42.8
  * Date:       2022-07-16
  * Licence:    LGPL
  * Copyright:  2022 Martin Francis
@@ -1574,7 +1574,7 @@ button.tiny {
   text-align: left;
   font-size: 90%;
   float: left;
-  width: 120px;
+  width: 130px;
   font-weight: bold;
   padding: 0;
 }
@@ -1650,7 +1650,7 @@ button.tiny {
 }
 /* [ Forms ] */
 .listener_list {
-  width: 570px;
+  width: 580px;
 }
 .listener_list input[type='text'],
 .listener_list select {
@@ -1659,8 +1659,15 @@ button.tiny {
 .listener_list #form_timezone-button {
   width: 435px;
 }
-.listener_list #form_multiop label {
+.listener_list #form_multiop label,
+.listener_list #form_has_logs label,
+.listener_list #form_has_map_pos label {
   margin: 0 2em 0 0.25em;
+}
+.listener_list .admins {
+  font-weight: bold;
+  color: #88f;
+  padding-top: 0.5em;
 }
 .addLogFor a {
   font-weight: normal;
@@ -1806,11 +1813,11 @@ table.logsessions tbody tr.selected td {
 }
 /* [ Form Dimensions ] */
 .signal_list {
-  width: 570px;
+  width: 580px;
 }
 .signal_list fieldset.section {
   display: inline-block;
-  width: 560px;
+  width: 570px;
   float: left;
 }
 .signal_list input[type='text'],
@@ -1915,13 +1922,13 @@ table.logsessions tbody tr.selected td {
   text-align: left;
   font-size: 90% !important;
   float: left;
-  width: 120px;
+  width: 130px;
   font-weight: bold !important;
   padding: 0 !important;
   margin: 0 !important;
 }
 .signal_list #form_listener_invert {
-  width: 120px;
+  width: 130px;
   padding: 0 0 0 0.25em !important;
   height: auto !important;
 }
@@ -1943,7 +1950,7 @@ table.logsessions tbody tr.selected td {
   margin: 0 !important;
 }
 .signal_list #heard_in_label {
-  width: 120px;
+  width: 130px;
 }
 .signal_list #form_heard_in {
   width: 435px;
@@ -2039,7 +2046,7 @@ fieldset#form_range_units legend {
 }
 fieldset#form_type legend {
   text-align: left;
-  width: 120px;
+  width: 130px;
 }
 fieldset#form_range_units legend {
   text-align: right;

@@ -72,7 +72,7 @@ class Collection extends Base
             'status' =>     '',
             'country' =>    '',
             'equipment' =>  '',
-            'has_logs' =>   '',
+            'has_logs' =>   'Y',
             'has_map_pos' => '',
             'notes' =>      '',
             'q' =>          '',
