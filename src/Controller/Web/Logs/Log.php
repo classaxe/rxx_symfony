@@ -92,7 +92,7 @@ class Log extends WebBase
                 ->setListenerId($data['listenerId'])
                 ->setLsb($data['lsb']!=='' ? (int)$data['lsb'] : null)
                 ->setLsbApprox(!empty($request->request->get('form')['lsbApprox']))
-                ->setOperatorId($data['operatorId'])
+                ->setOperatorId($data['operatorId'] ? (int)$data['operatorId'] : null)
                 ->setHeardIn($heardIn)
                 ->setRegion($region)
                 ->setSec($data['sec'])

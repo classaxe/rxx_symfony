@@ -4,13 +4,13 @@ A - {% trans %}Active{% endtrans %}
 
 D - {% trans %}Logged between 10am and 2pm local time{% endtrans %}
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------
-YYYYMMDD UTC  KHz      ID         Type   A   LSB   USB    Sec  Format     PWR     KM  Miles GSQ         Lat      Lon D SP ITU Location
----------------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+{% if listener.multiOperator == 'Y' %}Operator        {% endif %}YYYY-MM-DD hh:mm KHZ      ID         Type   A  LSB   USB    sec      fmt    PWR    KM    Miles GSQ    Lat      Lon      D SP ITU QTH
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
 {% for l in logs %}
-{{
-    l.logDate | date('Ymd') }} {{
-    "% 4s"   | format(l.logTime) }} {{
+{% if listener.multiOperator == 'Y' %}{{ l.operator|length > 15 ? l.operator|slice(0, 12) ~ '...' :"% -15s"  | format(l.operator ? l.operator : '') }} {% endif %}{{
+    l.logDate | date('Y-m-d') }} {{
+    l.logTime|slice(0,2) }}:{{ l.logTime|slice(2,2) }} {{
     "% -8s"  | format(l.khz) }} {{
     "% -10s" | format(l.call) }} {{
     "% -6s"  | format( typeRepository.typeForCode(l.type)['label']|trans) }} {{

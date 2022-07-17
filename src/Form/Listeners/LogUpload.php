@@ -91,7 +91,7 @@ class LogUpload extends Base
                 [
                     'choices' => $this->listenerRepository->getOperators(
                         $options['system'],
-                        $this->translator->trans('(None specified)'),
+                        $this->translator->trans('(None specified)')
                     ),
                     'choice_translation_domain' => false,
                     'data' =>           $options['operatorID'],

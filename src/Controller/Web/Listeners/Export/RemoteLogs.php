@@ -11,17 +11,17 @@ use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
  * Class Listeners
  * @package App\Controller\Web\Listener\Export
  */
-class Logs extends Base
+class RemoteLogs extends Base
 {
     /**
      * @Route(
-     *     "/{_locale}/{system}/listeners/{id}/logs/export/csv",
+     *     "/{_locale}/{system}/listeners/{id}/remotelogs/export/csv",
      *     requirements={
      *        "_locale": "de|en|es|fr",
      *        "system": "reu|rna|rww"
      *     },
      *     defaults={"id"=""},
-     *     name="listener_logs_export_csv"
+     *     name="listener_remotelogs_export_csv"
      * )
      * @param $_locale
      * @param $system
@@ -38,13 +38,13 @@ class Logs extends Base
 
     /**
      * @Route(
-     *     "/{_locale}/{system}/listeners/{id}/logs/export/txt",
+     *     "/{_locale}/{system}/listeners/{id}/remotelogs/export/txt",
      *     requirements={
      *        "_locale": "de|en|es|fr",
      *        "system": "reu|rna|rww"
      *     },
      *     defaults={"id"=""},
-     *     name="listener_logs_export_txt"
+     *     name="listener_remotelogs_export_txt"
      * )
      * @param $_locale
      * @param $system
@@ -81,7 +81,7 @@ class Logs extends Base
 
         $sortableColumns = $this->listenerRepository->getColumns('logs');
         $args = [
-            'listenerId' => $id,
+            'operatorId' => $id,
             'sort' =>       'logDate',
             'order' =>      'a',
         ];
@@ -89,7 +89,7 @@ class Logs extends Base
 
         $parameters = [
             '_locale' =>            $_locale,
-            'title' =>              strToUpper($system) . ' log for '.$listener->getName() . " on " . date('Y-m-d'),
+            'title' =>              strToUpper($system) . ' remote logs for '.$listener->getName() . " on " . date('Y-m-d'),
             'subtitle' =>           '(' . count($logs) . ' records sorted by Date and Time)',
             'system' =>             $system,
             'listener' =>           $listener,
@@ -99,16 +99,16 @@ class Logs extends Base
         $parameters = array_merge($parameters, $this->parameters);
         switch ($mode) {
             case 'csv':
-                $response = $this->render("listener/export/logs.csv.twig", $parameters);
+                $response = $this->render("listener/export/remotelogs.csv.twig", $parameters);
                 break;
             case 'txt':
-                $response = $this->render("listener/export/logs.txt.twig", $parameters);
+                $response = $this->render("listener/export/remotelogs.txt.twig", $parameters);
                 break;
             default:
                 die("Invalid mode");
         }
         $response->headers->set('Content-Type', 'text/plain');
-        $response->headers->set('Content-Disposition',"attachment;filename=listener_{$id}_logs.{$mode}");
+        $response->headers->set('Content-Disposition',"attachment;filename=listener_{$id}_remotelogs.{$mode}");
         return $response;
     }
 }

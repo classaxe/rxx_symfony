@@ -812,14 +812,12 @@ EOD;
         $system = 0,
         $placeholder = false
     ) {
-        $qb =
-            $this
-                ->createQueryBuilder('l')
-                ->select('l.id, l.name, l.qth, l.sp, l.itu, l.gsq, l.primaryQth, l.callsign')
-                ->andWhere('l.multiOperator = \'N\'')
-                ->andWhere('l.primaryQth = \'Y\'')
-                ->addOrderBy('l.name', 'ASC')
-        ;
+        $qb = $this
+            ->createQueryBuilder('l')
+            ->select('l.id, l.name, l.qth, l.sp, l.itu, l.gsq, l.primaryQth, l.callsign')
+            ->andWhere('l.multiOperator = \'N\'')
+            ->addOrderBy('l.name', 'ASC')
+            ->addOrderBy('l.primaryQth', 'DESC');
         $this->addFilterSystem($qb, $system);
         $result = $qb->getQuery()->execute();
         if ($placeholder) {
@@ -827,7 +825,8 @@ EOD;
         }
         foreach ($result as $row) {
             $out[
-                  html_entity_decode($row['name'])
+                ($row['primaryQth'] === 'Y' ? '' : '    ')
+                . html_entity_decode($row['name'])
                 . ' [' . $row['id'] . '] '
                 . html_entity_decode($row['qth'])
                 . ($row['sp'] ? ' ' . $row['sp'] : '')

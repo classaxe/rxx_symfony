@@ -72,6 +72,7 @@ class Log extends Base
                     'choices' => $this->listenerRepository->getOperators(
                         '',
                         $this->translator->trans('(None specified)'),
+
                     ),
                     'choice_translation_domain' => false,
                     'data' =>           $options['operatorId'],

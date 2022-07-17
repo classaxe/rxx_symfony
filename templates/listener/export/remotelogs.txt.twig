@@ -1,0 +1,33 @@
+{{ title }}
+{{ subtitle }}
+A - {% trans %}Active{% endtrans %}
+
+D - {% trans %}Logged between 10am and 2pm local time{% endtrans %}
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Remote Receiver                          YYYY-MM-DD hh:mm KHZ      ID         Type   A  LSB   USB    sec      fmt    PWR    KM    Miles GSQ    Lat      Lon      D SP ITU QTH
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+{% for l in logs %}
+{{ l.receiver|length > 40 ? l.receiver|slice(0, 37) ~ '...' : "% -40s"  | format(l.receiver ? l.receiver : '') }} {{
+    l.logDate | date('Y-m-d') }} {{ l.logTime|slice(0,2) }}:{{ l.logTime|slice(2,2) }} {{
+    "% -8s"  | format(l.khz) }} {{
+    "% -10s" | format(l.call) }} {{
+    "% -6s"  | format( typeRepository.typeForCode(l.type)['label']|trans) }} {{
+    "% -1s"  | format(l.active ? 'Y' : 'N') }} {{
+    "% 5s"   | format(l.lsb ? l.lsb : '') }} {{
+    "% 5s"   | format(l.usb ? l.usb : '') }} {{
+    "% 6s"   | format(l.sec ? l.sec : '') }} {{
+    "% 10s"  | format(l.format ? l.format : '') }} {{
+    "% 4s"   | format(l.pwr ? l.pwr : '') }} {{
+    "% 6s"   | format(l.dxKm) }} {{
+    "% 6s"   | format(l.dxMiles) }} {{
+    "% 6s"   | format(l.gsq) }} {{
+    "% 8s"   | format(l.lat) }} {{
+    "% 8s"   | format(l.lon) }} {{
+    "% 1s"   | format(l.daytime ? 'Y' : 'N') }} {{
+    "% 2s"   | format(l.sp) }} {{
+    "% 3s"   | format(l.itu) }} {{
+    l.qth|raw|replace({'  ': ' '})
+}}
+{% endfor %}
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

@@ -5,14 +5,14 @@
     {% include 'listener/tabs.html.twig' %}
     <div class="controlPanel {{ form_class }}">
         <div class="header">{{ mode|raw }}
-{#            <div class="export">{% trans %}Export{% endtrans %}#}
-{#                <a href="{{ url('listener_logs_export_csv', { 'system' : system, 'id': id }) }}">#}
-{#                    <span class='ui-icon ui-icon-document'></span>.csv#}
-{#                </a>#}
-{#                <a href="{{ url('listener_logs_export_txt', { 'system' : system, 'id': id }) }}">#}
-{#                    <span class='ui-icon ui-icon-document'></span>.txt#}
-{#                </a>#}
-{#            </div>#}
+            <div class="export">{% trans %}Export{% endtrans %}
+                <a href="{{ url('listener_remotelogs_export_csv', { 'system' : system, 'id': id }) }}">
+                    <span class='ui-icon ui-icon-document'></span>.csv
+                </a>
+                <a href="{{ url('listener_remotelogs_export_txt', { 'system' : system, 'id': id }) }}">
+                    <span class='ui-icon ui-icon-document'></span>.txt
+                </a>
+            </div>
         </div>
         <div class="content scroll" id="list">
             {% include 'status.html.twig' %}

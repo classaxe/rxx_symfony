@@ -1,7 +1,7 @@
-"{% if listener.multiOperator == 'Y' %}{% trans %}Operator{% endtrans %}","{% endif %}{%
+"{% trans %}Remote Receiver{% endtrans %}","{%
     trans %}YYYY-MM-DD{% endtrans %}","{%
     trans %}hh:mm{% endtrans %}","{%
-    trans %}KHz{% endtrans %}","{%
+    trans %}KHZ{% endtrans %}","{%
     trans %}ID{% endtrans %}","{%
     trans %}Type{% endtrans %}","{%
     trans %}Active{% endtrans %}","{%
@@ -20,7 +20,7 @@
     trans %}KM{% endtrans %}","{%
     trans %}Miles{% endtrans %}","{%
     trans %}Daytime{% endtrans%}"
-{% for l in logs %}{% if listener.multiOperator == 'Y' %}"{{ l.operator }}",{% endif %}"{{
+{% for l in logs %}"{{ l.receiver }}","{{
     l.logDate }}","{{
     l.logTime|slice(0,2) }}:{{ l.logTime|slice(2,2) }}","{{
     l.khz }}","{{
