@@ -199,10 +199,10 @@ class Listener
     private $notes = '';
 
     /**
-     * @var bool
-     * @ORM\Column(name="primary_QTH", type="boolean", nullable=false)
+     * @var string
+     * @ORM\Column(name="primary_QTH", type="string", nullable=false)
      */
-    private $primaryQth = '0';
+    private $primaryQth = 'N';
 
     /**
      * @var string
@@ -799,18 +799,18 @@ class Listener
     }
 
     /**
-     * @return bool|null
+     * @return null|string
      */
-    public function getPrimaryQth(): ?bool
+    public function getPrimaryQth(): ?string
     {
         return $this->primaryQth;
     }
 
     /**
-     * @param bool $primaryQth
+     * @param string $primaryQth
      * @return Listener
      */
-    public function setPrimaryQth(?bool $primaryQth): self
+    public function setPrimaryQth(?string $primaryQth): self
     {
         $this->primaryQth = $primaryQth;
 

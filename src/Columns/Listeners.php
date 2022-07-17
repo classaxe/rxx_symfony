@@ -37,6 +37,18 @@ class Listeners
                 'th_class' =>   'txt_vertical',
                 'tooltip' =>    'Inactive listeners are either Silent Key or those who have moved house',
             ],
+            'primaryQth' => [
+                'admin' =>      false,
+                'arg' =>        '',
+                'field' =>      'primaryQth',
+                'highlight' =>  false,
+                'label' =>      'Primary Loc.',
+                'order' =>      'd',
+                'sort' =>       'l.primaryQth',
+                'td_class' =>   'txt_c',
+                'th_class' =>   'txt_vertical',
+                'tooltip' =>    'Primary means the Home Base for a listener',
+            ],
             'multiOperator' => [
                 'admin' =>      false,
                 'arg' =>        '',

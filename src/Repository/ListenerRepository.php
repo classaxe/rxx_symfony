@@ -237,6 +237,21 @@ class ListenerRepository extends ServiceEntityRepository
         }
     }
 
+    private function addFilterLoctype(&$qb, $args)
+    {
+        if (!isset($args['loctype'])) {
+            return;
+        }
+        switch ($args['loctype']) {
+            case 'N':
+                $qb->andWhere('(l.primaryQth = \'N\')');
+                break;
+            case 'Y':
+                $qb->andWhere('(l.primaryQth = \'Y\')');
+                break;
+        }
+    }
+
     private function addFilterMap(&$qb, $map)
     {
         switch ($map) {
@@ -565,7 +580,7 @@ EOD;
         foreach ($result as $row) {
             if ($simple) {
                 $out[
-                    ($row['primaryQth'] ? '' : html_entity_decode('&nbsp; '))
+                    ($row['primaryQth'] === 'Y' ? '' : html_entity_decode('&nbsp; '))
                     . " "
                     . html_entity_decode($row['name'])
                     . ' [' . $row['id'] . '] '
@@ -578,7 +593,7 @@ EOD;
             } else {
                 $out[
                     Rxx::pad_dot(
-                        ($row['primaryQth'] ? "" : ". ")
+                        ($row['primaryQth'] === 'Y' ? "" : ". ")
                         . $row['name']
                         . " [" . $row['id'] . "] "
                         . $row['qth']
@@ -610,6 +625,7 @@ EOD;
         $this->addFilterSystem($qb, $system);
         $this->addFilterHasLogs($qb, $args);
         $this->addFilterHasMapPos($qb, $args);
+        $this->addFilterLoctype($qb, $args);
         $this->addFilterSearch($qb, $args);
         $this->addFilterCountry($qb, $args);
         $this->addFilterRegion($qb, $args);
@@ -688,6 +704,7 @@ EOD;
         $this->addFilterSystem($qb, $system);
         $this->addFilterHasLogs($qb, $args);
         $this->addFilterHasMapPos($qb, $args);
+        $this->addFilterLoctype($qb, $args);
         $this->addFilterSearch($qb, $args);
         $this->addFilterCountry($qb, $args);
         $this->addFilterRegion($qb, $args);
@@ -800,7 +817,7 @@ EOD;
                 ->createQueryBuilder('l')
                 ->select('l.id, l.name, l.qth, l.sp, l.itu, l.gsq, l.primaryQth, l.callsign')
                 ->andWhere('l.multiOperator = \'N\'')
-                ->andWhere('l.primaryQth = 1')
+                ->andWhere('l.primaryQth = \'Y\'')
                 ->addOrderBy('l.name', 'ASC')
         ;
         $this->addFilterSystem($qb, $system);

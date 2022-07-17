@@ -1057,7 +1057,7 @@ EOD;
     public function getListenersForSignal($signalID, array $args)
     {
         $columns = <<< EOD
-            li.id, li.gsq, li.itu, li.name, li.qth, li.sp,
+            li.id, li.primaryQth, li.gsq, li.itu, li.name, li.qth, li.sp,
             l.dxKm, l.dxMiles,
             COUNT(l.id) AS countLogs,
             MAX(l.daytime) AS daytime
@@ -1094,6 +1094,7 @@ EOD;
             l.time,
             li.id,
             li.name,
+            li.primaryQth,
             li.qth,
             li.gsq,
             li.sp,

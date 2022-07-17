@@ -62,7 +62,7 @@
     {% endif %}
             <td{%
                 if key == 'name'
-                    %} title="{{ l.primaryQth ? 'Primary Location' | trans : 'Secondary Location' | trans }}" class="{{ l.primaryQth ? 'primaryQth' : 'secondaryQth' }} {{ column.td_class }}"{%
+                    %} title="{{ l.primaryQth == 'Y' ? 'Primary Location' | trans : 'Secondary Location' | trans }}" class="{{ l.primaryQth =='Y' ? 'primaryQth' : 'secondaryQth' }} {{ column.td_class }}"{%
                 elseif column.td_class
                     %} class="{{ column.td_class }}"{%
                 endif

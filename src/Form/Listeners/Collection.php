@@ -95,12 +95,28 @@ class Collection extends Base
                 ]
             )
             ->add(
+                'loctype',
+                ChoiceType::class,
+                [
+                    'attr' =>           [ 'title' => 'Show Primary Locations, Secondary Locations or all?' ],
+                    'choices' =>        [
+                        '(All)' => '',
+                        'Primary (Home)' => 'Y',
+                        'Secondary (Other)' => 'N',
+                    ],
+                    'data' =>           $options['multiop'],
+                    'expanded' =>       true,
+                    'label' =>          'Location Type',
+                    'required' =>       false
+                ]
+            )
+            ->add(
                 'multiop',
                 ChoiceType::class,
                 [
                     'attr' =>           [ 'title' => 'Does the listening location allow for multiple operators?' ],
                     'choices' =>        [
-                        'Show all' => '',
+                        '(All)' => '',
                         'Single Operator' => 'N',
                         'Multi-Operator (e.g. Kiwi)' => 'Y',
                     ],
@@ -210,9 +226,9 @@ class Collection extends Base
                         ChoiceType::class,
                         [
                             'choices' => [
-                                'Yes (Default)' => 'Y',
+                                '(All)' => '-',
                                 'No' => 'N',
-                                'Show All' => '-'
+                                'Yes (Default)' => 'Y',
                             ],
                             'data' => $options['has_logs'],
                             'expanded' => true,
@@ -227,7 +243,7 @@ class Collection extends Base
                     ChoiceType::class,
                     [
                         'choices' =>        [
-                            'Show All (Default)' =>   '',
+                            '(All)' =>      '',
                             'No' =>         'N',
                             'Yes' =>        'Y'
                         ],

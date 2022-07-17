@@ -14,6 +14,7 @@ var LISTENERS_FORM = {
             l.setHasMapPosAction();
             l.setTimezoneAction();
             l.setMultiopAction();
+            l.setLoctypeAction();
             l.setStatusAction();
             l.setSearchforAction();
             l.setSaveAction();
@@ -78,6 +79,17 @@ var LISTENERS_FORM = {
         }
     },
 
+    setLoctypeAction : function(enable) {
+        enable = typeof enable !== 'undefined' ? enable : true;
+        if (enable) {
+            $('input[type=radio][name=\'form[loctype]\']').change(function () {
+                formSubmit();
+            });
+        } else {
+            $('input[type=radio][name=\'form[loctype]\']').off('change');
+        }
+    },
+
     setMultiopAction : function(enable) {
         enable = typeof enable !== 'undefined' ? enable : true;
         if (enable) {
@@ -108,6 +120,7 @@ var LISTENERS_FORM = {
             l.setTimezoneAction(false);
             l.setStatusAction(false);
             l.setMultiopAction(false);
+            l.setLoctypeAction(false);
             $('#form_equipment').val('');
             $('#form_notes').val('');
             $('#form_active').removeClass('inactive')
@@ -118,6 +131,7 @@ var LISTENERS_FORM = {
             $('select#form_timezone').val('ALL').selectmenu('refresh');
             $('select#form_status').prop('selectedIndex', 0);
             $('input[type=radio][name=\'form[multiop]\'][value=\'\']').prop('checked', true);
+            $('input[type=radio][name=\'form[loctype]\'][value=\'\']').prop('checked', true);
             c.setCountryAction(true);
             c.setRegionAction(true);
             l.setHasLogsAction(true);
@@ -125,6 +139,7 @@ var LISTENERS_FORM = {
             l.setTimezoneAction(true);
             l.setStatusAction(true);
             l.setMultiopAction(true);
+            l.setLoctypeAction(true);
             formSubmit();
             return false;
         })

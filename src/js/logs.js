@@ -366,7 +366,7 @@ var LOG_EDIT = {
                 "<option value='" + r[0] + "'" +
                 " data-gsq='" + r[3] + "'" +
                 " data-tz='" + r[8] + "'" +
-                " class='" + (r[4] === '1' ? 'primaryQth' : 'secondaryQth') + "'" +
+                " class='" + (r[4] === 'Y' ? 'primaryQth' : 'secondaryQth') + "'" +
                 (r[0] === s ? " selected='selected'" : '') +
                 ">" +
                 pad(r[1] + ", " + r[5] + (r[2] ? ' ' + r[2] : ''), (r[4] === '1' ? 60 : 58), '&nbsp;') +

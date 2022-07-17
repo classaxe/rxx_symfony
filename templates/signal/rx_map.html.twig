@@ -43,7 +43,7 @@ var listeners = [
 {% for l in listeners %}{'id':{{
     l.id }}, 'name':"{{
     l.name|raw }}", 'pri':{{
-    l.primaryQth ? 1 : 0 }}, 'itu':'{{
+    l.primaryQth == 'Y' ? 1 : 0 }}, 'itu':'{{
     l.itu }}', 'sp':'{{
     l.sp }}', 'x':{{
     l.mapX }}, 'y':{{

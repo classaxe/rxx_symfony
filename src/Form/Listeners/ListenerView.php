@@ -94,8 +94,8 @@ class ListenerView extends Base
                     'style' =>      "width: 6em"
                 ],
                 'choices' => [
-                    'No' =>         0,
-                    'Yes' =>        1,
+                    'No' =>         'N',
+                    'Yes' =>        'Y',
                 ],
                 'data' =>           $options['primaryQth'],
                 'expanded' =>       true,

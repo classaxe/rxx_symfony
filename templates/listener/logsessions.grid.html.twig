@@ -30,7 +30,7 @@
         {% if ((not column.admin or isAdmin) and not (key == 'operator' and not isMultiOperator)) %}
                 <td{% if column.td_class %} class="{{ column.td_class }}"{% endif %}{%
                     if key == 'listener'
-                %} title="{{ ls.primaryQth ? 'Primary Location' | trans : 'Secondary Location' | trans }}" class="{{ ls.primaryQth ? 'primaryQth' : 'secondaryQth' }} {{ column.td_class }}"{%
+                %} title="{{ ls.primaryQth == 'Y' ? 'Primary Location' | trans : 'Secondary Location' | trans }}" class="{{ ls.primaryQth ? 'primaryQth' : 'secondaryQth' }} {{ column.td_class }}"{%
                     elseif column.td_class
                 %} class="{{ column.td_class }}"{%
                     endif

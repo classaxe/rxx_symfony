@@ -69,6 +69,7 @@ class Collection extends Base
 
             'rxx_id' =>     '',
             'multiop' =>    '',
+            'primary' =>    '',
             'status' =>     '',
             'country' =>    '',
             'equipment' =>  '',

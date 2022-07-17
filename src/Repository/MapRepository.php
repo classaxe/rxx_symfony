@@ -467,7 +467,7 @@ class MapRepository
     private function ImageDrawPointList($items)
     {
         foreach($items as $i) {
-            $idx = ($i['heard'] ? 'yes' : 'no') . '_' . ($i['primaryQth'] ? 'pri' : 'sec');
+            $idx = ($i['heard'] ? 'yes' : 'no') . '_' . ($i['primaryQth'] === 'Y' ? 'pri' : 'sec');
             ImageCopyMerge($this->image, $this->images[$idx], $i['mapX']-4, $i['mapY']-4, 0, 0, 9, 9, 100);
         }
     }
