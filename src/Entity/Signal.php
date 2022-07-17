@@ -859,7 +859,8 @@ class Signal
         foreach($chars as $char) {
             $out[] = static::morse[$char] ?? '?';
         }
-        return implode(' / ', $out);
+        // Next line uses unicode thin space character - this is correct
+        return implode(' / ', $out);
     }
 
     public function loadFromArray(array $array)
