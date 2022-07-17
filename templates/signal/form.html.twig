@@ -7,7 +7,7 @@
                 {{ form_row(form._close)  }}
                 {{ form_row(form._reload_opener)  }}
                 <fieldset id="group_profile">
-                    {% if morse %}<div id="show_morse">{{ morse|raw }}</div>{% endif %}
+                    {% if morse %}<div id="show_morse"><span>{{ morse|raw }}</span></div>{% endif %}
                     <div>
                         {{ form_label(form.call) }}
                         {{ form_widget(form.call) }}
