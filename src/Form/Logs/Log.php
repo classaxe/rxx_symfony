@@ -62,7 +62,22 @@ class Log extends Base
                 [
                     'data' =>           $options['listenerId'],
                     'empty_data' =>     '',
-                    'label' =>          'Listener',
+                    'label' =>          'Listener / Loc',
+                ]
+            )
+            ->add(
+                'operatorId',
+                ChoiceType::class,
+                [
+                    'choices' => $this->listenerRepository->getOperators(
+                        '',
+                        $this->translator->trans('(None specified)'),
+                    ),
+                    'choice_translation_domain' => false,
+                    'data' =>           $options['operatorId'],
+                    'expanded' =>       false,
+                    'label' =>          'Operator:',
+                    'required' =>       false
                 ]
             )
             ->add(

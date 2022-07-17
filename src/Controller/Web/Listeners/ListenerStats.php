@@ -32,7 +32,7 @@ class ListenerStats extends Base
         $parameters = [
             'id' =>                 $id,
             '_locale' =>            $_locale,
-            'mode' =>               $listener->getName().' &gt; Stats',
+            'mode' =>               'Statistics | ' . $listener->getFormattedNameAndLocation(),
             'listener' =>           $listener,
             'system' =>             $system,
             'tabs' =>               $this->listenerRepository->getTabs($listener, $isAdmin),

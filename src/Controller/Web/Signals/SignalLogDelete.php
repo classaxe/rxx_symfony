@@ -54,6 +54,9 @@ class SignalLogDelete extends Base
 
         $this->signalRepository->updateSignalStats($log->getSignalId(), true, true);
         $this->listenerRepository->updateListenerStats($log->getListenerId());
+        if ($log->getOperatorId()) {
+            $this->listenerRepository->updateListenerStats($log->getOperatorId());
+        }
 
         $this->session->set(
             'lastMessage',

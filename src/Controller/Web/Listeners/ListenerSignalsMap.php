@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
  * Class Listeners
  * @package App\Controller\Web\Listener
  */
-class SignalsMap extends Base
+class ListenerSignalsMap extends Base
 {
     /**
      * @Route(
@@ -62,7 +62,7 @@ class SignalsMap extends Base
             'box' =>                $box,
             'center' =>             $center,
             'listener' =>           $listener,
-            'mode' =>               strToUpper($system).' Map of Signals received by '.$listener->getName(),
+            'mode' =>               strToUpper($system) . ' Map of Signals received by ' . $listener->getFormattedNameAndLocation(),
             'signals' =>            $signals,
             'system' =>             $system,
             'tabs' =>               $this->listenerRepository->getTabs($listener, $this->parameters['isAdmin']),

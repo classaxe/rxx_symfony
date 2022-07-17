@@ -160,7 +160,7 @@ class ListenerAwards extends Base
         $parameters = [
             'id' =>                 $id,
             '_locale' =>            $_locale,
-            'mode' =>               'Awards Available for '.$this->listener->getFormattedNameAndLocation(),
+            'mode' =>               'Awards Available | ' . $this->listener->getFormattedNameAndLocation(),
             'award_types' =>        $award_types,
             'awards' =>             $awards,
             'captchaErr' =>         $captchaErr,

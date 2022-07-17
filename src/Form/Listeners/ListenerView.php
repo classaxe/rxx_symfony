@@ -66,24 +66,42 @@ class ListenerView extends Base
                     'Yes' =>    'Y',
                 ],
                 'data' =>           $options['active'],
+                'expanded' =>       true,
                 'label' =>          'Active Profile',
             ]
         )
-            ->add(
-                'multiOperator',
-                ChoiceType::class,
-                [
-                    'attr' => [
-                        'style' =>      "width: 6em;margin-right: 1em"
-                    ],
-                    'choices' => [
-                        'No' =>     'N',
-                        'Yes' =>    'Y',
-                    ],
-                    'data' =>           $options['multiOperator'],
-                    'label' =>          'Multi-Operator',
-                ]
-            )
+        ->add(
+            'multiOperator',
+            ChoiceType::class,
+            [
+                'attr' => [
+                    'style' =>      "width: 6em;margin-right: 1em"
+                ],
+                'choices' => [
+                    'No' =>     'N',
+                    'Yes' =>    'Y',
+                ],
+                'data' =>           $options['multiOperator'],
+                'expanded' =>       true,
+                'label' =>          'Multi-Operator',
+            ]
+        )
+        ->add(
+            'primaryQth',
+            ChoiceType::class,
+            [
+                'attr' => [
+                    'style' =>      "width: 6em"
+                ],
+                'choices' => [
+                    'No' =>         0,
+                    'Yes' =>        1,
+                ],
+                'data' =>           $options['primaryQth'],
+                'expanded' =>       true,
+                'label' =>          'Primary Location',
+            ]
+        )
         ->add(
             'name',
             TextType::class,
@@ -163,21 +181,6 @@ class ListenerView extends Base
                 'data' =>           $options['gsq'],
                 'empty_data' =>     '',
                 'label' =>          'Grid Square',
-            ]
-        )
-        ->add(
-            'primaryQth',
-            ChoiceType::class,
-            [
-                'attr' => [
-                    'style' =>      "width: 6em"
-                ],
-                'choices' => [
-                    'Yes' =>        1,
-                    'No' =>         0,
-                ],
-                'data' =>           $options['primaryQth'],
-                'label' =>          'Primary Location',
             ]
         )
         ->add(

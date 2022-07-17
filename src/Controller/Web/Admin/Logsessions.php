@@ -119,6 +119,7 @@ class Logsessions extends Base
 
         $listenerId = $logSession->getListenerId();
         $listener = $this->listenerRepository->find($listenerId);
+        $operatorId = $logSession->getOperatorId();
 
         $args = [
             'order' =>          'd',
@@ -141,6 +142,9 @@ class Logsessions extends Base
         $em->flush();
 
         $this->listenerRepository->updateListenerStats($listenerId);
+        if ($operatorId) {
+            $this->listenerRepository->updateListenerStats($operatorId);
+        }
 
         $this->session->set(
             'lastMessage',

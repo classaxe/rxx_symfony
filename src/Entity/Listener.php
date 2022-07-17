@@ -99,6 +99,12 @@ class Listener
 
     /**
      * @var int
+     * @ORM\Column(name="count_remote_logs", type="integer", nullable=false, options={"unsigned"=true})
+     */
+    private $countRemoteLogs = 0;
+
+    /**
+     * @var int
      * @ORM\Column(name="count_signals", type="integer", nullable=false, options={"unsigned"=true})
      */
     private $countSignals = 0;
@@ -386,7 +392,7 @@ class Listener
      * @param int $countLogSessions
      * @return Listener
      */
-    public function setCountLogSesseions(int $countLogSessions): self
+    public function setCountLogSessions(int $countLogSessions): self
     {
         $this->countLogsSssions = $countLogSessions;
 
@@ -465,6 +471,25 @@ class Listener
     public function setCountTime(int $countTime): self
     {
         $this->countTime = $countTime;
+
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getCountRemoteLogs(): ?int
+    {
+        return $this->countRemoteLogs ? $this->countRemoteLogs : null;
+    }
+
+    /**
+     * @param int $countRemoteLogs
+     * @return Listener
+     */
+    public function setCountRemoteLogs(int $countRemoteLogs): self
+    {
+        $this->countRemoteLogs = $countRemoteLogs;
 
         return $this;
     }

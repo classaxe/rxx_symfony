@@ -13,6 +13,8 @@
                     <small>({% trans %}ONLY use 'No' for a Silent Key or Former Address{% endtrans %})<br></small>
                     {{ form_row(form.multiOperator) }}
                     <small>({% trans %}Use 'Yes' for a shared radio that supports multiple operators{% endtrans %})<br></small>
+                    {{ form_row(form.primaryQth) }}
+
                     {{ form_row(form.name) }}
                     {{ form_row(form.callsign) }}
                     {% if isAdmin %}
@@ -42,6 +44,7 @@
                     {{ form_row(form.qth) }}
                     {{ form_row(form.sp) }}
                     {{ form_row(form.itu) }}
+                    {{ form_row(form.timezone) }}
                     <div>
                         <label for="{{ form.gsq.vars.id }}">
                             {% if l.id != '' %}
@@ -74,12 +77,6 @@
                 </fieldset>
                 <fieldset id="group_receiving_station_details">
                     <legend>{% trans %}Receiving Station Details{% endtrans %}</legend>
-                    <div>
-                        {{ form_label(form.primaryQth) }}
-                        {{ form_widget(form.primaryQth) }}
-                        {{ form_label(form.timezone) }}
-                        {{ form_widget(form.timezone) }}
-                    </div>
                     {{ form_row(form.equipment) }}
                     {{ form_row(form.notes) }}
                 </fieldset>

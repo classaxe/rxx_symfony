@@ -1,14 +1,7 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: mfrancis
- * Date: 2018-09-03
- * Time: 04:44
- */
-
 namespace App\Columns;
 
-class ListenerLogs
+class ListenerRemoteLogs
 {
     public function getColumns()
     {
@@ -24,13 +17,13 @@ class ListenerLogs
                 'th_class'  =>  '',
                 'tooltip'   =>  '',
             ],
-            'operator' => [
+            'receiver' => [
                 'admin'     =>  false,
                 'arg'       =>  '',
-                'field'     =>  'operator',
-                'label'     =>  'Operator',
+                'field'     =>  'receiver',
+                'label'     =>  'Receiver',
                 'order'     =>  'a',
-                'sort'      =>  'op.name',
+                'sort'      =>  'receiver',
                 'td_class'  =>  '',
                 'th_class'  =>  '',
                 'tooltip'   =>  '',

@@ -200,7 +200,9 @@ EOD;
             .'l.dxKm,'
             .'l.dxMiles,'
             .'l.operatorId,'
-            .'(CASE WHEN op.name IS NULL THEN \'\' ELSE op.name END) as operator';
+            .'l.listenerId,'
+            .'(CASE WHEN op.name IS NULL THEN \'\' ELSE op.name END) as operator,'
+            .'CONCAT(li.name, \', \', li.qth, \' \', li.sp, \', \', li.itu, \' | \', li.gsq) as receiver';
 
         $qb = $this
             ->createQueryBuilder('l')
@@ -214,6 +216,11 @@ EOD;
         if (isset($args['listenerId']) && $args['listenerId'] !== '') {
             $qb ->andWhere('li.id = :listenerID')
                 ->setParameter('listenerID', $args['listenerId']);
+        }
+
+        if (isset($args['operatorId']) && $args['operatorId'] !== '') {
+            $qb ->andWhere('op.id = :operatorID')
+                ->setParameter('operatorID', $args['operatorId']);
         }
 
         if (isset($args['type']) && $args['type'] !== '') {

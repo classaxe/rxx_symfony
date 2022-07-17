@@ -12,12 +12,16 @@
                 {{ form_row(form._close) }}
                 {{ form_row(form.reload) }}
                 <div>
+                    {{ form_label(form.signalId) }}
+                    {{ form_widget(form.signalId) }}
+                </div>
+                <div>
                     {{ form_label(form.listenerId) }}
                     {{ form_widget(form.listenerId) }}
                 </div>
                 <div>
-                    {{ form_label(form.signalId) }}
-                    {{ form_widget(form.signalId) }}
+                    {{ form_label(form.operatorId) }}
+                    {{ form_widget(form.operatorId) }}
                 </div>
                 <div>
                     {{ form_label(form.dxKm) }}

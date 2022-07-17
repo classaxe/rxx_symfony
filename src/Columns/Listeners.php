@@ -325,6 +325,18 @@ class Listeners
                 'th_class' =>   'txt_vertical',
                 'tooltip' =>    'Total number of signals of all types',
             ],
+            'countRemoteLogs' => [
+                'admin' =>      false,
+                'arg' =>        '',
+                'field' =>      'countRemoteLogs',
+                'highlight' =>  false,
+                'label' =>      'Remote Logs',
+                'order' =>      'd',
+                'sort' =>       'l.countRemoteLogs',
+                'td_class' =>   'txt_r',
+                'th_class' =>   'txt_vertical',
+                'tooltip' =>    'Total number of logs via multi-operator receivers',
+            ],
             'email' => [
                 'admin' =>      true,
                 'arg' =>        '',

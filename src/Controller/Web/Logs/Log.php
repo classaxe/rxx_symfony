@@ -55,6 +55,7 @@ class Log extends WebBase
             'listenerId' => $log->getListenerId(),
             'lsb' =>        $log->getLsb(),
             'lsbApprox' =>  $log->getLsbApprox() ? true : false,
+            'operatorId' => $log->getOperatorId(),
             'region' =>     $log->getRegion(),
             'sec' =>        $log->getSec(),
             'time' =>       $log->getTime(),
@@ -70,8 +71,10 @@ class Log extends WebBase
         if ($form->isSubmitted() && $form->isValid()) {
             $data =             $form->getData();
             $oldListenerId =    $options['listenerId'];
+            $oldOperatorId =    $options['operatorId'];
             $oldSignalId =      $options['signalId'];
             $newListenerId =    $data['listenerId'];
+            $newOperatorId =    $data['operatorId'];
             $newSignalId =      $data['signalId'];
             $listener =         $this->listenerRepository->find($data['listenerId']);
             $signal =           $this->signalRepository->find($data['signalId']);
@@ -89,6 +92,7 @@ class Log extends WebBase
                 ->setListenerId($data['listenerId'])
                 ->setLsb($data['lsb']!=='' ? (int)$data['lsb'] : null)
                 ->setLsbApprox(!empty($request->request->get('form')['lsbApprox']))
+                ->setOperatorId($data['operatorId'])
                 ->setHeardIn($heardIn)
                 ->setRegion($region)
                 ->setSec($data['sec'])
@@ -100,15 +104,25 @@ class Log extends WebBase
             $em->persist($log);
             $em->flush();
 
-            $this->listenerRepository->updateListenerStats($newListenerId);
+            // Listener Stats
             if ($oldListenerId !== $newListenerId) {
                 $this->listenerRepository->updateListenerStats($oldListenerId);
             }
+            $this->listenerRepository->updateListenerStats($newListenerId);
 
-            $this->signalRepository->updateSignalStats($newSignalId, true, true);
+            // Operator Stats
+            if ($oldOperatorId !== $newOperatorId) {
+                $this->listenerRepository->updateListenerStats($oldOperatorId);
+            }
+            if ($newOperatorId) {
+                $this->listenerRepository->updateListenerStats($newOperatorId);
+            }
+
+            // Signal Stats
             if ($oldSignalId !== $newSignalId) {
                 $this->signalRepository->updateSignalStats($oldSignalId, true, true);
             }
+            $this->signalRepository->updateSignalStats($newSignalId, true, true);
 
             if ($data['_close']) {
                 $js =

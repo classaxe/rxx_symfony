@@ -232,6 +232,9 @@ class ListenerLogsUpload extends Base
                         $em->flush();
                     }
                     $this->listenerRepository->updateListenerStats($id);
+                    if ($this->operatorID) {
+                        $this->listenerRepository->updateListenerStats($this->operatorID);
+                    }
                     $this->listenerRepository->clear();
                     $user->setCountLogSession($user->getCountLogSession() + 1);
                     $user->setCountLog($user->getCountLog() + $stats['logs']);
@@ -245,7 +248,7 @@ class ListenerLogsUpload extends Base
             }
         }
         $title = sprintf(
-            $this->i18n('Upload Loggings for %s | Step %d'),
+            $this->i18n('Upload Logs | %s | Step %d'),
             $this->listener->getFormattedNameAndLocation(),
             $step
         );

@@ -74,7 +74,7 @@ class ListenerSignals extends Base
             'form' =>               $form->createView(),
             '_locale' =>            $_locale,
             'matched' =>            'of '.$options['total'].' signals',
-            'mode' =>               'Signals received by '.$listener->getFormattedNameAndLocation(),
+            'mode' =>               'Signals | ' . $listener->getFormattedNameAndLocation(),
             'results' => [
                 'limit' =>              isset($args['limit']) ? $args['limit'] : static::defaultlimit,
                 'page' =>               isset($args['page']) ? $args['page'] : 0,

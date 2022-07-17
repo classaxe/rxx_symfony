@@ -75,6 +75,8 @@
                     %}{% if l.countLogs %}<a href="{{ url('listener_logs', { 'system' : system, 'id' : l.ID }) }}" data-popup="1">{{ value }}</a>{% endif %}{%
                 elseif key == 'countLogSessions'
                     %}{% if l.countLogSessions %}<a href="{{ url('listener_logsessions', { 'system' : system, 'id' : l.ID }) }}" data-popup="1">{{ value }}</a>{% endif %}{%
+                elseif key == 'countRemoteLogs'
+                    %}{% if l.countRemoteLogs %}<a href="{{ url('listener_remote_logs', { 'system' : system, 'id' : l.ID }) }}" data-popup="1">{{ value }}</a>{% endif %}{%
                 elseif key == 'countSignals'
                     %}{% if l.countSignals %}<a href="{{ url('listener_signals', { 'system' : system, 'id' : l.ID }) }}" data-popup="1">{{ value }}</a>{% endif %}{%
                 elseif key == 'gsq'

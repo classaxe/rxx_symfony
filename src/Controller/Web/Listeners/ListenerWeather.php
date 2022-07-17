@@ -93,7 +93,7 @@ class ListenerWeather extends Base
             'fieldGroups' =>        $listenerWeatherForm->getFieldGroups(),
             'form' =>               $form->createView(),
             '_locale' =>            $_locale,
-            'mode' =>               $listener->getName().' &gt; Weather',
+            'mode' =>               'Local Weather | ' . $listener->getFormattedNameAndLocation(),
             'system' =>             $system,
             'tabs' =>               $this->listenerRepository->getTabs($listener, $isAdmin),
             'weather' =>            $weather

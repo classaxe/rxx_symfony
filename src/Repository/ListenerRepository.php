@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Columns\ListenerLogs as ListenerLogsColumns;
 use App\Columns\ListenerLogsessions as ListenerLogsessionsColumns;
+use App\Columns\ListenerRemoteLogs as ListenerRemoteLogsColumns;
 use App\Columns\ListenerSignals as ListenerSignalsColumns;
 use App\Entity\Listener;
 use App\Entity\LogSession;
@@ -46,9 +47,22 @@ class ListenerRepository extends ServiceEntityRepository
     private $listenerLogsessionsColumns;
     private $listenerSignalsColumns;
     private $logRepository;
+    private $listenerRemoteLogsColumns;
     private $logsessionRepository;
     private $regionRepository;
 
+    /**
+     * @param Connection $connection
+     * @param RegionRepository $regionRepository
+     * @param ManagerRegistry $registry
+     * @param ListenersColumns $listenersColumns
+     * @param ListenerLogsColumns $listenerLogsColumns
+     * @param ListenerLogsessionsColumns $listenerLogsessionsColumns
+     * @param ListenerRemoteLogsColumns $listenerRemoteLogsColumns
+     * @param ListenerSignalsColumns $listenerSignalsColumns
+     * @param LogRepository $logRepository
+     * @param LogsessionRepository $logsessionRepository
+     */
     public function __construct(
         Connection $connection,
         RegionRepository $regionRepository,
@@ -56,6 +70,7 @@ class ListenerRepository extends ServiceEntityRepository
         ListenersColumns $listenersColumns,
         ListenerLogsColumns $listenerLogsColumns,
         ListenerLogsessionsColumns $listenerLogsessionsColumns,
+        ListenerRemoteLogsColumns $listenerRemoteLogsColumns,
         ListenerSignalsColumns $listenerSignalsColumns,
         LogRepository $logRepository,
         LogsessionRepository $logsessionRepository
@@ -65,6 +80,7 @@ class ListenerRepository extends ServiceEntityRepository
         $this->listenersColumns = $listenersColumns->getColumns();
         $this->listenerLogsColumns = $listenerLogsColumns->getColumns();
         $this->listenerLogsessionsColumns = $listenerLogsessionsColumns->getColumns();
+        $this->listenerRemoteLogsColumns = $listenerRemoteLogsColumns->getColumns();
         $this->listenerSignalsColumns = $listenerSignalsColumns->getColumns();
         $this->logRepository = $logRepository;
         $this->logsessionRepository = $logsessionRepository;
@@ -365,16 +381,14 @@ class ListenerRepository extends ServiceEntityRepository
         switch ($mode) {
             case 'listeners':
                 return $this->listenersColumns;
-                break;
             case 'logs':
                 return $this->listenerLogsColumns;
-                break;
             case 'logsessions':
                 return $this->listenerLogsessionsColumns;
-                break;
+            case 'remotelogs':
+                return $this->listenerRemoteLogsColumns;
             case 'signals':
                 return $this->listenerSignalsColumns;
-                break;
         }
         return false;
     }
@@ -952,6 +966,7 @@ UPDATE
 SET    
     count_logs =        (SELECT COUNT(*) FROM logs WHERE logs.listenerId = l.id),
     count_logsessions = (SELECT COUNT(*) FROM log_sessions WHERE log_sessions.listenerId = l.id),
+    count_remote_logs = (SELECT COUNT(*) FROM logs WHERE logs.operatorId = l.id),
     count_signals =     (SELECT COUNT(DISTINCT signalId) FROM logs WHERE logs.listenerId = l.id),
     count_NDB =         (SELECT COUNT(DISTINCT signalId) FROM logs INNER JOIN signals s ON logs.signalId = s.id AND s.type = 0 WHERE logs.listenerId = l.id),
     count_DGPS =        (SELECT COUNT(DISTINCT signalId) FROM logs INNER JOIN signals s ON logs.signalId = s.id AND s.type = 1 WHERE logs.listenerId = l.id),
@@ -1023,9 +1038,13 @@ EOD;
         $em = $this->logsessionRepository->getEntityManager();
         if ($stats['setFirstLog'] === null) {
             $listenerId = $logSession->getListenerId();
+            $operatorId = $logSession->getOperatorId();
             $em->remove($logSession);
             $em->flush();
             $this->updateListenerStats($listenerId);
+            if ($operatorId) {
+                $this->updateListenerStats($operatorId);
+            }
             return;
         }
         if (is_bool(DateTime::createFromFormat('Y-m-d H:i:s', $stats['setFirstLog']))) {

@@ -73,15 +73,13 @@ class ListenerLocatorMap extends Base
             return $this->redirectToRoute('listener_locatormap', ['system' => $system, 'id' => $id]);
         }
 
-        $i18n =     $this->translator;
-        $title =    $i18n->trans('Locator Map for %s');
         $parameters = [
             '_locale' =>            $_locale,
             'form' =>               $form->createView(),
             'id' =>                 $id,
             'l' =>                  $listener,
             'map' =>                $map,
-            'mode' =>               sprintf($title, $listener->getFormattedNameAndLocation()),
+            'mode' =>               'Locator Map | ' . $listener->getFormattedNameAndLocation(),
             'system' =>             $system,
             'tabs' =>               $this->listenerRepository->getTabs($listener, $isAdmin),
         ];

@@ -32,9 +32,6 @@ class ListenerMap extends Base
         $system,
         $id
     ) {
-        $i18n =     $this->translator;
-        $title =    $i18n->trans('Map for %s (GSQ: %s)');
-
         if ((int) $id) {
             if (!$listener = $this->getValidListener($id)) {
                 return $this->redirectToRoute('listeners', ['system' => $system]);
@@ -49,7 +46,7 @@ class ListenerMap extends Base
             '_locale' =>            $_locale,
             'lat' =>                $listener->getLat(),
             'lon' =>                $listener->getLon(),
-            'mode' =>               sprintf($title, $listener->getFormattedNameAndLocation(), $listener->getGsq()),
+            'mode' =>               'Map | ' . $listener->getFormattedNameAndLocation(),
             'system' =>             $system,
             'tabs' =>               $this->listenerRepository->getTabs($listener, $isAdmin),
         ];

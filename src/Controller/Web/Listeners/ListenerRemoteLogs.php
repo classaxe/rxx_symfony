@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
  * Class Listeners
  * @package App\Controller\Web
  */
-class ListenerLogs extends Base
+class ListenerRemoteLogs extends Base
 {
     const defaultlimit =     1000;
     const defaultSorting =  'logDate';
@@ -19,12 +19,12 @@ class ListenerLogs extends Base
 
     /**
      * @Route(
-     *     "/{_locale}/{system}/listeners/{id}/logs",
+     *     "/{_locale}/{system}/listeners/{id}/remotelogs",
      *     requirements={
      *        "_locale": "de|en|es|fr",
      *        "system": "reu|rna|rww"
      *     },
-     *     name="listener_logs"
+     *     name="listener_remote_logs"
      * )
      * @param $_locale
      * @param $system
@@ -50,7 +50,7 @@ class ListenerLogs extends Base
             'order' =>          static::defaultOrder,
             'page' =>           0,
             'sort' =>           static::defaultSorting,
-            'total' =>          $listener->getCountLogs()
+            'total' =>          $listener->getCountRemoteLogs()
         ];
         $form = $form->buildForm($this->createFormBuilder(), $options);
         $form->handleRequest($request);
@@ -64,8 +64,8 @@ class ListenerLogs extends Base
         if ($form->isSubmitted() && $form->isValid()) {
             $args = $form->getData();
         }
-        $args['listenerId'] =   $id;
-        $columns = $this->listenerRepository->getColumns('logs');
+        $args['operatorId'] =   $id;
+        $columns = $this->listenerRepository->getColumns('remotelogs');
         $logs = $this->logRepository->getLogs($args, $columns);
 
         $parameters = [
@@ -76,7 +76,7 @@ class ListenerLogs extends Base
             '_locale' =>            $_locale,
             'isMultiOperator' =>    ($listener->getMultiOperator() === 'Y'),
             'matched' =>            'of '.$options['total']. ' log records.',
-            'mode' =>               'Logs | ' . $listener->getFormattedNameAndLocation(),
+            'mode' =>               'Remote Logs | '.$listener->getFormattedNameAndLocation(),
             'logs' =>               $logs,
             'results' => [
                 'limit' =>              isset($args['limit']) ? $args['limit'] : static::defaultlimit,
@@ -87,6 +87,6 @@ class ListenerLogs extends Base
             'tabs' =>               $this->listenerRepository->getTabs($listener, $isAdmin),
             'typeRepository' =>     $this->typeRepository
         ];
-        return $this->render('listener/logs.html.twig', $this->getMergedParameters($parameters));
+        return $this->render('listener/remotelogs.html.twig', $this->getMergedParameters($parameters));
     }
 }

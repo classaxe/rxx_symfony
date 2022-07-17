@@ -6,7 +6,7 @@
         <div class="controlPanel {{ form_class }}">
             <div class="header">{{ mode|raw }}</div>
             <div class="content">
-                <h2>{% trans %}Signal Statistics{% endtrans %}</h2>
+                <h2>{% trans %}Signal Statistics (Excludes Remote Loggings){% endtrans %}</h2>
                 <div class="stats">
                     {% for type,data in typeRepository.all %}
                         {% set idx = "count" ~ data.class|capitalize %}
@@ -23,8 +23,10 @@
                 <h2>{% trans %}Log Statistics{% endtrans %}</h2>
                 <div class="stats">
                     <div class="signal_stat">
-                        <label class="type_all">{% trans %}Total Logs{% endtrans %}:</label>
+                        <label class="">{% trans %}Total Logs{% endtrans %}:</label>
                         <div>{{ listener.countLogs|number_format  }}</div>
+                        <label class="">{% trans %}Total Remote Logs{% endtrans %}:</label>
+                        <div>{{ listener.countRemoteLogs|number_format  }}</div>
                     </div>
                 </div>
             </div>

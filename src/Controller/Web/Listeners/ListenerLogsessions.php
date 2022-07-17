@@ -76,7 +76,7 @@ class ListenerLogsessions extends Base
             '_locale' =>            $_locale,
             'isMultiOperator' =>    ($listener->getMultiOperator() === 'Y'),
             'matched' =>            'of '.$options['total']. ' log sessions.',
-            'mode' =>               'Log Sessions Uploaded for '.$listener->getFormattedNameAndLocation(),
+            'mode' =>               'Log Sessions | '.$listener->getFormattedNameAndLocation(),
             'logsessions' =>        $logSessions,
             'results' => [
                 'limit' =>              isset($args['limit']) ? $args['limit'] : static::defaultlimit,
@@ -191,6 +191,9 @@ class ListenerLogsessions extends Base
                 $em->remove($log);
                 $em->flush();
                 $this->signalRepository->updateSignalStats($logRecord['id'], true, true);
+                if ($logRecord['operatorId']) {
+                    $this->listenerRepository->updateListenerStats($logRecord['operatorId']);
+                }
             }
         }
         $em->remove($logSession);

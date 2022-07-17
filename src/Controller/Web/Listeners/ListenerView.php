@@ -141,7 +141,7 @@ class ListenerView extends Base
             'id' =>                 $id,
             'form' =>               $form->createView(),
             'l' =>                  $listener,
-            'mode' =>               ($isAdmin && !$id ? 'Add Listener' : $listener->getName().' &gt; Profile'),
+            'mode' =>               ($isAdmin && !$id ? 'Add Listener' : 'Profile | ' . $listener->getFormattedNameAndLocation()),
             'system' =>             $system,
             'tabs' =>               $this->listenerRepository->getTabs($listener, $isAdmin),
         ];
