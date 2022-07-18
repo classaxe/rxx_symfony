@@ -60,14 +60,18 @@
             {% set value = value | ireplace({ (repl) : '<em>' ~ repl|upper ~ '</em>' }) %}
         {% endfor %}
     {% endif %}
-            <td{%
-                if key == 'name'
-                    %} title="{{ l.primaryQth == 'Y' ? 'Primary Location' | trans : 'Secondary Location' | trans }}" class="{{ l.primaryQth =='Y' ? 'primaryQth' : 'secondaryQth' }} {{ column.td_class }}"{%
-                elseif column.td_class
-                    %} class="{{ column.td_class }}"{%
-                endif
-            %}>{%
-                if key == 'name'
+            <td{% if key == 'name'
+                %} title="{{ l.primaryQth == 'Y' ? 'Primary Location' | trans : 'Secondary Location' | trans }}"{% endif
+            %} class="{%
+                if (key == 'name')
+            %}{{ l.primaryQth =='Y' ? 'primaryQth' : 'secondaryQth' }} {% endif %}{%
+                if column.td_class
+            %}{{ column.td_class }} {% endif %}{%
+                if (key == 'active' or key == 'primaryQth' or key == 'multiOperator')
+            %} tf_{{ value }} {% endif %}{%
+                if (key == 'id')
+            %} rxx_id{% endif %}">{%
+                if (key == 'id' or key == 'name')
                     %}<a href="{{ url('listener', { 'system' : system, 'id' : l.ID }) }}" data-popup="1">{{ value|raw }}</a>{%
                 elseif key == 'callsign'
                     %}{% if l.callsign %}<a href="https://hamcall.net/call?callsign={{ l.callsign }}" rel="external">{{ value|raw }}</a>{% endif %}{%

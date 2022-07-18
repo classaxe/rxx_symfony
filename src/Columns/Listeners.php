@@ -21,7 +21,7 @@ class Listeners
                 'label' =>      'RXX ID',
                 'order' =>      'a',
                 'sort' =>       'l.id',
-                'td_class' =>   'rowspan2',
+                'td_class' =>   'rowspan2 txt_r',
                 'th_class' =>   'txt_vertical rowspan2',
                 'tooltip' =>    '',
             ],

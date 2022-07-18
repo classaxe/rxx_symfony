@@ -175,13 +175,13 @@ class ListenerRepository extends ServiceEntityRepository
         if (empty($args['equipment'])) {
             return;
         }
-        $equipment_entries = explode(' ', $args['equipment']);
+        $entries = explode(' ', $args['equipment']);
         $options = [];
-        foreach($equipment_entries as $idx => $ee) {
+        foreach($entries as $idx => $ee) {
             $options[] = 'l.equipment like :equipment_' . $idx;
         }
         $qb->andWhere('(' . implode(' AND ', $options) . ')');
-        foreach($equipment_entries as $idx => $ee) {
+        foreach($entries as $idx => $ee) {
             $qb->setParameter('equipment_'.$idx, '%' . $ee . '%');
         }
     }
@@ -282,6 +282,22 @@ class ListenerRepository extends ServiceEntityRepository
             case 'Y':
                 $qb->andWhere('(l.multiOperator = \'Y\')');
                 break;
+        }
+    }
+
+    private function addFilterNotes(&$qb, $args)
+    {
+        if (empty($args['notes'])) {
+            return;
+        }
+        $entries = explode(' ', $args['notes']);
+        $options = [];
+        foreach($entries as $idx => $ee) {
+            $options[] = 'l.notes like :notes_' . $idx;
+        }
+        $qb->andWhere('(' . implode(' AND ', $options) . ')');
+        foreach($entries as $idx => $ee) {
+            $qb->setParameter('notes_'.$idx, '%' . $ee . '%');
         }
     }
 
@@ -633,6 +649,7 @@ EOD;
         $this->addFilterStatus($qb, $args);
         $this->addFilterMultiop($qb, $args);
         $this->addFilterEquipment($qb, $args);
+        $this->addFilterNotes($qb, $args);
         $this->addFilterRxxId($qb, $args);
 
         if (isset($args['show']) && $args['show'] === 'map') {
@@ -712,6 +729,7 @@ EOD;
         $this->addFilterStatus($qb, $args);
         $this->addFilterMultiop($qb, $args);
         $this->addFilterEquipment($qb, $args);
+        $this->addFilterNotes($qb, $args);
         $this->addFilterRxxId($qb, $args);
         return $qb->getQuery()->getSingleScalarResult();
     }
