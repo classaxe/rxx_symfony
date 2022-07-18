@@ -69,6 +69,7 @@ class ListenerLogsUpload extends Base
         ];
         $stats = [
             'duplicates' => 0,
+            'grouped' => 0,
             'first_for_listener' => 0,
             'first_for_place' => 0,
             'latest_for_signal' => 0,
@@ -159,9 +160,18 @@ class ListenerLogsUpload extends Base
                     $firstLog = null;
                     $lastLog = null;
                     foreach($this->entries as $e) {
-                        if ($this->logRepository->checkIfDuplicate($e['signalID'], $id, $e['YYYYMMDD'], $e['time'])) {
-                            $stats['duplicates']++;
-                            continue;
+                        $isPresent = false;
+                        if ($row = $this->logRepository->findDuplicate($e['signalID'], $id, $e['YYYYMMDD'], $e['time'])) {
+                            if ($this->operatorID === $row['operatorID']) {
+                                $stats['duplicates']++;
+                            } else {
+                                $log = $this->logRepository->find($row['ID']);
+                                $log->setLogSessionId($logSessionID)
+                                    ->setOperatorId($this->operatorID);
+                                $this->getDoctrine()->getManager()->flush();
+                                $stats['grouped']++;
+                            }
+                            $isPresent = true;
                         }
                         $stats['logs']++;
                         $type = $this->typeRepository->getTypeForCode($e['type']);
@@ -190,26 +200,28 @@ class ListenerLogsUpload extends Base
                             $e['time']
                         );
                         $stats['latest_for_signal'] += ($e['latest'] ? 1 : 0);
-                        $this->logRepository->addLog(
-                            $logSessionID,
-                            $e['signalID'],
-                            $id,
-                            ($this->operatorID ? $this->operatorID : null),
-                            $heardIn,
-                            $region,
-                            $e['YYYYMMDD'],
-                            $e['time'],
-                            $e['daytime'],
-                            $e['dx_km'],
-                            $e['dx_miles'],
-                            $e['LSB_approx'],
-                            $e['LSB'],
-                            $e['USB_approx'],
-                            $e['USB'],
-                            $e['fmt'],
-                            $e['sec']
-                        );
-                        $this->signalRepository->updateSignalStats($e['signalID'], $e['latest']);
+                        if (!$isPresent) {
+                            $this->logRepository->addLog(
+                                $logSessionID,
+                                $e['signalID'],
+                                $id,
+                                ($this->operatorID ? $this->operatorID : null),
+                                $heardIn,
+                                $region,
+                                $e['YYYYMMDD'],
+                                $e['time'],
+                                $e['daytime'],
+                                $e['dx_km'],
+                                $e['dx_miles'],
+                                $e['LSB_approx'],
+                                $e['LSB'],
+                                $e['USB_approx'],
+                                $e['USB'],
+                                $e['fmt'],
+                                $e['sec']
+                            );
+                            $this->signalRepository->updateSignalStats($e['signalID'], $e['latest']);
+                        }
                     }
                     $logSession = $this->logsessionRepository->find($logSessionID);
                     $em = $this->getDoctrine()->getManager();
@@ -252,8 +264,9 @@ class ListenerLogsUpload extends Base
             $this->listener->getFormattedNameAndLocation(),
             $step
         );
-        $form_logs_height =
-            420 - ($this->errors ? 90 + (23 * count($this->errors)) : 0) - ($this->logHas && $this->logHas['partial'] ? 28 : 0);
+        $form_logs_height = 420
+            - ($this->errors ? 90 + (23 * count($this->errors)) : 0)
+            - ($this->logHas && $this->logHas['partial'] ? 28 : 0);
 
         if ('UNSET' !== $selected) {
             $_sels = explode(',', $selected);

@@ -7,6 +7,7 @@ use App\Utils\Rxx;
 use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\DBAL\Driver\Connection;
+use Doctrine\DBAL\FetchMode;
 use Doctrine\Persistence\ManagerRegistry;
 use PDO;
 
@@ -531,11 +532,13 @@ EOD;
         return (is_numeric($value) && (int)$value < 2400 ? $value : "!$value");
     }
 
-    public function checkIfDuplicate($signalID, $listenerID, $YYYYMMDD, $hhmm = false)
+    public function findDuplicate($signalID, $listenerID, $YYYYMMDD, $hhmm = false)
     {
         $sql = <<< EOD
             SELECT
-                `ID`
+                `ID`,
+                `logSessionID`,
+                `operatorID`
             FROM
                 `logs`
             WHERE
@@ -554,7 +557,7 @@ EOD;
         }
         $stmt = $this->connection->prepare($sql);
         $stmt->execute($params);
-        return $stmt->fetchColumn();
+        return $stmt->fetchAssociative();
     }
 
     public function checkIfHeardAtPlace($signalID, $heardIn)
