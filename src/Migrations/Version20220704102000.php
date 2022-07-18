@@ -11,7 +11,7 @@ final class Version20220704102000 extends AbstractMigration
 {
     public function getDescription() : string
     {
-        return '';
+        return 'Added \'active\' flag for listeners who have retired or died';
     }
 
     public function up(Schema $schema) : void

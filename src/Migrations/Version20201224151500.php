@@ -14,7 +14,7 @@ final class Version20201224151500 extends AbstractMigration
 {
     public function getDescription() : string
     {
-        return '';
+        return 'Added \'first_log\' and \'last_log\' for log_sessions';
     }
 
     public function up(Schema $schema) : void

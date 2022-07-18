@@ -14,7 +14,7 @@ final class Version20201226203000 extends AbstractMigration
 {
     public function getDescription() : string
     {
-        return '';
+        return 'Added \'logsession_latest\' for listeners and signal type count columns for log_sessions';
     }
 
     public function up(Schema $schema) : void

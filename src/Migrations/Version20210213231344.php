@@ -14,7 +14,7 @@ final class Version20210213231344 extends AbstractMigration
 {
     public function getDescription() : string
     {
-        return '';
+        return 'Updated logs to use char value of \'\' or \'~\' for LSB_approx and USB_approx';
     }
 
     public function up(Schema $schema) : void

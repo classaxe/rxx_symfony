@@ -14,7 +14,7 @@ final class Version20201228090000 extends AbstractMigration
 {
     public function getDescription() : string
     {
-        return '';
+        return 'Added more settings for CLE editor for filtering';
     }
 
     public function up(Schema $schema) : void

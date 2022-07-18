@@ -7,14 +7,11 @@ namespace App\Migrations;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
 
-/**
- * Auto-generated Migration: Please modify to your needs!
- */
 final class Version20200927095646 extends AbstractMigration
 {
     public function getDescription() : string
     {
-        return '';
+        return 'Added index \'idx_region\' for logs';
     }
 
     public function up(Schema $schema) : void

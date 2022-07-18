@@ -14,7 +14,7 @@ final class Version20201221093000 extends AbstractMigration
 {
     public function getDescription() : string
     {
-        return '';
+        return 'Added Log Sessions support for logs';
     }
 
     public function up(Schema $schema) : void

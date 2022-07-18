@@ -154,7 +154,7 @@ class ListenerLogsUpload extends Base
                         new DateTime(),
                         $user->getId(),
                         $this->listener->getId(),
-                        ($this->operatorID ? $this->operatorID : null)
+                        ($this->operatorID ? (int)$this->operatorID : null)
                     );
 
                     $firstLog = null;
@@ -167,7 +167,7 @@ class ListenerLogsUpload extends Base
                             } else {
                                 $log = $this->logRepository->find($row['ID']);
                                 $log->setLogSessionId($logSessionID)
-                                    ->setOperatorId($this->operatorID);
+                                    ->setOperatorId($this->operatorID ? (int)$this->operatorID : null);
                                 $this->getDoctrine()->getManager()->flush();
                                 $stats['grouped']++;
                             }

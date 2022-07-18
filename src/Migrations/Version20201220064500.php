@@ -14,7 +14,7 @@ final class Version20201220064500 extends AbstractMigration
 {
     public function getDescription() : string
     {
-        return '';
+        return 'Dropped \'heard_in_rna\' column and index from signals';
     }
 
     public function up(Schema $schema) : void
