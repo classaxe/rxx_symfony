@@ -96,7 +96,7 @@ class ListenerLogsUpload extends Base
             $format =       $data['format'];
             $this->logs =   $data['logs'];
             $this->operatorID = $data['operatorID'];
-            $this->operator = $this->getValidListener($this->operatorID);
+            $this->operator = ($this->operatorID ? $this->getValidListener($this->operatorID) : null);
             $selected =     $data['selected'];
             $this->errors = [];
             $this->logRepository->parseFormat($format, $this->tokens, $this->errors, $this->logHas);
@@ -240,6 +240,8 @@ class ListenerLogsUpload extends Base
                             ->setLogsNdb($stats['logs_ndb'])
                             ->setLogsOther($stats['logs_other'])
                             ->setLogsTime($stats['logs_time'])
+                            ->setUploadStatus('Uploaded')
+                            ->setUploadPercent(100)
                         ;
                         $em->flush();
                     } else {

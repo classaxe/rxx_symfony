@@ -13,9 +13,10 @@ use Doctrine\ORM\Mapping as ORM;
  *     name="log_sessions",
  *     indexes={
  *          @ORM\Index(name="idx_administratorID", columns={"administratorID"}),
+ *          @ORM\Index(name="idx_listenerID", columns={"listenerID"}),
  *          @ORM\Index(name="idx_logs", columns={"logs"}),
- *          @ORM\Index(name="idx_timestamp", columns={"timestamp"}),
- *          @ORM\Index(name="idx_listenerID", columns={"listenerID"})
+ *          @ORM\Index(name="idx_operatorID", columns={"operatorID"}),
+ *          @ORM\Index(name="idx_timestamp", columns={"timestamp"})
  *     }
  * )
  * @ORM\Entity
@@ -134,6 +135,34 @@ class LogSession
      * @ORM\Column(name="operatorID", type="integer", nullable=true, options={"unsigned"=true})
      */
     private $operatorId;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="upload_batch", type="text", length=4294967295, nullable=true)
+     */
+    private $uploadBatch;
+
+    /**
+     * @var int|null
+     *
+     * @ORM\Column(name="upload_percent", type="integer", options={"unsigned"=true})
+     */
+    private $uploadPercent;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="upload_result", type="text", length=65535, nullable=true)
+     */
+    private $uploadResult;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="upload_status", type="string", columnDefinition="enum('Pending', 'Processing', 'Uploaded')")
+     */
+    private $uploadStatus;
 
     /**
      * @return int|null
@@ -424,6 +453,82 @@ class LogSession
     public function setOperatorId(?int $operatorId): self
     {
         $this->operatorId = $operatorId;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getUploadBatch(): ?string
+    {
+        return $this->uploadBatch;
+    }
+
+    /**
+     * @param string|null $uploadBatch
+     * @return $this
+     */
+    public function setUploadBatch(?string $uploadBatch): self
+    {
+        $this->uploadBatch = $uploadBatch;
+
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getUploadPercent(): ?int
+    {
+        return $this->uploadPercent;
+    }
+
+    /**
+     * @param int|null $uploadPercent
+     * @return $this
+     */
+    public function setUploadPercent(?int $uploadPercent): self
+    {
+        $this->uploadPercent = $uploadPercent;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getUploadResult(): ?string
+    {
+        return $this->uploadResult;
+    }
+
+    /**
+     * @param string|null $uploadResult
+     * @return $this
+     */
+    public function setUploadResult(?string $uploadResult): self
+    {
+        $this->uploadResult = $uploadResult;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getUploadStatus(): ?string
+    {
+        return $this->uploadStatus;
+    }
+
+    /**
+     * @param string|null $uploadStatus
+     * @return $this
+     */
+    public function setUploadStatus(?string $uploadStatus): self
+    {
+        $this->uploadStatus = $uploadStatus;
 
         return $this;
     }
