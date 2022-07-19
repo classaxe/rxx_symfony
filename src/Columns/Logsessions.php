@@ -46,6 +46,17 @@ class Logsessions
                 'th_class'  =>  '',
                 'tooltip'   =>  '',
             ],
+            'comment' => [
+                'admin'     =>  false,
+                'arg'       =>  '',
+                'field'     =>  'comment',
+                'label'     =>  'Comment',
+                'order'     =>  'a',
+                'sort'      =>  'comment',
+                'td_class'  =>  '',
+                'th_class'  =>  '',
+                'tooltip'   =>  '',
+            ],
             'listener' => [
                 'admin'     =>  false,
                 'arg'       =>  '',

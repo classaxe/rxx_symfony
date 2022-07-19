@@ -48,14 +48,16 @@ class LogsessionRepository extends ServiceEntityRepository
         $timestamp,
         $administratorID,
         $listenerID,
-        $operatorID
+        $operatorID,
+        $comment
     ) {
         $logsession = new LogSession();
         $logsession
             ->setTimestamp($timestamp)
             ->setAdministratorId($administratorID)
             ->setListenerId($listenerID)
-            ->setOperatorId($operatorID);
+            ->setOperatorId($operatorID)
+            ->setComment($comment);
         $this->getEntityManager()->persist($logsession);
         $this->getEntityManager()->flush();
         return $logsession->getId();
@@ -90,6 +92,7 @@ class LogsessionRepository extends ServiceEntityRepository
             . 'ls.logsOther,'
             . 'ls.logsTime,'
             . 'ls.operatorId,'
+            . 'ls.comment,'
             . '(CASE WHEN op.name IS NULL THEN \'\' ELSE op.name END) as operator';
 
         $qb = $this
@@ -102,8 +105,14 @@ class LogsessionRepository extends ServiceEntityRepository
 
         if (isset($args['listenerId']) && $args['listenerId'] !== '') {
             $qb
-                ->andWhere('li.id = :listenerID')
+                ->andWhere('ls.listenerId = :listenerID')
                 ->setParameter('listenerID', $args['listenerId']);
+        }
+
+        if (isset($args['operatorId']) && $args['operatorId'] !== '') {
+            $qb
+                ->andWhere('ls.operatorId = :operatorId')
+                ->setParameter('operatorId', $args['operatorId']);
         }
 
         if (isset($args['limit']) && (int)$args['limit'] !== -1 && isset($args['page'])) {

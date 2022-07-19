@@ -64,6 +64,7 @@ class ListenerLogsUpload extends Base
             'step' =>       $step,
             'selected' =>   $selected,
             'format' =>     $format,
+            'comment' =>    '',
             'system' =>     $system,
             'operatorID' => $this->operatorID
         ];
@@ -100,9 +101,10 @@ class ListenerLogsUpload extends Base
             $this->errors = [];
             $this->logRepository->parseFormat($format, $this->tokens, $this->errors, $this->logHas);
 
-            $YYYY = $this->logHas['YYYY'] ? '' : $data['YYYY'];
-            $MM =   $this->logHas['MM']   ? '' : $data['MM'];
-            $DD =   $this->logHas['DD']   ? '' : $data['DD'];
+            $YYYY =     $this->logHas['YYYY'] ? '' : $data['YYYY'];
+            $MM =       $this->logHas['MM']   ? '' : $data['MM'];
+            $DD =       $this->logHas['DD']   ? '' : $data['DD'];
+            $comment =  $data['comment'];
 
             switch ($step) {
                 case '1b':
@@ -154,7 +156,8 @@ class ListenerLogsUpload extends Base
                         new DateTime(),
                         $user->getId(),
                         $this->listener->getId(),
-                        ($this->operatorID ? (int)$this->operatorID : null)
+                        ($this->operatorID ? (int)$this->operatorID : null),
+                        $comment
                     );
 
                     $firstLog = null;

@@ -8,7 +8,7 @@
 
 namespace App\Columns;
 
-class ListenerLogsessions
+class ListenerRemoteLogsessions
 {
     public function getColumns()
     {
@@ -24,13 +24,13 @@ class ListenerLogsessions
                 'th_class'  =>  '',
                 'tooltip'   =>  '',
             ],
-            'firstLog' => [
+            'timestamp' => [
                 'admin'     =>  false,
                 'arg'       =>  '',
-                'field'     =>  'firstLog',
-                'label'     =>  'First Log date',
+                'field'     =>  'timestamp',
+                'label'     =>  'Uploaded Date',
                 'order'     =>  'd',
-                'sort'      =>  'ls.firstLog',
+                'sort'      =>  'ls.timestamp',
                 'td_class'  =>  '',
                 'th_class'  =>  '',
                 'tooltip'   =>  '',
@@ -64,6 +64,17 @@ class ListenerLogsessions
                 'label'     =>  'Operator',
                 'order'     =>  'a',
                 'sort'      =>  'op.name',
+                'td_class'  =>  '',
+                'th_class'  =>  '',
+                'tooltip'   =>  '',
+            ],
+            'receiver' => [
+                'admin'     =>  false,
+                'arg'       =>  '',
+                'field'     =>  'listener',
+                'label'     =>  'Receiver',
+                'order'     =>  'a',
+                'sort'      =>  'listener',
                 'td_class'  =>  '',
                 'th_class'  =>  '',
                 'tooltip'   =>  '',
@@ -156,6 +167,17 @@ class ListenerLogsessions
                 'th_class'  =>  'txt_vertical',
                 'tooltip'   =>  'Number of other station logs processed',
             ],
+            'firstLog' => [
+                'admin'     =>  false,
+                'arg'       =>  '',
+                'field'     =>  'firstLog',
+                'label'     =>  'First Log date',
+                'order'     =>  'd',
+                'sort'      =>  'ls.firstLog',
+                'td_class'  =>  '',
+                'th_class'  =>  '',
+                'tooltip'   =>  '',
+            ],
             'lastLog' => [
                 'admin'     =>  false,
                 'arg'       =>  '',
@@ -163,17 +185,6 @@ class ListenerLogsessions
                 'label'     =>  'Last Log Date',
                 'order'     =>  'd',
                 'sort'      =>  'ls.lastLog',
-                'td_class'  =>  '',
-                'th_class'  =>  '',
-                'tooltip'   =>  '',
-            ],
-            'timestamp' => [
-                'admin'     =>  false,
-                'arg'       =>  '',
-                'field'     =>  'timestamp',
-                'label'     =>  'Uploaded Date',
-                'order'     =>  'd',
-                'sort'      =>  'ls.timestamp',
                 'td_class'  =>  '',
                 'th_class'  =>  '',
                 'tooltip'   =>  '',

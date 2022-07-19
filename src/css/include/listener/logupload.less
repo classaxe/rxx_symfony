@@ -70,6 +70,7 @@
                 float: right;
             }
         }
+        #commentField,
         #dateFields,
         #operatorField {
             legend {
@@ -89,7 +90,12 @@
                     margin: 0 0.25em 0 0.5em;
                 }
                 input {
-                    width: 4em;
+                    &#form_comment {
+                        width: 12em;
+                    }
+                    &#form_YYYY {
+                        width: 4em;
+                    }
                     &#form_MM,
                     &#form_DD {
                         width: 2.5em;

@@ -37,8 +37,10 @@
                 %}>{%
             if key == 'listener'
         %}<a href="{{ url('listener', { 'system' : system, 'id' : ls.listenerId }) }}" data-popup="1" title="Click to view Profile for this Listener Location">{{ ls.listener|raw }}</a>{%
+            elseif key == 'receiver'
+        %}{%  if ls.operatorId %}<a href="{{ url('listener', { 'system' : system, 'id': ls.listenerId }) }}" data-popup="1" title="Click to view profile for this receiver">{{ ls.listener|raw }}</a>{% endif %}{%
             elseif key == 'operator'
-        %}{%  if ls.operatorId %}<a href="{{ url('listener', { 'system' : system, 'id': ls.operatorId }) }}" data-popup="1" title="Click to view profile for this listener">{{ ls.operator|raw }}</a>{% endif %}{%
+        %}{%  if ls.operatorId %}<a href="{{ url('listener', { 'system' : system, 'id': ls.operatorId }) }}" data-popup="1" title="Click to view profile for this operator">{{ ls.operator|raw }}</a>{% endif %}{%
             elseif key == 'delete'
         %}{% if isAdmin %}<a href="{{ url('listener_logsession_delete', { 'system' : system, 'id' : ls.listenerId, 'logSessionId' : ls.id }) }}" class="delete" onclick="return confirm(msg.del_log_session);" title="Click to delete this log session">X</a>{% endif %}{%
             elseif key in ['logs', 'logsDgps', 'logsDsc', 'logsHambcn', 'logsNavtex', 'logsNdb', 'logsOther', 'logsTime']

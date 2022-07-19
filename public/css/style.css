@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.43.6
- * Date:       2022-07-18
+ * Version:    2.43.8
+ * Date:       2022-07-19
  * Licence:    LGPL
  * Copyright:  2022 Martin Francis
  */
@@ -2412,6 +2412,7 @@ fieldset#form_range_units div label {
   margin: 0 0 0 0.5em;
   float: right;
 }
+.logUpload #form #commentField legend,
 .logUpload #form #dateFields legend,
 .logUpload #form #operatorField legend {
   width: 30%;
@@ -2420,28 +2421,39 @@ fieldset#form_range_units div label {
   float: left;
   margin: 0 1em 0 0;
 }
+.logUpload #form #commentField div,
 .logUpload #form #dateFields div,
 .logUpload #form #operatorField div {
   clear: none;
   float: left;
   display: inline;
 }
+.logUpload #form #commentField div label,
 .logUpload #form #dateFields div label,
 .logUpload #form #operatorField div label {
   width: 6em;
   text-align: right;
   margin: 0 0.25em 0 0.5em;
 }
-.logUpload #form #dateFields div input,
-.logUpload #form #operatorField div input {
+.logUpload #form #commentField div input#form_comment,
+.logUpload #form #dateFields div input#form_comment,
+.logUpload #form #operatorField div input#form_comment {
+  width: 12em;
+}
+.logUpload #form #commentField div input#form_YYYY,
+.logUpload #form #dateFields div input#form_YYYY,
+.logUpload #form #operatorField div input#form_YYYY {
   width: 4em;
 }
+.logUpload #form #commentField div input#form_MM,
 .logUpload #form #dateFields div input#form_MM,
 .logUpload #form #operatorField div input#form_MM,
+.logUpload #form #commentField div input#form_DD,
 .logUpload #form #dateFields div input#form_DD,
 .logUpload #form #operatorField div input#form_DD {
   width: 2.5em;
 }
+.logUpload #form #commentField div select,
 .logUpload #form #dateFields div select,
 .logUpload #form #operatorField div select {
   width: 75%;

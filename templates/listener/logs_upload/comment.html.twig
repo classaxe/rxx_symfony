@@ -1,0 +1,6 @@
+<fieldset id="commentField"{% if (step != '1') %} style="display:none"{% endif %}>
+    <legend>{% trans %}Optional Comment:{% endtrans %}</legend>
+    <div>
+        {{ form_label(form.comment) }}{{ form_widget(form.comment) }}
+    </div>
+</fieldset>

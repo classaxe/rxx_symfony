@@ -46,6 +46,12 @@ class LogSession
     private $administratorId;
 
     /**
+     * @var string
+     * @ORM\Column(name="comment", type="string", length=20, nullable=false)
+     */
+    private $comment = '';
+
+    /**
      * @var DateTime|null
      *
      * @ORM\Column(name="first_log", type="datetime", nullable=true)
@@ -171,6 +177,25 @@ class LogSession
     public function setAdministratorId(int $administratorId): self
     {
         $this->administratorId = $administratorId;
+
+        return $this;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getComment(): ?string
+    {
+        return $this->comment;
+    }
+
+    /**
+     * @param string $comment
+     * @return Listener
+     */
+    public function setComment(?string $comment): self
+    {
+        $this->comment = $comment;
 
         return $this;
     }

@@ -101,6 +101,20 @@ class LogUpload extends Base
                 ]
             )
             ->add(
+                'comment',
+                TextType::class,
+                [
+                    'attr' => [
+                        'placeholder' => '(Max 20 chars)',
+                        'maxlen' => 20
+                    ],
+                    'data' =>           $options['comment'],
+                    'empty_data' =>     '',
+                    'label' =>          'Comment',
+                    'trim' =>           false
+                ]
+            )
+            ->add(
                 'YYYY',
                 TextType::class,
                 [

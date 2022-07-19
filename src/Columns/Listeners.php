@@ -349,6 +349,18 @@ class Listeners
                 'th_class' =>   'txt_vertical',
                 'tooltip' =>    'Total number of logs via multi-operator receivers',
             ],
+            'countRemoteLogSessions' => [
+                'admin' =>      false,
+                'arg' =>        '',
+                'field' =>      'countRemoteLogSessions',
+                'highlight' =>  false,
+                'label' =>      'Remote Sess.',
+                'order' =>      'd',
+                'sort' =>       'l.countRemoteLogSessions',
+                'td_class' =>   'txt_r',
+                'th_class' =>   'txt_vertical',
+                'tooltip' =>    'Total number of logs sessions via multi-operator receivers',
+            ],
             'email' => [
                 'admin' =>      true,
                 'arg' =>        '',
