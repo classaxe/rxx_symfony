@@ -910,6 +910,7 @@ EOD;
             .'s.lon,'
             .'s.notes,'
             .'s.heardIn,'
+            .'s.lastHeard,'
             .'l.dxKm,'
             .'l.dxMiles,'
             .'COUNT(l.signalId) AS logs,'
