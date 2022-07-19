@@ -38,30 +38,30 @@ class LogRepository extends ServiceEntityRepository
         ],
 
         'MMDD' => [
-            'DM',        'D.M',         'DDM',       'DD.M',
-            'DMM',       'D.MM',        'DDMM',      'DD.MM',
-            'DMMM',      'D.MMM',       'DDMMM',     'DD.MMM',
+            'DM',           'D.M',          'D-M',          'DDM',          'DD.M',         'DD-M',
+            'DMM',          'D.MM',         'DDMM',         'DD.MM',        'D-MM',         'DD-MM',
+            'DMMM',         'D.MMM',        'DDMMM',        'DD.MMM',       'D-MMM',        'DD-MMM',
 
-            'MD',        'M.D',         'MDD',       'M.DD',
-            'MMD',       'MM.D',        'MMDD',      'MM.DD',
-            'MMMD',      'MMM.D',       'MMMDD',     'MMM.DD'
+            'MD',           'M.D',          'MDD',          'M.DD',         'M-D',          'M-DD',
+            'MMD',          'MM.D',         'MMDD',         'MM.DD',        'MM-D',         'MM-DD',
+            'MMMD',         'MMM.D',        'MMMDD',        'MMM.DD',       'MMM-D',        'MMM-DD',
         ],
 
         'YYYYMMDD' => [
-            'DDMMYY',    'DD.MM.YY',    'DDYYMM',    'DD.YY.MM',
-            'DDMMMYY',   'DD.MMM.YY',   'DDYYMMM',   'DD.YY.MMM',
-            'DDMMYYYY',  'DD.MM.YYYY',  'DDYYYYMM',  'DD.YYYY.MM',
-            'DDMMMYYYY', 'DD.MMM.YYYY', 'DDYYYYMMM', 'DD.YYYY.MMM',
+            'DDMMYY',       'DD.MM.YY',     'DDYYMM',       'DD.YY.MM',     'DD-MM-YY',     'DD-YY-MM',
+            'DDMMMYY',      'DD.MMM.YY',    'DDYYMMM',      'DD.YY.MMM',    'DD-MMM-YY',    'DD-YY-MMM',
+            'DDMMYYYY',     'DD.MM.YYYY',   'DDYYYYMM',     'DD.YYYY.MM',   'DD-MM-YYYY',   'DD-YYYY-MM',
+            'DDMMMYYYY',    'DD.MMM.YYYY',  'DDYYYYMMM',    'DD.YYYY.MMM',  'DD-MMM-YYYY',  'DD-YYYY-MMM',
 
-            'MMDDYY',    'MM.DD.YY',    'MMYYDD',    'MM.YY.DD',
-            'MMMDDYY',   'MMM.DD.YY',   'MMMYYDD',   'MMM.YY.DD',
-            'MMDDYYYY',  'MM.DD.YYYY',  'MMYYYYDD',  'MM.YYYY.DD',
-            'MMMDDYYYY', 'MMM.DD.YYYY', 'MMMYYYYDD', 'MMM.YYYY.DD',
+            'MMDDYY',       'MM.DD.YY',     'MMYYDD',       'MM.YY.DD',     'MM.DD.YY',     'MM-YY-DD',
+            'MMMDDYY',      'MMM.DD.YY',    'MMMYYDD',      'MMM.YY.DD',    'MMM.DD.YY',    'MMM-YY-DD',
+            'MMDDYYYY',     'MM.DD.YYYY',   'MMYYYYDD',     'MM.YYYY.DD',   'MM.DD.YYYY',   'MM-YYYY-DD',
+            'MMMDDYYYY',    'MMM.DD.YYYY',  'MMMYYYYDD',    'MMM.YYYY.DD',  'MMM.DD.YYYY',  'MMM-YYYY-DD',
 
-            'YYDDMM',    'YY.DD.MM',    'YYMMDD',    'YY.MM.DD',
-            'YYDDMMM',   'YY.DD.MMM',   'YYMMMDD',   'YY.MMM.DD',
-            'YYYYDDMM',  'YYYY.DD.MM',  'YYYYMMDD',  'YYYY.MM.DD',
-            'YYYYDDMMM', 'YYYY.DD.MMM', 'YYYYMMMDD', 'YYYY.MMM.DD'
+            'YYDDMM',       'YY.DD.MM',     'YYMMDD',       'YY.MM.DD',     'YY.DD.MM',     'YY-MM-DD',
+            'YYDDMMM',      'YY.DD.MMM',    'YYMMMDD',      'YY.MMM.DD',    'YY.DD.MMM',    'YY-MMM-DD',
+            'YYYYDDMM',     'YYYY.DD.MM',   'YYYYMMDD',     'YYYY.MM.DD',   'YYYY.DD.MM',   'YYYY-MM-DD',
+            'YYYYDDMMM',    'YYYY.DD.MMM',  'YYYYMMMDD',    'YYYY.MMM.DD',  'YYYY.DD.MMM',  'YYYY-MMM-DD'
         ]
     ];
 
