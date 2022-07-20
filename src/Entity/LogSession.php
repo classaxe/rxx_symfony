@@ -48,7 +48,7 @@ class LogSession
 
     /**
      * @var string
-     * @ORM\Column(name="comment", type="string", length=20, nullable=false)
+     * @ORM\Column(name="comment", type="string", length=255, nullable=false)
      */
     private $comment = '';
 
@@ -144,6 +144,20 @@ class LogSession
     private $uploadBatch;
 
     /**
+     * @var string|null
+     *
+     * @ORM\Column(name="upload_count", type="integer", options={"unsigned"=true})
+     */
+    private $uploadCount;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="upload_cursor", type="integer", options={"unsigned"=true})
+     */
+    private $uploadCursor;
+
+    /**
      * @var int|null
      *
      * @ORM\Column(name="upload_percent", type="integer", options={"unsigned"=true})
@@ -163,6 +177,13 @@ class LogSession
      * @ORM\Column(name="upload_status", type="string", columnDefinition="enum('Pending', 'Processing', 'Uploaded')")
      */
     private $uploadStatus;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="upload_stats", type="text", length=65535, nullable=true)
+     */
+    private $uploadStats;
 
     /**
      * @return int|null
@@ -479,6 +500,44 @@ class LogSession
     /**
      * @return int|null
      */
+    public function getUploadCount(): ?int
+    {
+        return $this->uploadCount;
+    }
+
+    /**
+     * @param int|null $uploadCount
+     * @return $this
+     */
+    public function setUploadCount(?int $uploadCount): self
+    {
+        $this->uploadCount = $uploadCount;
+
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getUploadCursor(): ?int
+    {
+        return $this->uploadCursor;
+    }
+
+    /**
+     * @param int|null $uploadCursor
+     * @return $this
+     */
+    public function setUploadCursor(?int $uploadCursor): self
+    {
+        $this->uploadCursor = $uploadCursor;
+
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
     public function getUploadPercent(): ?int
     {
         return $this->uploadPercent;
@@ -510,6 +569,25 @@ class LogSession
     public function setUploadResult(?string $uploadResult): self
     {
         $this->uploadResult = $uploadResult;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getUploadStats(): ?string
+    {
+        return $this->uploadStats;
+    }
+
+    /**
+     * @param string|null $uploadStats
+     * @return $this
+     */
+    public function setUploadStats(?string $uploadStats): self
+    {
+        $this->uploadStats = $uploadStats;
 
         return $this;
     }

@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.43.8
- * Date:       2022-07-19
+ * Version:    2.44.2
+ * Date:       2022-07-20
  * Licence:    LGPL
  * Copyright:  2022 Martin Francis
  */
@@ -2431,14 +2431,16 @@ fieldset#form_range_units div label {
 .logUpload #form #commentField div label,
 .logUpload #form #dateFields div label,
 .logUpload #form #operatorField div label {
-  width: 6em;
+  width: 5em;
   text-align: right;
-  margin: 0 0.25em 0 0.5em;
+  margin: 0 0.5em;
 }
 .logUpload #form #commentField div input#form_comment,
 .logUpload #form #dateFields div input#form_comment,
 .logUpload #form #operatorField div input#form_comment {
-  width: 12em;
+  width: 500px;
+  padding: 0.125em 0.25em;
+  margin: 0 0 0.25em 0;
 }
 .logUpload #form #commentField div input#form_YYYY,
 .logUpload #form #dateFields div input#form_YYYY,
@@ -2456,7 +2458,7 @@ fieldset#form_range_units div label {
 .logUpload #form #commentField div select,
 .logUpload #form #dateFields div select,
 .logUpload #form #operatorField div select {
-  width: 75%;
+  width: 500px;
   padding: 0.125em 0.25em;
   margin: 0 0 0.25em 0;
 }

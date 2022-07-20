@@ -105,11 +105,11 @@ class LogUpload extends Base
                 TextType::class,
                 [
                     'attr' => [
-                        'placeholder' => '--- Max 20 chars ---',
-                        'maxlen' => 20
+                        'placeholder' => '--- Optional comment (e.g. CLE number or occasion) ---',
+                        'maxlength' => 255
                     ],
                     'data' =>           $options['comment'],
-                    'label' =>          'Comment',
+                    'label' =>          'Comment:',
                     'required' =>       false,
                     'trim' =>           false
                 ]
