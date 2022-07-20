@@ -35,7 +35,7 @@ class Listener
      * @var int
      * @ORM\Column(name="active", type="string", length=1, nullable=false)
      */
-    private $active = '';
+    private $active = 'Y';
 
     /**
      * @var string
@@ -190,7 +190,7 @@ class Listener
      * @var int
      * @ORM\Column(name="multi_operator", type="string", length=1, nullable=false)
      */
-    private $multiOperator = '';
+    private $multiOperator = 'N';
 
     /**
      * @var string
@@ -232,7 +232,7 @@ class Listener
      * @var string
      * @ORM\Column(name="timezone", type="string", length=5, nullable=false)
      */
-    private $timezone = '';
+    private $timezone = '0';
 
     /**
      * @var string
@@ -1105,6 +1105,11 @@ class Listener
     public function getDelete(): int
     {
         return $this->id;
+    }
+
+    public function getHeardIn(): string
+    {
+        return $this->sp ? $this->sp : $this->itu;
     }
 
     /**
