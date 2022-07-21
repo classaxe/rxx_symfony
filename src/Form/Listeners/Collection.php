@@ -208,8 +208,7 @@ class Collection extends Base
                         'label' =>          'RXX ID(s)',
                         'required' =>       false
                     ]
-                );
-            $formBuilder
+                )
                 ->add(
                     'notes',
                     TextType::class,
@@ -218,26 +217,22 @@ class Collection extends Base
                         'label' =>          'Notes',
                         'required' =>       false
                     ]
-                );
-            if ($system=='rww') {
-                $formBuilder
-                    ->add(
-                        'has_logs',
-                        ChoiceType::class,
-                        [
-                            'choices' => [
-                                '(All)' => '-',
-                                'No' => 'N',
-                                'Yes (Default)' => 'Y',
-                            ],
-                            'data' => $options['has_logs'],
-                            'expanded' => true,
-                            'label' => 'Has Logs (RWW)',
-                            'required' => true
-                        ]
-                    );
-            }
-            $formBuilder
+                )
+                ->add(
+                    'has_logs',
+                    ChoiceType::class,
+                    [
+                        'choices' => [
+                            '(All)' => '-',
+                            'No' => 'N',
+                            'Yes' => 'Y',
+                        ],
+                        'data' => $options['has_logs'],
+                        'expanded' => true,
+                        'label' => 'Has Logs',
+                        'required' => true
+                    ]
+                )
                 ->add(
                     'has_map_pos',
                     ChoiceType::class,

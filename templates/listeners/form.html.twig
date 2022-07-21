@@ -26,9 +26,7 @@
                 {{ form_row(form.rxx_id) }}
                 {{ form_row(form.notes) }}
                 {{ form_row(form.has_map_pos) }}
-                {% if system == 'rww' %}
-                    {{ form_row(form.has_logs) }}
-                {% endif %}
+                {{ form_row(form.has_logs) }}
             {% endif %}
             <fieldset class="actionButtons">
                 {{ form_widget(form.submit) }}
