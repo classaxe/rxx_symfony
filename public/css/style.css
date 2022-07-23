@@ -1,7 +1,7 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.44.6
+ * Version:    2.44.7
  * Date:       2022-07-23
  * Licence:    LGPL
  * Copyright:  2022 Martin Francis
@@ -674,17 +674,17 @@ table.seeklist tbody td div.sl_d.inactive {
   font-style: italic !important;
   background-color: #e0e0e0 !important;
 }
-@media screen and (max-width: 719px) {
+@media all and (max-width: 719px) {
   .tabtext {
     display: none;
   }
 }
-@media screen and (max-width: 639px) {
+@media all and (max-width: 639px) {
   .signals_container #wide {
     display: none;
   }
 }
-@media screen and (min-width: 640px) and (max-width: 979px) {
+@media all and (min-width: 640px) and (max-width: 979px) {
   .signals_container table tbody td.rowspan2,
   .signals_container table tbody th.rowspan2 {
     border-bottom: 1px solid transparent !important;
@@ -694,7 +694,7 @@ table.seeklist tbody td div.sl_d.inactive {
     display: none;
   }
 }
-@media screen and (min-width: 980px) {
+@media all and (min-width: 980px) {
   .signals_container #narrow,
   .signals_container .l2_alt {
     display: none;
