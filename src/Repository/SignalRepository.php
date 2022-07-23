@@ -58,6 +58,7 @@ class SignalRepository extends ServiceEntityRepository
         ],
         'customise' => [
             'personalise',
+            'hidenotes',
             'morse',
             'offsets',
             'range_gsq',
@@ -504,10 +505,20 @@ class SignalRepository extends ServiceEntityRepository
     {
 
         if ($this->args['morse'] ?? false === '1') {
-            $this->query['select'][] =
-                's.call AS morse';
+            $this->query['select'][] = 's.call AS morse';
         } else {
             $this->query['select'][] = "'' as morse";
+        }
+        return $this;
+    }
+
+    private function _addSelectColumnNotes()
+    {
+
+        if ($this->args['hidenotes'] ?? '' === '1') {
+            $this->query['select'][] = "'' as notes";
+        } else {
+            $this->query['select'][] = 's.notes as notes';
         }
         return $this;
     }
@@ -687,7 +698,6 @@ EOD;
             . 's.lat,'
             . 's.lon,'
             . 's.pwr,'
-            . 's.notes,'
             . 's.heard_in,'
             . 's.heard_in_html,'
             . 's.listeners,'
@@ -867,6 +877,7 @@ EOD;
                 $this
                     ->_addSelectColumnsAllSignal()
                     ->_addSelectColumnMorse()
+                    ->_addSelectColumnNotes()
                     ->_addSelectColumnPersonalise()
                     ->_addSelectColumnsOffsets()
                     ->_addSelectColumnRangeDeg()

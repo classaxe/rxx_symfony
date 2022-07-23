@@ -4,6 +4,7 @@ var SIGNALS_FORM = {
             var c = COMMON_FORM;
             var s = SIGNALS_FORM;
             s.setPersonaliseAction();
+            s.setNotesAction();
             s.setMorseAction();
             s.setOffsetsAction();
             s.setRangeAction();
@@ -249,6 +250,17 @@ var SIGNALS_FORM = {
         }
     },
 
+    setNotesAction : function(enable) {
+        enable = typeof enable !== 'undefined' ? enable : true;
+        if (enable) {
+            $('#form_hidenotes').change(function () {
+                formSubmit();
+            });
+        } else {
+            $('#form_hidenotes').off('change');
+        }
+    },
+
     setOffsetsAction : function(enable) {
         enable = typeof enable !== 'undefined' ? enable : true;
         if (enable) {
@@ -326,6 +338,7 @@ var SIGNALS_FORM = {
             s.setAdminAction(false);
             c.setRegionAction(false);
             s.setRwwFocusAction(false);
+            s.setNotesAction(false);
             s.setMorseAction(false);
             s.setOffsetsAction(false);
             s.setPersonaliseAction(false);
@@ -341,8 +354,9 @@ var SIGNALS_FORM = {
             $('#form_recently').prop('selectedIndex', 0);
             $('#form_within').prop('selectedIndex', 0);
             $('#form_personalise').prop('selectedIndex', 0);
-            $('#form_morse').prop('selectedIndex', 0);
-            $('#form_offsets').prop('selectedIndex', 0);
+            $('#form_morse_0').prop('checked', 1);
+            $('#form_hidenotes_1').prop('checked', 1);
+            $('#form_offsets_0').prop('checked', 1);
 
             $('#form_states').val('');
             $('#form_sp_itu_clause').prop('selectedIndex', 0);
@@ -372,6 +386,7 @@ var SIGNALS_FORM = {
 
             s.setPersonaliseAction(true);
             s.setMorseAction(true);
+            s.setNotesAction(true);
             s.setOffsetsAction(true);
             s.setAdminAction(true);
             c.setRegionAction(true);
@@ -444,6 +459,7 @@ var SIGNALS = {
     loadList: function(args) {
         var url = shareableLink.signalsUrl('&show=list');
         console.log(url);
+        console.log(args);
         $.get(url, function(data) {
             var c, cols, html, i, id, j, key, row, s, tde, tds, title, value;
             html = [];
@@ -463,6 +479,10 @@ var SIGNALS = {
             for (j = 0; j < cols.length; j++) {
                 c = cols[j];
                 if (c.key === 'morse' && args.morse !== 1) {
+                    console.log(args)
+                    continue;
+                }
+                if (c.key === 'notes' && args.hidenotes !== 0) {
                     console.log(args)
                     continue;
                 }
@@ -546,6 +566,11 @@ var SIGNALS = {
                         case 'morse':
                             if (args.morse === 1) {
                                 row += tds + (s.morse !=='' ? encodeMorse(s.morse) : '?') + tde;
+                            }
+                            break;
+                        case 'notes':
+                            if (args.hidenotes !== 1) {
+                                row += tds + s.notes + tde;
                             }
                             break;
                         case 'pwr':

@@ -177,22 +177,37 @@ class Collection extends Base
                 ]
             )
             ->add(
-                'morse',
+                'offsets',
                 ChoiceType::class,
                 [
-                    'choices' =>        [ 'Hide' => '', 'Show' =>   '1' ],
-                    'data' =>           $options['morse'],
-                    'label' =>          'Morse Code',
+                    'choices' =>        [ 'Rel.' => '', 'Abs.' =>   '1' ],
+                    'data' =>           $options['offsets'],
+                    'expanded' =>       true,
+                    'label' =>          'Display Offsets',
                     'required' =>       false
                 ]
             )
             ->add(
-                'offsets',
+                'hidenotes',
                 ChoiceType::class,
                 [
-                    'choices' =>        [ 'Relative' => '', 'Absolute' =>   '1' ],
-                    'data' =>           $options['offsets'],
-                    'label' =>          'Offsets',
+                    'attr' =>           [ 'legend' => 'Notes' ],
+                    'choices' =>        [ 'N' => '1', 'Y' =>   '' ],
+                    'data' =>           $options['hidenotes'],
+                    'expanded' =>       true,
+                    'label' =>          false,
+                    'required' =>       false
+                ]
+            )
+            ->add(
+                'morse',
+                ChoiceType::class,
+                [
+                    'attr' =>           [ 'legend' => 'Morse' ],
+                    'choices' =>        [ 'N' => '', 'Y' =>   '1' ],
+                    'data' =>           $options['morse'],
+                    'expanded' =>       true,
+                    'label' =>          false,
                     'required' =>       false
                 ]
             )

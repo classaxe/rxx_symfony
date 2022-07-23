@@ -27,7 +27,8 @@ var args = {
     merge:      '{{ url('signal_merge', { 'system' : system, 'id' : '*' }) }}',
     profile:    '{{ url('signal', { 'system' : system, 'id' : '*' }) }}'
   },
-  morse: {{ args.morse ? 1 : 0 }}
+  morse: {{ args.morse ? 1 : 0 }},
+  hidenotes: {{ args.hidenotes ? 1 : 0 }}
 }
 $(document).ready(function() {
     SIGNALS.loadList(args);

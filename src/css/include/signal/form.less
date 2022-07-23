@@ -40,10 +40,8 @@
     #form_offsets {
         width: 85px;
     }
-    label[for="form_morse"] {
-        width: 250px !important;
-        margin: 0 0.5em;
-        text-align: right !important;
+    #form_hide_notes {
+        width: 85px;
     }
     #form_morse {
         width: 85px;
@@ -180,10 +178,16 @@
         width: auto !important;
         margin: 0 0.5em 0 30px;
     }
+    #form_offsets,
+    #form_hidenotes,
+    #form_morse,
     #form_range_units {
         display: inline-block;
         width: auto !important;
         margin: 0 0.5em 0 30px;
+    }
+    #form_offsets {
+        margin: 0 0.5em 0 0 !important;
     }
     span {
         display: inline-block;
@@ -221,6 +225,9 @@
 }
 
 fieldset#form_type,
+fieldset#form_offsets,
+fieldset#form_hidenotes,
+fieldset#form_morse,
 fieldset#form_range_units {
     legend {
         line-height: 1.8em;
@@ -238,12 +245,16 @@ fieldset#form_type{
         width: @width[label];
     }
 }
+fieldset#form_offsets,
+fieldset#form_hidenotes,
+fieldset#form_morse,
 fieldset#form_range_units {
     legend {
         text-align: right;
         width: 50px;
     }
     div {
+        margin: 0;
         label {
             margin: 0 0.25em;
         }

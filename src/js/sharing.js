@@ -117,8 +117,11 @@ var shareableLink = {
             this.getFromPagingControls(50) +
             this.getFromSortingControls('khz', 'a') +
             this.getFromField('personalise') +
-            this.getFromField('morse', ['1']) +
-            this.getFromField('offsets', ['1']) +
+
+            this.getFromRadioGroup('hidenotes') +
+            this.getFromRadioGroup('morse') +
+            this.getFromRadioGroup('offsets') +
+
             this.getFromField('range_gsq') +
             this.getFromField('range_min') +
             this.getFromField('range_max') +

@@ -294,6 +294,7 @@ class Collection extends Base
             'logged_last_1' =>  '',
             'logged_last_2' =>  '',
             'morse' =>          '',
+            'hidenotes' =>      '',
             'offsets' =>        '',
             'paper' =>          $this->paperRepository::getDefaultForSystem($this->system),
             'personalise' =>    '',
@@ -419,6 +420,7 @@ class Collection extends Base
         $this->setPersonaliseFromRequest($this->args, $r);
         $this->setValueFromRequest($this->args, $r, 'offsets', ['', '1']);
         $this->setValueFromRequest($this->args, $r, 'morse', ['', '1']);
+        $this->setValueFromRequest($this->args, $r, 'hidenotes', ['', '1']);
         $this->setValueFromRequest($this->args, $r, 'range_gsq');
         $this->setValueFromRequest($this->args, $r, 'range_min');
         $this->setValueFromRequest($this->args, $r, 'range_max');
