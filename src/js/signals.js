@@ -4,6 +4,7 @@ var SIGNALS_FORM = {
             var c = COMMON_FORM;
             var s = SIGNALS_FORM;
             s.setPersonaliseAction();
+            s.setKhzAction();
             s.setNotesAction();
             s.setMorseAction();
             s.setOffsetsAction();
@@ -217,6 +218,19 @@ var SIGNALS_FORM = {
         if ($('fieldset#form_heard_in_mod div :radio:checked').length === 0) {
             $('fieldset#form_heard_in_mod div :radio[value="any"]').prop('checked', true);
         }
+    },
+
+    setKhzAction: function() {
+        $('#form_khz_1, #form_khz_2').on('keydown', function(e) {
+            var k = e.which;
+            console.log(k)
+            if ((k >= 65 && k <= 90) || (k >= 97 && k <= 122)) {
+                e.preventDefault();
+            }
+        })
+        .on('keyup', function(){
+            $(this).val($(this).val().replace(',', '.'))
+        })
     },
 
     setListenerInvertDefault : function() {
