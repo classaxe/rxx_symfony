@@ -120,21 +120,36 @@
             text-decoration: none;
             color: #80ff80;
         }
+        .is-active > a span.cle {
+            text-decoration: none;
+            color: #f00;
+        }
+
     }
     div.cle {
+        h2 {
+            margin: 0;
+            font-size: 100%;
+        }
+        border-width: 3px;
         margin: 0.25em 0 0 0;
-        border: 3px solid red;
-        background: #fee;
         width: 100%;
         line-height: 1.5em;
         font-size: 150%;
-        text-align: center;
-        color: #800;
         a {
+            color: #00f !important;
             font-size: 100%;
             text-decoration: underline;
-            color: #f00;
-            padding-right: 1.5em;
+            padding: 0 !important;
+        }
+        b {
+            padding-right: 1em;
+        }
+        table.results th,
+        table.results td {
+            text-align: left;
+            font-size: 60%;
+            line-height: 1.5em;
         }
     }
 }

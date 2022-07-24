@@ -50,16 +50,33 @@
             {% endfor %}
         </ul>
 {% endif %}
-        <div style="display: none" class="cle">
-            <b><a href="{{ url('cle', { 'system' : system }) }}">CLE {{ cle.cle }}</a></b>
-            {% if system == 'reu' %}
-                {{ cle.europeRange1Low }} - {{ cle.europeRange1High }}
-                {% if cle.europeRange2Low %} and {{ cle.europeRange2Low }} - {{ cle.europeRange2High }}{% endif %}
-            {% else %}
-                {{ cle.worldRange1Low }} - {{ cle.worldRange1High }}
-                {% if cle.worldRange2Low %} and {{ cle.worldRange2Low }} - {{ cle.worldRange2High }}{% endif %}
-            {% endif %}KHz
+{% if mode == 'Signals' %}
+        <div style="display: none" class="cle header system">
+            <h2>CLE {{ cle.cle }} is Active!</h2>
+            <table class="results">
+                <tr><th>Dates:</th><td>{{ cle.dateTimespan }}</td></tr>
+                <tr><th>Scope:</th><td>{{ cle.scope }}</td></tr>
+                <tr><th>Range:</th><td>{% if system == 'reu'
+                        %}<a href="{{ path('signals', { 'system' : system } )}}?{{ cleUrls.reu.0 }}">{{ cle.europeRange1Low }} - {{ cle.europeRange1High }}KHz</a>{%
+                            if cle.europeRange2Low %}, <a href="{{ path('signals', { 'system' : system } )}}?{{ cleUrls.reu.1 }}">{{ cle.europeRange2Low }} - {{ cle.europeRange2High }}KHz</a>{%
+                            endif
+
+                        %}{% endif %}{%
+                            if system == 'rna'
+                        %}<a href="{{ path('signals', { 'system' : system } )}}?{{ cleUrls.rna.0 }}">{{ cle.worldRange1Low }} - {{ cle.worldRange1High }}KHz</a>{%
+                            if cle.worldRange2Low
+                        %}, <a href="{{ path('signals', { 'system' : system } )}}?{{ cleUrls.rna.1 }}">{{ cle.worldRange2Low }} - {{ cle.worldRange2High }}KHz</a>{%
+                            endif
+                        %}{% endif %}{%
+                            if system == 'rww'
+                        %}<a href="{{ path('signals', { 'system' : system } )}}?{{ cleUrls.rww.0 }}">{{ cle.worldRange1Low }} - {{ cle.worldRange1High }}KHz</a>{%
+                            if cle.worldRange2Low
+                        %}, <a href="{{ path('signals', { 'system' : system } )}}?{{ cleUrls.rww.1 }}">{{ cle.worldRange2Low }} - {{ cle.worldRange2High }}KHz</a>{%
+                            endif
+                        %}{% endif %}</td></tr>
+            </table>
         </div>
+{% endif %}
 {#        <ul class="menu language">#}
 {#{% for key, label in languages %}#}
 {#            <li{% if (_locale == key) %} class="is-active"{% endif %}>#}
@@ -69,3 +86,17 @@
 {#        </ul>#}
     </div>
 </nav>
+{#{% set link = {#}
+{#    'r1' : { 'min' : cle.worldRange1Low, 'max' : cle.worldRange1High, 'url' : rww1, 'textExtra' : cle.worldRange1TextExtra },#}
+{#    'r2' : { 'min' : cle.worldRange2Low, 'max' : cle.worldRange2High, 'url' : rww2, 'textExtra' : cle.worldRange2TextExtra },#}
+{#    'span' : [ 6, 4 ],#}
+{#    'system' : system,#}
+{#}%}#}
+<script>
+cle.checkCleActive({
+    num: '{{ cle.cle }}',
+    start: new Date('{{ cle.dateStart | date('Y-m-d 12:00:00') }}'),
+    end: new Date('{{ cle.dateEnd | date('Y-m-d 11:59:59') }}'),
+    now: new Date()
+});
+</script>

@@ -155,7 +155,8 @@ class Base extends AbstractController
         $this->weatherRepository =  $weatherRepository;
 
         $this->parameters = [
-            'cle' =>            $this->cleRepository->getCle(),
+            'cle' =>            $this->cleRepository->getRecord(),
+            'cleUrls' =>        $this->cleRepository->getUrlsForSystems(),
             'gitAge' =>         $this->rxx->getGitAge(),
             'gitNew' =>         $this->systemRepository::NEW_VERSION_AGE,
             'gitTag' =>         $this->rxx->getGitTag(),

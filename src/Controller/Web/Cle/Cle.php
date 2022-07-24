@@ -5,6 +5,7 @@ use App\Controller\Web\Base;
 use App\Entity\User as UserEntity;
 use App\Form\Cle\Cle as CleForm;
 
+use App\Utils\Rxx;
 use DateTime;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -40,7 +41,7 @@ class Cle extends Base
         $i18n = $this->translator;
         $id = 1;
 
-        $cle = $this->cleRepository->find($id);
+        $cle = $this->cleRepository->getRecord();
         $simpleFields = [
             'cle',
             'dateTimespan',
@@ -134,64 +135,13 @@ class Cle extends Base
             'admin' =>      (int)$this->parameters['access'] & UserEntity::CLE,
             'cle' =>        $cle,
             'form' =>       $form->createView(),
-            'reu1' =>       $this->getUrlForRegion($cle, 'Europe', 1),
-            'reu2' =>       $this->getUrlForRegion($cle, 'Europe', 2),
-            'rww1' =>       $this->getUrlForRegion($cle, 'World', 1),
-            'rww2' =>       $this->getUrlForRegion($cle, 'World', 2),
+            'reu1' =>       $this->cleRepository->getUrlForRegion('Europe', 1),
+            'reu2' =>       $this->cleRepository->getUrlForRegion('Europe', 2),
+            'rww1' =>       $this->cleRepository->getUrlForRegion('World', 1),
+            'rww2' =>       $this->cleRepository->getUrlForRegion('World', 2),
         ];
 
         $parameters = array_merge($parameters, $this->parameters);
         return $this->render('cle/cle.html.twig', $parameters);
-    }
-
-    /**
-     * @param $cle
-     * @param $region
-     * @param $range
-     * @return string
-     */
-    private function getUrlForRegion($cle, $region, $range) {
-        $params = [];
-        $prefix = "get{$region}Range$range";
-        if ($val = $cle->{ $prefix . 'Type'}()) {
-            $types = explode('&amp;', str_replace([ 'type_', '=1' ], '', $val));
-            if (implode(',', $types) !== 'NDB') {
-                $params[] = 'types=' . implode(',', $types);
-            }
-        }
-        if (($val1 = $cle->{ $prefix . 'Low'}()) && ($val2 = $cle->{ $prefix . 'High'}())) {
-            $params[] = 'khz=' . $val1 . ',' . $val2;
-        }
-        if ($val = $cle->{ $prefix . 'Channels'}()) {
-            $params[] = 'channels=' . $val;
-        }
-        if ($val = $cle->{ $prefix . 'Locator'}()) {
-            $params[] = 'gsq=' . urlencode($val);
-        }
-        if ($val = $cle->{ $prefix . 'Itu'}()) {
-            $params[] = 'countries=' . urlencode($val);
-        }
-        if ($val = $cle->{ $prefix . 'Sp'}()) {
-            $params[] = 'states=' . urlencode($val);
-        }
-        if (($val = $cle->{ $prefix . 'SpItuClause'}()) && $cle->{ $prefix . 'Itu'}() && $cle->{ $prefix . 'Sp'}()) {
-            $params[] = 'sp_itu_clause=' . urlencode($val);
-        }
-        if (($val = $cle->{ $prefix . 'Recently'}())) {
-            $params[] = 'recently=' . urlencode($val);
-        }
-        if (($val = $cle->{ $prefix . 'Within'}())) {
-            $params[] = 'within=' . urlencode($val);
-        }
-        if (($val = $cle->{ $prefix . 'Active'}())) {
-            $params[] = 'active=' . urlencode($val);
-        }
-        if ($val = $cle->{ $prefix . 'FilterOther'}()) {
-            $args = explode('&', $val);
-            foreach ($args as $arg) {
-                $params[] = $arg;
-            }
-        }
-        return implode('&', $params);
     }
 }

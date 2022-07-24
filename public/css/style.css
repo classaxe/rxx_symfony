@@ -1,7 +1,7 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.44.11
+ * Version:    2.44.13
  * Date:       2022-07-24
  * Licence:    LGPL
  * Copyright:  2022 Martin Francis
@@ -503,21 +503,37 @@ tr.other td {
   text-decoration: none;
   color: #80ff80;
 }
+.menu-centered .system .is-active > a span.cle,
+.menu-centered .mode .is-active > a span.cle,
+.menu-centered .language .is-active > a span.cle {
+  text-decoration: none;
+  color: #f00;
+}
 .menu-centered div.cle {
+  border-width: 3px;
   margin: 0.25em 0 0 0;
-  border: 3px solid red;
-  background: #fee;
   width: 100%;
   line-height: 1.5em;
   font-size: 150%;
-  text-align: center;
-  color: #800;
+}
+.menu-centered div.cle h2 {
+  margin: 0;
+  font-size: 100%;
 }
 .menu-centered div.cle a {
+  color: #00f !important;
   font-size: 100%;
   text-decoration: underline;
-  color: #f00;
-  padding-right: 1.5em;
+  padding: 0 !important;
+}
+.menu-centered div.cle b {
+  padding-right: 1em;
+}
+.menu-centered div.cle table.results th,
+.menu-centered div.cle table.results td {
+  text-align: left;
+  font-size: 60%;
+  line-height: 1.5em;
 }
 .cle_links {
   margin: 0;
