@@ -8,6 +8,7 @@ use Doctrine\Persistence\ManagerRegistry;
 
 class CleRepository extends ServiceEntityRepository
 {
+    private $cle;
     /**
      * CleRepository constructor.
      * @param ManagerRegistry $registry
@@ -15,5 +16,10 @@ class CleRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Cle::class);
+        $this->cle = $this->find(1);
+    }
+
+    public function getCle() {
+        return $this->cle;
     }
 }

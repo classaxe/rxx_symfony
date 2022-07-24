@@ -258,8 +258,8 @@ class Signals
                 'labelSort' =>  '',
                 'order'     =>  'd',
                 'sort'      =>  's.first_heard',
-                'td_class'  =>  'text-nowrap txt_r monospace l2',
-                'th_class'  =>  'l2',
+                'td_class'  =>  'text-nowrap txt_r monospace',
+                'th_class'  =>  '',
                 'tooltip'   =>  '',
             ],
             'last_heard' => [
@@ -271,8 +271,8 @@ class Signals
                 'labelSort' =>  '',
                 'order'     =>  'd',
                 'sort'      =>  's.last_heard',
-                'td_class'  =>  'text-nowrap txt_r monospace l2',
-                'th_class'  =>  'l2',
+                'td_class'  =>  'text-nowrap txt_r monospace',
+                'th_class'  =>  '',
                 'tooltip'   =>  '',
             ],
             'range_km' => [
