@@ -49,6 +49,11 @@
                         {{ form_label(form.active) }}
                         {{ form_widget(form.active) }}
                     </div>
+                    <div>
+                        {{ form_label(form.heard_in) }}
+                        {{ form_widget(form.heard_in) }}
+                        {{ form_widget(form.heard_in_mod) }}
+                    </div>
                 </fieldset>
                 <fieldset class="section" id="section_loggings">
                     <legend class="line toggle">{% trans %}Loggings{% endtrans %}
@@ -63,12 +68,6 @@
                                 <div id="listener_selection_help">{% trans %}Use SHIFT or CONTROL to select multiple values{% endtrans %}</div>
                             </div>
                             {{ form_widget(form.listener) }}
-                        </div>
-                        <div>
-                            <div id="heard_in_label">{{ form_label(form.heard_in) }}
-                                {{ form_widget(form.heard_in_mod) }}
-                            </div>
-                            {{ form_widget(form.heard_in) }}
                         </div>
                         <div>
                             {{  form_label(form.logged_date_1) }}

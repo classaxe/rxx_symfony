@@ -48,7 +48,6 @@ class SignalRepository extends ServiceEntityRepository
         'loggings' => [
             'listener',
             'listener_invert',
-            'heard_in',
             'logged_date_1',
             'logged_date_2',
             'logged_first_1',

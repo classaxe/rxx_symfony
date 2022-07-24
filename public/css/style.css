@@ -1,7 +1,7 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.44.10
+ * Version:    2.44.11
  * Date:       2022-07-24
  * Licence:    LGPL
  * Copyright:  2022 Martin Francis
@@ -1965,21 +1965,10 @@ table.logsessions tbody tr.selected td {
   font-size: 80% !important;
   font-style: italic;
 }
-.signal_list label[for="form_heard_in"] {
-  line-height: 1.8em;
-  text-align: left;
-  font-size: 90% !important;
-  font-weight: bold !important;
-  padding: 0 !important;
-  margin: 0 !important;
-}
-.signal_list #heard_in_label {
-  width: 130px;
-}
 .signal_list #form_heard_in {
-  width: 435px;
+  width: 315px;
   text-transform: uppercase;
-  height: 4em;
+  height: 3em;
 }
 .signal_list #form_heard_in_mod {
   display: inline-block;

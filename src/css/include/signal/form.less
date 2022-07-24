@@ -122,21 +122,11 @@
         font-size: 80% !important;
         font-style: italic;
     }
-    label[for="form_heard_in"] {
-        line-height: 1.8em;
-        text-align: left;
-        font-size: 90% !important;
-        font-weight: bold !important;
-        padding: 0 !important;
-        margin: 0 !important;
-    }
-    #heard_in_label {
-        width: @width[label] !important;
-    }
+
     #form_heard_in {
-        width: @width[signalsForm] - @width[label] - 15;
+        width: @width[signalsForm] - @width[label] - 15 - 120;
         text-transform: uppercase;
-        height: 4em;
+        height: 3em;
     }
     #form_heard_in_mod {
         display:inline-block;

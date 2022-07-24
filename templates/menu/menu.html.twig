@@ -69,22 +69,3 @@
 {#        </ul>#}
     </div>
 </nav>
-
-
-<script>
-function checkCleActive() {
-    var cle = {
-        num: '{{ cle.cle }}',
-        start: new Date('{{ cle.dateStart | date('Y-m-d 12:00:00') }}'),
-        end: new Date('{{ cle.dateEnd | date('Y-m-d 11:59:59') }}'),
-        now: new Date(),
-        active: false
-    }
-    cle.start.setTime(cle.start.getTime() + cle.now.getTimezoneOffset() * 60 * 1000);
-    cle.end.setTime(cle.end.getTime() + cle.now.getTimezoneOffset() * 60 * 1000);
-    if (cle.now >= cle.start && cle.now <= cle.end) {
-        $('.cle').show();
-    }
-}
-checkCleActive();
-</script>

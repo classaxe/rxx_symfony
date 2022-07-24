@@ -62,5 +62,12 @@ var cle = {
                 })
             }
         }
+    },
+    checkCleActive: function(cle) {
+        cle.start.setTime(cle.start.getTime() + cle.now.getTimezoneOffset() * 60 * 1000);
+        cle.end.setTime(cle.end.getTime() + cle.now.getTimezoneOffset() * 60 * 1000);
+        if (cle.now >= cle.start && cle.now <= cle.end) {
+            $('.cle').show();
+        }
     }
 }

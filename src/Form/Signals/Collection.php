@@ -165,6 +165,26 @@ class Collection extends Base
                 ]
             )
             ->add(
+                'heard_in',
+                TextType::class,
+                [
+                    'data' =>           $options['heard_in'],
+                    'label' =>          'Heard Here',
+                    'required' =>       false
+                ]
+            )
+            ->add(
+                'heard_in_mod',
+                ChoiceType::class,
+                [
+                    'choices' =>        [ 'Any' => 'any', 'All' => 'all' ],
+                    'data' =>           $options['heard_in_mod'],
+                    'expanded' =>       true,
+                    'placeholder' =>    false,
+                    'required' =>       false,
+                ]
+            )
+            ->add(
                 'personalise',
                 ChoiceType::class,
                 [
@@ -339,26 +359,6 @@ class Collection extends Base
                     'expanded' =>       true,
                     'placeholder' =>    false,
                     'required' =>       false
-                ]
-            )
-            ->add(
-                'heard_in',
-                TextareaType::class,
-                [
-                    'data' =>           $options['heard_in'],
-                    'label' =>          'Heard Here',
-                    'required' =>       false
-                ]
-            )
-            ->add(
-                'heard_in_mod',
-                ChoiceType::class,
-                [
-                    'choices' =>        [ 'Any' => 'any', 'All' => 'all' ],
-                    'data' =>           $options['heard_in_mod'],
-                    'expanded' =>       true,
-                    'placeholder' =>    false,
-                    'required' =>       false,
                 ]
             )
             ->add(
