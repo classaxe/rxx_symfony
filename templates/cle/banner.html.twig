@@ -1,5 +1,5 @@
 <div style="display: none" class="cle header system">
-    <h2>CLE {{ cle.cle }} is Active! <small id="cleEnds"></small></h2>
+    <h2><a href="{{ url('cle', { 'system' : system}) }}">CLE {{ cle.cle }}</a> is Active! <small id="cleEnds"></small></h2>
     <table class="results">
         <tr><th>Dates:</th><td>{{ cle.dateTimespan }}</td></tr>
         <tr><th>Scope:</th><td>{{ cle.scope }}</td></tr>
