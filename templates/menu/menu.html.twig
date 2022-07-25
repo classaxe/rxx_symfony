@@ -50,32 +50,8 @@
             {% endfor %}
         </ul>
 {% endif %}
-{% if mode == 'Signals' %}
-        <div style="display: none" class="cle header system">
-            <h2>CLE {{ cle.cle }} is Active!</h2>
-            <table class="results">
-                <tr><th>Dates:</th><td>{{ cle.dateTimespan }}</td></tr>
-                <tr><th>Scope:</th><td>{{ cle.scope }}</td></tr>
-                <tr><th>Range:</th><td>{% if system == 'reu'
-                        %}<a href="{{ path('signals', { 'system' : system } )}}?{{ cleUrls.reu.0 }}">{{ cle.europeRange1Low }} - {{ cle.europeRange1High }}KHz</a>{%
-                            if cle.europeRange2Low %}, <a href="{{ path('signals', { 'system' : system } )}}?{{ cleUrls.reu.1 }}">{{ cle.europeRange2Low }} - {{ cle.europeRange2High }}KHz</a>{%
-                            endif
+{% if mode == 'Signals' %}{% include 'cle/banner.html.twig' %}
 
-                        %}{% endif %}{%
-                            if system == 'rna'
-                        %}<a href="{{ path('signals', { 'system' : system } )}}?{{ cleUrls.rna.0 }}">{{ cle.worldRange1Low }} - {{ cle.worldRange1High }}KHz</a>{%
-                            if cle.worldRange2Low
-                        %}, <a href="{{ path('signals', { 'system' : system } )}}?{{ cleUrls.rna.1 }}">{{ cle.worldRange2Low }} - {{ cle.worldRange2High }}KHz</a>{%
-                            endif
-                        %}{% endif %}{%
-                            if system == 'rww'
-                        %}<a href="{{ path('signals', { 'system' : system } )}}?{{ cleUrls.rww.0 }}">{{ cle.worldRange1Low }} - {{ cle.worldRange1High }}KHz</a>{%
-                            if cle.worldRange2Low
-                        %}, <a href="{{ path('signals', { 'system' : system } )}}?{{ cleUrls.rww.1 }}">{{ cle.worldRange2Low }} - {{ cle.worldRange2High }}KHz</a>{%
-                            endif
-                        %}{% endif %}</td></tr>
-            </table>
-        </div>
 {% endif %}
 {#        <ul class="menu language">#}
 {#{% for key, label in languages %}#}
