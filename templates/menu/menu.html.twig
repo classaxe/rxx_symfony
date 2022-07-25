@@ -68,11 +68,3 @@
 {#    'span' : [ 6, 4 ],#}
 {#    'system' : system,#}
 {#}%}#}
-<script>
-cle.checkCleActive({
-    num: '{{ cle.cle }}',
-    start: new Date('{{ cle.dateStart | date('Y-m-d 12:00:00') }}'),
-    end: new Date('{{ cle.dateEnd | date('Y-m-d 11:59:59') }}'),
-    now: new Date()
-});
-</script>

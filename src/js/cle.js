@@ -63,19 +63,18 @@ var cle = {
             }
         }
     },
-    checkCleActive: function(cle) {
-        var diffMs, diffDays, diffHrs, diffMins, diffMsg, tzOffset;
-        tzOffset = cle.now.getTimezoneOffset() * 60 * 1000;
-        cle.start.setTime(cle.start.getTime() + tzOffset);
-        cle.end.setTime(cle.end.getTime() + tzOffset);
-        if (cle.now >= cle.start && cle.now <= cle.end) {
+    checkCleActive: function(data) {
+        var diffMs, diffDays, diffHrs, diffMins, diffMsg, now;
+        now = new Date();
+        if (now >= data.start  && now <= data.end) {
             $('.cle').show();
-            diffMs = cle.end - cle.now - tzOffset;
+            diffMs = data.end - now;
             diffDays = Math.floor(diffMs / 86400000); // days
             diffHrs = Math.floor((diffMs % 86400000) / 3600000); // hours
             diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000); // minutes
             diffMsg = '(Ends in ' + (diffDays > 0 ? diffDays + ' days, ' : '') + diffHrs + ' hours and ' + diffMins + ' minutes)';
             $('#cleEnds').text(diffMsg);
         }
+        setTimeout(function() { cle.checkCleActive(data)}, 5000);
     }
 }

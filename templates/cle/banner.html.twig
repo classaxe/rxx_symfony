@@ -23,3 +23,11 @@
             %}{% endif %}</td></tr>
     </table>
 </div>
+
+<script>
+    cle.checkCleActive({
+        num: '{{ cle.cle }}',
+        start: new Date('{{ cle.dateStart | date('Y-m-d 12:00:00') }}'),
+        end: new Date('{{ cle.dateEnd | date('Y-m-d 11:59:59') }}'),
+    });
+</script>
