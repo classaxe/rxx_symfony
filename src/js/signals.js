@@ -223,12 +223,12 @@ var SIGNALS_FORM = {
     setKhzAction: function() {
         $('#form_khz_1, #form_khz_2').on('keydown', function(e) {
             var k = e.which;
-            console.log(k)
+            console.log(k);
             if ((k >= 65 && k <= 90) || (k >= 97 && k <= 122)) {
                 e.preventDefault();
             }
         })
-        .on('keyup', function(){
+        .on('blur', function(){
             $(this).val($(this).val().replace(',', '.'))
         })
     },
