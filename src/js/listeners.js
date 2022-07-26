@@ -44,6 +44,11 @@ var LISTENERS_FORM = {
             window.open('./listeners/new', 'listener_new', popWinSpecs['listeners_[id]']);
             return false;
         });
+        $('#frm_rxxid').on('submit', function(e){
+            e.preventDefault();
+            $('#btn_rxxid_go').trigger('click');
+            return false;
+        })
         $('#btn_rxxid_go').click(function() {
             window.open('./listeners/' + $('#rxxid').val() + '/upload', '_blank', popWinSpecs['listeners_[id]_upload']);
             return false;

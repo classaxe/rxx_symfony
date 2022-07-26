@@ -2,19 +2,18 @@
     <div class="links_left row addLogFor">
         <div class="small-12 medium-1">
             <strong>{% trans %}Add Log for:{% endtrans %}</strong><br>
-            <form class="form">
+            <form class="form" id="frm_rxxid">
                 <div><input type="text" id="rxxid" placeholder="RXX ID"><a class="button tiny" id="btn_rxxid_go">GO</a></div>
             </form>
         </div>
         <div class="small-12 medium-11">
 {% for l in latestListeners %}
-            <div class="display-inline text-nowrap">
+            <div class="display-inline text-nowrap">{{ l.id }}
                 <a href="{{ url('listener_logsupload', { 'system' : system, 'id': l.id }) }}"
                    title="{{ l.id }} | {{ l.name|raw}}, {{ l.qth }}{% if l.sp %}, {{ l.sp }}{% endif %}, {{ l.itu }} [{{ l.gsq }}]"
-                   data-popup="1"{% if l.primaryQth == 'Y' %} class="pri"{% endif %}>
+                   data-popup="1" class="{% if l.primaryQth == 'Y' %}pri{% else %}sec{% endif %}">
                     {{ l.name|raw }}
                 </a> ({{ l.sp ? l.sp : l.itu }}){% if not loop.last %} &nbsp; | &nbsp; {% endif %}
-
             </div>
 {% endfor %}
         </div>
