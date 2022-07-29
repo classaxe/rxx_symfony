@@ -732,7 +732,7 @@ EOD;
             }
             if ($data['date']) {
                 $d = $data['date'];
-                $data['YYYYMMDD'] = ($d['error'] ?? '') . "{$d['YYYY']}-{$d['MM']}-{$d['DD']}";
+                $data['YYYYMMDD'] = ($d['error'] ?? '') . ($d['YYYY'] ?? '') .'-'.($d['MM'] ?? '') . '-' . ($d['DD'] ?? '');
                 unset($data['date']);
             }
 

@@ -1,6 +1,6 @@
 function initListenersLogUploadForm() {
     var std_formats = {
-        'pskov' : '  DD-MM-YYYY  hhmm  KHZ    ID    LSB    USB    sec            X',
+        'pskov' : '  DD-MM-YYYY  hhmm KHZ     ID   LSB    USB    sec     X          ITU  QTH',
         'wwsu'  : 'YYYY-MM-DD hh:mm  KHZ     ID        X     QTH',
         'yand'  : 'YYYYMMDD hhmm KHZ ID   X          QTH           X',
         'rxx'   : 'YYYY-MM-DD hh:mm KHZ      ID         X      X  LSB   USB    sec      fmt    PWR    X     X     GSQ    X        X        X SP ITU QTH'
