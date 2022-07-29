@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.44.20
- * Date:       2022-07-26
+ * Version:    2.45.0
+ * Date:       2022-07-29
  * Licence:    LGPL
  * Copyright:  2022 Martin Francis
  */
@@ -2139,8 +2139,8 @@ var shareableLink = {
             this.getFromField('region') +
             this.getFromField('country') +
             this.getFromField('rxx_id') +
-            this.getFromField('has_logs', [ 'N', 'Y' ], 'A') +
-            this.getFromField('has_map_pos', [ 'N', 'Y' ], 'A') +
+            this.getFromRadioGroup('has_logs', [ 'N', 'Y' ]) +
+            this.getFromRadioGroup('has_map_pos', [ 'N', 'Y' ]) +
             (this.getFromField('timezone') !== '&timezone=ALL' ? this.getFromField('timezone') : '') +
             this.getFromField('status', [ 'N', 'Y', '30D', '3M', '6M', '1Y', '2Y', '5Y' ], 'A') +
             this.getFromField('equipment') +

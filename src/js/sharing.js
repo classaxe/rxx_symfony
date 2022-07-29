@@ -77,8 +77,8 @@ var shareableLink = {
             this.getFromField('region') +
             this.getFromField('country') +
             this.getFromField('rxx_id') +
-            this.getFromField('has_logs', [ 'N', 'Y' ], 'A') +
-            this.getFromField('has_map_pos', [ 'N', 'Y' ], 'A') +
+            this.getFromRadioGroup('has_logs', [ 'N', 'Y' ]) +
+            this.getFromRadioGroup('has_map_pos', [ 'N', 'Y' ]) +
             (this.getFromField('timezone') !== '&timezone=ALL' ? this.getFromField('timezone') : '') +
             this.getFromField('status', [ 'N', 'Y', '30D', '3M', '6M', '1Y', '2Y', '5Y' ], 'A') +
             this.getFromField('equipment') +

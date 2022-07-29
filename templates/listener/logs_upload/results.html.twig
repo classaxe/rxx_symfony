@@ -1,5 +1,6 @@
 <h2>{% trans %}Results{% endtrans %}</h2>
 <h3>{% trans %}Statistics for this update{% endtrans %}</h3>
+{% if (stats) %}
 <table class="results stats very-short">
     <thead>
         <tr>
@@ -58,7 +59,9 @@
         </tr>
     </tbody>
 </table>
-
+{% else %}
+Error - unable to find an unprocessed session
+{% endif %}
 <div id="form">
     <fieldset id="group_">
         <div><button type="button" id="form_close" name="form[close]" class="button small" onclick="window.close()">{% trans %}Done{% endtrans %}</button></div>

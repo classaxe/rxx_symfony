@@ -204,10 +204,6 @@ class ListenerRepository extends ServiceEntityRepository
 
     private function addFilterHasLogs(&$qb, $args)
     {
-        if (!isset($args['has_logs'])) {
-            $qb->andWhere('(l.countLogs != 0)');
-            return;
-        }
         switch ($args['has_logs']) {
             case 'Y':
                 $qb->andWhere('(l.countLogs != 0)');
@@ -215,16 +211,11 @@ class ListenerRepository extends ServiceEntityRepository
             case 'N':
                 $qb->andWhere('(l.countLogs = 0)');
                 break;
-            case '-':
-                break;
         }
     }
 
     private function addFilterHasMapPos(&$qb, $args)
     {
-        if (!isset($args['has_map_pos'])) {
-            return;
-        }
         switch ($args['has_map_pos']) {
             case 'N':
                 $qb

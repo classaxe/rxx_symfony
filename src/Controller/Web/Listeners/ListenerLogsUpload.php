@@ -2,6 +2,7 @@
 namespace App\Controller\Web\Listeners;
 
 use App\Form\Listeners\LogUpload as LogUploadForm;
+use App\Utils\Rxx;
 use DateTime;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,14 +15,19 @@ use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
  */
 class ListenerLogsUpload extends Base
 {
+    private $comment;
     private $entries = [];
     private $errors = [];
     private $listener;
     private $logs;
     private $logHas;
-    private $operatorID;
+    private $operator = null;
+    private $operatorID = false;
     private $tokens = [];
     private $system;
+    private $YYYY;
+    private $MM;
+    private $DD;
 
     /**
      * @Route(
@@ -47,18 +53,16 @@ class ListenerLogsUpload extends Base
         LogUploadForm $logUploadForm
     ) {
         $isAdmin = $this->parameters['isAdmin'];
-        $userName = $this->parameters['user_name'];
         $this->system = $system;
         if (!$isAdmin || !$this->listener = $this->getValidListener($id)) {
             return $this->redirectToRoute('listener', ['system' => $this->system, 'id' => $id]);
         }
-        $this->operatorID = false;
-        $this->operator = null;
-        $heardIn = $this->listener->getSp() ? $this->listener->getSp() : $this->listener->getItu();
-        $region = $this->listener->getRegion();
-        $step = $request->get('step', '1');
+        $userName = $this->parameters['user_name'];
+        $heardIn =  $this->listener->getHeardIn();
+        $region =   $this->listener->getRegion();
+        $step =     $request->get('step', '1');
+        $format =   $this->listener->getLogFormat();
         $selected = 'UNSET';
-        $format = $this->listener->getLogFormat();
         $options = [
             'id' =>         $this->listener->getId(),
             'step' =>       $step,
@@ -71,6 +75,8 @@ class ListenerLogsUpload extends Base
         $stats = [
             'duplicates' => 0,
             'grouped' => 0,
+            'first_log' => null,
+            'last_log' => null,
             'first_for_listener' => 0,
             'first_for_place' => 0,
             'latest_for_signal' => 0,
@@ -91,20 +97,20 @@ class ListenerLogsUpload extends Base
         );
         $form->handleRequest($request);
         if ($isAdmin && $form->isSubmitted() && $form->isValid()) {
-            $data =         $form->getData();
-            $step =         $data['step'];
-            $format =       $data['format'];
-            $this->logs =   $data['logs'];
+            $data =             $form->getData();
+            $step =             $data['step'];
+            $format =           $data['format'];
+            $this->logs =       $data['logs'];
             $this->operatorID = $data['operatorID'];
-            $this->operator = ($this->operatorID ? $this->getValidListener($this->operatorID) : null);
-            $selected =     $data['selected'];
-            $this->errors = [];
+            $this->operator =   ($this->operatorID ? $this->getValidListener($this->operatorID) : null);
+            $selected =         $data['selected'];
+            $this->errors =     [];
             $this->logRepository->parseFormat($format, $this->tokens, $this->errors, $this->logHas);
 
-            $YYYY =     $this->logHas['YYYY'] ? '' : $data['YYYY'];
-            $MM =       $this->logHas['MM']   ? '' : $data['MM'];
-            $DD =       $this->logHas['DD']   ? '' : $data['DD'];
-            $comment =  $data['comment'];
+            $this->YYYY =       $this->logHas['YYYY'] ? '' : $data['YYYY'];
+            $this->MM =         $this->logHas['MM']   ? '' : $data['MM'];
+            $this->DD =         $this->logHas['DD']   ? '' : $data['DD'];
+            $this->comment =    $data['comment'];
 
             switch ($step) {
                 case '1b':
@@ -114,153 +120,33 @@ class ListenerLogsUpload extends Base
                     $step = '1';
                     break;
                 case '2':
-                    if ($this->errors ||
-                        (!$this->logHas['YYYY'] && !$YYYY) ||
-                        (!$this->logHas['MM'] && !$MM) ||
-                        (!$this->logHas['DD'] && !$DD) ||
-                        (!$this->operatorID && $this->listener->getMultiOperator() === 'Y')
+                    if ($this->errors
+                        || (!$this->logHas['YYYY'] && !$this->YYYY)
+                        || (!$this->logHas['MM'] && !$this->MM)
+                        || (!$this->logHas['DD'] && !$this->DD)
+                        || (!$this->operatorID && $this->listener->getMultiOperator() === 'Y')
                     ) {
                         $step = '1';
                         break;
                     }
-                    $this->entries = $this->logRepository->parseLog(
-                        $this->listener,
-                        $this->logs,
-                        $this->tokens,
-                        $YYYY,
-                        $MM,
-                        $DD,
-                        $this->signalRepository,
-                        false
-                    );
-                    $step = '2';
+                    $this->entries = $this->parseLog(false);
                     break;
                 case '3':
-                    if ($this->errors || (!$this->logHas['YYYY'] && !$YYYY) || (!$this->logHas['MM'] && !$MM) || (!$this->logHas['DD'] && !$DD)) {
+                    if ($this->errors
+                        || (!$this->logHas['YYYY'] && !$this->YYYY)
+                        || (!$this->logHas['MM'] && !$this->MM)
+                        || (!$this->logHas['DD'] && !$this->DD)
+                    ) {
                         $step = '1';
                         break;
                     }
-                    $this->entries = $this->logRepository->parseLog(
-                        $this->listener,
-                        $this->logs,
-                        $this->tokens,
-                        $YYYY,
-                        $MM,
-                        $DD,
-                        $this->signalRepository,
-                        $selected
-                    );
-                    $user = $this->userRepository->find($this->session->get('user_id'));
+                    $this->entries =    $this->parseLog($selected);
+                    $this->user =       $this->userRepository->find($this->session->get('user_id'));
 
-                    $logSessionID = $this->logsessionRepository->addLogSession(
-                        new DateTime(),
-                        $user->getId(),
-                        $this->listener->getId(),
-                        ($this->operatorID ? (int)$this->operatorID : null),
-                        $comment
-                    );
+                    $logSessionID =     $this->createLogSession();
 
-                    $firstLog = null;
-                    $lastLog = null;
-                    foreach($this->entries as $e) {
-                        $isPresent = false;
-                        if ($row = $this->logRepository->findDuplicate($e['signalID'], $id, $e['YYYYMMDD'], $e['time'])) {
-                            if ($this->operatorID === $row['operatorID']) {
-                                $stats['duplicates']++;
-                            } else {
-                                $log = $this->logRepository->find($row['ID']);
-                                $log->setLogSessionId($logSessionID)
-                                    ->setOperatorId($this->operatorID ? (int)$this->operatorID : null);
-                                $this->getDoctrine()->getManager()->flush();
-                                $stats['grouped']++;
-                            }
-                            $isPresent = true;
-                        }
-                        $stats['logs']++;
-                        $type = $this->typeRepository->getTypeForCode($e['type']);
-                        $stats['logs_' . strtolower($type['class'])]++;
-                        $datestamp = $e['YYYYMMDD'] . ' ' . substr($e['time'], 0, 2) . ':' . substr($e['time'], 2). ':00';
-
-                        if ($firstLog === null || $firstLog > $datestamp) {
-                            $firstLog = $datestamp;
-                        }
-                        if ($lastLog === null || $lastLog < $datestamp) {
-                            $lastLog = $datestamp;
-                        }
-                        if ($this->logRepository->checkIfHeardAtPlace($e['signalID'], $heardIn)) {
-                            if ($this->logRepository->countTimesHeardByListener($e['signalID'], $id)) {
-                                $stats['repeat_for_listener']++;
-                            } else {
-                                $stats['first_for_listener']++;
-                            }
-                        } else {
-                            $stats['first_for_listener']++;
-                            $stats['first_for_place']++;
-                        }
-                        $e['latest'] = $this->signalRepository->isLatestLogDateAndTime(
-                            $e['signalID'],
-                            $e['YYYYMMDD'],
-                            $e['time']
-                        );
-                        $stats['latest_for_signal'] += ($e['latest'] ? 1 : 0);
-                        if (!$isPresent) {
-                            $this->logRepository->addLog(
-                                $logSessionID,
-                                $e['signalID'],
-                                $id,
-                                ($this->operatorID ? $this->operatorID : null),
-                                $heardIn,
-                                $region,
-                                $e['YYYYMMDD'],
-                                $e['time'],
-                                $e['daytime'],
-                                $e['dx_km'],
-                                $e['dx_miles'],
-                                $e['LSB_approx'],
-                                $e['LSB'],
-                                $e['USB_approx'],
-                                $e['USB'],
-                                $e['fmt'],
-                                $e['sec']
-                            );
-                            $this->signalRepository->updateSignalStats($e['signalID'], $e['latest']);
-                        }
-                    }
-                    $logSession = $this->logsessionRepository->find($logSessionID);
-                    $em = $this->getDoctrine()->getManager();
-                    if ($firstLog !== null) {
-                        $logSession
-                            ->setFirstLog(DateTime::createFromFormat('Y-m-d H:i:s', $firstLog) ?? null)
-                            ->setLastLog(DateTime::createFromFormat('Y-m-d H:i:s', $lastLog) ?? null)
-                            ->setLogs($stats['logs'])
-                            ->setLogsDgps($stats['logs_dgps'])
-                            ->setLogsDsc($stats['logs_dsc'])
-                            ->setLogsHambcn($stats['logs_hambcn'])
-                            ->setLogsNavtex($stats['logs_navtex'])
-                            ->setLogsNdb($stats['logs_ndb'])
-                            ->setLogsOther($stats['logs_other'])
-                            ->setLogsTime($stats['logs_time'])
-                            ->setUploadStatus('Uploaded')
-                            ->setUploadPercent(100)
-                        ;
-                        $em->flush();
-                    } else {
-                        $em->remove($logSession);
-                        $em->flush();
-                    }
-                    $this->listenerRepository->updateListenerStats($id);
-                    if ($this->operatorID) {
-                        $this->listenerRepository->updateListenerStats($this->operatorID);
-                    }
-                    $this->listenerRepository->clear();
-                    $user->setCountLogSession($user->getCountLogSession() + 1);
-                    $user->setCountLog($user->getCountLog() + $stats['logs']);
-                    $em = $this->getDoctrine()->getManager();
-                    $em->flush();
-
-                    $this->listener = $this->listenerRepository->find($id);
-                    $stats['total_signals'] = $this->listener->getCountSignals();
-                    $stats['total_logs'] = $this->listener->getCountLogs();
+                    $stats = $this->processBatch($logSessionID);
+//                    $stats = $this->processBatch();
                     break;
             }
         }
@@ -317,6 +203,184 @@ class ListenerLogsUpload extends Base
         ];
         $parameters = array_merge($parameters, $this->parameters);
         return $this->render('listener/logs_upload/index.html.twig', $parameters);
+    }
+
+    private function createLogSession() {
+        $stats = [
+            'duplicates' => 0,
+            'grouped' => 0,
+            'first_log' => null,
+            'last_log' => null,
+            'first_for_listener' => 0,
+            'first_for_place' => 0,
+            'latest_for_signal' => 0,
+            'logs' => 0,
+            'logs_dgps' => 0,
+            'logs_dsc' => 0,
+            'logs_hambcn' => 0,
+            'logs_navtex' => 0,
+            'logs_ndb' => 0,
+            'logs_other' => 0,
+            'logs_time' => 0,
+            'repeat_for_listener' => 0
+        ];
+        return $this->logsessionRepository->addLogSession(
+            new DateTime(),
+            $this->user->getId(),
+            $this->listener->getId(),
+            ($this->operatorID ? (int)$this->operatorID : null),
+            $this->comment,
+            $this->entries,
+            $stats,
+            'Pending'
+        );
+    }
+
+    private function getProcessSession() {
+        $ls = $this->logsessionRepository->findOneBy(['uploadStatus' => 'Pending'], ['id' => 'ASC']);
+        if (!$ls) {
+            return false;
+        }
+        return $ls->getId();
+    }
+
+    private function parseLog($selected) {
+        return $this->logRepository->parseLog(
+            $this->listener,
+            $this->logs,
+            $this->tokens,
+            $this->YYYY,
+            $this->MM,
+            $this->DD,
+            $this->signalRepository,
+            $selected
+        );
+    }
+
+    // This must ONLY use data saved in the saved log_session record since it now processes offline
+    private function processBatch($sessionID = false) {
+        if (!$sessionID) {
+            $sessionID = $this->getProcessSession();
+        }
+        if (!$sessionID) {
+            return false;
+        }
+        $ls = $this->logsessionRepository->find($sessionID);
+        if (!$ls) {
+            return false;
+        }
+        $stats =        unserialize($ls->getUploadStats());
+        $entries =      unserialize($ls->getUploadEntries());
+        $adminID =      $ls->getAdministratorId();
+        $listenerID =   $ls->getListenerId();
+        $operatorID =   $ls->getOperatorId();
+        $admin =        $this->userRepository->find($adminID);
+        $listener =     $this->listenerRepository->find($listenerID);
+        $heardIn =      $listener->getHeardIn();
+        $region =       $listener->getRegion();
+
+        foreach($entries as $e) {
+            $isPresent = false;
+            if ($row = $this->logRepository->findDuplicate($e['signalID'], $listenerID, $e['YYYYMMDD'], $e['time'])) {
+                if ($operatorID === $row['operatorID']) {
+                    $stats['duplicates']++;
+                } else {
+                    $log = $this->logRepository->find($row['ID']);
+                    $log->setLogSessionId($sessionID)
+                        ->setOperatorId($operatorID ? (int)$operatorID : null);
+                    $this->getDoctrine()->getManager()->flush();
+                    $stats['grouped']++;
+                }
+                $isPresent = true;
+            }
+            $stats['logs']++;
+            $type = $this->typeRepository->getTypeForCode($e['type']);
+            $stats['logs_' . strtolower($type['class'])]++;
+            $datestamp = $e['YYYYMMDD'] . ' ' . substr($e['time'], 0, 2) . ':' . substr($e['time'], 2). ':00';
+
+            if ($stats['first_log'] === null || $stats['first_log'] > $datestamp) {
+                $stats['first_log'] = $datestamp;
+            }
+            if ($stats['last_log'] === null || $stats['last_log'] < $datestamp) {
+                $stats['last_log'] = $datestamp;
+            }
+            if ($this->logRepository->checkIfHeardAtPlace($e['signalID'], $heardIn)) {
+                if ($this->logRepository->countTimesHeardByListener($e['signalID'], $listenerID)) {
+                    $stats['repeat_for_listener']++;
+                } else {
+                    $stats['first_for_listener']++;
+                }
+            } else {
+                $stats['first_for_listener']++;
+                $stats['first_for_place']++;
+            }
+            $e['latest'] = $this->signalRepository->isLatestLogDateAndTime(
+                $e['signalID'],
+                $e['YYYYMMDD'],
+                $e['time']
+            );
+            $stats['latest_for_signal'] += ($e['latest'] ? 1 : 0);
+            if (!$isPresent) {
+                $this->logRepository->addLog(
+                    $sessionID,
+                    $e['signalID'],
+                    $listenerID,
+                    ($operatorID ? $operatorID : null),
+                    $heardIn,
+                    $region,
+                    $e['YYYYMMDD'],
+                    $e['time'],
+                    $e['daytime'],
+                    $e['dx_km'],
+                    $e['dx_miles'],
+                    $e['LSB_approx'],
+                    $e['LSB'],
+                    $e['USB_approx'],
+                    $e['USB'],
+                    $e['fmt'],
+                    $e['sec']
+                );
+                $this->signalRepository->updateSignalStats($e['signalID'], $e['latest']);
+            }
+        }
+        $logSession = $this->logsessionRepository->find($sessionID);
+        $em = $this->getDoctrine()->getManager();
+        if ($stats['first_log'] !== null) {
+            $logSession
+                ->setFirstLog(DateTime::createFromFormat('Y-m-d H:i:s', $stats['first_log']) ?? null)
+                ->setLastLog(DateTime::createFromFormat('Y-m-d H:i:s', $stats['last_log']) ?? null)
+                ->setLogs($stats['logs'])
+                ->setLogsDgps($stats['logs_dgps'])
+                ->setLogsDsc($stats['logs_dsc'])
+                ->setLogsHambcn($stats['logs_hambcn'])
+                ->setLogsNavtex($stats['logs_navtex'])
+                ->setLogsNdb($stats['logs_ndb'])
+                ->setLogsOther($stats['logs_other'])
+                ->setLogsTime($stats['logs_time'])
+                ->setUploadStatus('Uploaded')
+                ->setUploadPercent(100)
+            ;
+            $em->flush();
+        } else {
+            $em->remove($logSession);
+            $em->flush();
+        }
+
+        $this->listenerRepository->updateListenerStats($listenerID);
+        if ($operatorID) {
+            $this->listenerRepository->updateListenerStats($operatorID);
+        }
+        $this->listenerRepository->clear();
+        $admin->setCountLogSession($admin->getCountLogSession() + 1);
+        $admin->setCountLog($admin->getCountLog() + $stats['logs']);
+        $this->getDoctrine()->getManager()->flush();
+
+        $listener = $this->listenerRepository->find($listenerID);
+        $stats['total_signals'] = $listener->getCountSignals();
+        $stats['total_logs'] = $listener->getCountLogs();
+        $ls->setUploadStats(serialize($stats));
+        $this->getDoctrine()->getManager()->flush();
+        return $stats;
     }
 
     private function saveFormat($format) {

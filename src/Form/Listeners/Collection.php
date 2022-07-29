@@ -223,7 +223,7 @@ class Collection extends Base
                     ChoiceType::class,
                     [
                         'choices' => [
-                            '(All)' => '-',
+                            '(All)' => '',
                             'No' => 'N',
                             'Yes' => 'Y',
                         ],

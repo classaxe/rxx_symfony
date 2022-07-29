@@ -49,7 +49,10 @@ class LogsessionRepository extends ServiceEntityRepository
         $administratorID,
         $listenerID,
         $operatorID,
-        $comment
+        $comment,
+        $entries,
+        $stats,
+        $status
     ) {
         $logsession = new LogSession();
         $logsession
@@ -57,7 +60,14 @@ class LogsessionRepository extends ServiceEntityRepository
             ->setAdministratorId($administratorID)
             ->setListenerId($listenerID)
             ->setOperatorId($operatorID)
-            ->setComment($comment);
+            ->setComment($comment)
+            ->setUploadEntries(serialize($entries))
+            ->setUploadCount(count($entries))
+            ->setUploadCursor(0)
+            ->setUploadPercent(0)
+            ->setUploadStats(serialize($stats))
+            ->setUploadStatus($status);
+
         $this->getEntityManager()->persist($logsession);
         $this->getEntityManager()->flush();
         return $logsession->getId();

@@ -139,13 +139,6 @@ class LogSession
     /**
      * @var string|null
      *
-     * @ORM\Column(name="upload_batch", type="text", length=4294967295, nullable=true)
-     */
-    private $uploadBatch;
-
-    /**
-     * @var string|null
-     *
      * @ORM\Column(name="upload_count", type="integer", options={"unsigned"=true})
      */
     private $uploadCount;
@@ -156,6 +149,13 @@ class LogSession
      * @ORM\Column(name="upload_cursor", type="integer", options={"unsigned"=true})
      */
     private $uploadCursor;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="upload_entries", type="text", length=4294967295, nullable=true)
+     */
+    private $uploadEntries;
 
     /**
      * @var int|null
@@ -479,25 +479,6 @@ class LogSession
     }
 
     /**
-     * @return string|null
-     */
-    public function getUploadBatch(): ?string
-    {
-        return $this->uploadBatch;
-    }
-
-    /**
-     * @param string|null $uploadBatch
-     * @return $this
-     */
-    public function setUploadBatch(?string $uploadBatch): self
-    {
-        $this->uploadBatch = $uploadBatch;
-
-        return $this;
-    }
-
-    /**
      * @return int|null
      */
     public function getUploadCount(): ?int
@@ -531,6 +512,25 @@ class LogSession
     public function setUploadCursor(?int $uploadCursor): self
     {
         $this->uploadCursor = $uploadCursor;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getUploadEntries(): ?string
+    {
+        return $this->uploadEntries;
+    }
+
+    /**
+     * @param string|null $uploadEntries
+     * @return $this
+     */
+    public function setUploadEntries(?string $uploadEntries): self
+    {
+        $this->uploadEntries = $uploadEntries;
 
         return $this;
     }
