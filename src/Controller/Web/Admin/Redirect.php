@@ -52,4 +52,90 @@ class Redirect extends AbstractController
         return $this->redirectToRoute('logon', $parameters);
     }
 
+    /**
+     * @Route(
+     *     "/{_locale}/{system}/logsessions",
+     *     requirements={
+     *        "_locale": "de|en|es|fr",
+     *        "system": "reu|rna|rww"
+     *     }
+     * )
+     * @param $_locale
+     * @param $system
+     * @return RedirectResponse|Response
+     */
+    public function redirect_3($_locale, $system)
+    {
+        $parameters = [
+            '_locale' => $_locale,
+            'system' => $system
+        ];
+
+        return $this->redirectToRoute('admin/logsessions', $parameters);
+    }
+
+    /**
+     * @Route(
+     *     "/logsessions",
+     *     requirements={
+     *        "_locale": "de|en|es|fr",
+     *        "system": "reu|rna|rww"
+     *     }
+     * )
+     * @param GeoService $GeoService
+     * @return RedirectResponse|Response
+     */
+    public function redirect_4(GeoService $GeoService)
+    {
+        $parameters = [
+            '_locale' => $this->get('session')->get('_locale'),
+            'system' => $GeoService->getDefaultSystem()
+        ];
+
+        return $this->redirectToRoute('admin/logsessions', $parameters);
+    }
+
+    /**
+     * @Route(
+     *     "/{_locale}/{system}/users",
+     *     requirements={
+     *        "_locale": "de|en|es|fr",
+     *        "system": "reu|rna|rww"
+     *     }
+     * )
+     * @param $_locale
+     * @param $system
+     * @return RedirectResponse|Response
+     */
+    public function redirect_5($_locale, $system)
+    {
+        $parameters = [
+            '_locale' => $_locale,
+            'system' => $system
+        ];
+
+        return $this->redirectToRoute('admin/users', $parameters);
+    }
+
+    /**
+     * @Route(
+     *     "/users",
+     *     requirements={
+     *        "_locale": "de|en|es|fr",
+     *        "system": "reu|rna|rww"
+     *     }
+     * )
+     * @param GeoService $GeoService
+     * @return RedirectResponse|Response
+     */
+    public function redirect_6(GeoService $GeoService)
+    {
+        $parameters = [
+            '_locale' => $this->get('session')->get('_locale'),
+            'system' => $GeoService->getDefaultSystem()
+        ];
+
+        return $this->redirectToRoute('admin/users', $parameters);
+    }
+
 }
