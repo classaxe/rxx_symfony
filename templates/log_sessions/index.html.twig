@@ -9,11 +9,16 @@
 {{ form_end(form) }}
 {% include 'log_sessions/grid.html.twig' %}
     </div>
-    <h2>{% trans %}Logs Uploaded in Selected Session{% endtrans %}</h2>
+    <h2>{% trans %}Logs Uploaded in Selected Session{% endtrans %} <sup>[
+        <a id="section_logsessionlogs_show" style="display:none">{% trans %}Show{% endtrans %}</a>
+        <a id="section_logsessionlogs_hide" style="display:none">{% trans %}Hide{% endtrans %}</a>
+    ]</sup></h2>
+    <div id="section_logsessionlogs" style="display:none">
     <div class="scroll" style="background: #fff" id="list2"></div>
+    </div>
 </div>
 <script>
-    logSessions.init(
+    logSessions.initFS(
         "{{ url('listener_logsession', { 'system' : system, 'id': 'XXX', 'logSessionId': 'YYY' }) }}",
         "{{ matched }}",
         115

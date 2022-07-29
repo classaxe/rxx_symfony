@@ -52,7 +52,7 @@ class ListenerLogsessions
                 'field'     =>  'comment',
                 'label'     =>  'Comment',
                 'order'     =>  'a',
-                'sort'      =>  'comment',
+                'sort'      =>  'ls.comment',
                 'td_class'  =>  '',
                 'th_class'  =>  '',
                 'tooltip'   =>  '',

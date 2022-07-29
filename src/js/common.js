@@ -34,6 +34,10 @@ var COMMON_FORM = {
         COMMON_FORM.setSectionToggleWithCookie('section_tips')
     },
 
+    setLogSessionLogsActions: function() {
+        COMMON_FORM.setSectionToggleWithCookie('section_logsessionlogs')
+    },
+
     setPagingControls: function() {
         var filter =    $('#form_filter');
         var prev =      $('#form_prev');

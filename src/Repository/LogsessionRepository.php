@@ -132,16 +132,21 @@ class LogsessionRepository extends ServiceEntityRepository
                 ->setFirstResult($args['page'] * $args['limit'])
                 ->setMaxResults($args['limit']);
         }
-
         if (isset($args['sort']) && $reportColumns[$args['sort']]['sort']) {
             $idx = $reportColumns[$args['sort']];
-            $qb
-                ->addOrderBy(
-                    ($idx['sort']),
-                    ($args['order'] === 'd' ? 'DESC' : 'ASC')
-                );
-        }
 
+            $qb->addSelect(
+                "(CASE WHEN ".$idx['sort']." IS NULL OR ".$idx['sort']." = '' THEN 1 ELSE 0 END) AS _blank"
+            )
+            ->addOrderBy(
+                '_blank',
+                'ASC'
+            )
+            ->addOrderBy(
+                ($idx['sort']),
+                ($args['order'] === 'd' ? 'DESC' : 'ASC')
+            );
+        }
         $result = $qb->getQuery()->execute();
 //        print "<pre>".print_r($result, true)."</pre>";
         return $result;
