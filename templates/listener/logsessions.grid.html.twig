@@ -35,7 +35,14 @@
                 %} class="{{ column.td_class }}"{%
                     endif
                 %}>{%
-            if key == 'listener'
+                    if key == 'id'
+                    %}{% if isAdmin
+                    %}<a href="{{ url('admin/logsession', { 'system' : system, 'id' : ls.id }) }}" data-popup="1" title="Click to edit this Log Session">{{ ls.id }}</a>{%
+                        else
+                    %}{{ ls.id }}{%
+                        endif
+                    %}{%
+            elseif key == 'listener'
         %}<a href="{{ url('listener', { 'system' : system, 'id' : ls.listenerId }) }}" data-popup="1" title="Click to view Profile for this Listener Location">{{ ls.listener|raw }}</a>{%
             elseif key == 'receiver'
         %}{% if ls.operatorId %}<a href="{{ url('listener', { 'system' : system, 'id': ls.listenerId }) }}" data-popup="1" title="Click to view profile for this receiver">{{ ls.listener|raw }}</a>{% endif %}{%

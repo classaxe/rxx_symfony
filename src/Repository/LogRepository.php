@@ -141,20 +141,20 @@ class LogRepository extends ServiceEntityRepository
         $this->getEntityManager()->flush();
     }
 
-    private function getLogWhereClause($listenerId = false, $signalId = false)
+    private function getLogWhereClause($listenerId = false, $signalId = false, $sessionId = false)
     {
-        return ($listenerId || $signalId ?
+        return ($listenerId || $signalId || $sessionId ?
             "WHERE\n"
-            . ($listenerId ? "    `logs`.`listenerID` = $listenerId" : '')
-            . ($listenerId && $signalId ? " AND\n" : "\n")
-            . ($signalId ? "    `logs`.`signalID` = $signalId" : '')
-            : ''
-        );
+            . " 1 = 1\n"
+            . ($listenerId ? "AND `logs`.`listenerID` = $listenerId\n" : '')
+            . ($signalId ?   "AND `logs`.`signalID` = $signalId\n" : '')
+            . ($sessionId ?  "AND `logs`.`logSessionID` = $sessionId\n" : '')
+        : '');
     }
 
-    public function getLogCount($listenerId = false, $signalId = false)
+    public function getLogCount($listenerId = false, $signalId = false, $sessionId = false)
     {
-        $where = $this->getLogWhereClause($listenerId, $signalId);
+        $where = $this->getLogWhereClause($listenerId, $signalId, $sessionId);
         $sql = <<< EOD
             SELECT
                 count(*)
@@ -782,14 +782,14 @@ EOD;
         return $filtered;
     }
 
-    public function updateDx($listenerId = false, $signalId = false)
+    public function updateDx($listenerId = false, $signalId = false, $sessionId = false)
     {
         set_time_limit(600);    // Extend maximum execution time to 10 mins
         $chunksize = 200000;
         $affected = 0;
 
-        $count = $this->getLogCount($listenerId, $signalId);
-        $where = $this->getLogWhereClause($listenerId, $signalId);
+        $count = $this->getLogCount($listenerId, $signalId, $sessionId);
+        $where = $this->getLogWhereClause($listenerId, $signalId, $sessionId);
 
         for ($offset = 0; $offset < $count; $offset += $chunksize) {
             $sql = <<< EOD
@@ -838,8 +838,9 @@ EOD;
         return $affected;
     }
 
-    public function updateDaytime()
+    public function updateDaytime($listenerId = false, $signalId = false, $sessionId = false)
     {
+        $where = $this->getLogWhereClause($listenerId, $signalId, $sessionId);
         $sql = <<< EOD
         UPDATE
             logs
@@ -851,6 +852,7 @@ EOD;
                 (logs.time + 2400 < 3800 + (l.timezone * -100)),
                 1, 0
             )
+        $where
 EOD;
         $stmt = $this->connection->prepare($sql);
         $stmt->execute();

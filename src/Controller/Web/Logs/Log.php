@@ -73,9 +73,11 @@ class Log extends WebBase
             $oldListenerId =    $options['listenerId'];
             $oldOperatorId =    $options['operatorId'];
             $oldSignalId =      $options['signalId'];
+            $oldTime =          $options['time'];
             $newListenerId =    $data['listenerId'];
             $newOperatorId =    $data['operatorId'];
             $newSignalId =      $data['signalId'];
+            $newTime =          $data['time'];
             $listener =         $this->listenerRepository->find($data['listenerId']);
             $signal =           $this->signalRepository->find($data['signalId']);
             $daytime =          $listener->isDaytime($data['time']);
@@ -105,24 +107,31 @@ class Log extends WebBase
             $em->flush();
 
             // Listener Stats
-            if ($oldListenerId !== $newListenerId) {
+            if ($oldListenerId !== $newListenerId || $oldTime !== $newTime) {
+                // Log belongs to another location, or daytime / nighttime designation may have changed
                 $this->listenerRepository->updateListenerStats($oldListenerId);
+                $this->listenerRepository->updateListenerStats($newListenerId);
             }
-            $this->listenerRepository->updateListenerStats($newListenerId);
 
             // Operator Stats
-            if ($oldOperatorId !== $newOperatorId) {
-                $this->listenerRepository->updateListenerStats($oldOperatorId);
-            }
-            if ($newOperatorId) {
-                $this->listenerRepository->updateListenerStats($newOperatorId);
+            if ((int)$oldOperatorId !== (int)$newOperatorId) {
+                // Update old and new operator stats
+                if ((int)$oldOperatorId) {
+                    $this->listenerRepository->updateListenerStats($oldOperatorId);
+                }
+                if ((int)$newOperatorId) {
+                    $this->listenerRepository->updateListenerStats($newOperatorId);
+                }
             }
 
             // Signal Stats
-            if ($oldSignalId !== $newSignalId) {
+            if ($oldListenerId !== $newListenerId || $oldSignalId !== $newSignalId || $oldTime !== $newTime) {
+                // Signal, location or possibly day / night designations have changed
                 $this->signalRepository->updateSignalStats($oldSignalId, true, true);
+                if ($oldSignalId !== $newSignalId || $oldTime !== $newTime) {
+                    $this->signalRepository->updateSignalStats($newSignalId, true, true);
+                }
             }
-            $this->signalRepository->updateSignalStats($newSignalId, true, true);
 
             if ($data['_close']) {
                 $js =

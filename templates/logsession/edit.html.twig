@@ -1,0 +1,53 @@
+{% extends 'popup.html.twig' %}
+{% block body %}
+<div class="main fullwidth">
+{% set form_class='logsession_edit' %}
+    <div class="controlPanel {{ form_class }}">
+        <div class="header">{{ mode|raw }}</div>
+        <div class="content">
+            {{ form_start(form) }}
+            <div id="form">
+                {{ form_row(form._token) }}
+                {{ form_row(form.id) }}
+                {{ form_row(form._close) }}
+                {{ form_row(form.reload) }}
+                <div>
+                    {{ form_label(form.listenerId) }}
+                    {{ form_widget(form.listenerId) }}
+                </div>
+                <div><b>Changing the Listener Location may take a while</b>:</div>
+                <ul style="margin-left: 4em">
+                    <li>All log distances will be recalculated for the session</li>
+                    <li>All Daytime / Nighttime designations will be recalculated for the session</li>
+                    <li>All signal stats will be recalculated for the session</li>
+                    <li>All stats for the previous location will be recalculated</li>
+                    <li>All stats for the new location will be recalculated</li>
+                </ul>
+                <div>
+                    {{ form_label(form.operatorId) }}
+                    {{ form_widget(form.operatorId) }}
+                </div>
+                <div>Changing the operator will cause the following:</div>
+                <ul style="margin-left: 4em">
+                    <li>All stats for the previous operator will be recalculated</li>
+                    <li>All stats for the new operator will be recalculated</li>
+                </ul>
+                {{ form_row(form.comment) }}
+                <fieldset id="group_">
+                    {{ form_row(form.close) }}
+                    {{ form_row(form.save) }}
+                    {{ form_row(form.saveClose) }}
+                </fieldset>
+            </div>
+            {{ form_end(form, {'render_rest': false}) }}
+        </div>
+    </div>
+<script src="{{ path('js_listeners') }}"></script>
+<script>
+$(document).ready(function () {
+    LOGSESSION_EDIT.init()
+    {% if doReload %}window.opener.document.getElementsByName('form')[0].submit();{% endif %}
+});
+</script>
+</div>
+{% endblock %}
