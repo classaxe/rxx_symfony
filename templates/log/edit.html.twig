@@ -11,10 +11,22 @@
                 {{ form_row(form.id) }}
                 {{ form_row(form._close) }}
                 {{ form_row(form.reload) }}
+                {% if l.logSessionId %}
+                <div>
+                    {{ form_label(form.sessionId) }}
+                    {{ form_widget(form.sessionId) }}
+                </div>
+                {% endif %}
                 <div>
                     {{ form_label(form.signalId) }}
                     {{ form_widget(form.signalId) }}
                 </div>
+                {% if l.logSessionId %}
+                    <div style="padding-top:1em">
+                        <b>Important:</b> to change Listener or Operator, edit log session
+                        <a href="{{ url('admin/logsession', { 'system' : system, 'id' : l.logSessionId }) }}" data-popup="1" title="Click to edit this Log Session">{{ l.logSessionId }}</a>
+                    </div>
+                {% endif %}
                 <div>
                     {{ form_label(form.listenerId) }}
                     {{ form_widget(form.listenerId) }}

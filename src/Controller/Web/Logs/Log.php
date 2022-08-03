@@ -45,6 +45,7 @@ class Log extends WebBase
 
         $options = [
             'id' =>         $log->getId(),
+            'sessionId' =>  $log->getLogSessionId(),
             'signalId' =>   $log->getSignalId(),
             'date' =>       $log->getDate() ? $log->getDate()->format('Y-m-d') : '',
             'daytime' =>    $log->getDaytime(),

@@ -328,6 +328,13 @@ function lead(num, size) {
     return s;
 }
 
+function leadNbsp(num, size) {
+    var s = String(num);
+    while (s.length < size) {
+        s = "*" + s;
+    }
+    return s.replace(/\*/g, '&nbsp;');
+}
 function pad(txt, size, padStr) {
     var s = String(txt);
     var r = (s + ('                                        ')).substr(0, size);

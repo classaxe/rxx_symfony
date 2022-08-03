@@ -28,14 +28,14 @@ var LOG_EDIT = {
             r = data[i].split('|');
             out +=
                 "<option value='" + r[0] + "'" +
-                " data-gsq='" + r[3] + "'" +
-                " data-tz='" + r[8] + "'" +
-                " class='" + (r[4] === 'Y' ? 'primaryQth' : 'secondaryQth') + "'" +
+                " data-gsq='" + r[4] + "'" +
+                " data-tz='" + r[9] + "'" +
+                " class='" + (r[5] === 'Y' ? 'primaryQth' : 'secondaryQth') + "'" +
                 (r[0] === s ? " selected='selected'" : '') +
                 ">" +
-                pad(r[1] + ", " + r[5] + (r[2] ? ' ' + r[2] : ''), (r[4] === '1' ? 60 : 58), '&nbsp;') +
-                (r[6] ? ' ' + r[6] : '&nbsp; &nbsp;') +
-                ' ' + r[7] +
+                leadNbsp(r[0],4) + ' ' + pad(r[2] + ', ' + r[6], (r[5] === 'Y' ? 55 : 52), '&nbsp;') +
+                (r[7] ? ' ' + r[7] : '&nbsp; &nbsp;') +
+                ' ' + r[8] +
                 "</option>";
         }
         out += "</select>";

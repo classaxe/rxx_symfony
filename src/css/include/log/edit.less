@@ -36,6 +36,9 @@
                 background-size: auto 100%;
                 background-position: right;
             }
+            &#form_daytime {
+                width: 6em;
+            }
             &#form_time {
                 text-align: right;
                 width: 3em;
@@ -43,6 +46,7 @@
             &#form_format {
                 width: 23em;
             }
+            &#form_sessionId,
             &#form_dxKm,
             &#form_dxMiles,
             &#form_sec,
@@ -65,14 +69,14 @@
                 color: #888;
             }
             option:checked {
-                border: 2px dashed #f00;
-                font-weight: bold;
+                border-top: 2px dashed #f00;
+                border-bottom: 2px dashed #f00;
             }
         }
+        select#form_operatorId:read-only,
         select#form_daytime {
             background: #E6E6E7;
             cursor: not-allowed;
-            width: 6em;
         }
     }
 }

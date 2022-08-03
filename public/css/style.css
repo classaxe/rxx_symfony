@@ -1,7 +1,7 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.45.5
+ * Version:    2.45.7
  * Date:       2022-08-03
  * Licence:    LGPL
  * Copyright:  2022 Martin Francis
@@ -2697,6 +2697,10 @@ div.scroll div table.parse.results tbody tr {
   background-size: auto 100%;
   background-position: right;
 }
+.log_edit #form input[type='text']#form_daytime,
+.log_edit #form select#form_daytime {
+  width: 6em;
+}
 .log_edit #form input[type='text']#form_time,
 .log_edit #form select#form_time {
   text-align: right;
@@ -2706,6 +2710,8 @@ div.scroll div table.parse.results tbody tr {
 .log_edit #form select#form_format {
   width: 23em;
 }
+.log_edit #form input[type='text']#form_sessionId,
+.log_edit #form select#form_sessionId,
 .log_edit #form input[type='text']#form_dxKm,
 .log_edit #form select#form_dxKm,
 .log_edit #form input[type='text']#form_dxMiles,
@@ -2736,13 +2742,13 @@ div.scroll div table.parse.results tbody tr {
 }
 .log_edit #form select#form_listenerId option:checked,
 .log_edit #form select#form_signalId option:checked {
-  border: 1px dashed #000;
-  font-weight: bold;
+  border-top: 2px dashed #f00;
+  border-bottom: 2px dashed #f00;
 }
+.log_edit #form select#form_operatorId:read-only,
 .log_edit #form select#form_daytime {
   background: #E6E6E7;
   cursor: not-allowed;
-  width: 6em;
 }
 .cle_editor label {
   display: inline-block;

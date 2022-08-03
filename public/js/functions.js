@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.45.5
- * Date:       2022-08-01
+ * Version:    2.45.7
+ * Date:       2022-08-03
  * Licence:    LGPL
  * Copyright:  2022 Martin Francis
  */
@@ -38,7 +38,7 @@ var popWinSpecs = {
     'listeners_[id]_remotelogsessions' :    'width=1120,height=760,status=1,scrollbars=1,resizable=1',
     '[id]_signals_map' :                    'width=1120,height=760,status=1,scrollbars=1,resizable=1',
     'listeners_[id]_ndbweblog' :            'status=1,scrollbars=1,resizable=1',
-    'logs_[id]' :                           'width=640,height=540,status=1,scrollbars=1,resizable=1',
+    'logs_[id]' :                           'width=640,height=620,status=1,scrollbars=1,resizable=1',
     'maps_af' :                             'width=646,height=652,resizable=1',
     'maps_alaska' :                         'width=600,height=620,resizable=1',
     'maps_as' :                             'width=856,height=645,resizable=1',
@@ -868,6 +868,13 @@ function lead(num, size) {
     return s;
 }
 
+function leadNbsp(num, size) {
+    var s = String(num);
+    while (s.length < size) {
+        s = "*" + s;
+    }
+    return s.replace(/\*/g, '&nbsp;');
+}
 function pad(txt, size, padStr) {
     var s = String(txt);
     var r = (s + ('                                        ')).substr(0, size);
@@ -1369,14 +1376,14 @@ var LOG_EDIT = {
             r = data[i].split('|');
             out +=
                 "<option value='" + r[0] + "'" +
-                " data-gsq='" + r[3] + "'" +
-                " data-tz='" + r[8] + "'" +
-                " class='" + (r[4] === 'Y' ? 'primaryQth' : 'secondaryQth') + "'" +
+                " data-gsq='" + r[4] + "'" +
+                " data-tz='" + r[9] + "'" +
+                " class='" + (r[5] === 'Y' ? 'primaryQth' : 'secondaryQth') + "'" +
                 (r[0] === s ? " selected='selected'" : '') +
                 ">" +
-                pad(r[1] + ", " + r[5] + (r[2] ? ' ' + r[2] : ''), (r[4] === '1' ? 60 : 58), '&nbsp;') +
-                (r[6] ? ' ' + r[6] : '&nbsp; &nbsp;') +
-                ' ' + r[7] +
+                leadNbsp(r[0],4) + ' ' + pad(r[2] + ', ' + r[6], (r[5] === 'Y' ? 55 : 52), '&nbsp;') +
+                (r[7] ? ' ' + r[7] : '&nbsp; &nbsp;') +
+                ' ' + r[8] +
                 "</option>";
         }
         out += "</select>";

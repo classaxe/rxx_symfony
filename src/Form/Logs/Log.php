@@ -48,6 +48,18 @@ class Log extends Base
                 ]
             )
             ->add(
+                'sessionId',
+                TextType::class,
+                [
+                    'attr' => [
+                        'readonly' => 'readonly'
+                    ],
+                    'data' =>           $options['sessionId'],
+                    'empty_data' =>     '',
+                    'label' =>          'Session',
+                ]
+            )
+            ->add(
                 'signalId',
                 HiddenType::class,
                 [
@@ -69,6 +81,9 @@ class Log extends Base
                 'operatorId',
                 ChoiceType::class,
                 [
+                    'attr' => [
+                        'readonly' => ($options['sessionId'] !== 0 ? 'readonly' :  false)
+                    ],
                     'choices' => $this->listenerRepository->getOperators(
                         '',
                         $this->translator->trans('(None specified)'),
