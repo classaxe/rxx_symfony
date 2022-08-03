@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.44.18
- * Date:       2022-07-26
+ * Version:    2.45.5
+ * Date:       2022-08-03
  * Licence:    LGPL
  * Copyright:  2022 Martin Francis
  */
@@ -216,29 +216,29 @@ tr.dgps td {
   background-color: #00d8ff !important;
 }
 .type_2,
-.type_dsc,
-tr.dsc td {
-  background-color: #ffb000 !important;
-}
-.type_3,
 .type_time,
 tr.time td {
   background-color: #ffe0b0 !important;
 }
-.type_4,
+.type_3,
 .type_navtex,
 tr.navtex td {
   background-color: #ffb8d8 !important;
 }
-.type_5,
+.type_4,
 .type_hambcn,
 tr.hambcn td {
   background-color: #b8ffc0 !important;
 }
-.type_6,
+.type_5,
 .type_other,
 tr.other td {
   background-color: #b8f8ff !important;
+}
+.type_6,
+.type_dsc,
+tr.dsc td {
+  background-color: #ffb000 !important;
 }
 .type_all {
   background-color: #d03333;
@@ -2733,6 +2733,11 @@ div.scroll div table.parse.results tbody tr {
 .log_edit #form select#form_signalId option.secondaryQth {
   padding-left: 1.5em;
   color: #888;
+}
+.log_edit #form select#form_listenerId option:checked,
+.log_edit #form select#form_signalId option:checked {
+  border: 1px dashed #000;
+  font-weight: bold;
 }
 .log_edit #form select#form_daytime {
   background: #E6E6E7;

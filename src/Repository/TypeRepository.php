@@ -5,6 +5,24 @@ namespace App\Repository;
 class TypeRepository
 {
     const types = [
+        0 => [
+            'bbggrr' => 'ffffff',
+            'class' =>  'NDB',
+            'color' =>  'ffffff',
+            'label' =>  'NDB',
+            'order' =>  4,
+            'refs'  =>  [
+                'links' =>  [
+                    [
+                        'label' =>  'William Hepburn\'s LF List',
+                        'url'   =>  'http://www.dxinfocentre.com/ndb.htm'
+                    ]
+                ],
+                'title' =>  'Additional NDB Info:'
+            ],
+            'title' =>  'NDB',
+            'type' =>   'ndb'
+        ],
         1 => [
             'bbggrr' => 'ffd800',
             'class' =>  'DGPS',
@@ -23,15 +41,37 @@ class TypeRepository
             'title' =>  'DGPS Station',
             'type' =>   'dgps'
         ],
-        6 => [
-            'bbggrr' => '00b0ff',
-            'class' =>  'DSC',
-            'color' =>  'ffb000',
-            'label' =>  'DSC',
-            'order' =>  1,
+        2 => [
+            'bbggrr' => 'b0e0ff',
+            'class' =>  'TIME',
+            'color' =>  'ffe0b0',
+            'label' =>  'Time',
+            'order' =>  5,
             'refs'  =>  [],
-            'title' =>  'DSC Station',
-            'type' =>   'dsc'
+            'title' =>  'Time Signal Station',
+            'type' =>   'time'
+        ],
+        3 => [
+            'bbggrr' => 'd8b8ff',
+            'class' =>  'NAVTEX',
+            'color' =>  'ffb8d8',
+            'label' =>  'Navtex',
+            'order' =>  3,
+            'refs'  =>  [
+                'title' =>  'Additional Navtex Station Info:',
+                'links' =>  [
+                    [
+                        'label' =>  'William Hepburn\'s LF List',
+                        'url'   =>  'http://www.dxinfocentre.com/navtex.htm'
+                    ],
+                    [
+                        'label' =>  'William Hepburn\'s HF List',
+                        'url'   =>  'http://www.dxinfocentre.com/maritimesafetyinfo.htm'
+                    ]
+                ],
+            ],
+            'title' =>  'NavTex Station',
+            'type' =>   'navtex'
         ],
         4 => [
             'bbggrr' => 'c0ffb8',
@@ -59,56 +99,6 @@ class TypeRepository
             'title' =>  'Amateur Radio Beacon',
             'type' =>   'hambcn'
         ],
-        3 => [
-            'bbggrr' => 'd8b8ff',
-            'class' =>  'NAVTEX',
-            'color' =>  'ffb8d8',
-            'label' =>  'Navtex',
-            'order' =>  3,
-            'refs'  =>  [
-                'title' =>  'Additional Navtex Station Info:',
-                'links' =>  [
-                    [
-                        'label' =>  'William Hepburn\'s LF List',
-                        'url'   =>  'http://www.dxinfocentre.com/navtex.htm'
-                    ],
-                    [
-                        'label' =>  'William Hepburn\'s HF List',
-                        'url'   =>  'http://www.dxinfocentre.com/maritimesafetyinfo.htm'
-                    ]
-                ],
-            ],
-            'title' =>  'NavTex Station',
-            'type' =>   'navtex'
-        ],
-        0 => [
-            'bbggrr' => 'ffffff',
-            'class' =>  'NDB',
-            'color' =>  'ffffff',
-            'label' =>  'NDB',
-            'order' =>  4,
-            'refs'  =>  [
-                'links' =>  [
-                    [
-                        'label' =>  'William Hepburn\'s LF List',
-                        'url'   =>  'http://www.dxinfocentre.com/ndb.htm'
-                    ]
-                ],
-                'title' =>  'Additional NDB Info:'
-            ],
-            'title' =>  'NDB',
-            'type' =>   'ndb'
-        ],
-        2 => [
-            'bbggrr' => 'b0e0ff',
-            'class' =>  'TIME',
-            'color' =>  'ffe0b0',
-            'label' =>  'Time',
-            'order' =>  5,
-            'refs'  =>  [],
-            'title' =>  'Time Signal Station',
-            'type' =>   'time'
-        ],
         5 => [
             'bbggrr' => 'fff8b8',
             'class' =>  'OTHER',
@@ -118,6 +108,16 @@ class TypeRepository
             'refs'  =>  [],
             'title' =>  'Other form of transmission',
             'type' =>   'other'
+        ],
+        6 => [
+            'bbggrr' => '00b0ff',
+            'class' =>  'DSC',
+            'color' =>  'ffb000',
+            'label' =>  'DSC',
+            'order' =>  1,
+            'refs'  =>  [],
+            'title' =>  'DSC Station',
+            'type' =>   'dsc'
         ],
     ];
 

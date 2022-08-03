@@ -112,8 +112,15 @@ class Logsessions extends Base
         Request $request,
         LogSessionViewForm $logSessionViewForm
     ) {
-        if (!$this->parameters['isAdmin'] || !$logsession = $this->logsessionRepository->find($id)) {
-            return $this->redirectToRoute('signals', ['system' => $system]);
+        if (!((int)$this->parameters['access'] & (UserEntity::MASTER | UserEntity::ADMIN))) {
+            if ((int)$this->parameters['access'] === 0) {
+                $this->session->set('route', 'admin/logsessions');
+                return $this->redirectToRoute('logon', ['system' => $system]);
+            }
+            throw $this->createAccessDeniedException('You do not have access to this page');
+        }
+        if (!$logsession = $this->logsessionRepository->find($id)) {
+            return $this->redirectToRoute('admin/logsession', ['system' => $system]);
         }
         $doReload = $request->query->get('reload') ?? false;
 
