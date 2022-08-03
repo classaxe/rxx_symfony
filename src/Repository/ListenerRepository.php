@@ -541,8 +541,10 @@ class ListenerRepository extends ServiceEntityRepository
         return $qb->getQuery()->execute();
     }
 
-    public function getAll()
+    public function getAll($onlyOperators = false)
     {
+        $multiOpClause = ($onlyOperators ? "WHERE multi_operator = 'N'" : '');
+
         $sql = <<< EOD
             SELECT
                 REPLACE(
@@ -564,6 +566,7 @@ class ListenerRepository extends ServiceEntityRepository
                 ) as s
             FROM            
                 `listeners`
+            $multiOpClause
             ORDER BY
                 name,
                 primary_QTH DESC,
@@ -853,8 +856,8 @@ EOD;
         foreach ($result as $row) {
             $out[
                 ($row['primaryQth'] === 'Y' ? '' : '    ')
-                . html_entity_decode($row['name'])
-                . ' [' . $row['id'] . '] '
+                . Rxx::lead_nbsp($row['id'], 4) . ' '
+                . html_entity_decode($row['name']) . ', '
                 . html_entity_decode($row['qth'])
                 . ($row['sp'] ? ' ' . $row['sp'] : '')
                 . " "

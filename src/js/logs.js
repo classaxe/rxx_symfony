@@ -13,17 +13,24 @@ var LOG_EDIT = {
                 $('#form_save, #form_saveClose, #form_close').attr('disabled', 'disabled');
             }, 1);
         })
-        LOG_EDIT.initListenersSelector(listeners);
+        LOG_EDIT.initListenersSelector('form_listenerId', 'form[listenerId]', true, listeners);
+        LOG_EDIT.initListenersSelector('form_operatorId', 'form[operatorId]', false, operators);
         LOG_EDIT.initSignalsSelector(signals);
         LOG_EDIT.initTimeControl();
         COMMON_FORM.setDatePickerActions();
     },
 
-    initListenersSelector: function(data) {
+    initListenersSelector: function(id, name, required, data) {
         var element, i, out, r, s;
-        element = $('#form_listenerId');
+        element = $('#' + id);
         s  = element.val();
-        out = "<select id=\"form_listenerId\" name=\"form[listenerId]\" required=\"required\" size=\"10\">\n";
+        out = "<select id=\"" + id + "\" name=\"" + name + "\"" +
+            (required ? " required=\"required\"" : "") +
+            " size=\"10\">\n";
+        if (!required) {
+            out += "<option" + (s==='' ? " selected=\"selected\"" : "") +" style='font-weight: bold;color:red;text-align:center'>" +
+                "(Only choose an operator with Multi-Op locations - e.g. Kiwi)</option>";
+        }
         for (i in data) {
             r = data[i].split('|');
             out +=
@@ -33,7 +40,7 @@ var LOG_EDIT = {
                 " class='" + (r[5] === 'Y' ? 'primaryQth' : 'secondaryQth') + "'" +
                 (r[0] === s ? " selected='selected'" : '') +
                 ">" +
-                leadNbsp(r[0],4) + ' ' + pad(r[2] + ', ' + r[6], (r[5] === 'Y' ? 55 : 52), '&nbsp;') +
+                leadNbsp(r[0],4) + ' ' + pad(r[2] + ', ' + r[6], (r[5] === 'Y' ? 55 : 53), '&nbsp;') +
                 (r[7] ? ' ' + r[7] : '&nbsp; &nbsp;') +
                 ' ' + r[8] +
                 "</option>";

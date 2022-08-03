@@ -11,20 +11,21 @@
                 {{ form_row(form.id) }}
                 {{ form_row(form._close) }}
                 {{ form_row(form.reload) }}
-                {% if l.logSessionId %}
                 <div>
+                    {{ form_label(form.logIdRo) }}
+                    {{ form_widget(form.logIdRo) }}
                     {{ form_label(form.sessionId) }}
                     {{ form_widget(form.sessionId) }}
                 </div>
-                {% endif %}
                 <div>
                     {{ form_label(form.signalId) }}
                     {{ form_widget(form.signalId) }}
                 </div>
                 {% if l.logSessionId %}
-                    <div style="padding-top:1em">
-                        <b>Important:</b> to change Listener or Operator, edit log session
-                        <a href="{{ url('admin/logsession', { 'system' : system, 'id' : l.logSessionId }) }}" data-popup="1" title="Click to edit this Log Session">{{ l.logSessionId }}</a>
+                    <div style="margin: 2em 0 0.5em 0;text-align: center; border:1px solid red;background: #fee">
+                        <b style="color:red">DO NOT change Listener or Operator here.</b><br>Edit
+                        <a href="{{ url('admin/logsession', { 'system' : system, 'id' : l.logSessionId }) }}" data-popup="1" title="Click to edit this Log Session">Log Session {{ l.logSessionId }}</a>
+                        instead.
                     </div>
                 {% endif %}
                 <div>
@@ -35,6 +36,9 @@
                     {{ form_label(form.operatorId) }}
                     {{ form_widget(form.operatorId) }}
                 </div>
+                {% if l.logSessionId %}
+                <div style="padding-bottom:1em"></div>
+                {% endif %}
                 <div>
                     {{ form_label(form.dxKm) }}
                     {{ form_widget(form.dxKm) }}
@@ -77,6 +81,7 @@
         </div>
     </div>
 <script src="{{ path('js_listeners') }}"></script>
+<script src="{{ path('js_operators') }}"></script>
 <script src="{{ path('js_signals') }}"></script>
 <script>
 $(document).ready(function () {

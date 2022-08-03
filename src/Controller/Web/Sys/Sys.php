@@ -105,8 +105,23 @@ class Sys extends Base
      */
     public function listenersJs()
     {
-        $data = $this->listenerRepository->getAll();
+        $data = $this->listenerRepository->getAll(false);
         $content = "var listeners = [\n  \"" . html_entity_decode(implode("\",\n  \"", $data), ENT_NOQUOTES). "\"\n];";
+        $this->setResponse(new Response($content, 200), 'application/javascript');
+        return $this->getResponse();
+    }
+
+    /**
+     * @Route(
+     *     "/sys/js/operators.js",
+     *     name="js_operators"
+     * )
+     * @return Response
+     */
+    public function operatorsJs()
+    {
+        $data = $this->listenerRepository->getAll(true);
+        $content = "var operators = [\n  \"" . html_entity_decode(implode("\",\n  \"", $data), ENT_NOQUOTES). "\"\n];";
         $this->setResponse(new Response($content, 200), 'application/javascript');
         return $this->getResponse();
     }

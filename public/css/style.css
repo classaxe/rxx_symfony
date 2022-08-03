@@ -1,7 +1,7 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.45.7
+ * Version:    2.45.8
  * Date:       2022-08-03
  * Licence:    LGPL
  * Copyright:  2022 Martin Francis
@@ -2663,6 +2663,7 @@ div.scroll div table.parse.results tbody tr {
 .log_edit #form label {
   width: 20%;
 }
+.log_edit #form label[for="form_sessionId"],
 .log_edit #form label[for="form_dxMiles"],
 .log_edit #form label[for="form_time"],
 .log_edit #form label[for="form_daytime"],
@@ -2710,6 +2711,8 @@ div.scroll div table.parse.results tbody tr {
 .log_edit #form select#form_format {
   width: 23em;
 }
+.log_edit #form input[type='text']#form_logIdRo,
+.log_edit #form select#form_logIdRo,
 .log_edit #form input[type='text']#form_sessionId,
 .log_edit #form select#form_sessionId,
 .log_edit #form input[type='text']#form_dxKm,
@@ -2723,29 +2726,32 @@ div.scroll div table.parse.results tbody tr {
 .log_edit #form input[type='text']#form_usb,
 .log_edit #form select#form_usb {
   text-align: right;
-  width: 4em;
+  width: 5em;
 }
+.log_edit #form select#form_signalId,
 .log_edit #form select#form_listenerId,
-.log_edit #form select#form_signalId {
+.log_edit #form select#form_operatorId {
   margin: 0 0 0.5em 0;
+  height: 8em;
   font-family: monospace;
-  height: 12em;
 }
+.log_edit #form select#form_signalId option.primaryQth,
 .log_edit #form select#form_listenerId option.primaryQth,
-.log_edit #form select#form_signalId option.primaryQth {
+.log_edit #form select#form_operatorId option.primaryQth {
   font-weight: bold;
 }
+.log_edit #form select#form_signalId option.secondaryQth,
 .log_edit #form select#form_listenerId option.secondaryQth,
-.log_edit #form select#form_signalId option.secondaryQth {
+.log_edit #form select#form_operatorId option.secondaryQth {
   padding-left: 1.5em;
   color: #888;
 }
+.log_edit #form select#form_signalId option:checked,
 .log_edit #form select#form_listenerId option:checked,
-.log_edit #form select#form_signalId option:checked {
+.log_edit #form select#form_operatorId option:checked {
   border-top: 2px dashed #f00;
   border-bottom: 2px dashed #f00;
 }
-.log_edit #form select#form_operatorId:read-only,
 .log_edit #form select#form_daytime {
   background: #E6E6E7;
   cursor: not-allowed;

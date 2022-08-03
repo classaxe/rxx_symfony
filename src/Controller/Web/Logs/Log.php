@@ -156,7 +156,7 @@ class Log extends WebBase
             'doReload' =>           $doReload,
             'form' =>               $form->createView(),
             'l' =>                  $log,
-            'mode' =>               'Edit Log',
+            'mode' =>               'Edit Log Entry',
             'system' =>             $system
         ];
         $parameters = array_merge($parameters, $this->parameters);

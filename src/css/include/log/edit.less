@@ -2,6 +2,7 @@
     #form {
         label {
             width: 20%;
+            &[for="form_sessionId"],
             &[for="form_dxMiles"],
             &[for="form_time"],
             &[for="form_daytime"],
@@ -46,6 +47,7 @@
             &#form_format {
                 width: 23em;
             }
+            &#form_logIdRo,
             &#form_sessionId,
             &#form_dxKm,
             &#form_dxMiles,
@@ -53,14 +55,15 @@
             &#form_lsb,
             &#form_usb {
                 text-align: right;
-                width: 4em;
+                width: 5em;
             }
         }
+        select#form_signalId,
         select#form_listenerId,
-        select#form_signalId {
+        select#form_operatorId {
             margin: 0 0 0.5em 0;
+            height: 8em;
             font-family: monospace;
-            height: 12em;
             option.primaryQth {
                 font-weight: bold;
             }
@@ -73,7 +76,6 @@
                 border-bottom: 2px dashed #f00;
             }
         }
-        select#form_operatorId:read-only,
         select#form_daytime {
             background: #E6E6E7;
             cursor: not-allowed;
