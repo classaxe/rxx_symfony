@@ -156,6 +156,16 @@ class Rxx
         return $dateTime;
     }
 
+    public static function lead_nbsp($text, $places)
+    {
+        $text = html_entity_decode($text);
+
+        if (mb_strlen($text) > $places) {
+            return substr($text, 0, $places);
+        }
+        return str_repeat(' ', $places - mb_strlen($text)) . $text;
+    }
+
     public static function pad_char($text, $char, $places)
     {
         $text = html_entity_decode($text);
