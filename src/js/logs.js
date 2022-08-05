@@ -18,6 +18,7 @@ var LOG_EDIT = {
         COMMON_FORM.initSignalsSelector(signals);
         COMMON_FORM.initTimeControl();
         COMMON_FORM.setDatePickerActions();
+        setExternalLinks();
     },
 
     getDx: function() {
