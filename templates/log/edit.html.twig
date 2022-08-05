@@ -21,7 +21,7 @@
                     {{ form_label(form.signalId) }}
                     {{ form_widget(form.signalId) }}
                 </div>
-                {% if l.logSessionId %}
+                {% if isAdmin %}
                     <div style="margin: 2em 0 0.5em 0;text-align: center; border:1px solid red;background: #fee">
                         <b style="color:red">DO NOT change Listener or Operator here.</b><br>Edit
                         <a href="{{ url('logsession', { 'system' : system, 'id' : l.logSessionId }) }}" data-popup="1" title="Click to edit this Log Session">Log Session {{ l.logSessionId }}</a>
@@ -73,8 +73,8 @@
                 </div>
                 <fieldset id="group_">
                     {{ form_row(form.close) }}
-                    {{ form_row(form.save) }}
-                    {{ form_row(form.saveClose) }}
+                    {% if isAdmin %}{{ form_row(form.save) }}{% else %}{{ form_row(form.save_disabled) }}{% endif %}
+                    {% if isAdmin %}{{ form_row(form.saveClose) }}{% endif %}
                 </fieldset>
             </div>
             {{ form_end(form, {'render_rest': false}) }}

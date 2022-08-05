@@ -85,27 +85,45 @@ class LogSession extends Base
                     ],
                     'label' =>          'Close',
                 ]
-            )
-            ->add(
-                'save',
-                SubmitType::class,
+            );
+
+        if ($options['isAdmin']) {
+            $formBuilder
+                ->add(
+                    'save',
+                    SubmitType::class,
+                    [
+                        'attr' => [
+                            'class' => 'button small'
+                        ],
+                        'label' => 'Save',
+                    ]
+                )
+                ->add(
+                    'saveClose',
+                    SubmitType::class,
+                    [
+                        'attr' => [
+                            'class' => 'button small'
+                        ],
+                        'label' => 'Save + Close',
+                    ]
+                );
+        } else {
+            $formBuilder->add(
+                'save_disabled',
+                ButtonType::class,
                 [
                     'attr' => [
-                        'class' => 'button small'
+                        'class' =>      'button small',
+                        'disabled' =>   true,
+                        'title' =>      'Admins only'
                     ],
-                    'label' => 'Save',
-                ]
-            )
-            ->add(
-                'saveClose',
-                SubmitType::class,
-                [
-                    'attr' => [
-                        'class' => 'button small'
-                    ],
-                    'label' => 'Save + Close',
+                    'label' =>          'Save',
                 ]
             );
+        }
+
         return $formBuilder->getForm();
     }
 }

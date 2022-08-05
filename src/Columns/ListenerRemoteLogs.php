@@ -7,7 +7,7 @@ class ListenerRemoteLogs
     {
         return [
             'id' => [
-                'admin'     =>  true,
+                'admin'     =>  false,
                 'arg'       =>  '',
                 'field'     =>  'log_id',
                 'label'     =>  'Log ID',

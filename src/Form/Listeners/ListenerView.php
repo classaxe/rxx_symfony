@@ -26,7 +26,6 @@ class ListenerView extends Base
      */
     public function buildForm(FormBuilderInterface $formBuilder, array $options)
     {
-        $isAdmin = $options['isAdmin'];
         $formBuilder
         ->add(
             'id',
@@ -245,7 +244,7 @@ class ListenerView extends Base
             ]
         );
 
-        if ($isAdmin) {
+        if ($options['isAdmin']) {
             $formBuilder->add(
                 'email',
                 TextType::class,

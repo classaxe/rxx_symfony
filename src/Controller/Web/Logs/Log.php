@@ -38,13 +38,15 @@ class Log extends WebBase
         Request $request,
         LogForm $logForm
     ) {
-        if (!$this->parameters['isAdmin'] || !$log = $this->logRepository->find($id)) {
+        if (!$log = $this->logRepository->find($id)) {
             return $this->redirectToRoute('signals', ['system' => $system]);
         }
+        $isAdmin = $this->parameters['isAdmin'];
         $doReload = $request->query->get('reload') ?? false;
 
         $options = [
             'id' =>         $log->getId(),
+            'isAdmin' =>    $isAdmin,
             'sessionId' =>  $log->getLogSessionId(),
             'signalId' =>   $log->getSignalId(),
             'date' =>       $log->getDate() ? $log->getDate()->format('Y-m-d') : '',
@@ -156,7 +158,7 @@ class Log extends WebBase
             'doReload' =>           $doReload,
             'form' =>               $form->createView(),
             'l' =>                  $log,
-            'mode' =>               'Edit Log Entry',
+            'mode' =>               'Log Entry',
             'system' =>             $system
         ];
         $parameters = array_merge($parameters, $this->parameters);

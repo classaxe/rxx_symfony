@@ -38,20 +38,15 @@ class LogsessionView extends Base
         Request $request,
         LogSessionViewForm $logSessionViewForm
     ) {
-        if (!((int)$this->parameters['access'] & (UserEntity::MASTER | UserEntity::ADMIN))) {
-            if ((int)$this->parameters['access'] === 0) {
-                $this->session->set('route', 'logsessions');
-                return $this->redirectToRoute('logon', ['system' => $system]);
-            }
-            throw $this->createAccessDeniedException('You do not have access to this page');
-        }
         if (!$logsession = $this->logsessionRepository->find($id)) {
             return $this->redirectToRoute('logsession', ['system' => $system]);
         }
         $doReload = $request->query->get('reload') ?? false;
+        $isAdmin = $this->parameters['isAdmin'];
 
         $options = [
             'id' =>         $logsession->getId(),
+            'isAdmin' =>    $isAdmin,
             'comment' =>    $logsession->getComment(),
             'listenerId' => $logsession->getListenerId(),
             'operatorId' => $logsession->getOperatorId(),
@@ -138,7 +133,7 @@ class LogsessionView extends Base
             'doReload' =>           $doReload,
             'form' =>               $form->createView(),
             'l' =>                  $logsession,
-            'mode' =>               'Edit Log Session',
+            'mode' =>               'Log Session',
             'system' =>             $system
         ];
         $parameters = array_merge($parameters, $this->parameters);

@@ -14,7 +14,7 @@ class ListenerLogs
     {
         return [
             'id' => [
-                'admin'     =>  true,
+                'admin'     =>  false,
                 'arg'       =>  '',
                 'field'     =>  'log_id',
                 'label'     =>  'Log ID',

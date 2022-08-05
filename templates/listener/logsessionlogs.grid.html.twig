@@ -18,8 +18,8 @@
 {% for key, column in columns %}{%
         if ((not column.admin or isAdmin) and not (key == 'operator')) %}{# Hide in logs for log session - waste of space #}
     <td{% if column.td_class %} class="{{ column.td_class }}"{% endif %}>{%
-        if key == 'id' and isAdmin
-    %}<a href="{{ url('log', { 'system' : system, 'id' : l.log_id }) }}" data-popup="1" title="Click to edit this log record">{{ l.log_id }}</a>{%
+        if key == 'id'
+    %}{% if isAdmin %}<a href="{{ url('log', { 'system' : system, 'id' : l.log_id }) }}" data-popup="1" title="Click to view this log record">{{ l.log_id }}</a>{% else %}{{ l.log_id }}{% endif %}{%
         elseif key == 'call'
     %}<a href="{{ url('signal', { 'system' : system, 'id': l.id }) }}" data-popup="1" title="Click to view details for this signal">{{ attribute(l, column.field)|raw }}</a>{%
         elseif key == 'delete' and isAdmin
