@@ -17,7 +17,6 @@ var award = {};
 var cart = [];
 
 var popWinSpecs = {
-    'admin_logsessions_[id]' :              'width=640,height=620,status=1,scrollbars=1,resizable=1',
     'admin_users_[id]' :                    'width=420,height=320,status=1,scrollbars=1,resizable=1',
     'admin_users_new' :                     'width=420,height=320,status=1,scrollbars=1,resizable=1',
     'countries_*' :                         'width=860,height=630,resizable=1',
@@ -39,6 +38,7 @@ var popWinSpecs = {
     '[id]_signals_map' :                    'width=1120,height=760,status=1,scrollbars=1,resizable=1',
     'listeners_[id]_ndbweblog' :            'status=1,scrollbars=1,resizable=1',
     'logs_[id]' :                           'width=640,height=620,status=1,scrollbars=1,resizable=1',
+    'logsessions_[id]' :                    'width=640,height=620,status=1,scrollbars=1,resizable=1',
     'maps_af' :                             'width=646,height=652,resizable=1',
     'maps_alaska' :                         'width=600,height=620,resizable=1',
     'maps_as' :                             'width=856,height=645,resizable=1',

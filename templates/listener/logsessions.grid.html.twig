@@ -37,7 +37,7 @@
                 %}>{%
                     if key == 'id'
                     %}{% if isAdmin
-                    %}<a href="{{ url('admin/logsession', { 'system' : system, 'id' : ls.id }) }}" data-popup="1" title="Click to edit this Log Session">{{ ls.id }}</a>{%
+                    %}<a href="{{ url('logsession', { 'system' : system, 'id' : ls.id }) }}" data-popup="1" title="Click to edit this Log Session">{{ ls.id }}</a>{%
                         else
                     %}{{ ls.id }}{%
                         endif

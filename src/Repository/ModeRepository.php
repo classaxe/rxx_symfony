@@ -156,7 +156,7 @@ class ModeRepository
                 'title' =>  'User Accounts',
                 'url'=>     false
             ],
-            'admin/logsessions' => [
+            'logsessions' => [
                 'access' => User::ADMIN | User::MASTER,
                 'admin' =>  true,
                 'guest' =>  false,
