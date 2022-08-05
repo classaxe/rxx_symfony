@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.45.8
- * Date:       2022-08-03
+ * Version:    2.45.10
+ * Date:       2022-08-05
  * Licence:    LGPL
  * Copyright:  2022 Martin Francis
  */
@@ -17,7 +17,7 @@ var award = {};
 var cart = [];
 
 var popWinSpecs = {
-    'admin_logsessions_[id]' :              'width=640,height=540,status=1,scrollbars=1,resizable=1',
+    'admin_logsessions_[id]' :              'width=640,height=620,status=1,scrollbars=1,resizable=1',
     'admin_users_[id]' :                    'width=420,height=320,status=1,scrollbars=1,resizable=1',
     'admin_users_new' :                     'width=420,height=320,status=1,scrollbars=1,resizable=1',
     'countries_*' :                         'width=860,height=630,resizable=1',
@@ -283,6 +283,78 @@ var COMMON_FORM = {
             yearRange: '1970:+0'
         });
         $('.js-datepicker').datepicker({ });
+    },
+
+    initListenersSelector: function(id, name, required, data, size) {
+        var element, i, out, r, s;
+        element = $('#' + id);
+        s  = element.val();
+        out = '<select id="' + id + '" name="' + name + '"' +
+            (required ? ' required="required"' : '') + ' ' +
+            (typeof size === 'number' ? ' size="' + size + '"' : '') + ">\n";
+        if (!required) {
+            out += '<option' + (s==='' ? ' selected="selected"' : '') +
+                ' style="font-weight: bold;color:red;text-align:center">' +
+                "(Only choose an operator with Multi-Op locations - e.g. Kiwi)</option>";
+        }
+        for (i in data) {
+            r = data[i].split('|');
+            out +=
+                "<option value='" + r[0] + "'" +
+                " data-gsq='" + r[4] + "'" +
+                " data-tz='" + r[9] + "'" +
+                " class='" + (r[5] === 'Y' ? 'primaryQth' : 'secondaryQth') + "'" +
+                (r[0] === s ? " selected='selected'" : '') +
+                ">" +
+                leadNbsp(r[0],4) + ' ' + pad(r[2] + ', ' + r[6], (r[5] === 'Y' ? 55 : 53), '&nbsp;') +
+                (r[7] ? ' ' + r[7] : '&nbsp; &nbsp;') +
+                ' ' + r[8] +
+                "</option>";
+        }
+        out += "</select>";
+        element.replaceWith(out);
+        $('#form_' + 'listenerId')
+            .on('change', function(){
+                LOG_EDIT.getDx();
+                LOG_EDIT.getDaytime();
+            });
+    },
+
+    initSignalsSelector: function(data) {
+        var element, i, out, r, s;
+        element = $('#form_signalId');
+        s  = element.val();
+        out = "<select id=\"form_signalId\" name=\"form[signalId]\" required=\"required\" size=\"10\">\n";
+        for (i in data) {
+            r = data[i].split('|');
+            out +=
+                "<option value='" + r[0] + "'" +
+                (r[5] === '0' ? " title='" + msg.inactive + "'" : '') +
+                " class='type_" +r[3] + (r[5] === '0' ? ' inactive' : '') + "'" +
+                " data-gsq='" + r[4] + "'" +
+                (r[0] === s ? " selected='selected'" : '') +
+                ">" +
+                pad(parseFloat(r[2]), 10, '&nbsp;') +
+                pad(r[1], 10, '&nbsp;') +
+                pad(r[6], 41, '&nbsp;') +
+                pad(r[7], 3, '&nbsp;') +
+                r[8] + ' ' +
+                "</option>";
+        }
+        out += "</select>";
+        element.replaceWith(out);
+        $('#form_' + 'signalId')
+            .on('change', function(){
+                LOG_EDIT.getDx();
+            })
+    },
+
+    initTimeControl: function() {
+        element = $('#form_time');
+        element
+            .on('change', function(){
+                LOG_EDIT.getDaytime();
+            })
     },
 
     setPagingStatus: function(string, value) {
@@ -1361,82 +1433,11 @@ var LOG_EDIT = {
                 $('#form_save, #form_saveClose, #form_close').attr('disabled', 'disabled');
             }, 1);
         })
-        LOG_EDIT.initListenersSelector('form_listenerId', 'form[listenerId]', true, listeners);
-        LOG_EDIT.initListenersSelector('form_operatorId', 'form[operatorId]', false, operators);
-        LOG_EDIT.initSignalsSelector(signals);
-        LOG_EDIT.initTimeControl();
+        COMMON_FORM.initListenersSelector('form_listenerId', 'form[listenerId]', true, listeners, 10);
+        COMMON_FORM.initListenersSelector('form_operatorId', 'form[operatorId]', false, operators, 10);
+        COMMON_FORM.initSignalsSelector(signals);
+        COMMON_FORM.initTimeControl();
         COMMON_FORM.setDatePickerActions();
-    },
-
-    initListenersSelector: function(id, name, required, data) {
-        var element, i, out, r, s;
-        element = $('#' + id);
-        s  = element.val();
-        out = "<select id=\"" + id + "\" name=\"" + name + "\"" +
-            (required ? " required=\"required\"" : "") +
-            " size=\"10\">\n";
-        if (!required) {
-            out += "<option" + (s==='' ? " selected=\"selected\"" : "") +" style='font-weight: bold;color:red;text-align:center'>" +
-                "(Only choose an operator with Multi-Op locations - e.g. Kiwi)</option>";
-        }
-        for (i in data) {
-            r = data[i].split('|');
-            out +=
-                "<option value='" + r[0] + "'" +
-                " data-gsq='" + r[4] + "'" +
-                " data-tz='" + r[9] + "'" +
-                " class='" + (r[5] === 'Y' ? 'primaryQth' : 'secondaryQth') + "'" +
-                (r[0] === s ? " selected='selected'" : '') +
-                ">" +
-                leadNbsp(r[0],4) + ' ' + pad(r[2] + ', ' + r[6], (r[5] === 'Y' ? 55 : 53), '&nbsp;') +
-                (r[7] ? ' ' + r[7] : '&nbsp; &nbsp;') +
-                ' ' + r[8] +
-                "</option>";
-        }
-        out += "</select>";
-        element.replaceWith(out);
-        $('#form_' + 'listenerId')
-            .on('change', function(){
-                LOG_EDIT.getDx();
-                LOG_EDIT.getDaytime();
-            });
-    },
-
-    initSignalsSelector: function(data) {
-        var element, i, out, r, s;
-        element = $('#form_signalId');
-        s  = element.val();
-        out = "<select id=\"form_signalId\" name=\"form[signalId]\" required=\"required\" size=\"10\">\n";
-        for (i in data) {
-            r = data[i].split('|');
-            out +=
-                "<option value='" + r[0] + "'" +
-                (r[5] === '0' ? " title='" + msg.inactive + "'" : '') +
-                " class='type_" +r[3] + (r[5] === '0' ? ' inactive' : '') + "'" +
-                " data-gsq='" + r[4] + "'" +
-                (r[0] === s ? " selected='selected'" : '') +
-                ">" +
-                pad(parseFloat(r[2]), 10, '&nbsp;') +
-                pad(r[1], 10, '&nbsp;') +
-                pad(r[6], 41, '&nbsp;') +
-                pad(r[7], 3, '&nbsp;') +
-                r[8] + ' ' +
-                "</option>";
-        }
-        out += "</select>";
-        element.replaceWith(out);
-        $('#form_' + 'signalId')
-            .on('change', function(){
-                LOG_EDIT.getDx();
-            })
-    },
-
-    initTimeControl: function() {
-        element = $('#form_time');
-        element
-            .on('change', function(){
-                LOG_EDIT.getDaytime();
-            })
     },
 
     getDx: function() {
@@ -1477,14 +1478,16 @@ var LOGSESSION_EDIT = {
             setTimeout(function(){
                 $('#form_save, #form_saveClose, #form_close').attr('disabled', 'disabled');
             }, 1);
-        })
+        });
         $('#form_saveClose').on('click', function(){
             $('#form_reload').val(1);
             $('#form__close').val(1);
             setTimeout(function(){
                 $('#form_save, #form_saveClose, #form_close').attr('disabled', 'disabled');
             }, 1);
-        })
+        });
+        COMMON_FORM.initListenersSelector('form_listenerId', 'form[listenerId]', true, listeners, 10);
+        COMMON_FORM.initListenersSelector('form_operatorId', 'form[operatorId]', false, operators, 10);
     },
 }
 

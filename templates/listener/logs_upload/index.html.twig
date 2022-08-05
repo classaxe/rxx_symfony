@@ -49,13 +49,17 @@
         </div>
     </div>
 </div>
-{% if (form_logs_height != 420) %}
+{% if (form_logs_height != 360) %}
 <style>.logUpload #form #form_logs { height: {{ form_logs_height }}px; }</style>
 {% endif %}
 
+<script src="{{ path('js_operators') }}"></script>
 <script>
 $(document).ready( function() {
     initListenersLogUploadForm();
+    {% if (step == '1' and multiOperator) %}
+    COMMON_FORM.initListenersSelector('form_operatorId', 'form[operatorId]', true, operators, 3);
+    {% endif %}
     setExternalLinks();
 });
 </script>

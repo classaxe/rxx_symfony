@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.45.8
- * Date:       2022-08-03
+ * Version:    2.45.10
+ * Date:       2022-08-05
  * Licence:    LGPL
  * Copyright:  2022 Martin Francis
  */
@@ -1768,6 +1768,26 @@ button.tiny {
   margin: 0;
   transform: translate(-50%, -50%);
 }
+.logsession_edit select#form_listenerId,
+.logsession_edit select#form_operatorId {
+  margin: 0 0 0.5em 0;
+  height: 8em;
+  font-family: monospace;
+}
+.logsession_edit select#form_listenerId option.primaryQth,
+.logsession_edit select#form_operatorId option.primaryQth {
+  font-weight: bold;
+}
+.logsession_edit select#form_listenerId option.secondaryQth,
+.logsession_edit select#form_operatorId option.secondaryQth {
+  padding-left: 1.5em;
+  color: #888;
+}
+.logsession_edit select#form_listenerId option:checked,
+.logsession_edit select#form_operatorId option:checked {
+  border-top: 2px dashed #f00;
+  border-bottom: 2px dashed #f00;
+}
 table.logsessions tbody tr {
   cursor: pointer;
 }
@@ -2520,6 +2540,22 @@ fieldset#form_range_units div label {
   width: 500px;
   padding: 0.125em 0.25em;
   margin: 0 0 0.25em 0;
+}
+.logUpload #form select#form_operatorId {
+  margin: 0 0 0.5em 0;
+  height: 8em;
+  font-family: monospace;
+}
+.logUpload #form select#form_operatorId option.primaryQth {
+  font-weight: bold;
+}
+.logUpload #form select#form_operatorId option.secondaryQth {
+  padding-left: 1.5em;
+  color: #888;
+}
+.logUpload #form select#form_operatorId option:checked {
+  border-top: 2px dashed #f00;
+  border-bottom: 2px dashed #f00;
 }
 .logUpload #form #form_logs {
   width: 100%;

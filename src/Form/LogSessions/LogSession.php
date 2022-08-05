@@ -51,34 +51,18 @@ class LogSession extends Base
             )
             ->add(
                 'listenerId',
-                ChoiceType::class,
+                HiddenType::class,
                 [
-                    'choices' => $this->listenerRepository->getAllOptions(
-                        '',
-                        '',
-                        $this->translator->trans('(None specified)'),
-                        true
-                    ),
-                    'choice_translation_domain' => false,
                     'data' =>           $options['listenerId'],
-                    'expanded' =>       false,
-                    'label' =>          'Listener / Loc:',
-                    'required' =>       false
+                    'label' =>          'Listener Location',
                 ]
             )
             ->add(
                 'operatorId',
-                ChoiceType::class,
+                HiddenType::class,
                 [
-                    'choices' => $this->listenerRepository->getOperators(
-                        '',
-                        $this->translator->trans('(None specified)')
-                    ),
-                    'choice_translation_domain' => false,
                     'data' =>           $options['operatorId'],
-                    'expanded' =>       false,
                     'label' =>          'Operator',
-                    'required' =>       false
                 ]
             )
             ->add(

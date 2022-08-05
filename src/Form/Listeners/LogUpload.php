@@ -86,18 +86,12 @@ class LogUpload extends Base
                 ]
             )
             ->add(
-                'operatorID',
-                ChoiceType::class,
+                'operatorId',
+                HiddenType::class,
                 [
-                    'choices' => $this->listenerRepository->getOperators(
-                        $options['system'],
-                        $this->translator->trans('(None specified)')
-                    ),
-                    'choice_translation_domain' => false,
-                    'data' =>           $options['operatorID'],
-                    'expanded' =>       false,
-                    'label' =>          'Operator:',
-                    'required' =>       false
+                    'data' =>           $options['operatorId'],
+                    'empty_data' =>     '',
+                    'label' =>          'Operator',
                 ]
             )
             ->add(

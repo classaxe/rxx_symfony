@@ -22,7 +22,7 @@ class ListenerLogsUpload extends Base
     private $logs;
     private $logHas;
     private $operator = null;
-    private $operatorID = false;
+    private $operatorId = false;
     private $tokens = [];
     private $system;
     private $YYYY;
@@ -60,6 +60,7 @@ class ListenerLogsUpload extends Base
         $userName = $this->parameters['user_name'];
         $heardIn =  $this->listener->getHeardIn();
         $region =   $this->listener->getRegion();
+        $isMulti =  $this->listener->getMultiOperator() === 'Y';
         $step =     $request->get('step', '1');
         $format =   $this->listener->getLogFormat();
         $selected = 'UNSET';
@@ -70,7 +71,7 @@ class ListenerLogsUpload extends Base
             'format' =>     $format,
             'comment' =>    '',
             'system' =>     $system,
-            'operatorID' => $this->operatorID
+            'operatorId' => $this->operatorId
         ];
         $stats = [
             'duplicates' => 0,
@@ -101,8 +102,8 @@ class ListenerLogsUpload extends Base
             $step =             $data['step'];
             $format =           $data['format'];
             $this->logs =       $data['logs'];
-            $this->operatorID = $data['operatorID'];
-            $this->operator =   ($this->operatorID ? $this->getValidListener($this->operatorID) : null);
+            $this->operatorId = $data['operatorId'];
+            $this->operator =   ($this->operatorId ? $this->getValidListener($this->operatorId) : null);
             $selected =         $data['selected'];
             $this->errors =     [];
             $this->logRepository->parseFormat($format, $this->tokens, $this->errors, $this->logHas);
@@ -124,7 +125,7 @@ class ListenerLogsUpload extends Base
                         || (!$this->logHas['YYYY'] && !$this->YYYY)
                         || (!$this->logHas['MM'] && !$this->MM)
                         || (!$this->logHas['DD'] && !$this->DD)
-                        || (!$this->operatorID && $this->listener->getMultiOperator() === 'Y')
+                        || (!$this->operatorId && $this->listener->getMultiOperator() === 'Y')
                     ) {
                         $step = '1';
                         break;
@@ -157,7 +158,8 @@ class ListenerLogsUpload extends Base
         );
         $form_logs_height = 420
             - ($this->errors ? 90 + (23 * count($this->errors)) : 0)
-            - ($this->logHas && $this->logHas['partial'] ? 28 : 0);
+            - ($this->logHas && $this->logHas['partial'] ? 28 : 0)
+            - ($isMulti ? 64 : 0);
 
         if ('UNSET' !== $selected) {
             $_sels = explode(',', $selected);
@@ -187,7 +189,7 @@ class ListenerLogsUpload extends Base
             'logEmail' =>           $this->listener->getFormattedEmail(),
             'logOwner' =>           $this->listener->getFormattedNameAndLocation(),
             'multiOperator' =>      $this->listener->getMultiOperator() === 'Y',
-            'operatorID' =>         $this->operatorID,
+            'operatorId' =>         $this->operatorId,
             'operator' =>           $this->operator,
             'region' =>             $region,
             'selected' =>           $selected,
@@ -228,7 +230,7 @@ class ListenerLogsUpload extends Base
             new DateTime(),
             $this->user->getId(),
             $this->listener->getId(),
-            ($this->operatorID ? (int)$this->operatorID : null),
+            ($this->operatorId ? (int)$this->operatorId : null),
             $this->comment,
             $this->entries,
             $stats,
@@ -273,7 +275,7 @@ class ListenerLogsUpload extends Base
         $entries =      unserialize($ls->getUploadEntries());
         $adminID =      $ls->getAdministratorId();
         $listenerID =   $ls->getListenerId();
-        $operatorID =   $ls->getOperatorId();
+        $operatorId =   $ls->getOperatorId();
         $admin =        $this->userRepository->find($adminID);
         $listener =     $this->listenerRepository->find($listenerID);
         $heardIn =      $listener->getHeardIn();
@@ -282,12 +284,12 @@ class ListenerLogsUpload extends Base
         foreach($entries as $e) {
             $isPresent = false;
             if ($row = $this->logRepository->findDuplicate($e['signalID'], $listenerID, $e['YYYYMMDD'], $e['time'])) {
-                if ($operatorID === $row['operatorID']) {
+                if ($operatorId === $row['operatorId']) {
                     $stats['duplicates']++;
                 } else {
                     $log = $this->logRepository->find($row['ID']);
                     $log->setLogSessionId($sessionID)
-                        ->setOperatorId($operatorID ? (int)$operatorID : null);
+                        ->setOperatorId($operatorId ? (int)$operatorId : null);
                     $this->getDoctrine()->getManager()->flush();
                     $stats['grouped']++;
                 }
@@ -325,7 +327,7 @@ class ListenerLogsUpload extends Base
                     $sessionID,
                     $e['signalID'],
                     $listenerID,
-                    ($operatorID ? $operatorID : null),
+                    ($operatorId ? $operatorId : null),
                     $heardIn,
                     $region,
                     $e['YYYYMMDD'],
@@ -367,8 +369,8 @@ class ListenerLogsUpload extends Base
         }
 
         $this->listenerRepository->updateListenerStats($listenerID);
-        if ($operatorID) {
-            $this->listenerRepository->updateListenerStats($operatorID);
+        if ($operatorId) {
+            $this->listenerRepository->updateListenerStats($operatorId);
         }
         $this->listenerRepository->clear();
         $admin->setCountLogSession($admin->getCountLogSession() + 1);

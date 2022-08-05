@@ -11,6 +11,30 @@
         transform: translate(-50%, -50%);
     }
 }
+.logsession_edit {
+
+    select#form_listenerId,
+    select#form_operatorId {
+        margin: 0 0 0.5em 0;
+        height: 8em;
+        font-family: monospace;
+
+        option.primaryQth {
+            font-weight: bold;
+        }
+
+        option.secondaryQth {
+            padding-left: 1.5em;
+            color: #888;
+        }
+
+        option:checked {
+            border-top: 2px dashed #f00;
+            border-bottom: 2px dashed #f00;
+        }
+    }
+}
+
 table.logsessions tbody {
     tr {
         cursor: pointer;

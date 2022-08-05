@@ -9,7 +9,7 @@ var award = {};
 var cart = [];
 
 var popWinSpecs = {
-    'admin_logsessions_[id]' :              'width=640,height=540,status=1,scrollbars=1,resizable=1',
+    'admin_logsessions_[id]' :              'width=640,height=620,status=1,scrollbars=1,resizable=1',
     'admin_users_[id]' :                    'width=420,height=320,status=1,scrollbars=1,resizable=1',
     'admin_users_new' :                     'width=420,height=320,status=1,scrollbars=1,resizable=1',
     'countries_*' :                         'width=860,height=630,resizable=1',
