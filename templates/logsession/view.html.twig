@@ -1,0 +1,16 @@
+{% extends 'popup.html.twig' %}
+{% block body %}
+<div class="main fullwidth">
+{% set form_class='logsession_edit' %}
+{% include 'logsession/tabs.html.twig' %}
+{% include 'logsession/form.html.twig' %}
+<script src="{{ path('js_listeners') }}"></script>
+<script src="{{ path('js_operators') }}"></script>
+<script>
+$(document).ready(function () {
+    LOGSESSION_EDIT.init()
+    {% if doReload %}window.opener.document.getElementsByName('form')[0].submit();{% endif %}
+});
+</script>
+</div>
+{% endblock %}

@@ -162,6 +162,6 @@ class Log extends WebBase
             'system' =>             $system
         ];
         $parameters = array_merge($parameters, $this->parameters);
-        return $this->render('log/edit.html.twig', $parameters);
+        return $this->render('log/view.html.twig', $parameters);
     }
 }

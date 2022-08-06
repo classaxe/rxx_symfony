@@ -18,6 +18,38 @@ class LogsessionRepository extends ServiceEntityRepository
     /** @var Connection */
     private $connection;
 
+    private $tabs = [
+        ['logsession', 'Overview'],
+        ['logsession_logs', 'Logs (%%logs%%)'],
+    ];
+
+    public function getTabs($logsession = false, $isAdmin = false)
+    {
+        if (!$logsession->getId()) {
+            return [];
+        }
+        $logs =                 $logsession->getLogs();
+        $out = [];
+        foreach ($this->tabs as $idx => $data) {
+            $route = $data[0];
+            switch ($route) {
+                case 'logsession_logs':
+                    if ($logs) {
+                        $out[] = str_replace(
+                            ['%%logs%%'],
+                            [$logs],
+                            $data
+                        );
+                    }
+                    break;
+                default:
+                    $out[] = $data;
+                    break;
+            }
+        }
+        return $out;
+    }
+
     /**
      * LogSessionRepository constructor.
      * @param ManagerRegistry $registry

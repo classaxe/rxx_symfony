@@ -126,18 +126,18 @@ class LogsessionView extends Base
             }
             return $this->redirectToRoute('logsession', ['system' => $system, 'id' => $id, 'reload' =>1]);
         }
-
         $parameters = [
             '_locale' =>            $_locale,
             'id' =>                 $id,
             'doReload' =>           $doReload,
             'form' =>               $form->createView(),
             'l' =>                  $logsession,
-            'mode' =>               'Log Session',
-            'system' =>             $system
+            'mode' =>               "Overview | Log Session $id",
+            'system' =>             $system,
+            'tabs' =>               $this->logsessionRepository->getTabs($logsession, $isAdmin),
         ];
         $parameters = array_merge($parameters, $this->parameters);
-        return $this->render('logsession/edit.html.twig', $parameters);
+        return $this->render('logsession/view.html.twig', $parameters);
     }
 
 }

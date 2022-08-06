@@ -1,0 +1,57 @@
+{% if logs|length > 0 %}
+<div>
+    <table class="signals logs results short" style="width: 100%">
+        <thead>
+            <tr>
+    {% for key, column in columns %}
+    {% if ((not column.admin or isAdmin)) %}
+        <th{% if key and column.order %} id="{{ key }}|{{ column.order }}"{% endif
+    %}{%
+        if column.th_class or column.sort
+    %} class="{{ column.th_class }}{% if column.sort %} sort{% endif %}"{% endif %}{%
+        if column.tooltip
+    %} title="{{ column.tooltip }}"{%
+        endif
+    %}>{%
+        if column.th_class == 'txt_vertical'
+    %}<div>{{ column.label | trans | raw }}</div>{%
+        else
+    %}{{ column.label | trans | raw }}{%
+        endif %}</th>{%
+        endif
+    %}
+    {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+    {% for l in logs %}
+    {% set type = typeRepository.TypeForCode(l.type) %}
+            <tr class="{% if l.active == '0' %}inactive {% endif %}{% if l.daytime %}daytime {% endif %}type_{{ type.class|lower }}" title="{{ type.title }}{% if l.daytime %} {% trans %}Logged betweeen 10am and 2pm local time{% endtrans %}{% endif %}{% if l.active == '0' %} (inactive){% endif %}">
+    {% for key, column in columns %}
+        {% if ((not column.admin or isAdmin)) %}
+                <td{% if column.td_class %} class="{{ column.td_class }}"{% endif %}>
+        {%
+            if key == 'call'
+        %}<a href="{{ url('signal', { 'system' : system, 'id': l.id }) }}" data-popup="1" title="Click to view this signal">{{ attribute(l, column.field)|raw }}</a>{%
+            elseif key == 'id'
+        %}{% if isAdmin %}<a href="{{ url('log', { 'system' : system, 'id' : l.log_id }) }}" data-popup="1" title="Click to view this log record">{{ l.log_id }}</a>{% else %}{{ l.log_id }}{% endif %}{%
+            elseif key == 'receiver'
+        %}{% if l.operatorId %}<a href="{{ url('listener', { 'system' : system, 'id': l.listenerId }) }}" data-popup="1" title="Click to see profile for this Receiver">{{ l.receiver|raw }}</a>{% endif %}{%
+            elseif key == 'operator'
+        %}{% if l.operatorId %}<a href="{{ url('listener', { 'system' : system, 'id': l.operatorId }) }}" data-popup="1" title="Click to see profile for this Listener">{{ l.operator|raw }}</a>{% endif %}{%
+            elseif key == 'delete' and isAdmin
+        %}<a href="{{ url('listener_log_delete', { 'system' : system, 'id' : id, 'log_id' : l.log_id }) }}" class="delete" onclick="return confirm(msg.del_log);">X</a>{%
+            else
+        %}{{ attribute(l, column.field)|raw }}{%
+            endif
+        %}</td>
+        {% endif %}
+    {% endfor %}
+            </tr>
+    {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+    <p class="no-results">(No log have been reported by this listener)</p>
+{% endif %}

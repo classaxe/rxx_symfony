@@ -214,7 +214,7 @@ class Users extends Base
             'system' =>             $system
         ];
         $parameters = array_merge($parameters, $this->parameters);
-        return $this->render('user/edit.html.twig', $parameters);
+        return $this->render('user/view.html.twig', $parameters);
     }
 
     /**
