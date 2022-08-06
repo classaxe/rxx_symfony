@@ -1047,13 +1047,13 @@ EOD;
                 (SELECT MIN(CONCAT(`date`, ' ', INSERT(`time`,3,0,':'), ':00')) FROM `logs` WHERE `logSessionId`=:logSessionId) AS `setFirstLog`,
                 (SELECT MAX(CONCAT(`date`, ' ', INSERT(`time`,3,0,':'), ':00')) FROM `logs` WHERE `logSessionId`=:logSessionId) AS `setLastLog`,
                 (SELECT COUNT(*) FROM `logs` WHERE `logSessionId`=:logSessionId) AS `setLogs`,
-                (SELECT COUNT(*) FROM `logs` INNER JOIN `signals` ON `logs`.`signalID` = `signals`.`ID` WHERE `logs`.`logSessionId`=:logSessionId AND `signals`.`type`=1) AS `setLogsDgps`,
-                (SELECT COUNT(*) FROM `logs` INNER JOIN `signals` ON `logs`.`signalID` = `signals`.`ID` WHERE `logs`.`logSessionId`=:logSessionId AND `signals`.`type`=6) AS `setLogsDsc`,
-                (SELECT COUNT(*) FROM `logs` INNER JOIN `signals` ON `logs`.`signalID` = `signals`.`ID` WHERE `logs`.`logSessionId`=:logSessionId AND `signals`.`type`=4) AS `setLogsHambcn`,
-                (SELECT COUNT(*) FROM `logs` INNER JOIN `signals` ON `logs`.`signalID` = `signals`.`ID` WHERE `logs`.`logSessionId`=:logSessionId AND `signals`.`type`=3) AS `setLogsNavtex`,
-                (SELECT COUNT(*) FROM `logs` INNER JOIN `signals` ON `logs`.`signalID` = `signals`.`ID` WHERE `logs`.`logSessionId`=:logSessionId AND `signals`.`type`=0) AS `setLogsNdb`,
-                (SELECT COUNT(*) FROM `logs` INNER JOIN `signals` ON `logs`.`signalID` = `signals`.`ID` WHERE `logs`.`logSessionId`=:logSessionId AND `signals`.`type`=5) AS `setLogsOther`,
-                (SELECT COUNT(*) FROM `logs` INNER JOIN `signals` ON `logs`.`signalID` = `signals`.`ID` WHERE `logs`.`logSessionId`=:logSessionId AND `signals`.`type`=2) AS `setLogsTime`,
+                (SELECT COUNT(DISTINCT `signalID`) FROM `logs` INNER JOIN `signals` ON `logs`.`signalID` = `signals`.`ID` WHERE `logs`.`logSessionId`=:logSessionId AND `signals`.`type`=1) AS `setLogsDgps`,
+                (SELECT COUNT(DISTINCT `signalID`) FROM `logs` INNER JOIN `signals` ON `logs`.`signalID` = `signals`.`ID` WHERE `logs`.`logSessionId`=:logSessionId AND `signals`.`type`=6) AS `setLogsDsc`,
+                (SELECT COUNT(DISTINCT `signalID`) FROM `logs` INNER JOIN `signals` ON `logs`.`signalID` = `signals`.`ID` WHERE `logs`.`logSessionId`=:logSessionId AND `signals`.`type`=4) AS `setLogsHambcn`,
+                (SELECT COUNT(DISTINCT `signalID`) FROM `logs` INNER JOIN `signals` ON `logs`.`signalID` = `signals`.`ID` WHERE `logs`.`logSessionId`=:logSessionId AND `signals`.`type`=3) AS `setLogsNavtex`,
+                (SELECT COUNT(DISTINCT `signalID`) FROM `logs` INNER JOIN `signals` ON `logs`.`signalID` = `signals`.`ID` WHERE `logs`.`logSessionId`=:logSessionId AND `signals`.`type`=0) AS `setLogsNdb`,
+                (SELECT COUNT(DISTINCT `signalID`) FROM `logs` INNER JOIN `signals` ON `logs`.`signalID` = `signals`.`ID` WHERE `logs`.`logSessionId`=:logSessionId AND `signals`.`type`=5) AS `setLogsOther`,
+                (SELECT COUNT(DISTINCT `signalID`) FROM `logs` INNER JOIN `signals` ON `logs`.`signalID` = `signals`.`ID` WHERE `logs`.`logSessionId`=:logSessionId AND `signals`.`type`=2) AS `setLogsTime`,
                 (SELECT COUNT(DISTINCT `signalID`) FROM `logs` WHERE `logSessionId`=:logSessionId) AS `setSignals`;
 EOD;
         $params = ['logSessionId' => $id];
