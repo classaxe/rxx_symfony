@@ -35,12 +35,13 @@ class Signals extends Base
         if (!$listener = $this->getValidReportingListener($id)) {
             return $this->redirectToRoute('listeners', ['system' => $system]);
         }
+        $args = ['listenerID' => $id];
         $parameters = [
             '_locale' =>            $_locale,
             'title' =>              'NDB Weblog stations for '.$listener->getName(),
             'system' =>             $system,
             'listener' =>           $listener,
-            'signals' =>            $this->listenerRepository->getSignalsForListener($id)
+            'signals' =>            $this->signalRepository->getSignals($args)
         ];
         $parameters =   array_merge($parameters, $this->parameters);
         $response =     $this->render('listener/ndbweblog/stations.js.twig', $parameters);

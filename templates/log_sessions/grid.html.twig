@@ -45,6 +45,10 @@
             %}{%
             elseif key == 'listener'
         %}<a href="{{ url('listener_logsessions', { 'system' : system, 'id' : ls.listenerId }) }}" data-popup="1" title="Click to view Log Sessions for this Listener Location">{{ ls.listener|raw }}</a>{%
+            elseif key == 'signals'
+        %}<a href="{{ url('logsession_signals', { 'system' : system, 'id' : ls.id }) }}" data-popup="1" title="Click to view Signals for this Log Session">{{ ls.signals }}</a>{%
+            elseif key == 'logs'
+        %}<a href="{{ url('logsession_logs', { 'system' : system, 'id' : ls.id }) }}" data-popup="1" title="Click to view Logs for this Log Session">{{ ls.logs }}</a>{%
             elseif key == 'operator'
         %}{%  if ls.operatorId %}<a href="{{ url('listener_remote_logsessions', { 'system' : system, 'id': ls.operatorId }) }}" data-popup="1" title="Click to view profile for this operator">{{ ls.operator|raw }}</a>{% endif %}{%
             elseif key == 'delete' and isAdmin

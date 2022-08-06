@@ -20,7 +20,7 @@ class LogsessionLogs extends Base
 
     /**
      * @Route(
-     *     "/{_locale}/{system}/logsession/{id}/logs",
+     *     "/{_locale}/{system}/logsessions/{id}/logs",
      *     requirements={
      *        "_locale": "de|en|es|fr",
      *        "system": "reu|rna|rww"

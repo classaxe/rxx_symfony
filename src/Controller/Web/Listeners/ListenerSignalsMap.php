@@ -37,8 +37,14 @@ class ListenerSignalsMap extends Base
                 ['_locale' => $_locale, 'system' => $system]
             );
         }
+        $args = [
+            'listenerID' => $id,
+            'sort' => 'khz',
+            'latlon' => true
+        ];
+        $columns = $this->listenerRepository->getColumns('signals');
 
-        $signals = $this->listenerRepository->getSignalsForListener($id, [ 'sort' => 'khz', 'latlon' => true ]);
+        $signals = $this->signalRepository->getSignals($args, $columns);
 
         $lats =     array_column($signals, 'lat');
         $lons =     array_column($signals, 'lon');

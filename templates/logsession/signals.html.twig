@@ -1,0 +1,40 @@
+{% extends 'popup.html.twig' %}
+{% block body %}
+<div class="main fullwidth">
+{% set form_class='listener_signals' %}
+    {% include 'logsession/tabs.html.twig' %}
+    <div class="controlPanel {{ form_class }}">
+        <div class="header">
+            {{ mode|raw }}
+            <div class="export">{% trans %}Export{% endtrans %}
+                <a href="{{ url('logsession_signals_export_csv', { 'system' : system, 'id': id }) }}">
+                    <span class='ui-icon ui-icon-document'></span>.csv
+                </a>
+                <a href="{{ url('logsession_signals_export_txt', { 'system' : system, 'id': id }) }}">
+                    <span class='ui-icon ui-icon-document'></span>.txt
+                </a>
+            </div>
+        </div>
+        <div class="content scroll" id="list">
+{{ form_start(form) }}
+            {% include 'forms/paging.html.twig' %}
+{{ form_end(form) }}
+{% include 'logsession/signals.grid.html.twig' %}
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready( function() {
+        setExternalLinks();
+        COMMON_FORM.setPagingControls();
+        setColumnSortActions();
+        setColumnSortedClass();
+        setClippedCellTitles();
+        $('#form_paging_status').html('{{ matched }}');
+        $('#list').height($(window).height() - 90);
+        $(window).resize(function () {
+            $('#list').height($(window).height() - 90);
+        });
+    });
+</script>
+{% endblock %}

@@ -21,6 +21,8 @@ class LogsessionRepository extends ServiceEntityRepository
     private $tabs = [
         ['logsession', 'Overview'],
         ['logsession_logs', 'Logs (%%logs%%)'],
+        ['logsession_signals', 'Signals (%%signals%%)'],
+//        ['logsession_signalsmap', 'Signals Map'],
     ];
 
     public function getTabs($logsession = false, $isAdmin = false)
@@ -29,6 +31,7 @@ class LogsessionRepository extends ServiceEntityRepository
             return [];
         }
         $logs =                 $logsession->getLogs();
+        $signals =              $logsession->getSignals();
         $out = [];
         foreach ($this->tabs as $idx => $data) {
             $route = $data[0];
@@ -38,6 +41,15 @@ class LogsessionRepository extends ServiceEntityRepository
                         $out[] = str_replace(
                             ['%%logs%%'],
                             [$logs],
+                            $data
+                        );
+                    }
+                    break;
+                case 'logsession_signals':
+                    if ($signals) {
+                        $out[] = str_replace(
+                            ['%%signals%%'],
+                            [$signals],
                             $data
                         );
                     }

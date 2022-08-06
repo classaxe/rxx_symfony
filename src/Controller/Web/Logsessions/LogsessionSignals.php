@@ -1,7 +1,8 @@
 <?php
-namespace App\Controller\Web\Listeners;
+namespace App\Controller\Web\Logsessions;
 
 use App\Form\Listeners\ListenerSignals as Form;
+use App\Controller\Web\Base;
 
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -10,22 +11,22 @@ use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 
 /**
  * Class Listeners
- * @package App\Controller\Web\Listener
+ * @package App\Controller\Web\Logsessions
  */
-class ListenerSignals extends Base
+class LogsessionSignals extends Base
 {
-    const defaultlimit =    1000;
+    const defaultlimit =    100;
     const defaultSorting =  'khz';
     const defaultOrder =    'a';
 
     /**
      * @Route(
-     *     "/{_locale}/{system}/listeners/{id}/signals",
+     *     "/{_locale}/{system}/logsessions/{id}/signals",
      *     requirements={
      *        "_locale": "de|en|es|fr",
      *        "system": "reu|rna|rww"
      *     },
-     *     name="listener_signals"
+     *     name="logsession_signals"
      * )
      * @param $_locale
      * @param $system
@@ -41,36 +42,36 @@ class ListenerSignals extends Base
         Request $request,
         Form $form
     ) {
-        if (!$listener = $this->getValidReportingListener($id)) {
-            return $this->redirectToRoute('listeners', ['system' => $system]);
+        if (!$logsession = $this->logsessionRepository->find($id)) {
+            return $this->redirectToRoute('logsession', ['system' => $system]);
         }
 
         $isAdmin = $this->parameters['isAdmin'];
-        $totalSignals = $listener->getCountSignals();
+        $total = $logsession->getSignals();
         $options = [
             'limit' =>          static::defaultlimit,
             'order' =>          static::defaultOrder,
             'page' =>           0,
             'sort' =>           static::defaultSorting,
-            'total' =>          $totalSignals
+            'total' =>          $total
         ];
         $form = $form->buildForm($this->createFormBuilder(), $options);
         $form->handleRequest($request);
         $args = [
+            'logsessionID' =>   $id,
             'limit' =>          static::defaultlimit,
             'order' =>          static::defaultOrder,
             'page' =>           0,
             'sort' =>           static::defaultSorting,
-            'total' =>          $totalSignals,
-            'listenerID' =>     $id
+            'total' =>          $total,
         ];
         if ($form->isSubmitted() && $form->isValid()) {
             $args = $form->getData();
-            $args['total'] = $totalSignals;
-            $args['listenerID'] =  $id;
+            $args['total'] = $total;
+            $args['logsessionID'] = $id;
         }
-        $columns =                  $this->listenerRepository->getColumns('signals');
-        $signals =                  $this->signalRepository->getSignals($args, $columns);
+        $columns = $this->listenerRepository->getColumns('signals');
+        $signals = $this->signalRepository->getSignals($args, $columns);
         $parameters = [
             'args' =>               $args,
             'id' =>                 $id,
@@ -78,7 +79,7 @@ class ListenerSignals extends Base
             'form' =>               $form->createView(),
             '_locale' =>            $_locale,
             'matched' =>            'of '.$options['total'].' signals',
-            'mode' =>               'Signals | ' . $listener->getFormattedNameAndLocation(),
+            'mode' =>               "Signals | Log Session $id",
             'results' => [
                 'limit' =>              isset($args['limit']) ? $args['limit'] : static::defaultlimit,
                 'page' =>               isset($args['page']) ? $args['page'] : 0,
@@ -86,10 +87,10 @@ class ListenerSignals extends Base
             ],
             'signals' =>            $signals,
             'system' =>             $system,
-            'tabs' =>               $this->listenerRepository->getTabs($listener, $isAdmin),
+            'tabs' =>               $this->logsessionRepository->getTabs($logsession, $isAdmin),
             'typeRepository' =>     $this->typeRepository
         ];
         $parameters = array_merge($parameters, $this->parameters);
-        return $this->render('listener/signals.html.twig', $parameters);
+        return $this->render('logsession/signals.html.twig', $parameters);
     }
 }

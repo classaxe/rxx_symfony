@@ -1,7 +1,7 @@
 <?php
 namespace App\Controller\Web\Logsessions\Export;
 
-use App\Controller\Web\Listeners\Base;
+use App\Controller\Web\Base;
 
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;

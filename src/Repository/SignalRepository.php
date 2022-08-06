@@ -1020,6 +1020,109 @@ EOD;
         return $record[0]['type'];
     }
 
+    public function getSignals(array $args = [], array $columns = [])
+    {
+        $fields =
+            's.id,'
+            .'trim(s.khz)+0 AS khz,'
+            .'s.active,'
+            .'s.call,'
+            .'s.qth,'
+            .'s.sp,'
+            .'s.itu,'
+            .'s.region,'
+            .'s.gsq,'
+            .'s.type,'
+            .'(CASE WHEN s.lsb = 0 THEN \'\' ELSE CONCAT(s.lsbApprox, s.lsb) END) AS lsb,'
+            .'(CASE WHEN s.usb = 0 THEN \'\' ELSE CONCAT(s.usbApprox, s.usb) END) AS usb,'
+            .'trim(s.sec)+0 AS sec,'
+            .'(CASE WHEN trim(s.sec)+0 = 0 THEN \'\' ELSE trim(s.sec)+0 END) AS secF,'
+            .'s.format,'
+            .'(CASE WHEN s.pwr = 0 THEN \'\' ELSE s.pwr END) AS pwr,'
+            .'s.lat,'
+            .'s.lon,'
+            .'s.notes,'
+            .'s.heardIn,'
+            .'s.lastHeard,'
+            .'l.dxKm,'
+            .'l.dxMiles,'
+            .'COUNT(l.signalId) AS logs,'
+            .'MAX(l.daytime) AS daytime,'
+            .'MIN(l.date) AS earliest,'
+            .'MAX(l.date) AS latest';
+
+        $qb = $this
+            ->createQueryBuilder('li')
+            ->select($fields)
+            ->innerJoin('\App\Entity\Log', 'l')
+            ->andWhere('l.listenerId = li.id')
+
+            ->innerJoin('\App\Entity\Signal', 's')
+            ->andWhere('l.signalId = s.id');
+
+        if (isset($args['listenerID']) && $args['listenerID'] !== '') {
+            $qb
+                ->andWhere('li.id = :listenerID')
+                ->setParameter('listenerID', $args['listenerID']);
+        }
+
+        if (isset($args['logsessionID']) && $args['logsessionID'] !== '') {
+            $qb
+                ->andWhere('l.logSessionId = :logsessionID')
+                ->setParameter('logsessionID', $args['logsessionID']);
+        }
+
+        if (isset($args['type']) && $args['type'] !== '') {
+            $qb
+                ->andWhere('s.type in(:type)')
+                ->setParameter('type', $args['type']);
+        }
+
+        if (isset($args['latlon']) && $args['latlon'] === true) {
+            $qb
+                ->andWhere('(s.lat != 0 AND s.lon != 0)');
+        }
+
+        if (isset($args['active']) && $args['active'] !== '') {
+            $qb
+                ->andWhere('s.active = :active')
+                ->setParameter('active', $args['active']);
+        }
+
+        $qb
+            ->groupBy('s.id, l.dxKm, l.dxMiles');
+
+        if (isset($args['limit']) && (int)$args['limit'] !== -1 && isset($args['page'])) {
+            $qb
+                ->setFirstResult($args['page'] * $args['limit'])
+                ->setMaxResults($args['limit']);
+        }
+
+        if (isset($args['sort']) && $columns[$args['sort']]['sort']) {
+            $idx = $columns[$args['sort']];
+            $qb
+                ->addOrderBy(
+                    ($idx['sort']),
+                    ($idx['order'] == 'd' ? 'DESC' : 'ASC')
+                );
+            if (isset($idx['sort_2']) && isset($idx['order_2'])) {
+                $qb
+                    ->addOrderBy(
+                        ($idx['sort_2']),
+                        ($idx['order_2'] == 'd' ? 'DESC' : 'ASC')
+                    );
+            }
+        }
+
+        $result = $qb->getQuery()->execute();
+        foreach ($result as &$row) {
+            $row['qth'] = str_replace("\"", "\\\"", html_entity_decode($row['qth']));
+            $row['notes'] = str_replace("\"", "\\\"", html_entity_decode($row['notes']));
+        }
+//        print "<pre>".print_r($qb->getQuery()->getSQL(), true)."</pre>";
+        return $result;
+    }
+
     public static function getSeeklistTabulatedData($signals, $paper)
     {
         $col = 0;
@@ -1066,7 +1169,7 @@ EOD;
 
     public function getListenersForSignal($signalID, array $args)
     {
-        $columns = <<< EOD
+        $fields = <<< EOD
             li.id, li.primaryQth, li.gsq, li.itu, li.name, li.qth, li.sp,
             l.dxKm, l.dxMiles,
             COUNT(l.id) AS countLogs,
@@ -1075,7 +1178,7 @@ EOD;
 
         $qb = $this
             ->createQueryBuilder('s')
-            ->select($columns)
+            ->select($fields)
             ->innerJoin('\App\Entity\Log', 'l')
             ->andWhere('l.signalId = s.id')
             ->innerJoin('\App\Entity\Listener', 'li')
@@ -1092,7 +1195,7 @@ EOD;
 
     public function getLogsForSignal($signalID, array $args)
     {
-        $columns = <<< EOD
+        $fields = <<< EOD
             l.id AS log_id,
             l.operatorId,
             (CASE WHEN op.name IS NULL THEN '' ELSE op.name END) as operator,
@@ -1116,7 +1219,7 @@ EOD;
 
         $qb = $this
             ->createQueryBuilder('s')
-            ->select($columns)
+            ->select($fields)
             ->innerJoin('\App\Entity\Log', 'l', 'WITH', 'l.signalId = s.id')
             ->innerJoin('\App\Entity\Listener', 'li', 'WITH', 'li.id = l.listenerId')
             ->leftJoin('\App\Entity\Listener', 'op', 'WITH', 'l.operatorId = op.id')

@@ -172,9 +172,9 @@ EOD;
         return $stmt->fetchColumn();
     }
 
-    public function getLogs(array $args, $reportColumns = [])
+    public function getLogs(array $args, $columns = [])
     {
-        $columns =
+        $fields =
             'trim(l.date) as logDate,'
             .'trim(l.time) as logTime,'
             .'s.id,'
@@ -207,7 +207,7 @@ EOD;
 
         $qb = $this
             ->createQueryBuilder('l')
-            ->select($columns)
+            ->select($fields)
             ->innerJoin('\App\Entity\Listener', 'li', 'WITH', 'l.listenerId = li.id')
             ->innerJoin('\App\Entity\Signal', 's', 'WITH', 'l.signalId = s.id')
             ->leftJoin('\App\Entity\Listener', 'op', 'WITH', 'l.operatorId = op.id')
@@ -239,8 +239,8 @@ EOD;
                 ->setMaxResults($args['limit']);
         }
 
-        if (isset($args['sort']) && $reportColumns[$args['sort']]['sort']) {
-            $idx = $reportColumns[$args['sort']];
+        if (isset($args['sort']) && $columns[$args['sort']]['sort']) {
+            $idx = $columns[$args['sort']];
             $qb ->addOrderBy(
                 ($idx['sort']),
                 ($args['order'] === 'd' ? 'DESC' : 'ASC')
