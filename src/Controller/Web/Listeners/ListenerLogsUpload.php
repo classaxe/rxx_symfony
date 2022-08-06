@@ -89,6 +89,7 @@ class ListenerLogsUpload extends Base
             'logs_ndb' => 0,
             'logs_other' => 0,
             'logs_time' => 0,
+            'signals' => 0,
             'repeat_for_listener' => 0
         ];
 
@@ -224,6 +225,8 @@ class ListenerLogsUpload extends Base
             'logs_ndb' => 0,
             'logs_other' => 0,
             'logs_time' => 0,
+            'signals' => 0,
+            'signalIds' => [],
             'repeat_for_listener' => 0
         ];
         return $this->logsessionRepository->addLogSession(
@@ -316,6 +319,7 @@ class ListenerLogsUpload extends Base
                 $stats['first_for_listener']++;
                 $stats['first_for_place']++;
             }
+            $stats['signalIds'][] = $e['signalID'];
             $e['latest'] = $this->signalRepository->isLatestLogDateAndTime(
                 $e['signalID'],
                 $e['YYYYMMDD'],
@@ -347,6 +351,7 @@ class ListenerLogsUpload extends Base
         }
         $logSession = $this->logsessionRepository->find($sessionID);
         $em = $this->getDoctrine()->getManager();
+        $stats['signals'] = count(array_unique($stats['signalIds']));
         if ($stats['first_log'] !== null) {
             $logSession
                 ->setFirstLog(DateTime::createFromFormat('Y-m-d H:i:s', $stats['first_log']) ?? null)
@@ -359,6 +364,7 @@ class ListenerLogsUpload extends Base
                 ->setLogsNdb($stats['logs_ndb'])
                 ->setLogsOther($stats['logs_other'])
                 ->setLogsTime($stats['logs_time'])
+                ->setSignals($stats['signals'])
                 ->setUploadStatus('Uploaded')
                 ->setUploadPercent(100)
             ;
