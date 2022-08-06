@@ -135,6 +135,7 @@ class LogsessionRepository extends ServiceEntityRepository
             . 'ls.logsTime,'
             . 'ls.operatorId,'
             . 'ls.comment,'
+            . 'ls.signals,'
             . 'ls.uploadStatus,'
             . 'ls.uploadPercent,'
             . '(CASE WHEN op.name IS NULL THEN \'\' ELSE op.name END) as operator';

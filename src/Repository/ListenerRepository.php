@@ -1027,7 +1027,9 @@ EOT;
                         log_sessions
                     WHERE
                         (logs IS NULL) OR
-                        (logs != (SELECT COUNT(*) FROM logs l2 where l2.logSessionID = log_sessions.ID))
+                        (logs != (SELECT COUNT(*) FROM logs l2 where l2.logSessionID = log_sessions.ID)) OR
+                        (signals IS NULL) OR
+                        (signals != (SELECT COUNT(DISTINCT signalID) FROM logs l2 where l2.logSessionID = log_sessions.ID))
                 )
             GROUP BY
                 ID
@@ -1050,10 +1052,12 @@ EOD;
                 (SELECT COUNT(*) FROM `logs` INNER JOIN `signals` ON `logs`.`signalID` = `signals`.`ID` WHERE `logs`.`logSessionId`=:logSessionId AND `signals`.`type`=3) AS `setLogsNavtex`,
                 (SELECT COUNT(*) FROM `logs` INNER JOIN `signals` ON `logs`.`signalID` = `signals`.`ID` WHERE `logs`.`logSessionId`=:logSessionId AND `signals`.`type`=0) AS `setLogsNdb`,
                 (SELECT COUNT(*) FROM `logs` INNER JOIN `signals` ON `logs`.`signalID` = `signals`.`ID` WHERE `logs`.`logSessionId`=:logSessionId AND `signals`.`type`=5) AS `setLogsOther`,
-                (SELECT COUNT(*) FROM `logs` INNER JOIN `signals` ON `logs`.`signalID` = `signals`.`ID` WHERE `logs`.`logSessionId`=:logSessionId AND `signals`.`type`=2) AS `setLogsTime`;
+                (SELECT COUNT(*) FROM `logs` INNER JOIN `signals` ON `logs`.`signalID` = `signals`.`ID` WHERE `logs`.`logSessionId`=:logSessionId AND `signals`.`type`=2) AS `setLogsTime`,
+                (SELECT COUNT(DISTINCT `signalID`) FROM `logs` WHERE `logSessionId`=:logSessionId) AS `setSignals`;
 EOD;
         $params = ['logSessionId' => $id];
         $stmt = $this->connection->prepare($sql);
+
         $stmt->execute($params);
         $stats = $stmt->fetchAssociative();
 
@@ -1087,7 +1091,8 @@ EOD;
             ->setLogsNavtex($stats['setLogsNavtex'])
             ->setLogsNdb($stats['setLogsNdb'])
             ->setLogsOther($stats['setLogsOther'])
-            ->setLogsTime($stats['setLogsTime']);
+            ->setLogsTime($stats['setLogsTime'])
+            ->setSignals($stats['setSignals']);
         $em->flush();
     }
 

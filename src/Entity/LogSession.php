@@ -16,7 +16,8 @@ use Doctrine\ORM\Mapping as ORM;
  *          @ORM\Index(name="idx_listenerID", columns={"listenerID"}),
  *          @ORM\Index(name="idx_logs", columns={"logs"}),
  *          @ORM\Index(name="idx_operatorID", columns={"operatorID"}),
- *          @ORM\Index(name="idx_timestamp", columns={"timestamp"})
+ *          @ORM\Index(name="idx_timestamp", columns={"timestamp"}),
+ *          @ORM\Index(name="idx_signals", columns={"signals"})
  *     }
  * )
  * @ORM\Entity
@@ -135,6 +136,13 @@ class LogSession
      * @ORM\Column(name="operatorID", type="integer", nullable=true, options={"unsigned"=true})
      */
     private $operatorId;
+
+    /**
+     * @var int|null
+     *
+     * @ORM\Column(name="signals", type="integer", nullable=true, options={"unsigned"=true})
+     */
+    private $signals;
 
     /**
      * @var string|null
@@ -474,6 +482,25 @@ class LogSession
     public function setOperatorId(?int $operatorId): self
     {
         $this->operatorId = $operatorId;
+
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getSignals(): ?int
+    {
+        return $this->signals;
+    }
+
+    /**
+     * @param int|null $logs
+     * @return $this
+     */
+    public function setSignals(?int $signals): self
+    {
+        $this->signals = $signals;
 
         return $this;
     }

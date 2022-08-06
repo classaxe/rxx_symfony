@@ -127,6 +127,17 @@ class Logsessions
                 'th_class' =>   '',
                 'tooltip' =>    'Country',
             ],
+            'signals' => [
+                'admin'     =>  false,
+                'arg'       =>  '',
+                'field'     =>  'signals',
+                'label'     =>  'Signals',
+                'order'     =>  'd',
+                'sort'      =>  'ls.signals',
+                'td_class'  =>  'txt_r',
+                'th_class'  =>  'txt_vertical',
+                'tooltip'   =>  'Total number of signals received',
+            ],
             'logs' => [
                 'admin'     =>  false,
                 'arg'       =>  '',
