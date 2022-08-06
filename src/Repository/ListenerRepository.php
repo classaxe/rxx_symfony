@@ -1033,6 +1033,7 @@ EOT;
                 )
             GROUP BY
                 ID
+            LIMIT 500
 EOD;
         $stmt = $this->connection->prepare($sql);
         $stmt->execute();
