@@ -248,6 +248,18 @@ class Logsessions
                 'th_class'  =>  '',
                 'tooltip'   =>  '',
             ],
+            'map' => [
+                'admin' =>      false,
+                'arg' =>        '',
+                'field' =>      'getSignalsMap',
+                'highlight' =>  false,
+                'label' =>      'Map',
+                'order' =>      '',
+                'sort' =>       '',
+                'td_class' =>   '',
+                'th_class' =>   '',
+                'tooltip' =>    'Map showing Signals for Log Session',
+            ],
             'uploadStatus' => [
                 'admin'     =>  true,
                 'arg'       =>  '',

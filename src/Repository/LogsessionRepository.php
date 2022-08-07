@@ -22,7 +22,7 @@ class LogsessionRepository extends ServiceEntityRepository
         ['logsession', 'Overview'],
         ['logsession_logs', 'Logs (%%logs%%)'],
         ['logsession_signals', 'Signals (%%signals%%)'],
-//        ['logsession_signalsmap', 'Signals Map'],
+        ['logsession_signalsmap', 'Signals Map'],
     ];
 
     public function getTabs($logsession = false, $isAdmin = false)

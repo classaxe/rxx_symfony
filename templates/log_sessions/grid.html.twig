@@ -47,6 +47,8 @@
         %}<a href="{{ url('listener_logsessions', { 'system' : system, 'id' : ls.listenerId }) }}" data-popup="1" title="Click to view Log Sessions for this Listener Location">{{ ls.listener|raw }}</a>{%
             elseif key == 'signals'
         %}<a href="{{ url('logsession_signals', { 'system' : system, 'id' : ls.id }) }}" data-popup="1" title="Click to view Signals for this Log Session">{{ ls.signals }}</a>{%
+            elseif key == 'map'
+        %}<a href="{{ url('logsession_signalsmap', { 'system' : system, 'id' : ls.id }) }}" data-popup="1" title="View map of signals contained in this log session">{% trans %}Map{% endtrans %}</a>{%
             elseif key == 'logs'
         %}<a href="{{ url('logsession_logs', { 'system' : system, 'id' : ls.id }) }}" data-popup="1" title="Click to view Logs for this Log Session">{{ ls.logs }}</a>{%
             elseif key == 'operator'
