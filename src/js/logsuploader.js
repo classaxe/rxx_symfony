@@ -10,6 +10,10 @@ function initListenersLogUploadForm() {
         $('#form_saveFormat').attr('disabled', $(this).val() === $('#formatOld').text());
     });
 
+    $('#clenum').click(function(){
+        $('#form_comment').val('CLE ' + $(this).data('cle')); return false;
+    })
+
     // Detect if we reloaded the page due to back button being pressed
     if (window.performance && window.performance.navigation.type === window.performance.navigation.TYPE_BACK_FORWARD) {
         formFormat.trigger('keyup');

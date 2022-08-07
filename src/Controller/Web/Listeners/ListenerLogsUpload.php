@@ -177,6 +177,7 @@ class ListenerLogsUpload extends Base
             'id' =>                 $id,
             '_locale' =>            $_locale,
             'mode' =>               $title,
+            'cle' =>                $this->cleRepository->find(1),
             'entries' =>            $this->entries,
             'errors' =>             $this->errors,
             'form' =>               $form->createView(),

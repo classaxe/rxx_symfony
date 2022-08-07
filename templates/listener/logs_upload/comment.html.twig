@@ -2,5 +2,6 @@
     <legend>{% trans %}Optional Comment:{% endtrans %}</legend>
     <div>
         {{ form_label(form.comment) }}{{ form_widget(form.comment) }}
+        <a href="#" id="clenum" data-cle="{{ cle.cle }}">Set to CLE {{ cle.cle }}</a>
     </div>
 </fieldset>
