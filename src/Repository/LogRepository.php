@@ -111,6 +111,7 @@ class LogRepository extends ServiceEntityRepository
         $daytime,
         $dx_km,
         $dx_miles,
+        $dx_deg,
         $LSB_approx,
         $LSB,
         $USB_approx,
@@ -131,6 +132,7 @@ class LogRepository extends ServiceEntityRepository
             ->setDaytime($daytime)
             ->setDxKm($dx_km)
             ->setDxMiles($dx_miles)
+            ->setDxDeg($dx_deg)
             ->setLsbApprox($LSB_approx)
             ->setLsb($LSB ? $LSB : null)
             ->setUsbApprox($USB_approx)
@@ -200,6 +202,7 @@ EOD;
             .'l.format,'
             .'l.dxKm,'
             .'l.dxMiles,'
+            .'l.dxDeg,'
             .'l.operatorId,'
             .'l.listenerId,'
             .'(CASE WHEN op.name IS NULL THEN \'\' ELSE op.name END) as operator,'
@@ -776,6 +779,7 @@ EOD;
                 $dx = $signalRepository->getDx($signalID, $listener->getLat(), $listener->getLon());
                 $line['dx_km'] =    $dx ? $dx['km'] : null;
                 $line['dx_miles'] = $dx ? $dx['miles'] : null;
+                $line['dx_deg'] =   $dx ? $dx['deg'] : null;
                 $filtered[] = $line;
             }
         }
@@ -795,6 +799,7 @@ EOD;
             $sql = <<< EOD
                 SELECT
                     `logs`.`ID`,
+                    `logs`.`dx_deg`,
                     `logs`.`dx_km`,
                     `logs`.`dx_miles`,
                     `s`.`lat` AS `s_lat`,
@@ -808,6 +813,8 @@ EOD;
                 INNER JOIN `listeners` `l` ON
                     `logs`.`listenerID` = `l`.`ID`
                 $where
+                AND (`s`.`lat` != 0 AND `s`.`lon` != 0)
+                AND (`l`.`lat` != 0 AND `l`.`lon` != 0)
                 LIMIT $chunksize OFFSET $offset
 EOD;
             $stmt = $this->connection->prepare($sql);
@@ -818,13 +825,17 @@ EOD;
                 if (!$dx) {
                     continue;
                 }
-                if (($dx['km'] === (int)$r['dx_km']) && ($dx['miles'] === (int)$r['dx_miles'])) {
+                if (($dx['deg'] === (int)$r['dx_deg']) &&
+                    ($dx['km'] === (int)$r['dx_km']) &&
+                    ($dx['miles'] === (int)$r['dx_miles'])
+                ) {
                     continue;
                 }
                 $sql = <<< EOD
                     UPDATE
                         `logs`
                     SET
+                        `dx_deg` ={$dx['deg']},
                         `dx_km` = {$dx['km']},
                         `dx_miles` = {$dx['miles']}
                     WHERE

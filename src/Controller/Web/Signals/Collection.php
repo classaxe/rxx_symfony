@@ -66,6 +66,10 @@ class Collection extends Base
         $this->setArgsAfterPostTweaks();
         $this->args['source'] = $this->request->isXmlHttpRequest() ? 'xmlhttp' : 'page';
         $this->filename =       $this->args['filename'] ?? false;
+        $personalise = false;
+        if ($this->args['personalise'] ?? false) {
+            $personalise = $this->listenerRepository->find($this->args['personalise']);
+        }
         if ($this->request->isXmlHttpRequest() || !in_array($this->args['show'], ['list'])) {
             $this->signals =    $this->signalRepository->getFilteredSignals($this->system, $this->args);
             $this->total =      $this->signalRepository->getFilteredSignalsCount($this->system, $this->args);
@@ -87,8 +91,14 @@ class Collection extends Base
             'pageLayout' =>         $this->pageLayout,
             'paperChoices' =>       $this->paperRepository->getAllChoices(),
             'personalise' => [
-                'id' =>     ($this->args['personalise'] ?? false),
-                'name' =>   ($this->args['personalise'] ?? false) ? $this->listenerRepository->getDescription($this->args['personalise']) : ''
+                'id' =>     ($personalise ? $personalise->getId() : ''),
+                'desc' =>   ($personalise ? $personalise->getFormattedNameAndLocation() : ''),
+                'name' =>   ($personalise ? $personalise->getName() : ''),
+                'lat' =>    ($personalise ? $personalise->getLat() : ''),
+                'lon' =>    ($personalise ? $personalise->getLon() : ''),
+                'qth' =>    ($personalise ? $personalise->getQth() : ''),
+                'sp' =>     ($personalise ? $personalise->getSp() : ''),
+                'itu' =>    ($personalise ? $personalise->getItu() : ''),
             ],
             'results' => [
                 'limit' =>              isset($this->args['limit']) ? $this->args['limit'] : $this->signalRepository::defaultlimit,
@@ -97,6 +107,10 @@ class Collection extends Base
             ],
             'seeklistData' =>       $this->seeklistData,
             'seeklistStats' =>      $this->seeklistStats,
+            'show' => [
+                'dx' =>          ($personalise ? true : false),
+                'personalise' => ($personalise ? true : false)
+            ],
             'signals' =>            $this->signals,
             'system' =>             $this->system,
             'sortbyOptions' =>      $this->signalRepository->getColumns('signals'),

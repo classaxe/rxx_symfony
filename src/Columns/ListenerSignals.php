@@ -191,6 +191,17 @@ class ListenerSignals
                 'th_class'  =>  '',
                 'tooltip'   =>  '',
             ],
+            'dxDeg' => [
+                'admin'     =>  false,
+                'arg'       =>  '',
+                'field'     =>  'dxDeg',
+                'label'     =>  'Deg',
+                'order'     =>  'd',
+                'sort'      =>  'l.dxDeg',
+                'td_class'  =>  'txt_r',
+                'th_class'  =>  'txt_r',
+                'tooltip'   =>  '',
+            ],
             'latest' => [
                 'admin'     =>  false,
                 'arg'       =>  '',

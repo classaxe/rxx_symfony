@@ -119,22 +119,33 @@ class Rxx
 
     public static function getDx($qth_lat, $qth_lon, $dx_lat, $dx_lon)
     {
-        if (($qth_lat==0 && $qth_lon==0) || ($dx_lat==0 && $dx_lon==0)) {
+        if (($qth_lat == 0 && $qth_lon == 0) || ($dx_lat == 0 && $dx_lon == 0)) {
             return false;
         }
-        if ($qth_lat == $dx_lat && $qth_lon==$dx_lon) {
-            return ['km' => 0, 'miles' => 0];
+        if ($qth_lat == $dx_lat && $qth_lon == $dx_lon) {
+            return ['km' => 0, 'miles' => 0, 'deg' => 0];
         }
-        $dlon = ($dx_lon - $qth_lon);
-        if (abs($dlon) > 180) {
-            $dlon = (360 - abs($dlon))*(0-($dlon/abs($dlon)));
+        $qth_lat_r =    deg2rad($qth_lat);
+        $qth_lon_r =    deg2rad($qth_lon);
+        $dx_lat_r =     deg2rad($dx_lat);
+        $dx_lon_r =     deg2rad($dx_lon);
+        $diff_lon =     ($dx_lon - $qth_lon);
+        if (abs($diff_lon) > 180) {
+            $diff_lon = (360 - abs($diff_lon))*(0-($diff_lon/abs($diff_lon)));
         }
-        $rinlat =       $qth_lat * 0.01745;    // convert to radians
-        $rfnlat =       $dx_lat * 0.01745;
-        $rdlon =        $dlon * 0.01745;
-        $rgcdist =      acos(sin($rinlat)*sin($rfnlat)+cos($rinlat)*cos($rfnlat)*cos($rdlon));
+        $diff_lon_r =   deg2rad($diff_lon);
+        $rgcdist =      acos(sin($qth_lat_r)*sin($dx_lat_r)+cos($qth_lat_r)*cos($dx_lat_r)*cos($diff_lon_r));
+
+        $degs = (rad2deg(
+                    atan2(
+                        SIN($dx_lon_r - $qth_lon_r) * COS($dx_lat_r),
+                        COS($qth_lat_r) * SIN($dx_lat_r) - SIN($qth_lat_r) * COS($dx_lat_r) * COS($diff_lon_r)
+                        )
+                    ) + 360
+                ) % 360;
 
         return [
+            'deg' =>    $degs,
             'km' =>     (int)round(abs($rgcdist) * 6370.614),
             'miles' =>  (int)round(abs($rgcdist) * 3958.284)
         ];

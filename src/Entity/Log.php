@@ -12,6 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  *     name="logs",
  *     indexes={
  *          @ORM\Index(name="idx_date", columns={"date"}),
+ *          @ORM\Index(name="idx_dx_deg", columns={"dx_deg"}),
  *          @ORM\Index(name="idx_dx_km", columns={"dx_km"}),
  *          @ORM\Index(name="idx_dx_miles", columns={"dx_miles"}),
  *          @ORM\Index(name="idx_heard_in", columns={"heard_in"}),
@@ -55,6 +56,13 @@ class Log
      * @ORM\Column(name="daytime", type="boolean", nullable=false)
      */
     private $daytime = '0';
+
+    /**
+     * @var int|null
+     *
+     * @ORM\Column(name="dx_deg", type="smallint", nullable=true)
+     */
+    private $dxDeg;
 
     /**
      * @var int|null
@@ -215,6 +223,25 @@ class Log
     public function setDaytime(bool $daytime): self
     {
         $this->daytime = $daytime;
+
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getDxDeg(): ?int
+    {
+        return $this->dxDeg;
+    }
+
+    /**
+     * @param int|null $dxDeg
+     * @return $this
+     */
+    public function setDxDeg(?int $dxDeg): self
+    {
+        $this->dxDeg = $dxDeg;
 
         return $this;
     }

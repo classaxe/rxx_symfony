@@ -5,6 +5,7 @@ use App\Controller\Web\Base;
 
 use App\Service\GeoService;
 use App\Service\Visitor;
+use App\Utils\Rxx;
 use Swift_Mailer;
 use Swift_Message;
 use Swift_Transport_EsmtpTransport;

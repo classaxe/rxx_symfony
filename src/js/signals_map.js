@@ -82,6 +82,7 @@ var SMap = {
                 '<td>' + s.itu + '</td>' +
                 ('LS' === mode ? '<td class="num">' + s.km + '</td>' : '') +
                 ('LS' === mode ? '<td class="num">' + s.mi + '</td>' : '') +
+                ('LS' === mode ? '<td class="num">' + s.deg + '</td>' : '') +
                 '</tr>';
 
             marker = new google.maps.Marker({

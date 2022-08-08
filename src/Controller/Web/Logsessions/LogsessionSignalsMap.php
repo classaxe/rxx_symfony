@@ -71,6 +71,11 @@ class LogsessionSignalsMap extends Base
             'logsession' =>         $logsession,
             'listener' =>           $listener,
             'mode' =>               strToUpper($system) . ' Map of Signals in Log Session ' . $id .' by ' . $listener->getFormattedNameAndLocation(),
+            'show' => [
+                'class' =>      'content',
+                'dx' =>         true,
+                'listener' =>   true
+            ],
             'signals' =>            $signals,
             'system' =>             $system,
             'tabs' =>               $this->logsessionRepository->getTabs($logsession, $this->parameters['isAdmin']),

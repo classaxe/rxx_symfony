@@ -619,7 +619,7 @@ var SIGNALS = {
         $('#signals_personalise').html(
             msg.signals.personalise.replace(
                 '%s',
-                '<a href="' + args.urls.listeners.replace('*', data.personalise.id) + '" data-popup="1">' + data.personalise.name + "<\/a>"
+                '<a href="' + args.urls.listeners.replace('*', data.personalise.id) + '" data-popup="1">' + data.personalise.desc + "<\/a>"
             )
         );
     },

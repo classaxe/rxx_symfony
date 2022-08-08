@@ -449,6 +449,20 @@ class SignalRepository extends ServiceEntityRepository
         return $this;
     }
 
+    private function _addOrderForListAndMap()
+    {
+        if (isset($args['isAdmin']) && $args['isAdmin'] && in_array($args['admin_mode'], ['1', '2'])) {
+            $this
+                ->_addOrderPrioritizeExactCall()
+                ->_addOrderPrioritizeSelected();
+        } else {
+            $this
+                ->_addOrderPrioritizeExactCall()
+                ->_addOrderPrioritizeActive()
+                ->_addOrderPrioritizeSelected();
+        }
+    }
+
     private function _addOrderForSeeklist()
     {
         $this
@@ -872,6 +886,20 @@ EOD;
                     ->_addSelectColumnPersonalise()
                     ->_addOrderForSeeklist();
                 break;
+            case 'map':
+                $this
+                    ->_addSelectColumnsAllSignal()
+                    ->_addSelectColumnPersonalise()
+                    ->_addSelectColumnRangeDeg()
+                    ->_addSelectColumnRangeKm()
+                    ->_addSelectColumnRangeMiles()
+
+                    ->_addSelectPriotitizeActive()
+                    ->_addSelectPriotitizeExactCall()
+                    ->_addSelectPrioritizeNonEmpty()
+
+                    ->_addOrderForListAndMap();
+                break;
             default:
                 $this
                     ->_addSelectColumnsAllSignal()
@@ -882,19 +910,12 @@ EOD;
                     ->_addSelectColumnRangeDeg()
                     ->_addSelectColumnRangeKm()
                     ->_addSelectColumnRangeMiles()
-                    ->_addSelectPrioritizeNonEmpty()
+
                     ->_addSelectPriotitizeActive()
-                    ->_addSelectPriotitizeExactCall();
-                if (isset($args['isAdmin']) && $args['isAdmin'] && in_array($args['admin_mode'], ['1', '2'])) {
-                    $this
-                        ->_addOrderPrioritizeExactCall()
-                        ->_addOrderPrioritizeSelected();
-                } else {
-                    $this
-                        ->_addOrderPrioritizeExactCall()
-                        ->_addOrderPrioritizeActive()
-                        ->_addOrderPrioritizeSelected();
-                }
+                    ->_addSelectPriotitizeExactCall()
+                    ->_addSelectPrioritizeNonEmpty()
+
+                    ->_addOrderForListAndMap();
                 break;
         }
         switch ($this->args['show'] ?? false) {
@@ -1046,6 +1067,7 @@ EOD;
             .'s.lastHeard,'
             .'l.dxKm,'
             .'l.dxMiles,'
+            .'l.dxDeg,'
             .'COUNT(l.signalId) AS logs,'
             .'MAX(l.daytime) AS daytime,'
             .'MIN(l.date) AS earliest,'
@@ -1513,8 +1535,9 @@ EOD;
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
         foreach ($results as &$r) {
             $dx = Rxx::getDx($lat, $lon, $r['lat'], $r['lon']);
-            $r['dx_miles'] = $dx ? $dx['miles'] : '?';
-            $r['dx_km'] = $dx ? $dx['km'] : '?';
+            $r['dx_miles'] =    $dx ? $dx['miles'] : '?';
+            $r['dx_km'] =       $dx ? $dx['km'] : '?';
+            $r['dx_deg'] =      $dx ? $dx['deg'] : '?';
         }
         usort($results, function($a, $b) {
             if($a['dx_km']===$b['dx_km']){

@@ -340,6 +340,7 @@ class ListenerLogsUpload extends Base
                     $e['daytime'],
                     $e['dx_km'],
                     $e['dx_miles'],
+                    $e['dx_deg'],
                     $e['LSB_approx'],
                     $e['LSB'],
                     $e['USB_approx'],

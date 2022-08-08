@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller\Web\Listeners;
 
+use phpDocumentor\Reflection\Types\True_;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
@@ -69,6 +70,11 @@ class ListenerSignalsMap extends Base
             'center' =>             $center,
             'listener' =>           $listener,
             'mode' =>               strToUpper($system) . ' Map of Signals received by ' . $listener->getFormattedNameAndLocation(),
+            'show' => [
+                'class' =>      'content',
+                'dx' =>         true,
+                'listener' =>   true
+            ],
             'signals' =>            $signals,
             'system' =>             $system,
             'tabs' =>               $this->listenerRepository->getTabs($listener, $this->parameters['isAdmin']),

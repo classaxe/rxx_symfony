@@ -6,7 +6,7 @@ var listeners = [
 {% for row in listeners %}{'id':"{{
     row.id }}", 'name':"{{
     row.name|raw }}", 'pri':{{
-    row.primaryQth === 'Y' ? 1 : 0 }}, 'qth':"{{
+    row.primaryQth == 'Y' ? 1 : 0 }}, 'qth':"{{
     row.qth|raw }}", 'itu':"{{
     row.itu }}", 'sp':"{{
     row.sp }}", 'lat':{{

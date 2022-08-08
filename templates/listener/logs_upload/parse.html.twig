@@ -30,6 +30,7 @@
                 <th>{% trans %}GSQ{% endtrans %}</th>
                 <th class="num">{% trans %}KM{% endtrans %}</th>
                 <th class="num">{% trans %}Miles{% endtrans %}</th>
+                <th class="num">{% trans %}Deg{% endtrans %}</th>
                 <th>{% trans %}Pwr{% endtrans %}</th>
                 <th>{% trans %}Heard In{% endtrans %}</th>
                 <th class="num">{% trans %}LSB{% endtrans %}</th>
@@ -64,8 +65,9 @@
                 <td>{{ e.region }}</td>
                 <td>{{ e.GSQ }}</td>
                 <td></td>
-                <td>{{ e.pwr ? e.pwr : '' }}</td>
                 <td></td>
+                <td></td>
+                <td>{{ e.pwr ? e.pwr : '' }}</td>
                 <td></td>
                 <td class="num">{{ e.LSB_approx ? '~' : '' }}{{ e.LSB }}</td>
                 <td class="num">{{ e.USB_approx ? '~' : '' }}{{ e.USB }}</td>
@@ -104,6 +106,7 @@
                 <td>{{ o.GSQ }}</td>
                 <td>{{ o.dx_km }}</td>
                 <td>{{ o.dx_miles }}</td>
+                <td>{{ o.dx_deg }}</td>
                 <td>{{ o.pwr ? o.pwr : '' }}</td>
                 <td>{{ hi|raw }}</td>
                 <td class="num"><i{% if lsb_check %} class="check"{% endif %}>{{ e.LSB_approx ? '~' : '' }}{{ e.LSB }}</i>{% if o.LSB_approx or o.LSB %}<br>{{ o.LSB_approx ? '~' : '' }}{{ o.LSB }}{% endif %}</td>
@@ -166,6 +169,7 @@
                 <td>{{ o.GSQ }}</td>
                 <td>{{ o.dx_km }}</td>
                 <td>{{ o.dx_miles }}</td>
+                <td>{{ o.dx_deg }}</td>
                 <td>{{ o.pwr ? o.pwr : '' }}</td>
                 <td>{{ hi|raw }}</td>
                 <td class="num"><i{% if lsb_check %} class="check" title="LSB differs more than {{ tol_offsets }}Hz"{% endif %}>{{ e.LSB_approx ? '~' : '' }}{{ e.LSB }}</i>{% if o.LSB_approx or o.LSB %}<br>{{ o.LSB_approx ? '~' : '' }}{{ o.LSB }}{% endif %}</td>
@@ -202,6 +206,7 @@
                 <td>{{ o.GSQ }}</td>
                 <td>{{ o.dx_km }}</td>
                 <td>{{ o.dx_miles }}</td>
+                <td>{{ o.dx_deg }}</td>
                 <td>{{ o.pwr ? o.pwr : '' }}</td>
                 <td>{{ o.heard_in }}</td>
                 <td class="num"><i{% if lsb_check %} class="check" title="LSB differs more than {{ tol_offsets }}Hz"{% endif %}>{{ e.LSB_approx ? '~' : '' }}{{ e.LSB }}</i>{% if o.LSB_approx or o.LSB %}<br>{{ o.LSB_approx ? '~' : '' }}{{ o.LSB }}{% endif %}</td>

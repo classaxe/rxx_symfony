@@ -1,0 +1,82 @@
+<table class="map_layout{% if show.class is defined and show.class %} {{ show.class }}{% endif %}">
+    <tbody style="background:transparent">
+    <tr>
+        <td width="35%">
+            <div class="scroll">
+                <div id="scrollablelist">
+                    <table class="results" id="markerlist" style="display:none; margin: 0;max-width: 500px">
+                        <thead>
+                        <tr>
+{% if show.personalise is defined and show.personalise %}
+                            <th class="txt_vertical"><div>{% trans %}Logged{% endtrans %}</div></th>
+{% endif %}
+                            <th>{% trans %}KHz{% endtrans %}</th>
+                            <th>{% trans %}ID{% endtrans %}</th>
+                            <th>{% trans %}QTH{% endtrans %}</th>
+                            <th>{% trans %}S/P{% endtrans %}</th>
+                            <th>{% trans %}ITU{% endtrans %}</th>
+{% if show.dx is defined and show.dx %}
+                            <th class="txt_vertical"><div>{% trans %}KM{% endtrans %}</div></th>
+                            <th class="txt_vertical"><div>{% trans %}Miles{% endtrans %}</div></th>
+                            <th class="txt_vertical"><div>{% trans %}Deg{% endtrans %}</div></th>
+{% endif %}
+                        </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+            <p class="no-results">{% trans %}(No signals found matching your criteria){% endtrans %}</p>
+        </td>
+        <td>
+            <div class="map">
+                <div>
+                    <div id="header">
+                        <div class="form_layers">
+                            <div>
+                                <label>
+                                    <strong>{% trans %}Show{% endtrans %}</strong>
+                                </label>
+                            </div>
+{% if show.listener is defined and show.listener %}
+                            <div>
+                                <label title="{% trans %}Show listener's location{% endtrans %}">
+                                    <input type="checkbox" id="layer_qth" checked="checked" />
+                                    {% trans %}QTH{% endtrans %}
+                                </label>
+                            </div>
+{% endif %}
+                            <div>
+                                <label title="{% trans %}Show Maidenhead Locator Grid Squares{% endtrans %}">
+                                    <input type="checkbox" id="layer_grid" checked="checked" />
+                                    {% trans %}Grid{% endtrans %}
+                                </label>
+                            </div>
+                            <div>
+                                <label title="{% trans %}Show Active Signals{% endtrans %}">
+                                    <input type="checkbox" id="layer_active" checked="checked" />
+                                    {% trans %}Active{% endtrans %}
+                                    <img src="{{ asset('image/pins/ndb_1.png') }}" alt="{% trans %}Active Signal Marker{% endtrans %}" style="height:0.8em"/>
+                                </label>
+                            </div>
+                            <div>
+                                <label title="{% trans %}Show Inactive Signals{% endtrans %}">
+                                    <input type="checkbox" id="layer_inactive" checked="checked" />
+                                    {% trans %}Inactive{% endtrans %}
+                                    <img src="{{ asset('image/pins/ndb_0.png') }}" alt="{% trans %}Inactive Signal Marker{% endtrans %}" style="height:0.8em; opacity: 0.8" />
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form_layers">
+                            {% for type, settings in types %}
+                                <div class="{{ settings.type }}"><label><input type="checkbox" id="layer_{{ type }}" checked="checked" /> {{ settings.label }}</label></div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div id="map" class="content"></div>
+                </div>
+            </div>
+        </td>
+    </tr>
+    </tbody>
+</table>

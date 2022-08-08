@@ -1,20 +1,17 @@
 <script>
 //<!--
-$(document).ready( function() {
-    $('#map').height($(window).height() - 120);
-    $('#scrollablelist').height($('#map').height() + 40);
-    $(window).resize(function () {
-        $('#map').height($(window).height() - 120);
-        $('#scrollablelist').height($('#map').height() + 40);
-    });
-    SIGNALS_FORM.init({{ results.total }});
-    SIGNALS.loadMap();
-});
-
 {% if signals|length %}
 var box = [{ lat: {{ box[0][0] }}, lon: {{ box[0][1] }}}, { lat: {{ box[1][0] }}, lon: {{ box[1][1] }} }];
 var center = { lat: {{ center[0] }}, lon: {{ center[1] }} };
-
+{% if show.personalise %}
+var listener = {
+    lat: {{ personalise.lat }},
+    lng: {{ personalise.lon }},
+    name: "{{ personalise.name }}",
+    qth: "{{ personalise.qth }}{% if (personalise.sp) %}, {{ personalise.sp }}{% endif %}, {{ personalise.itu }}"
+{#    {{ personalise.qth }}{% if (listener.sp) %}, {{ listener.sp }}{% endif %}, {{ listener.itu }}"#}
+};
+{% endif %}
 var signals = [
 {% for row in signals %}
     {% set type = typeRepository.TypeForCode(row.type) %}{ 'id':{{
@@ -38,12 +35,30 @@ var signals = [
     row.sec }}', 'fmt':'{{
     row.format }}', 'heard':'{{
     row.last_heard }}', 'heard_in':'{{
-    row.heard_in }}'{% if args.personalise %},'logged':{{ row.personalise ? 1 : 0 }}, {% endif %} },
+    row.heard_in }}'{% if show.personalise %}, 'logged':{{
+    row.personalise ? 1 : 0 }}{% endif %}, 'km': '{{
+    row.range_km }}', 'mi': '{{
+    row.range_mi }}', 'deg': '{{
+    row.range_deg }}'
+},
 {% endfor %}
 ];
 
 var types = [ {{ types|keys|join(', ') }} ];
 {% endif %}
+$(document).ready( function() {
+    $(window)
+        .resize(function() {
+            var mapDiv = $('#map');
+            mapDiv.height($(window).height() - 140);
+            mapDiv.width($(window).width() - 410);
+            $('#scrollablelist').height(mapDiv.height() + 40);
+        })
+        .trigger('resize');
+    SIGNALS_FORM.init({{ results.total }});
+    SIGNALS.loadMap();
+});
+
 // -->
 </script>
 {% if signals|length %}
@@ -51,82 +66,17 @@ var types = [ {{ types|keys|join(', ') }} ];
 {% endif %}
 <div class="row">
     <div class="small-6 text-left"><h2>{{ system|upper }} {% trans %}Signals Map{% endtrans %}</h2></div>
-    <div class="small-6 text-right">{% if personalise.id %}<h3>{{ 'Personalised for %s%s%s'|trans|format(
-            "<a href='" ~ url('listener', { 'system' : system, 'id' : personalise.id }) ~ "' data-popup='1'>",
-            personalise.name,
-            '</a>'
-        )|raw }}</h3>{% endif %}</div>
+    <div class="small-6 text-right">
+        {% if personalise.id %}
+            <h3>{{ 'Personalised for %s%s%s'|trans|format(
+                "<a href='" ~ url('listener', { 'system' : system, 'id' : personalise.id }) ~ "' data-popup='1'>",
+                personalise.desc,
+                '</a>'
+            )|raw }}</h3>
+    {% endif %}</div>
 </div>
 {% if signals|length %}
-<table class="map_layout">
-    <tbody>
-    <tr>
-        <td width="35%">
-            <div class="scroll">
-                <div id="scrollablelist">
-                    <table class="results" id="markerlist" style="display:none; margin: 0; max-width: 500px">
-                        <thead>
-                        <tr>
-{% if personalise.id %}
-                            <th class="txt_vertical"><div>{% trans %}Logged{% endtrans %}</div></th>
-{% endif %}
-                            <th>{% trans %}KHz{% endtrans %}</th>
-                            <th>{% trans %}ID{% endtrans %}</th>
-                            <th>{% trans %}'Name' and Location{% endtrans %}</th>
-                            <th>{% trans %}S/P{% endtrans %}</th>
-                            <th>{% trans %}ITU{% endtrans %}</th>
-                        </tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
-                </div>
-            </div>
-        </td>
-        <td>
-            <div class="content map">
-                <div>
-                    <div id="header">
-                        <div class="form_layers">
-                            <div>
-                                <label>
-                                    <strong>{% trans %}Show{% endtrans %}</strong>
-                                </label>
-                            </div>
-                            <div>
-                                <label title="{% trans %}Show Maidenhead Locator Grid Squares{% endtrans %}">
-                                    <input type="checkbox" id="layer_grid" checked="checked" />
-                                    {% trans %}Grid{% endtrans %}
-                                </label>
-                            </div>
-                            <div>
-                                <label title="{% trans %}Show Active Signals{% endtrans %}">
-                                    <input type="checkbox" id="layer_active" checked="checked" />
-                                    {% trans %}Active{% endtrans %}
-                                    <img src="{{ asset('image/pins/ndb_1.png') }}" alt="{% trans %}Active Signal Marker{% endtrans %}" style="height:0.8em"/>
-                                </label>
-                            </div>
-                            <div>
-                                <label title="{% trans %}Show Inactive Signals{% endtrans %}">
-                                    <input type="checkbox" id="layer_inactive" checked="checked" />
-                                    {% trans %}Inactive{% endtrans %}
-                                    <img src="{{ asset('image/pins/ndb_0.png') }}" alt="{% trans %}Inactive Signal Marker{% endtrans %}" style="height:0.8em; opacity: 0.8" />
-                                </label>
-                            </div>
-                        </div>
-                        <div class="form_layers">
-                            <div><label><strong>{% trans %}Signal Types:{% endtrans %}</strong></label></div>
-                            {% for type, settings in types %}
-                                <div class="{{ settings.type }}"><label><input type="checkbox" id="layer_{{ type }}" checked="checked" /> {{ settings.label }}</label></div>
-                            {% endfor %}
-                        </div>
-                    </div>
-                    <div id="map"></div>
-                </div>
-            </div>
-        </td>
-    </tr>
-    </tbody>
-</table>
+    {% include 'maps/gmap_signals.twig' %}
 {% else %}
     <p class="no-results">{% trans %}(No signals found matching your criteria){% endtrans %}</p>
 {% endif %}

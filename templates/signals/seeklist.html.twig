@@ -11,7 +11,7 @@
                         {% if personalise.id %}<h3 class="small-8 text-center">
                             {{ 'Personalised for %s%s%s'|trans|format(
                                     "<a href='" ~ url('listener', { 'system' : system, 'id' : personalise.id }) ~ "' data-popup='1'>",
-                                    personalise.name,
+                                    personalise.desc,
                                     '</a>'
                                 )|raw }}
                             </h3>{% endif %}
