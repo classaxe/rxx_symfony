@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.47.0
- * Date:       2022-08-08
+ * Version:    2.47.2
+ * Date:       2022-08-11
  * Licence:    LGPL
  * Copyright:  2022 Martin Francis
  */
@@ -2486,9 +2486,9 @@ var SMap = {
                 '<td class="clipped">' + s.qth + '</td>' +
                 '<td>' + s.sp + '</td>' +
                 '<td>' + s.itu + '</td>' +
-                ('LS' === mode ? '<td class="num">' + s.km + '</td>' : '') +
-                ('LS' === mode ? '<td class="num">' + s.mi + '</td>' : '') +
-                ('LS' === mode ? '<td class="num">' + s.deg + '</td>' : '') +
+                (typeof s.km !== 'undefined' ? '<td class="num">' + s.km + '</td>' : '') +
+                (typeof s.mi !== 'undefined' ? '<td class="num">' + s.mi + '</td>' : '') +
+                (typeof s.deg !== 'undefined' ? '<td class="num">' + s.deg + '</td>' : '') +
                 '</tr>';
 
             marker = new google.maps.Marker({
