@@ -288,7 +288,7 @@ class ListenerLogsUpload extends Base
         foreach($entries as $e) {
             $isPresent = false;
             if ($row = $this->logRepository->findDuplicate($e['signalID'], $listenerID, $e['YYYYMMDD'], $e['time'])) {
-                if ($operatorId === $row['operatorId']) {
+                if ($operatorId === $row['operatorID']) {
                     $stats['duplicates']++;
                 } else {
                     $log = $this->logRepository->find($row['ID']);
