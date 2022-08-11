@@ -21,6 +21,16 @@ class Collection extends Base
     private $mapBox =           [];
     private $mapCenter =        [];
     private $pageLayout =       [];
+    private $personalise =      [
+        'id' =>     null,
+        'desc' =>   null,
+        'name' =>   null,
+        'lat' =>    null,
+        'lon' =>    null,
+        'qth' =>    null,
+        'sp' =>     null,
+        'itu' =>    null,
+    ];
     private $request;
     private $seeklistData =     [];
     private $seeklistStats =    [];
@@ -64,12 +74,9 @@ class Collection extends Base
             $this->args = $form->getData();
         }
         $this->setArgsAfterPostTweaks();
+        $this->setPersonalise();
         $this->args['source'] = $this->request->isXmlHttpRequest() ? 'xmlhttp' : 'page';
         $this->filename =       $this->args['filename'] ?? false;
-        $personalise = false;
-        if ($this->args['personalise'] ?? false) {
-            $personalise = $this->listenerRepository->find($this->args['personalise']);
-        }
         if ($this->request->isXmlHttpRequest() || !in_array($this->args['show'], ['list'])) {
             $this->signals =    $this->signalRepository->getFilteredSignals($this->system, $this->args);
             $this->total =      $this->signalRepository->getFilteredSignalsCount($this->system, $this->args);
@@ -90,16 +97,7 @@ class Collection extends Base
             'mode' =>               $this->i18n('Signals'),
             'pageLayout' =>         $this->pageLayout,
             'paperChoices' =>       $this->paperRepository->getAllChoices(),
-            'personalise' => [
-                'id' =>     ($personalise ? $personalise->getId() : ''),
-                'desc' =>   ($personalise ? $personalise->getFormattedNameAndLocation() : ''),
-                'name' =>   ($personalise ? $personalise->getName() : ''),
-                'lat' =>    ($personalise ? $personalise->getLat() : ''),
-                'lon' =>    ($personalise ? $personalise->getLon() : ''),
-                'qth' =>    ($personalise ? $personalise->getQth() : ''),
-                'sp' =>     ($personalise ? $personalise->getSp() : ''),
-                'itu' =>    ($personalise ? $personalise->getItu() : ''),
-            ],
+            'personalise' =>        $this->personalise,
             'results' => [
                 'limit' =>              isset($this->args['limit']) ? $this->args['limit'] : $this->signalRepository::defaultlimit,
                 'page' =>               isset($this->args['page']) ? $this->args['page'] : 0,
@@ -108,8 +106,8 @@ class Collection extends Base
             'seeklistData' =>       $this->seeklistData,
             'seeklistStats' =>      $this->seeklistStats,
             'show' => [
-                'dx' =>          ($personalise ? true : false),
-                'personalise' => ($personalise ? true : false)
+                'dx' =>          ($this->args['range_gsq'] ? true : false),
+                'personalise' => ($this->personalise['id'] ? true : false)
             ],
             'signals' =>            $this->signals,
             'system' =>             $this->system,
@@ -393,6 +391,25 @@ class Collection extends Base
         $lon_cen =          $lon_min + (($lon_max - $lon_min) / 2);
         $this->mapBox =     [[$lat_min, $lon_min], [$lat_max, $lon_max]];
         $this->mapCenter =  [$lat_cen, $lon_cen];
+    }
+
+    private function setPersonalise()
+    {
+        if (!$this->args['personalise'] ?? false) {
+            return;
+        }
+        $personalise = $this->listenerRepository->find($this->args['personalise']);
+        $this->personalise = [
+            'id' =>     ($personalise ? $personalise->getId() : ''),
+            'desc' =>   ($personalise ? $personalise->getFormattedNameAndLocation() : ''),
+            'name' =>   ($personalise ? $personalise->getName() : ''),
+            'lat' =>    ($personalise ? $personalise->getLat() : ''),
+            'lon' =>    ($personalise ? $personalise->getLon() : ''),
+            'qth' =>    ($personalise ? $personalise->getQth() : ''),
+            'sp' =>     ($personalise ? $personalise->getSp() : ''),
+            'itu' =>    ($personalise ? $personalise->getItu() : ''),
+        ];
+
     }
 
     private function setSeeklistFormattedLayout()

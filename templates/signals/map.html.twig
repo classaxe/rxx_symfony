@@ -47,9 +47,9 @@ var signals = [
 var types = [ {{ types|keys|join(', ') }} ];
 {% endif %}
 $(document).ready( function() {
+    var mapDiv = $('#map');
     $(window)
         .resize(function() {
-            var mapDiv = $('#map');
             mapDiv.height($(window).height() - 140);
             mapDiv.width($(window).width() - 410);
             $('#scrollablelist').height(mapDiv.height() + 40);
@@ -73,7 +73,10 @@ $(document).ready( function() {
                 personalise.desc,
                 '</a>'
             )|raw }}</h3>
-    {% endif %}</div>
+        {% elseif show.dx %}
+            <h3>Showing distances from Grid Square {{ args.range_gsq }}</h3>
+        {% endif %}
+    </div>
 </div>
 {% if signals|length %}
     {% include 'maps/gmap_signals.twig' %}

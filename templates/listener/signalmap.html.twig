@@ -40,13 +40,13 @@ var signals = [
         row.heardIn }}' },
 {% endfor %} ];
 $(document).ready(function() {
+    var mapDiv = $('#map');
     setExternalLinks();
     setColumnSortActions();
     setColumnSortedClass();
     setClippedCellTitles();
     $(window)
         .resize(function() {
-            var mapDiv = $('#map');
             mapDiv.height($(window).height() - 152);
             mapDiv.width($(window).width() - 410);
             $('#scrollablelist').height(mapDiv.height() + 48);

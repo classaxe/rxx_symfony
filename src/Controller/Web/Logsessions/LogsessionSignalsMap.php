@@ -47,8 +47,8 @@ class LogsessionSignalsMap extends Base
 
         $signals = $this->signalRepository->getSignals($args, $columns);
 
-        $lats =     array_column($signals, 'lat');
-        $lons =     array_column($signals, 'lon');
+        $lats =     array_merge(array_column($signals, 'lat'), [$listener->getLat()]);
+        $lons =     array_merge(array_column($signals, 'lon'), [$listener->getLon()]);
         $lat_min =  min($lats);
         $lat_max =  max($lats);
         $lon_min =  min($lons);
