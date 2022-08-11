@@ -17,12 +17,13 @@ var listeners = [
 ];
 
 $(document).ready( function() {
-    $('#map').height($(window).height() - 120);
-    $('.scroll div').height($('#map').height());
-    $(window).resize(function () {
-        $('#map').height($(window).height() - 120);
-        $('.scroll div').height($('#map').height());
-    });
+    var mapDiv = $('#map');
+    $(window)
+        .resize(function () {
+            mapDiv.height($(window).height() - 120);
+            $('.scroll div').height(mapDiv.height());
+        })
+        .trigger('resize');
 });
 // -->
 </script>
