@@ -38,10 +38,10 @@ $(document).ready( function() {
                 <table id="markerlist" class="results_noaction" style="display:none; margin: 0; max-width: 500px">
                     <thead>
                     <tr>
-                        <th id="0|a" class="sort sorted">{% trans %}Name{% endtrans %}</th>
-                        <th id="1|a" class="sort">{% trans %}Location{% endtrans %}</th>
-                        <th id="2|a" class="sort">{% trans %}S/P{% endtrans %}</th>
-                        <th id="3|a" class="sort">{% trans %}ITU{% endtrans %}</th>
+                        <th id="0|a" class="sort{% if args.sort == 'name' or (args.sort != 'qth' and args.sort != 'sp' and args.sort != 'itu')%} sorted{% endif %}">{% trans %}Name{% endtrans %}</th>
+                        <th id="1|a" class="sort{% if args.sort == 'qth' %} sorted{% endif %}">{% trans %}Location{% endtrans %}</th>
+                        <th id="2|a" class="sort{% if args.sort == 'sp' %} sorted{% endif %}">{% trans %}S/P{% endtrans %}</th>
+                        <th id="3|a" class="sort{% if args.sort == 'itu' %} sorted{% endif %}">{% trans %}ITU{% endtrans %}</th>
                     </tr>
                     </thead>
                     <tbody></tbody>
