@@ -5,6 +5,8 @@ var SMap = {
     infoWindow : null,
     markers : [],
     options : {},
+    sortBy  : 'khz',
+    sortOrder : 'a',
 
     init: function() {
         var icons = [ 'dgps', 'dsc', 'hambcn', 'navtex', 'ndb', 'time', 'other' ];
@@ -72,17 +74,17 @@ var SMap = {
                 ' id="signal_' + s.id + '"' +
                 ' data-gmap="' + s.lat + '|' + s.lon + '"' +
                 '>' +
-                (typeof s.logged !== 'undefined' ? '<th>' + (s.logged ? '&#x2714;' : '&nbsp;') + '</th>' : '') +
-                '<td>' + s.khz + '</td>' +
-                '<td class="text-nowrap">' +
+                (typeof s.logged !== 'undefined' ? '<th data-val="' + (s.logged ? 'Y' : 'N') + '">' + (s.logged ? '&#x2714;' : '&nbsp;') + '</th>' : '') +
+                '<td data-val="' + s.khz +'">' + s.khz + '</td>' +
+                '<td data-val="' + s.call + '" class="text-nowrap">' +
                 '<a href="' + base_url + 'signals/' + s.id + '" class="' + (s.active ? '' : 'inactive') + '" data-popup="1">' + s.call + '</a>' +
                 '</td>' +
-                '<td class="clipped">' + s.qth + '</td>' +
-                '<td>' + s.sp + '</td>' +
-                '<td>' + s.itu + '</td>' +
-                (typeof s.km !== 'undefined' ? '<td class="num">' + s.km + '</td>' : '') +
-                (typeof s.mi !== 'undefined' ? '<td class="num">' + s.mi + '</td>' : '') +
-                (typeof s.deg !== 'undefined' ? '<td class="num">' + s.deg + '</td>' : '') +
+                '<td data-val="' + s.qth + '" class="clipped">' + s.qth + '</td>' +
+                '<td data-val="' + s.sp + '">' + s.sp + '</td>' +
+                '<td data-val="' + s.itu + '">' + s.itu + '</td>' +
+                (typeof s.km !== 'undefined' ? '<td class="num" data-val="' + s.km +'">' + s.km + '</td>' : '') +
+                (typeof s.mi !== 'undefined' ? '<td class="num" data-val="' + s.mi +'">' + s.mi + '</td>' : '') +
+                (typeof s.deg !== 'undefined' ? '<td class="num" data-val="' + s.deg +'">' + s.deg + '</td>' : '') +
                 '</tr>';
 
             marker = new google.maps.Marker({
@@ -256,5 +258,46 @@ var SMap = {
             });
         });
 
+        $('#markerlist thead th.sort').on('click', function(){
+            var i, initial, me, sortBy, sortOrder, sortType;
+            me = $(this);
+            i = me.attr('id').split('|');
+            sortBy = i[0];
+            sortOrder = i[1];
+            sortType = me.data('type');
+            if (sortBy === SMap.sortBy) {
+                sortOrder = (SMap.sortOrder === 'a' ? 'd' : 'a');
+                me.attr('id', sortBy + '|' + SMap.sortOrder);
+            } else {
+                me.attr('id', sortBy + '|a');
+            }
+            SMap.sortBy = sortBy;
+            SMap.sortOrder = sortOrder;
+            console.log('idx ' + sortBy + ' order ' + sortOrder + ' of type ' + sortType);
+            SMap.colSort(sortBy, sortOrder, sortType);
+        });
+    },
+    colSort: function (idx, dir, type) {
+        var cols =  $('#markerlist thead tr th');
+        var col =   $('#markerlist thead tr th:eq(' + idx + ')')
+        var tbody = $('#markerlist tbody');
+
+        cols.removeClass('sorted');
+        col.addClass('sorted');
+
+        tbody.find('tr').sort(function (a, b) {
+            var tda = $(a).find('td:eq(' + idx +')').data('val');
+            var tdb = $(b).find('td:eq(' + idx +')').data('val');
+            if (type === 'number') {
+                tda = parseFloat(tda);
+                tda = parseFloat(tda);
+            }
+            switch(dir) {
+                case 'a':
+                    return (tda > tdb ? 1 : (tda < tdb ? -1 : 0));
+                case 'd':
+                    return (tdb > tda ? 1 : (tdb < tda ? -1 : 0));
+            }
+        }).appendTo(tbody);
     }
 };

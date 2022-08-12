@@ -4,21 +4,22 @@
         <td width="35%">
             <div class="scroll">
                 <div id="scrollablelist">
-                    <table class="results" id="markerlist" style="display:none; margin: 0;max-width: 500px">
+                    <table class="signal results" id="markerlist" style="display:none; margin: 0;max-width: 500px">
                         <thead>
                         <tr>
+{% set idx = 0 %}
 {% if show.personalise is defined and show.personalise %}
-                            <th class="txt_vertical"><div>{% trans %}Logged{% endtrans %}</div></th>
+                            <th data-type="alpha" id="{{ idx }}{% set idx = idx + 1 %}|a" class="txt_vertical"><div>{% trans %}Logged{% endtrans %}</div></th>
 {% endif %}
-                            <th>{% trans %}KHz{% endtrans %}</th>
-                            <th>{% trans %}ID{% endtrans %}</th>
-                            <th>{% trans %}QTH{% endtrans %}</th>
-                            <th>{% trans %}S/P{% endtrans %}</th>
-                            <th>{% trans %}ITU{% endtrans %}</th>
+                            <th data-type="number" id="{{ idx }}{% set idx = idx + 1 %}|a" class="sort sorted" title="Sort by KHz">{% trans %}KHz{% endtrans %}</th>
+                            <th data-type="alpha" id="{{ idx }}{% set idx = idx + 1 %}|a" class="sort" title="Sort by ID">{% trans %}ID{% endtrans %}</th>
+                            <th data-type="alpha" id="{{ idx }}{% set idx = idx + 1 %}|a" class="sort" title="Sort by QTH">{% trans %}QTH{% endtrans %}</th>
+                            <th data-type="alpha" id="{{ idx }}{% set idx = idx + 1 %}|a" class="sort" title="Sort by S/P">{% trans %}S/P{% endtrans %}</th>
+                            <th data-type="alpha" id="{{ idx }}{% set idx = idx + 1 %}|a" class="sort" title="Sort by ITU">{% trans %}ITU{% endtrans %}</th>
 {% if show.dx is defined and show.dx %}
-                            <th class="txt_vertical"><div>{% trans %}KM{% endtrans %}</div></th>
-                            <th class="txt_vertical"><div>{% trans %}Miles{% endtrans %}</div></th>
-                            <th class="txt_vertical"><div>{% trans %}Deg{% endtrans %}</div></th>
+                            <th data-type="number" id="{{ idx }}{% set idx = idx + 1 %}|a" class="sort txt_vertical" title="Sort by distance in KM"><div>{% trans %}KM{% endtrans %}</div></th>
+                            <th data-type="number" id="{{ idx }}{% set idx = idx + 1 %}|a" class="sort txt_vertical" title="Sort by distance in Miles"><div>{% trans %}Miles{% endtrans %}</div></th>
+                            <th data-type="number" id="{{ idx }}{% set idx = idx + 1 %}|a" class="sort txt_vertical" title="Sort by bearing"><div>{% trans %}Deg{% endtrans %}</div></th>
 {% endif %}
                         </tr>
                         </thead>

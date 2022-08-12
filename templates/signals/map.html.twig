@@ -36,10 +36,10 @@ var signals = [
     row.format }}', 'heard':'{{
     row.last_heard }}', 'heard_in':'{{
     row.heard_in }}'{% if show.personalise %}, 'logged':{{
-    row.personalise ? 1 : 0 }}{% endif %}, 'km': '{{
+    row.personalise ? 1 : 0 }}{% endif %}{% if show.dx %}, 'km': '{{
     row.range_km }}', 'mi': '{{
     row.range_mi }}', 'deg': '{{
-    row.range_deg }}'
+    row.range_deg }}'{% endif %}
 },
 {% endfor %}
 ];
