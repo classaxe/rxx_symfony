@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.46.7
- * Date:       2022-08-07
+ * Version:    2.47.6
+ * Date:       2022-08-12
  * Licence:    LGPL
  * Copyright:  2022 Martin Francis
  */
@@ -3035,31 +3035,38 @@ div.scroll div {
   height: 100%;
   overflow: auto;
 }
-div.scroll div table.results {
+div.scroll div table.results,
+div.scroll div table.results_noaction {
   border-top: 2px solid #808080;
   border-bottom: 1px solid #808080;
   border-right: 1px solid #808080;
   background: #ffffff;
 }
-div.scroll div table.results thead th {
+div.scroll div table.results thead th,
+div.scroll div table.results_noaction thead th {
   position: sticky;
   top: -1px;
   border-top: none;
   border-bottom: none;
 }
 div.scroll div table.results tbody tr:hover,
-div.scroll div table.results tbody tr:hover td {
+div.scroll div table.results_noaction tbody tr:hover,
+div.scroll div table.results tbody tr:hover td,
+div.scroll div table.results_noaction tbody tr:hover td {
   background: #ffff00 !important;
 }
-div.scroll div table.results img {
+div.scroll div table.results img,
+div.scroll div table.results_noaction img {
   margin: 0.5em 0.25em 0 0;
 }
 /* [ Grid CSS ] */
-.results {
+.results,
+.results_noaction {
   margin: 0;
   border-collapse: collapse;
 }
-.results thead th {
+.results thead th,
+.results_noaction thead th {
   height: 7em !important;
   max-height: 7em !important;
   background: #686868;
@@ -3069,66 +3076,88 @@ div.scroll div table.results img {
   font-size: 9pt;
   padding: 0.25em;
 }
-.results thead th.hidden {
+.results thead th.hidden,
+.results_noaction thead th.hidden {
   display: none;
 }
-.results thead th.sort {
+.results thead th.sort,
+.results_noaction thead th.sort {
   border-bottom: 3px solid #a0a0a0;
 }
-.results thead th.nosort {
+.results thead th.nosort,
+.results_noaction thead th.nosort {
   background: #008000;
   border-bottom: 3px solid #006000;
 }
 .results thead th.sort:hover,
-.results thead th.sorted {
+.results_noaction thead th.sort:hover,
+.results thead th.sorted,
+.results_noaction thead th.sorted {
   border-bottom: 3px solid #FCC247 !important;
   background: #665d4b;
   cursor: pointer;
 }
-.results thead th.sorted {
+.results thead th.sorted,
+.results_noaction thead th.sorted {
   color: #ffe4b3;
 }
-.results thead th b {
+.results thead th b,
+.results_noaction thead th b {
   background: #ffffa0;
   color: #0000ff;
   border: 1px solid #b0b000;
   border-radius: 2px;
 }
-.results tbody th {
+.results tbody th,
+.results_noaction tbody th,
+.results tbody td.personalise,
+.results_noaction tbody td.personalise {
   padding: 0.125em 0.25em;
   vertical-align: top;
   background: #95de95;
   color: #008000;
+  font-weight: bold;
   border: 1px solid #808080;
 }
-.results tbody th.no-results {
+.results tbody th.no-results,
+.results_noaction tbody th.no-results,
+.results tbody td.personalise.no-results,
+.results_noaction tbody td.personalise.no-results {
   background: #de9595;
   color: #800000;
 }
-.results tr.daytime td {
+.results tr.daytime td,
+.results_noaction tr.daytime td {
   font-weight: bold;
 }
-.results tr.logged td {
+.results tr.logged td,
+.results_noaction tr.logged td {
   color: #008000 !important;
 }
-.results tr.unlogged td {
+.results tr.unlogged td,
+.results_noaction tr.unlogged td {
   color: #A00000 !important;
 }
-.results tr.l2_alt td {
+.results tr.l2_alt td,
+.results_noaction tr.l2_alt td {
   padding: 0;
 }
-.results tr.l2_alt td table {
+.results tr.l2_alt td table,
+.results_noaction tr.l2_alt td table {
   background: transparent;
   margin: 0;
   border: none;
 }
-.results tr.l2_alt td table tbody {
+.results tr.l2_alt td table tbody,
+.results_noaction tr.l2_alt td table tbody {
   background: transparent !important;
 }
-.results tr.l2_alt td table tbody tr {
+.results tr.l2_alt td table tbody tr,
+.results_noaction tr.l2_alt td table tbody tr {
   background: transparent !important;
 }
-.results tr.l2_alt td table tbody tr th {
+.results tr.l2_alt td table tbody tr th,
+.results_noaction tr.l2_alt td table tbody tr th {
   background: transparent !important;
   width: 6em;
   white-space: nowrap;
@@ -3136,7 +3165,9 @@ div.scroll div table.results img {
   color: #000;
 }
 .results tr.l2_alt td table tbody tr td,
-.results tr.l2_alt td table tbody tr th {
+.results_noaction tr.l2_alt td table tbody tr td,
+.results tr.l2_alt td table tbody tr th,
+.results_noaction tr.l2_alt td table tbody tr th {
   text-align: left !important;
   font-size: 100%;
   margin: 0;
@@ -3144,41 +3175,52 @@ div.scroll div table.results img {
   border: none;
 }
 .results tr.l2_alt td table tbody tr td div,
-.results tr.l2_alt td table tbody tr th div {
+.results_noaction tr.l2_alt td table tbody tr td div,
+.results tr.l2_alt td table tbody tr th div,
+.results_noaction tr.l2_alt td table tbody tr th div {
   display: inline;
 }
-.results td {
+.results td,
+.results_noaction td {
   border: 1px solid #808080;
   height: 1.25em;
   vertical-align: top;
   font-size: 9pt;
   padding: 0.125em 0.25em;
 }
-.results td.hidden {
+.results td.hidden,
+.results_noaction td.hidden {
   display: none;
 }
-.results td.caps {
+.results td.caps,
+.results_noaction td.caps {
   text-transform: uppercase;
 }
 .results td.rxx_id,
-.results td.rxx_id a {
+.results_noaction td.rxx_id,
+.results td.rxx_id a,
+.results_noaction td.rxx_id a {
   background: #ffecdd;
   color: #884400;
 }
-.results td.tf_N {
+.results td.tf_N,
+.results_noaction td.tf_N {
   background: #fdd;
   color: #800;
 }
-.results td.tf_Y {
+.results td.tf_Y,
+.results_noaction td.tf_Y {
   background: #dfd;
   color: #080;
 }
-.results td i {
+.results td i,
+.results_noaction td i {
   font-style: normal;
   color: #008000;
   padding: 0;
 }
-.results td em {
+.results td em,
+.results_noaction td em {
   font-style: normal;
   font-weight: bold;
   background: #e0ffe0;
@@ -3187,7 +3229,8 @@ div.scroll div table.results img {
   border: 1px solid #80b080;
   border-radius: 2px;
 }
-.results td b {
+.results td b,
+.results_noaction td b {
   background: #ffffa0;
   padding: 1px;
   border: 1px solid #b0b000;
@@ -3217,7 +3260,8 @@ div.scroll div table.results img {
   a[href]:after {
     content: none !important;
   }
-  .results {
+  .results,
+  .results_noaction {
     border: 1px solid green;
   }
   body {

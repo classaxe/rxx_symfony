@@ -9,7 +9,7 @@
                         <tr>
 {% set idx = 0 %}
 {% if show.personalise is defined and show.personalise %}
-                            <th data-type="alpha" id="{{ idx }}{% set idx = idx + 1 %}|a" class="txt_vertical"><div>{% trans %}Logged{% endtrans %}</div></th>
+                            <th data-type="alpha" id="{{ idx }}{% set idx = idx + 1 %}|a" class="sort txt_vertical" title="Sort by Logged"><div>{% trans %}Logged{% endtrans %}</div></th>
 {% endif %}
                             <th data-type="number" id="{{ idx }}{% set idx = idx + 1 %}|a" class="sort sorted" title="Sort by KHz">{% trans %}KHz{% endtrans %}</th>
                             <th data-type="alpha" id="{{ idx }}{% set idx = idx + 1 %}|a" class="sort" title="Sort by ID">{% trans %}ID{% endtrans %}</th>

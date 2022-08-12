@@ -74,7 +74,7 @@ var SMap = {
                 ' id="signal_' + s.id + '"' +
                 ' data-gmap="' + s.lat + '|' + s.lon + '"' +
                 '>' +
-                (typeof s.logged !== 'undefined' ? '<th data-val="' + (s.logged ? 'Y' : 'N') + '">' + (s.logged ? '&#x2714;' : '&nbsp;') + '</th>' : '') +
+                (typeof s.logged !== 'undefined' ? '<td class="personalise" data-val="' + (s.logged ? 'logged' : 'unlogged') + '">' + (s.logged ? '&#x2714;' : '&nbsp;') + '</td>' : '') +
                 '<td data-val="' + s.khz +'">' + s.khz + '</td>' +
                 '<td data-val="' + s.call + '" class="text-nowrap">' +
                 '<a href="' + base_url + 'signals/' + s.id + '" class="' + (s.active ? '' : 'inactive') + '" data-popup="1">' + s.call + '</a>' +
@@ -82,9 +82,9 @@ var SMap = {
                 '<td data-val="' + s.qth + '" class="clipped">' + s.qth + '</td>' +
                 '<td data-val="' + s.sp + '">' + s.sp + '</td>' +
                 '<td data-val="' + s.itu + '">' + s.itu + '</td>' +
-                (typeof s.km !== 'undefined' ? '<td class="num" data-val="' + s.km +'">' + s.km + '</td>' : '') +
-                (typeof s.mi !== 'undefined' ? '<td class="num" data-val="' + s.mi +'">' + s.mi + '</td>' : '') +
-                (typeof s.deg !== 'undefined' ? '<td class="num" data-val="' + s.deg +'">' + s.deg + '</td>' : '') +
+                (typeof s.km !== 'undefined' ? '<td class="personalise num" data-val="' + s.km +'">' + s.km + '</td>' : '') +
+                (typeof s.mi !== 'undefined' ? '<td class="personalise num" data-val="' + s.mi +'">' + s.mi + '</td>' : '') +
+                (typeof s.deg !== 'undefined' ? '<td class="personalise num" data-val="' + s.deg +'">' + s.deg + '</td>' : '') +
                 '</tr>';
 
             marker = new google.maps.Marker({
@@ -176,7 +176,7 @@ var SMap = {
     },
 
     setActions : function() {
-        $('#layer_grid').click(function() {
+        $('#layer_grid').click(function () {
             var active, i;
             active = $('#layer_grid').prop('checked');
             for (i in layers.grid) {
@@ -184,11 +184,11 @@ var SMap = {
             }
         });
 
-        $('#layer_qth').click(function() {
+        $('#layer_qth').click(function () {
             layers['qth'].setMap($('#layer_qth').prop('checked') ? SMap.map : null);
         });
 
-        $('#layer_active').click(function() {
+        $('#layer_active').click(function () {
             var i, layer_active, layer_type, type;
             for (i in types) {
                 type = types[i];
@@ -209,7 +209,7 @@ var SMap = {
                 }
             }
         });
-        $('#layer_inactive').click(function() {
+        $('#layer_inactive').click(function () {
             var i, layer_inactive, layer_type, type;
             for (i in types) {
                 type = types[i];
@@ -230,8 +230,8 @@ var SMap = {
                 }
             }
         });
-        types.forEach(function(type){
-            $('#layer_' + type).click(function() {
+        types.forEach(function (type) {
+            $('#layer_' + type).click(function () {
                 var layer_type = $('#layer_' + type);
                 SMap.markerGroups.set(
                     'type_' + type + '_0',
@@ -243,61 +243,20 @@ var SMap = {
                 );
                 if (layer_type.prop('checked')) {
                     if ($('#layer_inactive').prop('checked')) {
-                        $('.results tbody .type_' + type +'.inactive').show();
+                        $('.results tbody .type_' + type + '.inactive').show();
                     } else {
-                        $('.results tbody .type_' + type +'.inactive').hide();
+                        $('.results tbody .type_' + type + '.inactive').hide();
                     }
                     if ($('#layer_active').prop('checked')) {
-                        $('.results tbody .type_' + type +'.active').show();
+                        $('.results tbody .type_' + type + '.active').show();
                     } else {
-                        $('.results tbody .type_' + type +'.active').hide();
+                        $('.results tbody .type_' + type + '.active').hide();
                     }
                 } else {
                     $('.results tbody .type_' + type).hide();
                 }
             });
         });
-
-        $('#markerlist thead th.sort').on('click', function(){
-            var i, initial, me, sortBy, sortOrder, sortType;
-            me = $(this);
-            i = me.attr('id').split('|');
-            sortBy = i[0];
-            sortOrder = i[1];
-            sortType = me.data('type');
-            if (sortBy === SMap.sortBy) {
-                sortOrder = (SMap.sortOrder === 'a' ? 'd' : 'a');
-                me.attr('id', sortBy + '|' + SMap.sortOrder);
-            } else {
-                me.attr('id', sortBy + '|a');
-            }
-            SMap.sortBy = sortBy;
-            SMap.sortOrder = sortOrder;
-            console.log('idx ' + sortBy + ' order ' + sortOrder + ' of type ' + sortType);
-            SMap.colSort(sortBy, sortOrder, sortType);
-        });
-    },
-    colSort: function (idx, dir, type) {
-        var cols =  $('#markerlist thead tr th');
-        var col =   $('#markerlist thead tr th:eq(' + idx + ')')
-        var tbody = $('#markerlist tbody');
-
-        cols.removeClass('sorted');
-        col.addClass('sorted');
-
-        tbody.find('tr').sort(function (a, b) {
-            var tda = $(a).find('td:eq(' + idx +')').data('val');
-            var tdb = $(b).find('td:eq(' + idx +')').data('val');
-            if (type === 'number') {
-                tda = parseFloat(tda);
-                tda = parseFloat(tda);
-            }
-            switch(dir) {
-                case 'a':
-                    return (tda > tdb ? 1 : (tda < tdb ? -1 : 0));
-                case 'd':
-                    return (tdb > tda ? 1 : (tdb < tda ? -1 : 0));
-            }
-        }).appendTo(tbody);
+        mapMarkerColSetActions();
     }
 };

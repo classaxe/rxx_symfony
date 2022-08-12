@@ -684,7 +684,8 @@ div.scroll {
     div {
         height: 100%;
         overflow: auto;
-        table.results {
+        table.results,
+        table.results_noaction {
             border-top: 2px solid #808080;
             border-bottom: 1px solid #808080;
             border-right: 1px solid #808080;
@@ -703,7 +704,8 @@ div.scroll {
 }
 
 /* [ Grid CSS ] */
-.results {
+.results,
+.results_noaction{
     margin: 0;
     border-collapse: collapse;
     thead {
@@ -746,11 +748,13 @@ div.scroll {
         }
     }
     tbody {
-        th {
+        th,
+        td.personalise {
             padding: 0.125em 0.25em;
             vertical-align: top;
             background: #95de95;
             color: #008000;
+            font-weight: bold;
             border: 1px solid #808080;
             &.no-results {
                 background: #de9595;
@@ -873,7 +877,8 @@ div.scroll {
     a[href]:after {
         content: none !important;
     }
-    .results {
+    .results,
+    .results_noaction{
         border: 1px solid green;
     }
     body {

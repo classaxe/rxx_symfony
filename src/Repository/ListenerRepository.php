@@ -671,8 +671,12 @@ EOD;
         $this->addFilterRxxId($qb, $args);
 
         if (isset($args['show']) && $args['show'] === 'map') {
-            $qb
-                ->andWhere('(l.lat != 0 OR l.lon !=0)');
+            $qb->andWhere('(l.lat != 0 OR l.lon !=0)');
+            if (!in_array($args['sort'], ['name', 'qth', 'sp', 'itu'])) {
+                // Then we're sorting by an unseen column - confusing!
+                $args['sort'] = 'name';
+                $args['order'] = 'a';
+            }
         }
 
         if (isset($args['sort']) && ($this->listenersColumns[$args['sort']]['sort'] ?? false)) {

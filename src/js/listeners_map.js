@@ -61,14 +61,14 @@ var LMap = {
             l = listeners[i];
             html +=
                 '<tr id="listener_' + l.id + '" class="qth_' + (l.pri ? 'pri' : 'sec') + '" data-gmap="' + l.lat + '|' + l.lon + '">' +
-                '<td class="text-nowrap">' +
+                '<td class="text-nowrap" data-val="' + l.name + '">' +
                 '<img style="display:block;float: left" src="' + base_image + '/map_point' + (l.pri ? 3 : 4) + '.gif" alt="' + (l.pri ? msg.qth_pri : msg.qth_sec) + '" />' +
                 '<a href="' + base_url + 'listeners/' + l.id + '" class="' + (l.pri ? 'pri' : 'sec') + '" data-popup="1">' +
                 l.name +
                 '</a></td>' +
-                '<td>' + l.qth + '</td>' +
-                '<td>' + l.sp + '</td>' +
-                '<td>' + l.itu + '</td>' +
+                '<td data-val="' + l.qth + '">' + l.qth + '</td>' +
+                '<td data-val="' + l.sp + '">' + l.sp + '</td>' +
+                '<td data-val="' + l.itu + '">' + l.itu + '</td>' +
                 '</tr>';
             marker = new google.maps.Marker({
                 id: 'point_' + l.id,
@@ -92,7 +92,7 @@ var LMap = {
             });
         }
 
-        $('.results tbody').append(html);
+        $('#markerlist tbody').append(html);
         $('tr[data-gmap]')
             .mouseover(function() {
                 var coords = $(this).data('gmap').split('|');
@@ -106,7 +106,7 @@ var LMap = {
                 highlight.setMap(null);
             });
         $('.no-results').hide();
-        $('.results').show();
+        $('#markerlist').show();
     },
 
     setActions : function() {
@@ -137,5 +137,6 @@ var LMap = {
                 $('#markerlist .qth_sec').hide();
             }
         });
+        mapMarkerColSetActions();
     }
 };
