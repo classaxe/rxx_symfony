@@ -1,10 +1,10 @@
 {% if logsessions|length > 0 %}
 <div>
-    <table class="listener logsessions results short" style="width: 100%">
+    <table class="user logsessions results short" style="width: 100%">
         <thead>
             <tr>
     {% for key, column in columns %}
-    {% if ((not column.admin or isAdmin) and (not column.arg or (column.arg and column.arg in args.types))) %}
+    {% if (not column.admin or isAdmin) %}
                 <th{% if key and column.order %} id="{{ key }}|{{ column.order }}"{% endif
     %}{%
         if column.th_class or column.sort
@@ -27,36 +27,32 @@
     {% for ls in logsessions %}
             <tr id="log_session_{{ ls.listenerId }}_{{ ls.id }}" title="{% trans %}Click to view logs for this session{% endtrans %}">
     {% for key, column in columns %}
-        {% if ((not column.admin or isAdmin) and (not column.arg or (column.arg and column.arg in args.types))) %}
+        {% if (not column.admin or isAdmin) %}
                 <td{% if column.td_class %} class="{{ column.td_class }}"{% endif %}{%
                     if key == 'listener'
                 %} title="{{ ls.primaryQth == 'Y' ? 'Primary Location' | trans : 'Secondary Location' | trans }}" class="{{ ls.primaryQth ? 'primaryQth' : 'secondaryQth' }} {{ column.td_class }}"{%
                     elseif column.td_class
                 %} class="{{ column.td_class }}"{%
                     endif
-                %}>
-        {%
+                %}>{%
             if key == 'id'
-        %}{% if isAdmin
-            %}<a href="{{ url('logsession', { 'system' : system, 'id' : ls.id }) }}" data-popup="1" title="Click to edit this Log Session">{{ ls.id }}</a>{%
-                else
-            %}{{ ls.id }}{%
-                endif
-            %}{%
+        %}<a href="{{ url('logsession', { 'system' : system, 'id' : ls.id }) }}" data-popup="1" title="Click to edit this Log Session">{{ ls.id }}</a>{%
             elseif key == 'uploader'
         %}<a href="{{ url('user_logsessions', { 'system' : system, 'id' : ls.uploaderId }) }}" data-popup="1" title="Click to view Log Sessions uploaded by this Administrator">{{ ls.uploader|raw }}</a>{%
             elseif key == 'listener'
-        %}<a href="{{ url('listener_logsessions', { 'system' : system, 'id' : ls.listenerId }) }}" data-popup="1" title="Click to view Log Sessions for this Listener Location">{{ ls.listener|raw }}</a>{%
+        %}<a href="{{ url('listener', { 'system' : system, 'id' : ls.listenerId }) }}" data-popup="1" title="Click to view Profile for this Listener Location">{{ ls.listener|raw }}</a>{%
+            elseif key == 'receiver'
+        %}{% if ls.operatorId %}<a href="{{ url('listener', { 'system' : system, 'id': ls.listenerId }) }}" data-popup="1" title="Click to view profile for this receiver">{{ ls.listener|raw }}</a>{% endif %}{%
+            elseif key == 'operator'
+        %}{%  if ls.operatorId %}<a href="{{ url('listener', { 'system' : system, 'id': ls.operatorId }) }}" data-popup="1" title="Click to view profile for this operator">{{ ls.operator|raw }}</a>{% endif %}{%
             elseif key == 'signals'
         %}<a href="{{ url('logsession_signals', { 'system' : system, 'id' : ls.id }) }}" data-popup="1" title="Click to view Signals for this Log Session">{{ ls.signals }}</a>{%
-            elseif key == 'map'
-        %}<a href="{{ url('logsession_signalsmap', { 'system' : system, 'id' : ls.id }) }}" data-popup="1" title="View map of signals contained in this log session">{% trans %}Map{% endtrans %}</a>{%
             elseif key == 'logs'
         %}<a href="{{ url('logsession_logs', { 'system' : system, 'id' : ls.id }) }}" data-popup="1" title="Click to view Logs for this Log Session">{{ ls.logs }}</a>{%
-            elseif key == 'operator'
-        %}{%  if ls.operatorId %}<a href="{{ url('listener_remote_logsessions', { 'system' : system, 'id': ls.operatorId }) }}" data-popup="1" title="Click to view profile for this operator">{{ ls.operator|raw }}</a>{% endif %}{%
-            elseif key == 'delete' and isAdmin
-        %}<a href="{{ url('logsession/delete', { 'system' : system, 'logSessionId' : ls.id }) }}" class="delete" onclick="return confirm(msg.del_log_session);">X</a>{%
+            elseif key == 'map'
+        %}<a href="{{ url('logsession_signalsmap', { 'system' : system, 'id' : ls.id }) }}" data-popup="1" title="View map of signals contained in this log session">{% trans %}Map{% endtrans %}</a>{%
+            elseif key == 'delete'
+        %}{% if isAdmin %}<a href="{{ url('listener_logsession_delete', { 'system' : system, 'id' : ls.listenerId, 'logSessionId' : ls.id }) }}" class="delete" onclick="return confirm(msg.del_log_session);" title="Click to delete this log session">X</a>{% endif %}{%
             elseif key in ['logs', 'logsDgps', 'logsDsc', 'logsHambcn', 'logsNavtex', 'logsNdb', 'logsOther', 'logsTime']
         %}<strong>{{ attribute(ls, key) }}</strong>{%
             else
@@ -71,5 +67,5 @@
     </table>
 </div>
 {% else %}
-    <p class="no-results">(No log sessions have been uploaded for this listener)</p>
+    <p class="no-results">(No log sessions have been uploaded by this user)</p>
 {% endif %}

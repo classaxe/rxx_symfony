@@ -1,5 +1,5 @@
 <?php
-namespace App\Controller\Web\Admin;
+namespace App\Controller\Web\Users;
 
 use DateTime;
 use App\Controller\Web\Base;
@@ -7,12 +7,13 @@ use App\Entity\User;
 use App\Form\Logon as LogonForm;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+
+use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 
 /**
  * Class Listeners
- * @package App\Controller\Web
+ * @package App\Controller\Web\Users
  */
 class Logon extends Base
 {

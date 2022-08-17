@@ -135,6 +135,7 @@ class LogsessionRepository extends ServiceEntityRepository
             . 'li.itu as itu,'
             . 'trim(ls.timestamp) as timestamp,'
             . 'u.name as uploader,'
+            . 'u.id as uploaderId,'
             . 'trim(ls.firstLog) as firstLog,'
             . 'trim(ls.lastLog) as lastLog,'
             . 'ls.logs,'
@@ -170,6 +171,12 @@ class LogsessionRepository extends ServiceEntityRepository
             $qb
                 ->andWhere('ls.operatorId = :operatorId')
                 ->setParameter('operatorId', $args['operatorId']);
+        }
+
+        if (isset($args['administratorId']) && $args['administratorId'] !== '') {
+            $qb
+                ->andWhere('ls.administratorId = :administratorId')
+                ->setParameter('administratorId', $args['administratorId']);
         }
 
         if (isset($args['limit']) && (int)$args['limit'] !== -1 && isset($args['page'])) {

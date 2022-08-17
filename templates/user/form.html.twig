@@ -9,7 +9,9 @@
                     <legend>{% trans %}Details{% endtrans %}</legend>
                     {{ form_row(form.username) }}
                     {{ form_row(form.password) }}
-                    <div><p>{% if id != false %}<em>{% trans %}Leave blank except to change this{% endtrans %}</em>{% endif %}</p></div>
+                    <div style="font-size: 80%; margin: 0 0 1em 14em">{% if id != false %}
+                        <em>{% trans %}Leave blank except to change this{% endtrans %}</em>
+                    {% endif %}</div>
                     {{ form_row(form.name) }}
                     {{ form_row(form.email) }}
                     {{ form_row(form.access) }}

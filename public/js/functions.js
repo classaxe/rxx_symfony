@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.47.6
- * Date:       2022-08-12
+ * Version:    2.48.0
+ * Date:       2022-08-16
  * Licence:    LGPL
  * Copyright:  2022 Martin Francis
  */
@@ -17,8 +17,6 @@ var award = {};
 var cart = [];
 
 var popWinSpecs = {
-    'admin_users_[id]' :                    'width=420,height=320,status=1,scrollbars=1,resizable=1',
-    'admin_users_new' :                     'width=420,height=320,status=1,scrollbars=1,resizable=1',
     'countries_*' :                         'width=860,height=630,resizable=1',
     'countries_af' :                        'width=640,height=630,resizable=1',
     'countries_as' :                        'width=780,height=590,resizable=1',
@@ -66,6 +64,9 @@ var popWinSpecs = {
     'tools_negativeKeyer' :                 'width=800,height=560,resizable=1',
     'tools_references' :                    'width=520,height=130,resizable=1',
     'tools_sunrise' :                       'width=520,height=385,resizable=1',
+    'users_[id]' :                          'width=1120,height=620,status=1,scrollbars=1,resizable=1',
+    'users_new' :                           'width=1120,height=620,status=1,scrollbars=1,resizable=1',
+    'users_[id]_logsessions' :              'width=1120,height=620,status=1,scrollbars=1,resizable=1',
     'weather_aurora_n' :                    'width=520,height=580,resizable=1',
     'weather_aurora_s' :                    'width=520,height=580,resizable=1',
     'weather_lightning' :                   'width=620,height=620,resizable=1',

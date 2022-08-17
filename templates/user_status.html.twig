@@ -8,7 +8,7 @@
                 <div class="close">&#9662;</div>
             </a>
             <ul>
-                <li><a href="{{ url('admin/profile', { 'system': system }) }}"{% if (app.request.get('_route') == 'admin/profile') %} class="active"{% endif %}>{% trans %}Your Profile{% endtrans %}</a></li>
+                <li><a href="{{ url('profile', { 'system': system }) }}"{% if (app.request.get('_route') == 'profile') %} class="active"{% endif %}>{% trans %}Your Profile{% endtrans %}</a></li>
                 {% if access %}<li><ul class="user">
                     {% if access b-and 16 %}<li><span class="role-ma">{% trans %}MASTER ADMIN{% endtrans %}</span></li>{% endif %}
                     {% if access b-and 8 %}<li><span class="role-a">{% trans %}ADMIN{% endtrans %}</span></li>{% endif %}

@@ -1,15 +1,16 @@
 <?php
-namespace App\Controller\Web\Admin;
+namespace App\Controller\Web\Users;
 
 use App\Service\GeoService;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
+use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 
 /**
  * Class Redirect
- * @package App\Controller\Web\Admin
+ * @package App\Controller\Web\Users
  */
 class Redirect extends AbstractController
 {
@@ -54,28 +55,6 @@ class Redirect extends AbstractController
 
     /**
      * @Route(
-     *     "/{_locale}/{system}/users",
-     *     requirements={
-     *        "_locale": "de|en|es|fr",
-     *        "system": "reu|rna|rww"
-     *     }
-     * )
-     * @param $_locale
-     * @param $system
-     * @return RedirectResponse|Response
-     */
-    public function redirect_3($_locale, $system)
-    {
-        $parameters = [
-            '_locale' => $_locale,
-            'system' => $system
-        ];
-
-        return $this->redirectToRoute('admin/users', $parameters);
-    }
-
-    /**
-     * @Route(
      *     "/users",
      *     requirements={
      *        "_locale": "de|en|es|fr",
@@ -92,7 +71,7 @@ class Redirect extends AbstractController
             'system' => $GeoService->getDefaultSystem()
         ];
 
-        return $this->redirectToRoute('admin/users', $parameters);
+        return $this->redirectToRoute('users', $parameters);
     }
 
 }

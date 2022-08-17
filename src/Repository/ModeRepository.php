@@ -148,7 +148,7 @@ class ModeRepository
                 'title' =>  'System Info',
                 'url'=>     false
             ],
-            'admin/users' => [
+            'users' => [
                 'access' => User::MASTER,
                 'admin' =>  true,
                 'guest' =>  false,
@@ -172,7 +172,7 @@ class ModeRepository
                 'title' =>  'Admin Help',
                 'url'=>     false
             ],
-            'admin/profile' => [
+            'profile' => [
                 'access' => User::USER | User::CLE | User::AWARDS | User::ADMIN | User::MASTER,
                 'admin' =>  true,
                 'guest' =>  false,

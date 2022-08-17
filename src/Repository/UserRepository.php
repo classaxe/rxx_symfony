@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Columns\Users as UsersColumns;
+use App\Columns\UserLogsessions as LogsessionsColumns;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -10,6 +11,12 @@ use Doctrine\Persistence\ManagerRegistry;
 class UserRepository extends ServiceEntityRepository
 {
     private $usersColumns;
+    private $logsessionsColumns;
+
+    private $tabs = [
+        ['user', 'Profile'],
+        ['user_logsessions', 'Sessions (%%logsessions%%)'],
+    ];
 
     /**
      * CleRepository constructor.
@@ -17,16 +24,24 @@ class UserRepository extends ServiceEntityRepository
      */
     public function __construct(
         ManagerRegistry $registry,
-        UsersColumns $usersColumns
+        UsersColumns $usersColumns,
+        LogsessionsColumns $logsessionsColumns
 
     ) {
         parent::__construct($registry, User::class);
         $this->usersColumns = $usersColumns->getColumns();
+        $this->logsessionsColumns = $logsessionsColumns->getColumns();
     }
 
-    public function getColumns()
+    public function getColumns($mode = '')
     {
-        return $this->usersColumns;
+        switch ($mode) {
+            case 'logsessions':
+                return $this->logsessionsColumns;
+            case 'users':
+                return $this->usersColumns;
+        }
+        return false;
     }
 
     public function getCount()
@@ -50,6 +65,33 @@ class UserRepository extends ServiceEntityRepository
                 ->setMaxResults((int)$args['limit']);
         }
         return  $qb->getQuery()->getArrayResult();
+    }
+
+    public function getTabs($user = false, $isAdmin = false)
+    {
+        if (!$user->getId()) {
+            return [];
+        }
+        $logsessions =          $user->getCountLogSession();
+        $out = [];
+        foreach ($this->tabs as $idx => $data) {
+            $route = $data[0];
+            switch ($route) {
+                case 'user_logsessions':
+                    if ($logsessions) {
+                        $out[] = str_replace(
+                            ['%%logsessions%%'],
+                            [$logsessions],
+                            $data
+                        );
+                    }
+                    break;
+                default:
+                    $out[] = $data;
+                    break;
+            }
+        }
+        return $out;
     }
 
     public function logon($username, $password)

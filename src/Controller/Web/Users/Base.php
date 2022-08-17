@@ -1,5 +1,5 @@
 <?php
-namespace App\Controller\Web\Admin;
+namespace App\Controller\Web\Users;
 
 use App\Controller\Web\Base as WebBase;
 

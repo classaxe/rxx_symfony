@@ -1,5 +1,5 @@
 <?php
-namespace App\Controller\Web\Admin;
+namespace App\Controller\Web\Users;
 
 use App\Controller\Web\Base;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -7,11 +7,10 @@ use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 
 /**
  * Class Listeners
- * @package App\Controller\Web
+ * @package App\Controller\Web\Users
  */
 class Logoff extends Base
 {
-
     /**
      * @Route(
      *     "/{_locale}/{system}/admin/logoff",
