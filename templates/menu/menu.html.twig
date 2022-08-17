@@ -20,22 +20,26 @@
 {% endfor %}
         </ul>
         <ul class="menu mode">
-{% for key, modeRepo in modes[0] %}{% if ((isAdmin and modeRepo.admin) or (not isAdmin and modeRepo.guest))%}
+            {% for key, modeRepo in modes[0] %}{% if ((isAdmin and modeRepo.admin) or (not isAdmin and modeRepo.guest))%}
             <li{% if (app.request.get('_route') == key) %} class="is-active"{% endif %}>
-                <a href="{% if modeRepo.url %}{{ modeRepo.url }}{% else %}{{ url(key, { 'system' : system}) }}{% endif %}"{% if modeRepo.url %} rel="external"{% endif %}><span>{{ modeRepo['menu']|trans|raw }}</span>{%
+                <a href="{% if modeRepo.url %}{{ modeRepo.url }}{% else %}{{ url(key, { 'system' : system}) }}{% endif %}"{% if modeRepo.url %} rel="external"{% endif %}>
+                    <span>{{ modeRepo['menu']|trans|raw }}</span>{%
                         if modeRepo['menu'] == 'Changes' and gitAge <= gitNew %}<span class="new">&#9673;</span>{% endif
                     %}{%
                         if modeRepo['menu'] == 'CLE' %}<span class="cle" style="display:none">&#9673;</span>{% endif
                     %}</a>
             </li>
-{% endif %}{% endfor %}
+            {% endif %}{% endfor %}
         </ul>
         <ul class="menu mode">
             {% for key, modeRepo in modes[1] %}{% if ((isAdmin and modeRepo.admin) or (not isAdmin and modeRepo.guest))%}
                 <li{% if (app.request.get('_route') == key) %} class="is-active"{% endif %}>
                     <a href="{% if modeRepo.url %}{{ modeRepo.url }}{% else %}{{ url(key, { 'system' : system}) }}{% endif %}"{% if modeRepo.url %} rel="external"{% endif %}>
-                        {{ modeRepo['menu']|trans|raw }}
-                    </a>
+                        <span>{{ modeRepo['menu']|trans|raw }}</span>{%
+                            if modeRepo['menu'] == 'Changes' and gitAge <= gitNew %}<span class="new">&#9673;</span>{% endif
+                        %}{%
+                            if modeRepo['menu'] == 'CLE' %}<span class="cle" style="display:none">&#9673;</span>{% endif
+                        %}</a>
                 </li>
             {% endif %}{% endfor %}
         </ul>
@@ -50,9 +54,7 @@
             {% endfor %}
         </ul>
 {% endif %}
-{% if mode == 'Signals' %}{% include 'cle/banner.html.twig' %}
-
-{% endif %}
+{% include 'cle/banner.html.twig' %}
 {#        <ul class="menu language">#}
 {#{% for key, label in languages %}#}
 {#            <li{% if (_locale == key) %} class="is-active"{% endif %}>#}

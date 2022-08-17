@@ -1,3 +1,4 @@
+{% if mode == 'Signals' %}
 <div style="display: none" class="cle header system">
     <h2><a href="{{ url('cle', { 'system' : system}) }}">CLE {{ cle.cle }}</a> is Active! <small id="cleEnds"></small></h2>
     <table class="results">
@@ -23,7 +24,7 @@
             %}{% endif %}</td></tr>
     </table>
 </div>
-
+{% endif %}
 <script>
     cle.checkCleActive({
         num: '{{ cle.cle }}',

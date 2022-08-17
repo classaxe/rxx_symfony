@@ -20,8 +20,8 @@ class ModeRepository
                 'access' => User::ALL,
                 'admin' =>  true,
                 'guest' =>  true,
-                'menu' =>   'Listener Locations',
-                'title' =>  'Listener',
+                'menu' =>   'Locations',
+                'title' =>  'Listener Locations',
                 'url'=>     false
             ],
             'logsessions' => [
