@@ -6,10 +6,12 @@ use App\Columns\Users as UsersColumns;
 use App\Columns\UserLogsessions as LogsessionsColumns;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\DBAL\Driver\Connection;
 use Doctrine\Persistence\ManagerRegistry;
 
 class UserRepository extends ServiceEntityRepository
 {
+    private $connection;
     private $usersColumns;
     private $logsessionsColumns;
 
@@ -23,12 +25,14 @@ class UserRepository extends ServiceEntityRepository
      * @param ManagerRegistry $registry
      */
     public function __construct(
+        Connection $connection,
         ManagerRegistry $registry,
         UsersColumns $usersColumns,
         LogsessionsColumns $logsessionsColumns
 
     ) {
         parent::__construct($registry, User::class);
+        $this->connection = $connection;
         $this->usersColumns = $usersColumns->getColumns();
         $this->logsessionsColumns = $logsessionsColumns->getColumns();
     }
@@ -124,5 +128,23 @@ class UserRepository extends ServiceEntityRepository
 
         $out['record'] = $r;
         return $out;
+    }
+
+    public function updateUserStats($userId = false)
+    {
+        $sql = <<< EOT
+UPDATE
+	users u
+SET    
+    count_log =                (SELECT COUNT(*) FROM logs WHERE logs.logSessionID IN(SELECT ID from log_sessions where administratorID = u.ID)),
+    count_log_session =        (SELECT COUNT(*) FROM log_sessions WHERE log_sessions.administratorID = u.ID)
+EOT;
+        if ($userId) {
+            $sql .= "\nWHERE\n    u.ID = $userId";
+        }
+        $stmt = $this->connection->prepare($sql);
+        $stmt->execute();
+
+        return $stmt->rowCount();
     }
 }

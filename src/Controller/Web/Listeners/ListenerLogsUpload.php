@@ -381,8 +381,8 @@ class ListenerLogsUpload extends Base
             $this->listenerRepository->updateListenerStats($operatorId);
         }
         $this->listenerRepository->clear();
-        $admin->setCountLogSession($admin->getCountLogSession() + 1);
-        $admin->setCountLog($admin->getCountLog() + $stats['logs']);
+        $this->userRepository->updateUserStats($adminID);
+
         $this->getDoctrine()->getManager()->flush();
 
         $listener = $this->listenerRepository->find($listenerID);

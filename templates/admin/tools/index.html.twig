@@ -44,6 +44,14 @@
                     </li>
                 </ul>
             </li>
+            <li>{% trans %}Users{% endtrans %}:
+                <ul>
+                    <li><a class="button" href="{{ url('admin/tools', {'system' : system, 'tool' : 'usersStats'}) }}">{% trans %}Go{% endtrans %}</a>
+                        <strong>{% trans %}Update stats{% endtrans %}</strong>
+                        {% trans %}(run if problems are seen){% endtrans %}
+                    </li>
+                </ul>
+            </li>
 
             <li>{% trans %}ICAO Data{% endtrans %}:
                 <ul>

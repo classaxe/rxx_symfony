@@ -84,6 +84,8 @@ class Tools extends Base
                 return $this->systemEmailTest();
             case 'systemGeoIpTest':
                 return $this->systemGeoIpTest();
+            case 'usersStats':
+                return $this->userStats();
         }
         $this->session->set('lastError', '');
         $this->session->set('lastMessage', '');
@@ -249,5 +251,14 @@ class Tools extends Base
 
         return $this->redirectToRoute('admin/tools', [ 'system' => $this->system ]);
     }
+
+    private function userStats() {
+        $start =    time();
+        $affected = $this->userRepository->updateUserStats();
+        $this->setMessage('Users', 'Update stats', $affected, $start);
+
+        return $this->redirectToRoute('admin/tools', [ 'system' => $this->system ]);
+    }
+
 
 }

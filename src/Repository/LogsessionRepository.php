@@ -200,6 +200,7 @@ class LogsessionRepository extends ServiceEntityRepository
             );
         }
         $result = $qb->getQuery()->execute();
+//        print "<pre>".print_r($qb->getQuery()->getSQL(), true)."</pre>";
 //        print "<pre>".print_r($result, true)."</pre>";
         return $result;
     }
