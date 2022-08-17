@@ -64,12 +64,12 @@ class ModeRepository
                 'title' =>  'Weather',
                 'url'=>     false
             ],
-            'logon' => [
-                'access' => User::PUBLIC,
-                'admin' =>  false,
+            'donate' => [
+                'access' => User::ALL,
+                'admin' =>  true,
                 'guest' =>  true,
-                'menu' =>   'Logon',
-                'title' =>  'Logon',
+                'menu' =>   'Donate',
+                'title' =>  'Donate',
                 'url'=>     false
             ],
         ],
@@ -122,12 +122,12 @@ class ModeRepository
                 'title' =>  'Changes',
                 'url'=>     false
             ],
-            'donate' => [
-                'access' => User::ALL,
-                'admin' =>  true,
+            'logon' => [
+                'access' => User::PUBLIC,
+                'admin' =>  false,
                 'guest' =>  true,
-                'menu' =>   'Donate',
-                'title' =>  'Donate',
+                'menu' =>   'Logon',
+                'title' =>  'Logon',
                 'url'=>     false
             ],
             'help' => [
