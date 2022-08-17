@@ -43,7 +43,7 @@ class UserLogsessions extends Base
         Form $form
     ) {
         if ((int)$this->parameters['access'] === 0) {
-            $this->session->set('route', 'user_logsessions');
+            $this->session->set('route', 'user_logsessions?id=' . $id);
             return $this->redirectToRoute('logon', ['system' => $system]);
         }
         if (!$user = $this->getValidUser($id)) {

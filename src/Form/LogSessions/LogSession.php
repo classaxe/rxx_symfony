@@ -69,9 +69,12 @@ class LogSession extends Base
                 'comment',
                 TextType::class,
                 [
+                    'attr' => [
+                        'readonly' => ($options['isAdmin'] ? '' : 'readonly')
+                    ],
                     'data' =>           $options['comment'],
                     'empty_data' =>     '',
-                    'label' =>          'Comment',
+                    'label' =>          'Log Session Comment',
                     'required' =>       false
                 ]
             )
@@ -109,8 +112,153 @@ class LogSession extends Base
                         'label' => 'Save + Close',
                     ]
                 );
-        } else {
-            $formBuilder->add(
+            } else {
+                $formBuilder->add(
+                    'operator',
+                    TextType::class,
+                    [
+                        'attr' => [
+                            'readonly' => 'readonly'
+                        ],
+                        'data' =>           $options['operator'],
+                        'empty_data' =>     '',
+                        'label' =>          'Operator (if multi-op)',
+                    ]
+                )
+                ->add(
+                    'name',
+                    TextType::class,
+                    [
+                        'attr' => [
+                            'readonly' => 'readonly'
+                        ],
+                        'data' =>           $options['name'],
+                        'empty_data' =>     '',
+                        'label' =>          'Listener Location Name',
+                    ]
+                )
+                ->add(
+                    'callsign',
+                    TextType::class,
+                    [
+                        'attr' => [
+                            'readonly' => 'readonly'
+                        ],
+                        'data' =>           $options['callsign'],
+                        'empty_data' =>     '',
+                        'label' =>          'Callsign',
+                        'required' =>       false
+                    ]
+                )
+                ->add(
+                    'website',
+                    TextType::class,
+                    [
+                        'attr' => [
+                            'readonly' => 'readonly'
+                        ],
+                        'data' =>           $options['website'],
+                        'empty_data' =>     '',
+                        'label' =>          'Website',
+                        'required' =>       false
+                    ]
+                )
+                ->add(
+                    'qth',
+                    TextType::class,
+                    [
+                        'attr' => [
+                            'readonly' => 'readonly'
+                        ],
+                        'data' =>           $options['qth'],
+                        'empty_data' =>     '',
+                        'label' =>          'Town / City',
+                    ]
+                )
+                ->add(
+                    'sp',
+                    ChoiceType::class,
+                    [
+                        'attr' => [
+                            'background' => 'f00'
+                        ],
+                        'choices' =>        $this->stateRepository->getMatchingOptions(),
+                        'data' =>           $options['sp'],
+                        'label' =>          'State / Prov',
+                        'required' =>       false
+                    ]
+                )
+                ->add(
+                    'itu',
+                    ChoiceType::class,
+                    [
+                        'attr' => [
+                            'readonly' => 'readonly'
+                        ],
+                        'choices' =>        $this->countryRepository->getMatchingOptions(),
+                        'data' =>           $options['itu'],
+                        'label' =>          'Country',
+                    ]
+                )
+                ->add(
+                    'gsq',
+                    TextType::class,
+                    [
+                        'attr' => [
+                            'readonly' => 'readonly'
+                        ],
+                        'data' =>           $options['gsq'],
+                        'empty_data' =>     '',
+                        'label' =>          'Grid Square',
+                    ]
+                )
+                ->add(
+                    'timezone',
+                    ChoiceType::class,
+                    [
+                        'attr' => [
+                            'readonly' => 'readonly'
+                        ],
+                        'choices' =>        $this->timeRepository->getAllOptions(),
+                        'choice_translation_domain' => false,
+                        'data' =>           $options['timezone'],
+                        'label' =>          'Timezone',
+                        'required' =>       false
+                    ]
+                )
+                ->add(
+                    'equipment',
+                    TextareaType::class,
+                    [
+                        'attr' => [
+                            'cols' =>       80,
+                            'rows' =>       5,
+                            'readonly' =>   'readonly',
+                            'style' =>      'height: 8em'
+                        ],
+                        'data' =>           html_entity_decode($options['equipment']),
+                        'empty_data' =>     '',
+                        'label' =>          'Equipment',
+                        'required' =>       false
+                    ]
+                )
+                    ->add(
+                        'notes',
+                        TextareaType::class,
+                        [
+                            'attr' => [
+                                'cols' =>       80,
+                                'rows' =>       5,
+                                'readonly' =>   'readonly',
+                                'style' =>      'height: 4em'
+                            ],
+                            'data' =>           html_entity_decode($options['notes']),
+                            'empty_data' =>     '',
+                            'label' =>          'Notes',
+                            'required' =>       false
+                        ]
+                    )
+                ->add(
                 'save_disabled',
                 ButtonType::class,
                 [

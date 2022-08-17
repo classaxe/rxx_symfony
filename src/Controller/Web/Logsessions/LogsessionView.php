@@ -43,13 +43,27 @@ class LogsessionView extends Base
         }
         $doReload = $request->query->get('reload') ?? false;
         $isAdmin = $this->parameters['isAdmin'];
-
+        $listener = $this->listenerRepository->find($logsession->getListenerId());
+        $operator = ($logsession->getOperatorId() ? $this->listenerRepository->find($logsession->getOperatorId()) : false);
         $options = [
             'id' =>         $logsession->getId(),
             'isAdmin' =>    $isAdmin,
             'comment' =>    $logsession->getComment(),
+        // Used by admins
             'listenerId' => $logsession->getListenerId(),
             'operatorId' => $logsession->getOperatorId(),
+        // Used by regular users
+            'callsign' =>   $listener->getCallsign(),
+            'equipment' =>  $listener->getEquipment(),
+            'gsq' =>        $listener->getGsq(),
+            'itu' =>        $listener->getItu(),
+            'name' =>       $listener->getName(),
+            'notes' =>      $listener->getNotes(),
+            'operator' =>   ($operator ? $operator->getName() : ''),
+            'qth' =>        $listener->getQth(),
+            'sp' =>         $listener->getSp(),
+            'timezone' =>   $listener->getTimezone(),
+            'website' =>    $listener->getWebsite(),
         ];
 //        print "<pre>" . print_r($options, true) . "</pre>";
         $form = $logSessionViewForm->buildForm(
@@ -132,6 +146,7 @@ class LogsessionView extends Base
             'doReload' =>           $doReload,
             'form' =>               $form->createView(),
             'l' =>                  $logsession,
+            'listener' =>           $listener,
             'mode' =>               "Overview | Log Session $id",
             'system' =>             $system,
             'tabs' =>               $this->logsessionRepository->getTabs($logsession, $isAdmin),

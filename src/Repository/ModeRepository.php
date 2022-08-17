@@ -24,6 +24,14 @@ class ModeRepository
                 'title' =>  'Listener',
                 'url'=>     false
             ],
+            'logsessions' => [
+                'access' => User::ALL,
+                'admin' =>  true,
+                'guest' =>  true,
+                'menu' =>   'Log Sessions',
+                'title' =>  'Log Sessions',
+                'url'=>     false
+            ],
             'cle' => [
                 'access' => User::ALL,
                 'admin' =>  true,
@@ -56,20 +64,12 @@ class ModeRepository
                 'title' =>  'Weather',
                 'url'=>     false
             ],
-            'changes' => [
-                'access' => User::ALL,
-                'admin' =>  true,
+            'logon' => [
+                'access' => User::PUBLIC,
+                'admin' =>  false,
                 'guest' =>  true,
-                'menu' =>   'Changes',
-                'title' =>  'Changes',
-                'url'=>     false
-            ],
-            'donate' => [
-                'access' => User::ALL,
-                'admin' =>  true,
-                'guest' =>  true,
-                'menu' =>   'Donate',
-                'title' =>  'Donate',
+                'menu' =>   'Logon',
+                'title' =>  'Logon',
                 'url'=>     false
             ],
         ],
@@ -86,7 +86,7 @@ class ModeRepository
                 'access' => User::ALL,
                 'admin' =>  true,
                 'guest' =>  true,
-                'menu' =>   'NDB Grp',
+                'menu' =>   'ndblist',
                 'title' =>  'NDB at Groups.io',
                 'url'=>     'https://groups.io/g/ndblist'
             ],
@@ -94,7 +94,7 @@ class ModeRepository
                 'access' => User::ALL,
                 'admin' =>  true,
                 'guest' =>  true,
-                'menu' =>   'DSC Grp',
+                'menu' =>   'dsc-list',
                 'title' =>  'DSC at Groups.io',
                 'url'=>     'https://groups.io/g/dsc-list'
             ],
@@ -102,7 +102,7 @@ class ModeRepository
                 'access' => User::ALL,
                 'admin' =>  true,
                 'guest' =>  true,
-                'menu' =>   'DGPS Grp',
+                'menu' =>   'dgpslist',
                 'title' =>  'DGPS at Groups.io',
                 'url'=>     'https://groups.io/g/dgpslist'
             ],
@@ -110,16 +110,24 @@ class ModeRepository
                 'access' => User::ALL,
                 'admin' =>  true,
                 'guest' =>  true,
-                'menu' =>   'NAVTEX Grp',
+                'menu' =>   'navtexdx',
                 'title' =>  'Navtex at Groups.io',
                 'url'=>     'https://groups.io/g/navtexdx'
             ],
-            'logon' => [
-                'access' => User::PUBLIC,
-                'admin' =>  false,
+            'changes' => [
+                'access' => User::ALL,
+                'admin' =>  true,
                 'guest' =>  true,
-                'menu' =>   'Logon',
-                'title' =>  'Logon',
+                'menu' =>   'Changes',
+                'title' =>  'Changes',
+                'url'=>     false
+            ],
+            'donate' => [
+                'access' => User::ALL,
+                'admin' =>  true,
+                'guest' =>  true,
+                'menu' =>   'Donate',
+                'title' =>  'Donate',
                 'url'=>     false
             ],
             'help' => [
@@ -154,14 +162,6 @@ class ModeRepository
                 'guest' =>  false,
                 'menu' =>   'Users',
                 'title' =>  'User Accounts',
-                'url'=>     false
-            ],
-            'logsessions' => [
-                'access' => User::ADMIN | User::MASTER,
-                'admin' =>  true,
-                'guest' =>  false,
-                'menu' =>   'Log Sessions',
-                'title' =>  'Log Sessions',
                 'url'=>     false
             ],
             'admin/help' => [

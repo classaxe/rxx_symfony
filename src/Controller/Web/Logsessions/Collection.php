@@ -43,14 +43,6 @@ class Collection extends Base
         Form $form
     )
     {
-        if (!((int)$this->parameters['access'] & (UserEntity::MASTER | UserEntity::ADMIN))) {
-            if ((int)$this->parameters['access'] === 0) {
-                $this->session->set('route', 'logsessions');
-                return $this->redirectToRoute('logon', ['system' => $system]);
-            }
-            throw $this->createAccessDeniedException('You do not have access to this page');
-        }
-
         $options = [
             'limit' => static::defaultlimit,
             'order' => static::defaultOrder,

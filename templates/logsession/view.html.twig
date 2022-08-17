@@ -4,13 +4,21 @@
 {% set form_class='logsession_edit' %}
 {% include 'logsession/tabs.html.twig' %}
 {% include 'logsession/form.html.twig' %}
-<script src="{{ path('js_listeners') }}"></script>
-<script src="{{ path('js_operators') }}"></script>
-<script>
-$(document).ready(function () {
-    LOGSESSION_EDIT.init()
-    {% if doReload %}window.opener.document.getElementsByName('form')[0].submit();{% endif %}
-});
-</script>
+{% if isAdmin %}
+    <script src="{{ path('js_listeners') }}"></script>
+    <script src="{{ path('js_operators') }}"></script>
+    <script>
+    $(document).ready(function () {
+        LOGSESSION_EDIT.init()
+        {% if doReload %}window.opener.document.getElementsByName('form')[0].submit();{% endif %}
+    });
+    </script>
+{% else %}
+    <script>
+    $(document).ready(function () {
+        $('select option').css('background-color', '#f00')
+    })
+    </script>
+{% endif %}
 </div>
 {% endblock %}
