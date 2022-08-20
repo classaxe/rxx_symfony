@@ -239,14 +239,22 @@ var SIGNALS_FORM = {
             if ($(this).val() === '') {
                 $(this).addClass('all');
             } else if ($(this).text().substr(0,2) === '. ') {
-                $(this).text('\xa0' + $(this).text().substr(1));
-                $(this).addClass('secondaryQth');
+                $(this)
+                    .text('\xa0' + $(this).text().substr(1))
+                    .addClass('secondaryQth');
             } else {
                 $(this).addClass('primaryQth');
             }
             if ($(this).text().substr(0,2) === 'R|') {
-                $(this).text($(this).text().substr(2));
-                $(this).addClass('remote');
+                $(this)
+                    .text($(this).text().substr(2))
+                    .addClass('remote');
+            }
+            if ($(this).text().slice(-2) === '|N') {
+                $(this)
+                    .text($(this).text().slice(0, -2))
+                    .addClass('inactive')
+                    .attr('title', '(Inactive)')
             }
             if ($('#form_listener_filter div :radio:checked').val() === 'N') {
                 if ($(this).hasClass('remote')) {

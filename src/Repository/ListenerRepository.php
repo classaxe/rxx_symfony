@@ -595,7 +595,7 @@ EOD;
             $qb =
                 $this
                     ->createQueryBuilder('l')
-                    ->select('l.id, l.name, l.qth, l.sp, l.itu, l.gsq, l.primaryQth, l.callsign, l.multiOperator')
+                    ->select('l.id, l.active, l.name, l.qth, l.sp, l.itu, l.gsq, l.primaryQth, l.callsign, l.multiOperator')
                     ->addOrderBy('l.name', 'ASC')
                     ->addOrderBy('l.primaryQth', 'DESC');
             $this->addFilterSystem($qb, $system);
@@ -639,6 +639,7 @@ EOD;
                     . ($row['sp'] ? " " . $row['sp'] : "...")
                     . " "
                     . $row['itu']
+                    . ($row['active']==='N' ? '|N' : '')
                 ] = $row['id'];
             }
         }
