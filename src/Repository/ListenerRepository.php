@@ -595,7 +595,7 @@ EOD;
             $qb =
                 $this
                     ->createQueryBuilder('l')
-                    ->select('l.id, l.name, l.qth, l.sp, l.itu, l.gsq, l.primaryQth, l.callsign')
+                    ->select('l.id, l.name, l.qth, l.sp, l.itu, l.gsq, l.primaryQth, l.callsign, l.multiOperator')
                     ->addOrderBy('l.name', 'ASC')
                     ->addOrderBy('l.primaryQth', 'DESC');
             $this->addFilterSystem($qb, $system);
@@ -626,7 +626,8 @@ EOD;
                 ] = $row['id'];
             } else {
                 $out[
-                    Rxx::pad_dot(
+                    ($row['multiOperator'] === 'Y' ? "R|" : "")
+                    . Rxx::pad_dot(
                         ($row['primaryQth'] === 'Y' ? "" : ". ")
                         . $row['name']
                         . " [" . $row['id'] . "] "

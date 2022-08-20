@@ -294,10 +294,11 @@ class Collection extends Base
             'filename' =>       '',
             'gsq' =>            '',
             'heard_in' =>       '',
-            'heard_in_mod' =>   'any',
+            'heard_in_mod' =>   '',
             'khz_1' =>          '',
             'khz_2' =>          '',
             'listener' =>       [],
+            'listener_filter' => '',
             'listener_invert' => '0',
             'logged_date_1' =>  '',
             'logged_date_2' =>  '',
@@ -442,8 +443,9 @@ class Collection extends Base
 
         $this->setListenersFromRequest($this->args, $r);
         $this->setValueFromRequest($this->args, $r, 'listener_invert', ['0', '1']);
+        $this->setValueFromRequest($this->args, $r, 'listener_filter', ['', 'Y', 'N']);
         $this->setValueFromRequest($this->args, $r, 'heard_in');
-        $this->setValueFromRequest($this->args, $r, 'heard_in_mod', ['any', 'all'], 'a');
+        $this->setValueFromRequest($this->args, $r, 'heard_in_mod', ['', 'all']);
         $this->setPairFromRequest($this->args, $r, 'logged_date');
         $this->setPairFromRequest($this->args, $r, 'logged_first');
         $this->setPairFromRequest($this->args, $r, 'logged_last');

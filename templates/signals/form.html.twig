@@ -14,9 +14,6 @@
                 </fieldset>
                 <fieldset class="section">
                     <legend id="signalDetails">{% trans %}Signal Details{% endtrans %}</legend>
-                    {% if system == 'rww' %}
-                        {{ form_row(form.rww_focus) }}
-                    {% endif %}
                     {{ form_row(form.type) }}
                     <div>
                         {{ form_label(form.call) }}
@@ -49,11 +46,6 @@
                         {{ form_label(form.active) }}
                         {{ form_widget(form.active) }}
                     </div>
-                    <div>
-                        {{ form_label(form.heard_in) }}
-                        {{ form_widget(form.heard_in) }}
-                        {{ form_widget(form.heard_in_mod) }}
-                    </div>
                 </fieldset>
                 <fieldset class="section" id="section_loggings">
                     <legend class="line toggle">{% trans %}Loggings{% endtrans %}
@@ -61,11 +53,25 @@
                                 id="section_loggings_hide"{% if not expanded.loggings %} style="display:none"{% endif %}>{% trans %}Hide{% endtrans %}</span>]
                     </legend>
                     <fieldset{% if not expanded.loggings %} style="display:none"{% endif %}>
+                        {% if system == 'rww' %}
+                            {{ form_row(form.rww_focus) }}
+                        {% endif %}
+                        <div>
+                            {{ form_label(form.heard_in) }}
+                            {{ form_widget(form.heard_in) }}
+                            {{ form_widget(form.heard_in_mod) }}
+                        </div>
                         <div>
                             <div>
                                 {{ form_label(form.listener) }}
                                 {{ form_widget(form.listener_invert) }}
-                                <div id="listener_selection_help">{% trans %}Use SHIFT or CONTROL to select multiple values{% endtrans %}</div>
+                                <div id="listener_selection_help">
+                                    {% trans %}Use SHIFT or CONTROL to select multiple values{% endtrans %}
+                                </div>
+                                <div id="listener_type">
+                                    {{ form_label(form.listener_filter) }}
+                                    {{ form_widget(form.listener_filter) }}
+                                </div>
                             </div>
                             {{ form_widget(form.listener) }}
                         </div>

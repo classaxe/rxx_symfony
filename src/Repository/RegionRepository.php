@@ -37,7 +37,7 @@ class RegionRepository extends ServiceEntityRepository
     public function getAllOptions($withUnknown = true)
     {
         $regions = $this->getRegions();
-        $out = ['(All Regions)' => ''];
+        $out = ['(Any Region)' => ''];
         foreach ($regions as $row) {
             if ($withUnknown === false && $row->getRegion() === 'xx') {
                 continue;

@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.47.6
- * Date:       2022-08-12
+ * Version:    2.50.0
+ * Date:       2022-08-20
  * Licence:    LGPL
  * Copyright:  2022 Martin Francis
  */
@@ -1965,8 +1965,18 @@ table.logsessions tbody tr.selected td {
 .signal_list #form_listener {
   overflow: auto;
   margin: 0 0 0.25em 0;
+  font-family: monospace, monospace;
+  font-size: 8pt;
 }
-.signal_list #form_personalise option.all,
+.signal_list #form_listener {
+  height: 300px;
+}
+.signal_list #form_listener option {
+  border: 1px solid transparent;
+}
+.signal_list #form_listener option:checked {
+  border: 1px dashed #f00;
+}
 .signal_list #form_listener option.all {
   font-weight: bold;
   font-style: italic;
@@ -1974,18 +1984,15 @@ table.logsessions tbody tr.selected td {
   background: #008000;
   color: #fff;
 }
-.signal_list #form_personalise option.primaryQth,
 .signal_list #form_listener option.primaryQth {
   font-weight: bold;
 }
-.signal_list #form_personalise option.secondaryQth,
 .signal_list #form_listener option.secondaryQth {
   color: #888;
 }
-.signal_list #form_listener {
-  font-family: monospace, monospace;
-  font-size: 8pt;
-  height: 160px;
+.signal_list #form_listener option.remote {
+  background: #c0ffc0;
+  color: #080;
 }
 .signal_list label[for="form_listener"] {
   line-height: 1.8em;
@@ -2006,10 +2013,25 @@ table.logsessions tbody tr.selected td {
   padding: 0 0 0 0.25em !important;
 }
 .signal_list #listener_selection_help {
-  width: 100px !important;
-  margin: 0.5em 0 0 1em;
+  width: 130px;
+  height: 120px;
+  margin: 0.5em 0 0 0;
   font-size: 80% !important;
   font-style: italic;
+}
+.signal_list #listener_type {
+  clear: both;
+  width: 130px;
+}
+.signal_list #listener_type label {
+  font-weight: bold;
+}
+.signal_list #listener_type fieldset div {
+  margin-left: 0.5em;
+}
+.signal_list #listener_type fieldset label {
+  margin-left: 0.25em;
+  font-weight: normal;
 }
 .signal_list #form_heard_in {
   width: 315px;

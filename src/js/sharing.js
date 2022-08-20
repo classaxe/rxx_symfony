@@ -108,6 +108,7 @@ var shareableLink = {
 
             this.getFromListeners() +
             this.getFromRadioGroup('listener_invert', [ '1' ]) +
+            this.getFromRadioGroup('listener_filter', [ 'Y', 'N' ]) +
             this.getFromField('heard_in') +
             this.getFromRadioGroup('heard_in_mod', [ 'all' ]) +
             this.getFromPair('logged_date') +

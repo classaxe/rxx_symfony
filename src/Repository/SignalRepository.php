@@ -46,8 +46,12 @@ class SignalRepository extends ServiceEntityRepository
 
     const collapsable_sections = [
         'loggings' => [
+            'rww_focus',
+            'heard_in',
+            'heard_in_mod',
             'listener',
             'listener_invert',
+            'listener_filter',
             'logged_date_1',
             'logged_date_2',
             'logged_first_1',
@@ -185,7 +189,7 @@ class SignalRepository extends ServiceEntityRepository
     {
         if ($this->args['heard_in'] ?? false) {
             $heard_in_arr = explode(' ', $this->args['heard_in']);
-            if ($this->args['heard_in_mod'] === 'any') {
+            if ($this->args['heard_in_mod'] === '') {
                 $in = $this->_buildInParamsList('heard_in', $heard_in_arr);
                 $this->query['where'][] =
                     "l.heard_in IN (" . implode(', ', $in) . ")";

@@ -14,7 +14,6 @@ use App\Repository\SignalRepository;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -43,6 +42,7 @@ class Collection extends Base
 
         $i18n = $this->translator;
 
+        // Main Visible Section
         $formBuilder
             ->setAction($options['url'])
             ->add(
@@ -52,6 +52,7 @@ class Collection extends Base
                     'data' =>           $options['show']
                 ]
             )
+            // Used with exports
             ->add(
                 'filename',
                 HiddenType::class,
@@ -59,29 +60,12 @@ class Collection extends Base
                     'data' =>           ''
                 ]
             )
+            // Used in Seeklist mode
             ->add(
                 'paper',
                 HiddenType::class,
                 [
                     'data' =>           $options['paper']
-                ]
-            )
-            ->add(
-                'sortby',
-                ChoiceType::class,
-                [
-                    'choices' =>        [],
-                    'label'  =>         'Sort By',
-                    'required' =>       false
-                ]
-            )
-            ->add(
-                'za',
-                CheckboxType::class,
-                [
-                    'label' =>          'Z-A',
-                    'required' =>       false,
-                    'value' =>          1
                 ]
             )
             ->add(
@@ -135,6 +119,62 @@ class Collection extends Base
                 ]
             )
             ->add(
+                'states',
+                TextType::class,
+                [
+                    'attr' => [
+                        'placeholder' => 'SP code list'
+                    ],
+                    'data' =>           $options['states'],
+                    'label' =>          'States',
+                    'required' =>       false
+                ]
+            )
+            ->add(
+                'sp_itu_clause',
+                ChoiceType::class,
+                [
+                    'choices' =>        [ 'AND' => 'AND', 'OR' => 'OR' ],
+                    'data' =>           $options['sp_itu_clause'],
+                    'label' =>          'Combiner',
+                    'placeholder' =>    false,
+                    'required' =>       false
+                ]
+            )
+            ->add(
+                'countries',
+                TextType::class,
+                [
+                    'attr' => [
+                        'placeholder' => 'ITU code list'
+                    ],
+                    'data' =>           $options['countries'],
+                    'label' =>          'Countries',
+                    'required' =>       false
+                ]
+            )
+            ->add(
+                'region',
+                ChoiceType::class,
+                [
+                    'choices' =>        $this->regionRepository->getAllOptions(),
+                    'data' =>           $options['region'],
+                    'label' =>          'Region',
+                    'required' =>       false
+                ]
+            )
+            ->add(
+                'gsq',
+                TextType::class,
+                [
+                    'data' =>           $options['gsq'],
+                    'label' =>          'Grid Squares',
+                    'required' =>       false
+                ]
+            )
+
+            // Loggings Section:
+            ->add(
                 'recently',
                 ChoiceType::class,
                 [
@@ -168,8 +208,11 @@ class Collection extends Base
                 'heard_in',
                 TextType::class,
                 [
+                    'attr' => [
+                        'placeholder' => 'ITU / SP values'
+                    ],
                     'data' =>           $options['heard_in'],
-                    'label' =>          'Heard Here',
+                    'label' =>          'Heard in SP / ITU',
                     'required' =>       false
                 ]
             )
@@ -177,97 +220,11 @@ class Collection extends Base
                 'heard_in_mod',
                 ChoiceType::class,
                 [
-                    'choices' =>        [ 'Any' => 'any', 'All' => 'all' ],
+                    'choices' =>        [ 'Any' => '', 'All' => 'all' ],
                     'data' =>           $options['heard_in_mod'],
                     'expanded' =>       true,
                     'placeholder' =>    false,
                     'required' =>       false,
-                ]
-            )
-            ->add(
-                'personalise',
-                ChoiceType::class,
-                [
-                    'choices' =>        $this->listenerRepository->getAllOptions($system,null, $i18n->trans('(None specified)'), true),
-                    'choice_translation_domain' => false,
-                    'data' =>           $options['personalise'],
-                    'expanded' =>       false,
-                    'label' =>          'Personalise for',
-                    'required' =>       false
-                ]
-            )
-            ->add(
-                'offsets',
-                ChoiceType::class,
-                [
-                    'choices' =>        [ 'Rel.' => '', 'Abs.' =>   '1' ],
-                    'data' =>           $options['offsets'],
-                    'expanded' =>       true,
-                    'label' =>          'Display Offsets',
-                    'required' =>       false
-                ]
-            )
-            ->add(
-                'hidenotes',
-                ChoiceType::class,
-                [
-                    'attr' =>           [ 'legend' => 'Notes' ],
-                    'choices' =>        [ 'N' => '1', 'Y' =>   '' ],
-                    'data' =>           $options['hidenotes'],
-                    'expanded' =>       true,
-                    'label' =>          false,
-                    'required' =>       false
-                ]
-            )
-            ->add(
-                'morse',
-                ChoiceType::class,
-                [
-                    'attr' =>           [ 'legend' => 'Morse' ],
-                    'choices' =>        [ 'N' => '', 'Y' =>   '1' ],
-                    'data' =>           $options['morse'],
-                    'expanded' =>       true,
-                    'label' =>          false,
-                    'required' =>       false
-                ]
-            )
-            ->add(
-                'states',
-                TextType::class,
-                [
-                    'data' =>           $options['states'],
-                    'label' =>          'States',
-                    'required' =>       false
-                ]
-            )
-            ->add(
-                'sp_itu_clause',
-                ChoiceType::class,
-                [
-                    'choices' =>        [ 'AND' => 'AND', 'OR' => 'OR' ],
-                    'data' =>           $options['sp_itu_clause'],
-                    'label' =>          'Combiner',
-                    'placeholder' =>    false,
-                    'required' =>       false
-                ]
-            )
-            ->add(
-                'countries',
-                TextType::class,
-                [
-                    'data' =>           $options['countries'],
-                    'label' =>          'Countries',
-                    'required' =>       false
-                ]
-            )
-            ->add(
-                'region',
-                ChoiceType::class,
-                [
-                    'choices' =>        $this->regionRepository->getAllOptions(),
-                    'data' =>           $options['region'],
-                    'label' =>          'Region',
-                    'required' =>       false
                 ]
             )
             ->add(
@@ -276,58 +233,7 @@ class Collection extends Base
                 [
                     'choices' =>        $this->regionRepository->getAllOptions(false),
                     'data' =>           $options['rww_focus'],
-                    'label' =>          'RWW Focus',
-                    'required' =>       false
-                ]
-            )
-            ->add(
-                'gsq',
-                TextType::class,
-                [
-                    'data' =>           $options['gsq'],
-                    'label' =>          'Grid Squares',
-                    'required' =>       false
-                ]
-            )
-            ->add(
-                'range_gsq',
-                TextType::class,
-                [
-                    'attr' =>           [ 'maxlength' => 6 ],
-                    'data' =>           $options['range_gsq'],
-                    'label' =>          'From GSQ',
-                    'required' =>       false
-                ]
-            )
-            ->add(
-                'range_min',
-                TextType::class,
-                [
-                    'attr' =>           [ 'disabled' => 'disabled' ],
-                    'data' =>           $options['range_min'],
-                    'label' =>          'DX',
-                    'required' =>       false
-                ]
-            )
-            ->add(
-                'range_max',
-                TextType::class,
-                [
-                    'attr' =>           [ 'disabled' => 'disabled' ],
-                    'data' =>           $options['range_max'],
-                    'label' =>          false,
-                    'required' =>       false,
-                ]
-            )
-            ->add(
-                'range_units',
-                ChoiceType::class,
-                [
-                    'attr' =>           [ 'disabled' => 'disabled', 'legend' => 'Units' ],
-                    'choices' =>        [ 'km' => 'km', 'miles' => 'mi' ],
-                    'data' =>           $options['range_units'],
-                    'expanded' =>       true,
-                    'placeholder' =>    false,
+                    'label' =>          'Heard in Region',
                     'required' =>       false
                 ]
             )
@@ -347,6 +253,21 @@ class Collection extends Base
                     'expanded' =>       false,
                     'label' =>          'Listener(s)',
                     'multiple' =>       true,
+                    'required' =>       false,
+                ]
+            )
+            ->add(
+                'listener_filter',
+                ChoiceType::class,
+                [
+                    'choices' =>        [
+                        'All Locations' => '',
+                        'Single Operator' => 'N',
+                        'Multi Operator' => 'Y'
+                    ],
+                    'data' =>           $options['listener_filter'],
+                    'expanded' =>       true,
+                    'label' =>          'Location Types',
                     'required' =>       false,
                 ]
             )
@@ -431,6 +352,115 @@ class Collection extends Base
                     'label' =>          '',
                     'required' =>       false,
                     'widget' =>         'single_text',
+                ]
+            )
+
+            // Customise Section
+            ->add(
+                'personalise',
+                ChoiceType::class,
+                [
+                    'choices' =>        $this->listenerRepository->getAllOptions($system,null, $i18n->trans('(None specified)'), true),
+                    'choice_translation_domain' => false,
+                    'data' =>           $options['personalise'],
+                    'expanded' =>       false,
+                    'label' =>          'Personalise for',
+                    'required' =>       false
+                ]
+            )
+            ->add(
+                'offsets',
+                ChoiceType::class,
+                [
+                    'choices' =>        [ 'Rel.' => '', 'Abs.' =>   '1' ],
+                    'data' =>           $options['offsets'],
+                    'expanded' =>       true,
+                    'label' =>          'Display Offsets',
+                    'required' =>       false
+                ]
+            )
+            ->add(
+                'hidenotes',
+                ChoiceType::class,
+                [
+                    'attr' =>           [ 'legend' => 'Notes' ],
+                    'choices' =>        [ 'N' => '1', 'Y' =>   '' ],
+                    'data' =>           $options['hidenotes'],
+                    'expanded' =>       true,
+                    'label' =>          false,
+                    'required' =>       false
+                ]
+            )
+            ->add(
+                'morse',
+                ChoiceType::class,
+                [
+                    'attr' =>           [ 'legend' => 'Morse' ],
+                    'choices' =>        [ 'N' => '', 'Y' =>   '1' ],
+                    'data' =>           $options['morse'],
+                    'expanded' =>       true,
+                    'label' =>          false,
+                    'required' =>       false
+                ]
+            )
+            ->add(
+                'range_gsq',
+                TextType::class,
+                [
+                    'attr' =>           [ 'maxlength' => 6 ],
+                    'data' =>           $options['range_gsq'],
+                    'label' =>          'From GSQ',
+                    'required' =>       false
+                ]
+            )
+            ->add(
+                'range_min',
+                TextType::class,
+                [
+                    'attr' =>           [ 'disabled' => 'disabled' ],
+                    'data' =>           $options['range_min'],
+                    'label' =>          'DX',
+                    'required' =>       false
+                ]
+            )
+            ->add(
+                'range_max',
+                TextType::class,
+                [
+                    'attr' =>           [ 'disabled' => 'disabled' ],
+                    'data' =>           $options['range_max'],
+                    'label' =>          false,
+                    'required' =>       false,
+                ]
+            )
+            ->add(
+                'range_units',
+                ChoiceType::class,
+                [
+                    'attr' =>           [ 'disabled' => 'disabled', 'legend' => 'Units' ],
+                    'choices' =>        [ 'km' => 'km', 'miles' => 'mi' ],
+                    'data' =>           $options['range_units'],
+                    'expanded' =>       true,
+                    'placeholder' =>    false,
+                    'required' =>       false
+                ]
+            )
+            ->add(
+                'sortby',
+                ChoiceType::class,
+                [
+                    'choices' =>        [],
+                    'label'  =>         'Sort By',
+                    'required' =>       false
+                ]
+            )
+            ->add(
+                'za',
+                CheckboxType::class,
+                [
+                    'label' =>          'Z-A',
+                    'required' =>       false,
+                    'value' =>          1
                 ]
             )
             ->add(

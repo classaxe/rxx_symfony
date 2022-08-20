@@ -79,24 +79,34 @@
     #form_listener {
         overflow: auto;
         margin: 0 0 0.25em 0;
-        option.all {
-            font-weight: bold;
-            font-style: italic;
-            text-align: center;
-            background: #008000;
-            color: #fff;
-        }
-        option.primaryQth {
-            font-weight: bold;
-        }
-        option.secondaryQth {
-            color: #888;
-        }
-    }
-    #form_listener {
         font-family: monospace, monospace;
         font-size: 8pt;
-        height: 160px;
+    }
+    #form_listener {
+        height: 300px;
+        option {
+            border: 1px solid transparent;
+            &:checked {
+                border: 1px dashed #f00;
+            }
+            &.all {
+                font-weight: bold;
+                font-style: italic;
+                text-align: center;
+                background: #008000;
+                color: #fff;
+            }
+            &.primaryQth {
+                font-weight: bold;
+            }
+            &.secondaryQth {
+                color: #888;
+            }
+            &.remote {
+                background: #c0ffc0;
+                color: #080;
+            }
+        }
     }
     label[for="form_listener"] {
         line-height: 1.8em;
@@ -117,10 +127,25 @@
         }
     }
     #listener_selection_help {
-        width: 100px !important;
-        margin: 0.5em 0 0 1em;
+        width: @width[label] !important;
+        height: 120px;
+        margin: 0.5em 0 0 0;
         font-size: 80% !important;
         font-style: italic;
+    }
+    #listener_type {
+        clear: both;
+        width: @width[label] !important;
+        label {
+            font-weight: bold;
+        }
+        fieldset div {
+            margin-left: 0.5em;
+        }
+        fieldset label {
+            margin-left: 0.25em;
+            font-weight: normal;
+        }
     }
 
     #form_heard_in {

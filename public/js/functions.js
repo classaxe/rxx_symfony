@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.48.0
- * Date:       2022-08-16
+ * Version:    2.50.0
+ * Date:       2022-08-20
  * Licence:    LGPL
  * Copyright:  2022 Martin Francis
  */
@@ -2296,6 +2296,7 @@ var shareableLink = {
 
             this.getFromListeners() +
             this.getFromRadioGroup('listener_invert', [ '1' ]) +
+            this.getFromRadioGroup('listener_filter', [ 'Y', 'N' ]) +
             this.getFromField('heard_in') +
             this.getFromRadioGroup('heard_in_mod', [ 'all' ]) +
             this.getFromPair('logged_date') +
@@ -2721,6 +2722,7 @@ var SIGNALS_FORM = {
             var s = SIGNALS_FORM;
             s.setPersonaliseAction();
             s.setKhzAction();
+            s.setListenerFilterAction();
             s.setNotesAction();
             s.setMorseAction();
             s.setOffsetsAction();
@@ -2932,7 +2934,7 @@ var SIGNALS_FORM = {
 
     setHeardInModDefault : function() {
         if ($('fieldset#form_heard_in_mod div :radio:checked').length === 0) {
-            $('fieldset#form_heard_in_mod div :radio[value="any"]').prop('checked', true);
+            $('fieldset#form_heard_in_mod div :radio[value=""]').prop('checked', true);
         }
     },
 
@@ -2959,9 +2961,55 @@ var SIGNALS_FORM = {
             } else {
                 $(this).addClass('primaryQth');
             }
+            if ($(this).text().substr(0,2) === 'R|') {
+                $(this).text($(this).text().substr(2));
+                $(this).addClass('remote');
+            }
+            if ($('#form_listener_filter div :radio:checked').val() === 'N') {
+                if ($(this).hasClass('remote')) {
+                    $(this).hide();
+                }
+            }
+            if ($('#form_listener_filter div :radio:checked').val() === 'Y') {
+                if (!$(this).hasClass('remote')) {
+                    $(this).hide();
+                }
+            }
         });
     },
 
+    setListenerFilterAction : function(enable) {
+        enable = typeof enable !== 'undefined' ? enable : true;
+        if (enable) {
+            $('#form_listener_filter').change(function () {
+                var value = $('#form_listener_filter div :radio:checked').val();
+                var listener = $('#form_listener');
+                listener.children().each(function() {
+                    switch (value){
+                        case 'N':
+                            if ($(this).hasClass('remote')) {
+                                $(this).hide();
+                            } else {
+                                $(this).show();
+                            }
+                            break;
+                        case 'Y':
+                            if (!$(this).hasClass('remote')) {
+                                $(this).hide();
+                            } else {
+                                $(this).show();
+                            }
+                            break;
+                        default:
+                            $(this).show();
+                            break;
+                    }
+                });
+            });
+        } else {
+            $('#form_listener_filter').off('change');
+        }
+    },
     setMorseAction : function(enable) {
         enable = typeof enable !== 'undefined' ? enable : true;
         if (enable) {
@@ -3061,6 +3109,7 @@ var SIGNALS_FORM = {
             s.setAdminAction(false);
             c.setRegionAction(false);
             s.setRwwFocusAction(false);
+            s.setListenerFilterAction(false);
             s.setNotesAction(false);
             s.setMorseAction(false);
             s.setOffsetsAction(false);
@@ -3096,6 +3145,7 @@ var SIGNALS_FORM = {
 
             $('#form_listener').val([]);
             $('#form_listener_invert_0').prop('checked', 1);
+            $('#form_listener_filter_0').prop('checked', 1);
             $('#form_heard_in').val('');
             $('#form_heard_in_mod_0').prop('checked', 1);
             $('#form_logged_date_1').val('');
@@ -3113,6 +3163,7 @@ var SIGNALS_FORM = {
             s.setOffsetsAction(true);
             s.setAdminAction(true);
             c.setRegionAction(true);
+            s.setListenerFilterAction(true);
             s.setRwwFocusAction(true);
             formSubmit();
             return false;
