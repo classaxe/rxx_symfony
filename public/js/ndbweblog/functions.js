@@ -39,7 +39,7 @@ var list_selected = false
 
 
 // Add (ID) to mark station as OTA
-css = (document.location.protocol === 'file:' ? '' : '../../../../css/ndbweblog/') + 'style.css';
+css = (document.location.protocol === 'file:' ? 'style.css' : urls.css);
 
 if (!get_cookie('popup_warning_given') || eval(get_cookie('popup_warning_given')) > 0) {
     var expires = new Date();

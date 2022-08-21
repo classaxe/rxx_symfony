@@ -9,6 +9,7 @@
     <script>
         var urls = {
             package : "https://www.classaxe.com/dx/#ndbweblog",
+            css: "{{ asset('css/ndbweblog/style.css') }}",
             config : "{{ url('listener_ndbweblog_config',   { 'system' : system, 'id': id }) }}",
             logs : "{{ url('listener_ndbweblog_logs',     { 'system' : system, 'id': id }) }}",
             stations : "{{ url('listener_ndbweblog_stations', { 'system' : system, 'id': id }) }}"
