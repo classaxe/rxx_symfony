@@ -5,7 +5,7 @@
 // * Filename:  functions.js                 *
 // * Created:   2022-07-11 (MF)              *
 // *******************************************
-version = "1.1.30";
+version = "1.1.31";
 // ###########################################
 // # Inline code:                            #
 // ###########################################
@@ -39,7 +39,7 @@ var list_selected = false
 
 
 // Add (ID) to mark station as OTA
-css = (document.location.protocol == 'file:' ? '' : '../../../../css/ndbweblog/') + 'style.css';
+css = (document.location.protocol === 'file:' ? '' : '../../../../css/ndbweblog/') + 'style.css';
 
 if (!get_cookie('popup_warning_given') || eval(get_cookie('popup_warning_given')) > 0) {
     var expires = new Date();
@@ -2846,7 +2846,7 @@ function progress() {
 
 
 function rww(ID) {
-    popWin('http://www.classaxe.com/dx/ndb/rww/signal_info/' + ID, 'popsignal', 'scrollbars=0,resizable=1', 640, 380, 'centre');
+    popWin('https://rxx.classaxe.com/en/rww/signals/' + ID, 'popsignal', 'scrollbars=0,resizable=1', 640, 380, 'centre');
 }
 
 
