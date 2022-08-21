@@ -69,9 +69,7 @@ class LogSession extends Base
                 'comment',
                 TextType::class,
                 [
-                    'attr' => [
-                        'readonly' => ($options['isAdmin'] ? '' : 'readonly')
-                    ],
+                    'attr' => ($options['isAdmin'] ? [] : [ 'readonly' => 'readonly' ]),
                     'data' =>           $options['comment'],
                     'empty_data' =>     '',
                     'label' =>          'Log Session Comment',
