@@ -28,6 +28,7 @@ a:hover   { background-color: RGB(255,150,150); }
 .l_edge   { border-left: 1px solid RGB(0,0,0);}
 .l_edge_l { border-left: 1px solid RGB(0,0,0); text-align: left;}
 .l_edge_r { border-left: 1px solid RGB(0,0,0); text-align: right;}
+.w120px   { width: 120px; margin: 0.25em; }
 
 table     { border-collapse: collapse; }
 
