@@ -311,6 +311,11 @@ releases[i++] =
         "<ul>"+
         "<li>Signal Details additional info link now points to new RXX version</li>"+
         "</ul>");
+releases[i++] =
+    new RELEASE("1.1.32","2022-08-21",
+        "<ul>"+
+        "<li>Moved more vestigial code supporting NDB Weblog into this repo and fixed some URLs to prevent cross-domain issues</li>"+
+        "</ul>");
 
 // ************************************
 // * changelog()                      *

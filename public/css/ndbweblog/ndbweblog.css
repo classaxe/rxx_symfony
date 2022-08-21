@@ -1,0 +1,70 @@
+body      { font-family: Verdana, Arial, Sans-Serif; }
+p         { font-family: Verdana, Arial, Sans-Serif; }
+h1,h2,h3  { font-family: Verdana, Arial, Sans-Serif; }
+small	  { font-family: Verdana, Arial, Sans-Serif; }
+big	  { font-family: Verdana, Arial, Sans-Serif; }
+li        { font-family: Verdana, Arial, Sans-Serif; }
+
+a:hover   { background-color: RGB(255,150,150); }
+
+.normal   { font-family: Verdana, Arial, Sans-Serif; font-weight: normal;}
+.khz      { font-weight: bold; border-left: 1px solid RGB(0,0,0);}
+.call     { font-weight: bold; background-color: RGB(236,236,236);}
+.qth      { font-family: Verdana, Arial, Sans-Serif; }
+.sta      { background-color: RGB(236,236,236);}
+.iaru     { background-color: RGB(236,236,236);}
+.ident    { white-space: nowrap; font-weight: bold; letter-spacing: 1pt;}
+.daid     { background-color: RGB(236,236,236);}
+.cyc      { background-color: RGB(236,236,236); text-align: right;}
+.lsb      { text-align: right; }
+.usb      { text-align: right; background-color: RGB(236,236,236);}
+.pwr      { text-align: right; }
+.dir      { text-align: right; background-color: RGB(236,236,236);}
+.dx       { text-align: right; font-weight: bold;}
+.dxw      { text-align: right; background-color: RGB(236,236,236);}
+.lsb      { text-align: right; }
+.logs     { text-align: right; }
+.120px    { width='120px';}
+.l_edge   { border-left: 1px solid RGB(0,0,0);}
+.l_edge_l { border-left: 1px solid RGB(0,0,0); text-align: left;}
+.l_edge_r { border-left: 1px solid RGB(0,0,0); text-align: right;}
+
+table     { border-collapse: collapse; }
+
+.info     { font-weight: normal; color: RGB(0,0,0); text-decoration: none; }
+
+.all_log  { }
+
+.n_yymmdd { text-align: right; background-color: RGB(236,236,236);}
+.n_hhmm   { text-align: right; background-color: RGB(236,236,236);}
+.d_yymmdd { text-align: right; }
+.d_hhmm   { text-align: right; }
+
+.plain { border: none; border-style: transparent;}
+th.day    { text-align: right; border-right: 1px solid RGB(128,128,128);}
+th.notes  { }
+td.notes  { font-family: Verdana, Arial, Sans-Serif; border-right: 1px solid black;}
+td        { font-family: "Courier New", monospace; font-size: smaller;
+	    vertical-align: top; padding-left: 1px; padding-right: 1px; border-right: 1px solid black; border-bottom: 1px solid black;}
+th.khz    { border-left: 1px solid RGB(128,128,128);}
+th        { text-align: center; font-size: smaller; font-family: "Courier New", monospace; vertical-align: bottom; background-color: RGB(236,236,236); border-right: 1px solid black; border-top: 1px solid black;border-bottom: 1px solid black;}
+th.l      { text-align: left; }
+th.r      { text-align: right; }
+
+.sel      { background-color: RGB(200,200,128);}
+.khz_sort { background-color: RGB(160,255,160); border-left: 1px solid RGB(0,0,0);}
+.khz_sort_d { background-color: RGB(255,160,160); border-left: 1px solid RGB(0,0,0);}
+.sort     { background-color: RGB(160,255,160);}
+.sort_d   { background-color: RGB(255,160,160);}
+.c        { text-align: center; }
+.l        { text-align: left; }
+.r        { text-align: right; }
+
+td.noline { text-align: right; vertical-align: top; border: 0; border-style: transparent; padding-left: 0; padding-right: 0;  border-right: 1px solid red; border-bottom: 1px solid red;}
+td.r      { text-align: right; }
+
+.links    { font-size: small; }
+
+span.link { cursor: pointer; cursor: hand; color: RGB(0,0,255); }
+a.link    { text-decoration: none; color: RGB(0,0,255); }
+

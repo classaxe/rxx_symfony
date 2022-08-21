@@ -1,0 +1,208 @@
+<html>
+<title>NDB WebLog > Help</title>
+<link title='new' rel='stylesheet' href='{{ asset('css/ndbweblog/ndbweblog.css') }}' type='text/css'>
+<script>
+    function toggleDivDisplay(targDiv) {
+        if (document.getElementById) { // DOM3 = IE5, NS6
+            var divObj = document.getElementById(targDiv);
+            var divObj_0 = document.getElementById(targDiv+'_0');
+            var divObj_1 = document.getElementById(targDiv+'_1');
+            if (divObj.style.display == 'none') {
+                divObj.style.display = '';
+                divObj_0.style.display = '';
+                divObj_1.style.display = 'none';
+            }
+            else {
+                divObj.style.display = 'none';
+                divObj_0.style.display = 'none';
+                divObj_1.style.display = '';
+            }
+        }
+    }
+</script>
+</head>
+<body bgcolor='#ffffff' onload="document.body.focus();" onkeydown="window.opener.keydown('popup_help',event)">
+<h3><a name='top'></a>NDB WebLog <script language='javascript' type='text/javascript'>if (typeof window.opener!="undefined") document.write(window.opener.version)</script> > Help</h3>
+<p align='center'><b><small>[ <a class='link' href='javascript:if (window.print) { self.focus();window.print();}
+else { alert("Netscape users, please use the print button on your browser.")}'
+                                 onmouseover='window.status="Print these instructions";return true;'
+                                 onmouseout='window.status="";return true;'>Print</a> |
+            <a class='link' href='javascript:window.opener.version_check()'>Upgrade Check</a> ]<br>
+            [ <a href='#general' class='link'>General</a> |
+            <a href='#main' class='link'>Main Screen</a> |
+            <a href='#stats' class='link'>Statistics</a> |
+            <a href='#prefs' class='link'>Preferences</a> |
+            <a href='#text' class='link'>Text List</a> |
+            <a href='#text' class='home'>Home Page</a> |
+            <a href='#text' class='help'>Help</a> ]</small></b></p>
+<p><a name='general'></a><b><span title='Click to hide or show details' onClick="toggleDivDisplay('div_gen')" class='link'>
+<big>General</big>
+<small>[<span id='div_gen_1' style='display=none'>+</span><span id='div_gen_0'>-</span>]</small>
+</span><span class='link' title='Go to top of page'><small><a href='#top' class='link'>[^]</a></small></span></b><br>
+    <span id='div_gen'>This system shows information on reception of Non Directional Beacons (NDBs) used by ships and aircraft for navigation purposes.
+All stations listed on the page have been received at least once by the owner of this logbook.</p>
+
+<p>All times shown are UTC. To comply with the formal definition used by <a href='http://www.beaconworld.org.uk' target='_blank'
+                                                                            title='Visit the Beaconworld website'><b>NDB List Members</b></a>,
+    daytime is defined as spanning two hours either side of Noon, Local Standard Time:<br>
+
+    <script language='javascript' type='text/javascript'>
+        if (typeof window.opener !="undefined" && typeof window.opener.utc_daylight !="undefined") {
+            document.write("<b>Daytime:</b> "+window.opener.lead(window.opener.utc_daylight)+":00-"+window.opener.lead((window.opener.utc_daylight+3)%24)+":59 (UTC), "+
+                "<b>Night:</b> "+window.opener.lead(window.opener.utc_daylight+4)%24+":00-"+window.opener.lead((window.opener.utc_daylight-1)%24)+":59 (UTC) "+
+                "- see Statusbar for <b>Current Time</b>")}
+    </script></p>
+<p><b>Help Information</b> is provided in the browser <b>Status Bar</b>, along with a UTC Real Time Clock display. For IE PC users,
+    <b>Tooltips</b> are also provided. Sections in this help guide may be displayed or hidden by clicking on the section titles.</span></p>
+
+
+<p><a name='main'></a><b><span title='Click to hide or show details' onClick="toggleDivDisplay('div_main')" class='link'>
+<big>Main Screen</big>
+<small>[<span id='div_main_1' style='display=none'>+</span><span id='div_main_0'>-</span>]</small>
+</span><span class='link' title='Go to top of page'><small><a href='#top' class='link'>[^]</a></small></span></b><br>
+    <span id='div_main'>The logbook maintainer may select from <b>Lifetime</b> or <b>Monthly</b> log book formats. Monthly shows more details
+and breaks receptions into monthly divisions, while Lifetime only provides for one reception of each station.
+<ol><li>Click on the <b>call</b> letters of any station to see all available details on that station and the times when it was logged.</li>
+    <li><a name='location'></a>Click on the <b>location</b> of any station to see a map showing the transmitter location.</li>
+    <li>Click <b>column headings</b> to sort by that column - heading is then shown in <font class='sort'><b>&nbsp;Green&nbsp;</b></font>.</li>
+    <li>Click <b>column heading again</b> to reverse the sort order - heading shown in <font class='sort_d'><b>&nbsp;Red&nbsp;</b></font>.</li>
+    <li>Click <b>Summary</b> month headings to show details for month - selected month is shown in <font class='sel'><b>&nbsp;Gold&nbsp;</b></font>
+        - further clicks sort column.</li>
+    <li>Move mouse over <b>country</b> or <b>state</b> <a href='http://www.beaconworld.org.uk/files/countrylist.pdf' title='See the NDB List
+approved set of abbreviations for countries and states' target='_blank'><b>abbreviations</b></a> to see the name of the country or state.</li>
+    <li>Some more distant stations may have <b>MP3</b> recordings available - see <b>Notes</b> column (unless you hid that column).</li>
+</ol></span></p>
+
+<p><a name='stats'></a><b><span title='Click to hide or show details' onClick="toggleDivDisplay('div_stats')" class='link'>
+<big>Statistics</big>
+<small>[<span id='div_stats_1' style='display=none'>+</span><span id='div_stats_0'>-</span>]</small>
+</span><span class='stats' title='Go to top of page'><small><a href='#top' class='link'>[^]</a></small></span></b><br>
+    <span id='div_stats'>Click on the <b>Statistics</b> button to open the stats viewer. The screen shown will vary depending on the format the
+logbook maintainer has selected.
+<ol><li><b>All Beacons Report</b> shows the number of beacons received by day, by both day AND night, and by night, for each month. Totals
+        are also given for each category and month for each beacon received. These totals include unidentified beacons, whose location is unknown
+        - all other reports omit such beacons.</li>
+    <li><b>New Beacons Report</b> shows the number of previously unheard beacons received in each month.</li>
+    <li><b>Daytime Distances Report</b> shows the number of beacons received in each range of distances during
+        <a class='link' href='#times'><b>daytime</b></a> hours. Ranges are shown in steps of 100 Miles, 100 Nautical Miles or 200 Kilometers, depending
+        on the units specified in <a class='link' href='#preferences'><b>User Preferences</b></a>. A summary for the year is also shown, with the number
+        of unique stations received for the year.</li>
+    <li><b>Night Time Distances Report</b> is very similar to the Daytime Distances Report, except that it shows beacons received outside standard
+        daytime.</li>
+    <li><b>DX per Watt Report</b> shows for each month the furthest distance for each watt of transmitter power that any beacon has been received at.</li>
+    <li><b>Countries Report</b> shows the number of beacons received from each radio country. NDB List approved country and state codes are used,
+        and moving the mouse over each in turn causes the full name of the state (if applicable) and country to be displayed in the status bar and as
+        a tool-tip (for IE users with PC). The station located the furthest distance away is also shown in the last column, together with its distance.</li>
+    <li><b>Regions Report</b> groups the radio countries received into NBD List defined regions, by month with an annual total of unique countries
+        per region.</li>
+    <li><b>North of 60 Report</b> shows the number of beacons received each month whose locations are North of 60 degrees latitude.</li>
+</ol></span></p>
+
+<p><a name='prefs'></a><b><span title='Click to hide or show details' onClick="toggleDivDisplay('div_prefs')" class='link'>
+<big>Preferences</big>
+<small>[<span id='div_prefs_1' style='display=none'>+</span><span id='div_prefs_0'>-</span>]</small>
+</span><span class='link' title='Go to top of page'><small><a href='#top' class='link'>[^]</a></small></span></b><br>
+    <span id='div_prefs'>Click on the <b>Preferences</b> button to open the User Preferences dialog. Here each user of an NDB WebLog may set the
+system to work to their requirements. Measurement units, date formats and other parameters may be changed, and certain columns may be hidden
+in the main display. Most of these settings should be self explanatory, but here's a summary:
+<ol>
+    <li><a name='pref_dx'></a><b>Distances</b> - choose from Miles, KM or Nautical Miles</li>
+    <li><b>Mod Values</b> - Many beacons transmit a Morse signal by turning a tone on and off. This form of 'Modulation' generates two 'sidebands'
+        in the radio spectrum in addition to the 'Carrier' frequency, the Lower Sideband (LSB) and the Upper Sideband (USB). Many beacons exhibit both
+        sidebands, but those in Canada tend to have the LSB surpressed.
+        There are two listening techniques commonly employed by NDB listeners:<ul>
+            <li><a name='mod_rel'></a><b>Relative:</b> Tuning to the carrier frequency then filtering out all but the required tone of the beacon required - here the 'Relative' Mod Values setting
+                should be used</li>
+            <li><a name='mod_abs'></a><b>Absolute:</b> Using a very narrow IF (Intermediate Frequency) filter and tuning not to the carrier but to the carrier frequency plus the USB Offset, or
+                to the carrier frequency minus LSB Offset. Here the listener should choose the 'Absolute' Mod Values setting as this calculation is then
+                performed by the system automatically.</li>
+        </ul></li>
+    <li><b>Dates</b> - Different regions of the world use different date formats. The system accommodates users in different locations by allowing
+        them to set their preferred date representations:<ul>
+            <li><b>DD/MM/YYYY</b> (Canada and most of Europe)</li>
+            <li><b>DD.MM.YYYY</b> (Germany and Austria)</li>
+            <li><b>MM/DD/YYYY</b> (USA)</li>
+            <li><b>YYYYMMDD</b> (ISO and International date format - my preferred setting and perhaps the most logical)</li></ul></li>
+    <li><b>Map Zoom</b> - Clicking on a location as described <a href='#location' class='link'>earlier</a> causes a map to open (assuming the user
+        is connected to the Internet). The Map Zoom setting determines the initial level of detail shown in the map when it is first opened.</li>
+</ol>
+All customized parameters are stored between sessions on the user's machine in the form of a cookie.</span></p>
+
+<p><a name='search'></a><b><span title='Click to hide or show details' onClick="toggleDivDisplay('div_search')" class='link'>
+<big>Search</big>
+<small>[<span id='div_search_1' style='display=none'>+</span><span id='div_search_0'>-</span>]</small>
+</span><span class='link' title='Go to top of page'><small><a href='#top' class='link'>[^]</a></small></span></b><br>
+    <span id='div_search'>Click on the <b>Search</b> button to open the Beacon Search dialog and search for beacons matching your
+criteria. Matched beacons will be listed in a new window and links are provided which, when clicked, show details of the selected station.</p></span>
+
+<p><a name='text'></a><b><span title='Click to hide or show details' onClick="toggleDivDisplay('div_text')" class='link'>
+<big>Text List Output</big>
+<small>[<span id='div_text_1' style='display=none'>+</span><span id='div_text_0'>-</span>]</small>
+</span><span class='link' title='Go to top of page'><small><a href='#top' class='link'>[^]</a></small></span></b><br>
+    <span id='div_text'>Click on the <b>Text List</b> button to open the Text List Options dialog. This function is used to generate a text listing
+suitable for emailing. A number of options are available to filter output according to various factors, to sort results in certain orders,
+and to add or remove certain data columns from the listing.<br><br>
+<b>Text List > Output Options</b><ol>
+    <li><b>Date format</b> - the following options are available:<ul>
+            <li><b>DD (For CLE)</b> Shows only the day of the month - best setting for CLE reporting or where the span of the log is one month
+                or less. This saves space in the output listing.</li>
+            <li><b>DD/MM/YYYY</b> (Canada and most of Europe)</li>
+            <li><b>DD.MM.YYYY</b> (Germany and Austria)</li>
+            <li><b>MM/DD/YYYY</b> (USA)</li>
+            <li><b>YYYYMMDD</b> (International format, suited to displays spanning several years)</li>
+            <li><b>(No Time or Date)</b> For output spanning a single day, or for generation of seek lists, where the date doesn't matter.</li>
+        </ul></li>
+    <li><b>For Each Beacon</b><ul>
+            <li><b>Show First Logging</b> shows just the first instance of a reception within any defined filtered range</li>
+            <li><b>Show All Loggings</b> shows all instances of a reception within any defined filtered range</li>
+        </ul></li>
+    <li><b>Sort By</b> - the following sort options are available:<ul>
+            <li><b>Call</b> - sorted by Callsign or DGPS ID #.</li>
+            <li><b>Country</b> - sorted by Country.</li>
+            <li><b>Date</b> - sorted by year, month and date.</li>
+            <li><b>Distance</b> - sorted by distance.</li>
+            <li><b>DX Per Watt</b> - sorted by distance per watt.</li>
+            <li><b>Modulation (LSB)</b> - sorted by LSB Mod (either <a class='link' href='#mod_rel'>relative</a> or <a class='link' href='#mod_abs'>absolute</a>).</li>
+            <li><b>Modulation (USB)</b> - sorted by USB Mod (either <a class='link' href='#mod_rel'>relative</a> or <a class='link' href='#mod_abs'>absolute</a>).</li>
+            <li><b>TX Power</b> - sorted by Transmitter Power (where known).</li>
+            <li><b>Location</b> - sorted by transmitter location (town, city or waypoint).</li>
+            <li><b>State / Province</b> - sorted by State or Province.</li>
+            <li><b>Time</b> - sorted by time of reception.</li>
+        </ul></li>
+</ol>
+<b>Text List > Filters</b><ol>
+    <li><b>Day / Night</b> - choose "All Times", "Daytime Only" or "Night Only" to limit loggings by the time of day on which they were made.</li>
+    <li><b>NDB / DGPS</b> - choose "NDB + DGPS", "NDB Only" or "DGPS Only" to limit loggings to NDB stations or DGPS stations (identified by the # at the start of their Broadcast Station number.</li>
+    <li><b>Dates (YYYYMMDD) (Start and End)</b> - enter date ranges here, or leave either or both fields set to 'ALL' to ignore either start or end limits.</li>
+    <li><b>KHz (Start and End)</b> - enter frequency ranges here, or leave either or both fields set to 'ALL' to ignore either start or end limits.</li>
+    <li><b>DX (Start and End)</b> - enter distance ranges here (in the distance units specified in <a class='link' href='#pref_dx'>Preferences</a>), or leave either or both fields set to 'ALL' to ignore either start or end limits.</li>
+</ol>
+<b>Text List > Columns</b><ol>
+    <li><b>"New" loggings</b> - if 'Show' is selected, any loggings representing stations not previously heard are indicated with a
+        "Y" in the "+" column that appears, with a total count displayed at the end of the text listing.</li>
+    <li><b>Mod Offsets</b> - either <a class='link' href='#mod_rel'>relative</a> or <a class='link' href='#mod_abs'>absolute</a> as determined in user preferences for both LSB and USB where known.</li>
+    <li><b>DX Per Watt</b> - some people find this statistic interesting, some don't. This option lets you choose for yourself.</li>
+</ol>
+</span>
+
+<p><a name='home'></a><b><span title='Click to hide or show details' onClick="toggleDivDisplay('div_home')" class='link'>
+<big>Home Page</big>
+<small>[<span id='div_home_1' style='display=none'>+</span><span id='div_home_0'>-</span>]</small>
+</span><span class='link' title='Go to top of page'><small><a href='#top' class='link'>[^]</a></small></span></b><br>
+    <span id='div_home'>If the log owner has entered a web site in their system configuration file, this will be shown when a user clicks on the <b>Home Page</b> button.</span>
+
+<p><a name='help'></a><b><span title='Click to hide or show details' onClick="toggleDivDisplay('div_help')" class='link'>
+<big>Help Page</big>
+<small>[<span id='div_help_1' style='display=none'>+</span><span id='div_help_0'>-</span>]</small>
+</span><span class='link' title='Go to top of page'><small><a href='#top' class='link'>[^]</a></small></span></b><br>
+    <span id='div_help'>Clicking on the <b>Help</b> button shows this page, but then again, you probably already knew that...</span>
+
+
+
+<p><b>NDB WebLog</b> software was created by
+    <a href='mailto:martin@classaxe.com' title='Send bug reports, comments and suggestions here'
+    target='_blank'><b>Martin Francis</b></a> and is available for free from his
+    <a href='http://www.classaxe.com/dx' title='Download NDB WebLog, or visit the sites of other NDB WebLog users' target='_blank'><b>web site</b></a>.</p>
+</body>
+</html>
+

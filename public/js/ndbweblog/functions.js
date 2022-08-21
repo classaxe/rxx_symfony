@@ -5,7 +5,7 @@
 // * Filename:  functions.js                 *
 // * Created:   2022-07-11 (MF)              *
 // *******************************************
-version = "1.1.31";
+version = "1.1.32";
 // ###########################################
 // # Inline code:                            #
 // ###########################################
@@ -1035,7 +1035,7 @@ function popup_details(id) {
 // * popup_help()                     *
 // ************************************
 function popup_help() {
-    var h = window.open('https://classaxe.com/dx/ndb/log/help.html', 'helpViewer', 'width=800,height=400,status=1,resizable=1,menubar=0,location=0,toolbar=0,scrollbars=1');
+    var h = window.open(help_url, 'helpViewer', 'width=800,height=400,status=1,resizable=1,menubar=0,location=0,toolbar=0,scrollbars=1');
     h.focus();
 }
 
@@ -2846,7 +2846,7 @@ function progress() {
 
 
 function rww(ID) {
-    popWin('https://rxx.classaxe.com/en/rww/signals/' + ID, 'popsignal', 'scrollbars=0,resizable=1', 640, 380, 'centre');
+    popWin('https://rxx.classaxe.com/en/rww/signals/' + ID, 'popsignal', 'scrollbars=0,resizable=1', 800, 740, 'centre');
 }
 
 
@@ -3285,7 +3285,8 @@ function trim(what) {
 }
 
 function version_check() {
-    ver_h = window.open('http://www.classaxe.com/dx/ndb/log/changelog/?current=' + version, 'versionPage', 'width=280,height=220,status=0,resizable=1,menubar=0,location=0,toolbar=0,scrollbars=1');
+    var url = changelog_url + '?current=' + version;
+    ver_h = window.open(url, 'versionPage', 'width=280,height=220,status=0,resizable=1,menubar=0,location=0,toolbar=0,scrollbars=1');
     ver_h.focus();
 }
 

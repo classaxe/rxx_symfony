@@ -16,3 +16,5 @@ qth_email  = "{{ listener.email|raw }}";
 qth_home   = "";
 monthly    = 1;
 utc_offset = {{ listener.timezone|raw }};
+changelog_url = "{{ url('listener_ndbweblog_changelog',   { 'system' : system, 'id': listener.id }) }}";
+help_url = "{{ url('listener_ndbweblog_help',   { 'system' : system, 'id': listener.id }) }}";
