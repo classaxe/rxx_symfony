@@ -3412,12 +3412,12 @@ function list(yyyy, mm) {
         }
     }
     out +=
-        "<p align='center'><input type='button' class='120px' value='Statistics' onclick='void top.popup_stats()' title='[CTRL]+1'>" +
-        "<input type='button' class='120px' value='Preferences' onclick='void top.popup_prefs()' title='[CTRL]+2'>" +
-        "<input type='button' class='120px' value='Search' onclick='void top.popup_search()' title='[CTRL]+3'>" +
-        "<input type='button' class='120px' value='Text List' onclick='void top.popup_text_options()' title='[CTRL]+4'>" +
-        "<input type='button' class='120px' value='Help' onclick='top.popup_help(); return true;' title='[CTRL]+5'>" +
-        ((qth_home) ? ("<input type='button' class='120px' value='Home Page' onclick='void top.popup_home()' title='[CTRL]+6'>") : ("")) +
+        "<p align='center'><input type='button' class='w120px' value='Statistics' onclick='void top.popup_stats()' title='[CTRL]+1'>" +
+        "<input type='button' class='w120px' value='Preferences' onclick='void top.popup_prefs()' title='[CTRL]+2'>" +
+        "<input type='button' class='w120px' value='Search' onclick='void top.popup_search()' title='[CTRL]+3'>" +
+        "<input type='button' class='w120px' value='Text List' onclick='void top.popup_text_options()' title='[CTRL]+4'>" +
+        "<input type='button' class='w120px' value='Help' onclick='top.popup_help(); return true;' title='[CTRL]+5'>" +
+        ((qth_home) ? ("<input type='button' class='w120px' value='Home Page' onclick='void top.popup_home()' title='[CTRL]+6'>") : ("")) +
         "</p>\n\n";
 
     rows = ((monthly) ? "'3'" : ((cookie['h_lifelist'] == '1') ? "'1'" : "'2'"))

@@ -2,7 +2,7 @@ body      { font-family: Verdana, Arial, Sans-Serif; }
 p         { font-family: Verdana, Arial, Sans-Serif; }
 h1,h2,h3  { font-family: Verdana, Arial, Sans-Serif; }
 small	  { font-family: Verdana, Arial, Sans-Serif; }
-big	  { font-family: Verdana, Arial, Sans-Serif; }
+big	      { font-family: Verdana, Arial, Sans-Serif; }
 li        { font-family: Verdana, Arial, Sans-Serif; }
 
 a:hover   { background-color: RGB(255,150,150); }
@@ -24,7 +24,7 @@ a:hover   { background-color: RGB(255,150,150); }
 .dxw      { text-align: right; background-color: RGB(236,236,236);}
 .lsb      { text-align: right; }
 .logs     { text-align: right; }
-.120px    { width='120px';}
+.w120px   { width: 120px; margin: 0.25em; }
 .l_edge   { border-left: 1px solid RGB(0,0,0);}
 .l_edge_l { border-left: 1px solid RGB(0,0,0); text-align: left;}
 .l_edge_r { border-left: 1px solid RGB(0,0,0); text-align: right;}
