@@ -62,7 +62,7 @@ class LogSession extends Base
                 HiddenType::class,
                 [
                     'data' =>           $options['operatorId'],
-                    'label' =>          'Operator',
+                    'label' =>          'Operator (Only for multi-Op Locations)',
                 ]
             )
             ->add(

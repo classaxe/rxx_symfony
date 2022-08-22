@@ -12,11 +12,22 @@
     }
 }
 .logsession_edit {
-
+    table,
+    table tbody {
+        background: transparent;
+    }
+    table tr td {
+        width: 50%;
+        vertical-align: top;
+    }
+    label {
+        white-space: nowrap;
+    }
     select#form_listenerId,
     select#form_operatorId {
         margin: 0 0 0.5em 0;
-        height: 8em;
+        height: 20em;
+        width: 450px !important;
         font-family: monospace;
 
         option.primaryQth {

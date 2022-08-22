@@ -21,7 +21,7 @@
                     {{ form_label(form.signalId) }}
                     {{ form_widget(form.signalId) }}
                 </div>
-                {% if isAdmin %}
+                {% if isAdmin and l.logSessionId %}
                     <div style="margin: 2em 0 0.5em 0;text-align: center; border:1px solid red;background: #fee">
                         <b style="color:red">DO NOT change Listener or Operator here.</b><br>Edit
                         <a href="{{ url('logsession', { 'system' : system, 'id' : l.logSessionId }) }}" data-popup="1" title="Click to edit this Log Session">Log Session {{ l.logSessionId }}</a>

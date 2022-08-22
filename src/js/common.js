@@ -41,7 +41,7 @@ var COMMON_FORM = {
                 " class='" + (r[5] === 'Y' ? 'primaryQth' : 'secondaryQth') + "'" +
                 (r[0] === s ? " selected='selected'" : '') +
                 ">" +
-                leadNbsp(r[0],4) + ' ' + pad(r[2] + ', ' + r[6], (r[5] === 'Y' ? 55 : 53), '&nbsp;') +
+                pad(r[2] + ' [' + r[0] + '] ' + r[6], (r[5] === 'Y' ? 55 : 53), '&nbsp;') +
                 (r[7] ? ' ' + r[7] : '&nbsp; &nbsp;') +
                 ' ' + r[8] +
                 "</option>";
