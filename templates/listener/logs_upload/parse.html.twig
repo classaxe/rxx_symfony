@@ -28,15 +28,15 @@
                 <th>{% trans %}ITU{% endtrans %}</th>
                 <th>{% trans %}Region{% endtrans %}</th>
                 <th>{% trans %}GSQ{% endtrans %}</th>
-                <th class="num">{% trans %}KM{% endtrans %}</th>
-                <th class="num">{% trans %}Miles{% endtrans %}</th>
-                <th class="num">{% trans %}Deg{% endtrans %}</th>
                 <th>{% trans %}Pwr{% endtrans %}</th>
                 <th>{% trans %}Heard In{% endtrans %}</th>
                 <th class="num">{% trans %}LSB{% endtrans %}</th>
                 <th class="num">{% trans %}USB{% endtrans %}</th>
                 <th class="num">{% trans %}Sec{% endtrans %}</th>
                 <th>{% trans %}Format{% endtrans %}</th>
+                <th class="num">{% trans %}KM{% endtrans %}</th>
+                <th class="num">{% trans %}Miles{% endtrans %}</th>
+                <th class="num">{% trans %}Deg{% endtrans %}</th>
             </tr>
         </thead>
         <tbody>
@@ -64,15 +64,15 @@
                 <td>{{ e.ITU }}</td>
                 <td>{{ e.region }}</td>
                 <td>{{ e.GSQ }}</td>
-                <td></td>
-                <td></td>
-                <td></td>
                 <td>{{ e.pwr ? e.pwr : '' }}</td>
                 <td></td>
                 <td class="num">{{ e.LSB_approx ? '~' : '' }}{{ e.LSB }}</td>
                 <td class="num">{{ e.USB_approx ? '~' : '' }}{{ e.USB }}</td>
                 <td class="num">{{ e.sec }}</td>
                 <td class="text-nowrap">{{ e.fmt }}</td>
+                <td></td>
+                <td></td>
+                <td></td>
             </tr>
             {% set jump_anchor = jump_anchor + 1 %}
 {# END - No matches for signal #}
@@ -104,9 +104,6 @@
                 <td>{{ o.ITU }}</td>
                 <td>{{ o.region }}</td>
                 <td>{{ o.GSQ }}</td>
-                <td>{{ o.dx_km }}</td>
-                <td>{{ o.dx_miles }}</td>
-                <td>{{ o.dx_deg }}</td>
                 <td>{{ o.pwr ? o.pwr : '' }}</td>
                 <td>{{ hi|raw }}</td>
                 <td class="num"><i{% if lsb_check %} class="check"{% endif %}>{{ e.LSB_approx ? '~' : '' }}{{ e.LSB }}</i>{% if o.LSB_approx or o.LSB %}<br>{{ o.LSB_approx ? '~' : '' }}{{ o.LSB }}{% endif %}</td>
@@ -115,6 +112,9 @@
                         if e.sec and o.sec and ((e.sec + tol_secs < o.sec) or (e.sec - tol_secs > o.sec)) %} class="check"{% endif
                     %}>{{ e.sec }}</i>{% if o.sec %}<br>{{ o.sec }}{% endif %}</td>
                 <td class="text-nowrap"><i>{{ e.fmt }}</i>{% if o.format %}<br>{{ o.format }}{% endif %}</td>
+                <td class="personalise">{{ o.dx_km }}</td>
+                <td class="personalise">{{ o.dx_miles }}</td>
+                <td class="personalise">{{ o.dx_deg }}</td>
             </tr>
             {% set jump_anchor = jump_anchor + 1 %}
 {# END - Errors in Date, Time, KHZ or ID #}
@@ -167,15 +167,15 @@
                 <td>{{ o.ITU }}</td>
                 <td>{{ o.region }}</td>
                 <td>{{ o.GSQ }}</td>
-                <td>{{ o.dx_km }}</td>
-                <td>{{ o.dx_miles }}</td>
-                <td>{{ o.dx_deg }}</td>
                 <td>{{ o.pwr ? o.pwr : '' }}</td>
                 <td>{{ hi|raw }}</td>
                 <td class="num"><i{% if lsb_check %} class="check" title="LSB differs more than {{ tol_offsets }}Hz"{% endif %}>{{ e.LSB_approx ? '~' : '' }}{{ e.LSB }}</i>{% if o.LSB_approx or o.LSB %}<br>{{ o.LSB_approx ? '~' : '' }}{{ o.LSB }}{% endif %}</td>
                 <td class="num"><i{% if usb_check %} class="check" title="USB differs more than {{ tol_offsets }}Hz"{% endif %}>{{ e.USB_approx ? '~' : '' }}{{ e.USB }}</i>{% if o.USB_approx or o.USB %}<br>{{ o.USB_approx ? '~' : '' }}{{ o.USB }}{% endif %}</td>
                 <td class="num"><i{% if sec_check %} class="check" title="Cycle time differs more than {{ tol_secs }} sec"{% endif %}>{{ e.sec }}</i>{% if o.sec %}<br>{{ o.sec }}{% endif %}</td>
                 <td class="text-nowrap"><i>{{ e.fmt }}</i>{% if o.format %}<br>{{ o.format }}{% endif %}</td>
+                <td class="personalise">{{ o.dx_km }}</td>
+                <td class="personalise">{{ o.dx_miles }}</td>
+                <td class="personalise">{{ o.dx_deg }}</td>
             </tr>
             {% if has_issue %}{% set jump_anchor = jump_anchor + 1 %}{% endif %}
 {# END First Valid option #}
@@ -204,15 +204,15 @@
                 <td>{{ o.ITU }}</td>
                 <td>{{ o.region }}</td>
                 <td>{{ o.GSQ }}</td>
-                <td>{{ o.dx_km }}</td>
-                <td>{{ o.dx_miles }}</td>
-                <td>{{ o.dx_deg }}</td>
                 <td>{{ o.pwr ? o.pwr : '' }}</td>
                 <td>{{ o.heard_in }}</td>
                 <td class="num"><i{% if lsb_check %} class="check" title="LSB differs more than {{ tol_offsets }}Hz"{% endif %}>{{ e.LSB_approx ? '~' : '' }}{{ e.LSB }}</i>{% if o.LSB_approx or o.LSB %}<br>{{ o.LSB_approx ? '~' : '' }}{{ o.LSB }}{% endif %}</td>
                 <td class="num"><i{% if usb_check %} class="check" title="USB differs more than {{ tol_offsets }}Hz"{% endif %}>{{ e.USB_approx ? '~' : '' }}{{ e.USB }}</i>{% if o.USB_approx or o.USB %}<br>{{ o.USB_approx ? '~' : '' }}{{ o.USB }}{% endif %}</td>
                 <td class="num"><i{% if sec_check %} class="check" title="Cycle time differs more than {{ tol_secs }} sec"{% endif %}>{{ e.sec }}</i>{% if o.sec %}<br>{{ o.sec }}{% endif %}</td>
                 <td class="text-nowrap"><i>{{ e.fmt }}</i>{% if o.format %}<br>{{ o.format }}{% endif %}</td>
+                <td class="personalise">{{ o.dx_km }}</td>
+                <td class="personalise">{{ o.dx_miles }}</td>
+                <td class="personalise">{{ o.dx_deg }}</td>
             </tr>
         {% endif %}{% endfor %}
 {# END Other Valid Options #}
