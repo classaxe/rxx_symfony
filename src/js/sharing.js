@@ -72,19 +72,21 @@ var shareableLink = {
     listenersUrl: function(suffix) {
         var base = this.getBaseUrl('listeners');
         var url =
-            this.getFromTypes() +
-            this.getFromField('q') +
-            this.getFromField('region') +
-            this.getFromField('country') +
-            this.getFromField('rxx_id') +
-            this.getFromRadioGroup('has_logs', [ 'N', 'Y' ]) +
-            this.getFromRadioGroup('has_map_pos', [ 'N', 'Y' ]) +
-            (this.getFromField('timezone') !== '&timezone=ALL' ? this.getFromField('timezone') : '') +
-            this.getFromField('status', [ 'N', 'Y', '1D', '5D', '10D', '20D', '30D', '3M', '6M', '1Y', '2Y', '5Y' ], 'A') +
-            this.getFromField('equipment') +
-            this.getFromField('notes') +
             this.getFromPagingControls(500) +
             this.getFromSortingControls('name', 'a') +
+            this.getFromField('q') +
+            this.getFromTypes() +
+            this.getFromField('region') +
+            this.getFromField('country') +
+            (this.getFromField('timezone') !== '&timezone=ALL' ? this.getFromField('timezone') : '') +
+            this.getFromField('status', [ 'N', 'Y', '1D', '5D', '10D', '20D', '30D', '3M', '6M', '1Y', '2Y', '5Y' ], 'A') +
+            this.getFromRadioGroup('loctype', [ 'N', 'Y' ]) +
+            this.getFromRadioGroup('multiop', [ 'N', 'Y' ]) +
+            this.getFromField('equipment') +
+            this.getFromField('rxx_id') +
+            this.getFromField('notes') +
+            this.getFromRadioGroup('has_logs', [ 'N', 'Y' ]) +
+            this.getFromRadioGroup('has_map_pos', [ 'N', 'Y' ]) +
             (typeof suffix !== 'undefined' ? suffix : '');
 
         return base + (url.substring(0,1) === '&' ? '?' + url.substring(1) : url);

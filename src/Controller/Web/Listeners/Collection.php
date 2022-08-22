@@ -158,19 +158,25 @@ class Collection extends Base
     private function setArgsFromRequest(&$args, $request, $withPageNumber = true)
     {
         $this->setPagingFromRequest($args, $request, $withPageNumber);
-        $this->setTypeFromRequest($args, $request);
-        $this->setRegionFromRequest($args, $request);
-        if ($args['isAdmin']) {
-            $this->setValueFromRequest($args, $request, 'has_logs', ['', 'N', 'Y'], 'A');
-            $this->setValueFromRequest($args, $request, 'has_map_pos', ['', 'N', 'Y'], 'A');
-        }
         $this->setValueFromRequest($args, $request, 'show', ['list', 'map'], 'a');
-        $this->setTimezoneFromRequest($args, $request);
-        $this->setValueFromRequest($args, $request, 'status', ['', 'N', 'Y', '1D', '5D', '10D', '20D', '30D', '3M', '6M', '1Y', '2Y', '5Y'], 'A');
-        $this->setValueFromRequest($args, $request, 'country', false, 'A');
-        $this->setValueFromRequest($args, $request, 'rxx_id');
+
         $this->setValueFromRequest($args, $request, 'q');
+        $this->setTypeFromRequest($args, $request);
+
+        $this->setRegionFromRequest($args, $request);
+        $this->setValueFromRequest($args, $request, 'country', false, 'A');
+
+        $this->setTimezoneFromRequest($args, $request);
+
+        $this->setValueFromRequest($args, $request, 'status', ['', 'N', 'Y', '1D', '5D', '10D', '20D', '30D', '3M', '6M', '1Y', '2Y', '5Y'], 'A');
+        $this->setValueFromRequest($args, $request, 'loctype', ['Y', 'N'], 'a');
+        $this->setValueFromRequest($args, $request, 'multiop', ['Y', 'N'], 'a');
         $this->setValueFromRequest($args, $request, 'equipment');
+        $this->setValueFromRequest($args, $request, 'rxx_id');
         $this->setValueFromRequest($args, $request, 'notes');
+        if ($args['isAdmin']) {
+            $this->setValueFromRequest($args, $request, 'has_map_pos', ['', 'N', 'Y'], 'A');
+            $this->setValueFromRequest($args, $request, 'has_logs', ['', 'N', 'Y'], 'A');
+        }
     }
 }
