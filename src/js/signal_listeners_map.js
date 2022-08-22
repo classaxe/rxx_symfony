@@ -11,8 +11,8 @@ var SLMap = {
                 '</td>\n' +
                 '<td>' + l.sp + '</td>\n' +
                 '<td>' + l.itu + '</td>\n' +
-                '<td>' + (l.dt ? '<b>' + l.km + '</b>' : l.km ) + '</td>\n' +
-                '<td>' + (l.dt ? '<b>' + l.mi + '</b>' : l.mi ) + '</td>\n' +
+                '<td class="txt_r personalise">' + (l.dt ? '<b>' + l.km + '</b>' : l.km ) + '</td>\n' +
+                '<td class="txt_r personalise">' + (l.dt ? '<b>' + l.mi + '</b>' : l.mi ) + '</td>\n' +
                 '</tr>\n';
             imgmap +=
                 '<area alt="' + l.name + '" title="' + l.name + '" shape="circle" href="' + base_url + 'listeners/' + l.id + '" coords="' + l.x + ',' + l.y + ',4" data-map="' + l.id + '" />\n';

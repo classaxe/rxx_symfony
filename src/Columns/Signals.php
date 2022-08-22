@@ -284,8 +284,8 @@ class Signals
                 'labelSort' =>  '',
                 'order'     =>  'a',
                 'sort'      =>  'range_km',
-                'td_class'  =>  'txt_r monospace',
-                'th_class'  =>  '',
+                'td_class'  =>  'txt_r monospace personalise',
+                'th_class'  =>  'txt_r',
                 'tooltip'   =>  'Kilometers from GSQ',
             ],
             'range_mi' => [
@@ -297,8 +297,8 @@ class Signals
                 'labelSort' =>  '',
                 'order'     =>  'a',
                 'sort'      =>  'range_mi',
-                'td_class'  =>  'txt_r monospace',
-                'th_class'  =>  '',
+                'td_class'  =>  'txt_r monospace personalise',
+                'th_class'  =>  'txt_r',
                 'tooltip'   =>  'Miles from GSQ',
             ],
             'range_deg' => [
@@ -310,8 +310,8 @@ class Signals
                 'labelSort' =>  '',
                 'order'     =>  'a',
                 'sort'      =>  'range_deg',
-                'td_class'  =>  'txt_r monospace',
-                'th_class'  =>  '',
+                'td_class'  =>  'txt_r monospace personalise',
+                'th_class'  =>  'txt_r',
                 'tooltip'   =>  'Bearing relative to GSQ',
             ],
             'delete' => [
