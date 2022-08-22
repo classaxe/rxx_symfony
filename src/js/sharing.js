@@ -80,7 +80,7 @@ var shareableLink = {
             this.getFromRadioGroup('has_logs', [ 'N', 'Y' ]) +
             this.getFromRadioGroup('has_map_pos', [ 'N', 'Y' ]) +
             (this.getFromField('timezone') !== '&timezone=ALL' ? this.getFromField('timezone') : '') +
-            this.getFromField('status', [ 'N', 'Y', '30D', '3M', '6M', '1Y', '2Y', '5Y' ], 'A') +
+            this.getFromField('status', [ 'N', 'Y', '1D', '5D', '10D', '20D', '30D', '3M', '6M', '1Y', '2Y', '5Y' ], 'A') +
             this.getFromField('equipment') +
             this.getFromField('notes') +
             this.getFromPagingControls(500) +

@@ -166,7 +166,7 @@ class Collection extends Base
         }
         $this->setValueFromRequest($args, $request, 'show', ['list', 'map'], 'a');
         $this->setTimezoneFromRequest($args, $request);
-        $this->setValueFromRequest($args, $request, 'status', ['', 'N', 'Y', '30D', '3M', '6M', '1Y', '2Y', '5Y'], 'A');
+        $this->setValueFromRequest($args, $request, 'status', ['', 'N', 'Y', '1D', '5D', '10D', '20D', '30D', '3M', '6M', '1Y', '2Y', '5Y'], 'A');
         $this->setValueFromRequest($args, $request, 'country', false, 'A');
         $this->setValueFromRequest($args, $request, 'rxx_id');
         $this->setValueFromRequest($args, $request, 'q');

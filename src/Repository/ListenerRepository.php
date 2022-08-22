@@ -350,6 +350,7 @@ class ListenerRepository extends ServiceEntityRepository
 
     private function addFilterStatus(&$qb, $args)
     {
+        $number = (int)$args['status'];
         switch ($args['status']) {
             case 'Y':
                 $qb->andWhere('(l.active = \'Y\')');
@@ -357,33 +358,25 @@ class ListenerRepository extends ServiceEntityRepository
             case 'N':
                 $qb->andWhere('(l.active = \'N\')');
                 break;
+            case '1D':
+            case '5D':
+            case '10D':
+            case '20D':
             case '30D':
-                $recent = (new DateTime())->modify('-30 day')->format('Y-m-d');
+                $recent = (new DateTime())->modify('-' . $number . ' day')->format('Y-m-d');
                 $qb->andWhere('(l.active = \'Y\')');
                 $qb->andWhere('(l.logLatest >= \'' . $recent .'\')');
                 break;
             case '3M':
-                $recent = (new DateTime())->modify('-3 month')->format('Y-m-d');
-                $qb->andWhere('(l.active = \'Y\')');
-                $qb->andWhere('(l.logLatest >= \'' . $recent .'\')');
-                break;
             case '6M':
-                $recent = (new DateTime())->modify('-6 month')->format('Y-m-d');
+                $recent = (new DateTime())->modify('-' . $number . ' month')->format('Y-m-d');
                 $qb->andWhere('(l.active = \'Y\')');
                 $qb->andWhere('(l.logLatest >= \'' . $recent .'\')');
                 break;
             case '1Y':
-                $recent = (new DateTime())->modify('-1 year')->format('Y-m-d');
-                $qb->andWhere('(l.active = \'Y\')');
-                $qb->andWhere('(l.logLatest >= \'' . $recent .'\')');
-                break;
             case '2Y':
-                $recent = (new DateTime())->modify('-2 year')->format('Y-m-d');
-                $qb->andWhere('(l.active = \'Y\')');
-                $qb->andWhere('(l.logLatest >= \'' . $recent .'\')');
-                break;
             case '5Y':
-                $recent = (new DateTime())->modify('-5 year')->format('Y-m-d');
+                $recent = (new DateTime())->modify('-' . $number . ' year')->format('Y-m-d');
                 $qb->andWhere('(l.active = \'Y\')');
                 $qb->andWhere('(l.logLatest >= \'' . $recent .'\')');
                 break;
