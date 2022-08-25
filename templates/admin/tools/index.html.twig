@@ -89,6 +89,14 @@
                     </li>
                 </ul>
             </li>
+            <li>{% trans %}Developer Testing{% endtrans %}:
+                <ul>
+                    <li><a class="button" href="{{ url('admin/tools', {'system' : system, 'tool' : 'test'}) }}">{% trans %}Go{% endtrans %}</a>
+                        <strong>{% trans %}Timezone Daytime test{% endtrans %}</strong>
+                        {% trans %}(run if your name is Martin and you are testing things){% endtrans %}
+                    </li>
+                </ul>
+            </li>
         </ol>
     </div>
     <script>

@@ -859,10 +859,11 @@ EOD;
             logs.listenerID = l.ID
         SET
             daytime = IF(
-                (logs.time + 2400 >= 3400 + (l.timezone * -100)) AND
-                (logs.time + 2400 < 3800 + (l.timezone * -100)),
-                1, 0
-            )
+		        (logs.time + (l.timezone * 100) + 2400) % 2400 >= 1000 AND
+		        (logs.time + (l.timezone * 100) + 2400) % 2400 < 1400,
+                1,
+                0
+	        )
         $where
 EOD;
         $stmt = $this->connection->prepare($sql);

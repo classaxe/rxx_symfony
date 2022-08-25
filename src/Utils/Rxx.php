@@ -65,6 +65,10 @@ class Rxx
         ];
     }
 
+    public static function convertHtoHHHH($value) {
+        return ($value < 0 ? '-' : '') . substr('00', 0, 2 - strlen(abs($value))) . abs($value) . '00';
+    }
+
     public static function convertMMMtoMM($value) {
         $months = explode(',', 'JAN,FEB,MAR,APR,MAY,JUN,JUL,AUG,SEP,OCT,NOV,DEC');
         $idx = array_search(strToUpper($value), $months);
@@ -73,7 +77,6 @@ class Rxx
         }
         return str_pad((1 + $idx), 2, '0', STR_PAD_LEFT);
     }
-
 
     public static function debug($var)
     {
@@ -100,6 +103,10 @@ class Rxx
     public function getGitTag()
     {
         return exec('git describe --tags');
+    }
+
+    public static function isDaytime($hhmm, $timezone) {
+        return ($hhmm + ($timezone * 100) + 2400) % 2400 >= 1000 && ($hhmm + ($timezone * 100) + 2400) % 2400 < 1400;
     }
 
     public static function y($var)

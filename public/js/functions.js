@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.50.12
- * Date:       2022-08-22
+ * Version:    2.50.13
+ * Date:       2022-08-25
  * Licence:    LGPL
  * Copyright:  2022 Martin Francis
  */
@@ -1469,7 +1469,9 @@ var LOG_EDIT = {
         if (hhmm.length !== 4) {
             isDaytime = 0;
         } else {
-            isDaytime = (parseInt(hhmm) + 2400 >= (tz * -100) + 3400 && parseInt(hhmm) + 2400 <  (tz * -100) + 3800) ? 1 : 0;
+            isDaytime =
+                (parseInt(hhmm) + (tz * 100) + 2400) % 2400 >= 1000
+                && (parseInt(hhmm) + (tz * 100) + 2400) % 2400 < 1400 ? 1 : 0;
         }
         $('#form_daytime').val(isDaytime);
     }

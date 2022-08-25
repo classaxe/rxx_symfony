@@ -1121,9 +1121,8 @@ class Listener
         if (!is_numeric($hhmm)) {
             return false;
         }
-        return
-            $hhmm + 2400 >= ($this->timezone * -100) + 3400 &&
-            $hhmm + 2400 <  ($this->timezone * -100) + 3800;
+        return ($hhmm + ($this->timezone * 100) + 2400) % 2400 >= 1000
+            && ($hhmm + ($this->timezone * 100) + 2400) % 2400 < 1400;
     }
 
 }

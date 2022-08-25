@@ -86,6 +86,8 @@ class Tools extends Base
                 return $this->systemGeoIpTest();
             case 'usersStats':
                 return $this->userStats();
+            case 'test':
+                return $this->test();
         }
         $this->session->set('lastError', '');
         $this->session->set('lastMessage', '');
@@ -248,6 +250,38 @@ class Tools extends Base
                 '/(^Array|^\\(\n|^\\)\n|^\s*)/m',
                 '', print_r($result, true))."</pre>";
         $this->session->set('lastMessage', $message);
+
+        return $this->redirectToRoute('admin/tools', [ 'system' => $this->system ]);
+    }
+
+    private function test() {
+        $result =
+            "<table border='1' cellpadding='1' cellspacing='0' style='font-size: 6pt;'>"
+            . "    <thead>"
+            . "        <tr>"
+            . "            <td rowspan='2'>&nbsp;</td>"
+            . "            <th colspan='24' style='text-align: center'>UTC</th>"
+            . "        </tr>"
+            . "        <tr>";
+        for ($i = 0; $i < 24; $i++){
+            $UTC = Rxx::convertHtoHHHH($i);
+            $result .= "<th>" . $UTC . "</th>";
+        }
+        $result .= "</tr></thead><tbody>";
+
+        for ($j = -12; $j <= 12; $j++) {
+            $ZULU = Rxx::convertHtoHHHH($j);
+            $result .= "<tr><th>" . $ZULU . "</th>";
+            for ($i=0; $i<24; $i++){
+                $UTC = Rxx::convertHtoHHHH($i);
+                $DT = (Rxx::isDaytime($UTC, $j) ? 'Y' : '');
+                $result .= "<td>" . $DT . "</td>";
+            }
+            $result .= "</tr>";
+        }
+        $result .= "</tr></tbody></table>";
+
+        $this->session->set('lastMessage', $result);
 
         return $this->redirectToRoute('admin/tools', [ 'system' => $this->system ]);
     }
