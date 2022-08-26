@@ -43,7 +43,7 @@
             elseif key == 'uploader' and not isAdmin
         %}{{ ls.uploader|raw }}{%
             elseif key == 'listener'
-        %}<a href="{{ url('listener_logsessions', { 'system' : system, 'id' : ls.listenerId }) }}" data-popup="1" title="Click to view Log Sessions for this Listener Location">{{ ls.listener|raw }}</a>{%
+        %}<a href="{{ url('listener_logsessions', { 'system' : system, 'id' : ls.listenerId }) }}" data-popup="1" title="Click to view Log Sessions for this Listener Location">{{ ls.listener|raw }}</a>{% if ls.operator and ls.website %} [<a href="{{ ls.website }}" data-popup="www_{{ ls.listenerId }}|width=800,height=640,status=1,scrollbars=1,resizable=1">Link</a>]{% endif %}{%
             elseif key == 'signals'
         %}<a href="{{ url('logsession_signals', { 'system' : system, 'id' : ls.id }) }}" data-popup="1" title="Click to view Signals for this Log Session">{{ ls.signals }}</a>{%
             elseif key == 'map'

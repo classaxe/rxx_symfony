@@ -61,7 +61,7 @@ class Logsessions
                 'admin'     =>  false,
                 'arg'       =>  '',
                 'field'     =>  'listener',
-                'label'     =>  'Listener | Location',
+                'label'     =>  'Listener | Location | Link (if remote)',
                 'order'     =>  'a',
                 'sort'      =>  'li.name',
                 'td_class'  =>  '',

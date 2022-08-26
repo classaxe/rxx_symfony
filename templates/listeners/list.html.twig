@@ -100,7 +100,7 @@
                 elseif key == 'email'
                     %}{% if l.email %}<a href="mailto:{{ l.email }}">{{ l.email|raw }}</a>{% endif %}{%
                 elseif key == 'website'
-                    %}{% if l.website %}<a href="{{ l.website }}" data-popup="www_{{ l.id }}|width=640,height=480,status=1,scrollbars=1,resizable=1">{% trans %}Link...{% endtrans %}</a>{% endif %}{%
+                    %}{% if l.website %}<a href="{{ l.website }}" data-popup="www_{{ l.id }}|width=800,height=640,status=1,scrollbars=1,resizable=1">{% trans %}Link...{% endtrans %}</a>{% endif %}{%
                 elseif key == 'countRemoteLogSessions'
                     %}{% if l.countSignals %}<a href="{{ url('listener_remote_logsessions', { 'system' : system, 'id' : l.ID }) }}" data-popup="1">{{ value }}</a>{% endif %}{%
                 elseif key == 'addlog'
