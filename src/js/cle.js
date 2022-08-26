@@ -72,8 +72,8 @@ var cle = {
             diffDays = Math.floor(diffMs / 86400000); // days
             diffHrs = Math.floor((diffMs % 86400000) / 3600000); // hours
             diffMins = Math.floor(((diffMs % 86400000) % 3600000) / 60000); // minutes
-            diffMsg = '(Ends in ' + (diffDays > 0 ? diffDays + ' days, ' : '') + diffHrs + ' hours and ' + diffMins + ' minutes)';
-            $('#cleEnds').text(diffMsg);
+            diffMsg = '(Ends in ' + (diffDays > 0 ? diffDays + ' days, ' : '') + diffHrs + ' hrs and ' + diffMins + ' mins<sup>*</sup>)';
+            $('#cleEnds').html(diffMsg);
         } else {
             $('.cle').hide();
         }

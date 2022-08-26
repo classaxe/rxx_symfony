@@ -1,7 +1,7 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.51.1
+ * Version:    2.51.3
  * Date:       2022-08-26
  * Licence:    LGPL
  * Copyright:  2022 Martin Francis
@@ -257,8 +257,8 @@ var cle = {
             diffDays = Math.floor(diffMs / 86400000); // days
             diffHrs = Math.floor((diffMs % 86400000) / 3600000); // hours
             diffMins = Math.floor(((diffMs % 86400000) % 3600000) / 60000); // minutes
-            diffMsg = '(Ends in ' + (diffDays > 0 ? diffDays + ' days, ' : '') + diffHrs + ' hours and ' + diffMins + ' minutes)';
-            $('#cleEnds').text(diffMsg);
+            diffMsg = '(Ends in ' + (diffDays > 0 ? diffDays + ' days, ' : '') + diffHrs + ' hrs and ' + diffMins + ' mins<sup>*</sup>)';
+            $('#cleEnds').html(diffMsg);
         } else {
             $('.cle').hide();
         }
