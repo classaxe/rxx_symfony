@@ -19,7 +19,7 @@
     </p>
     <hr>
     <h2>{{ mode }}</h2>
-    <p><strong>{% trans %}Dates:{% endtrans %}</strong> {{ cle.dateTimespan }}<br />
+    <p><strong>{% trans %}Dates:{% endtrans %}</strong> {{ cle.dateTimespan|raw }}<br />
     <strong>{% trans %}Scope:{% endtrans %}</strong> {{ cle.scope|raw }}<br />
     {% if (cle.additional) %}<strong>{% trans %}Details:{% endtrans %}</strong> {{ cle.additional|unescape|raw|replace({'<p>' : '', '</p>' : ''})|raw }}{% endif %}
 

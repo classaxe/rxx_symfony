@@ -4,12 +4,12 @@
         <a href="{{ url('cle', { 'system' : system}) }}">CLE {{ cle.cle }}</a> is Active!
         <small id="cleEnds"></small>
         <span class="section_toggle">
-            <span id="section_clebanner_show">[+]</span>
-            <span id="section_clebanner_hide">[-]</span>
+            <span id="section_clebanner_show" title="Show Details">[+]</span>
+            <span id="section_clebanner_hide" title="Hide Details">[-]</span>
         </span>
     </h2>
     <table class="results" id="section_clebanner" style="display: none">
-        <tr><th>Dates:</th><td>{{ cle.dateTimespan }}</td></tr>
+        <tr><th>Dates:</th><td>{{ cle.dateTimespan|raw }}</td></tr>
         <tr><th>Scope:</th><td>{{ cle.scope|raw }}</td></tr>
         <tr><th>Range:</th><td>{% if system == 'reu'
             %}<a href="{{ path('signals', { 'system' : system } )}}?{{ cleUrls.reu.0 }}">{{ cle.europeRange1Low }} - {{ cle.europeRange1High }}KHz</a>{%
