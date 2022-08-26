@@ -40,7 +40,7 @@
             elseif key == 'listener'
         %}<a href="{{ url('listener', { 'system' : system, 'id' : ls.listenerId }) }}" data-popup="1" title="Click to view Profile for this Listener Location">{{ ls.listener|raw }}</a>{%
             elseif key == 'receiver'
-        %}{% if ls.operatorId %}<a href="{{ url('listener', { 'system' : system, 'id': ls.listenerId }) }}" data-popup="1" title="Click to view profile for this receiver">{{ ls.listener|raw }}</a>{% endif %}{%
+        %}{% if ls.operatorId %}<a href="{{ url('listener', { 'system' : system, 'id': ls.listenerId }) }}" data-popup="1" title="Click to view profile for this receiver">{{ ls.listener|raw }}</a>{% if ls.operator and ls.website %} [<a href="{{ ls.website }}" data-popup="www_{{ ls.listenerId }}|width=800,height=640,status=1,scrollbars=1,resizable=1">Link</a>]{% endif %}{% endif %}{%
             elseif key == 'operator'
         %}{%  if ls.operatorId %}<a href="{{ url('listener', { 'system' : system, 'id': ls.operatorId }) }}" data-popup="1" title="Click to view profile for this operator">{{ ls.operator|raw }}</a>{% endif %}{%
             elseif key == 'signals'

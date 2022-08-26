@@ -72,7 +72,7 @@ class ListenerRemoteLogsessions
                 'admin'     =>  false,
                 'arg'       =>  '',
                 'field'     =>  'listener',
-                'label'     =>  'Receiver',
+                'label'     =>  'Receiver [link]',
                 'order'     =>  'a',
                 'sort'      =>  'listener',
                 'td_class'  =>  '',
