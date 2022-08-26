@@ -13,6 +13,9 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class Collection extends Base
 {
+    private $filename;
+    private $system;
+
     /**
      * @Route(
      *     "/{system}/listeners",
@@ -55,6 +58,7 @@ class Collection extends Base
         Request $request,
         Form $form
     ) {
+        $this->system =     $system;
         $isAdmin = $this->parameters['isAdmin'];
         $args = [
             'isAdmin' =>    $isAdmin,
@@ -152,13 +156,51 @@ class Collection extends Base
             $parameters['latestListeners'] =    $this->listenerRepository->getLatestLoggedListeners($system);
             $parameters['latestLogs'] =         $this->listenerRepository->getLatestLogs($system);
         }
+        if (isset($args['show'])) {
+            switch($args['show']) {
+                case 'csv':
+                    return $this->renderCsv($parameters);
+                case 'kml':
+                    return $this->renderKml($parameters);
+                case 'txt':
+                    return $this->renderTxt($parameters);
+            }
+        }
+
         return $this->render('listeners/index.html.twig', $this->getMergedParameters($parameters));
+    }
+
+    private function renderCsv($parameters)
+    {
+        $filename = ($this->filename ?: $this->system .'_listeners.csv');
+        $response = $this->render("listeners/export/listeners.csv.twig", $this->getMergedParameters($parameters));
+        $response->headers->set('Content-Type', 'text/plain');
+        $response->headers->set('Content-Disposition',"attachment;filename={$filename}");
+        return $response;
+    }
+
+    private function renderKml($parameters)
+    {
+        $filename = ($this->filename ?: $this->system .'_listeners.kml');
+        $response = $this->render("listeners/export/listeners.kml.twig", $this->getMergedParameters($parameters));
+        $response->headers->set('Content-Type', 'application/vnd.google-earth.kml+xml');
+        $response->headers->set('Content-Disposition',"attachment;filename={$filename}");
+        return $response;
+    }
+
+    private function renderTxt($parameters)
+    {
+        $filename = ($this->filename ?: $this->system .'_listeners.txt');
+        $response = $this->render("listeners/export/listeners.txt.twig", $this->getMergedParameters($parameters));
+        $response->headers->set('Content-Type', 'text/plain');
+        $response->headers->set('Content-Disposition',"attachment;filename={$filename}");
+        return $response;
     }
 
     private function setArgsFromRequest(&$args, $request, $withPageNumber = true)
     {
         $this->setPagingFromRequest($args, $request, $withPageNumber);
-        $this->setValueFromRequest($args, $request, 'show', ['list', 'map'], 'a');
+        $this->setValueFromRequest($args, $request, 'show', ['csv', 'list', 'map'], 'a');
 
         $this->setValueFromRequest($args, $request, 'q');
         $this->setTypeFromRequest($args, $request);
@@ -169,8 +211,8 @@ class Collection extends Base
         $this->setTimezoneFromRequest($args, $request);
 
         $this->setValueFromRequest($args, $request, 'status', ['', 'N', 'Y', '1D', '5D', '10D', '20D', '30D', '3M', '6M', '1Y', '2Y', '5Y'], 'A');
-        $this->setValueFromRequest($args, $request, 'loctype', ['Y', 'N'], 'a');
-        $this->setValueFromRequest($args, $request, 'multiop', ['Y', 'N'], 'a');
+        $this->setValueFromRequest($args, $request, 'loctype', ['Y', 'N'], 'A');
+        $this->setValueFromRequest($args, $request, 'multiop', ['Y', 'N'], 'A');
         $this->setValueFromRequest($args, $request, 'equipment');
         $this->setValueFromRequest($args, $request, 'rxx_id');
         $this->setValueFromRequest($args, $request, 'notes');
@@ -178,5 +220,6 @@ class Collection extends Base
             $this->setValueFromRequest($args, $request, 'has_map_pos', ['', 'N', 'Y'], 'A');
             $this->setValueFromRequest($args, $request, 'has_logs', ['', 'N', 'Y'], 'A');
         }
+        $this->setValueFromRequest($args, $request, 'filename');
     }
 }

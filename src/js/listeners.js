@@ -32,6 +32,45 @@ var LISTENERS_FORM = {
     },
 
     setActions : function() {
+        $('#btn_csv_fil').click(function () {
+            var filename = prompt('Filename', system + '_listeners.csv');
+            if (filename === null) {
+                return;
+            }
+            var form_show = $('#form_show');
+            var form_filename = $('#form_filename');
+            var show = form_show.val();
+            form_show.val('csv');
+            form_filename.val(filename);
+            $('#form_submit').click();
+            form_show.val(show);
+        });
+        $('#btn_txt_fil').click(function () {
+            var filename = prompt('Filename', system + '_listeners.txt');
+            if (filename === null) {
+                return;
+            }
+            var form_show = $('#form_show');
+            var form_filename = $('#form_filename');
+            var show = form_show.val();
+            form_show.val('txt');
+            form_filename.val(filename);
+            $('#form_submit').click();
+            form_show.val(show);
+        });
+        $('#btn_kml_fil').click(function () {
+            var filename = prompt('Filename', system + '_listeners.kml');
+            if (filename === null) {
+                return;
+            }
+            var form_show = $('#form_show');
+            var form_filename = $('#form_filename');
+            var show = form_show.val();
+            form_show.val('kml');
+            form_filename.val(filename);
+            $('#form_submit').click();
+            form_show.val(show);
+        });
         $('#btn_prt').click(function () {
             window.print();
             return false;

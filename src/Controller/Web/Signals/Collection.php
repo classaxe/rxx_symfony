@@ -121,17 +121,19 @@ class Collection extends Base
             'typeRepository' =>     $this->typeRepository
         ];
 
-        if (isset($this->args['show']) && $this->args['show'] === 'csv') {
-            return $this->renderCsv($parameters);
-        }
-        if (isset($this->args['show']) && $this->args['show'] === 'kml') {
-            return $this->renderKml($parameters);
-        }
-        if (isset($this->args['show']) && $this->args['show'] === 'txt') {
-            return $this->renderTxt($parameters);
-        }
-        if ($this->request->isXmlHttpRequest() && isset($this->args['show']) && $this->args['show'] === 'list') {
-            return $this->renderJsonList($parameters);
+        if (isset($this->args['show'])) {
+            switch($this->args['show']) {
+                case 'csv':
+                    return $this->renderCsv($parameters);
+                case 'kml':
+                    return $this->renderKml($parameters);
+                case 'txt':
+                    return $this->renderTxt($parameters);
+                case 'list':
+                    if ($this->request->isXmlHttpRequest()) {
+                        return $this->renderJsonList($parameters);
+                    }
+            }
         }
         return $this->render('signals/index.html.twig', $this->getMergedParameters($parameters));
     }
@@ -180,7 +182,7 @@ class Collection extends Base
 
     private function renderCsv($parameters)
     {
-        $filename = ($this->filename ? $this->filename : $this->system .'_signals.csv');
+        $filename = ($this->filename ?: $this->system .'_signals.csv');
         $response = $this->render("signals/export/signals.csv.twig", $this->getMergedParameters($parameters));
         $response->headers->set('Content-Type', 'text/plain');
         $response->headers->set('Content-Disposition',"attachment;filename={$filename}");
@@ -205,7 +207,7 @@ class Collection extends Base
 
     private function renderKml($parameters)
     {
-        $filename = ($this->filename ? $this->filename : $this->system .'_signals.kml');
+        $filename = ($this->filename ?: $this->system .'_signals.kml');
         $response = $this->render("signals/export/signals.kml.twig", $this->getMergedParameters($parameters));
         $response->headers->set('Content-Type', 'application/vnd.google-earth.kml+xml');
         $response->headers->set('Content-Disposition',"attachment;filename={$filename}");
@@ -214,7 +216,7 @@ class Collection extends Base
 
     private function renderTxt($parameters)
     {
-        $filename = ($this->filename ? $this->filename : $this->system .'_signals.txt');
+        $filename = ($this->filename ?: $this->system .'_signals.txt');
         $response = $this->render("signals/export/signals.txt.twig", $this->getMergedParameters($parameters));
         $response->headers->set('Content-Type', 'text/plain');
         $response->headers->set('Content-Disposition',"attachment;filename={$filename}");

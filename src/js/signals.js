@@ -108,19 +108,6 @@ var SIGNALS_FORM = {
             $('#form_submit').click();
             form_show.val(show);
         });
-        $('#btn_kml_fil').click(function () {
-            var filename = prompt('Filename', system + '_signals.kml');
-            if (filename === null) {
-                return;
-            }
-            var form_show = $('#form_show');
-            var form_filename = $('#form_filename');
-            var show = form_show.val();
-            form_show.val('kml');
-            form_filename.val(filename);
-            $('#form_submit').click();
-            form_show.val(show);
-        });
         $('#btn_txt_fil').click(function () {
             var filename = prompt('Filename', system + '_signals.txt');
             if (filename === null) {
@@ -130,6 +117,19 @@ var SIGNALS_FORM = {
             var form_filename = $('#form_filename');
             var show = form_show.val();
             form_show.val('txt');
+            form_filename.val(filename);
+            $('#form_submit').click();
+            form_show.val(show);
+        });
+        $('#btn_kml_fil').click(function () {
+            var filename = prompt('Filename', system + '_signals.kml');
+            if (filename === null) {
+                return;
+            }
+            var form_show = $('#form_show');
+            var form_filename = $('#form_filename');
+            var show = form_show.val();
+            form_show.val('kml');
             form_filename.val(filename);
             $('#form_submit').click();
             form_show.val(show);

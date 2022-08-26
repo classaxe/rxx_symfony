@@ -139,14 +139,17 @@ var shareableLink = {
 };
 
 function shareListeners() {
-    var url = shareableLink.listenersUrl();
     var dialog = $('#dialog');
     dialog
         .html(
             '<p>' + msg.share.listeners.text1 +'<br>' + msg.share.listeners.text2 +'</p>' +
             '<ul>' +
-            '<li><a style="color:#0000ff" href="' + url + '">' + msg.share.listeners.links.list + '</a></li>' +
-            '<li><a style="color:#0000ff" href="' + url + '&show=map">' + msg.share.listeners.links.map + '</a></li>' +
+            '<li><a style="color:#0000ff" href="' + shareableLink.listenersUrl() + '">' + msg.share.listeners.links.list + '</a></li>' +
+            '<li><a style="color:#0000ff" href="' + shareableLink.listenersUrl('&show=map') + '">' + msg.share.listeners.links.map + '</a></li>' +
+            '</ul>' +
+            '<p style="margin:0"><strong>' + msg.share.listeners.links.export + '</strong></p>' +
+            '<ul style="margin-bottom:0">' +
+            '<li><a style="color:#0000ff" href="' + shareableLink.listenersUrl('&show=csv') + '">listeners.csv</a></li>' +
             '</ul>')
         .dialog({
             buttons: [{
@@ -166,21 +169,20 @@ function shareListeners() {
 }
 
 function shareSignals() {
-    var url = shareableLink.signalsUrl();
     var dialog = $('#dialog');
     dialog
         .html(
             '<p style="margin:0">' + msg.share.signals.text1 +'<br>' + msg.share.signals.text2 +'</p>' +
             '<ul>' +
-            '<li><a style="color:#0000ff" href="' + url + '">' + msg.share.signals.links.list + '</a></li>' +
-            '<li><a style="color:#0000ff" href="' + url + '&show=seeklist">' + msg.share.signals.links.seeklist + '</a></li>' +
-            '<li><a style="color:#0000ff" href="' + url + '&show=map">' + msg.share.signals.links.map + '</a></li>' +
+            '<li><a style="color:#0000ff" href="' + shareableLink.signalsUrl() + '">' + msg.share.signals.links.list + '</a></li>' +
+            '<li><a style="color:#0000ff" href="' + shareableLink.signalsUrl('&show=seeklist') + '">' + msg.share.signals.links.seeklist + '</a></li>' +
+            '<li><a style="color:#0000ff" href="' + shareableLink.signalsUrl('&show=map') + '">' + msg.share.signals.links.map + '</a></li>' +
             '</ul>' +
             '<p style="margin:0"><strong>' + msg.share.signals.links.export + '</strong></p>' +
             '<ul style="margin-bottom:0">' +
-            '<li><a style="color:#0000ff" href="' + url + '&show=csv">signals.csv</a></li>' +
-            '<li><a style="color:#0000ff" href="' + url + '&show=kml">signals.kml</a></li>' +
-            '<li><a style="color:#0000ff" href="' + url + '&show=txt">signals.txt</a></li>' +
+            '<li><a style="color:#0000ff" href="' + shareableLink.signalsUrl('&show=csv') + '">signals.csv</a></li>' +
+            '<li><a style="color:#0000ff" href="' + shareableLink.signalsUrl('&show=txt') + '">signals.txt</a></li>' +
+            '<li><a style="color:#0000ff" href="' + shareableLink.signalsUrl('&show=kml') + '">signals.kml</a></li>' +
             '</ul>')
         .dialog({
             buttons: [{

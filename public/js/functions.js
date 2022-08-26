@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.50.13
- * Date:       2022-08-25
+ * Version:    2.51.0
+ * Date:       2022-08-26
  * Licence:    LGPL
  * Copyright:  2022 Martin Francis
  */
@@ -1179,6 +1179,45 @@ var LISTENERS_FORM = {
     },
 
     setActions : function() {
+        $('#btn_csv_fil').click(function () {
+            var filename = prompt('Filename', system + '_listeners.csv');
+            if (filename === null) {
+                return;
+            }
+            var form_show = $('#form_show');
+            var form_filename = $('#form_filename');
+            var show = form_show.val();
+            form_show.val('csv');
+            form_filename.val(filename);
+            $('#form_submit').click();
+            form_show.val(show);
+        });
+        $('#btn_txt_fil').click(function () {
+            var filename = prompt('Filename', system + '_listeners.txt');
+            if (filename === null) {
+                return;
+            }
+            var form_show = $('#form_show');
+            var form_filename = $('#form_filename');
+            var show = form_show.val();
+            form_show.val('txt');
+            form_filename.val(filename);
+            $('#form_submit').click();
+            form_show.val(show);
+        });
+        $('#btn_kml_fil').click(function () {
+            var filename = prompt('Filename', system + '_listeners.kml');
+            if (filename === null) {
+                return;
+            }
+            var form_show = $('#form_show');
+            var form_filename = $('#form_filename');
+            var show = form_show.val();
+            form_show.val('kml');
+            form_filename.val(filename);
+            $('#form_submit').click();
+            form_show.val(show);
+        });
         $('#btn_prt').click(function () {
             window.print();
             return false;
@@ -2329,14 +2368,17 @@ var shareableLink = {
 };
 
 function shareListeners() {
-    var url = shareableLink.listenersUrl();
     var dialog = $('#dialog');
     dialog
         .html(
             '<p>' + msg.share.listeners.text1 +'<br>' + msg.share.listeners.text2 +'</p>' +
             '<ul>' +
-            '<li><a style="color:#0000ff" href="' + url + '">' + msg.share.listeners.links.list + '</a></li>' +
-            '<li><a style="color:#0000ff" href="' + url + '&show=map">' + msg.share.listeners.links.map + '</a></li>' +
+            '<li><a style="color:#0000ff" href="' + shareableLink.listenersUrl() + '">' + msg.share.listeners.links.list + '</a></li>' +
+            '<li><a style="color:#0000ff" href="' + shareableLink.listenersUrl('&show=map') + '">' + msg.share.listeners.links.map + '</a></li>' +
+            '</ul>' +
+            '<p style="margin:0"><strong>' + msg.share.listeners.links.export + '</strong></p>' +
+            '<ul style="margin-bottom:0">' +
+            '<li><a style="color:#0000ff" href="' + shareableLink.listenersUrl('&show=csv') + '">listeners.csv</a></li>' +
             '</ul>')
         .dialog({
             buttons: [{
@@ -2356,21 +2398,20 @@ function shareListeners() {
 }
 
 function shareSignals() {
-    var url = shareableLink.signalsUrl();
     var dialog = $('#dialog');
     dialog
         .html(
             '<p style="margin:0">' + msg.share.signals.text1 +'<br>' + msg.share.signals.text2 +'</p>' +
             '<ul>' +
-            '<li><a style="color:#0000ff" href="' + url + '">' + msg.share.signals.links.list + '</a></li>' +
-            '<li><a style="color:#0000ff" href="' + url + '&show=seeklist">' + msg.share.signals.links.seeklist + '</a></li>' +
-            '<li><a style="color:#0000ff" href="' + url + '&show=map">' + msg.share.signals.links.map + '</a></li>' +
+            '<li><a style="color:#0000ff" href="' + shareableLink.signalsUrl() + '">' + msg.share.signals.links.list + '</a></li>' +
+            '<li><a style="color:#0000ff" href="' + shareableLink.signalsUrl('&show=seeklist') + '">' + msg.share.signals.links.seeklist + '</a></li>' +
+            '<li><a style="color:#0000ff" href="' + shareableLink.signalsUrl('&show=map') + '">' + msg.share.signals.links.map + '</a></li>' +
             '</ul>' +
             '<p style="margin:0"><strong>' + msg.share.signals.links.export + '</strong></p>' +
             '<ul style="margin-bottom:0">' +
-            '<li><a style="color:#0000ff" href="' + url + '&show=csv">signals.csv</a></li>' +
-            '<li><a style="color:#0000ff" href="' + url + '&show=kml">signals.kml</a></li>' +
-            '<li><a style="color:#0000ff" href="' + url + '&show=txt">signals.txt</a></li>' +
+            '<li><a style="color:#0000ff" href="' + shareableLink.signalsUrl('&show=csv') + '">signals.csv</a></li>' +
+            '<li><a style="color:#0000ff" href="' + shareableLink.signalsUrl('&show=txt') + '">signals.txt</a></li>' +
+            '<li><a style="color:#0000ff" href="' + shareableLink.signalsUrl('&show=kml') + '">signals.kml</a></li>' +
             '</ul>')
         .dialog({
             buttons: [{
@@ -2829,19 +2870,6 @@ var SIGNALS_FORM = {
             $('#form_submit').click();
             form_show.val(show);
         });
-        $('#btn_kml_fil').click(function () {
-            var filename = prompt('Filename', system + '_signals.kml');
-            if (filename === null) {
-                return;
-            }
-            var form_show = $('#form_show');
-            var form_filename = $('#form_filename');
-            var show = form_show.val();
-            form_show.val('kml');
-            form_filename.val(filename);
-            $('#form_submit').click();
-            form_show.val(show);
-        });
         $('#btn_txt_fil').click(function () {
             var filename = prompt('Filename', system + '_signals.txt');
             if (filename === null) {
@@ -2851,6 +2879,19 @@ var SIGNALS_FORM = {
             var form_filename = $('#form_filename');
             var show = form_show.val();
             form_show.val('txt');
+            form_filename.val(filename);
+            $('#form_submit').click();
+            form_show.val(show);
+        });
+        $('#btn_kml_fil').click(function () {
+            var filename = prompt('Filename', system + '_signals.kml');
+            if (filename === null) {
+                return;
+            }
+            var form_show = $('#form_show');
+            var form_filename = $('#form_filename');
+            var show = form_show.val();
+            form_show.val('kml');
             form_filename.val(filename);
             $('#form_submit').click();
             form_show.val(show);

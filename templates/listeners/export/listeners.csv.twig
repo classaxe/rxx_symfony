@@ -1,0 +1,73 @@
+"{%
+    trans %}RXX ID{% endtrans %}","{%
+    trans %}Active{% endtrans %}","{%
+    trans %}Primary{% endtrans %}","{%
+    trans %}Multi-Op{% endtrans %}","{%
+    trans %}Name{% endtrans %}","{%
+    trans %}Callsign{% endtrans %}","{%
+    trans %}QTH{% endtrans %}","{%
+    trans %}SP{% endtrans %}","{%
+    trans %}ITU{% endtrans %}","{%
+    trans %}Region{% endtrans %}","{%
+    trans %}GSQ{% endtrans %}","{%
+    trans %}Lat{% endtrans %}","{%
+    trans %}Lon{% endtrans %}","{%
+    trans %}Timezone{% endtrans %}","{%
+    trans %}Equipment{% endtrans %}","{% if isAdmin %}{%
+    trans %}Notes{% endtrans %}","{% endif %}{%
+    trans %}Latest Upload{% endtrans %}","{%
+    trans %}Earliest Log{% endtrans %}","{%
+    trans %}Latest Log{% endtrans %}","{%
+    trans %}Log Sessions{% endtrans %}","{%
+    trans %}Total Logs{% endtrans %}","{%
+    trans %}DGPS{% endtrans %}","{%
+    trans %}DSC{% endtrans %}","{%
+    trans %}HAMBCN{% endtrans %}","{%
+    trans %}NAVTEX{% endtrans %}","{%
+    trans %}NDB{% endtrans %}","{%
+    trans %}TIME{% endtrans %}","{%
+    trans %}OTHER{% endtrans %}","{%
+    trans %}All Signals{% endtrans %}","{%
+    trans %}Remote Sessions{% endtrans %}","{%
+    trans %}Remote Logs{% endtrans %}","{% if isAdmin %}{%
+    trans %}Email{% endtrans %}","{% endif %}{%
+    trans %}Website{% endtrans %}"{% if isAdmin %},"{%
+    trans %}Map Pos{% endtrans %}"{% endif %}
+
+{% for l in listeners %}{{
+    l.id }},"{{
+    l.active ? 'Y' : 'N' }}","{{
+    l.primaryQth ? 'Y' : 'N' }}","{{
+    l.multiOperator ? 'Y' : 'N' }}","{{
+    l.name|raw }}","{{
+    l.callsign }}","{{
+    l.qth }}","{{
+    l.sp }}","{{
+    l.itu }}","{{
+    l.region }}","{{
+    l.gsq }}","{{
+    l.lat }}","{{
+    l.lon }}","{{
+    l.timezone|formatTimeZone }}","{{
+    l.equipment }}","{% if isAdmin %}{{
+    l.notes }}","{% endif %}{{
+    l.logSessionLatest|date('Y-m-d') }}","{{
+    l.logEarliest|date('Y-m-d') }}","{{
+    l.logLatest|date('Y-m-d') }}","{{
+    0 + l.countLogSessions }}","{{
+    0 + l.countLogs }}","{{
+    0 + l.countDgps }}","{{
+    0 + l.countDsc }}","{{
+    0 + l.countHambcn }}","{{
+    0 + l.countNavtex }}","{{
+    0 + l.countNdb }}","{{
+    0 + l.countTime }}","{{
+    0 + l.countOther }}","{{
+    0 + l.countSignals }}","{{
+    0 + l.countRemoteLogSessions }}","{{
+    0 + l.countRemoteLogs }}","{% if isAdmin %}{{
+    l.email|raw }}","{% endif %}{{
+    l.website|raw }}"{% if isAdmin %},"{{
+    l.formattedMapPos|raw }}"{% endif %}
+
+{% endfor %}
