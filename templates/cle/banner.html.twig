@@ -1,9 +1,16 @@
 {% if mode == 'Signals' %}
 <div style="display: none" class="cle header system">
-    <h2><a href="{{ url('cle', { 'system' : system}) }}">CLE {{ cle.cle }}</a> is Active! <small id="cleEnds"></small></h2>
-    <table class="results">
+    <h2>
+        <a href="{{ url('cle', { 'system' : system}) }}">CLE {{ cle.cle }}</a> is Active!
+        <small id="cleEnds"></small>
+        <span class="section_toggle">
+            <span id="section_clebanner_show">[+]</span>
+            <span id="section_clebanner_hide">[-]</span>
+        </span>
+    </h2>
+    <table class="results" id="section_clebanner" style="display: none">
         <tr><th>Dates:</th><td>{{ cle.dateTimespan }}</td></tr>
-        <tr><th>Scope:</th><td>{{ cle.scope }}</td></tr>
+        <tr><th>Scope:</th><td>{{ cle.scope|raw }}</td></tr>
         <tr><th>Range:</th><td>{% if system == 'reu'
             %}<a href="{{ path('signals', { 'system' : system } )}}?{{ cleUrls.reu.0 }}">{{ cle.europeRange1Low }} - {{ cle.europeRange1High }}KHz</a>{%
                 if cle.europeRange2Low %}, <a href="{{ path('signals', { 'system' : system } )}}?{{ cleUrls.reu.1 }}">{{ cle.europeRange2Low }} - {{ cle.europeRange2High }}KHz</a>{%
@@ -22,6 +29,7 @@
             %}, <a href="{{ path('signals', { 'system' : system } )}}?{{ cleUrls.rww.1 }}">{{ cle.worldRange2Low }} - {{ cle.worldRange2High }}KHz</a>{%
                 endif
             %}{% endif %}</td></tr>
+        {% if cle.additional %}<tr><th>Additional:</th><td>{{ cle.additional|raw }}</td></tr>{% endif %}
     </table>
 </div>
 {% endif %}

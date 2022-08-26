@@ -98,6 +98,10 @@ var COMMON_FORM = {
         );
     },
 
+    setCleHideShowActions: function() {
+        COMMON_FORM.setSectionToggleWithCookie('section_clebanner')
+    },
+
     setCreditsHideShowActions: function() {
         COMMON_FORM.setSectionToggleWithCookie('section_credits')
     },
