@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.50.12
- * Date:       2022-08-22
+ * Version:    2.51.6
+ * Date:       2022-08-27
  * Licence:    LGPL
  * Copyright:  2022 Martin Francis
  */
@@ -539,8 +539,8 @@ tr.dsc td {
 .menu-centered div.cle b {
   padding-right: 1em;
 }
-.menu-centered div.cle table.results th,
-.menu-centered div.cle table.results td {
+.menu-centered div.cle table.results_noaction th,
+.menu-centered div.cle table.results_noaction td {
   text-align: left;
   font-size: 60%;
   line-height: 1.5em;
