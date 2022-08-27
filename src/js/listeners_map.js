@@ -26,6 +26,8 @@ var LMap = {
         LMap.setActions();
         setExternalLinks();
         setClippedCellTitles();
+        nite.init(map);
+        setInterval(function() { nite.refresh() }, 10000); // every 10s
     },
 
     drawGrid : function() {
@@ -115,6 +117,14 @@ var LMap = {
             active = $('#layer_grid').prop('checked');
             for (i in layers.grid) {
                 layers.grid[i].setMap(active ? map : null);
+            }
+        });
+
+        $('#layer_night').click(function () {
+            if ($('#layer_night').prop('checked')) {
+                nite.show()
+            } else {
+                nite.hide();
             }
         });
 

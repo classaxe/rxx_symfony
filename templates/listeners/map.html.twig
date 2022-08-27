@@ -27,6 +27,7 @@ $(document).ready( function() {
 });
 // -->
 </script>
+<script src="{{ asset('js/nite-overlay/nite-overlay.js') }}"></script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCmvsfY0bgnVB-gl_nMHGQ71rp1WTz9tGM&callback=LMap.init"></script>
 <table class="map_layout">
     <tbody>
@@ -64,6 +65,12 @@ $(document).ready( function() {
                                 <label title="{% trans %}Show Maidenhead Locator Grid Squares{% endtrans %}">
                                     <input type="checkbox" id="layer_grid" checked="checked" />
                                     {% trans %}Grid{% endtrans %}
+                                </label>
+                            </div>
+                            <div>
+                                <label title="{% trans %}Show Daytime / Nighttime{% endtrans %}">
+                                    <input type="checkbox" id="layer_night" checked="checked" />
+                                    {% trans %}Night{% endtrans %}
                                 </label>
                             </div>
                             <div>

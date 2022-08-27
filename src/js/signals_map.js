@@ -40,6 +40,8 @@ var SMap = {
         SMap.setActions();
         setExternalLinks();
         setClippedCellTitles();
+        nite.init(SMap.map);
+        setInterval(function() { nite.refresh() }, 10000); // every 10s
     },
 
     drawGrid : function() {
@@ -181,6 +183,14 @@ var SMap = {
             active = $('#layer_grid').prop('checked');
             for (i in layers.grid) {
                 layers.grid[i].setMap(active ? SMap.map : null);
+            }
+        });
+
+        $('#layer_night').click(function () {
+            if ($('#layer_night').prop('checked')) {
+                nite.show()
+            } else {
+                nite.hide();
             }
         });
 
