@@ -1,5 +1,10 @@
 {% if (entries) %}
-{% if (multiOperator == 'Y') %}<p><strong>Operator:</strong> {{ operator.getFormattedNameAndLocation }}</p>{% endif %}
+{% if (multiOperator == 'Y' or comment) %}
+<div>
+    {% if (multiOperator == 'Y') %}<strong>Operator:</strong> {{ operator.getFormattedNameAndLocation }}{% endif %}
+    {% if comment %}<div class="float-right"><strong>Comment:</strong> {{ comment }}</div>{% endif %}
+</p>
+{% endif %}
 <h2>
     {% trans %}Review{% endtrans %} ({% trans with { '%COUNT%' : entries|length} %}%COUNT% Logs{% endtrans %})
     <div class="check-links">{% trans %}Select{% endtrans %} [

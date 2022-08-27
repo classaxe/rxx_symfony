@@ -178,6 +178,7 @@ class ListenerLogsUpload extends Base
             '_locale' =>            $_locale,
             'mode' =>               $title,
             'cle' =>                $this->cleRepository->find(1),
+            'comment' =>            $this->comment,
             'entries' =>            $this->entries,
             'errors' =>             $this->errors,
             'form' =>               $form->createView(),
@@ -288,15 +289,16 @@ class ListenerLogsUpload extends Base
         foreach($entries as $e) {
             $isPresent = false;
             if ($row = $this->logRepository->findDuplicate($e['signalID'], $listenerID, $e['YYYYMMDD'], $e['time'])) {
-                if ($operatorId === $row['operatorID']) {
+                if ((int)$operatorId === (int)$row['operatorID']) {
                     $stats['duplicates']++;
-                } else {
-                    $log = $this->logRepository->find($row['ID']);
-                    $log->setLogSessionId($sessionID)
-                        ->setOperatorId($operatorId ? (int)$operatorId : null);
-                    $this->getDoctrine()->getManager()->flush();
-                    $stats['grouped']++;
+                    $stats['logs']++;
+                    continue;
                 }
+                $log = $this->logRepository->find($row['ID']);
+                $log->setLogSessionId($sessionID)
+                    ->setOperatorId($operatorId ? (int)$operatorId : null);
+                $this->getDoctrine()->getManager()->flush();
+                $stats['grouped']++;
                 $isPresent = true;
             }
             $stats['logs']++;
@@ -358,7 +360,7 @@ class ListenerLogsUpload extends Base
             $logSession
                 ->setFirstLog(DateTime::createFromFormat('Y-m-d H:i:s', $stats['first_log']) ?? null)
                 ->setLastLog(DateTime::createFromFormat('Y-m-d H:i:s', $stats['last_log']) ?? null)
-                ->setLogs($stats['logs'])
+                ->setLogs($stats['logs'] - $stats['duplicates'])
                 ->setLogsDgps($stats['logs_dgps'])
                 ->setLogsDsc($stats['logs_dsc'])
                 ->setLogsHambcn($stats['logs_hambcn'])

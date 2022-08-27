@@ -181,7 +181,10 @@ function initListenersLogUploadForm() {
             e.preventDefault();
             return false;
         }
+        $('#form_back').attr('disabled', 'disabled');
+        $('#form_submitLog').attr('disabled', 'disabled');
         $('#form_step').val(3);
+        $('#form form').submit();
     });
 
     $('#copyDetails').on('click', function() {
