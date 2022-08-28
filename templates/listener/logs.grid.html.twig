@@ -36,7 +36,11 @@
             elseif key == 'id'
         %}{% if isAdmin %}<a href="{{ url('log', { 'system' : system, 'id' : l.log_id }) }}" data-popup="1" title="Click to view this log record">{{ l.log_id }}</a>{% else %}{{ l.log_id }}{% endif %}{%
             elseif key == 'receiver'
-        %}{% if l.operatorId %}<a href="{{ url('listener', { 'system' : system, 'id': l.listenerId }) }}" data-popup="1" title="Click to see profile for this Receiver">{{ l.receiver|raw }}</a>{% endif %}{%
+        %}{% if l.operatorId %}<a href="{{ url('listener', { 'system' : system, 'id': l.listenerId }) }}" data-popup="1" title="Click to see profile for this Receiver">{{ l.receiver|raw }}</a>{% endif %}
+            {% if l.operator and l.website %}
+                <span {% if l.active == 'Y' %}class="link" title="Click to access receiver"{% else %}class="inactive" title="Inactive receiver"{% endif %}>[<a href="{{ l.website }}" data-popup="www_{{ l.listenerId }}|width=800,height=640,status=1,scrollbars=1,resizable=1">RX Link</a>]</span>
+            {% endif
+        %}{%
             elseif key == 'operator'
         %}{% if l.operatorId %}<a href="{{ url('listener', { 'system' : system, 'id': l.operatorId }) }}" data-popup="1" title="Click to see profile for this Listener">{{ l.operator|raw }}</a>{% endif %}{%
             elseif key == 'delete' and isAdmin

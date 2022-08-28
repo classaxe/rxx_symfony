@@ -206,7 +206,9 @@ EOD;
             .'l.operatorId,'
             .'l.listenerId,'
             .'(CASE WHEN op.name IS NULL THEN \'\' ELSE op.name END) as operator,'
-            .'CONCAT(li.name, \', \', li.qth, \' \', li.sp, \', \', li.itu, \' | \', li.gsq) as receiver';
+            .'li.website,'
+            .'li.active,'
+            .'CONCAT(li.name, \', \', li.qth, \' \', li.sp, \', \', li.itu, \' \', li.gsq) as receiver';
 
         $qb = $this
             ->createQueryBuilder('l')

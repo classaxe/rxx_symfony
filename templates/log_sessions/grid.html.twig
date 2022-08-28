@@ -45,7 +45,7 @@
             elseif key == 'listener'
         %}<a href="{{ url('listener_logsessions', { 'system' : system, 'id' : ls.listenerId }) }}" data-popup="1" title="Click to view Log Sessions for this Listener Location">{{ ls.listener|raw }}</a>
             {% if ls.operator and ls.website %}
-                <span {% if ls.active == 'Y' %}class="link" title="Click to access receiver"{% else %}class="inactive" title="Inactive receiver"{% endif %}>[<a href="{{ ls.website }}" data-popup="www_{{ ls.listenerId }}|width=800,height=640,status=1,scrollbars=1,resizable=1">Link</a>]</span>
+                <span {% if ls.active == 'Y' %}class="link" title="Click to access receiver"{% else %}class="inactive" title="Inactive receiver"{% endif %}>[<a href="{{ ls.website }}" data-popup="www_{{ ls.listenerId }}|width=800,height=640,status=1,scrollbars=1,resizable=1">RX Link</a>]</span>
             {% endif
         %}{%
             elseif key == 'signals'
