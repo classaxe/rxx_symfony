@@ -186,7 +186,7 @@ class ListenerSignals
                 'field'     =>  'lastHeard',
                 'label'     =>  'Last Heard',
                 'order'     =>  'd',
-                'sort'      =>  'lastHeard',
+                'sort'      =>  's.lastHeard',
                 'td_class'  =>  'text-nowrap',
                 'th_class'  =>  '',
                 'tooltip'   =>  '',

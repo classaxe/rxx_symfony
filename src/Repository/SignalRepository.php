@@ -1077,6 +1077,7 @@ EOD;
             .'MIN(l.date) AS earliest,'
             .'MAX(l.date) AS latest';
 
+//        print "<pre>ARGS: ".print_r($args, true)."</pre>";
         $qb = $this
             ->createQueryBuilder('li')
             ->select($fields)
@@ -1126,16 +1127,17 @@ EOD;
 
         if (isset($args['sort']) && $columns[$args['sort']]['sort']) {
             $idx = $columns[$args['sort']];
+//            print "<pre>COLUMN: ".print_r($idx, true)."</pre>";
             $qb
                 ->addOrderBy(
                     ($idx['sort']),
-                    ($idx['order'] == 'd' ? 'DESC' : 'ASC')
+                    ($args['order'] === 'd' ? 'DESC' : 'ASC')
                 );
             if (isset($idx['sort_2']) && isset($idx['order_2'])) {
                 $qb
                     ->addOrderBy(
                         ($idx['sort_2']),
-                        ($idx['order_2'] == 'd' ? 'DESC' : 'ASC')
+                        ($args['order'] == 'd' ? 'DESC' : 'ASC')
                     );
             }
         }
@@ -1145,7 +1147,7 @@ EOD;
             $row['qth'] = str_replace("\"", "\\\"", html_entity_decode($row['qth']));
             $row['notes'] = str_replace("\"", "\\\"", html_entity_decode($row['notes']));
         }
-//        print "<pre>".print_r($qb->getQuery()->getSQL(), true)."</pre>";
+//        print "<pre>QUERY: ".print_r($qb->getQuery()->getSQL(), true)."</pre>";
         return $result;
     }
 
