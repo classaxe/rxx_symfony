@@ -128,6 +128,7 @@ class LogsessionRepository extends ServiceEntityRepository
             'ls.id,'
             . 'ls.listenerId,'
             . 'li.primaryQth,'
+            . 'li.active,'
             . '(CASE WHEN li.name IS NULL THEN \'\' ELSE CONCAT(li.name, \' | \', li.qth, \' \', li.sp, \' \', li.itu, \' \', li.gsq) END) as listener,'
             . 'li.website as website,'
             . 'li.callsign as callsign,'

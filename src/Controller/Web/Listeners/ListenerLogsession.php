@@ -44,8 +44,8 @@ class ListenerLogsession extends Base
         }
         $args = [
             'isMultiOperator' =>    ($listener->getMultiOperator() === 'Y'),
-            'order' =>          'd',
-            'sort' =>           'logDate',
+            'order' =>          'a',
+            'sort' =>           'khz',
             'logSessionId' =>   $logSessionId
         ];
         $logs =           $this->logRepository->getLogs($args, $this->listenerRepository->getColumns('logs'));
