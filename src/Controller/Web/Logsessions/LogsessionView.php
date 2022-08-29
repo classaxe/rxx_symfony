@@ -125,7 +125,7 @@ class LogsessionView extends Base
                     $this->listenerRepository->updateListenerStats($newOperatorId);
                 }
             }
-
+            $this->listenerRepository->updateStats((int) $id);
             if ($data['_close']) {
                 $js =
                     ($doReload ?
