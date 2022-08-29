@@ -79,7 +79,8 @@ class Logs extends Base
         $sortableColumns = $this->listenerRepository->getColumns('logs');
         $args = [
             'logSessionId' => $id,
-            'sort' =>       'logDate',
+            'sort' =>       'khz',
+            'sort_2' =>     'call',
             'order' =>      'a',
         ];
         $logs = $this->logRepository->getLogs($args, $sortableColumns);
@@ -87,7 +88,7 @@ class Logs extends Base
         $parameters = [
             '_locale' =>            $_locale,
             'title' =>              strToUpper($system) . ' logs for Log session '.$id . ' for ' . $listener->getFormattedNameAndLocation(),
-            'subtitle' =>           '(' . count($logs) . ' records sorted by Date and Time)',
+            'subtitle' =>           '(' . count($logs) . ' records sorted by Frequency and Callsign)',
             'system' =>             $system,
             'listener' =>           $listener,
             'logsession' =>         $logsession,
@@ -97,10 +98,10 @@ class Logs extends Base
         $parameters = array_merge($parameters, $this->parameters);
         switch ($mode) {
             case 'csv':
-                $response = $this->render("listener/export/logs.csv.twig", $parameters);
+                $response = $this->render("logsession/export/logs.csv.twig", $parameters);
                 break;
             case 'txt':
-                $response = $this->render("listener/export/logs.txt.twig", $parameters);
+                $response = $this->render("logsession/export/logs.txt.twig", $parameters);
                 break;
             default:
                 die("Invalid mode");
