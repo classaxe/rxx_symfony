@@ -136,6 +136,10 @@ class Log extends WebBase
                 }
             }
 
+            if ($log->getLogSessionId()) {
+                $this->listenerRepository->updateStats((int) $log->getLogSessionId());
+            }
+
             if ($data['_close']) {
                 $js =
                     ($doReload ?

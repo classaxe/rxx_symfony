@@ -41,7 +41,7 @@ class LogsessionLogs extends Base
         Request $request,
         Form $form
     ) {
-        if (!$logsession = $this->logsessionRepository->find($id)) {
+        if (!(int) $id || !$logsession = $this->logsessionRepository->find($id)) {
             return $this->redirectToRoute('logsession', ['system' => $system]);
         }
 

@@ -40,7 +40,7 @@
             elseif key == 'operator'
         %}{% if l.operatorId %}<a href="{{ url('listener', { 'system' : system, 'id': l.operatorId }) }}" data-popup="1" title="Click to see profile for this Listener">{{ l.operator|raw }}</a>{% endif %}{%
             elseif key == 'delete' and isAdmin
-        %}<a href="{{ url('listener_log_delete', { 'system' : system, 'id' : id, 'log_id' : l.log_id }) }}" class="delete" onclick="return confirm(msg.del_log);">X</a>{%
+        %}<a href="{{ url('logsession_log_delete', { 'system' : system, 'id' : id, 'log_id' : l.log_id }) }}" class="delete" onclick="return confirm(msg.del_log);">X</a>{%
             else
         %}{{ attribute(l, column.field)|raw }}{%
             endif
