@@ -1,5 +1,4 @@
-<h2>{% trans %}Results{% endtrans %}</h2>
-<h3>{% trans %}Statistics for this update{% endtrans %}</h3>
+<h2>{% trans %}Statistics for this Log Session{% endtrans %}</h2>
 {% if (stats) %}
 <table class="results stats very-short">
     <thead>
@@ -37,14 +36,16 @@
             <td>{% trans %}Latest signal logging{% endtrans %}</td>
             <td class="num">{{ stats.latest_for_signal }}</td>
         </tr>
+        {% if stats.signals is defined %}
         <tr>
             <td>{% trans %}Unique signals{% endtrans %}</td>
             <td class="num">{{ stats.signals }}</td>
         </tr>
+        {% endif %}
     </tbody>
 </table>
 
-<h3>{% trans %}Statistics for listener{% endtrans %}</h3>
+<h2>{% trans %}Statistics for Listener Location when uploaded{% endtrans %}</h2>
 <table class="results stats very-short">
     <thead>
         <tr>

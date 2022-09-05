@@ -1,0 +1,16 @@
+{% extends 'popup.html.twig' %}
+{% block body %}
+<div class="main fullwidth">
+{% set form_class='logsession_edit' %}
+{% include 'logsession/tabs.html.twig' %}
+<style>
+    h2 {
+        text-align: center !important;
+    }
+    .results.stats { margin: 1em auto; width: 600px; }
+</style>
+<div class="controlPanel listener_view {{ form_class }}">
+    <div class="header">{{ mode|raw }}</div>
+    <div class="content">{% include 'listener/logs_upload/results.html.twig' %}</div>
+</div>
+{% endblock %}

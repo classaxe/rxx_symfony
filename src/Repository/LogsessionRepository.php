@@ -20,6 +20,7 @@ class LogsessionRepository extends ServiceEntityRepository
 
     private $tabs = [
         ['logsession', 'Overview'],
+        ['logsession_stats', 'Stats'],
         ['logsession_logs', 'Logs (%%logs%%)'],
         ['logsession_signals', 'Signals (%%signals%%)'],
         ['logsession_signalsmap', 'Signals Map'],
@@ -32,6 +33,7 @@ class LogsessionRepository extends ServiceEntityRepository
         }
         $logs =                 $logsession->getLogs();
         $signals =              $logsession->getSignals();
+        $stats =                $logsession->getUploadStats() ? unserialize($logsession->getUploadStats()) : false;
         $out = [];
         foreach ($this->tabs as $idx => $data) {
             $route = $data[0];
@@ -43,6 +45,11 @@ class LogsessionRepository extends ServiceEntityRepository
                             [$logs],
                             $data
                         );
+                    }
+                    break;
+                case 'logsession_stats':
+                    if ($stats) {
+                        $out[] = $data;
                     }
                     break;
                 case 'logsession_signals':
