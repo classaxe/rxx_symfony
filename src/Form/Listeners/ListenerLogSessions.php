@@ -14,7 +14,7 @@ use App\Form\Base;
  * Class ListenerLogs
  * @package App\Form\Listeners
  */
-class ListenerLogs extends Base
+class ListenerLogSessions extends Base
 {
 
 }

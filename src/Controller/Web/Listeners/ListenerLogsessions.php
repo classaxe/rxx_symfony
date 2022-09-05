@@ -1,7 +1,7 @@
 <?php
 namespace App\Controller\Web\Listeners;
 
-use App\Form\Listeners\ListenerLogs as Form;
+use App\Form\Listeners\ListenerLogSessions as Form;
 use DateTime;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -41,6 +41,36 @@ class ListenerLogsessions extends Base
         Request $request,
         Form $form
     ) {
+        return $this->displayLogSessions($_locale, $system, $id, $request, $form, false);
+    }
+
+    /**
+     * @Route(
+     *     "/{_locale}/{system}/listeners/{id}/remotelogsessions",
+     *     requirements={
+     *        "_locale": "de|en|es|fr",
+     *        "system": "reu|rna|rww"
+     *     },
+     *     name="listener_remote_logsessions"
+     * )
+     * @param $_locale
+     * @param $system
+     * @param $id
+     * @param Request $request
+     * @param Form $form
+     * @return RedirectResponse|Response
+     */
+    public function remoteLogSessions(
+        $_locale,
+        $system,
+        $id,
+        Request $request,
+        Form $form
+    ) {
+        return $this->displayLogSessions($_locale, $system, $id, $request, $form, true);
+    }
+
+    private function displayLogSessions($_locale, $system, $id, $request, $form, $isRemote) {
         if (!$listener = $this->getValidReportingListener($id)) {
             return $this->redirectToRoute('listeners', ['system' => $system]);
         }
@@ -51,7 +81,7 @@ class ListenerLogsessions extends Base
             'order' =>          static::defaultOrder,
             'page' =>           0,
             'sort' =>           static::defaultSorting,
-            'total' =>          $listener->getCountLogsessions()
+            'total' =>          $isRemote ? $listener->getCountRemoteLogsessions() : $listener->getCountLogsessions()
         ];
         $form = $form->buildForm($this->createFormBuilder(), $options);
         $form->handleRequest($request);
@@ -64,9 +94,21 @@ class ListenerLogsessions extends Base
         if ($form->isSubmitted() && $form->isValid()) {
             $args = $form->getData();
         }
-        $args['listenerId'] = $id;
-        $columns = $this->listenerRepository->getColumns('logsessions');
-        $logSessions = $this->logsessionRepository->getLogsessions($args, $columns);
+        if ($isRemote) {
+            $args['operatorId'] =   $id;
+            $columns =              'remotelogsessions';
+            $matchedSuffix =        'of %s remote log sessions.';
+            $mode =                 'Remote Log Sessions | %s';
+            $template =             'listener/remotelogsessions.html.twig';
+        } else {
+            $args['listenerId'] =   $id;
+            $columns =              'logsessions';
+            $matchedSuffix =        'of %s log sessions.';
+            $mode =                 'Log Sessions | %s';
+            $template =             'listener/logsessions.html.twig';
+        }
+        $columns =      $this->listenerRepository->getColumns($columns);
+        $logSessions =  $this->logsessionRepository->getLogsessions($args, $columns);
 
         $parameters = [
             'args' =>               $args,
@@ -75,8 +117,8 @@ class ListenerLogsessions extends Base
             'form' =>               $form->createView(),
             '_locale' =>            $_locale,
             'isMultiOperator' =>    ($listener->getMultiOperator() === 'Y'),
-            'matched' =>            'of '.$options['total']. ' log sessions.',
-            'mode' =>               'Log Sessions | '.$listener->getFormattedNameAndLocation(),
+            'matched' =>            sprintf($matchedSuffix, $options['total']),
+            'mode' =>               sprintf($mode, $listener->getFormattedNameAndLocation()),
             'logsessions' =>        $logSessions,
             'results' => [
                 'limit' =>              isset($args['limit']) ? $args['limit'] : static::defaultlimit,
@@ -87,7 +129,7 @@ class ListenerLogsessions extends Base
             'tabs' =>               $this->listenerRepository->getTabs($listener, $isAdmin),
             'typeRepository' =>     $this->typeRepository
         ];
-        return $this->render('listener/logsessions.html.twig', $this->getMergedParameters($parameters));
+        return $this->render($template, $this->getMergedParameters($parameters));
     }
 
 }

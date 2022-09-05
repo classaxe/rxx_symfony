@@ -1,11 +1,7 @@
 <?php
 namespace App\Controller\Web\Listeners;
 
-use App\Form\Listeners\ListenerLogs as Form;
-use DateTime;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 
 /**
@@ -38,8 +34,7 @@ class ListenerLogsessionDelete extends Base
         if (!(int) $id) {
             return $this->redirectToRoute('listeners', ['_locale' => $_locale, 'system' => $system]);
         }
-        $listener = $this->listenerRepository->find((int) $id);
-        if (!$listener) {
+        if (!$listener = $this->listenerRepository->find((int) $id)) {
             return $this->redirectToRoute('listeners', ['_locale' => $_locale, 'system' => $system]);
         }
 
@@ -47,8 +42,7 @@ class ListenerLogsessionDelete extends Base
             return $this->redirectToRoute('listener_logs', ['_locale' => $_locale, 'system' => $system, 'id' => $id]);
         }
 
-        $logSession = $this->logsessionRepository->find((int) $logSessionId);
-        if (!$logSession) {
+        if (!$logSession = $this->logsessionRepository->find((int) $logSessionId)) {
             return $this->redirectToRoute('listener_logsessions', ['_locale' => $_locale, 'system' => $system, 'id' => $id]);
         }
         $administratorId =  $logSession->getAdministratorId();
@@ -77,7 +71,6 @@ class ListenerLogsessionDelete extends Base
 
         $this->listenerRepository->updateListenerStats($id);
         $this->userRepository->updateUserStats($administratorId);
-
 
         $this->session->set(
             'lastMessage',

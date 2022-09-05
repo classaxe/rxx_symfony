@@ -21,7 +21,7 @@ use Symfony\Component\Form\FormInterface;
 
 /**
  * Class Listeners
- * @package App\Form
+ * @package App\Form\Listeners
  */
 class Collection extends Base
 {
@@ -253,7 +253,6 @@ class Collection extends Base
                     ]
                 );
         }
-        $this->addPaging($formBuilder, $options);
 
         return $formBuilder->getForm();
     }

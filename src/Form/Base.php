@@ -88,7 +88,7 @@ class Base extends AbstractType
     /**
      * @param FormBuilderInterface $formBuilder
      */
-    public function addPaging(FormBuilderInterface &$formBuilder, array $options)
+    public function addPaging(FormBuilderInterface $formBuilder, array $options)
     {
         $formBuilder
             ->add(
@@ -140,7 +140,7 @@ class Base extends AbstractType
     /**
      * @param FormBuilderInterface $formBuilder
      */
-    public function addPagingBottom(FormBuilderInterface &$formBuilder, array $options)
+    public function addPagingBottom(FormBuilderInterface $formBuilder, array $options)
     {
         $formBuilder
 
@@ -175,7 +175,7 @@ class Base extends AbstractType
      * @param FormBuilderInterface $formBuilder
      * @param array $options
      */
-    protected function addSorting(FormBuilderInterface &$formBuilder, array $options)
+    protected function addSorting(FormBuilderInterface $formBuilder, array $options)
     {
         $formBuilder
             ->add(

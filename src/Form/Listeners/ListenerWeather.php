@@ -19,7 +19,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 /**
  * Class Listeners
- * @package App\Form
+ * @package App\Form\Listeners
  */
 class ListenerWeather extends Base
 {

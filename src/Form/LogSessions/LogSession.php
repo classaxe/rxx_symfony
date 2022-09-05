@@ -16,7 +16,7 @@ use Symfony\Component\Form\FormInterface;
 
 /**
  * Class Listeners
- * @package App\Form
+ * @package App\Form\LogSessions
  */
 class LogSession extends Base
 {

@@ -215,9 +215,7 @@ EOD;
             ->select($fields)
             ->innerJoin('\App\Entity\Listener', 'li', 'WITH', 'l.listenerId = li.id')
             ->innerJoin('\App\Entity\Signal', 's', 'WITH', 'l.signalId = s.id')
-            ->leftJoin('\App\Entity\Listener', 'op', 'WITH', 'l.operatorId = op.id')
-        ;
-
+            ->leftJoin('\App\Entity\Listener', 'op', 'WITH', 'l.operatorId = op.id');
 
         if (isset($args['listenerId']) && $args['listenerId'] !== '') {
             $qb ->andWhere('li.id = :listenerID')

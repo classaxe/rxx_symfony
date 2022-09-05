@@ -33,13 +33,43 @@ class ListenerLogs extends Base
      * @param Form $form
      * @return RedirectResponse|Response
      */
-    public function controller(
+    public function logs(
         $_locale,
         $system,
         $id,
         Request $request,
         Form $form
     ) {
+        return $this->displayLogs($_locale, $system, $id, $request, $form, false);
+    }
+
+    /**
+     * @Route(
+     *     "/{_locale}/{system}/listeners/{id}/remotelogs",
+     *     requirements={
+     *        "_locale": "de|en|es|fr",
+     *        "system": "reu|rna|rww"
+     *     },
+     *     name="listener_remote_logs"
+     * )
+     * @param $_locale
+     * @param $system
+     * @param $id
+     * @param Request $request
+     * @param Form $form
+     * @return RedirectResponse|Response
+     */
+    public function remoteLogs(
+        $_locale,
+        $system,
+        $id,
+        Request $request,
+        Form $form
+    ) {
+        return $this->displayLogs($_locale, $system, $id, $request, $form, true);
+    }
+
+    private function displayLogs($_locale, $system, $id, $request, $form, $isRemote) {
         if (!$listener = $this->getValidReportingListener($id)) {
             return $this->redirectToRoute('listeners', ['system' => $system]);
         }
@@ -50,12 +80,11 @@ class ListenerLogs extends Base
             'order' =>          static::defaultOrder,
             'page' =>           0,
             'sort' =>           static::defaultSorting,
-            'total' =>          $listener->getCountLogs()
+            'total' =>          $isRemote ? $listener->getCountRemoteLogs() : $listener->getCountLogs()
         ];
         $form = $form->buildForm($this->createFormBuilder(), $options);
         $form->handleRequest($request);
         $args = [
-            'isMultiOperator' =>    ($listener->getMultiOperator() === 'Y'),
             'limit' =>          static::defaultlimit,
             'order' =>          static::defaultOrder,
             'page' =>           0,
@@ -64,8 +93,21 @@ class ListenerLogs extends Base
         if ($form->isSubmitted() && $form->isValid()) {
             $args = $form->getData();
         }
-        $args['listenerId'] =   $id;
-        $columns = $this->listenerRepository->getColumns('logs');
+        if ($isRemote) {
+            $args['operatorId'] =   $id;
+            $columns =              'remotelogs';
+            $matchedSuffix =        'of %s remote log records.';
+            $mode =                 'Remote Logs | %s';
+            $template =             'listener/remotelogs.html.twig';
+        } else {
+            $args['listenerId'] =   $id;
+            $columns =              'logs';
+            $matchedSuffix =        'of %s log records.';
+            $mode =                 'Logs | %s';
+            $template =             'listener/logs.html.twig';
+        }
+
+        $columns = $this->listenerRepository->getColumns($columns);
         $logs = $this->logRepository->getLogs($args, $columns);
 
         $parameters = [
@@ -75,8 +117,8 @@ class ListenerLogs extends Base
             'form' =>               $form->createView(),
             '_locale' =>            $_locale,
             'isMultiOperator' =>    ($listener->getMultiOperator() === 'Y'),
-            'matched' =>            'of '.$options['total']. ' log records.',
-            'mode' =>               'Logs | ' . $listener->getFormattedNameAndLocation(),
+            'matched' =>            sprintf($matchedSuffix, $options['total']),
+            'mode' =>               sprintf($mode, $listener->getFormattedNameAndLocation()),
             'logs' =>               $logs,
             'results' => [
                 'limit' =>              isset($args['limit']) ? $args['limit'] : static::defaultlimit,
@@ -87,6 +129,7 @@ class ListenerLogs extends Base
             'tabs' =>               $this->listenerRepository->getTabs($listener, $isAdmin),
             'typeRepository' =>     $this->typeRepository
         ];
-        return $this->render('listener/logs.html.twig', $this->getMergedParameters($parameters));
+        return $this->render($template, $this->getMergedParameters($parameters));
+
     }
 }

@@ -10,7 +10,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 /**
  * Class Listeners
- * @package App\Form
+ * @package App\Form\Listeners
  */
 class ListenerAward extends AbstractType
 {

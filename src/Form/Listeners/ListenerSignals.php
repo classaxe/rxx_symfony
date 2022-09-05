@@ -12,7 +12,7 @@ use App\Form\Base;
 
 /**
  * Class Listeners
- * @package App\Form
+ * @package App\Form\Listeners
  */
 class ListenerSignals extends Base
 {

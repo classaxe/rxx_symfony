@@ -14,7 +14,7 @@ use Symfony\Component\Form\FormInterface;
 
 /**
  * Class Listeners
- * @package App\Form
+ * @package App\Form\Logs
  */
 class Log extends Base
 {

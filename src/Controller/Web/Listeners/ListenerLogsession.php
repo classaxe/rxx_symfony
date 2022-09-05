@@ -1,7 +1,7 @@
 <?php
 namespace App\Controller\Web\Listeners;
 
-use App\Form\Listeners\ListenerLogs as Form;
+use App\Form\Listeners\ListenerLogSessions as Form;
 use DateTime;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;

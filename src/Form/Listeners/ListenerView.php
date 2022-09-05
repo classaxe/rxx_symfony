@@ -15,7 +15,7 @@ use Symfony\Component\Form\FormInterface;
 
 /**
  * Class Listeners
- * @package App\Form
+ * @package App\Form\Listeners
  */
 class ListenerView extends Base
 {
