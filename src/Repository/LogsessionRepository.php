@@ -85,6 +85,41 @@ class LogsessionRepository extends ServiceEntityRepository
         $this->connection = $connection;
     }
 
+    private function addFilterAdministrator($qb, $args) {
+        if ($args['administratorId'] ?? false) {
+            $qb
+                ->andWhere('ls.administratorId = :administratorId')
+                ->setParameter('administratorId', $args['administratorId']);
+        }
+    }
+
+    private function addFilterListener($qb, $args) {
+        if ($args['listenerId'] ?? false) {
+            $qb
+                ->andWhere('ls.listenerId = :listenerID')
+                ->setParameter('listenerID', $args['listenerId']);
+        }
+    }
+
+    private function addFilterOperator($qb, $args) {
+        if ($args['operatorId'] ?? false) {
+            $qb
+                ->andWhere('ls.operatorId = :operatorId')
+                ->setParameter('operatorId', $args['operatorId']);
+        }
+    }
+
+    private function addFilterTypes($qb, $args) {
+        if ($args['type'] ?? []) {
+            $or = [];
+            foreach($args['type'] as $type) {
+                $param = 'ls.logs' . ucfirst(strtolower($type));
+                $or[] = $param . ' > 0 ';
+            }
+            $qb->andWhere(implode(' OR ', $or));
+        }
+    }
+
     /**
      * @param $timestamp
      * @param $administratorID
@@ -167,26 +202,12 @@ class LogsessionRepository extends ServiceEntityRepository
             ->select($columns)
             ->innerJoin('\App\Entity\Listener', 'li', 'WITH', 'ls.listenerId = li.id')
             ->innerJoin('\App\Entity\User', 'u', 'WITH', 'ls.administratorId = u.id')
-            ->leftJoin('\App\Entity\Listener', 'op', 'WITH', 'ls.operatorId = op.id')
-        ;
+            ->leftJoin('\App\Entity\Listener', 'op', 'WITH', 'ls.operatorId = op.id');
 
-        if (isset($args['listenerId']) && $args['listenerId'] !== '') {
-            $qb
-                ->andWhere('ls.listenerId = :listenerID')
-                ->setParameter('listenerID', $args['listenerId']);
-        }
-
-        if (isset($args['operatorId']) && $args['operatorId'] !== '') {
-            $qb
-                ->andWhere('ls.operatorId = :operatorId')
-                ->setParameter('operatorId', $args['operatorId']);
-        }
-
-        if (isset($args['administratorId']) && $args['administratorId'] !== '') {
-            $qb
-                ->andWhere('ls.administratorId = :administratorId')
-                ->setParameter('administratorId', $args['administratorId']);
-        }
+        $this->addFilterListener($qb, $args);
+        $this->addFilterOperator($qb, $args);
+        $this->addFilterAdministrator($qb, $args);
+        $this->addFilterTypes($qb, $args);
 
         if (isset($args['limit']) && (int)$args['limit'] !== -1 && isset($args['page'])) {
             $qb
@@ -214,7 +235,7 @@ class LogsessionRepository extends ServiceEntityRepository
         return $result;
     }
 
-    public function getLogsessionsCount()
+    public function getLogsessionsCount($args)
     {
         $qb = $this
             ->createQueryBuilder('ls')
@@ -222,6 +243,14 @@ class LogsessionRepository extends ServiceEntityRepository
             ->innerJoin('\App\Entity\Listener', 'li', 'WITH', 'ls.listenerId = li.id')
             ->innerJoin('\App\Entity\User', 'u', 'WITH', 'ls.administratorId = u.id');
 
-        return $qb->getQuery()->getSingleScalarResult();
+        $this->addFilterListener($qb, $args);
+        $this->addFilterOperator($qb, $args);
+        $this->addFilterAdministrator($qb, $args);
+        $this->addFilterTypes($qb, $args);
+
+        $result = $qb->getQuery()->getSingleScalarResult();
+//        print "<pre>".print_r($qb->getQuery()->getSQL(), true)."</pre>";
+//        print "<pre>".print_r($result, true)."</pre>";
+        return $result;
     }
 }

@@ -1,12 +1,46 @@
+{# Include our twig widget customisations #}
+{% form_theme form 'forms/custom.html.twig' %}
+
 {% extends 'main.html.twig' %}
 {% block body %}
 <div class="main fullwidth">
 {% set form_class='listener_logs' %}
     <div class="content scroll" id="list">
         {% include 'status.html.twig' %}
-{{ form_start(form) }}
-        {% include 'forms/paging.html.twig' %}
-{{ form_end(form) }}
+        {{ form_start(form) }}
+        <div>
+            <fieldset>
+                <legend class="sr-only">{% trans %}Paging and Filter Controls{% endtrans %}</legend>
+                {{ form_widget(form.sort) }}
+                {{ form_widget(form.order) }}
+                {{ form_widget(form._token) }}
+                {% if form.prev is defined %}
+                    {{ form_label(form.limit) }}
+                    <div style="height: 28px; float: left">
+                        {{ form_widget(form.limit) }}
+                        {{ form_widget(form.prev) }}
+                        {{ form_widget(form.next) }}
+                        {{ form_widget(form.page) }}
+                        <span id="form_paging_status"></span>
+                    </div>
+                {% else  %}
+                    {{ form_widget(form.limit) }}
+                    {{ form_widget(form.page) }}
+                {% endif %}
+                <div id="form" style="width: 430px; height: 30px; float: right">
+                    <div style="padding: 0; margin: 0;">{{ form_widget(form.type) }}</div>
+                </div>
+            </fieldset>
+        </div>
+
+        <script>
+            var paging = {
+                limit: {{ results.limit }},
+                page: {{ results.page }},
+                total: {{ results.total }}
+            }
+        </script>
+        {{ form_end(form, {'render_rest': false}) }}
 {% include 'log_sessions/grid.html.twig' %}
     </div>
     <h2>{% trans %}Logs Uploaded in Selected Session{% endtrans %} <sup>[

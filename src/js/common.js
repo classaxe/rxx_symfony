@@ -333,6 +333,12 @@ var COMMON_FORM = {
         });
     },
 
+    setTypesSubmitAction : function () {
+        $('fieldset#form_type div :checkbox').click(function () {
+            $('form').submit();
+        });
+    },
+
     /* [ Ensure that at least one option is checked for signal type checkboxes ] */
     setTypesDefault : function() {
         if ($('fieldset#form_type div :checkbox:checked').length === 0) {

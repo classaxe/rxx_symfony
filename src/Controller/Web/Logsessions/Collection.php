@@ -48,7 +48,7 @@ class Collection extends Base
             'order' => static::defaultOrder,
             'page' => 0,
             'sort' => static::defaultSorting,
-            'total' => $this->logsessionRepository->getLogsessionsCount()
+            'type' => [],
         ];
         $form = $form->buildForm($this->createFormBuilder(), $options);
         $form->handleRequest($request);
@@ -63,18 +63,19 @@ class Collection extends Base
         }
         $columns = $this->logsessionRepository->getColumns();
         $logSessions = $this->logsessionRepository->getLogsessions($args, $columns);
+        $total = $this->logsessionRepository->getLogsessionsCount($args);
         $parameters = [
             'args' =>           $args,
             'columns' =>        $columns,
             'form' =>           $form->createView(),
             '_locale' =>        $_locale,
-            'matched' =>        'of ' . $options['total'] . ' log sessions.',
+            'matched' =>        'of ' . $total . ' log sessions.',
             'mode' =>           'Log Sessions',
             'logsessions' =>    $logSessions,
             'results' => [
                 'limit' =>  isset($args['limit']) ? $args['limit'] : static::defaultlimit,
                 'page' =>   isset($args['page']) ? $args['page'] : 0,
-                'total' =>  $options['total']
+                'total' =>  $total
             ],
             'system' =>         $system,
             'tabs' =>           [],

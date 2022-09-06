@@ -28,6 +28,8 @@ var logSessions = {
         $(document).ready(function () {
             setExternalLinks();
             COMMON_FORM.setPagingControls();
+            COMMON_FORM.setTypesStyles();
+            COMMON_FORM.setTypesSubmitAction();
             setColumnSortActions();
             setColumnSortedClass();
             setClippedCellTitles();
