@@ -1131,13 +1131,13 @@ EOD;
             $qb
                 ->addOrderBy(
                     ($idx['sort']),
-                    ($args['order'] === 'd' ? 'DESC' : 'ASC')
+                    ($args['order'] ?? '' === 'd' ? 'DESC' : 'ASC')
                 );
             if (isset($idx['sort_2']) && isset($idx['order_2'])) {
                 $qb
                     ->addOrderBy(
                         ($idx['sort_2']),
-                        ($args['order'] == 'd' ? 'DESC' : 'ASC')
+                        ($args['order'] ?? '' === 'd' ? 'DESC' : 'ASC')
                     );
             }
         }
