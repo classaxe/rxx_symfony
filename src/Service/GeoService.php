@@ -52,11 +52,13 @@ class GeoService
     /**
      * @return string|void|null
      */
-    public function getContinent()
+    public function getContinent($ip = false)
     {
-        $ip = $this->visitor->getIpAddress();
         if (!$ip) {
-            return 'NA';
+            $ip = $this->visitor->getIpAddress();
+            if (!$ip) {
+                return 'NA';
+            }
         }
         try {
             $record = $this->reader->city($ip);
@@ -89,7 +91,7 @@ class GeoService
                 'Postal' =>         $record->postal->code,
                 'Coords' =>         $record->location->latitude . ' / ' . $record->location->longitude,
                 'GSQ' =>            Rxx::convertDegreesToGSQ($record->location->latitude, $record->location->longitude),
-                'System' =>         strtoupper($this->getDefaultSystem()),
+                'System' =>         strtoupper($this->getDefaultSystem($ip)),
                 'GeoIP2DB' =>       $this->dbPath,
                 'GeoIP2Age' =>      date('Y-m-d H:i:s', filemtime($this->dbPath))
             ];
@@ -120,9 +122,10 @@ class GeoService
     /**
      * @return string - reu|rna|rww - depending on where visitor's IP address originates
      */
-    public function getDefaultSystem()
+    public function getDefaultSystem($IP = false)
     {
-        $continent = $this->getContinent();
+        $continent = $this->getContinent($IP);
+
         switch ($continent) {
             case 'NA':
                 return 'rna';

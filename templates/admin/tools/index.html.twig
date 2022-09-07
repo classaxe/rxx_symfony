@@ -74,7 +74,8 @@
                     </li>
                     <li><a class="button geoip" href="{{ url('admin/tools', {'system' : system, 'tool' : 'systemGeoIpTest'}) }}">{% trans %}Go{% endtrans %}</a>
                         <strong>{% trans %}Check location info for IP Address:{% endtrans %}</strong>
-                        <label class="sr-only" for="ip">IP Address</label><input type="text" name="ip" id="ip" value="{{ ip }}"/><br>
+                        <label class="sr-only" for="ip">IP Address</label>
+                        <input type="text" name="ip" id="ip" value="{{ ip }}"/><br>
                         <span class="ip-examples clearfix">
                             <b>IP4 Examples:</b> [
                             <span data-ip="206.248.171.206">Toronto, Canada</span> |
@@ -133,6 +134,9 @@
                 }
                 buttons.attr('disabled', 'disabled');
             });
+            $('#ip').on('change', function() {
+                $('a.geoip').trigger('click');
+            })
             $('.ip-examples span').on('click', function(e){
                 $('#ip').val($(this).data('ip'));
             })
