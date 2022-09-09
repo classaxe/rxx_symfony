@@ -62,3 +62,44 @@ table.logsessions tbody {
         }
     }
 }
+#logsessions_form {
+    #logsessions_paging {
+        height: 30px;
+        float: left
+    }
+    #form {
+        width: 420px;
+        height: 30px;
+        fieldset {
+            div {
+                line-height: 14px;
+                float: right;
+            }
+        }
+    }
+    .logSessionForm {
+        width: 460px;
+        float: left;
+        label {
+            margin: 0 5px 0 20px;
+            width: auto;
+        }
+        input[type=text] {
+            width: 8em;
+        }
+    }
+}
+@media all and (min-width: 1210px) {
+    #logsessions_form {
+        #form {
+            float: right;
+        }
+    }
+}
+@media all and (max-width: 1209px) {
+    #logsessions_form {
+        #form {
+            float: left;
+        }
+    }
+}

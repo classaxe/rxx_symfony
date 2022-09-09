@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.53.0
- * Date:       2022-09-06
+ * Version:    2.53.3
+ * Date:       2022-09-09
  * Licence:    LGPL
  * Copyright:  2022 Martin Francis
  */
@@ -2116,7 +2116,7 @@ function getLimitOptions(max, value, defaultLimit) {
             "<option value=\"" + values[i] + "\"" +
             (parseInt(value) === values[i] ? " selected=\"selected\"" : "") +
             ">" +
-            values[i] + ' results' +
+            values[i] + ' items' +
             "</option>";
     }
     out +=

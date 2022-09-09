@@ -93,11 +93,30 @@ class LogsessionRepository extends ServiceEntityRepository
         }
     }
 
+    private function addFilterComment($qb, $args) {
+        if ($args['comment'] ?? false) {
+            $qb
+                ->andWhere('ls.comment LIKE :comment')
+                ->setParameter('comment', '%' . $args['comment'] . '%');
+        }
+    }
+
     private function addFilterListener($qb, $args) {
         if ($args['listenerId'] ?? false) {
             $qb
                 ->andWhere('ls.listenerId = :listenerID')
                 ->setParameter('listenerID', $args['listenerId']);
+        }
+    }
+
+    private function addFilterLocation($qb, $args) {
+        if ($args['location'] ?? false) {
+            $or = [];
+            $fields = ['li.name', 'li.qth', 'li.sp', 'li.itu', 'li.qth'];
+            foreach($fields as $field) {
+                $or[] = "$field like '%{$args['location']}%'";
+            }
+            $qb->andWhere(implode(' OR ', $or));
         }
     }
 
@@ -207,6 +226,8 @@ class LogsessionRepository extends ServiceEntityRepository
         $this->addFilterListener($qb, $args);
         $this->addFilterOperator($qb, $args);
         $this->addFilterAdministrator($qb, $args);
+        $this->addFilterComment($qb, $args);
+        $this->addFilterLocation($qb, $args);
         $this->addFilterTypes($qb, $args);
 
         if (isset($args['limit']) && (int)$args['limit'] !== -1 && isset($args['page'])) {
@@ -246,6 +267,8 @@ class LogsessionRepository extends ServiceEntityRepository
         $this->addFilterListener($qb, $args);
         $this->addFilterOperator($qb, $args);
         $this->addFilterAdministrator($qb, $args);
+        $this->addFilterComment($qb, $args);
+        $this->addFilterLocation($qb, $args);
         $this->addFilterTypes($qb, $args);
 
         $result = $qb->getQuery()->getSingleScalarResult();

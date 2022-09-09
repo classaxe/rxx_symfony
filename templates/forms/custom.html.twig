@@ -23,7 +23,7 @@ To use in any form, include this code at head of form itself (NOT an included fi
 #}
 {%- block choice_widget_expanded -%}
     <fieldset{%- if id is not empty %} id="{{ id }}"{% endif -%}{% for attribute, value in attr %}{% if attribute not in ['legend'] %} {{ attribute }}="{{ value }}"{% endif %}{% endfor %}>
-{% if attr.legend is defined %}
+{% if attr.legend is defined and attr.legend %}
         <legend>{{ attr.legend | trans }}</legend>
 {% endif %}
         {%- for child in form %}

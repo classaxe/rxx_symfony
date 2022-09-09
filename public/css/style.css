@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.53.0
- * Date:       2022-09-06
+ * Version:    2.53.3
+ * Date:       2022-09-09
  * Licence:    LGPL
  * Copyright:  2022 Martin Francis
  */
@@ -1488,7 +1488,7 @@ a.hover:hover {
 }
 #form_limit,
 #form_page {
-  width: 9em;
+  width: auto;
   float: left;
   margin: 0 0.5em 0 0;
 }
@@ -1497,7 +1497,9 @@ label[for="form_limit"] {
   min-width: 4em;
 }
 #form_prev,
-#form_next {
+#form_next,
+#form_go,
+#form_go2 {
   float: left;
   margin: 0 0.5em 0 0;
   clear: none;
@@ -1523,22 +1525,26 @@ button.tiny {
   cursor: pointer;
 }
 #form button,
-.cleForm button {
+.cleForm button,
+.logSessionForm button {
   margin: 0.25em 50%;
   padding: 0;
 }
 #form hr,
-.cleForm hr {
+.cleForm hr,
+.logSessionForm hr {
   margin: 1.25em 0 0.5em 0;
   border-bottom: 1px solid #a0a0a0;
 }
 #form fieldset,
-.cleForm fieldset {
+.cleForm fieldset,
+.logSessionForm fieldset {
   margin: 0;
   padding: 0 0 0.25em 0;
 }
 #form fieldset legend,
-.cleForm fieldset legend {
+.cleForm fieldset legend,
+.logSessionForm fieldset legend {
   margin: 0;
   padding: 0;
   text-align: center;
@@ -1546,57 +1552,75 @@ button.tiny {
   font-size: 100%;
 }
 #form fieldset legend.line,
-.cleForm fieldset legend.line {
+.cleForm fieldset legend.line,
+.logSessionForm fieldset legend.line {
   border-top: 1px solid #ccc;
   padding: 0.25em 0 0 0;
 }
 #form fieldset legend.toggle,
-.cleForm fieldset legend.toggle {
+.cleForm fieldset legend.toggle,
+.logSessionForm fieldset legend.toggle {
   cursor: pointer;
 }
 #form fieldset legend.toggle:hover,
-.cleForm fieldset legend.toggle:hover {
+.cleForm fieldset legend.toggle:hover,
+.logSessionForm fieldset legend.toggle:hover {
   color: #000080;
 }
 #form fieldset legend.sr-only,
-.cleForm fieldset legend.sr-only {
+.cleForm fieldset legend.sr-only,
+.logSessionForm fieldset legend.sr-only {
   width: auto;
 }
 #form fieldset legend span,
-.cleForm fieldset legend span {
+.cleForm fieldset legend span,
+.logSessionForm fieldset legend span {
   float: none;
   margin: 0;
 }
 #form fieldset#group_,
-.cleForm fieldset#group_ {
+.cleForm fieldset#group_,
+.logSessionForm fieldset#group_ {
   padding: 0;
   margin: 0;
   text-align: center;
 }
 #form fieldset#group_ div,
-.cleForm fieldset#group_ div {
+.cleForm fieldset#group_ div,
+.logSessionForm fieldset#group_ div {
   display: inline-block;
 }
 #form fieldset#group_ button,
-.cleForm fieldset#group_ button {
+.cleForm fieldset#group_ button,
+.logSessionForm fieldset#group_ button {
   margin: 0.25em 0;
   float: left;
   clear: none;
 }
 #form fieldset.actionButtons,
-.cleForm fieldset.actionButtons {
+.cleForm fieldset.actionButtons,
+.logSessionForm fieldset.actionButtons {
   clear: both;
   text-align: center;
 }
 #form fieldset.actionButtons button,
-.cleForm fieldset.actionButtons button {
+.cleForm fieldset.actionButtons button,
+.logSessionForm fieldset.actionButtons button {
   margin: 0.5em 0;
   width: 8em;
 }
 #form #form_prev,
 .cleForm #form_prev,
+.logSessionForm #form_prev,
 #form #form_next,
-.cleForm #form_next {
+.cleForm #form_next,
+.logSessionForm #form_next,
+#form #form_go,
+.cleForm #form_go,
+.logSessionForm #form_go,
+#form #form_go2,
+.cleForm #form_go2,
+.logSessionForm #form_go2 {
   float: left;
   line-height: 1.75em;
   margin: 0 0 0 0.5em;
@@ -1607,12 +1631,14 @@ button.tiny {
   font-weight: bold;
 }
 #form #form_page,
-.cleForm #form_page {
+.cleForm #form_page,
+.logSessionForm #form_page {
   float: left;
   margin: 0 0 0 0.5em;
 }
 #form #form_paging_status,
-.cleForm #form_paging_status {
+.cleForm #form_paging_status,
+.logSessionForm #form_paging_status {
   display: inline-block;
   width: 8em;
   padding: 0;
@@ -1620,17 +1646,20 @@ button.tiny {
   margin: 0 0 0 0.5em;
 }
 #form #form_type div,
-.cleForm #form_type div {
+.cleForm #form_type div,
+.logSessionForm #form_type div {
   padding: 0 0 0 2px;
   margin: 1px 0 0 0;
 }
 #form div,
-.cleForm div {
+.cleForm div,
+.logSessionForm div {
   clear: both;
   /* Hides 'This value is not valid' error with bad country / region combination */
 }
 #form div label,
-.cleForm div label {
+.cleForm div label,
+.logSessionForm div label {
   line-height: 1.8em;
   text-align: left;
   font-size: 90%;
@@ -1641,14 +1670,19 @@ button.tiny {
 }
 #form div select,
 .cleForm div select,
+.logSessionForm div select,
 #form div textarea,
 .cleForm div textarea,
+.logSessionForm div textarea,
 #form div input[type='number'],
 .cleForm div input[type='number'],
+.logSessionForm div input[type='number'],
 #form div input[type='text'],
 .cleForm div input[type='text'],
+.logSessionForm div input[type='text'],
 #form div input[type='password'],
-.cleForm div input[type='password'] {
+.cleForm div input[type='password'],
+.logSessionForm div input[type='password'] {
   margin: 0;
   border-radius: 0;
   height: 1.75em;
@@ -1657,30 +1691,35 @@ button.tiny {
   float: left;
 }
 #form div select,
-.cleForm div select {
+.cleForm div select,
+.logSessionForm div select {
   -webkit-appearance: menulist;
   -moz-appearance: menulist;
   appearance: menulist;
 }
 #form div select.multiple,
-.cleForm div select.multiple {
+.cleForm div select.multiple,
+.logSessionForm div select.multiple {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
 }
 #form div textarea,
-.cleForm div textarea {
+.cleForm div textarea,
+.logSessionForm div textarea {
   margin: 0 0 0.25em 0;
 }
 #form div button,
-.cleForm div button {
+.cleForm div button,
+.logSessionForm div button {
   float: left;
   clear: none !important;
   padding: 0.25em 0;
   width: 8em;
 }
 #form div p,
-.cleForm div p {
+.cleForm div p,
+.logSessionForm div p {
   margin: 0;
   border-radius: 0;
   height: 1.5em;
@@ -1689,14 +1728,16 @@ button.tiny {
   text-align: right;
 }
 #form div div,
-.cleForm div div {
+.cleForm div div,
+.logSessionForm div div {
   clear: none;
   height: 1.5em;
   float: left;
   display: inline-block;
 }
 #form div div label,
-.cleForm div div label {
+.cleForm div div label,
+.logSessionForm div div label {
   float: none;
   width: auto;
   font-size: 80%;
@@ -1706,7 +1747,8 @@ button.tiny {
   line-height: 1.5em;
 }
 #form div ul,
-.cleForm div ul {
+.cleForm div ul,
+.logSessionForm div ul {
   display: none;
 }
 /* [ Forms ] */
@@ -1824,6 +1866,39 @@ table.logsessions tbody tr.selected {
 }
 table.logsessions tbody tr.selected td {
   background: #ffffa0;
+}
+#logsessions_form #logsessions_paging {
+  height: 30px;
+  float: left;
+}
+#logsessions_form #form {
+  width: 420px;
+  height: 30px;
+}
+#logsessions_form #form fieldset div {
+  line-height: 14px;
+  float: right;
+}
+#logsessions_form .logSessionForm {
+  width: 460px;
+  float: left;
+}
+#logsessions_form .logSessionForm label {
+  margin: 0 5px 0 20px;
+  width: auto;
+}
+#logsessions_form .logSessionForm input[type=text] {
+  width: 8em;
+}
+@media all and (min-width: 1210px) {
+  #logsessions_form #form {
+    float: right;
+  }
+}
+@media all and (max-width: 1209px) {
+  #logsessions_form #form {
+    float: left;
+  }
 }
 .listener_view #form label {
   width: 20%;

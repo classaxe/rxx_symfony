@@ -8,15 +8,13 @@
     <div class="content scroll" id="list">
         {% include 'status.html.twig' %}
         {{ form_start(form) }}
-        <div>
-            <fieldset>
+        <div><fieldset id="logsessions_form">
                 <legend class="sr-only">{% trans %}Paging and Filter Controls{% endtrans %}</legend>
                 {{ form_widget(form.sort) }}
                 {{ form_widget(form.order) }}
                 {{ form_widget(form._token) }}
                 {% if form.prev is defined %}
-                    {{ form_label(form.limit) }}
-                    <div style="height: 28px; float: left">
+                    <div id="logsessions_paging">
                         {{ form_widget(form.limit) }}
                         {{ form_widget(form.prev) }}
                         {{ form_widget(form.next) }}
@@ -27,9 +25,18 @@
                     {{ form_widget(form.limit) }}
                     {{ form_widget(form.page) }}
                 {% endif %}
-                <div id="form" style="width: 430px; height: 30px; float: right">
-                    <div style="padding: 0; margin: 0;">{{ form_widget(form.type) }}</div>
+                <div class="logSessionForm">
+                    <div>
+                        {{ form_label(form.comment) }}
+                        {{ form_widget(form.comment) }}
+                        {{ form_widget(form.go) }}
+                        {{ form_label(form.location) }}
+                        {{ form_widget(form.location) }}
+                        {{ form_widget(form.go2) }}
+                    </div>
+
                 </div>
+                <div id="form"><div>{{ form_widget(form.type) }}</div></div>
             </fieldset>
         </div>
 

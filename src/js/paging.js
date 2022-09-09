@@ -9,7 +9,7 @@ function getLimitOptions(max, value, defaultLimit) {
             "<option value=\"" + values[i] + "\"" +
             (parseInt(value) === values[i] ? " selected=\"selected\"" : "") +
             ">" +
-            values[i] + ' results' +
+            values[i] + ' items' +
             "</option>";
     }
     out +=

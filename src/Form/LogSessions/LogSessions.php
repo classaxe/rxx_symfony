@@ -9,7 +9,9 @@
 namespace App\Form\LogSessions;
 
 use App\Form\Base;
+use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 
@@ -32,11 +34,49 @@ class LogSessions extends Base
         $this->addSorting($formBuilder, $options);
         $formBuilder
             ->add(
+                'comment',
+                TextType::class,
+                [
+                    'data' =>           $options['comment'],
+                    'label' =>          'Comment'
+                ]
+            )
+            ->add(
+                'go',
+                ButtonType::class,
+                [
+                    'attr' => [
+                        'onclick' => '$("form").submit()',
+                        'class' => 'button tiny'
+                    ],
+                    'label' =>      'GO',
+                ]
+            )
+            ->add(
+                'location',
+                TextType::class,
+                [
+                    'data' =>           $options['location'],
+                    'label' =>          'Location'
+                ]
+            )
+            ->add(
+                'go2',
+                ButtonType::class,
+                [
+                    'attr' => [
+                        'onclick' => '$("form").submit()',
+                        'class' => 'button tiny'
+                    ],
+                    'label' =>      'GO',
+                ]
+            )
+            ->add(
                 'type',
                 ChoiceType::class,
                 [
                     'attr' =>           [ 'legend' => false ],
-                    'choices' =>        $this->typeRepository->getAllChoices(false),
+                    'choices' =>        array_reverse($this->typeRepository->getAllChoices(false)),
                     'choice_attr' =>    function ($value) { return ['class' => strToLower($value)]; },
                     'data' =>           $options['type'],
                     'expanded' =>       true,

@@ -312,7 +312,7 @@ a.hover:hover {
 
 #form_limit,
 #form_page {
-    width: 9em;
+    width: auto;
     float: left;
     margin: 0 0.5em 0 0;
 }
@@ -321,7 +321,9 @@ label[for="form_limit"] {
     min-width: 4em;
 }
 #form_prev,
-#form_next {
+#form_next,
+#form_go,
+#form_go2 {
     float: left;
     margin: 0 0.5em 0 0;
     clear: none;
@@ -350,7 +352,7 @@ button.tiny {
     }
 }
 
-#form, .cleForm{
+#form, .cleForm, .logSessionForm{
     button {
         margin: 0.25em 50%;
         padding: 0;
@@ -409,7 +411,9 @@ button.tiny {
         }
     }
     #form_prev,
-    #form_next  {
+    #form_next,
+    #form_go,
+    #form_go2 {
         float: left;
         line-height: 1.75em;
         margin: 0 0 0 0.5em;

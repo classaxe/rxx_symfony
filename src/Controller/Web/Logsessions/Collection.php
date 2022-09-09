@@ -44,11 +44,13 @@ class Collection extends Base
     )
     {
         $options = [
-            'limit' => static::defaultlimit,
-            'order' => static::defaultOrder,
-            'page' => 0,
-            'sort' => static::defaultSorting,
-            'type' => [],
+            'limit' =>      static::defaultlimit,
+            'order' =>      static::defaultOrder,
+            'page' =>       0,
+            'sort' =>       static::defaultSorting,
+            'comment' =>    '',
+            'location' =>   '',
+            'type' =>       [],
         ];
         $form = $form->buildForm($this->createFormBuilder(), $options);
         $form->handleRequest($request);
@@ -69,7 +71,7 @@ class Collection extends Base
             'columns' =>        $columns,
             'form' =>           $form->createView(),
             '_locale' =>        $_locale,
-            'matched' =>        'of ' . $total . ' log sessions.',
+            'matched' =>        'of ' . $total,
             'mode' =>           'Log Sessions',
             'logsessions' =>    $logSessions,
             'results' => [
