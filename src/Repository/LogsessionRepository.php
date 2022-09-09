@@ -112,7 +112,7 @@ class LogsessionRepository extends ServiceEntityRepository
     private function addFilterLocation($qb, $args) {
         if ($args['location'] ?? false) {
             $or = [];
-            $fields = ['li.name', 'li.qth', 'li.sp', 'li.itu', 'li.qth'];
+            $fields = ['li.name', 'li.qth', 'li.sp', 'li.itu', 'li.qth', 'li.gsq'];
             foreach($fields as $field) {
                 $or[] = "$field like '%{$args['location']}%'";
             }
