@@ -280,6 +280,15 @@ class SignalRepository extends ServiceEntityRepository
         return $this;
     }
 
+    private function _addFilterNotes()
+    {
+        if ($this->args['notes'] ?? '') {
+            $this->query['where'][] ='s.notes LIKE :like_notes';
+            $this->query['param']['like_notes'] = '%' . htmlentities($this->args['notes']) . '%';
+        }
+        return $this;
+    }
+
     private function _addFilterRange()
     {
         if ($this->args['range_gsq'] ?? '' && $lat_lon = Rxx::convertGsqToDegrees($this->args['range_gsq'])) {
@@ -860,6 +869,7 @@ EOD;
             ->_addFilterChannels()
             ->_addFilterFreq()
             ->_addFilterGsq()
+            ->_addFilterNotes()
             ->_addFilterRange()
             ->_addFilterRegion()
             ->_addFilterStatesAndCountries()
@@ -965,6 +975,7 @@ EOD;
             ->_addFilterChannels()
             ->_addFilterFreq()
             ->_addFilterGsq()
+            ->_addFilterNotes()
             ->_addFilterRange()
             ->_addFilterRegion()
             ->_addFilterStatesAndCountries()

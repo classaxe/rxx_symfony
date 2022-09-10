@@ -172,8 +172,15 @@ class Collection extends Base
                     'required' =>       false
                 ]
             )
-
-            // Loggings Section:
+            ->add(
+                'notes',
+                TextType::class,
+                [
+                    'data' =>           $options['notes'],
+                    'label' =>          'Notes',
+                    'required' =>       false
+                ]
+            )
             ->add(
                 'recently',
                 ChoiceType::class,
@@ -204,6 +211,8 @@ class Collection extends Base
                     'required' =>       false
                 ]
             )
+
+            // Loggings Section:
             ->add(
                 'heard_in',
                 TextType::class,

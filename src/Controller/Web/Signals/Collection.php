@@ -297,6 +297,7 @@ class Collection extends Base
             'gsq' =>            '',
             'heard_in' =>       '',
             'heard_in_mod' =>   '',
+            'hidenotes' =>      '',
             'khz_1' =>          '',
             'khz_2' =>          '',
             'listener' =>       [],
@@ -309,7 +310,7 @@ class Collection extends Base
             'logged_last_1' =>  '',
             'logged_last_2' =>  '',
             'morse' =>          '',
-            'hidenotes' =>      '',
+            'notes' =>          '',
             'offsets' =>        '',
             'paper' =>          $this->paperRepository::getDefaultForSystem($this->system),
             'personalise' =>    '',
@@ -439,6 +440,7 @@ class Collection extends Base
         $this->setValueFromRequest($this->args, $r, 'countries');
         $this->setRegionFromRequest($this->args, $r);
         $this->setValueFromRequest($this->args, $r, 'gsq');
+        $this->setValueFromRequest($this->args, $r, 'notes');
         $this->setValueFromRequest($this->args, $r, 'recently', ['logged', 'unlogged']);
         $this->setValueFromRequest($this->args, $r, 'within', array_values($this->signalRepository::withinPeriods));
         $this->setValueFromRequest($this->args, $r, 'active', ['1', '2']);

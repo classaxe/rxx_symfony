@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.53.3
- * Date:       2022-09-09
+ * Version:    2.54.0
+ * Date:       2022-09-10
  * Licence:    LGPL
  * Copyright:  2022 Martin Francis
  */
@@ -2358,6 +2358,7 @@ var shareableLink = {
             this.getFromField('countries') +
             this.getFromField('region') +
             this.getFromField('gsq') +
+            this.getFromField('notes') +
             this.getFromField('recently') +
             this.getFromField('within') +
             this.getFromField('active') +
@@ -2803,9 +2804,9 @@ var SIGNALS_FORM = {
             s.setPersonaliseAction();
             s.setKhzAction();
             s.setListenerFilterAction();
-            s.setNotesAction();
-            s.setMorseAction();
-            s.setOffsetsAction();
+            s.setShowNotesAction();
+            s.setShowMorseAction();
+            s.setShowOffsetsAction();
             s.setRangeAction();
             s.setRangeUnitsDefault();
             s.setHeardIn();
@@ -3098,38 +3099,6 @@ var SIGNALS_FORM = {
             $('#form_listener_filter').off('change');
         }
     },
-    setMorseAction : function(enable) {
-        enable = typeof enable !== 'undefined' ? enable : true;
-        if (enable) {
-            $('#form_morse').change(function () {
-                formSubmit();
-            });
-        } else {
-            $('#form_morse').off('change');
-        }
-    },
-
-    setNotesAction : function(enable) {
-        enable = typeof enable !== 'undefined' ? enable : true;
-        if (enable) {
-            $('#form_hidenotes').change(function () {
-                formSubmit();
-            });
-        } else {
-            $('#form_hidenotes').off('change');
-        }
-    },
-
-    setOffsetsAction : function(enable) {
-        enable = typeof enable !== 'undefined' ? enable : true;
-        if (enable) {
-            $('#form_offsets').change(function () {
-                formSubmit();
-            });
-        } else {
-            $('#form_offsets').off('change');
-        }
-    },
 
     setPersonaliseAction : function(enable) {
         enable = typeof enable !== 'undefined' ? enable : true;
@@ -3198,9 +3167,9 @@ var SIGNALS_FORM = {
             c.setRegionAction(false);
             s.setRwwFocusAction(false);
             s.setListenerFilterAction(false);
-            s.setNotesAction(false);
-            s.setMorseAction(false);
-            s.setOffsetsAction(false);
+            s.setShowNotesAction(false);
+            s.setShowMorseAction(false);
+            s.setShowOffsetsAction(false);
             s.setPersonaliseAction(false);
 
             $('#form_show').val('');
@@ -3217,6 +3186,7 @@ var SIGNALS_FORM = {
             $('#form_morse_0').prop('checked', 1);
             $('#form_hidenotes_1').prop('checked', 1);
             $('#form_offsets_0').prop('checked', 1);
+            $('#form_notes').val('');
 
             $('#form_states').val('');
             $('#form_sp_itu_clause').prop('selectedIndex', 0);
@@ -3246,9 +3216,9 @@ var SIGNALS_FORM = {
             $('#form_admin_mode').prop('selectedIndex', 0);
 
             s.setPersonaliseAction(true);
-            s.setMorseAction(true);
-            s.setNotesAction(true);
-            s.setOffsetsAction(true);
+            s.setShowMorseAction(true);
+            s.setShowNotesAction(true);
+            s.setShowOffsetsAction(true);
             s.setAdminAction(true);
             c.setRegionAction(true);
             s.setListenerFilterAction(true);
@@ -3266,6 +3236,39 @@ var SIGNALS_FORM = {
                 alert(msg.cookie.saved);
             }
         });
+    },
+
+    setShowMorseAction : function(enable) {
+        enable = typeof enable !== 'undefined' ? enable : true;
+        if (enable) {
+            $('#form_morse').change(function () {
+                formSubmit();
+            });
+        } else {
+            $('#form_morse').off('change');
+        }
+    },
+
+    setShowNotesAction : function(enable) {
+        enable = typeof enable !== 'undefined' ? enable : true;
+        if (enable) {
+            $('#form_hidenotes').change(function () {
+                formSubmit();
+            });
+        } else {
+            $('#form_hidenotes').off('change');
+        }
+    },
+
+    setShowOffsetsAction : function(enable) {
+        enable = typeof enable !== 'undefined' ? enable : true;
+        if (enable) {
+            $('#form_offsets').change(function () {
+                formSubmit();
+            });
+        } else {
+            $('#form_offsets').off('change');
+        }
     },
 
     setPaperSizeAction: function() {
