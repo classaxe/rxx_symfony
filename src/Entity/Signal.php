@@ -40,6 +40,13 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Signal
 {
+    const cyrillicSubs = [
+        // Cyrillic Two-letter 'translit' representations
+        'Ch' => 'Ч',
+        'Sh' => 'Ш',
+        'Ya' => 'Я',
+        'Yu' => 'Ю',
+    ];
     const morse = [
         '0' => '-----',
         '1' => '.----',
@@ -87,6 +94,12 @@ class Signal
         '(' => '-.--.',
         ')' => '-.--.-',
         ' ' => ' ',
+
+        // Cyrilic characters converted from two-letter latin representations
+        'Ч' =>	'---.',
+        'Ш' => '----',
+        'Я' => '.-.-',
+        'Ю' => '..--',
     ];
 
     /**
@@ -854,6 +867,11 @@ class Signal
 
     public static function encodeMorse($string)
     {
+        $string = str_replace(
+            array_keys(static::cyrillicSubs),
+            array_values(static::cyrillicSubs),
+            $string
+        );
         $chars = preg_split('//u', strtolower($string), 0, PREG_SPLIT_NO_EMPTY);
         $out = [];
         foreach($chars as $char) {

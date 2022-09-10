@@ -1,7 +1,7 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.54.0
+ * Version:    2.54.1
  * Date:       2022-09-10
  * Licence:    LGPL
  * Copyright:  2022 Martin Francis
@@ -642,7 +642,16 @@ function decodeHtmlEntities(value) {
 }
 
 function encodeMorse(value) {
-    var chars, i, morse, out;
+    var chars, cyrilic, i, morse, out, re;
+
+    cyrilic = {
+        // Cyrillic Two-letter 'translit' representations - lower case
+        'Ch': 'ч', // Uppercase: 'Ч'
+        'Sh': 'ш', // Uppercase: 'Ш'
+        'Ya': 'я', // Uppercase: 'Я'
+        'Yu': 'ю', // Uppercase: 'Ю'
+    }
+
     morse = {
         '0': '-----',
         '1': '.----',
@@ -690,7 +699,15 @@ function encodeMorse(value) {
         '(': '-.--.',
         ')': '-.--.-',
         ' ': ' ',
+        'ч': '---.',
+        'ш': '----',
+        'я': '.-.-',
+        'ю': '..--',
     };
+    re = new RegExp(Object.keys(cyrilic).join("|"),"gi");
+    value = value.replace(re, function(matched){
+        return cyrilic[matched];
+    });
     chars = value.toLowerCase().split('');
     out = [];
     for (i=0; i<chars.length; i++) {

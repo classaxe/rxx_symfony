@@ -5,7 +5,7 @@
 // * Filename:  functions.js                 *
 // * Created:   2022-07-11 (MF)              *
 // *******************************************
-version = "1.1.32";
+version = "1.1.33";
 // ###########################################
 // # Inline code:                            #
 // ###########################################
@@ -697,66 +697,85 @@ function get_gsq(lat, lon) {
 // ************************************
 // * get_ident()                      *
 // ************************************
-function get_ident(cal) {
-    if (cal.substr(0, 1) == "#") {		// Detects DGPS Idents
-        return "DGPS " + cal;
+function get_ident(value) {
+    if (value.substr(0, 1) == "#") {		// Detects DGPS Idents
+        return "DGPS " + value;
     }
-    if (cal.substr(0, 1) == "$") {		// Detects DGPS Idents
-        return "Navtex " + cal.substr(cal.length - 1, 1);
+    if (value.substr(0, 1) == "$") {		// Detects DGPS Idents
+        return "Navtex " + value.substr(value.length - 1, 1);
     }
-    morse = [];
-    morse['A'] = ".-";
-    morse['�'] = ".-.-";  // German
-    morse['�'] = ".-.-";  // Scandanavian
-    morse['�'] = ".--.-"; // Scandanavian or Spanish
-    morse['�'] = ".--.-"; // Scandanavian or Spanish
-    morse['B'] = "-...";
-    morse['C'] = "-.-.";
-    morse['D'] = "-..";
-    morse['E'] = ".";
-    morse['�'] = "..-.."; // Finish or French
-    morse['F'] = "..-.";
-    morse['G'] = "--.";
-    morse['H'] = "....";
-    morse['I'] = "..";
-    morse['J'] = ".---";
-    morse['K'] = "-.-";
-    morse['L'] = ".-..";
-    morse['M'] = "--";
-    morse['N'] = "-.";
-    morse['�'] = "--.--";	// Spanish
-    morse['O'] = "---";
-    morse['�'] = "---.";  // German or Scandanavian
-    morse['�'] = "---.";  // Scandanavian
-    morse['P'] = ".--.";
-    morse['Q'] = "--.-";
-    morse['R'] = ".-.";
-    morse['S'] = "...";
-    morse['T'] = "-";
-    morse['U'] = "..-";
-    morse['�'] = "..--";  // Finish or German
-    morse['V'] = "...-";
-    morse['W'] = ".--";
-    morse['X'] = "-..-";
-    morse['Y'] = "-.--";
-    morse['Z'] = "--..";
-    morse['1'] = ".----";
-    morse['2'] = "..---";
-    morse['3'] = "...--";
-    morse['4'] = "....-";
-    morse['5'] = ".....";
-    morse['6'] = "-....";
-    morse['7'] = "--...";
-    morse['8'] = "---..";
-    morse['9'] = "----.";
-    morse['0'] = "-----";
 
-    var out = [];
-    var n = 0;
-    for (var a = 0; a < cal.length; a++) {
-        out[n++] = morse[cal.substr(a, 1)];
+    var cyrilic = {
+        // Cyrillic Two-letter 'translit' representations - lower case
+        'Ch': 'ч', // Uppercase: 'Ч'
+        'Sh': 'ш', // Uppercase: 'Ш'
+        'Ya': 'я', // Uppercase: 'Я'
+        'Yu': 'ю', // Uppercase: 'Ю'
     }
-    return (out.join("/") + "&nbsp;");	// fixes letter spacing problem in IE6 - otherwise last set of dashes are not spaced.
+
+    var morse = {
+        '0': '-----',
+        '1': '.----',
+        '2': '..---',
+        '3': '...--',
+        '4': '....-',
+        '5': '.....',
+        '6': '-....',
+        '7': '--...',
+        '8': '---..',
+        '9': '----.',
+        'a': '.-',
+        'b': '-...',
+        'c': '-.-.',
+        'd': '-..',
+        'e': '.',
+        'f': '..-.',
+        'g': '--.',
+        'h': '....',
+        'i': '..',
+        'j': '.---',
+        'k': '-.-',
+        'l': '.-..',
+        'm': '--',
+        'n': '-.',
+        'o': '---',
+        'p': '.--.',
+        'q': '--.-',
+        'r': '.-.',
+        's': '...',
+        't': '-',
+        'u': '..-',
+        'v': '...-',
+        'w': '.--',
+        'x': '-..-',
+        'y': '-.--',
+        'z': '--..',
+        '.': '.-.-.-',
+        ',': '--..--',
+        '?': '..--..',
+        '!': '-.-.--',
+        '-': '-....-',
+        '/': '-..-.',
+        '@': '.--.-.',
+        '(': '-.--.',
+        ')': '-.--.-',
+        ' ': ' ',
+        'ч': '---.',
+        'ш': '----',
+        'я': '.-.-',
+        'ю': '..--',
+    };
+
+    re = new RegExp(Object.keys(cyrilic).join("|"),"gi");
+    value = value.replace(re, function(matched){
+        return cyrilic[matched];
+    });
+    chars = value.toLowerCase().split('');
+    out = [];
+    for (i=0; i<chars.length; i++) {
+        out.push(typeof morse[chars[i]] !== 'undefined' ? morse[chars[i]] : '?');
+    }
+    return out.join('/');
 }
 
 
