@@ -42,10 +42,10 @@ class Signal
 {
     const cyrillicSubs = [
         // Cyrillic Two-letter 'translit' representations
-        'Ch' => 'Ч',
-        'Sh' => 'Ш',
-        'Ya' => 'Я',
-        'Yu' => 'Ю',
+        'Ch' => 'ч', // Uppercase: 'Ч'
+        'Sh' => 'ш', // Uppercase: 'Ш'
+        'Ya' => 'я', // Uppercase: 'Я'
+        'Yu' => 'ю', // Uppercase: 'Ю'
     ];
     const morse = [
         '0' => '-----',
@@ -96,10 +96,10 @@ class Signal
         ' ' => ' ',
 
         // Cyrilic characters converted from two-letter latin representations
-        'Ч' =>	'---.',
-        'Ш' => '----',
-        'Я' => '.-.-',
-        'Ю' => '..--',
+        'ч' => '---.',
+        'ш' => '----',
+        'я' => '.-.-',
+        'ю' => '..--',
     ];
 
     /**
