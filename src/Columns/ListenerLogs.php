@@ -28,7 +28,7 @@ class ListenerLogs
                 'admin'     =>  false,
                 'arg'       =>  '',
                 'field'     =>  'operator',
-                'label'     =>  'Operator',
+                'label'     =>  'Operator<br>(If Remote)',
                 'order'     =>  'a',
                 'sort'      =>  'op.name',
                 'td_class'  =>  '',

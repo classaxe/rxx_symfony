@@ -34,10 +34,10 @@
     {%
         if key == 'username'
     %}<a href="{{ url('user', { 'system' : system, 'id': record.id }) }}" data-popup="1">{{ value|raw }}</a>{%
-        elseif key == 'active'
-    %}{{ value ? 'YES'|trans : 'NO'|trans }}{%
+        elseif key == 'countLogSession'
+    %}<a href="{{ url('user_logsessions', { 'system' : system, 'id': record.id }) }}" data-popup="1">{{ value|raw }}</a>{%
         elseif key == 'logonLatest'
-    %}{{ value ? value|date('Y-m-d (H:i:s)') : '' }}{%
+    %}{{ value ? value|date('Y-m-d H:i:s') : '' }}{%
         elseif key == 'access'
     %}
         {% if value b-and 16 %}<span class="role-ma">{% trans %}MASTER ADMIN{% endtrans %}</span>{% endif %}
@@ -45,6 +45,8 @@
         {% if value b-and 4 %}<span class="role-aa">{% trans %}AWARDS ADMIN{% endtrans %}</span>{% endif %}
         {% if value b-and 2 %}<span class="role-cle">{% trans %}CLE ADMIN{% endtrans %}</span>{% endif %}
         {% if value b-and 1 %}<span class="role-u">{% trans %}USER{% endtrans %}</span>{% endif %}{%
+    elseif key == 'active'
+        %}{{ value ? 'YES'|trans : 'NO'|trans }}{%
     else
 %}{{ value|raw }}{%
     endif
