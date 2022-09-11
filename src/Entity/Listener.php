@@ -10,6 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="listeners",indexes={
  *     @ORM\Index(name="count_logs", columns={"count_logs"}),
+ *     @ORM\Index(name="formatted_location", columns={"formatted_location"}),
  *     @ORM\Index(name="name", columns={"name"}),
  *     @ORM\Index(name="QTH", columns={"QTH"}),
  *     @ORM\Index(name="primary_QTH", columns={"primary_QTH"}),
@@ -126,6 +127,12 @@ class Listener
      * @ORM\Column(name="equipment", type="text", length=65535, nullable=false)
      */
     private $equipment;
+
+    /**
+     * @var string
+     * @ORM\Column(name="formatted_location", type="text", length=255, nullable=false)
+     */
+    private $formattedLocation;
 
     /**
      * @var string
@@ -572,6 +579,25 @@ class Listener
     public function setEquipment(?string $equipment): self
     {
         $this->equipment = htmlentities($equipment);
+
+        return $this;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getFormattedLocation(): ?string
+    {
+        return html_entity_decode($this->formattedLocation);
+    }
+
+    /**
+     * @param string|null $equipment
+     * @return Listener
+     */
+    public function setFormattedLocation(?string $formattedLocation): self
+    {
+        $this->formattedLocation = htmlentities($formattedLocation);
 
         return $this;
     }

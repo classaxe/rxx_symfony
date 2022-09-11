@@ -111,12 +111,9 @@ class LogsessionRepository extends ServiceEntityRepository
 
     private function addFilterLocation($qb, $args) {
         if ($args['location'] ?? false) {
-            $or = [];
-            $fields = ['li.name', 'li.qth', 'li.sp', 'li.itu', 'li.qth', 'li.gsq'];
-            foreach($fields as $field) {
-                $or[] = "$field like '%{$args['location']}%'";
-            }
-            $qb->andWhere(implode(' OR ', $or));
+            $qb
+                ->andWhere('li.formattedLocation LIKE :location')
+                ->setParameter('location', '%' . $args['location'] . '%');
         }
     }
 
@@ -190,7 +187,7 @@ class LogsessionRepository extends ServiceEntityRepository
             . 'ls.listenerId,'
             . 'li.primaryQth,'
             . 'li.active,'
-            . '(CASE WHEN li.name IS NULL THEN \'\' ELSE CONCAT(li.name, \' | \', li.qth, \' \', li.sp, \' \', li.itu, \' \', li.gsq) END) as listener,'
+            . 'li.formattedLocation as listener,'
             . 'li.website as website,'
             . 'li.callsign as callsign,'
             . 'li.qth as qth,'

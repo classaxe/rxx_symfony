@@ -95,7 +95,6 @@ class ListenerView extends Base
         $form->handleRequest($request);
         if ($isAdmin && $form->isSubmitted() && $form->isValid()) {
             $form_data = $form->getData();
-            $data['form'] = $form_data;
             if ((int)$id) {
                 $listener = $this->listenerRepository->find($id);
             } else {
@@ -111,11 +110,20 @@ class ListenerView extends Base
                 $lon =  0;
             }
             $region = $this->countryRepository->getRegionForCountry($form_data['itu']);
+            $formattedLocation =
+                $form_data['name']
+                . ' | ' . $form_data['qth']
+                . ($form_data['sp'] ? ' ' . $form_data['sp'] : '')
+                . ' ' . $form_data['itu']
+                . ($GSQ ? ' ' . $GSQ : '');
+
             $listener
                 ->setGsq($GSQ)
                 ->setLat($lat)
                 ->setLon($lon)
-                ->setRegion($region);
+                ->setRegion($region)
+                ->setFormattedLocation($formattedLocation);
+
             foreach (static::EDITABLE_FIELDS as $f) {
                 $listener->{'set' . ucfirst($f)}($form_data[$f]);
             }
