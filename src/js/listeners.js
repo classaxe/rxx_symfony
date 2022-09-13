@@ -147,10 +147,9 @@ var LISTENERS_FORM = {
 
     setResetAction : function() {
         $('button[type="reset"]').click(function () {
-            if (!confirm(msg.reset + "\n" + msg.cookie.reset)) {
-                return false;
+            if (COOKIE.get('listenersForm') && confirm(msg.cookie.reset)) {
+                COOKIE.clear('listenersForm', '/');
             }
-            COOKIE.clear('listenersForm', '/');
             var c = COMMON_FORM;
             var l = LISTENERS_FORM;
             $('fieldset#form_type div :checkbox').prop('checked', false);

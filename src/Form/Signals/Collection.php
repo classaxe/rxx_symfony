@@ -85,8 +85,12 @@ class Collection extends Base
                 'call',
                 TextType::class,
                 [
+                    'attr' => [
+                        'placeholder' => 'XXX-khz',
+                        'title' => 'TIP: enter call and frequency as CALL-nnn to set frequency fields as well'
+                    ],
                     'data' =>           $options['call'],
-                    'label' =>          'Call / ID',
+                    'label' =>          '&#128712; Call / ID',
                     'required' =>       false
                 ]
             )

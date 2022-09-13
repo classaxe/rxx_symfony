@@ -16,7 +16,7 @@
                     <legend id="signalDetails">{% trans %}Signal Details{% endtrans %}</legend>
                     {{ form_row(form.type) }}
                     <div>
-                        {{ form_label(form.call) }}
+                        <label for="form_call"><img src="{{ asset('image/icon_info.png') }}" style="height: 1em; cursor: pointer" alt="Info" title="TIP: enter call and frequency as CALL-nnn to set frequency fields as well"> Call / ID</label>
                         {{ form_widget(form.call) }}
                         <fieldset style="display:inline-block; width:auto; float: left;">
                             <legend class="sr-only">{% trans %}Frequency Range{% endtrans %}</legend>

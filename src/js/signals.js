@@ -4,6 +4,7 @@ var SIGNALS_FORM = {
             var c = COMMON_FORM;
             var s = SIGNALS_FORM;
             s.setPersonaliseAction();
+            s.setIdentAction();
             s.setKhzAction();
             s.setListenerFilterAction();
             s.setShowNotesAction();
@@ -190,15 +191,6 @@ var SIGNALS_FORM = {
         f.select();
     },
 
-    setIdentTip : function() {
-        var frmCall = $('#form_call');
-        if (frmCall.val() !== '') {
-            var tip = $('#exact');
-            tip.html(tip.html().replace('%s', "<b>'" + frmCall.val() + "'</b>"))
-            tip.show();
-        }
-    },
-
     setHeardIn : function() {
         $('#form_heard_in').on('keyup', function(){
             $('#form_heard_in').val(function (_, val) {
@@ -219,6 +211,31 @@ var SIGNALS_FORM = {
         if ($('fieldset#form_heard_in_mod div :radio:checked').length === 0) {
             $('fieldset#form_heard_in_mod div :radio[value=""]').prop('checked', true);
         }
+    },
+
+    setIdentAction : function() {
+        $('#form_call').on('blur', function(){
+            var params = $(this).val().split('-');
+            if (params.length === 2){
+                if (!isNaN(params[0]) && isNaN(params[1])) {
+                    params.reverse();
+                }
+                if (isNaN(params[0]) && !isNaN(params[1])) {
+                    $('#form_khz_1, #form_khz_2').val(params[1]);
+                    $(this).val(params[0]);
+                }
+            }
+        });
+    },
+
+    setIdentTip : function() {
+        var frmCall = $('#form_call');
+        if (frmCall.val() === '') {
+            return;
+        }
+        var tip = $('#exact');
+        tip.html(tip.html().replace('%s', "<b>'" + frmCall.val() + "'</b>"))
+        tip.show();
     },
 
     setKhzAction: function() {
@@ -357,10 +374,9 @@ var SIGNALS_FORM = {
 
     setResetAction : function() {
         $('button[type="reset"]').click(function () {
-            if (!confirm(msg.reset + "\n" + msg.cookie.reset)) {
-                return false;
+            if (COOKIE.get('signalsForm') && confirm(msg.cookie.reset)) {
+                COOKIE.clear('signalsForm', '/');
             }
-            COOKIE.clear('signalsForm', '/');
             var c = COMMON_FORM;
             var s = SIGNALS_FORM;
             var form_range_gsq = $('#form_range_gsq');
