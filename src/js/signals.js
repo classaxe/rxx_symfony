@@ -225,6 +225,10 @@ var SIGNALS_FORM = {
                     $(this).val(params[0]);
                 }
             }
+        }).on('keypress', function(e) {
+            if (e.which === 13) {
+                $('#form_call').trigger('blur');
+            }
         });
     },
 
