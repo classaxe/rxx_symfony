@@ -64,7 +64,7 @@ class SystemRepository
                     'show_email' => true
                 ],
                 [
-                    'email' =>      'roelof@ndb.demon.nl',
+                    'email' =>      'roelofndb@delta.nl',
                     'name' =>       'Roelof Bakker',
                     'roles' =>      ['HAMBCN'],
                     'show_email' => true
@@ -92,7 +92,7 @@ class SystemRepository
                     'show_email' => true
                 ],
                 [
-                    'email' =>      'roelof@ndb.demon.nl',
+                    'email' =>      'roelofndb@delta.nl',
                     'name' =>       'Roelof Bakker',
                     'roles' =>      ['NDB', 'HAMBCN'],
                     'show_email' => true
@@ -120,7 +120,7 @@ class SystemRepository
                     'show_email' => true
                 ],
                 [
-                    'email' =>      'roelof@ndb.demon.nl',
+                    'email' =>      'roelofndb@delta.nl',
                     'name' =>       'Roelof Bakker',
                     'roles' =>      ['NDB', 'HAMBCN'],
                     'show_email' => true
