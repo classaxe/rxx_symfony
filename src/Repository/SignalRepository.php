@@ -1139,17 +1139,19 @@ EOD;
         if (isset($args['sort']) && $columns[$args['sort']]['sort']) {
             $idx = $columns[$args['sort']];
 //            print "<pre>COLUMN: ".print_r($idx, true)."</pre>";
-            $qb
-                ->addOrderBy(
-                    ($idx['sort']),
-                    ($args['order'] ?? '' === 'd' ? 'DESC' : 'ASC')
-                );
+            $qb ->addOrderBy(
+                ($idx['sort']),
+                ($args['order'] === 'd' ? 'DESC' : 'ASC')
+            );
             if (isset($idx['sort_2']) && isset($idx['order_2'])) {
-                $qb
-                    ->addOrderBy(
-                        ($idx['sort_2']),
-                        ($args['order'] ?? '' === 'd' ? 'DESC' : 'ASC')
-                    );
+                $qb ->addOrderBy(
+                    ($idx['sort_2']),
+                    ($args['order'] === 'd' ?
+                        ($idx['order_2'] === 'a' ? 'DESC' : 'ASC')
+                        :
+                        ($idx['order_2'] === 'd' ? 'DESC' : 'ASC')
+                    )
+                );
             }
         }
 
