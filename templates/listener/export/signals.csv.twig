@@ -19,6 +19,7 @@
     trans %}Latest{% endtrans %}","{%
     trans %}KM{% endtrans %}","{%
     trans %}Miles{% endtrans %}","{%
+    trans %}Deg{% endtrans %}","{%
     trans %}Daytime{% endtrans %}"
 {% for s in signals %}{{
     0 + s.khz }},"{{
@@ -41,5 +42,6 @@
     s.latest }}","{{
     s.dxKm }}","{{
     s.dxMiles }}","{{
+    s.dxDeg }}","{{
     s.daytime ? 'Y' : 'N' }}"
 {% endfor %}

@@ -1156,9 +1156,9 @@ EOD;
 //            print "<pre>COLUMN: ".print_r($idx, true)."</pre>";
             $qb ->addOrderBy(
                 ($idx['sort']),
-                ($args['order'] === 'd' ? 'DESC' : 'ASC')
+                (isset($args['order']) && $args['order'] === 'd' ? 'DESC' : 'ASC')
             );
-            if (isset($idx['sort_2']) && isset($idx['order_2'])) {
+            if (isset($args['order']) && isset($idx['sort_2']) && isset($idx['order_2'])) {
                 $qb ->addOrderBy(
                     ($idx['sort_2']),
                     ($args['order'] === 'd' ?
