@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.55.0
- * Date:       2022-09-18
+ * Version:    2.56.0
+ * Date:       2022-12-12
  * Licence:    LGPL
  * Copyright:  2022 Martin Francis
  */
@@ -2048,20 +2048,20 @@ table.logsessions tbody tr.selected td {
   width: 95px;
 }
 .signal_list label[for="form_within"] {
-  width: 75px !important;
+  width: 65px !important;
   padding-left: 1em !important;
   padding-right: 0.25em !important;
 }
 .signal_list #form_within {
-  width: 95px;
+  width: 85px;
 }
 .signal_list label[for="form_active"] {
-  width: 75px !important;
+  width: 65px !important;
   padding-left: 1em !important;
   padding-right: 0.25em !important;
 }
 .signal_list #form_active {
-  width: 95px;
+  width: 125px;
 }
 .signal_list #form_personalise,
 .signal_list #form_listener {
@@ -2279,6 +2279,7 @@ fieldset#form_range_units div label {
 .signal_view #form label[for="form_usb"],
 .signal_view #form label[for="form_sec"],
 .signal_view #form label[for="form_format"],
+.signal_view #form label[for="form_decommissioned"],
 .signal_view #form label[for="form_firstHeard"],
 .signal_view #form label[for="form_lastHeard"] {
   min-width: auto;
@@ -2305,8 +2306,9 @@ fieldset#form_range_units div label {
   width: 11%;
 }
 .signal_view #form label[for="form_firstHeard"],
-.signal_view #form label[for="form_lastHeard"] {
-  width: 18%;
+.signal_view #form label[for="form_lastHeard"],
+.signal_view #form label[for="form_decommissioned"] {
+  width: 13%;
 }
 .signal_view #form label b {
   font-weight: normal;
@@ -2392,7 +2394,12 @@ fieldset#form_range_units div label {
 .signal_view #form input[type='text']#form_active,
 .signal_view #form textarea#form_active,
 .signal_view #form select#form_active {
-  width: 13%;
+  width: 8%;
+}
+.signal_view #form input[type='text']#form_decommissioned,
+.signal_view #form textarea#form_decommissioned,
+.signal_view #form select#form_decommissioned {
+  width: 8%;
 }
 .signal_view #form input[type='text']#form_firstHeard,
 .signal_view #form textarea#form_firstHeard,
@@ -2400,7 +2407,7 @@ fieldset#form_range_units div label {
 .signal_view #form input[type='text']#form_lastHeard,
 .signal_view #form textarea#form_lastHeard,
 .signal_view #form select#form_lastHeard {
-  width: 13%;
+  width: 10%;
 }
 .signal_view #form div#form_itu_suffix,
 .signal_view #form div#form_sp_suffix,

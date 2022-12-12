@@ -127,9 +127,24 @@ class SignalRepository extends ServiceEntityRepository
 
     private function _addFilterActive()
     {
-        if (in_array($this->args['active'] ?? false, ['1', '2'])) {
-            $this->query['where'][] ='(s.active = :active)';
-            $this->query['param']['active'] = ($this->args['active'] === '2' ? 0 : 1);
+        if (in_array($this->args['active'] ?? false, ['1', '2', '3', '4'])) {
+            switch($this->args['active']) {
+                case '0':
+                    $this->query['where'][] ='(s.active = 0 AND s.decommissioned = 0)';
+                    break;
+                case '1':
+                    $this->query['where'][] ='(s.active = 1)';
+                    break;
+                case '2':
+                    $this->query['where'][] ='(s.active = 0)';
+                    break;
+                case '3':
+                    $this->query['where'][] ='(s.decommissioned = 1)';
+                    break;
+                case '4':
+                    // Allow everything
+                    break;
+            }
         }
         return $this;
     }

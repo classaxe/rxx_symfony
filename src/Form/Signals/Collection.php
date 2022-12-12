@@ -209,7 +209,13 @@ class Collection extends Base
                 'active',
                 ChoiceType::class,
                 [
-                    'choices' =>        [ 'All' => '', 'Active' => '1', 'Inactive' =>   '2' ],
+                    'choices' =>        [
+                        'All' => '',
+                        'All inc Decomm' => '4',
+                        'Active' => '1',
+                        'Inactive' =>   '2',
+                        'Decommissioned' => '3',
+                    ],
                     'data' =>           $options['active'],
                     'label' =>          'Status',
                     'required' =>       false

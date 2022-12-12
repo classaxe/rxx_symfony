@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 class SignalView extends Base
 {
     const EDITABLE_FIELDS = [
-        'active', 'call', 'format', 'gsq', 'itu', 'khz', 'notes', 'pwr', 'qth', 'sec', 'sp', 'type'
+        'active', 'call', 'decommissioned', 'format', 'gsq', 'itu', 'khz', 'notes', 'pwr', 'qth', 'sec', 'sp', 'type'
     ];
 
     /**
@@ -56,6 +56,7 @@ class SignalView extends Base
                     ->setActive(true)
                     ->setType(0)
                     ->setCall($d['ID'])
+                    ->setDecommissioned($d['decommissioned'])
                     ->setKhz($d['KHZ'])
                     ->setQth($d['QTH'])
                     ->setSp($d['SP'])
