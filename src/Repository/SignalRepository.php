@@ -721,6 +721,7 @@ EOD;
         $this->query['select'][] =
             ($distinct ? 'DISTINCT ' : '')
             . 's.active,'
+            . 's.decommissioned,'
             . 's.type,'
             . 's.ID,'
             . 's.khz,'
@@ -763,7 +764,7 @@ EOD;
         );
         $this->query['select'][] =
             ($distinct ? 'DISTINCT ' : '')
-            . "s.id, s.call, s.khz, s.gsq, s.type, s.active, s.sp, s.itu";
+            . "s.id, s.call, s.decommissioned, s.khz, s.gsq, s.type, s.active, s.sp, s.itu";
         return $this;
     }
 

@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.54.6
- * Date:       2022-09-13
+ * Version:    2.56.3
+ * Date:       2022-12-13
  * Licence:    LGPL
  * Copyright:  2022 Martin Francis
  */
@@ -2613,14 +2613,18 @@ var SMap = {
             s = signals[i];
             html +=
                 '<tr' +
-                ' class="type_' + s.typeId + ' type_' + s.className + (typeof s.logged !== 'undefined' ? (s.logged ? ' logged' : ' unlogged') : '') + '"' +
+                ' class="type_' + s.typeId +
+                ' type_' + s.className +
+                (s.decommissioned ? ' decommissioned' : '') +
+                (typeof s.logged !== 'undefined' ? (s.logged ? ' logged' : ' unlogged') : '') +
+                '"' +
                 ' id="signal_' + s.id + '"' +
                 ' data-gmap="' + s.lat + '|' + s.lon + '"' +
                 '>' +
                 (typeof s.logged !== 'undefined' ? '<td class="personalise" data-val="' + (s.logged ? 'logged' : 'unlogged') + '">' + (s.logged ? '&#x2714;' : '&nbsp;') + '</td>' : '') +
                 '<td data-val="' + s.khz +'">' + s.khz + '</td>' +
                 '<td data-val="' + s.call + '" class="text-nowrap">' +
-                '<a href="' + base_url + 'signals/' + s.id + '" class="' + (s.active ? '' : 'inactive') + '" data-popup="1">' + s.call + '</a>' +
+                '<a href="' + base_url + 'signals/' + s.id + '" data-popup="1">' + s.call + '</a>' +
                 '</td>' +
                 '<td data-val="' + s.qth + '" class="clipped">' + s.qth + '</td>' +
                 '<td data-val="' + s.sp + '">' + s.sp + '</td>' +
@@ -3411,9 +3415,15 @@ var SIGNALS = {
             for (i = 0; i<data.signals.length; i++) {
                 s = data.signals[i];
                 row = '<tr class="' +
-                    (s.active === '0' ? 'inactive ' : '') + args.types[s.type].classname +
+                    (s.decommissioned === '1' ? 'decommissioned ' : '') +
+                    (s.active === '0' ? 'inactive ' : '') +
+                    args.types[s.type].classname +
                     (data.personalise.id ? (s.personalise === '0' ? '' : 'un') + 'logged' : '') + '"' +
-                    ' title="' + args.types[s.type].title + (s.active === '0' ? ' (' + msg.inactive + ')' : '' ) + '">' +
+                    ' title="' +
+                    args.types[s.type].title +
+                    (s.active === '0' && s.decommissioned !== '1' ? ' (' + msg.inactive + ')' : '' ) +
+                    (s.decommissioned === '1' ? ' (' + msg.decommissioned + ')' : '' ) +
+                    '">' +
                     (data.personalise.id ?
                             '<th title="' + (s.personalise === '0' ? msg.unlogged_by : msg.logged_by) + '" class="rowspan2">' +
                             (s.personalise === '1' ? '&#x2714;' : '&nbsp;') +

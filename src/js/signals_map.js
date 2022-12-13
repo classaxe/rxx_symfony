@@ -72,14 +72,18 @@ var SMap = {
             s = signals[i];
             html +=
                 '<tr' +
-                ' class="type_' + s.typeId + ' type_' + s.className + (typeof s.logged !== 'undefined' ? (s.logged ? ' logged' : ' unlogged') : '') + '"' +
+                ' class="type_' + s.typeId +
+                ' type_' + s.className +
+                (s.decommissioned ? ' decommissioned' : '') +
+                (typeof s.logged !== 'undefined' ? (s.logged ? ' logged' : ' unlogged') : '') +
+                '"' +
                 ' id="signal_' + s.id + '"' +
                 ' data-gmap="' + s.lat + '|' + s.lon + '"' +
                 '>' +
                 (typeof s.logged !== 'undefined' ? '<td class="personalise" data-val="' + (s.logged ? 'logged' : 'unlogged') + '">' + (s.logged ? '&#x2714;' : '&nbsp;') + '</td>' : '') +
                 '<td data-val="' + s.khz +'">' + s.khz + '</td>' +
                 '<td data-val="' + s.call + '" class="text-nowrap">' +
-                '<a href="' + base_url + 'signals/' + s.id + '" class="' + (s.active ? '' : 'inactive') + '" data-popup="1">' + s.call + '</a>' +
+                '<a href="' + base_url + 'signals/' + s.id + '" data-popup="1">' + s.call + '</a>' +
                 '</td>' +
                 '<td data-val="' + s.qth + '" class="clipped">' + s.qth + '</td>' +
                 '<td data-val="' + s.sp + '">' + s.sp + '</td>' +

@@ -18,7 +18,8 @@ var signals = [
     row.ID }}, 'khz':{{
     row.khz }}, 'call':'{{
     row.call|raw|unescape|raw }}', 'active':{{
-    row.active ? '1' : '0' }}, 'className':'{{
+    row.active ? '1' : '0' }}, 'decommissioned':{{
+    row.decommissioned ? '1' : '0' }}, 'className':'{{
     type.class|lower }} {{ row.active == '0' ? 'inactive' : 'active' }}', 'type':'{{
     type.title|trans }}{% if row.active == 0 %} {% trans %}(inactive){% endtrans %}{% endif %}', 'typeId':{{
     row.type }}, 'pwr':'{{
