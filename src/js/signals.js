@@ -597,9 +597,15 @@ var SIGNALS = {
             for (i = 0; i<data.signals.length; i++) {
                 s = data.signals[i];
                 row = '<tr class="' +
-                    (s.active === '0' ? 'inactive ' : '') + args.types[s.type].classname +
+                    (s.decommissioned === '1' ? 'decommissioned ' : '') +
+                    (s.active === '0' ? 'inactive ' : '') +
+                    args.types[s.type].classname +
                     (data.personalise.id ? (s.personalise === '0' ? '' : 'un') + 'logged' : '') + '"' +
-                    ' title="' + args.types[s.type].title + (s.active === '0' ? ' (' + msg.inactive + ')' : '' ) + '">' +
+                    ' title="' +
+                    args.types[s.type].title +
+                    (s.active === '0' && s.decommissioned !== '1' ? ' (' + msg.inactive + ')' : '' ) +
+                    (s.decommissioned === '1' ? ' (' + msg.decommissioned + ')' : '' ) +
+                    '">' +
                     (data.personalise.id ?
                             '<th title="' + (s.personalise === '0' ? msg.unlogged_by : msg.logged_by) + '" class="rowspan2">' +
                             (s.personalise === '1' ? '&#x2714;' : '&nbsp;') +

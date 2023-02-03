@@ -90,6 +90,7 @@ var LISTENERS_FORM = {
         })
         $('#btn_rxxid_go').click(function() {
             window.open('./listeners/' + $('#rxxid').val() + '/upload', '_blank', popWinSpecs['listeners_[id]_upload']);
+            $('#rxxid').val('');
             return false;
         });
 

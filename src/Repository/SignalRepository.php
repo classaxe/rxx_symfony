@@ -127,9 +127,24 @@ class SignalRepository extends ServiceEntityRepository
 
     private function _addFilterActive()
     {
-        if (in_array($this->args['active'] ?? false, ['1', '2'])) {
-            $this->query['where'][] ='(s.active = :active)';
-            $this->query['param']['active'] = ($this->args['active'] === '2' ? 0 : 1);
+        if (isset($this->args['active'])) {
+            switch($this->args['active']) {
+                case '': // 'All'
+                    $this->query['where'][] ='(s.decommissioned = 0)';
+                    break;
+                case '1': // Active
+                    $this->query['where'][] ='(s.active = 1)';
+                    break;
+                case '2': // Inactive
+                    $this->query['where'][] ='(s.active = 0)';
+                    break;
+                case '3': // Decommissioned
+                    $this->query['where'][] ='(s.decommissioned = 1)';
+                    break;
+                case '4': // All inc Decomm
+                    // Allow everything
+                    break;
+            }
         }
         return $this;
     }
@@ -706,6 +721,7 @@ EOD;
         $this->query['select'][] =
             ($distinct ? 'DISTINCT ' : '')
             . 's.active,'
+            . 's.decommissioned,'
             . 's.type,'
             . 's.ID,'
             . 's.khz,'
@@ -748,7 +764,7 @@ EOD;
         );
         $this->query['select'][] =
             ($distinct ? 'DISTINCT ' : '')
-            . "s.id, s.call, s.khz, s.gsq, s.type, s.active, s.sp, s.itu";
+            . "s.id, s.call, s.decommissioned, s.khz, s.gsq, s.type, s.active, s.sp, s.itu";
         return $this;
     }
 
@@ -1141,9 +1157,9 @@ EOD;
 //            print "<pre>COLUMN: ".print_r($idx, true)."</pre>";
             $qb ->addOrderBy(
                 ($idx['sort']),
-                ($args['order'] === 'd' ? 'DESC' : 'ASC')
+                (isset($args['order']) && $args['order'] === 'd' ? 'DESC' : 'ASC')
             );
-            if (isset($idx['sort_2']) && isset($idx['order_2'])) {
+            if (isset($args['order']) && isset($idx['sort_2']) && isset($idx['order_2'])) {
                 $qb ->addOrderBy(
                     ($idx['sort_2']),
                     ($args['order'] === 'd' ?

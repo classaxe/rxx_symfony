@@ -12,6 +12,7 @@
             &[for="form_usb"],
             &[for="form_sec"],
             &[for="form_format"],
+            &[for="form_decommissioned"],
             &[for="form_firstHeard"],
             &[for="form_lastHeard"] {
                 min-width: auto;
@@ -38,8 +39,9 @@
                 width: 11%;
             }
             &[for="form_firstHeard"],
-            &[for="form_lastHeard"]{
-                width: 18%;
+            &[for="form_lastHeard"],
+            &[for="form_decommissioned"]{
+                width: 13%;
             }
             b {
                 font-weight: normal;
@@ -97,11 +99,14 @@
                 width: 16%;
             }
             &#form_active {
-                width: 13%;
+                width: 8%;
+            }
+            &#form_decommissioned {
+                width: 8%;
             }
             &#form_firstHeard,
             &#form_lastHeard {
-                width: 13%;
+                width: 10%;
             }
         }
         div#form_itu_suffix,

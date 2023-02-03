@@ -99,6 +99,34 @@ class SignalView extends Base
                 ]
             )
             ->add(
+                'active',
+                ChoiceType::class,
+                [
+                    'choices' => [
+                        'Inactive' =>   0,
+                        'Active' =>     1
+                    ],
+                    'data' =>           $options['active'],
+                    'empty_data' =>     '',
+                    'label' =>          'Status',
+                    'required' =>       true
+                ]
+            )
+            ->add(
+                'decommissioned',
+                ChoiceType::class,
+                [
+                    'choices' => [
+                        'No' =>   0,
+                        'Yes' =>     1
+                    ],
+                    'data' =>       $options['decommissioned'],
+                    'empty_data' => '',
+                    'label' =>      'Decomm.',
+                    'required' =>   false
+                ]
+            )
+            ->add(
                 'notes',
                 TextareaType::class,
                 [
@@ -218,20 +246,6 @@ class SignalView extends Base
                     'empty_data' =>     '',
                     'label' =>          'Format',
                     'required' =>       false
-                ]
-            )
-            ->add(
-                'active',
-                ChoiceType::class,
-                [
-                    'choices' => [
-                        'Inactive' =>   0,
-                        'Active' =>     1
-                    ],
-                    'data' =>           $options['active'],
-                    'empty_data' =>     '',
-                    'label' =>          'Status',
-                    'required' =>       true
                 ]
             )
             ->add(

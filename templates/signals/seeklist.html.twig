@@ -78,7 +78,7 @@
                                 <em>({% if (args.personalise) %}{{ sl_stats.heard }} of {% endif %}{{ sl_stats.total  }})</em>
                             </div>
                         {% endif %}
-                        <div {% if not signal.active %}title="(Inactive)"{% endif %} class="clearfix sl_d{% if signal.personalise %} heard{% endif %}{% if not signal.active %} inactive{% endif %}">
+                        <div {% if signal.decommissioned %}title="(Decommissioned)"{% endif %}{% if not signal.active and not signal.decommissioned %}title="(Inactive)"{% endif %} class="clearfix sl_d{% if signal.personalise %} heard{% endif %}{% if signal.decommissioned %} decommissioned{% endif %} {% if not signal.active %} inactive{% endif %}">
                             <span>{{ signal.khz | round(3) }}</span>
                             <span>{{ signal.call|raw|unescape}}</span>
                             <em>{{ signal.personalise ? '&#9745;' : '&#9744;' }}</em>

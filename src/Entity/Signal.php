@@ -126,6 +126,13 @@ class Signal
     private $call = '';
 
     /**
+     * @var bool|null
+     *
+     * @ORM\Column(name="decommissioned", type="boolean", nullable=true)
+     */
+    private $decommissioned;
+
+    /**
      * @var \DateTime|null
      *
      * @ORM\Column(name="first_heard", type="date", nullable=true)
@@ -384,6 +391,18 @@ class Signal
     public function setCall(string $call): self
     {
         $this->call = htmlentities($call);
+
+        return $this;
+    }
+
+    public function getDecommissioned()
+    {
+        return $this->decommissioned;
+    }
+
+    public function setDecommissioned($decommissioned): self
+    {
+        $this->decommissioned = (int)$decommissioned;
 
         return $this;
     }

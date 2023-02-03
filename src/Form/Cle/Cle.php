@@ -497,7 +497,7 @@ class Cle extends AbstractType
                 'worldRange1Active',
                 ChoiceType::class,
                 [
-                    'choices' =>        [ 'All' => '', 'Active' => '1', 'Inactive' =>   '2' ],
+                    'choices' =>        [ 'All' => '', 'All inc Decomm' => '4', 'Active' => '1', 'Inactive' => '2', 'Decommissioned' => '3' ],
                     'data' =>           $options['worldRange1Active'],
                     'empty_data' =>     '',
                     'label' =>          '',
@@ -508,7 +508,7 @@ class Cle extends AbstractType
                 'europeRange1Active',
                 ChoiceType::class,
                 [
-                    'choices' =>        [ 'All' => '', 'Active' => '1', 'Inactive' =>   '2' ],
+                    'choices' =>        [ 'All' => '', 'All inc Decomm' => '4', 'Active' => '1', 'Inactive' => '2', 'Decommissioned' => '3' ],
                     'data' =>           $options['europeRange1Active'],
                     'empty_data' =>     '',
                     'label' =>          '',
@@ -519,7 +519,7 @@ class Cle extends AbstractType
                 'worldRange2Active',
                 ChoiceType::class,
                 [
-                    'choices' =>        [ 'All' => '', 'Active' => '1', 'Inactive' =>   '2' ],
+                    'choices' =>        [ 'All' => '', 'All inc Decomm' => '4', 'Active' => '1', 'Inactive' => '2', 'Decommissioned' => '3' ],
                     'data' =>           $options['worldRange2Active'],
                     'empty_data' =>     '',
                     'label' =>          '',
@@ -530,7 +530,7 @@ class Cle extends AbstractType
                 'europeRange2Active',
                 ChoiceType::class,
                 [
-                    'choices' =>        [ 'All' => '', 'Active' => '1', 'Inactive' =>   '2' ],
+                    'choices' =>        [ 'All' => '', 'All inc Decomm' => '4', 'Active' => '1', 'Inactive' => '2', 'Decommissioned' => '3' ],
                     'data' =>           $options['europeRange2Active'],
                     'empty_data' =>     '',
                     'label' =>          '',

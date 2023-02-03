@@ -443,7 +443,7 @@ class Collection extends Base
         $this->setValueFromRequest($this->args, $r, 'notes');
         $this->setValueFromRequest($this->args, $r, 'recently', ['logged', 'unlogged']);
         $this->setValueFromRequest($this->args, $r, 'within', array_values($this->signalRepository::withinPeriods));
-        $this->setValueFromRequest($this->args, $r, 'active', ['1', '2']);
+        $this->setValueFromRequest($this->args, $r, 'active', ['1', '2', '3', '4']);
 
         $this->setListenersFromRequest($this->args, $r);
         $this->setValueFromRequest($this->args, $r, 'listener_invert', ['0', '1']);
