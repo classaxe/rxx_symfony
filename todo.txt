@@ -3,3 +3,5 @@ TODO:
 2) Use Event Subscriber to handle authentication for restricted admin modes
 3) Move code to Symfony 5.2 framework - allegedly 7% faster - apparently an upgrade path is possible.
 4) Use DAO - Data access object for classes such as 'Paper' that have no DB entity representations
+5) Implement preservation of map options when switching between modes in signals list
+6) Create cron job to complete processing of stalled large log sessions
