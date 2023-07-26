@@ -1,10 +1,10 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.56.4
- * Date:       2022-12-15
+ * Version:    2.57.1
+ * Date:       2023-07-26
  * Licence:    LGPL
- * Copyright:  2022 Martin Francis
+ * Copyright:  2023 Martin Francis
  */
 /* [ System Colours ] */
 body.reu {
@@ -602,6 +602,10 @@ tr.dsc td {
   padding: 0;
   border-style: solid;
   border-width: 2px 0 0 0;
+}
+.footer a.callsign {
+  color: #f00 !important;
+  font-style: italic;
 }
 .footer p {
   margin: 0 0 1em 0;
