@@ -11,12 +11,14 @@ class SystemRepository
 
     const AUTHORS = [
         [
+            'callsign' =>   'VA3PHP',
             'email' =>      'martin@classaxe.com',
             'name' =>       'Martin Francis',
             'role' =>       'Software Development',
             'show_email' => true
         ],
         [
+            'callsign' =>   'KB8QGF',
             'email' =>      'kb8qgf@gmail.com',
             'name' =>       'Andy Robins',
             'role' =>       'Initial Concept',
@@ -26,12 +28,14 @@ class SystemRepository
 
     const AWARDS = [
         [
+            'callsign' =>   'KJ8O',
             'email' =>      'kj8o.ham@gmail.com',
-            'name' =>       'Joseph Miller - KJ80',
+            'name' =>       'Joseph Miller',
             'role' =>       'Awards Coordinator',
             'show_email' => false
         ],
         [
+            'callsign' =>   '',
             'email' =>      'ndbcle@gmail.com',
             'name' =>       'Brian Keyte, Joachim Rabe',
             'role' =>       'CLE Coordinators',
@@ -46,24 +50,28 @@ class SystemRepository
             'awards' =>     self::AWARDS,
             'editors' =>    [
                 [
+                    'callsign' =>   'EI4HQ',
                     'email' =>      'ei4hq.mail@gmail.com',
-                    'name' =>       'Cormac EI4HQ',
+                    'name' =>       'Cormac',
                     'roles' =>      ['DGPS', 'NAVTEX'],
                     'show_email' => true
                 ],
                 [
+                    'callsign' =>   'IZ8294SWL',
                     'email' =>      'ros.palermo@libero.it',
                     'name' =>       'Rosario Palermo',
                     'roles' =>      ['DSC'],
                     'show_email' => true
                 ],
                 [
+                    'callsign' =>   'VE1VDM',
                     'email' =>      'vmath@eastlink.ca',
                     'name' =>       'Vernon Matheson',
                     'roles' =>      ['NDB'],
                     'show_email' => true
                 ],
                 [
+                    'callsign' =>   'PA0RDT',
                     'email' =>      'roelofndb@delta.nl',
                     'name' =>       'Roelof Bakker',
                     'roles' =>      ['HAMBCN'],
@@ -80,18 +88,21 @@ class SystemRepository
             'awards' =>     self::AWARDS,
             'editors' =>    [
                 [
+                    'callsign' =>   'EI4HQ',
                     'email' =>      'ei4hq.mail@gmail.com',
-                    'name' =>       'Cormac EI4HQ',
+                    'name' =>       'Cormac',
                     'roles' =>      ['DGPS', 'NAVTEX'],
                     'show_email' => true
                 ],
                 [
+                    'callsign' =>   'IZ8294SWL',
                     'email' =>      'ros.palermo@libero.it',
                     'name' =>       'Rosario Palermo',
                     'roles' =>      ['DSC'],
                     'show_email' => true
                 ],
                 [
+                    'callsign' =>   'PA0RDT',
                     'email' =>      'roelofndb@delta.nl',
                     'name' =>       'Roelof Bakker',
                     'roles' =>      ['NDB', 'HAMBCN'],
@@ -108,18 +119,21 @@ class SystemRepository
             'awards' =>     self::AWARDS,
             'editors' =>    [
                 [
+                    'callsign' =>   'EI4HQ',
                     'email' =>      'ei4hq.mail@gmail.com',
-                    'name' =>       'Cormac EI4HQ',
+                    'name' =>       'Cormac',
                     'roles' =>      ['DGPS', 'NAVTEX'],
                     'show_email' => true
                 ],
                 [
+                    'callsign' =>   'IZ8294SWL',
                     'email' =>      'ros.palermo@libero.it',
                     'name' =>       'Rosario Palermo',
                     'roles' =>      ['DSC'],
                     'show_email' => true
                 ],
                 [
+                    'callsign' =>   'PA0RDT',
                     'email' =>      'roelofndb@delta.nl',
                     'name' =>       'Roelof Bakker',
                     'roles' =>      ['NDB', 'HAMBCN'],
