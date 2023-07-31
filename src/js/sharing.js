@@ -53,6 +53,19 @@ var shareableLink = {
         return (defaultSorting !== f1.val() ? '&sort=' + f1.val() : '') +
             (defaultOrder !== f2.val() ? '&order=' + f2.val() : '');
     },
+    getFromStatus: function() {
+        var status = [], url;
+        $("fieldset#form_status div input").each(function() {
+            if ($(this).is(':checked')) {
+                status.push($(this).prop('value'));
+            }
+        });
+        if (0 === status.length) {
+            status = [1];
+        }
+        url = '&status=' + $.uniqueSort(status).join(',');
+        return (url === '&status=1' ? '' : url);
+    },
     getFromTypes: function() {
         var types = [], url;
         $("fieldset#form_type div input").each(function() {
@@ -95,6 +108,7 @@ var shareableLink = {
         var base = this.getBaseUrl('signals');
         var url =
             this.getFromTypes() +
+            this.getFromStatus() +
             this.getFromField('rww_focus') +
             this.getFromField('call') +
             this.getFromPair('khz') +
@@ -107,7 +121,6 @@ var shareableLink = {
             this.getFromField('notes') +
             this.getFromField('recently') +
             this.getFromField('within') +
-            this.getFromField('active') +
 
             this.getFromListeners() +
             this.getFromRadioGroup('listener_invert', [ '1' ]) +

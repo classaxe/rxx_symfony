@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.57.1
- * Date:       2023-07-26
+ * Version:    2.57.4
+ * Date:       2023-07-31
  * Licence:    LGPL
  * Copyright:  2023 Martin Francis
  */
@@ -2057,7 +2057,7 @@ table.logsessions tbody tr.selected td {
   width: 115px;
 }
 .signal_list #form_recently {
-  width: 95px;
+  width: 185px;
 }
 .signal_list label[for="form_within"] {
   width: 65px !important;
@@ -2065,15 +2065,7 @@ table.logsessions tbody tr.selected td {
   padding-right: 0.25em !important;
 }
 .signal_list #form_within {
-  width: 85px;
-}
-.signal_list label[for="form_active"] {
-  width: 65px !important;
-  padding-left: 1em !important;
-  padding-right: 0.25em !important;
-}
-.signal_list #form_active {
-  width: 125px;
+  width: 185px;
 }
 .signal_list #form_personalise,
 .signal_list #form_listener {
@@ -2243,6 +2235,7 @@ table.logsessions tbody tr.selected td {
   line-height: 1em;
 }
 fieldset#form_type legend,
+fieldset#form_status legend,
 fieldset#form_offsets legend,
 fieldset#form_hidenotes legend,
 fieldset#form_morse legend,
@@ -2255,9 +2248,17 @@ fieldset#form_range_units legend {
   padding: 0 0.5em 0 0;
   color: #000000;
 }
-fieldset#form_type legend {
+fieldset#form_type legend,
+fieldset#form_status legend {
   text-align: left;
   width: 130px;
+}
+fieldset#form_status div {
+  margin: 0;
+}
+fieldset#form_status div label {
+  min-width: 5em;
+  margin: 0 0.25em;
 }
 fieldset#form_offsets legend,
 fieldset#form_hidenotes legend,

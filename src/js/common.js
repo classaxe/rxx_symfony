@@ -326,6 +326,13 @@ var COMMON_FORM = {
         }
     },
 
+    /* [ Ensure that at least one option is checked for signal type checkboxes ] */
+    setStatusDefault : function() {
+        if ($('fieldset#form_status div :checkbox:checked').length === 0) {
+            $('fieldset#form_status div :checkbox[value=1]').prop('checked', true);
+        }
+    },
+
     /* [ Enable 'All' checkbox to select / unselect all signal types ] */
     setTypesAllAction : function () {
         $('fieldset#form_type div :checkbox[value=ALL]').click(function () {

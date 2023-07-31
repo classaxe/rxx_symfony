@@ -249,7 +249,10 @@ class Collection extends Base
     private function setArgsAfterPostTweaks()
     {
         if (empty($this->args['type'])) {
-            $this->args['type'][] = 'NDB';
+           $this->args['type'][] = 'NDB';
+        }
+        if (empty($this->args['status'])) {
+            $this->args['status'][] = '1';
         }
         $this->args['isAdmin'] =      $this->isAdmin;
         $this->args['signalTypes'] =  $this->typeRepository->getSignalTypesSearched($this->args['type']);
@@ -324,6 +327,7 @@ class Collection extends Base
             'show' =>           '',
             'sp_itu_clause' =>  '',
             'states' =>         '',
+            'status' =>         [1],
             'system' =>         $this->system,
             'type' =>           [],
             'signalTypes' =>    [0],
@@ -431,6 +435,7 @@ class Collection extends Base
         $this->setPagingFromRequest($this->args, $r, $withPageNumber);
 
         $this->setTypeFromRequest($this->args, $r);
+        $this->setStatusFromRequest($this->args, $r);
         $this->setRwwFocusFromRequest($this->args, $r);
         $this->setValueFromRequest($this->args, $r, 'call');
         $this->setPairFromRequest($this->args, $r, 'khz');

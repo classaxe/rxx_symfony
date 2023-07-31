@@ -361,6 +361,19 @@ class Base extends AbstractController
         }
     }
 
+    protected function setStatusFromRequest(&$args, $request)
+    {
+        $value = $this->getValueFromRequestOrCookie($request, 'status');
+        if ($value) {
+            $status =       strtoupper($value);
+            $values =       explode(',', $status);
+            $args['status'] = [];
+            foreach ($values as $v) {
+                $args['status'][] = $v;
+            }
+        }
+    }
+
     protected function setTimezoneFromRequest(&$args, $request)
     {
         $value = $this->getValueFromRequestOrCookie($request, 'timezone', false);

@@ -1,7 +1,7 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.57.3
+ * Version:    2.57.4
  * Date:       2023-07-31
  * Licence:    LGPL
  * Copyright:  2023 Martin Francis
@@ -591,6 +591,13 @@ var COMMON_FORM = {
             container.show();
             hide.show();
             show.hide();
+        }
+    },
+
+    /* [ Ensure that at least one option is checked for signal type checkboxes ] */
+    setStatusDefault : function() {
+        if ($('fieldset#form_status div :checkbox:checked').length === 0) {
+            $('fieldset#form_status div :checkbox[value=1]').prop('checked', true);
         }
     },
 
@@ -2324,6 +2331,19 @@ var shareableLink = {
         return (defaultSorting !== f1.val() ? '&sort=' + f1.val() : '') +
             (defaultOrder !== f2.val() ? '&order=' + f2.val() : '');
     },
+    getFromStatus: function() {
+        var status = [], url;
+        $("fieldset#form_status div input").each(function() {
+            if ($(this).is(':checked')) {
+                status.push($(this).prop('value'));
+            }
+        });
+        if (0 === status.length) {
+            status = [1];
+        }
+        url = '&status=' + $.uniqueSort(status).join(',');
+        return (url === '&status=1' ? '' : url);
+    },
     getFromTypes: function() {
         var types = [], url;
         $("fieldset#form_type div input").each(function() {
@@ -2366,6 +2386,7 @@ var shareableLink = {
         var base = this.getBaseUrl('signals');
         var url =
             this.getFromTypes() +
+            this.getFromStatus() +
             this.getFromField('rww_focus') +
             this.getFromField('call') +
             this.getFromPair('khz') +
@@ -2378,7 +2399,6 @@ var shareableLink = {
             this.getFromField('notes') +
             this.getFromField('recently') +
             this.getFromField('within') +
-            this.getFromField('active') +
 
             this.getFromListeners() +
             this.getFromRadioGroup('listener_invert', [ '1' ]) +
@@ -2837,6 +2857,7 @@ var SIGNALS_FORM = {
             s.setPaperSizeAction();
 
             s.setRwwFocusAction();
+            c.setStatusDefault();
             c.setTypesStyles();
             c.setTypesDefault();
             c.setTypesAllAction();
@@ -3216,11 +3237,12 @@ var SIGNALS_FORM = {
             $('#form_show').val('');
             $('fieldset#form_type div :checkbox').prop('checked', false);
             $('fieldset#form_type div :checkbox[value=NDB]').prop('checked', true);
+            $('fieldset#form_status div :checkbox').prop('checked', false);
+            $('fieldset#form_status div :checkbox[value=1]').prop('checked', true);
             $('#form_call').val('');
             $('#form_khz_1').val('');
             $('#form_khz_2').val('');
             $('#form_channels').prop('selectedIndex', 0);
-            $('#form_active').prop('selectedIndex', 0);
             $('#form_recently').prop('selectedIndex', 0);
             $('#form_within').prop('selectedIndex', 0);
             $('#form_personalise').prop('selectedIndex', 0);
@@ -3228,7 +3250,6 @@ var SIGNALS_FORM = {
             $('#form_hidenotes_1').prop('checked', 1);
             $('#form_offsets_0').prop('checked', 1);
             $('#form_notes').val('');
-
             $('#form_states').val('');
             $('#form_sp_itu_clause').prop('selectedIndex', 0);
             $('#form_countries').val('');

@@ -424,6 +424,46 @@ class SignalRepository extends ServiceEntityRepository
         return $this;
     }
 
+    private function _addFilterStatus()
+    {
+        if (isset($this->args['status'])) {
+            $status = $this->args['status'];
+            if (!in_array('1', $status) && !in_array('2', $status) && !in_array('3', $status)) {
+                // NOTHING
+                $this->query['where'][] = '(1 = 0)';
+            }
+            if (!in_array('1', $status) && !in_array('2', $status) && in_array('3', $status)) {
+                // DECOM
+                $this->query['where'][] = '(s.decommissioned = 1)';
+            }
+            if (!in_array('1', $status) && in_array('2', $status) && !in_array('3', $status)) {
+                // INACTIVE
+                $this->query['where'][] = '(s.active = 0 && s.decommissioned = 0)';
+            }
+            if (!in_array('1', $status) && in_array('2', $status) && in_array('3', $status)) {
+                // INACTIVE OR DECOM
+                $this->query['where'][] = '(s.active = 0 || s.decommissioned = 1)';
+            }
+            if (in_array('1', $status) && !in_array('2', $status) && !in_array('3', $status)) {
+                // ACTIVE
+                $this->query['where'][] = '(s.active = 1)';
+            }
+            if (in_array('1', $status) && !in_array('2', $status) && in_array('3', $status)) {
+                // ACTIVE OR DECOM
+                $this->query['where'][] = '(s.active = 1 || s.decommissioned = 1)';
+            }
+            if (in_array('1', $status) && in_array('2', $status) && !in_array('3', $status)) {
+                // ACTIVE OR INACTIVE
+                $this->query['where'][] = '(s.decommissioned = 0)';
+            }
+            if (in_array('1', $status) && in_array('2', $status) && in_array('3', $status)) {
+                // ACTIVE OR INACTIVE OR DECOM
+                // No filter
+            }
+        }
+        return $this;
+    }
+
     private function _addFilterTypes()
     {
         $in = $this->_buildInParamsList('type', $this->args['signalTypes'] ?? false, '', '');
@@ -880,7 +920,6 @@ EOD;
             ->_setArgs($system, $args)
             ->_addFromTables()
             ->_addFilterRecently()
-            ->_addFilterActive()
             ->_addFilterCall()
             ->_addFilterChannels()
             ->_addFilterFreq()
@@ -889,6 +928,7 @@ EOD;
             ->_addFilterRange()
             ->_addFilterRegion()
             ->_addFilterStatesAndCountries()
+            ->_addFilterStatus()
             ->_addFilterTypes();
 
         if (isset($args['show']) && $args['show'] === 'map') {
@@ -986,7 +1026,6 @@ EOD;
             ->_addSelectColumnCountSignal()
             ->_addFromTables()
             ->_addFilterRecently()
-            ->_addFilterActive()
             ->_addFilterCall()
             ->_addFilterChannels()
             ->_addFilterFreq()
@@ -995,6 +1034,7 @@ EOD;
             ->_addFilterRange()
             ->_addFilterRegion()
             ->_addFilterStatesAndCountries()
+            ->_addFilterStatus()
             ->_addFilterTypes();
 
         if (isset($args['show']) && $args['show'] === 'map') {

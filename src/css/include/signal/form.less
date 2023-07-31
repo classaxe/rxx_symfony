@@ -57,7 +57,7 @@
         width: 115px;
     }
     #form_recently {
-        width: 95px;
+        width: 185px;
     }
     label[for="form_within"] {
         width: 65px !important;
@@ -65,15 +65,7 @@
         padding-right: 0.25em !important;
     }
     #form_within {
-        width: 85px;
-    }
-    label[for="form_active"] {
-        width: 65px !important;
-        padding-left: 1em !important;
-        padding-right: 0.25em !important;
-    }
-    #form_active {
-        width: 125px;
+        width: 185px;
     }
     #form_personalise,
     #form_listener {
@@ -247,6 +239,7 @@
 }
 
 fieldset#form_type,
+fieldset#form_status,
 fieldset#form_offsets,
 fieldset#form_hidenotes,
 fieldset#form_morse,
@@ -261,12 +254,23 @@ fieldset#form_range_units {
         color: #000000;
     }
 }
-fieldset#form_type{
+fieldset#form_type,
+fieldset#form_status {
     legend {
         text-align: left;
         width: @width[label];
     }
 }
+fieldset#form_status {
+    div {
+        margin: 0;
+        label {
+            min-width: 5em;
+            margin: 0 0.25em;
+        }
+    }
+}
+
 fieldset#form_offsets,
 fieldset#form_hidenotes,
 fieldset#form_morse,

@@ -18,6 +18,7 @@ var SIGNALS_FORM = {
             s.setPaperSizeAction();
 
             s.setRwwFocusAction();
+            c.setStatusDefault();
             c.setTypesStyles();
             c.setTypesDefault();
             c.setTypesAllAction();
@@ -397,11 +398,12 @@ var SIGNALS_FORM = {
             $('#form_show').val('');
             $('fieldset#form_type div :checkbox').prop('checked', false);
             $('fieldset#form_type div :checkbox[value=NDB]').prop('checked', true);
+            $('fieldset#form_status div :checkbox').prop('checked', false);
+            $('fieldset#form_status div :checkbox[value=1]').prop('checked', true);
             $('#form_call').val('');
             $('#form_khz_1').val('');
             $('#form_khz_2').val('');
             $('#form_channels').prop('selectedIndex', 0);
-            $('#form_active').prop('selectedIndex', 0);
             $('#form_recently').prop('selectedIndex', 0);
             $('#form_within').prop('selectedIndex', 0);
             $('#form_personalise').prop('selectedIndex', 0);
@@ -409,7 +411,6 @@ var SIGNALS_FORM = {
             $('#form_hidenotes_1').prop('checked', 1);
             $('#form_offsets_0').prop('checked', 1);
             $('#form_notes').val('');
-
             $('#form_states').val('');
             $('#form_sp_itu_clause').prop('selectedIndex', 0);
             $('#form_countries').val('');

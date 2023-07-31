@@ -82,6 +82,18 @@ class Collection extends Base
                 ]
             )
             ->add(
+                'status',
+                ChoiceType::class,
+                [
+                    'attr' =>           [ 'legend' => 'Status' ],
+                    'choices' =>        [ 'Active' => '1', 'Inactive' => '2', 'Decommissioned' => '3' ],
+                    'data' =>           $options['status'],
+                    'expanded' =>       true,
+                    'label' =>          false,
+                    'multiple' =>       true
+                ]
+            )
+            ->add(
                 'call',
                 TextType::class,
                 [
@@ -202,22 +214,6 @@ class Collection extends Base
                     'choices' =>        SignalRepository::withinPeriods,
                     'data' =>           $options['within'],
                     'label' =>          'In Last',
-                    'required' =>       false
-                ]
-            )
-            ->add(
-                'active',
-                ChoiceType::class,
-                [
-                    'choices' =>        [
-                        'All' => '',
-                        'All inc Decomm' => '4',
-                        'Active' => '1',
-                        'Inactive' =>   '2',
-                        'Decommissioned' => '3',
-                    ],
-                    'data' =>           $options['active'],
-                    'label' =>          'Status',
                     'required' =>       false
                 ]
             )
