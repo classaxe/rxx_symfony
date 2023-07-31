@@ -192,7 +192,7 @@ var LISTENERS_FORM = {
     setSaveAction: function() {
         $('#form_save').click(function(){
             if (confirm(msg.cookie.save + "\n" + msg.cookie.usesCookie)) {
-                var value = shareableLink.listenersUrl(false).split('?')[1];
+                var value = shareableLink.listenersUrl().split('?')[1];
                 COOKIE.set('listenersForm', value, '/');
                 alert(msg.cookie.saved);
             }
