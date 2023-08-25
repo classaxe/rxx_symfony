@@ -95,7 +95,7 @@ class ListenerRepository extends ServiceEntityRepository
 
     public function getTabs($listener = false, $isAdmin = false)
     {
-        if (!$listener->getId()) {
+        if (!is_object($listener) || !$listener->getId()) {
             return [];
         }
         $logs =                 $listener->getCountLogs();
@@ -573,7 +573,8 @@ class ListenerRepository extends ServiceEntityRepository
                 sp,
                 qth;
 EOD;
-        $stmt = $this->connection->prepare($sql);
+    /** @var Doctrine\DBAL\Driver\Statement $stmt */
+    $stmt = $this->connection->prepare($sql);
         $stmt->execute();
         return $stmt->fetchFirstColumn();
     }
@@ -881,7 +882,8 @@ EOD;
                 li_2.region IN ('na','ca');
 EOD;
 
-        $stmt = $this->connection->prepare($sql);
+    /** @var Doctrine\DBAL\Driver\Statement $stmt */
+    $stmt = $this->connection->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAllAssociative();
     }
@@ -941,6 +943,7 @@ EOT;
                 ID
             LIMIT 500
 EOD;
+        /** @var Doctrine\DBAL\Driver\Statement $stmt */
         $stmt = $this->connection->prepare($sql);
         $stmt->execute();
         return $stmt->fetchFirstColumn();
@@ -963,8 +966,8 @@ EOD;
                 (SELECT COUNT(DISTINCT `signalID`) FROM `logs` WHERE `logSessionId`=:logSessionId) AS `setSignals`;
 EOD;
         $params = ['logSessionId' => $id];
+        /** @var Doctrine\DBAL\Driver\Statement $stmt */
         $stmt = $this->connection->prepare($sql);
-
         $stmt->execute($params);
         $stats = $stmt->fetchAssociative();
 

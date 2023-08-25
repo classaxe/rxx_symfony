@@ -249,7 +249,7 @@ class LogSession
 
     /**
      * @param string $comment
-     * @return Listener
+     * @return $this
      */
     public function setComment(?string $comment): self
     {

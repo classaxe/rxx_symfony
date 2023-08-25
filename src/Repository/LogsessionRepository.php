@@ -28,7 +28,7 @@ class LogsessionRepository extends ServiceEntityRepository
 
     public function getTabs($logsession = false, $isAdmin = false)
     {
-        if (!$logsession->getId()) {
+        if (!is_object($logsession) || !$logsession->getId()) {
             return [];
         }
         $logs =                 $logsession->getLogs();

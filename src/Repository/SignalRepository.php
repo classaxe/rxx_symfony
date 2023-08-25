@@ -195,7 +195,7 @@ class SignalRepository extends ServiceEntityRepository
         if ($this->args['gsq'] ?? false) {
             $gsq = explode(" ", str_replace('*', '%', $this->args['gsq']));
             $in = $this->_buildInParamsList('gsq', $gsq, '', '%');
-            $this->query['where'][] = "s.gsq LIKE " . implode($in, " OR s.gsq LIKE ");
+            $this->query['where'][] = "s.gsq LIKE " . implode(" OR s.gsq LIKE ", $in);
         }
         return $this;
     }
@@ -385,12 +385,12 @@ class SignalRepository extends ServiceEntityRepository
         if ($this->args['countries'] ?? false) {
             $countries = explode(" ", str_replace('*', '%', $this->args['countries']));
             $in = $this->_buildInParamsList('countries', $countries);
-            $clauses[] = "(s.itu LIKE " . implode($in, " OR s.itu LIKE ") . ")";
+            $clauses[] = "(s.itu LIKE " . implode(" OR s.itu LIKE ", $in) . ")";
         }
         if ($this->args['states'] ?? false) {
             $states = explode(" ", str_replace('*', '%', $this->args['states']));
             $in = $this->_buildInParamsList('states', $states);
-            $clauses[] = "(s.sp LIKE " . implode($in, " OR s.sp LIKE ") . ")";
+            $clauses[] = "(s.sp LIKE " . implode(" OR s.sp LIKE ", $in) . ")";
         }
         switch (count($clauses)) {
             case 0:

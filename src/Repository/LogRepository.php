@@ -558,6 +558,7 @@ EOD;
             $sql .= " AND  `time` = :hhmm";
             $params[':hhmm'] = $hhmm;
         }
+        /** @var Doctrine\DBAL\Driver\Statement $stmt */
         $stmt = $this->connection->prepare($sql);
         $stmt->execute($params);
         return $stmt->fetchAssociative();

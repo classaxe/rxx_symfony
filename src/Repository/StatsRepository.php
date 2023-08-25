@@ -33,6 +33,7 @@ class StatsRepository extends ServiceEntityRepository
     public function getStats()
     {
         if ($this->cache === null) {
+            /** @var Doctrine\DBAL\Driver\Statement $stmt */
             $stmt = $this->connection->prepare('select * from stats where ID=1');
             $stmt->execute();
             $this->cache = $stmt->fetchAssociative();
@@ -51,9 +52,12 @@ class StatsRepository extends ServiceEntityRepository
                 . ") VALUES (\n"
                 . "    1,\n    '" . implode("',\n    '", array_values($data)) . "',\n    '$timestamp'\n"
                 . ")";
+
+            /** @var Doctrine\DBAL\Driver\Statement $stmt */
             $stmt = $this->connection->prepare($sql);
             $stmt->execute();
 
+            /** @var Doctrine\DBAL\Driver\Statement $stmt */
             $stmt = $this->connection->prepare('select * from stats where ID=1');
             $stmt->execute();
             $this->cache = $stmt->fetchAssociative();
@@ -86,6 +90,7 @@ class StatsRepository extends ServiceEntityRepository
             GROUP BY
                 li_2.region
 EOD;
+        /** @var Doctrine\DBAL\Driver\Statement $stmt */
         $stmt = $this->connection->prepare($sql);
         $stmt->execute();
         $rows = $stmt->fetchAllAssociative();
@@ -124,6 +129,7 @@ EOD;
             GROUP BY
                 lo_2.region
 EOD;
+        /** @var Doctrine\DBAL\Driver\Statement $stmt */
         $stmt = $this->connection->prepare($sql);
         $stmt->execute();
         $rows = $stmt->fetchAllAssociative();
@@ -190,6 +196,7 @@ EOD;
                 `heard_in_{$region}`=1
 EOD;
         }
+        /** @var Doctrine\DBAL\Driver\Statement $stmt */
         $stmt = $this->connection->prepare($sql);
         $stmt->execute();
         $results = $stmt->fetchAllAssociative();

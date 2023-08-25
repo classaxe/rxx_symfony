@@ -120,7 +120,7 @@ class IcaoRepository extends ServiceEntityRepository
     {
         $url = "http://www.aviationweather.gov/adds/metars?station_ids=$ICAO&std_trans=standard&chk_metars=on&hoursStr=past+$hours+hours";
         $out = [];
-        if ($my_file = @implode(file("$url"), " ")) {
+        if ($my_file = implode(' ', file($url))) {
             $lines =   explode("<", $my_file);
             foreach ($lines as $line) {
                 preg_match("/FONT FACE=\"Monospace,Courier\">([0-9a-zA-Z \r\n\t\f\/\-]+)/", $line, $result);
@@ -197,6 +197,7 @@ class IcaoRepository extends ServiceEntityRepository
             ];
         }
         $sql = "DELETE FROM icao";
+        /** @var Doctrine\DBAL\Driver\Statement $stmt */
         $stmt = $this->connection->prepare($sql);
         $stmt->execute();
 
@@ -214,6 +215,7 @@ class IcaoRepository extends ServiceEntityRepository
                     `lon` = {$d['lon']},
                     `SP` = '{$d['SP']}';
 EOD;
+        /** @var Doctrine\DBAL\Driver\Statement $stmt */
             $stmt = $this->connection->prepare($sql);
             $stmt->execute();
         }

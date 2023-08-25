@@ -73,7 +73,7 @@ class UserRepository extends ServiceEntityRepository
 
     public function getTabs($user = false, $isAdmin = false)
     {
-        if (!$user->getId()) {
+        if (!is_object($user) || !$user->getId()) {
             return [];
         }
         $logsessions =          $user->getCountLogSession();
