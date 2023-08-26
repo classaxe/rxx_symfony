@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.57.4
- * Date:       2023-07-31
+ * Version:    2.58.0
+ * Date:       2023-08-26
  * Licence:    LGPL
  * Copyright:  2023 Martin Francis
  */
@@ -24,6 +24,10 @@ var popWinSpecs = {
     'countries_na' :                        'width=640,height=220,resizable=1',
     'countries_oc' :                        'width=680,height=500,resizable=1',
     'countries_sa' :                        'width=320,height=600,resizable=1',
+    'donations_[id]' :                      'width=420,height=400,status=1,scrollbars=1,resizable=1',
+    'donations_new' :                       'width=420,height=400,status=1,scrollbars=1,resizable=1',
+    'donors_[id]' :                         'width=540,height=380,status=1,scrollbars=1,resizable=1',
+    'donors_new' :                          'width=540,height=380,status=1,scrollbars=1,resizable=1',
     'listeners_[id]' :                      'width=1120,height=760,status=1,scrollbars=1,resizable=1',
     'listeners_[id]_logs' :                 'width=1120,height=760,status=1,scrollbars=1,resizable=1',
     'listeners_[id]_logsessions' :          'width=1120,height=760,status=1,scrollbars=1,resizable=1',
@@ -629,6 +633,48 @@ var COMMON_FORM = {
     },
 
 }
+
+function initDonationsForm(pagingMsg, resultsCount) {
+    $(document).ready( function() {
+        COMMON_FORM.setPagingControls();
+
+        setColumnSortActions();
+        setColumnSortedClass();
+        setExternalLinks();
+
+        COMMON_FORM.setPagingStatus(pagingMsg, resultsCount);
+        setDonationActions();
+    });
+}
+
+function setDonationActions() {
+    $('#btn_new').click(function() {
+        window.open('./donations/new', 'donation_new', popWinSpecs['donations_[id]']);
+        return false;
+    });
+}
+
+
+function initDonorsForm(pagingMsg, resultsCount) {
+    $(document).ready( function() {
+        COMMON_FORM.setPagingControls();
+
+        setColumnSortActions();
+        setColumnSortedClass();
+        setExternalLinks();
+
+        COMMON_FORM.setPagingStatus(pagingMsg, resultsCount);
+        setDonorActions();
+    });
+}
+
+function setDonorActions() {
+    $('#btn_new').click(function() {
+        window.open('./donors/new', 'donor_new', popWinSpecs['donors_[id]']);
+        return false;
+    });
+}
+
 
 Number.prototype.numberFormat = function(decimals, dec_point, thousands_sep) {
     var parts

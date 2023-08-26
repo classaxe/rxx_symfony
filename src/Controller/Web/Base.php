@@ -5,6 +5,8 @@ use App\Repository\AwardRepository;
 use App\Repository\BackupRepository;
 use App\Repository\CleRepository;
 use App\Repository\CountryRepository;
+use App\Repository\DonorRepository;
+use App\Repository\DonationRepository;
 use App\Repository\IcaoRepository;
 use App\Repository\LanguageRepository;
 use App\Repository\ListenerRepository;
@@ -47,6 +49,8 @@ class Base extends AbstractController
     protected $backupRepository;
     protected $cleRepository;
     protected $countryRepository;
+    protected $donationRepository;
+    protected $donorRepository;
     protected $icaoRepository;
     protected $languageRepository;
     protected $listenerRepository;
@@ -78,7 +82,8 @@ class Base extends AbstractController
      * @param BackupRepository $backupRepository
      * @param CleRepository $cleRepository;
      * @param CountryRepository $countryRepository
-     * @param IcaoRepository $icaoRepository
+     * @param DonationRepository $donationRepository
+     * @param DonorRepository $$donorRepository
      * @param LanguageRepository $languageRepository
      * @param ListenerRepository $listenerRepository
      * @param LoggerInterface $logger
@@ -110,6 +115,8 @@ class Base extends AbstractController
         BackupRepository $backupRepository,
         CleRepository $cleRepository,
         CountryRepository $countryRepository,
+        DonationRepository $donationRepository,
+        DonorRepository $donorRepository,
         IcaoRepository $icaoRepository,
         LanguageRepository $languageRepository,
         ListenerRepository $listenerRepository,
@@ -137,6 +144,8 @@ class Base extends AbstractController
         $this->backupRepository =   $backupRepository;
         $this->cleRepository =      $cleRepository;
         $this->countryRepository =  $countryRepository;
+        $this->donationRepository = $donationRepository;
+        $this->donorRepository =    $donorRepository;
         $this->icaoRepository =     $icaoRepository;
         $this->languageRepository = $languageRepository;
         $this->listenerRepository = $listenerRepository;
@@ -282,7 +291,7 @@ class Base extends AbstractController
                     $value = strtoupper($value);
                     break;
             }
-            if (false === $options || in_array($value, $options)) {
+            if (false === $options || (is_array($options) && in_array($value, $options))) {
                 $args[$field] = addslashes($value);
             }
         }

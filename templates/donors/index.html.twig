@@ -1,0 +1,18 @@
+{% extends 'main.html.twig' %}
+
+{% block body %}
+    <div class="main">
+        <h2>Stats</h2>
+        <ul>
+            <li>Number of donors: {{ stats.donors }}</li>
+            <li>Number of donations: {{ stats.donations }}</li>
+            <li>Average per donor: ${{ stats.average_donor }}</li>
+            <li>Average per donation: ${{ stats.average_donation }}</li>
+            <li>Total amount raised: ${{ stats.total }}</li>
+        </ul>
+        {% include 'donors/list.html.twig' %}
+    </div>
+    <script>
+        initDonorsForm(msg.paging_dr, {{ results.total }});
+    </script>
+{% endblock %}

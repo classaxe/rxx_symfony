@@ -1,0 +1,56 @@
+<div class="main fullwidth">
+    <h2>{{ mode }} <small>[ <a href="{{ url('donor', { 'system' : system, 'id': 'new' }) }}" data-popup="1">Add...</a> ]</small></h2>
+    <div class="controlPanel">
+    {% include 'status.html.twig' %}
+    {{ form_start(form) }}
+        {% include 'forms/paging.html.twig' %}
+    {{ form_end(form) }}
+
+{% if records|length > 0 %}
+    <table id="wide" class="donations results short">
+    <thead>
+        <tr>
+{% for key, column in columns %}
+    {% if ((not column.admin or isAdmin) and (not column.arg or (column.arg in args|keys and attribute(args, column.arg) != ''))) %}
+            <th{%  if key and column.order %} id="{{ key }}|{{ column.order }}"{% endif %}
+{% if column.th_class or column.sort%} class="{{ column.th_class }}{% if column.sort %} sort{% endif %}"{% endif %}
+{% if column.tooltip %} title="{{ column.tooltip | trans }}"{% endif %}
+>{% if column.th_class == 'txt_vertical' %}<div>{{ column.label | trans | raw }}</div>{% else %}{{ column.label | trans | raw }}{% endif %}</th>
+{% endif %}
+{% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+{% for record in records %}
+        <tr>
+{% for key, column in columns %}
+        {% set value = attribute(record, column.field) %}
+        {% if (column.highlight and args[column.highlight] is defined and args[column.highlight] is not empty) %}
+            {% for repl in args[column.highlight] | split(' ') %}
+                {% set value = value | ireplace({ (repl) : '<em>' ~ repl|upper ~ '</em>' }) %}
+            {% endfor %}
+        {% endif %}
+        <td {% if column.td_class %} class="{{ column.td_class }}"{% endif %}>
+{%
+    if key == 'id'
+%}<a href="{{ url('donation', { 'system' : system, 'id': record.id }) }}" data-popup="1">{{ value|raw }}</a>{%
+    elseif key == 'name'
+%}<a href="{{ url('donor', { 'system' : system, 'id': record.donor_id }) }}" data-popup="1">{{ value|raw }}</a>{%
+    elseif key == 'date'
+%}{{( value| date('Y-m-d'))}}{%
+    else
+%}{{ value|raw }}{%
+    endif
+%}
+        </td>
+    {% endfor %}
+        </tr>
+
+{% endfor %}
+    </tbody>
+</table>
+{% else %}
+    <p class="no-results">{% trans %}(No donations found matching your criteria){% endtrans %}</p>
+{% endif %}
+    </div>
+</div>

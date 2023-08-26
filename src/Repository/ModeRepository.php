@@ -164,6 +164,22 @@ class ModeRepository
                 'title' =>  'User Accounts',
                 'url'=>     false
             ],
+            'donors' => [
+                'access' => User::MASTER,
+                'admin' =>  true,
+                'guest' =>  false,
+                'menu' =>   'Donors',
+                'title' =>  'People who have donated',
+                'url'=>     false
+            ],
+            'donations' => [
+                'access' => User::MASTER,
+                'admin' =>  true,
+                'guest' =>  false,
+                'menu' =>   'Donations',
+                'title' =>  'Gifts received',
+                'url'=>     false
+            ],
             'admin/help' => [
                 'access' => User::AWARDS | User::ADMIN | User::MASTER,
                 'admin' =>  true,

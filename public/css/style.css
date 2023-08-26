@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.57.4
- * Date:       2023-07-31
+ * Version:    2.58.0
+ * Date:       2023-08-26
  * Licence:    LGPL
  * Copyright:  2023 Martin Francis
  */
@@ -3046,6 +3046,32 @@ div.scroll div table.parse.results tbody tr {
   width: 9.375em;
   margin: 0 0 0.25em 0;
   vertical-align: middle;
+}
+.donor_view #form div label,
+.donation_view #form div label {
+  width: 25%;
+}
+.donor_view #form div input[type='text'],
+.donation_view #form div input[type='text'],
+.donor_view #form div textarea,
+.donation_view #form div textarea,
+.donor_view #form div select,
+.donation_view #form div select {
+  width: 70%;
+  padding: 0.125em 0.25em;
+  margin: 0 0 0.25em 0;
+}
+.donor_view #form div input[type='text']#form_date,
+.donation_view #form div input[type='text']#form_date,
+.donor_view #form div textarea#form_date,
+.donation_view #form div textarea#form_date,
+.donor_view #form div select#form_date,
+.donation_view #form div select#form_date {
+  width: 95px;
+  padding: 0 1.75em 0 0.25em !important;
+  background: #ffffff url("../../../image/calendar.png") no-repeat;
+  background-size: auto 100%;
+  background-position: right;
 }
 a.add,
 a.close,

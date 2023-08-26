@@ -1,0 +1,33 @@
+{% extends 'popup.html.twig' %}
+{% block body %}
+<div class="main fullwidth">
+{% set form_class='donation_view' %}
+{% include 'donation/tabs.html.twig' %}
+{% include 'donation/form.html.twig' %}
+</div>
+<script>
+$(document).ready(function () {
+    var ctlSave=$('#form_save');
+    var ctlSaveClose=$('#form_saveClose');
+    COMMON_FORM.setDatePickerActions();
+
+{% if doReloadOpener %}
+    window.opener.document.getElementsByName('form')[0].submit();
+
+{% endif %}
+{% if reloadOpener %}
+    ctlSave.on('click', function(){
+        $('#form__reload_opener').val(1);
+    })
+    ctlSaveClose.on('click', function(){
+        $('#form__close').val(1);
+        $('#form__reload_opener').val(1);
+    })
+{% else %}
+    ctlSaveClose.on('click', function(){
+        $('#form__close').val(1);
+    })
+{% endif %}
+});
+</script>
+{% endblock %}

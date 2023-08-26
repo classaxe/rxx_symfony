@@ -1,0 +1,24 @@
+    <div class="controlPanel {{ form_class }}">
+        <div class="header">{{ mode|raw }}</div>
+        <div class="content">
+        {{ form_start(form) }}
+            <div id="form">
+                {{ form_row(form.id)  }}
+                {{ form_row(form._close)  }}
+                <fieldset id="group_details">
+                    <legend>{% trans %}Details{% endtrans %}</legend>
+                    {{ form_row(form.id) }}
+                    {{ form_row(form.date) }}
+                    {{ form_row(form.name) }}
+                    {{ form_row(form.amount) }}
+                    {{ form_row(form.message) }}
+                </fieldset>
+                <fieldset id="group_">
+                    {{ form_row(form.close) }}
+                    {% if isAdmin %}{{ form_row(form.save) }}{% else %}{{ form_row(form.save_disabled) }}{% endif %}
+                    {% if isAdmin %}{{ form_row(form.saveClose) }}{% endif %}
+                </fieldset>
+            </div>
+        {{ form_end(form, {'render_rest': true}) }}
+        </div>
+    </div>

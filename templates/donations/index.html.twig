@@ -1,0 +1,10 @@
+{% extends 'main.html.twig' %}
+
+{% block body %}
+    <div class="main">
+        {% include 'donations/list.html.twig' %}
+    </div>
+    <script>
+        initDonationsForm(msg.paging_dn, {{ results.total }});
+    </script>
+{% endblock %}
