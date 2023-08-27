@@ -25,12 +25,12 @@ class Donation
     private $date;
 
     /**
-     * @ORM\Column(type="string", length=50, nullable=false)
+     * @ORM\Column(type="string", length=50, nullable=true)
      */
     private $name;
 
     /**
-     * @ORM\Column(type="decimal", precision=6, scale=2)
+     * @ORM\Column(type="decimal", precision=6, scale=2, nullable=true)
      */
     private $amount;
 

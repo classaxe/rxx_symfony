@@ -39,14 +39,14 @@ class User
     /**
      * @var int
      *
-     * @ORM\Column(name="active", type="boolean", nullable=false)
+     * @ORM\Column(name="active", type="boolean", nullable=false, options={"fixed"=true})
      */
     private $active = 0;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="access", type="integer", nullable=false)
+     * @ORM\Column(name="access", type="integer", nullable=false, options={"default"="0", "unsigned"=true})
      */
     private $access = 0;
 
@@ -74,7 +74,7 @@ class User
     /**
      * @var int
      *
-     * @ORM\Column(name="logon_count", type="integer", nullable=false)
+     * @ORM\Column(name="logon_count", type="integer", nullable=false, options={"default"="0", "unsigned"=true})
      */
     private $logonCount = 0;
 

@@ -18,6 +18,7 @@ use Doctrine\ORM\Mapping as ORM;
  *          @ORM\Index(name="idx_heard_in", columns={"heard_in"}),
  *          @ORM\Index(name="idx_listenerID", columns={"listenerID"}),
  *          @ORM\Index(name="idx_logSessionID", columns={"logSessionID"}),
+ *          @ORM\Index(name="idx_operatorID", columns={"operatorID"}),
  *          @ORM\Index(name="idx_signalID", columns={"signalID"}),
  *          @ORM\Index(name="idx_daytime", columns={"daytime"}),
  *          @ORM\Index(name="idx_region", columns={"region"})
@@ -60,7 +61,7 @@ class Log
     /**
      * @var int|null
      *
-     * @ORM\Column(name="dx_deg", type="smallint", nullable=true)
+     * @ORM\Column(name="dx_deg", type="smallint", nullable=true, options={"unsigned"=true})
      */
     private $dxDeg;
 

@@ -29,17 +29,17 @@ class Donor
     private $display;
 
     /**
-     * @ORM\Column(type="string", length=50)
+     * @ORM\Column(type="string", length=10, nullable=true)
      */
     private $callsign;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=50, nullable=true)
      */
     private $email;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", nullable=true, options={"default"=0})
      */
     private $anonymous;
 

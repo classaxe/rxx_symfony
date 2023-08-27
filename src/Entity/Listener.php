@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="listeners",indexes={
  *     @ORM\Index(name="count_logs", columns={"count_logs"}),
- *     @ORM\Index(name="formatted_location", columns={"formatted_location"}),
+ *     @ORM\Index(name="idx_formatted_location", columns={"formatted_location"}),
  *     @ORM\Index(name="name", columns={"name"}),
  *     @ORM\Index(name="QTH", columns={"QTH"}),
  *     @ORM\Index(name="primary_QTH", columns={"primary_QTH"}),
@@ -34,7 +34,7 @@ class Listener
 
     /**
      * @var int
-     * @ORM\Column(name="active", type="string", length=1, nullable=false)
+     * @ORM\Column(name="active", type="string", length=1, nullable=false, options={"default"="Y"})
      */
     private $active = 'Y';
 
@@ -130,7 +130,7 @@ class Listener
 
     /**
      * @var string
-     * @ORM\Column(name="formatted_location", type="text", length=255, nullable=false)
+     * @ORM\Column(name="formatted_location", type="string", length=255, nullable=true)
      */
     private $formattedLocation;
 
@@ -407,7 +407,7 @@ class Listener
      */
     public function setCountLogSessions(int $countLogSessions): self
     {
-        $this->countLogsSssions = $countLogSessions;
+        $this->countLogSessions = $countLogSessions;
 
         return $this;
     }
@@ -521,7 +521,7 @@ class Listener
      */
     public function setCountRemoteLogSessions(int $countRemoteLogSessions): self
     {
-        $this->countRemoteLogSessions = countRemoteLogSessions;
+        $this->countRemoteLogSessions = $countRemoteLogSessions;
 
         return $this;
     }

@@ -32,35 +32,35 @@ class Cle
     /**
      * @var \DateTime|null
      *
-     * @ORM\Column(name="date_start", type="date", nullable=true, options={"default"="0000-00-00"})
+     * @ORM\Column(name="date_start", type="date", nullable=true)
      */
-    private $dateStart = '0000-00-00';
+    private $dateStart = null;
 
     /**
      * @var \DateTime|null
      *
-     * @ORM\Column(name="date_end", type="date", nullable=true, options={"default"="0000-00-00"})
+     * @ORM\Column(name="date_end", type="date", nullable=true)
      */
-    private $dateEnd = '0000-00-00';
+    private $dateEnd = null;
 
     /**
      * @var string|null
      *
-     * @ORM\Column(name="date_timespan", type="string", length=65535, nullable=true)
+     * @ORM\Column(name="date_timespan", type="text", length=65535, nullable=true)
      */
     private $dateTimespan = '';
 
     /**
      * @var string|null
      *
-     * @ORM\Column(name="scope", type="string", length=65535, nullable=true)
+     * @ORM\Column(name="scope", type="text", length=65535, nullable=true)
      */
     private $scope = '';
 
     /**
      * @var string|null
      *
-     * @ORM\Column(name="additional", type="string", length=65535, nullable=true)
+     * @ORM\Column(name="additional", type="text", length=65535, nullable=true)
      */
     private $additional = '';
 
@@ -81,7 +81,7 @@ class Cle
     /**
      * @var string|null
      *
-     * @ORM\Column(name="world_range_1_channels", type="string", length=0, nullable=true)
+     * @ORM\Column(name="world_range_1_channels", type="string", length=255, nullable=true)
      */
     private $worldRange1Channels;
 
@@ -130,7 +130,7 @@ class Cle
     /**
      * @var string|null
      *
-     * @ORM\Column(name="world_range_1_within", type="string", length=0, nullable=true)
+     * @ORM\Column(name="world_range_1_within", type="text", length=0, nullable=true)
      */
     private $worldRange1Within;
 
@@ -221,7 +221,7 @@ class Cle
     /**
      * @var string|null
      *
-     * @ORM\Column(name="world_range_2_within", type="string", length=0, nullable=true)
+     * @ORM\Column(name="world_range_2_within", type="text", length=0, nullable=true)
      */
     private $worldRange2Within;
 
@@ -312,7 +312,7 @@ class Cle
     /**
      * @var string|null
      *
-     * @ORM\Column(name="europe_range_1_within", type="string", length=0, nullable=true)
+     * @ORM\Column(name="europe_range_1_within", type="text", length=0, nullable=true)
      */
     private $europeRange1Within;
 
@@ -403,7 +403,7 @@ class Cle
     /**
      * @var string|null
      *
-     * @ORM\Column(name="europe_range_2_within", type="string", length=0, nullable=true)
+     * @ORM\Column(name="europe_range_2_within", type="text", length=0, nullable=true)
      */
     private $europeRange2Within;
 

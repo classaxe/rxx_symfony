@@ -18,6 +18,7 @@ use Doctrine\ORM\Mapping as ORM;
  *          @ORM\Index(name="type", columns={"type"}),
  *          @ORM\Index(name="ID", columns={"ID"}),
  *          @ORM\Index(name="active", columns={"active"}),
+ *          @ORM\Index(name="idx_decommissioned", columns={"decommissioned"}),
  *          @ORM\Index(name="khz", columns={"khz"}),
  *          @ORM\Index(name="SP", columns={"SP"}),
  *          @ORM\Index(name="ITU", columns={"ITU"}),
@@ -240,7 +241,7 @@ class Signal
     /**
      * @var string
      *
-     * @ORM\Column(name="khz", type="decimal", precision=9, scale=3, nullable=false, options={"default"="0.000"})
+     * @ORM\Column(name="khz", type="decimal", precision=11, scale=3, nullable=false, options={"default"="0.000"})
      */
     private $khz = '0.000';
 

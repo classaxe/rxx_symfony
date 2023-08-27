@@ -182,7 +182,7 @@ class LogSession
     /**
      * @var string|null
      *
-     * @ORM\Column(name="upload_status", type="string", columnDefinition="enum('Pending', 'Processing', 'Uploaded')")
+     * @ORM\Column(name="upload_status", type="string", nullable=true)
      */
     private $uploadStatus;
 
