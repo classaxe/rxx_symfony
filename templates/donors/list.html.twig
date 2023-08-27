@@ -7,7 +7,7 @@
     {{ form_end(form) }}
 
 {% if records|length > 0 %}
-    <table id="wide" class="donors results short">
+    <table id="wide" class="donors results short" style="width: auto">
     <thead>
         <tr>
 {% for key, column in columns %}
@@ -35,7 +35,9 @@
         if key == 'name'
     %}<a href="{{ url('donor', { 'system' : system, 'id': record.id }) }}" data-popup="1">{{ value|raw }}</a>{%
     elseif key == 'anonymous'
-        %}{{ value ? 'YES'|trans : 'NO'|trans }}{%
+        %}{{ value ? 'YES'|trans : '' }}{%
+    elseif key == 'email'
+        %}{{ (value ? '<a href="mailto:' ~ value ~ '">' ~ value ~ '</a>' : '') | raw }}{%
     else
 %}{{ value|raw }}{%
     endif

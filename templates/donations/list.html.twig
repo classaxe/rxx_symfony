@@ -1,5 +1,5 @@
 <div class="main fullwidth">
-    <h2>{{ mode }} <small>[ <a href="{{ url('donor', { 'system' : system, 'id': 'new' }) }}" data-popup="1">Add...</a> ]</small></h2>
+    <h2>{{ mode }} <small>[ <a href="{{ url('donations', { 'system' : system, 'id': 'new' }) }}" data-popup="1">Add...</a> ]</small></h2>
     <div class="controlPanel">
     {% include 'status.html.twig' %}
     {{ form_start(form) }}

@@ -77,6 +77,28 @@ class DonationRepository extends ServiceEntityRepository
         return  $qb->getQuery()->getArrayResult();
     }
 
+    public function getDonationsPublic()
+    {
+        $qb = $this
+            ->createQueryBuilder('d')
+            ->select('
+                d.date,
+                (CASE WHEN donor.anonymous = 1 THEN CONCAT(\'Donor #\', donor.id) ELSE donor.display END) as name,
+                (CASE WHEN donor.anonymous = 1 THEN (CASE WHEN donor.callsign != \'\' THEN \'<i>(Hidden)</i>\' ELSE \'\' END) ELSE donor.callsign END) as callsign,
+                donor.sp,
+                donor.itu,
+                d.amount,
+                (CASE WHEN donor.anonymous = 1 THEN (CASE WHEN d.message != \'\' THEN \'<i>(Message is hidden)</i>\' ELSE \'\' END) ELSE d.message END) as message')
+            ->innerJoin(
+                '\App\Entity\Donor',
+                'donor',
+                Join::WITH,
+                'd.name = donor.name'
+            )
+            ->addOrderBy('d.date DESC, name');
+            return  $qb->getQuery()->getArrayResult();
+        }
+
     public function getTabs($donation = false, $isAdmin = false)
     {
         if (!is_object($donation) || !$donation->getId()) {
