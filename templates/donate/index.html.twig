@@ -1,7 +1,16 @@
 {% extends 'main.html.twig' %}
 {% block body %}
 <div class="main">
-    <h2>{% trans %}Thank You!{% endtrans %}</h2>
+    <div class="links quicklinks">
+    Quick Links [
+        <a href='#thanks'>Thanks</a> |
+        <a href='#costs'>Costs</a> |
+        <a href='#received'>Donations</a> |
+        <a href='#finally'>Finally</a>
+    ]
+    </div>
+
+    <h2 id="thanks">{% trans %}Thank You!{% endtrans %} <small>[ <a href='#top'><b>Top</b></a> ]</small></h2>
     <p>
         {% trans %}This service is offered <strong>guilt-free</strong> and without any form of commercial advertising as a gift to those who enjoy the hobby (art?) of NDB Listening.{% endtrans %}
     </p>
@@ -24,41 +33,67 @@
         {% trans %}Without their tireless devotion this resource would simply not be able to continue operating.{% endtrans %}</p>
     <p>{% trans %}Thanks also to those listeners who provide their logs for inclusion.{% endtrans %}</p>
 
-    <h2 class="margin-top-2">About our Server Hosting Costs</h2>
-    <p class="text-center">
+    <h2 id="costs" class="margin-top-2">About our Server Hosting Costs <small>[ <a href='#top'><b>Top</b></a> ]</small></h2>
+    <p>
         <img src="{{ asset('/image/server.png') }}" alt="{% trans %}DL380-G5 server hosting RXX system (circa 2015){% endtrans %}"><br>
         <em>{% trans %}HP / Compaq DL380-G5 formerly used to host RXX system - we're now cloud based{% endtrans %}</em>
     </p>
     <p>
-        {% trans %}It costs around <strong>$450 per year</strong> to run this site, and those costs have to come from somewhere.{% endtrans %}
+        {% trans with({ DOMAIN : domain, MONTHLY : monthly })%}As a guide, a single donation of $<strong>MONTHLY</strong> CAD would cover our website hosting costs for a month,
+        while $<strong>DOMAIN</strong> CAD would pay for domain registration for a whole year.{% endtrans %}
     </p>
     <p>
-        {% trans with({ DOMAIN : domain, MONTHLY : monthly })%}As a guide, a single donation of <strong>MONTHLY</strong> would cover our website hosting costs for a month, while <strong>DOMAIN</strong> would pay for domain registration for a whole year.{% endtrans %}
+        {% trans with({ ANNUAL : annual })%}It costs around $<strong>ANNUAL</strong> CAD per year to run this site, and for the last few years most of those costs have been covered by the 
+        kind donors listed in the table below, some of whom have chosen at this time to remain anonymous.{% endtrans %}
     </p>
-    <p><br></p>
-    <h2>Support this site via Patreon</h2>
-    <p>If you wish, you may support the work of this site through <a href="https://www.patreon.com/classaxe">Patreon</a>
-        <a href="https://www.patreon.com/bePatron?u=15396096" data-patreon-widget-type="become-patron-button">Become a Patron!</a><script async src="https://c6.patreon.com/becomePatronButton.bundle.js"></script>
-    </p>
-
-    <h2 class="margin-top-2">Support this site via Paypal</h2>
     <p>
-        {% trans %}There is also the option to make a one off payment via Paypal.{% endtrans %}
+        <strong>{% trans %}If you feel so inclined, you may make a one-time donation, or set up a monthly contribution via Paypal.{% endtrans %}</strong>
     </p>
 
-    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-        <div class="margin-1">
-            <input type="hidden" name="cmd" value="_s-xclick" />
-            <input type="hidden" name="hosted_button_id" value="A356JZL3MKZBG" />
-            <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
-            <img alt="" src="https://www.paypal.com/en_CA/i/scr/pixel.gif" width="1" height="1" />
-        </div>
-    </form>
+    <div class="txt_c">
+        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+            <div class="margin-1">
+                <input type="hidden" name="cmd" value="_s-xclick" />
+                <input type="hidden" name="hosted_button_id" value="A356JZL3MKZBG" />
+                <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+                <img alt="" src="https://www.paypal.com/en_CA/i/scr/pixel.gif" width="1" height="1" />
+            </div>
+        </form>
+    </div>
 
-    <h2 class="margin-top-2">Finally...</h2>
+    <h2>Donations Received <small>[ <a href='#top'><b>Top</b></a> ]</small></h2>
+    (Updated periodically)
+    <table class='results short' style="width:auto;">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Name</th>
+                <th>Callsign</th>
+                <th>S/P</th>
+                <th>ITU</th>
+                <th>Message</th>
+                <th>$ CAD</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for d in donations %}
+            <tr>
+                <td>{{ d.date | date('Y-m-d')}}</td>
+                <td>{{ d.name }}</td>
+                <td>{{ d.callsign|raw }}</td>
+                <td>{{ d.sp }}</td>
+                <td>{{ d.itu }}</td>
+                <td style='max-width: 30em' title='{{ d.message }}'>{{ d.message|raw }}</td>
+                <td class='txt_r'>${{ d.amount }} CAD</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h2 class="margin-top-2">Finally... <small>[ <a href='#top'><b>Top</b></a> ]</small></h2>
     <p>{% trans %}Sincere thanks to you for visiting and using this site, and whether you choose to donate or not, please be blessed by it - you are the reason this site even exists.{% endtrans %}</p>
 
     <p>Blessings,<br><br>Martin Francis<br>&lt;&gt;&lt;</p>
-    <p>(August 12th, 2020)</p>
+    <p>(August 27th, 2023)</p>
 </div>
 {% endblock %}
