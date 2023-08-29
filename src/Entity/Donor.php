@@ -53,6 +53,11 @@ class Donor
      */
     private $sp;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $notes;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -145,6 +150,18 @@ class Donor
     public function getCountDonations(): ?int
     {
         return 13;
+    }
+
+    public function getNotes(): ?string
+    {
+        return $this->notes;
+    }
+
+    public function setNotes(?string $notes): self
+    {
+        $this->notes = $notes;
+
+        return $this;
     }
 
 }

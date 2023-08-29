@@ -59,7 +59,7 @@ class DonorRepository extends ServiceEntityRepository
     {
         $qb = $this
             ->createQueryBuilder('d')
-            ->select('d.id, d.name, d.display, d.email, d.callsign, d.anonymous, d.itu, d.sp, COUNT(don.id) AS donations, SUM(don.amount) AS total')
+            ->select('d.id, d.name, d.display, d.email, d.callsign, d.anonymous, d.itu, d.sp, d.notes, COUNT(don.id) AS donations, SUM(don.amount) AS total')
             ->leftJoin(
                 '\App\Entity\Donation',
                 'don',

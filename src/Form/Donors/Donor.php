@@ -8,6 +8,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 
@@ -72,7 +73,6 @@ class Donor extends Base
                     'label' =>          'Display Name',
                 ]
             )
-
             ->add(
                 'callsign',
                 TextType::class,
@@ -126,6 +126,16 @@ class Donor extends Base
                     'choices' =>        $this->countryRepository->getMatchingOptions(),
                     'data' =>           $options['itu'],
                     'label' =>          'Country',
+                ]
+            )
+            ->add(
+                'notes',
+                TextareaType::class,
+                [
+                    'data' =>       $options['notes'],
+                    'empty_data' => '',
+                    'label' =>      'Notes',
+                    'required' =>   false
                 ]
             )
             ->add(

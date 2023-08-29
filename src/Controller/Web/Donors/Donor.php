@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 class Donor extends Base
 {
     const EDITABLE_FIELDS = [
-        'name', 'display', 'email', 'callsign', 'anonymous', 'itu', 'sp'
+        'name', 'display', 'email', 'callsign', 'anonymous', 'itu', 'sp', 'notes'
     ];
 
     /**
