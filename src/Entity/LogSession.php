@@ -49,7 +49,7 @@ class LogSession
 
     /**
      * @var string
-     * @ORM\Column(name="comment", type="string", length=255, nullable=false)
+     * @ORM\Column(name="comment", type="string", length=255, nullable=true)
      */
     private $comment = '';
 
