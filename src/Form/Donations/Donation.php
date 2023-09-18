@@ -4,6 +4,7 @@ namespace App\Form\Donations;
 
 use App\Form\Base;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -48,17 +49,16 @@ class Donation extends Base
             )
             ->add(
                 'name',
-                TextType::class,
+                ChoiceType::class,
                 [
-                    'attr' => [
-                        'onchange' =>   "try{setCustomValidity('')}catch(e){}",
-                        'oninvalid' =>  "setCustomValidity('Please enter this donor's name')"
-                    ],
+                    'choices' =>        $this->donorRepository->getOptions(),
                     'data' =>           $options['name'],
-                    'empty_data' =>     '',
-                    'label' =>          'Name',
+                    'empty_data' =>     null,
+                    'label' =>          'Donor',
+                    'required' =>       false
                 ]
             )
+
             ->add(
                 'amount',
                 TextType::class,

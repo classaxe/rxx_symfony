@@ -2,6 +2,7 @@
 namespace App\Form;
 
 use App\Repository\CountryRepository;
+use App\Repository\DonorRepository;
 use App\Repository\IcaoRepository;
 use App\Repository\ListenerRepository;
 use App\Repository\PaperRepository;
@@ -27,6 +28,7 @@ class Base extends AbstractType
     protected $translator;
 
     protected $countryRepository;
+    protected $donorRepository;
     protected $icaoRepository;
     protected $listenerRepository;
     protected $paperRepository;
@@ -41,6 +43,7 @@ class Base extends AbstractType
      *
      * Auto-wire these repositories:
      * @param CountryRepository $countryRepository
+     * @param DonorRepository $donorRepository
      * @param IcaoRepository $icaoRepository
      * @param ListenerRepository $listenerRepository
      * @param PaperRepository $paperRepository
@@ -53,6 +56,7 @@ class Base extends AbstractType
         TranslatorInterface $translator,
 
         CountryRepository $countryRepository,
+        DonorRepository $donorRepository,
         IcaoRepository $icaoRepository,
         ListenerRepository $listenerRepository,
         PaperRepository $paperRepository,
@@ -64,6 +68,7 @@ class Base extends AbstractType
         $this->translator =         $translator;
 
         $this->countryRepository =  $countryRepository;
+        $this->donorRepository =    $donorRepository;
         $this->icaoRepository =     $icaoRepository;
         $this->listenerRepository = $listenerRepository;
         $this->paperRepository =    $paperRepository;
