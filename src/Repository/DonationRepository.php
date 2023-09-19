@@ -59,12 +59,26 @@ class DonationRepository extends ServiceEntityRepository
     {
         $qb = $this
             ->createQueryBuilder('d')
-            ->select('d.id, d.date, d.amount, d.message, donor.anonymous, donor.name, donor.display, donor.callsign, donor.sp, donor.itu, donor.notes, donor.id AS donor_id')
+            ->select('
+                d.id,
+                d.date,
+                d.donorID,
+                d.amount,
+                d.message,
+                donor.anonymous,
+                donor.name,
+                donor.display,
+                donor.callsign,
+                donor.sp,
+                donor.itu,
+                donor.notes,
+                donor.id AS donor_id
+            ')
             ->innerJoin(
                 '\App\Entity\Donor',
                 'donor',
                 Join::WITH,
-                'd.name = donor.name'
+                'd.donorID = donor.id'
             )
 
             ->addOrderBy('d.' . $args['sort'], $args['order'] === 'a' ? 'ASC' : 'DESC');
@@ -93,7 +107,7 @@ class DonationRepository extends ServiceEntityRepository
                 '\App\Entity\Donor',
                 'donor',
                 Join::WITH,
-                'd.name = donor.name'
+                'd.donorID = donor.id'
             )
             ->addOrderBy('d.date DESC, name');
             return  $qb->getQuery()->getArrayResult();

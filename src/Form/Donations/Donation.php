@@ -48,11 +48,11 @@ class Donation extends Base
                 ]
             )
             ->add(
-                'name',
+                'donorID',
                 ChoiceType::class,
                 [
                     'choices' =>        $this->donorRepository->getOptions(),
-                    'data' =>           $options['name'],
+                    'data' =>           $options['donorID'],
                     'empty_data' =>     null,
                     'label' =>          'Donor',
                     'required' =>       false

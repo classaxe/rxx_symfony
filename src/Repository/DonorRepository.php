@@ -59,13 +59,13 @@ class DonorRepository extends ServiceEntityRepository
     {
         $donors = $this
             ->createQueryBuilder('d')
-            ->select('d.name, d.display, d.sp, d.itu')
+            ->select('d.id, d.name, d.display, d.sp, d.itu')
             ->addOrderBy('d.name', 'ASC')
             ->getQuery()
             ->getArrayResult();
         $out = [ '' => '' ];
         foreach ($donors as $r) {
-            $out[$r['name'] . ' (' . $r['display'] . ')'] = $r['name'];
+            $out[$r['name'] . ' (' . $r['display'] . ')'] = $r['id'];
         }
 
         return $out;
@@ -75,14 +75,26 @@ class DonorRepository extends ServiceEntityRepository
     {
         $qb = $this
             ->createQueryBuilder('d')
-            ->select('d.id, d.name, d.display, d.email, d.callsign, d.anonymous, d.itu, d.sp, d.notes, COUNT(don.id) AS donations, SUM(don.amount) AS total')
+            ->select('
+                d.id,
+                d.name,
+                d.display,
+                d.email,
+                d.callsign,
+                d.anonymous,
+                d.itu,
+                d.sp,
+                d.notes,
+                COUNT(don.id) AS donations,
+                SUM(don.amount) AS total
+            ')
             ->leftJoin(
                 '\App\Entity\Donation',
                 'don',
                 Join::WITH,
-                'd.name = don.name'
+                'd.id = don.donorID'
             )
-            ->addGroupBy('d.name')
+            ->addGroupBy('d.id')
             ->addOrderBy('d.' . $args['sort'], $args['order'] === 'a' ? 'ASC' : 'DESC');
 
         if (is_numeric($args['limit']) && (int)$args['limit'] !== -1) {
@@ -107,7 +119,7 @@ class DonorRepository extends ServiceEntityRepository
                 '\App\Entity\Donation',
                 'don',
                 Join::WITH,
-                'd.name = don.name'
+                'd.id = don.donorID'
             );
         // print Rxx::y($qb->getQuery()->getResult()[0]); die;
         return  $qb->getQuery()->getResult()[0];
@@ -149,9 +161,9 @@ class DonorRepository extends ServiceEntityRepository
             FROM
                 donations
             LEFT JOIN donors ON
-                donations.name = donors.name
+                donations.donorId = donors.id
             GROUP BY
-                donations.name
+                donations.donorId
             ORDER BY
                 sum(amount) DESC
 EOD;

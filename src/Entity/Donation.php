@@ -25,9 +25,9 @@ class Donation
     private $date;
 
     /**
-     * @ORM\Column(type="string", length=50, nullable=true)
+     * @ORM\Column(name="donorID", type="integer", nullable=true)
      */
-    private $name;
+    private $donorID;
 
     /**
      * @ORM\Column(type="decimal", precision=6, scale=2, nullable=true)
@@ -56,14 +56,14 @@ class Donation
         return $this;
     }
 
-    public function getName(): ?string
+    public function getDonorID(): ?int
     {
-        return $this->name;
+        return $this->donorID;
     }
 
-    public function setName(?string $name): self
+    public function setDonorID(?int $donorID): self
     {
-        $this->name = $name;
+        $this->donorID = $donorID;
 
         return $this;
     }
