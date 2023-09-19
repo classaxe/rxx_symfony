@@ -24,7 +24,7 @@ class DonorRepository extends ServiceEntityRepository
     
     private $tabs = [
         ['donor', 'Profile'],
- //       ['donor_donations', 'Donations (%%donations%%)'],
+        //       ['donor_donations', 'Donations (%%donations%%)'],
     ];
 
     /**
@@ -53,6 +53,22 @@ class DonorRepository extends ServiceEntityRepository
             ->select('count(d.id)')
             ->getQuery()
             ->getSingleScalarResult();
+    }
+
+    public function getOptions()
+    {
+        $donors = $this
+            ->createQueryBuilder('d')
+            ->select('d.name, d.display, d.sp, d.itu')
+            ->addOrderBy('d.name', 'ASC')
+            ->getQuery()
+            ->getArrayResult();
+        $out = [ '' => '' ];
+        foreach ($donors as $r) {
+            $out[$r['name'] . ' (' . $r['display'] . ')'] = $r['name'];
+        }
+
+        return $out;
     }
 
     public function getRecords($args)
@@ -145,7 +161,7 @@ EOD;
         return $stmt->fetchAllAssociative();
     }
 
-    // /**
+// /**
     //  * @return Donor[] Returns an array of Donor objects
     //  */
     /*
