@@ -25,6 +25,10 @@ class ToolRepository
             'mode' =>           'Sunrise / Sunset Calculator',
             'shortName' =>      'Sunrise Calc',
         ],
+        'chirpconvert' => [
+            'mode' =>           'CHIRP FT-70D to Yaesu FTM-200D csv converter',
+            'shortName' =>      'Chirp Convert',
+        ],
         'references' => [
             'mode' =>           'Other Database References on the Web',
             'shortName' =>      'Other References',

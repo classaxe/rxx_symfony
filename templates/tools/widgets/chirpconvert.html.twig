@@ -1,0 +1,202 @@
+<script src="{{ asset('js/jquery.csv.min.js') }}"></script>
+<form id="sunrise">
+<div class="row">
+    <div class="small-12 columns">
+        <div class="row">
+            <div class="small-12 columns">
+                <label for="input">{% trans %}Chirp CSV File{% endtrans %}</label>
+                <input type="file" id="input" size="6" value="{{ args }}">
+            </div>
+        </div>
+        <div class="row">
+            <div class="small-12 columns">
+                <label for="input_doc">{% trans %}Chirp File Contents{% endtrans %}</label>
+                <div id="input_doc"></div>
+            </div>
+        </div>
+        <div class="row" style="margin-top: 1em">
+            <div class="small-12 columns">
+                <label>{% trans %}FTM-200D csv File Contents{% endtrans %}</label>
+                <textarea id="output_doc"></textarea>
+                <input type='button' class='button' id='copy_ft200' onclick="$('#output_doc').select();document.execCommand('copy');alert('Copied to clipboard')" value='Copy'>
+            </div>
+        </div>
+    </div>
+</div>
+
+</form>
+<style>
+#input_doc,
+#output_doc {
+    width: 100%;    
+    background: #fff;
+    border: 1px solid #888;
+    height: 200px;
+    overflow: auto;
+}
+.chirpconvert {
+    font-size: 70%;
+    border-collapse: collapse;
+}
+.chirpconvert thead tr {
+    background: #884;
+}
+.chirpconvert thead th,
+.chirpconvert tbody td,
+{
+    border: 1px solid #444;
+}
+</style>
+<script>
+var chirp_columns =
+    "Location,Name,Frequency,Duplex,Offset,Tone,rToneFreq,cToneFreq,DtcsCode,DtcsPolarity,RxDtcsCode,CrossMode,Mode,TStep,Skip,Power,Comment,URCALL,RPT1CALL,RPT2CALL,DVCODE";
+var ftm200_columns =
+    "Location,Name,Frequency,Duplex,Offset,Tone,rToneFreq,cToneFreq,DtcsCode,DtcsPolarity,RxDtcsCode,CrossMode,Mode,TStep,Skip,Power,Comment,URCALL,RPT1CALL,RPT2CALL,DVCODE";
+    "1,145.35000,144.75000,0.60,-RPT,FM,AMS,VE3YRA - 2,TONE SQL,103.5 Hz,023,1500 Hz,RX 00,TX 00,HIGH,YES,5.0KHz,OFF,OFF,,0"
+function displayContents(id, data) {
+    var element = document.getElementById(id);
+    element.innerHTML = JSON.stringify(data, null, 2);
+}
+ 
+function displayTable(id, data) {
+    var element = document.getElementById(id);
+    var html =
+        "<table class='chirpconvert'>" +
+        "    <thead>" +
+        "        <tr>\n";
+    for (let key in data[0]) {
+        if (data[0].hasOwnProperty(key)) {
+            html += "            <th>" + key + "</th>\n";
+        }
+    }
+    html +=
+        "        </tr>\n" +
+        "    </thead>\n" +
+        "    <tbody>\n";
+    for (let row in data) {
+        html += "         <tr>\n";   
+        for (let key in data[0]) {
+            if (data[0].hasOwnProperty(key)) {
+                html += "            <td>" + data[row][key] + "</td>\n";
+            }
+        }
+        html += "    </tr>\n";
+    }
+    html +=
+        "    <tbody>\n" +
+        "</table>";
+    element.innerHTML = html;
+}
+
+function readSingleFile(e) {
+    var file = e.target.files[0];
+    if (!file) {
+        return;
+    }
+    var reader = new FileReader();
+    reader.onload = function(e) {
+        var contents = e.target.result;
+        var data = $.csv.toArrays(contents);
+        var column;
+        var columns = data[0];
+        var rows = [];
+        var row = {};
+        for (var i=1; i < data.length; i++) {
+            new_row = {};
+            for (var j=0; j<columns.length; j++) {
+                new_row[columns[j]] = data[i][j];
+            }
+            rows.push(new_row)
+        }
+
+        //displayContents('input_doc', rows);
+        displayTable('input_doc', rows);
+        convertToFT200CSV('output_doc', rows)
+    };
+    reader.readAsText(file);
+}
+
+function convertToFT200CSV(id, data) {
+    let max_line = 999;
+    let csv = "";
+    let line = "";
+    let gapfill = 1;
+    for (let i=0; i<=max_line; i++) {
+        while (typeof data[i] === 'undefined' || parseInt(data[i].Location) !== (i + gapfill)) {
+            line = (i + gapfill)  + ",,,,,,,,,,,,,,,,,,,,0\r\n";
+            csv += line;
+            gapfill++;
+            if (gapfill + i > max_line) {
+                break;
+            }
+        }
+        if (gapfill + i > max_line) {
+            break;
+        }
+        let Location = parseInt(data[i].Location);
+        let tx = parseFloat(data[i].Frequency);
+        let IsAir = tx > 108 && tx < 137;
+        let IsHam = (tx >=144 && tx <= 148) || (tx >= 430 && tx <=450)
+        let duplex = data[i].Duplex;
+        let offset = parseFloat(data[i].Offset);
+        let offsetDir =
+            (duplex === '+' ? '+RPT' : '') +
+            (duplex === '-' ? '-RPT' : '') +
+            (!IsHam ? "OFF" : "");
+        let mode = data[i].Mode;
+        let DigAnalog = (IsAir ? "AM" : "AMS");
+        let rx =
+            tx + 
+            (duplex === '-' ? offset * -1 : 0) +
+            (duplex === '+' ? offset : 0);
+        let name = data[i].Name;
+        let tone =
+            (data[i].Tone === "Tone" ? "TONE" : "") +
+            (data[i].Tone === "TSQL" ? "TONE SQL" : "") +
+            (data[i].Tone === "DTCS" ? "DCS" : "");
+        let toneFreq = data[i].rToneFreq ? (IsHam ? parseFloat(data[i].rToneFreq) : 100).toFixed(1) + " Hz" : "";
+        let DtcsCode = data[i].DtcsCode;
+        let UserCTCSS = "1500 Hz";
+        let RxDgId = (IsAir ? "-" : "RX 00");
+        let TxDgId = (IsAir ? "-" : "TX 00");
+        let TxPower = "HIGH";
+        let Scan = "YES";
+        let Step = (IsHam ? parseFloat(data[i].TStep).toFixed(1) : "25.0") + "KHz";
+        let Narrow = "OFF";
+        let ClockShift = "OFF";
+        let Comment = '"' + data[i].Comment + '"';
+        Comment = "";
+        line =
+            Location + "," +
+            tx.toFixed(5) + "," +
+            rx.toFixed(5) + "," +
+            (IsHam ? offset.toFixed(2) : "0.00000") + "," +
+            offsetDir + "," +
+            mode + "," +
+            DigAnalog + "," +
+            name + "," +
+            (tone ? tone : 'OFF') + "," +
+            toneFreq + "," +
+            DtcsCode + "," +
+            UserCTCSS + "," +
+            RxDgId + "," +
+            TxDgId + "," +
+            TxPower + "," +
+            Scan + "," +
+            Step + "," +
+            Narrow + "," +
+            ClockShift + "," +
+            Comment + "," +
+            0 +
+            "\r\n";
+        csv += line;
+    }
+    var element = document.getElementById(id);
+    element.value = csv;
+}
+
+document.getElementById('input').addEventListener('change', readSingleFile, false);
+
+</script>
+
+<script src="jquery-csv.js"></script>
