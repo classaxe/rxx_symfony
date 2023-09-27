@@ -54,6 +54,7 @@ var popWinSpecs = {
     'states_*' :                            'width=720,height=780,resizable=1',
     'states_aus' :                          'width=720,height=240,resizable=1',
     'states_can_usa' :                      'width=680,height=710,resizable=1',
+    'tools_chirpconvert' :                  'width=1400,height=800,resizable=1',
     'tools_coordinates' :                   'width=900,height=195,resizable=1',
     'tools_dgps' :                          'width=720,height=345,resizable=1',
     'tools_navtex' :                        'width=420,height=580,resizable=1',

@@ -1,3 +1,154 @@
+var CHIRPCONVERT = {
+    init: function() {
+        document.getElementById('input').addEventListener('change', CHIRPCONVERT.readSingleFile, false);
+        $('#close').on('click', function(){
+            window.close();
+        })
+    },
+    displayContents: function(id, data) {
+        var element = document.getElementById(id);
+        element.innerHTML = JSON.stringify(data, null, 2);
+    },
+    displayTable: function(id, data) {
+        var key;
+        var row;
+        var element = document.getElementById(id);
+        var html =
+            "<table class='chirpconvert'>" +
+            "    <thead>" +
+            "        <tr>\n";
+        for (key in data[0]) {
+            if (data[0].hasOwnProperty(key)) {
+                html += "            <th>" + key + "</th>\n";
+            }
+        }
+        html +=
+            "        </tr>\n" +
+            "    </thead>\n" +
+            "    <tbody>\n";
+        for (row in data) {
+            html += "         <tr>\n";   
+            for (key in data[0]) {
+                if (data[0].hasOwnProperty(key)) {
+                    html += "            <td>" + data[row][key] + "</td>\n";
+                }
+            }
+            html += "    </tr>\n";
+        }
+        html +=
+            "    <tbody>\n" +
+            "</table>";
+        element.innerHTML = html;
+    },
+    readSingleFile: function(e) {
+        var file = e.target.files[0];
+        if (!file) {
+            return;
+        }
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            var i;
+            var j;
+            var contents = e.target.result;
+            var data = $.csv.toArrays(contents);
+            var column;
+            var columns = data[0];
+            var rows = [];
+            var row = {};
+            for (i=1; i < data.length; i++) {
+                new_row = {};
+                for (j=0; j<columns.length; j++) {
+                    new_row[columns[j]] = data[i][j];
+                }
+                rows.push(new_row)
+            }
+    
+            //CHIRPCONVERT.displayContents('input_doc', rows);
+            CHIRPCONVERT.displayTable('input_doc', rows);
+            CHIRPCONVERT.convertToFT200CSV('output_doc', rows)
+        };
+        reader.readAsText(file);
+    },
+    convertToFT200CSV: function(id, data) {
+        var max_line = 999;
+        var csv = "";
+        var line = "";
+        var gapfill = 1;
+        var i = 0;
+        for (i = 0; i <= max_line; i++) {
+            while (typeof data[i] === 'undefined' || parseInt(data[i].Location) !== (i + gapfill)) {
+                line = (i + gapfill)  + ",,,,,,,,,,,,,,,,,,,,0\r\n";
+                csv += line;
+                gapfill++;
+                if (gapfill + i > max_line) {
+                    break;
+                }
+            }
+            if (gapfill + i > max_line) {
+                break;
+            }
+            var Location = parseInt(data[i].Location);
+            var tx = parseFloat(data[i].Frequency);
+            var IsAir = tx > 108 && tx < 137;
+            var IsHam = (tx >=144 && tx <= 148) || (tx >= 430 && tx <=450)
+            var duplex = data[i].Duplex;
+            var offset = parseFloat(data[i].Offset);
+            var offsetDir =
+                (duplex === '+' ? '+RPT' : '') +
+                (duplex === '-' ? '-RPT' : '') +
+                (!IsHam ? "OFF" : "");
+            var mode = data[i].Mode;
+            var DigAnalog = (IsAir ? "AM" : "AMS");
+            var rx =
+                tx + 
+                (duplex === '-' ? offset * -1 : 0) +
+                (duplex === '+' ? offset : 0);
+            var name = data[i].Name;
+            var tone =
+                (data[i].Tone === "Tone" ? "TONE" : "") +
+                (data[i].Tone === "TSQL" ? "TONE SQL" : "") +
+                (data[i].Tone === "DTCS" ? "DCS" : "");
+            var toneFreq = data[i].rToneFreq ? (IsHam ? parseFloat(data[i].rToneFreq) : 100).toFixed(1) + " Hz" : "";
+            var DtcsCode = data[i].DtcsCode;
+            var UserCTCSS = "1500 Hz";
+            var RxDgId = (IsAir ? "-" : "RX 00");
+            var TxDgId = (IsAir ? "-" : "TX 00");
+            var TxPower = "HIGH";
+            var Scan = "YES";
+            var Step = (IsHam ? parseFloat(data[i].TStep).toFixed(1) : "25.0") + "KHz";
+            var Narrow = "OFF";
+            var ClockShift = "OFF";
+            var Comment = '"' + data[i].Comment + '"';
+            //Comment = "";
+            line =
+                Location + "," +
+                tx.toFixed(5) + "," +
+                rx.toFixed(5) + "," +
+                (IsHam ? offset.toFixed(2) : "0.00000") + "," +
+                offsetDir + "," +
+                mode + "," +
+                DigAnalog + "," +
+                name + "," +
+                (tone ? tone : 'OFF') + "," +
+                toneFreq + "," +
+                DtcsCode + "," +
+                UserCTCSS + "," +
+                RxDgId + "," +
+                TxDgId + "," +
+                TxPower + "," +
+                Scan + "," +
+                Step + "," +
+                Narrow + "," +
+                ClockShift + "," +
+                Comment + "," +
+                0 +
+                "\r\n";
+            csv += line;
+        }
+        var element = document.getElementById(id);
+        element.value = csv;
+    }    
+}
 var DGPS = {
     init: function() {
         $('#frm_dgps').on('submit', function() {
@@ -217,7 +368,6 @@ var VALIDATE = {
         return true;
     },
 }
-
 var COORDS = {
     init: function() {
         var cmd_1, cmd_2, cmd_3, idx, modes;
@@ -367,7 +517,6 @@ var COORDS = {
         return true;
     }
 }
-
 var NAVTEX = {
     init: function() {
         $('#frm_navtex').on('submit', function(){
