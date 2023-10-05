@@ -30,6 +30,43 @@ class StatsRepository extends ServiceEntityRepository
         $this->connection = $connection;
     }
 
+    public function getChannels($minDate = false, $minTimes = 0)
+    {
+        $sql = "
+            SELECT
+                s.khz,
+                l.region,
+                COUNT(distinct s.id) as stations
+            FROM
+                signals s
+            INNER JOIN logs l on
+                l.signalID = s.id
+            WHERE
+                s.active = 1        -- Is active
+                AND s.type = 0      -- Is NDB
+                AND s.khz >= 190    -- Is 190 KHz and up
+                AND s.khz <= 1720   -- Is 1720 KHz and below
+                AND s.id in(        -- Has been heard this year
+                    SELECT
+                        ls.signalId
+                    from
+                        logs ls
+                    " . ($minDate ? "WHERE ls.date >= '" . $minDate ."'" : "") . "
+                    group by
+                        ls.signalId
+                    " . ($minTimes ? "HAVING COUNT(*) >= " . $minTimes :  "") ."
+                )
+            GROUP BY
+                khz, region
+            ORDER BY
+                khz, region";
+
+        /** @var Doctrine\DBAL\Driver\Statement $stmt */
+        $stmt = $this->connection->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAllAssociative();    
+    }
+
     public function getStats()
     {
         if ($this->cache === null) {

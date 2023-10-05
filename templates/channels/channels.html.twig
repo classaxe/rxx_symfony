@@ -1,0 +1,26 @@
+{% extends 'main.html.twig' %}
+{% block body %}
+<style>
+table.channels {
+    font-size: 80%;
+    width: auto;
+}
+table.channels thead th {
+    background: #ccc;
+    width: 5em;
+    padding: 0.25em;
+}
+table.channels tbody th,
+table.channels tbody td {
+    text-align: right;
+    padding: 0.25em;
+}
+</style>
+<div class="main">
+<h1>Channels</h1>
+<p>Showing NDB channel usage by region for signals received at least {{ minTimes }} time(s)
+since {{ minDate }}</p>
+
+{{ table | raw }}
+</div>
+{% endblock %}

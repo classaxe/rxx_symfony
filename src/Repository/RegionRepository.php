@@ -34,10 +34,10 @@ class RegionRepository extends ServiceEntityRepository
         return $this->cacheOne[$code];
     }
 
-    public function getAllOptions($withUnknown = true)
+    public function getAllOptions($withUnknown = true, $withAny = true)
     {
         $regions = $this->getRegions();
-        $out = ['(Any Region)' => ''];
+        $out = $withAny ? ['(Any Region)' => ''] : [];
         foreach ($regions as $row) {
             if ($withUnknown === false && $row->getRegion() === 'xx') {
                 continue;
