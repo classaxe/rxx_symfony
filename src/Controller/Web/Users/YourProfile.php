@@ -86,7 +86,7 @@ class YourProfile extends Base
                 );
             }
 
-            return $this->redirectToRoute('admin/profile', [ 'system' => $system ]);
+            return $this->redirectToRoute('profile', [ 'system' => $system ]);
         }
 
         $parameters = [
