@@ -56,12 +56,12 @@ class SignalView extends Base
                     ->setActive(true)
                     ->setType(0)
                     ->setCall($d['ID'])
-                    ->setDecommissioned($d['decommissioned'])
-                    ->setKhz($d['KHZ'])
-                    ->setQth($d['QTH'])
-                    ->setSp($d['SP'])
-                    ->setItu($d['ITU'])
-                    ->setGsq($d['GSQ'])
+                    ->setDecommissioned($d['decommissioned'] ?? 0)
+                    ->setKhz($d['KHZ'] ?? 0)
+                    ->setQth($d['QTH'] ?? '')
+                    ->setSp($d['SP'] ?? '')
+                    ->setItu($d['ITU' ?? ''])
+                    ->setGsq($d['GSQ' ?? ''])
                     ->setHeardIn('');
             }
         }
