@@ -203,7 +203,7 @@ class Redirect extends AbstractController
      *        "_locale": "de|en|es|fr",
      *        "system": "reu|rna|rww"
      *     },
-     *     name="signals_map"
+     *     name="signals_signals"
      * )
      * @param $_locale
      * @param $system
@@ -225,7 +225,7 @@ class Redirect extends AbstractController
      *        "_locale": "de|en|es|fr",
      *        "system": "reu|rna|rww"
      *     },
-     *     name="signals_map"
+     *     name="signals_signals_id"
      * )
      * @param $_locale
      * @param $system
@@ -239,5 +239,74 @@ class Redirect extends AbstractController
             'id' =>         $id
         ];
         return $this->redirectToRoute('signal', $parameters);
+    }
+
+    /**
+     * @Route(
+     *     "/{_locale}/{system}/signals/signals/{id}/map",
+     *     requirements={
+     *        "_locale": "de|en|es|fr",
+     *        "system": "reu|rna|rww"
+     *     },
+     *     name="signals_signals_id_map"
+     * )
+     * @param $_locale
+     * @param $system
+     * @return RedirectResponse
+     */
+    public function redirect_12($_locale, $system, $id): RedirectResponse
+    {
+        $parameters =[
+            '_locale' =>    $_locale,
+            'system' =>     $system,
+            'id' =>         $id
+        ];
+        return $this->redirectToRoute('signal_map', $parameters);
+    }
+
+    /**
+     * @Route(
+     *     "/{_locale}/{system}/signals/signals/{id}/map/eu",
+     *     requirements={
+     *        "_locale": "de|en|es|fr",
+     *        "system": "reu|rna|rww"
+     *     },
+     *     name="signals_signals_id_map_eu"
+     * )
+     * @param $_locale
+     * @param $system
+     * @return RedirectResponse
+     */
+    public function redirect_13($_locale, $system, $id): RedirectResponse
+    {
+        $parameters =[
+            '_locale' =>    $_locale,
+            'system' =>     $system,
+            'id' =>         $id
+        ];
+        return $this->redirectToRoute('signal_rx_map_eu', $parameters);
+    }
+
+    /**
+     * @Route(
+     *     "/{_locale}/{system}/signals/signals/{id}/map/na",
+     *     requirements={
+     *        "_locale": "de|en|es|fr",
+     *        "system": "reu|rna|rww"
+     *     },
+     *     name="signals_signals_id_map_na"
+     * )
+     * @param $_locale
+     * @param $system
+     * @return RedirectResponse
+     */
+    public function redirect_14($_locale, $system, $id): RedirectResponse
+    {
+        $parameters =[
+            '_locale' =>    $_locale,
+            'system' =>     $system,
+            'id' =>         $id
+        ];
+        return $this->redirectToRoute('signal_rx_map_na', $parameters);
     }
 }
