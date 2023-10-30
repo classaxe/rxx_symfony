@@ -19,7 +19,7 @@ class Redirect extends AbstractController
      * @param GeoService $GeoService
      * @return RedirectResponse
      */
-    public function redirect_1(GeoService $GeoService)
+    public function redirect_1(GeoService $GeoService): RedirectResponse
     {
         $parameters = [
             '_locale' => $this->get('session')->get('_locale'),
@@ -36,7 +36,7 @@ class Redirect extends AbstractController
      * @param GeoService $GeoService
      * @return RedirectResponse
      */
-    public function redirect_2(GeoService $GeoService)
+    public function redirect_2(GeoService $GeoService): RedirectResponse
     {
         $parameters = [
             '_locale' => $this->get('session')->get('_locale'),
@@ -57,7 +57,7 @@ class Redirect extends AbstractController
      * @param GeoService $GeoService
      * @return RedirectResponse
      */
-    public function redirect_3($_locale, GeoService $GeoService)
+    public function redirect_3($_locale, GeoService $GeoService): RedirectResponse
     {
         $parameters = [
             '_locale' => $_locale,
@@ -78,7 +78,7 @@ class Redirect extends AbstractController
      * @param GeoService $GeoService
      * @return RedirectResponse
      */
-    public function redirect_4($_locale, GeoService $GeoService)
+    public function redirect_4($_locale, GeoService $GeoService): RedirectResponse
     {
         $parameters = [
             '_locale' => $_locale,
@@ -98,7 +98,7 @@ class Redirect extends AbstractController
      * @param $system
      * @return RedirectResponse
      */
-    public function redirect_5($system)
+    public function redirect_5($system): RedirectResponse
     {
         $parameters =[
             '_locale' =>    $this->get('session')->get('_locale'),
@@ -118,7 +118,7 @@ class Redirect extends AbstractController
      * @param $system
      * @return RedirectResponse
      */
-    public function redirect_6($system)
+    public function redirect_6($system): RedirectResponse
     {
         $parameters =[
             '_locale' =>    $this->get('session')->get('_locale'),
@@ -140,7 +140,7 @@ class Redirect extends AbstractController
      * @param $system
      * @return RedirectResponse
      */
-    public function redirect_7($_locale, $system)
+    public function redirect_7($_locale, $system): RedirectResponse
     {
         $parameters =[
             '_locale' =>    $_locale,
@@ -163,7 +163,7 @@ class Redirect extends AbstractController
      * @param $system
      * @return RedirectResponse
      */
-    public function redirect_8($_locale, $system)
+    public function redirect_8($_locale, $system): RedirectResponse
     {
         $parameters =[
             '_locale' =>    $_locale,
@@ -186,7 +186,7 @@ class Redirect extends AbstractController
      * @param $system
      * @return RedirectResponse
      */
-    public function redirect_9($_locale, $system)
+    public function redirect_9($_locale, $system): RedirectResponse
     {
         $parameters =[
             '_locale' =>    $_locale,
@@ -195,4 +195,27 @@ class Redirect extends AbstractController
         ];
         return $this->redirectToRoute('signals', $parameters);
     }
+
+    /**
+     * @Route(
+     *     "/{_locale}/{system}/signals/signals",
+     *     requirements={
+     *        "_locale": "de|en|es|fr",
+     *        "system": "reu|rna|rww"
+     *     },
+     *     name="signals_map"
+     * )
+     * @param $_locale
+     * @param $system
+     * @return RedirectResponse
+     */
+    public function redirect_10($_locale, $system): RedirectResponse
+    {
+        $parameters =[
+            '_locale' =>    $_locale,
+            'system' =>     $system
+        ];
+        return $this->redirectToRoute('signals', $parameters);
+    }
+
 }
