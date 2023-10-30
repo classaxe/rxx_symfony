@@ -63,7 +63,13 @@
 {% endfor %}
             </p>
         </div>
-        <p class="copyright"><strong>&copy;{{ "now"|date("Y") }} Martin Francis</strong> <a class="callsign" href="https://www.qrz.com/db/VA3PHP" target="_blank">VA3PHP</a></p>
+        <p class="copyright">
+            <strong>&copy;{{ "now"|date("Y") }}
+                <a href="#" data-contact="{{ ('mailto:martin@classaxe.com?subject=' ~ system | upper ~ ' system') | obfuscateEmail }}">Martin Francis</a>
+            </strong>
+            <a class="callsign" href="https://www.qrz.com/db/VA3PHP" target="_blank">VA3PHP</a>
+            <a class="callsign" href="https://www.qrzcq.com/call/VA3PHP" target="_blank">[2]</a>
+        </p>
     </div>
 </footer>
 <script>
