@@ -25,7 +25,7 @@ class StatesTest extends Base
             $url = '/en/'.$system.'/states';
             $this->myClient->request('GET', $url);
 
-            $expected =     strtoupper($system).' > State and Province Locator';
+            $expected =     strtoupper($system).' | State and Province Locator';
             $actual =       $this->getMyResponsePageTitle();
             $message =      $this->getError(1, [$url, $expected, $actual]);
             $this->assertEquals($expected, $actual, $message);
@@ -56,7 +56,7 @@ class StatesTest extends Base
             $url = '/en/rww/states/'.$country;
             $this->myClient->request('GET', $url);
 
-            $expected =     'RWW > State and Province Locator';
+            $expected =     'RWW | State and Province Locator';
             $actual =       $this->getMyResponsePageTitle();
             $message =      $this->getError(5, [$url, $expected, $actual]);
             $this->assertEquals($expected, $actual, $message);

@@ -17,9 +17,9 @@ class ListenersTest extends Base
         7 =>    "Test 7:\nRequested %s as %s with query matching nothing:\nExpected message '%s', saw '%s'.",
     ];
 
-    const COLS_MIN =    18;     // Only NDBs selected
-    const COLS_MAX =    24;     // All types selected
-    const COLS_ADMIN =  4;      // Additional columns for admin users
+    const COLS_MIN =    25;     // Only NDBs selected
+    const COLS_MAX =    31;     // All types selected
+    const COLS_ADMIN =  5;      // Additional columns for admin users
 
     public function testAllSystemsPublic()
     {
@@ -44,7 +44,7 @@ class ListenersTest extends Base
             $message =      $this->getError(1, [$url, $usertype, $expected, $actual]);
             $this->assertEquals($expected, $actual, $message);
 
-            $expected =     strToUpper($system) . ' > Listeners and Locations';
+            $expected =     strToUpper($system) . ' | Listeners and Locations';
             $actual =       $this->getMyResponsePageTitle();
             $message =      $this->getError(2, [$url, $usertype, $expected, $actual]);
             $this->assertEquals($expected, $actual, $message);

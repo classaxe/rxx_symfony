@@ -25,7 +25,7 @@ class CountriesTest extends Base
             $url = '/en/'.$system.'/countries';
             $this->myClient->request('GET', $url);
 
-            $expected =     strtoupper($system).' > Country Code Locator';
+            $expected =     strtoupper($system).' | Country Code Locator';
             $actual =       $this->getMyResponsePageTitle();
             $message =      $this->getError(1, [$url, $expected, $actual]);
             $this->assertEquals($expected, $actual, $message);
@@ -56,7 +56,7 @@ class CountriesTest extends Base
             $url = '/en/rww/countries/' . $region;
             $this->myClient->request('GET', $url);
 
-            $expected = 'RWW > Country Code Locator';
+            $expected = 'RWW | Country Code Locator';
             $actual = $this->getMyResponsePageTitle();
             $message = $this->getError(5, [$url, $expected, $actual]);
             $this->assertEquals($expected, $actual, $message);

@@ -21,7 +21,7 @@ class MapsTest extends Base
             $url = '/en/'.$system.'/maps';
             $this->myClient->request('GET', $url);
 
-            $expected =     strtoupper($system).' > Maps';
+            $expected =     strtoupper($system).' | Maps';
             $actual =       $this->getMyResponsePageTitle();
             $message =      $this->getError(1, [$url, $expected, $actual]);
             $this->assertEquals($expected, $actual, $message);
@@ -48,7 +48,7 @@ class MapsTest extends Base
                 $url = '/en/'.$system.'/maps/' . $area;
                 $this->myClient->request('GET', $url);
 
-                $expected = strToUpper($system).' > '.$mapDetails['mode'];
+                $expected = strToUpper($system).' | '.$mapDetails['mode'];
                 $actual = $this->getMyResponsePageTitle();
                 $message = $this->getError(4, [$url, $expected, $actual]);
                 $this->assertEquals($expected, $actual, $message);

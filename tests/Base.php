@@ -12,7 +12,7 @@ abstract class Base extends WebTestCase
 
     protected $currentRedirectStatus;
 
-    protected function setUp()
+    protected function setUp() : void
     {
         $client = static::createClient();
         $this->myClient = $client;
@@ -149,7 +149,7 @@ abstract class Base extends WebTestCase
             'af' => ['title' => 'Africa',               'map' => 'map_af'],
             'an' => ['title' => 'Antarctica',           'map' => false   ],
             'as' => ['title' => 'Asia',                 'map' => 'map_as'],
-            'ca' => ['title' => 'Carribean',            'map' => 'map_na'],
+            'ca' => ['title' => 'Caribbean',            'map' => 'map_na'],
             'eu' => ['title' => 'Europe',               'map' => 'map_eu'],
             'iw' => ['title' => 'International Waters', 'map' => false   ],
             'na' => ['title' => 'North America',        'map' => 'map_na'],

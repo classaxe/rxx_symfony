@@ -17,7 +17,7 @@ class HelpTest extends Base
             $url = '/en/'.$system.'/help';
             $this->myClient->request('GET', $url);
 
-            $expected =     strtoupper($system).' > Help';
+            $expected =     strtoupper($system).' | Help';
             $actual =       $this->getMyResponsePageTitle();
             $message =      $this->getError(1, [$url, $expected, $actual]);
             $this->assertEquals($expected, $actual, $message);

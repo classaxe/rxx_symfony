@@ -31,7 +31,7 @@ class LogonLogoffTest extends Base
             $message =  $this->getError(2, [$system, $expected, $actual]);
             $this->assertEquals($expected, $actual, $message);
 
-            $expected = strToUpper($system) . ' > Logon';
+            $expected = strToUpper($system) . ' | Logon';
             $actual = $this->getMyResponsePageTitle();
             $message = $this->getError(3, [$system, $expected, $actual]);
             $this->assertEquals($expected, $actual, $message);
