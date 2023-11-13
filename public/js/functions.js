@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.59.2
- * Date:       2023-09-27
+ * Version:    2.61.1
+ * Date:       2023-11-13
  * Licence:    LGPL
  * Copyright:  2023 Martin Francis
  */
@@ -3484,18 +3484,18 @@ var SIGNALS = {
             for (i = 0; i<data.signals.length; i++) {
                 s = data.signals[i];
                 row = '<tr class="' +
-                    (s.decommissioned === '1' ? 'decommissioned ' : '') +
-                    (s.active === '0' ? 'inactive ' : '') +
+                    (parseInt(s.decommissioned) ? 'decommissioned ' : '') +
+                    (!parseInt(s.active) ? 'inactive ' : '') +
                     args.types[s.type].classname +
-                    (data.personalise.id ? (s.personalise === '0' ? '' : 'un') + 'logged' : '') + '"' +
+                    (data.personalise.id ? (parseInt(s.personalise) ? '' : 'un') + 'logged' : '') + '"' +
                     ' title="' +
                     args.types[s.type].title +
-                    (s.active === '0' && s.decommissioned !== '1' ? ' (' + msg.inactive + ')' : '' ) +
-                    (s.decommissioned === '1' ? ' (' + msg.decommissioned + ')' : '' ) +
+                    (!parseInt(s.active) && !parseInt(s.decommissioned) ? ' (' + msg.inactive + ')' : '' ) +
+                    (parseInt(s.decommissioned)  ? ' (' + msg.decommissioned + ')' : '' ) +
                     '">' +
                     (data.personalise.id ?
-                            '<th title="' + (s.personalise === '0' ? msg.unlogged_by : msg.logged_by) + '" class="rowspan2">' +
-                            (s.personalise === '1' ? '&#x2714;' : '&nbsp;') +
+                            '<th title="' + (!parseInt(s.personalise) ? msg.unlogged_by : msg.logged_by) + '" class="rowspan2">' +
+                            (parseInt(s.personalise) ? '&#x2714;' : '&nbsp;') +
                             '</th>'
                             :
                             ''
@@ -3633,8 +3633,8 @@ var SIGNAL_MERGE = {
             r = data[i].split('|');
             out +=
                 "<option value='" + r[0] + "'" +
-                (r[5] === '0' ? " title='" + msg.inactive + "'" : '') +
-                " class='type_" +r[3] + (r[5] === '0' ? ' inactive' : '') + "'" +
+                (!parseInt(r[5]) ? " title='" + msg.inactive + "'" : '') +
+                " class='type_" +r[3] + (!parseInt(r[5]) ? ' inactive' : '') + "'" +
                 " data-gsq='" + r[4] + "'" +
                 (r[0] === s ? " selected='selected'" : '') +
                 ">" +
