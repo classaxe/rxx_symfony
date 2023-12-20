@@ -102,6 +102,7 @@ class Cle extends Base
 
         $options = [
             'id' =>                     $id,
+            'about' =>                  html_entity_decode($cle->getAbout()),
             'additional' =>             html_entity_decode($cle->getAdditional()),
             'dateEnd' =>                ($cle->getDateEnd() ? new DateTime($cle->getDateEnd()->format('Y-m-d')) : null),
             'dateStart' =>              ($cle->getDateStart() ? new DateTime($cle->getDateStart()->format('Y-m-d')) : null),
@@ -116,6 +117,7 @@ class Cle extends Base
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
+            $cle->setAbout($data['about']);
             $cle->setAdditional($data['additional']);
             $cle->setDateStart($data['dateStart']);
             $cle->setDateEnd($data['dateEnd']);

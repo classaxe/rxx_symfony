@@ -3,8 +3,9 @@
     <div class="controlPanel cle_editor">
         <div class="header">{% trans %}CLE Configuration{% endtrans %}</div>
         <div class="content">
+            <div class="textarea">{{ form_row(form.about) }}<br></div>
             <div class="cleForm">
-                {{ form_row(form.id)  }}
+                {{ form_row(form.id) }}
                 <fieldset id="group_event_overview">
                     <legend>{% trans %}Event Overview{% endtrans %}</legend>
 

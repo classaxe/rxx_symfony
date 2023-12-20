@@ -60,6 +60,13 @@ class Cle
     /**
      * @var string|null
      *
+     * @ORM\Column(name="about", type="text", length=65535, nullable=true)
+     */
+    private $about = '';
+
+    /**
+     * @var string|null
+     *
      * @ORM\Column(name="additional", type="text", length=65535, nullable=true)
      */
     private $additional = '';
@@ -489,6 +496,18 @@ class Cle
     public function setScope(?string $scope): self
     {
         $this->scope = $scope;
+
+        return $this;
+    }
+
+    public function getAbout(): ?string
+    {
+        return $this->about;
+    }
+
+    public function setAbout(?string $about): self
+    {
+        $this->about = $about;
 
         return $this;
     }

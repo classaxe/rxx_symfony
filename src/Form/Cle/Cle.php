@@ -98,6 +98,16 @@ class Cle extends AbstractType
                 ]
             )
             ->add(
+                'about',
+                TextareaType::class,
+                [
+                    'data' =>           $options['about'],
+                    'empty_data' =>     '',
+                    'label' =>          'About',
+                    'required' =>       false
+                ]
+            )
+            ->add(
                 'worldRange1Low',
                 TextType::class,
                 [
