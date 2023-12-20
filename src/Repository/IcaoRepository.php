@@ -11,7 +11,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class IcaoRepository extends ServiceEntityRepository
 {
-    const DATA_ORIGIN = "https://www.aviationweather.gov/docs/metar/stations.txt";
+    const DATA_ORIGIN = "https://aviationweather.gov/data/cache/stations.cache.xml.gz";
 
     private $connection;
     private $translator;
@@ -118,40 +118,34 @@ class IcaoRepository extends ServiceEntityRepository
      */
     public static function getMetar($ICAO, $hours)
     {
-        $url = "http://www.aviationweather.gov/adds/metars?station_ids=$ICAO&std_trans=standard&chk_metars=on&hoursStr=past+$hours+hours";
+        $url = "https://aviationweather.gov/cgi-bin/data/metar.php?ids=$ICAO&hours=$hours&order=id%2C-obs&sep=true&format=raw";
         $out = [];
         if ($my_file = implode(' ', file($url))) {
-            $lines =   explode("<", $my_file);
+            $lines =   explode("\n", $my_file);
             foreach ($lines as $line) {
-                preg_match("/FONT FACE=\"Monospace,Courier\">([0-9a-zA-Z \r\n\t\f\/\-]+)/", $line, $result);
-                if ($result) {
-                    $alt =      "";
-                    $slp =      "";
-                    $j =        1;
-                    $row =      $result[1];
-                    $fields =   explode(" ", $row);
-                    $date =     substr($fields[$j], 0, 2);
-                    $time =     substr($fields[$j], 2, 4);
-                    $j++;       // Skip over station ID
-
-                    while ($j<count($fields)) {
-                        if (preg_match("/(SLP[0-9]+)/i", $fields[$j], $tmp)) {
-                            $slp = substr($tmp[1], 3);
-                        }
-                        if (preg_match("/(Q[0-9]+)/i", $fields[$j], $tmp)) {
-                            $alt = (float) substr($tmp[1], 1);
-                        }
-                        if (preg_match("/(A[0-9]+)/i", $fields[$j], $tmp)) {
-                            $alt = floor(substr($tmp[1], 1) * 3.38674)/10;
-                        }
-                        $j++;
-                    }
-                    if ($alt) {
-                        $out[] =    $date." ".$time." ".str_pad($alt, 6).($slp ? " ".($alt>=1000 ? substr($alt, 0, 2) : substr($alt, 0, 1)).substr($slp, 0, 2).".".substr($slp, 2, 1) : "");
-                        $alt =  0;
-                        $slp =  0;
-                    }
+                preg_match("/ ([0-9]{6})Z/", $line, $result);
+                if (!$result) {
+                    continue;
                 }
+                $day =  substr($result[1], 0, 2);
+                $time = substr($result[1], 2, 4);
+
+                preg_match("/ A([0-9]{4})/", $line, $result);
+                if (!$result) {
+                    continue;
+                }
+                $alt = number_format($result[1] / 2.953, 1, '.', '');
+
+                preg_match("/ SLP([0-9]{3})/", $line, $result);
+                $slp = ($result ?
+                    number_format(
+                        ((float)$result[1] < 500 ? ($result[1] < 100 ?'100' : '10') : '9')
+                        . '' . ($result[1]/10), 1, '.', ''
+                        ) : "");
+
+                $out[] = $day . " " . $time
+                    . " " . str_pad($alt, 6, " ", STR_PAD_LEFT) . " "
+                    . str_pad($slp, 6, " ", STR_PAD_LEFT);
             }
         }
         return $out;
@@ -166,8 +160,22 @@ class IcaoRepository extends ServiceEntityRepository
      */
     public function updateIcaoList()
     {
-        $lines = @file(static::DATA_ORIGIN);
-        if (!$lines) {
+        $buffer_size = 4096; // read 4kb at a time
+        $file = gzopen(static::DATA_ORIGIN, 'rb');
+        $tmp = '/tmp/icao.xml';
+        $out_file = fopen($tmp, 'wb');
+
+        while (!gzeof($file)) {
+            // Read buffer-size bytes
+            // Both fwrite and gzread and binary-safe
+            fwrite($out_file, gzread($file, $buffer_size));
+        }
+
+// Files are done, close files
+        fclose($out_file);
+        gzclose($file);
+        $archive = file_get_contents($tmp);
+        if (!$archive) {
             return [
                 'error' => sprintf(
                     $this->i18n("Unable to download ICAO data from %s"),static::DATA_ORIGIN
@@ -175,22 +183,20 @@ class IcaoRepository extends ServiceEntityRepository
                 'affected' => 0
             ];
         }
-        $data = [];
-        foreach ($lines as $line) {
-            if (substr($line, 62, 1)!=="X") {
-                continue;
-            }
-            $lat =  ('S' === substr($line, 45, 1) ? -1 : 1)
-                    * ((int) trim(substr($line, 39, 2)) + (int) substr($line, 42, 2) /60);
-            $lon =  ('W' === substr($line, 53, 1) ? -1 : 1)
-                    * ((int) trim(substr($line, 47, 3)) + (int) substr($line, 51, 2) /60);
+        $xml = simplexml_load_string($archive);
+        $obj = @json_decode(@json_encode($xml),1);
+        $icaos = $obj['data']['Station'];
+        //die('okay');
+        foreach ($icaos as $icao) {
+            $lat =  $icao['latitude'];
+            $lon =  $icao['longitude'];
             $gsq =  Rxx::convertDegreesToGSQ($lat, $lon);
             $data[] = [
-                'name' =>       addslashes(trim(substr($line, 3, 17))),
-                'SP' =>         trim(substr($line, 0, 3)),
-                'CNT' =>        trim(substr($line, 81, 2)),
-                'ICAO' =>       trim(substr($line, 20, 5)),
-                'elevation' =>  trim(substr($line, 56, 4)),
+                'name' =>       addslashes(trim($icao['site'])),
+                'SP' =>         $icao['state'],
+                'CNT' =>        $icao['country'],
+                'ICAO' =>       $icao['station_id'],
+                'elevation' =>  $icao['elevation_m'],
                 'lat' =>        $lat,
                 'lon' =>        $lon,
                 'GSQ' =>        $gsq

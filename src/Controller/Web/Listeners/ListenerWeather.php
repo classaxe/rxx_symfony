@@ -75,7 +75,7 @@ class ListenerWeather extends Base
                     . $icao['name']
                     . ($icao['sp'] ? ", " . $icao['sp'] : "")
                     . ", " . $icao['cnt'] . "\n"
-                    . "(".$icao['mi']." miles / ".$icao['km']." km from QTH)\n"
+                    . "(".$icao['elevation']. "m ASL, ".$icao['mi']." miles / ".$icao['km']." km from QTH)\n"
                     . "----------------------\n"
                     . "DD UTC  MB     SLP \n"
                     . "----------------------"

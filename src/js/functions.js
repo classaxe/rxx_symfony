@@ -92,12 +92,10 @@ function encodeMorse(value) {
 }
 
 function getMetar(decoded) {
-    window.open('https://www.aviationweather.gov/metar/data' +
-        '?ids='+$('#form_icao').val() +
-        '&format=' +(decoded ? 'decoded' : 'raw') +
-        '&taf=on' +
-        '&layout=off' +
-        '&hours='+$('#form_hours').val(),
+    window.open('https://aviationweather.gov/cgi-bin/data/metar.php?ids=' +
+        $('#form_icao option:selected').text().split(' ')[0] +
+        '&hours=' + $('#form_hours').val() + '&order=id%2C-obs&sep=true&format=' +
+        (decoded ? 'decoded' : 'raw'),
         'popMETAR'+decoded,
         'scrollbars=1,resizable=1,location=1'
     );
