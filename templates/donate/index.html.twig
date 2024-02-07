@@ -4,7 +4,8 @@
     <div class="links quicklinks">
     Quick Links [
         <a href='#thanks'>Thanks</a> |
-        <a href='#costs'>Costs</a> |
+        <a href='#hosting'>Hosting</a> |
+        <a href='#progress'>Fundraising Status</a> |
         <a href='#received'>Donations</a> |
         <a href='#finally'>Finally</a>
     ]
@@ -33,18 +34,48 @@
         {% trans %}Without their tireless devotion this resource would simply not be able to continue operating.{% endtrans %}</p>
     <p>{% trans %}Thanks also to those listeners who provide their logs for inclusion.{% endtrans %}</p>
 
-    <h2 id="costs" class="margin-top-2">About our Server Hosting Costs <small>[ <a href='#top'><b>Top</b></a> ]</small></h2>
+    <h2 id="progress" class="margin-top-2">Current Fundraising Status <small>[ <a href='#top'><b>Top</b></a> ]</small></h2>
+    {% trans with({ DOMAIN : domain, MONTHLY : monthly, ANNUAL : annual, YEAR : year })%}
+        <table style="width: auto" class="donations results short">
+            <thead>
+            <tr>
+                <th>Monthly Hosting</th>
+                <th>Domain Registration</th>
+                <th>Total Annual Cost</th>
+                <th>Donations last 12 months</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class='txt_r'>$MONTHLY</td>
+                <td class='txt_r'>$DOMAIN</td>
+                <td class='txt_r'><strong>$ANNUAL</strong></td>
+                <td class='txt_r'><strong>$YEAR</strong></td>
+            </tr>
+            </tbody>
+        </table>
+    {% endtrans %}
+
+    <h2 id="hosting" class="margin-top-2">About our Server Hosting<small>[ <a href='#top'><b>Top</b></a> ]</small></h2>
     <p>
         <img src="{{ asset('/image/server.png') }}" alt="{% trans %}DL380-G5 server hosting RXX system (circa 2015){% endtrans %}"><br>
         <em>{% trans %}HP / Compaq DL380-G5 formerly used to host RXX system - we're now cloud based{% endtrans %}</em>
     </p>
     <p>
-        {% trans with({ DOMAIN : domain, MONTHLY : monthly })%}As a guide, a single donation of $<strong>MONTHLY</strong> CAD would cover our website hosting costs for a month,
-        while $<strong>DOMAIN</strong> CAD would pay for domain registration for a whole year.{% endtrans %}
+        {% trans with({ YEAR : year, ANNUAL : annual })%}
+            It costs $<strong>ANNUAL</strong> CAD per year to run this site.<br>
+            In the last 12 months, donations have totalled $<strong>YEAR</strong> CAD.
+        {% endtrans %}
     </p>
     <p>
-        {% trans with({ ANNUAL : annual })%}It costs around $<strong>ANNUAL</strong> CAD per year to run this site, and for the last few years most of those costs have been covered by the 
-        kind donors listed in the table below, some of whom have chosen at this time to remain anonymous.{% endtrans %}
+        {% trans with({ DOMAIN : domain, MONTHLY : monthly })%}
+            A donation of $<strong>MONTHLY</strong> CAD covers our website hosting costs for a month,
+            while $<strong>DOMAIN</strong> CAD pays for domain registration for a whole year.
+        {% endtrans %}
+    </p>
+    <p>
+        For the last few years most of those costs have been covered by the
+        kind donors listed in the table below, some of whom have chosen at this time to remain anonymous.
     </p>
     <p>
         <strong>{% trans %}If you feel so inclined, you may make a one-time donation, or set up a monthly contribution via Paypal.{% endtrans %}</strong>
@@ -61,7 +92,7 @@
         </form>
     </div>
 
-    <h2 id="received">Donations Received <small>[ <a href='#top'><b>Top</b></a> ]</small></h2>
+    <h2 id="received" class="margin-top-2">Donations Received <small>[ <a href='#top'><b>Top</b></a> ]</small></h2>
     (Updated periodically)
     <table class='results short' style="width:auto;">
         <thead>

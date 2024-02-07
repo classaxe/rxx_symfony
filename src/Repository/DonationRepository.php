@@ -111,7 +111,18 @@ class DonationRepository extends ServiceEntityRepository
             )
             ->addOrderBy('d.date DESC, name');
             return  $qb->getQuery()->getArrayResult();
-        }
+    }
+
+    public function getDonationsYear() {
+        $ago = date("Y-m-d", strtotime("-1 year"));
+        $qb = $this
+            ->createQueryBuilder('d')
+            ->select("SUM(d.amount)")
+            ->where("d.date > '$ago'");
+        return  $qb->getQuery()->getSingleScalarResult();
+
+
+    }
 
     public function getTabs($donation = false, $isAdmin = false)
     {

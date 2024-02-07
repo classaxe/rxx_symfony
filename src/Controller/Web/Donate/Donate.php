@@ -40,7 +40,8 @@ class Donate extends Base
             'domain' =>     $this->DOMAIN_COST,
             'monthly' =>    $this->MONTHLY_COST,
             'annual' =>     $this->ANNUAL_COST,
-            'donations' =>  $this->donationRepository->getDonationsPublic()
+            'donations' =>  $this->donationRepository->getDonationsPublic(),
+            'year' =>   $this->donationRepository->getDonationsYear(),
         ];
 
         //print Rxx::y($parameters['donations']); die;
