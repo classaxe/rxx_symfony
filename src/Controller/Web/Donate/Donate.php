@@ -8,9 +8,9 @@ use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 
 class Donate extends Base
 {
-    const MONTHLY_COST =    '55.29';
-    const DOMAIN_COST =     '20.33';
-    const ANNUAL_COST =     (12 * self::MONTHLY_COST) + self::DOMAIN_COST;
+    private $MONTHLY_COST;
+    private $DOMAIN_COST;
+    private $ANNUAL_COST;
     /**
      * @Route(
      *     "/{_locale}/{system}/donate",
@@ -28,14 +28,18 @@ class Donate extends Base
     {
         $admins = array_keys($this->systemRepository->getAdmins());
 
+        $this->MONTHLY_COST =   getenv('MONTHLY_COST');
+        $this->DOMAIN_COST =    getenv('DOMAIN_COST');
+        $this->ANNUAL_COST =    (12 * $this->MONTHLY_COST) + $this->DOMAIN_COST;
+
         $parameters = [
             '_locale' =>    $_locale,
             'mode' =>       'Donate',
             'system' =>     $system,
             'admins' =>     $admins,
-            'domain' =>     static::DOMAIN_COST,
-            'monthly' =>    static::MONTHLY_COST,
-            'annual' =>     static::ANNUAL_COST,
+            'domain' =>     $this->DOMAIN_COST,
+            'monthly' =>    $this->MONTHLY_COST,
+            'annual' =>     $this->ANNUAL_COST,
             'donations' =>  $this->donationRepository->getDonationsPublic()
         ];
 

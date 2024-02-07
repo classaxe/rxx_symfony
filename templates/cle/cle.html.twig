@@ -11,12 +11,10 @@
         {% endif %}
     </h1>
     {% if (admin)%}{% include 'cle/form.html.twig' %}{% endif %}
-    <p>{% trans with {
+    <p>{{ cle.about | trans({
             '%URL1%' : '<a href="https://groups.io/g/ndblist" rel="external">NDB List</a>',
             '%URL2%' : '<a href="https://groups.io/g/ndblist" rel="external">https://groups.io/g/ndblist</a>'
-            } %}Co-ordinated Listening Events (or 'CLEs') take place several times a year and provide opportunities for listeners of all ranges of experience to practice our hobby and learn more about it.<br>
-            To learn more about the %URL1%, or to join (it's free!), visit %URL2%{% endtrans %}
-    </p>
+            }) | raw }}</p>
     <hr>
     <h2>{{ mode }}</h2>
     <p><strong>{% trans %}Dates:{% endtrans %}</strong> {{ cle.dateTimespan|raw }}<br />
