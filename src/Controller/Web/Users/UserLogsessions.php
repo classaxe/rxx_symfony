@@ -47,7 +47,7 @@ class UserLogsessions extends Base
             return $this->redirectToRoute('logon', ['system' => $system]);
         }
         if (!$user = $this->getValidUser($id)) {
-            return $this->redirectToRoute('admin/users', ['system' => $system]);
+            return $this->redirectToRoute('users', ['system' => $system]);
         }
 
         $isAdmin = $this->parameters['isAdmin'];

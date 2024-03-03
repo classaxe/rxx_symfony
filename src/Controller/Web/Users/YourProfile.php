@@ -41,7 +41,7 @@ class YourProfile extends Base
         UserProfileForm $userProfileForm
     ) {
         if ((int)$this->parameters['access'] === 0) {
-            $this->session->set('route', 'admin/profile');
+            $this->session->set('route', 'profile');
             return $this->redirectToRoute('logon', ['system' => $system]);
         }
 

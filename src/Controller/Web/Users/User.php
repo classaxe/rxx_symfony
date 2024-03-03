@@ -43,12 +43,9 @@ class User extends Base
         Request $request,
         UserViewForm $userViewForm
     ) {
-        if (!((int)$this->parameters['access'])) {
-            if ((int)$this->parameters['access'] === 0) {
-                $this->session->set('route', 'user?id=' . $id);
-                return $this->redirectToRoute('logon', ['system' => $system]);
-            }
-            throw $this->createAccessDeniedException('You do not have access to this page');
+        if (!((int)$this->parameters['access'] & UserEntity::MASTER)) {
+            $this->session->set('route', 'admin/info');
+            return $this->redirectToRoute('logon', ['system' => $system]);
         }
         $this->session->set('route', '');
         $operation = $id;
@@ -109,7 +106,7 @@ class User extends Base
                 return new Response("<script>$js</script>", Response::HTTP_OK, [ 'content-type' => 'text/html' ]);
             }
             $this->session->set('reloadOpener', 1);
-            return $this->redirectToRoute('admin/user', ['system' => $system, 'id' => $id]);
+            return $this->redirectToRoute('user', ['system' => $system, 'id' => $id]);
         }
 
         $parameters = [

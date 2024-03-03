@@ -2,6 +2,7 @@
 namespace App\Controller\Web\Admin;
 
 use App\Controller\Web\Base;
+use App\Entity\User as UserEntity;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -28,7 +29,7 @@ class Info extends Base
         $_locale,
         $system
     ) {
-        if (!$this->parameters['isAdmin']) {
+        if (!((int)$this->parameters['access'] & UserEntity::MASTER)) {
             $this->session->set('route', 'admin/info');
             return $this->redirectToRoute('logon', ['system' => $system]);
         }

@@ -130,6 +130,14 @@ class ModeRepository
                 'title' =>  'Logon',
                 'url'=>     false
             ],
+            'logoff' => [
+                'access' => User::USER | User::CLE | User::AWARDS | User::ADMIN | User::MASTER,
+                'admin' =>  true,
+                'guest' =>  false,
+                'menu' =>   'Logoff',
+                'title' =>  'Log Off',
+                'url'=>     false
+            ],
             'help' => [
                 'access' => User::ALL,
                 'admin' =>  true,
@@ -149,7 +157,7 @@ class ModeRepository
                 'url'=>     false
             ],
             'admin/info' => [
-                'access' => User::ADMIN | User::MASTER,
+                'access' => User::MASTER,
                 'admin' =>  true,
                 'guest' =>  false,
                 'menu' =>   'Info',
@@ -176,7 +184,7 @@ class ModeRepository
                 'access' => User::MASTER,
                 'admin' =>  true,
                 'guest' =>  false,
-                'menu' =>   'Donations',
+                'menu' =>   'Gift',
                 'title' =>  'Gifts received',
                 'url'=>     false
             ],
@@ -188,20 +196,22 @@ class ModeRepository
                 'title' =>  'Admin Help',
                 'url'=>     false
             ],
+/*
+            'clePlanner' => [
+                'access' => User::CLE | User::MASTER,
+                'admin' =>  true,
+                'guest' =>  false,
+                'menu' =>   'CLE Planner',
+                'title' =>  'View loggings for various ranges',
+                'url'=>     false
+            ],
+*/
             'profile' => [
                 'access' => User::USER | User::CLE | User::AWARDS | User::ADMIN | User::MASTER,
                 'admin' =>  true,
                 'guest' =>  false,
                 'menu' =>   'Your Profile',
                 'title' =>  'Edit your profile',
-                'url'=>     false
-            ],
-            'logoff' => [
-                'access' => User::USER | User::CLE | User::AWARDS | User::ADMIN | User::MASTER,
-                'admin' =>  true,
-                'guest' =>  false,
-                'menu' =>   'Logoff',
-                'title' =>  'Log Off',
                 'url'=>     false
             ],
         ]
