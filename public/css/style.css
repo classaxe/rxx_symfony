@@ -1,10 +1,10 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.58.0
- * Date:       2023-08-26
+ * Version:    2.63.1
+ * Date:       2024-03-04
  * Licence:    LGPL
- * Copyright:  2023 Martin Francis
+ * Copyright:  2024 Martin Francis
  */
 /* [ System Colours ] */
 body.reu {
@@ -2051,6 +2051,7 @@ table.logsessions tbody tr.selected td {
 }
 .signal_list #form_khz_1,
 .signal_list #form_khz_2 {
+  text-align: right;
   width: 50px;
 }
 .signal_list #form_channels {
@@ -2185,6 +2186,7 @@ table.logsessions tbody tr.selected td {
 }
 .signal_list #form_range_min,
 .signal_list #form_range_max {
+  text-align: right;
   width: 50px;
 }
 .signal_list label[for="form_range_min"] {
@@ -3046,6 +3048,80 @@ div.scroll div table.parse.results tbody tr {
   width: 9.375em;
   margin: 0 0 0.25em 0;
   vertical-align: middle;
+}
+/* [ Form Dimensions ] */
+.cle_planner {
+  width: 550px;
+}
+.cle_planner fieldset.section {
+  display: inline-block;
+  width: 540px;
+  float: left;
+}
+.cle_planner input[type='text'],
+.cle_planner select {
+  width: 405px;
+}
+.cle_planner #form_offsets {
+  width: 85px;
+}
+.cle_planner #form_khz_1,
+.cle_planner #form_khz_2 {
+  text-align: right;
+  width: 50px;
+}
+.cle_planner #form_channels {
+  width: 115px;
+}
+.cle_planner #form_date_1,
+.cle_planner #form_date_2 {
+  width: 95px;
+  padding: 0 1.75em 0 0.25em !important;
+  background: #ffffff url("../../../image/calendar.png") no-repeat;
+  background-size: auto 100%;
+  background-position: right;
+}
+.cle_planner label[for="form_date_1"] {
+  width: auto !important;
+  margin: 0 0.25em 0 1em;
+}
+.cle_planner span {
+  display: inline-block;
+  margin: 0 0.25em;
+  float: left;
+}
+fieldset#form_type legend,
+fieldset#form_status legend,
+fieldset#form_offsets legend {
+  line-height: 1.8em;
+  display: block;
+  font-size: 90%;
+  float: left;
+  font-weight: bold;
+  padding: 0 0.5em 0 0;
+  color: #000000;
+}
+fieldset#form_type legend,
+fieldset#form_status legend {
+  text-align: left;
+  width: 130px;
+}
+fieldset#form_status div {
+  margin: 0;
+}
+fieldset#form_status div label {
+  min-width: 5em;
+  margin: 0 0.25em;
+}
+fieldset#form_offsets legend {
+  text-align: right;
+  width: 50px;
+}
+fieldset#form_offsets div {
+  margin: 0;
+}
+fieldset#form_offsets div label {
+  margin: 0 0.25em;
 }
 .donor_view #form div label,
 .donation_view #form div label {

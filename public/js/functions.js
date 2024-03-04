@@ -1,10 +1,10 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.62.0
- * Date:       2023-12-20
+ * Version:    2.63.1
+ * Date:       2024-03-04
  * Licence:    LGPL
- * Copyright:  2023 Martin Francis
+ * Copyright:  2024 Martin Francis
  */
 var gridColor = "#808080";
 var gridOpacity = 0.5;
@@ -187,6 +187,25 @@ var awards = {
         }
     }
 };
+
+function initClePlannerForm(pagingMsg, resultsCount) {
+    $(document).ready( function() {
+        var c = COMMON_FORM;
+        c.setPagingControls();
+
+        setColumnSortActions();
+        setColumnSortedClass();
+        setExternalLinks();
+
+        c.setTypesStyles();
+        c.setTypesDefault();
+        c.setTypesAllAction();
+        c.setDatePickerActions();
+
+
+        c.setPagingStatus(pagingMsg, resultsCount);
+    });
+}
 
 var cle = {
     init: function() {

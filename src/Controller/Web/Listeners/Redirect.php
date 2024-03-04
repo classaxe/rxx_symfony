@@ -26,7 +26,7 @@ class Redirect extends AbstractController
             'system' => $GeoService->getDefaultSystem()
         ];
 
-        return $this->redirectToRoute('listeners', $parameters);
+        return $this->redirectToRoute('listeners', $parameters, 301);
     }
 
     /**
@@ -47,7 +47,7 @@ class Redirect extends AbstractController
             'system' => $GeoService->getDefaultSystem()
         ];
 
-        return $this->redirectToRoute('listeners', $parameters);
+        return $this->redirectToRoute('listeners', $parameters, 301);
     }
 
     /**
@@ -67,6 +67,6 @@ class Redirect extends AbstractController
             'system' =>     $system
         ];
 
-        return $this->redirectToRoute('listeners', $parameters);
+        return $this->redirectToRoute('listeners', $parameters, 301);
     }
 }

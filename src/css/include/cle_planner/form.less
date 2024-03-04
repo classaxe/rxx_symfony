@@ -1,0 +1,84 @@
+/* [ Form Dimensions ] */
+.cle_planner {
+    width: @width[clePlannerForm];
+    fieldset.section {
+        display:inline-block;
+        width: @width[clePlannerForm] - 10;
+        float: left;
+    }
+    input[type='text'],
+    select {
+        width: @width[clePlannerForm] - @width[label] - 15;
+    }
+    #form_offsets {
+        width: 85px;
+    }
+    #form_khz_1,
+    #form_khz_2 {
+        text-align: right;
+        width: 50px;
+    }
+    #form_channels {
+        width: 115px;
+    }
+    #form_date_1,
+    #form_date_2 {
+        width: 95px;
+        padding: 0 1.75em 0 0.25em !important;
+        background: #ffffff url("../../../image/calendar.png") no-repeat;
+        background-size: auto 100%;
+        background-position: right;
+    }
+    label[for="form_date_1"] {
+        width: auto !important;
+        margin: 0 0.25em 0 1em;
+    }
+    span {
+        display: inline-block;
+        margin: 0 0.25em;
+        float: left;
+    }
+}
+fieldset#form_type,
+fieldset#form_status,
+fieldset#form_offsets {
+    legend {
+        line-height: 1.8em;
+        display: block;
+        font-size: 90%;
+        float: left;
+        font-weight: bold;
+        padding: 0 0.5em 0 0;
+        color: #000000;
+    }
+}
+fieldset#form_type,
+fieldset#form_status {
+    legend {
+        text-align: left;
+        width: @width[label];
+    }
+}
+fieldset#form_status {
+    div {
+        margin: 0;
+        label {
+            min-width: 5em;
+            margin: 0 0.25em;
+        }
+    }
+}
+
+fieldset#form_offsets {
+    legend {
+        text-align: right;
+        width: 50px;
+    }
+    div {
+        margin: 0;
+        label {
+            margin: 0 0.25em;
+        }
+    }
+}
+
