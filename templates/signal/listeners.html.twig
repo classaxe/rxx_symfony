@@ -6,10 +6,10 @@
     <div class="controlPanel {{ form_class }}">
         <div class="header">{{ mode|raw }}</div>
         <div class="content scroll" id="list">
-{{ form_start(form) }}
-            {% include 'forms/paging.html.twig' %}
-{{ form_end(form) }}
-{% include 'signal/listeners.grid.html.twig' %}
+            {{ form_start(form) }}
+                {% include 'forms/paging.html.twig' %}
+            {{ form_end(form, {'render_rest': false}) }}
+            {% include 'signal/listeners.grid.html.twig' %}
         </div>
     </div>
 </div>

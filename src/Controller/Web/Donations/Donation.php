@@ -72,16 +72,16 @@ class Donation extends Base
         if (!$id && !$isAdmin) {
             return $this->redirectToRoute('donors', ['system' => $system]);
         }
-        $options = [
+        $args = [
             'id' =>         $donation->getId(),
         ];
         foreach (static::EDITABLE_FIELDS as $f) {
-            $options[$f] = $donation->{'get' . ucfirst($f)}();
+            $args[$f] = $donation->{'get' . ucfirst($f)}();
         }
-        $options['date'] = $donation->getDate() ? $donation->getDate()->format('Y-m-d') : '';
+        $args['date'] = $donation->getDate() ? $donation->getDate()->format('Y-m-d') : '';
         $form = $donationForm->buildForm(
             $this->createFormBuilder(),
-            $options
+            $args
         );
         $form->handleRequest($request);
         if ($isAdmin && $form->isSubmitted() && $form->isValid()) {

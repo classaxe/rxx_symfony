@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
  */
 class Collection extends WebBase
 {
-    const defaultlimit =     -1;
+    const defaultlimit =     100;
     const defaultSorting =  'id';
     const defaultOrder =    'd';
 
@@ -49,36 +49,30 @@ class Collection extends WebBase
             throw $this->createAccessDeniedException('You do not have access to this page');
         }
         $this->session->set('route', '');
-        $options = [
+        $args = [
             'limit' =>          static::defaultlimit,
             'order' =>          static::defaultOrder,
             'page' =>           0,
             'sort' =>           static::defaultSorting,
             'total' =>          $this->donationRepository->getCount()
         ];
-        $form = $form->buildForm($this->createFormBuilder(), $options);
+        $form = $form->buildForm($this->createFormBuilder(), $args);
         $form->handleRequest($request);
-        $args = [
-            'limit' =>          static::defaultlimit,
-            'order' =>          static::defaultOrder,
-            'page' =>           0,
-            'sort' =>           static::defaultSorting,
-        ];
         if ($form->isSubmitted() && $form->isValid()) {
-            $args = $form->getData();
+            $args = $form->getData() + $args;
         }
         $parameters = [
             'args' =>               $args,
             'columns' =>            $this->donationRepository->getColumns(),
             'form' =>               $form->createView(),
             '_locale' =>            $_locale,
-            'matched' =>            sprintf($this->i18n('of %s Donations'), $options['total']),
+            'matched' =>            sprintf($this->i18n('of %s Donations'), $args['total']),
             'mode' =>               $this->i18n('Donations'),
             'records' =>            $this->donationRepository->getRecords($args),
             'results' => [
-                'limit' =>              isset($args['limit']) ? $args['limit'] : static::defaultlimit,
-                'page' =>               isset($args['page']) ? $args['page'] : 0,
-                'total' =>              $options['total']
+                'limit' =>          $args['limit'],
+                'page' =>           $args['page'],
+                'total' =>          $args['total']
             ],
             'system' =>             $system
         ];

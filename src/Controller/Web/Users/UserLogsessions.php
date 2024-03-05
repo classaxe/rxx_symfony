@@ -51,23 +51,17 @@ class UserLogsessions extends Base
         }
 
         $isAdmin = $this->parameters['isAdmin'];
-        $options = [
+        $args = [
             'limit' =>          static::defaultlimit,
             'order' =>          static::defaultOrder,
             'page' =>           0,
             'sort' =>           static::defaultSorting,
             'total' =>          $user->getCountLogsession()
         ];
-        $form = $form->buildForm($this->createFormBuilder(), $options);
+        $form = $form->buildForm($this->createFormBuilder(), $args);
         $form->handleRequest($request);
-        $args = [
-            'limit' =>          static::defaultlimit,
-            'order' =>          static::defaultOrder,
-            'page' =>           0,
-            'sort' =>           static::defaultSorting,
-        ];
         if ($form->isSubmitted() && $form->isValid()) {
-            $args = $form->getData();
+            $args = $form->getData() + $args;
         }
         $args['administratorId'] = $id;
         $columns = $this->userRepository->getColumns('logsessions');
@@ -79,13 +73,13 @@ class UserLogsessions extends Base
             'columns' =>            $columns,
             'form' =>               $form->createView(),
             '_locale' =>            $_locale,
-            'matched' =>            'of '.$options['total']. ' log sessions.',
+            'matched' =>            'of ' . $args['total'] .  ' log sessions.',
             'mode' =>               'Log Sessions | Uploaded by ' . $user->getName(),
             'logsessions' =>        $logSessions,
             'results' => [
-                'limit' =>              isset($args['limit']) ? $args['limit'] : static::defaultlimit,
-                'page' =>               isset($args['page']) ? $args['page'] : 0,
-                'total' =>              $options['total']
+                'limit' =>          $args['limit'],
+                'page' =>           $args['page'],
+                'total' =>          $args['total']
             ],
             'system' =>             $system,
             'tabs' =>               $this->userRepository->getTabs($user),

@@ -43,7 +43,7 @@ class Collection extends Base
         Form $form
     )
     {
-        $options = [
+        $args = [
             'limit' =>      static::defaultlimit,
             'order' =>      static::defaultOrder,
             'page' =>       0,
@@ -52,16 +52,10 @@ class Collection extends Base
             'location' =>   '',
             'type' =>       [],
         ];
-        $form = $form->buildForm($this->createFormBuilder(), $options);
+        $form = $form->buildForm($this->createFormBuilder(), $args);
         $form->handleRequest($request);
-        $args = [
-            'limit' => static::defaultlimit,
-            'order' => static::defaultOrder,
-            'page' => 0,
-            'sort' => static::defaultSorting,
-        ];
         if ($form->isSubmitted() && $form->isValid()) {
-            $args = $form->getData();
+            $args = $form->getData() + $args;
         }
         $columns = $this->logsessionRepository->getColumns();
         $logSessions = $this->logsessionRepository->getLogsessions($args, $columns);
@@ -75,9 +69,9 @@ class Collection extends Base
             'mode' =>           'Log Sessions',
             'logsessions' =>    $logSessions,
             'results' => [
-                'limit' =>  isset($args['limit']) ? $args['limit'] : static::defaultlimit,
-                'page' =>   isset($args['page']) ? $args['page'] : 0,
-                'total' =>  $total
+                'limit' =>      $args['limit'],
+                'page' =>       $args['page'],
+                'total' =>      $total
             ],
             'system' =>         $system,
             'tabs' =>           [],

@@ -46,28 +46,18 @@ class ListenerSignals extends Base
         }
 
         $isAdmin = $this->parameters['isAdmin'];
-        $totalSignals = $listener->getCountSignals();
-        $options = [
-            'limit' =>          static::defaultlimit,
-            'order' =>          static::defaultOrder,
-            'page' =>           0,
-            'sort' =>           static::defaultSorting,
-            'total' =>          $totalSignals
-        ];
-        $form = $form->buildForm($this->createFormBuilder(), $options);
-        $form->handleRequest($request);
         $args = [
             'limit' =>          static::defaultlimit,
             'order' =>          static::defaultOrder,
             'page' =>           0,
             'sort' =>           static::defaultSorting,
-            'total' =>          $totalSignals,
+            'total' =>          $listener->getCountSignals(),
             'listenerID' =>     $id
         ];
+        $form = $form->buildForm($this->createFormBuilder(), $args);
+        $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $args = $form->getData();
-            $args['total'] = $totalSignals;
-            $args['listenerID'] =  $id;
+            $args = $form->getData() + $args;
         }
         $columns =                  $this->listenerRepository->getColumns('signals');
         $signals =                  $this->signalRepository->getSignals($args, $columns);
@@ -77,12 +67,12 @@ class ListenerSignals extends Base
             'columns' =>            $columns,
             'form' =>               $form->createView(),
             '_locale' =>            $_locale,
-            'matched' =>            'of '.$options['total'].' signals',
+            'matched' =>            'of ' . $args['total'] . ' signals',
             'mode' =>               'Signals | ' . $listener->getFormattedNameAndLocation(),
             'results' => [
-                'limit' =>              isset($args['limit']) ? $args['limit'] : static::defaultlimit,
-                'page' =>               isset($args['page']) ? $args['page'] : 0,
-                'total' =>              $options['total']
+                'limit' =>              $args['limit'],
+                'page' =>               $args['page'],
+                'total' =>              $args['total']
             ],
             'signals' =>            $signals,
             'system' =>             $system,

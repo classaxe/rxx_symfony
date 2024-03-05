@@ -4,7 +4,7 @@
     {% include 'status.html.twig' %}
     {{ form_start(form) }}
         {% include 'forms/paging.html.twig' %}
-    {{ form_end(form) }}
+    {{ form_end(form, {'render_rest': false}) }}
 
 {% if records|length > 0 %}
     <table id="wide" class="donors results short" style="width: auto">
@@ -54,3 +54,4 @@
 {% endif %}
     </div>
 </div>
+{% include 'forms/pagingbottom.html.twig' %}

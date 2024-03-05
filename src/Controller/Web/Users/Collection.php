@@ -45,36 +45,30 @@ class Collection extends Base
             return $this->redirectToRoute('logon', ['system' => $system]);
         }
         $this->session->set('route', '');
-        $options = [
+        $args = [
             'limit' =>          static::defaultlimit,
             'order' =>          static::defaultOrder,
             'page' =>           0,
             'sort' =>           static::defaultSorting,
             'total' =>          $this->userRepository->getCount()
         ];
-        $form = $form->buildForm($this->createFormBuilder(), $options);
+        $form = $form->buildForm($this->createFormBuilder(), $args);
         $form->handleRequest($request);
-        $args = [
-            'limit' =>          static::defaultlimit,
-            'order' =>          static::defaultOrder,
-            'page' =>           0,
-            'sort' =>           static::defaultSorting,
-        ];
         if ($form->isSubmitted() && $form->isValid()) {
-            $args = $form->getData();
+            $args = $form->getData() + $args;
         }
         $parameters = [
             'args' =>               $args,
             'columns' =>            $this->userRepository->getColumns('users'),
             'form' =>               $form->createView(),
             '_locale' =>            $_locale,
-            'matched' =>            sprintf($this->i18n('of %s User Accounts'), $options['total']),
+            'matched' =>            sprintf($this->i18n('of %s User Accounts'), $args['total']),
             'mode' =>               $this->i18n('User Accounts'),
             'records' =>            $this->userRepository->getRecords($args),
             'results' => [
                 'limit' =>              isset($args['limit']) ? $args['limit'] : static::defaultlimit,
                 'page' =>               isset($args['page']) ? $args['page'] : 0,
-                'total' =>              $options['total']
+                'total' =>              $args['total']
             ],
             'system' =>             $system
         ];

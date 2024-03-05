@@ -3,7 +3,6 @@
 {% block body %}
     <div class="main">
         {% include 'users/list.html.twig' %}
-        {% include 'forms/pagingbottom.html.twig' %}
     </div>
     <script>
         initUsersForm(msg.paging_u, {{ results.total }});

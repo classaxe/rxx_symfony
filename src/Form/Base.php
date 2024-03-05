@@ -87,6 +87,7 @@ class Base extends AbstractType
     {
         $this->addPaging($formBuilder, $options);
         $this->addSorting($formBuilder, $options);
+        $this->addPagingBottom($formBuilder, $options);
         return $formBuilder->getForm();
     }
 

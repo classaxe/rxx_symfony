@@ -32,6 +32,8 @@ class LogSessions extends Base
     ) {
         $this->addPaging($formBuilder, $options);
         $this->addSorting($formBuilder, $options);
+        $this->addPagingBottom($formBuilder, $options);
+
         $formBuilder
             ->add(
                 'comment',

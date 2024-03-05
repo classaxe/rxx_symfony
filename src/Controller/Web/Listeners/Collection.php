@@ -123,9 +123,9 @@ class Collection extends Base
             '_locale' =>            $_locale,
             'mode' =>               'Listeners and Locations',
             'results' => [
-                'limit' =>              isset($args['limit']) ? $args['limit'] : $this->listenerRepository::defaultLimit,
-                'page' =>               isset($args['page']) ? $args['page'] : $this->listenerRepository::defaultPage,
-                'total' =>              $total
+                'limit' =>          $args['limit'],
+                'page' =>           $args['page'],
+                'total' =>          $total
             ],
             'system' =>             $system,
             'tabs' =>               $tabs,

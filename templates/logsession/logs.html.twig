@@ -16,10 +16,10 @@
         </div>
         <div class="content scroll" id="list">
             {% include 'status.html.twig' %}
-{{ form_start(form) }}
-            {% include 'forms/paging.html.twig' %}
-{{ form_end(form) }}
-{% include 'logsession/logs.grid.html.twig' %}
+            {{ form_start(form) }}
+                {% include 'forms/paging.html.twig' %}
+            {{ form_end(form, {'render_rest': false}) }}
+            {% include 'logsession/logs.grid.html.twig' %}
         </div>
     </div>
 </div>

@@ -44,27 +44,19 @@ class LogsessionLogs extends Base
         if (!(int) $id || !$logsession = $this->logsessionRepository->find($id)) {
             return $this->redirectToRoute('logsession', ['system' => $system]);
         }
-
-        $isAdmin = $this->parameters['isAdmin'];
-        $options = [
+        $args = [
+            'logsessionID' =>   $id,
             'limit' =>          static::defaultlimit,
             'order' =>          static::defaultOrder,
             'page' =>           0,
             'sort' =>           static::defaultSorting,
             'total' =>          $logsession->getLogs()
         ];
-        $form = $form->buildForm($this->createFormBuilder(), $options);
+        $form = $form->buildForm($this->createFormBuilder(), $args);
         $form->handleRequest($request);
-        $args = [
-            'limit' =>          static::defaultlimit,
-            'order' =>          static::defaultOrder,
-            'page' =>           0,
-            'sort' =>           static::defaultSorting
-        ];
         if ($form->isSubmitted() && $form->isValid()) {
-            $args = $form->getData();
+            $args = $form->getData() + $args;
         }
-        $args['logSessionId'] =   $id;
         $columns = $this->listenerRepository->getColumns('logs');
         $logs = $this->logRepository->getLogs($args, $columns);
 
@@ -74,16 +66,16 @@ class LogsessionLogs extends Base
             'columns' =>            $columns,
             'form' =>               $form->createView(),
             '_locale' =>            $_locale,
-            'matched' =>            'of '.$options['total']. ' log records.',
+            'matched' =>            'of ' . $args['total'] . ' log records.',
             'mode' =>               "Logs | Log Session $id",
             'logs' =>               $logs,
             'results' => [
-                'limit' =>              isset($args['limit']) ? $args['limit'] : static::defaultlimit,
-                'page' =>               isset($args['page']) ? $args['page'] : 0,
-                'total' =>              $options['total']
+                'limit' =>          $args['limit'],
+                'page' =>           $args['page'],
+                'total' =>          $args['total']
             ],
             'system' =>             $system,
-            'tabs' =>               $this->logsessionRepository->getTabs($logsession, $isAdmin),
+            'tabs' =>               $this->logsessionRepository->getTabs($logsession, $this->parameters['isAdmin']),
             'typeRepository' =>     $this->typeRepository
         ];
         return $this->render('logsession/logs.html.twig', $this->getMergedParameters($parameters));

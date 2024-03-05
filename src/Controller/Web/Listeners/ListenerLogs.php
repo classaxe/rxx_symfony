@@ -74,24 +74,17 @@ class ListenerLogs extends Base
             return $this->redirectToRoute('listeners', ['system' => $system]);
         }
 
-        $isAdmin = $this->parameters['isAdmin'];
-        $options = [
+        $args = [
             'limit' =>          static::defaultlimit,
             'order' =>          static::defaultOrder,
             'page' =>           0,
             'sort' =>           static::defaultSorting,
             'total' =>          $isRemote ? $listener->getCountRemoteLogs() : $listener->getCountLogs()
         ];
-        $form = $form->buildForm($this->createFormBuilder(), $options);
+        $form = $form->buildForm($this->createFormBuilder(), $args);
         $form->handleRequest($request);
-        $args = [
-            'limit' =>          static::defaultlimit,
-            'order' =>          static::defaultOrder,
-            'page' =>           0,
-            'sort' =>           static::defaultSorting
-        ];
         if ($form->isSubmitted() && $form->isValid()) {
-            $args = $form->getData();
+            $args = $form->getData() + $args;
         }
         if ($isRemote) {
             $args['operatorId'] =   $id;
@@ -117,16 +110,16 @@ class ListenerLogs extends Base
             'form' =>               $form->createView(),
             '_locale' =>            $_locale,
             'isMultiOperator' =>    ($listener->getMultiOperator() === 'Y'),
-            'matched' =>            sprintf($matchedSuffix, $options['total']),
+            'matched' =>            sprintf($matchedSuffix, $args['total']),
             'mode' =>               sprintf($mode, $listener->getFormattedNameAndLocation()),
             'logs' =>               $logs,
             'results' => [
-                'limit' =>              isset($args['limit']) ? $args['limit'] : static::defaultlimit,
-                'page' =>               isset($args['page']) ? $args['page'] : 0,
-                'total' =>              $options['total']
+                'limit' =>          $args['limit'],
+                'page' =>           $args['page'],
+                'total' =>          $args['total']
             ],
             'system' =>             $system,
-            'tabs' =>               $this->listenerRepository->getTabs($listener, $isAdmin),
+            'tabs' =>               $this->listenerRepository->getTabs($listener, $this->parameters['isAdmin']),
             'typeRepository' =>     $this->typeRepository
         ];
         return $this->render($template, $this->getMergedParameters($parameters));

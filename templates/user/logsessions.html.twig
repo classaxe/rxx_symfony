@@ -8,10 +8,10 @@
         <div class="content">
             <div class="scroll" id="list">
                 {% include 'status.html.twig' %}
-    {{ form_start(form) }}
-                {% include 'forms/paging.html.twig' %}
-    {{ form_end(form) }}
-    {% include 'user/logsessions.grid.html.twig' %}
+                {{ form_start(form) }}
+                    {% include 'forms/paging.html.twig' %}
+                {{ form_end(form, {'render_rest': false}) }}
+                {% include 'user/logsessions.grid.html.twig' %}
             </div>
             <h2>{% trans %}Logs Uploaded in Selected Session{% endtrans %}</h2>
             <div class="scroll" style="background: #fff" id="list2"></div>

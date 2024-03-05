@@ -21,10 +21,10 @@
             </div>
         </div>
         <div class="content scroll" id="list">
-{{ form_start(form) }}
-            {% include 'forms/paging.html.twig' %}
-{{ form_end(form) }}
-{% include 'listener/signals.grid.html.twig' %}
+            {{ form_start(form) }}
+                {% include 'forms/paging.html.twig' %}
+            {{ form_end(form, {'render_rest': false}) }}
+            {% include 'listener/signals.grid.html.twig' %}
         </div>
     </div>
 </div>

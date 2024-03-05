@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
  */
 class SignalListeners extends Base
 {
-    const defaultlimit =     1000;
+    const defaultlimit =     100;
     const defaultSorting =  'name';
     const defaultOrder =    'a';
 
@@ -45,23 +45,17 @@ class SignalListeners extends Base
             return $this->redirectToRoute('signals', ['system' => $system]);
         }
 
-        $options = [
+        $args = [
             'limit' =>          static::defaultlimit,
             'order' =>          static::defaultOrder,
             'page' =>           0,
             'sort' =>           static::defaultSorting,
             'total' =>          $signal->getListeners()
         ];
-        $form = $form->buildForm($this->createFormBuilder(), $options);
+        $form = $form->buildForm($this->createFormBuilder(), $args);
         $form->handleRequest($request);
-        $args = [
-            'limit' =>          static::defaultlimit,
-            'order' =>          static::defaultOrder,
-            'page' =>           0,
-            'sort' =>           static::defaultSorting,
-        ];
         if ($form->isSubmitted() && $form->isValid()) {
-            $args = $form->getData();
+            $args = $form->getData() + $args;
         }
         $parameters = [
             'args' =>               $args,
@@ -69,13 +63,13 @@ class SignalListeners extends Base
             'columns' =>            $this->signalRepository->getColumns('listeners'),
             'form' =>               $form->createView(),
             '_locale' =>            $_locale,
-            'matched' =>            sprintf($this->i18n('of %s Listeners'), $options['total']),
+            'matched' =>            sprintf($this->i18n('of %s Listeners'), $args['total']),
             'mode' =>               sprintf($this->i18n('Listeners for %s'), $signal->getFormattedIdent()),
             'records' =>            $this->signalRepository->getListenersForSignal($id, $args),
             'results' => [
-                'limit' =>              isset($args['limit']) ? $args['limit'] : static::defaultlimit,
-                'page' =>               isset($args['page']) ? $args['page'] : 0,
-                'total' =>              $options['total']
+                'limit' =>          $args['limit'],
+                'page' =>           $args['page'],
+                'total' =>          $args['total']
             ],
             'system' =>             $system,
             'tabs' =>               $this->signalRepository->getTabs($signal)
