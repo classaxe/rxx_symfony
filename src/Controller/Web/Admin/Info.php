@@ -33,6 +33,11 @@ class Info extends Base
             $this->session->set('route', 'admin/info');
             return $this->redirectToRoute('logon', ['system' => $system]);
         }
+
+        $this->session->set('route', '');
+        $this->session->set('lastMessage', '');
+        $this->session->set('lastError', '');
+
         $parameters = [
             '_locale' =>        $_locale,
             'mode' =>           'System Info',

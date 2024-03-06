@@ -48,7 +48,11 @@ class Collection extends WebBase
             }
             throw $this->createAccessDeniedException('You do not have access to this page');
         }
+
         $this->session->set('route', '');
+        $this->session->set('lastMessage', '');
+        $this->session->set('lastError', '');
+
         $args = [
             'limit' =>          static::defaultlimit,
             'order' =>          static::defaultOrder,

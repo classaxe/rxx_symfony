@@ -41,10 +41,14 @@ class Collection extends Base
         Form $form
     ) {
         if (!((int)$this->parameters['access'] & UserEntity::MASTER)) {
-            $this->session->set('route', 'admin/info');
+            $this->session->set('route', 'users');
             return $this->redirectToRoute('logon', ['system' => $system]);
         }
+
         $this->session->set('route', '');
+        $this->session->set('lastMessage', '');
+        $this->session->set('lastError', '');
+
         $args = [
             'limit' =>          static::defaultlimit,
             'order' =>          static::defaultOrder,

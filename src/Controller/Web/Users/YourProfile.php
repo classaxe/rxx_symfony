@@ -46,6 +46,9 @@ class YourProfile extends Base
         }
 
         $this->session->set('route', '');
+        $this->session->set('lastMessage', '');
+        $this->session->set('lastError', '');
+
         $id = $this->session->get('user_id');
         if (!$user = $this->getValidUser($id)) {
             throw $this->createAccessDeniedException('You do not have access to this page');
