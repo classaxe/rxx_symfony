@@ -1,0 +1,62 @@
+{#<pre>{{ dump(signals[0]) }}</pre>#}
+{% set regions = ['AF', 'AN', 'AS', 'CA', 'EU', 'IW', 'NA', 'OC', 'SA'] %}
+{% if records|length > 0 %}
+    <table id="wide" class="signal results">
+        <thead>
+        <tr>
+            {% for key, column in columns %}
+                {% if ((not column.admin or isAdmin) and (not column.arg or (column.arg in args|keys and attribute(args, column.arg) != ''))) %}
+                    <th{%  if key and column.order %} id="{{ key }}|{{ column.order }}"{% endif %}
+                            {% if column.th_class or column.sort%} class="{{ column.th_class }}{% if column.sort %} sort{% endif %}"{% endif %}
+                            {% if column.tooltip %} title="{{ column.tooltip | trans }}"{% endif %}
+                    >{% if column.th_class == 'txt_vertical' %}<div>{{ column.label | trans | raw }}</div>{% else %}{{ column.label | trans | raw }}{% endif %}</th>
+                {% endif %}
+            {% endfor %}
+        </tr>
+        </thead>
+        <tbody>
+            <tr style="color:#040; background: #efe; border-top: 2px solid #040; border-bottom: 2px solid #040;">
+                <td colspan="11" style="font-size: 100%"><strong>Grand Total of all Signals logged for each region with the filters as specified:</strong></td>
+                {% for region in regions %}<td class="txt_r" style="font-size: 100%"><strong>{{ attribute(stats[0], region) }}</strong></td>{% endfor %}
+            </tr>
+        {% for signal in records %}
+            {% set type = typeRepository.TypeForCode(signal.type) %}
+            <tr class="{% if signal.decommissioned == 1 %}decommissioned {% endif %} {% if signal.active == 0 %}inactive {% endif %}type_{{ type.class|lower }}"
+                title="{{ type.title|trans }}{% if signal.active == 0 %} {% trans %}(inactive){% endtrans %}{% endif %}">
+                {% for key, column in columns %}
+                    {% if ((not column.admin or isAdmin) and (not column.arg or (column.arg in args|keys and attribute(args, column.arg) != ''))) %}
+                        {% set value = attribute(signal, column.field) %}
+                        {% if (column.highlight and args[column.highlight] is defined and args[column.highlight] is not empty) %}
+                            {% for repl in args[column.highlight] | split(' ') %}
+                                {% set value = value | ireplace({ (repl) : '<em>' ~ repl|upper ~ '</em>' }) %}
+                            {% endfor %}
+                        {% endif %}
+                        <td {% if column.td_class %} class="{{ column.td_class }}"{% endif %}>
+                            {%
+                                if (column.field == 'call')
+                            %}<a href="{{ url('signal', { 'system' : system, 'id' : signal.ID }) }}" data-popup="1">{{ signal.call }}</a>{%
+                                elseif (column.field == 'type')
+                            %}{{ type.title }}</a>{%
+                                elseif (column.field == 'pwr')
+                            %}{% if signal.pwr %}{{ value | raw }}{% endif %}{%
+                                elseif (column.field == 'GSQ')
+                            %}{% if signal.GSQ %}<a data-gsq="{{ signal.ID }}">{{ value | raw }}</a>{% endif %}{%
+                                elseif (column.field == 'listeners')
+                            %}{% if signal.listeners %}<a href="{{ url('signal_listeners', { 'system' : system, 'id' : signal.ID }) }}" data-popup="1">{{ signal.listeners }}</a>{% endif %}{%
+                                elseif (column.field == 'logs')
+                            %}{% if signal.logs %}<a href="{{ url('signal_logs', { 'system' : system, 'id' : signal.ID }) }}" data-popup="1">{{ signal.logs }}</a>{% endif %}{%
+                                elseif (column.field == 'LSB' or column.field == 'USB')
+                            %}{%  if value | float != 0 %}{% if (args.offsets == '1') %}{{ value | number_format(3) }}{% else %}{{ value }}{% endif %}{% endif %}{%
+                                else
+                            %}{{ value | raw }}{%
+                                endif
+                            %}</td>
+                    {% endif %}{% endfor %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div id="narrow"></div>
+{% else %}
+    <p class="no-results">{% trans %}(No signals found matching your criteria){% endtrans %}</p>
+{% endif %}

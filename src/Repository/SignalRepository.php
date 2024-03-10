@@ -29,6 +29,7 @@ class SignalRepository extends ServiceEntityRepository
     const defaultOrder =    'a';
     const defaultPage =     0;
     const defaultSorting =  'khz';
+    const regions = ['AF', 'AN', 'AS', 'CA', 'EU', 'IW', 'NA', 'OC', 'SA'];
     const withinPeriods = [
         '1 Month' =>    0.0833,
         '2 Months' =>   0.1667,
@@ -160,19 +161,8 @@ class SignalRepository extends ServiceEntityRepository
 
     private function _addFilterChannels()
     {
-        switch ($this->args['channels'] ?? false) {
-            case 1:
-                $this->query['where'][] ='MOD(s.khz * 1000, 1000) = 0';
-                break;
-            case 2:
-                $this->query['where'][] ='MOD(s.khz * 1000, 1000) != 0';
-                break;
-            case 3:
-                $this->query['where'][] ='MOD(s.khz * 100, 1000) = 0';
-                break;
-            case 4:
-                $this->query['where'][] ='MOD(s.khz * 100, 1000) != 0';
-                break;
+        if ($this->args['channels'] ?? false) {
+            $this->query['where'][] = $this->_getFilterForChannels($this->args['channels']);
         }
         return $this;
     }
@@ -427,38 +417,9 @@ class SignalRepository extends ServiceEntityRepository
     private function _addFilterStatus()
     {
         if (isset($this->args['status'])) {
-            $status = $this->args['status'];
-            if (!in_array('1', $status) && !in_array('2', $status) && !in_array('3', $status)) {
-                // NOTHING
-                $this->query['where'][] = '(1 = 0)';
-            }
-            if (!in_array('1', $status) && !in_array('2', $status) && in_array('3', $status)) {
-                // DECOM
-                $this->query['where'][] = '(s.decommissioned = 1)';
-            }
-            if (!in_array('1', $status) && in_array('2', $status) && !in_array('3', $status)) {
-                // INACTIVE
-                $this->query['where'][] = '(s.active = 0 && s.decommissioned = 0)';
-            }
-            if (!in_array('1', $status) && in_array('2', $status) && in_array('3', $status)) {
-                // INACTIVE OR DECOM
-                $this->query['where'][] = '(s.active = 0 || s.decommissioned = 1)';
-            }
-            if (in_array('1', $status) && !in_array('2', $status) && !in_array('3', $status)) {
-                // ACTIVE
-                $this->query['where'][] = '(s.active = 1)';
-            }
-            if (in_array('1', $status) && !in_array('2', $status) && in_array('3', $status)) {
-                // ACTIVE OR DECOM
-                $this->query['where'][] = '(s.active = 1 || s.decommissioned = 1)';
-            }
-            if (in_array('1', $status) && in_array('2', $status) && !in_array('3', $status)) {
-                // ACTIVE OR INACTIVE
-                $this->query['where'][] = '(s.decommissioned = 0)';
-            }
-            if (in_array('1', $status) && in_array('2', $status) && in_array('3', $status)) {
-                // ACTIVE OR INACTIVE OR DECOM
-                // No filter
+            $filter = $this->_getFilterForStatus($this->args['status']);
+            if ($filter) {
+                $this->query['where'][] = $filter;
             }
         }
         return $this;
@@ -466,8 +427,7 @@ class SignalRepository extends ServiceEntityRepository
 
     private function _addFilterTypes()
     {
-        $in = $this->_buildInParamsList('type', $this->args['signalTypes'] ?? false, '', '');
-        $this->query['where'][] = "s.type IN(" . implode(',', $in).")";
+        $this->query['where'][] = $this->_getFilterForTypes($this->args['signalTypes']);
         return $this;
     }
 
@@ -885,6 +845,76 @@ EOD;
         return $sql;
     }
 
+    private function _getFilterForChannels($channels = false)
+    {
+        switch ($channels ?? false) {
+            case 1:
+                return 'MOD(s.khz * 1000, 1000) = 0';
+            case 2:
+                return 'MOD(s.khz * 1000, 1000) != 0';
+            case 3:
+                return 'MOD(s.khz * 100, 1000) = 0';
+            case 4:
+                return 'MOD(s.khz * 100, 1000) != 0';
+        }
+        return '';
+    }
+
+    private function _getFilterForLoggedDates($date_1, $date_2)
+    {
+        if (($date_1 ?? false) || ($date_2 ?? false)) {
+            $query =
+                "(SELECT COUNT(id) FROM logs l WHERE l.signalID = s.ID AND l.date BETWEEN :logged_date_1 AND :logged_date_2) > 0";
+            $this->query['param']['logged_date_1'] = $date_1 ?? "1900-01-01";
+            $this->query['param']['logged_date_2'] = $date_2 ?? "2100-01-01";
+            return $query;
+        }
+        return '';
+    }
+
+    private function _getFilterForStatus($status = [])
+    {
+        if (!in_array('1', $status) && !in_array('2', $status) && !in_array('3', $status)) {
+            // NOTHING
+            return '(1 = 0)';
+        }
+        if (!in_array('1', $status) && !in_array('2', $status) && in_array('3', $status)) {
+            // DECOM
+            return '(s.decommissioned = 1)';
+        }
+        if (!in_array('1', $status) && in_array('2', $status) && !in_array('3', $status)) {
+            // INACTIVE
+            return '(s.active = 0 && s.decommissioned = 0)';
+        }
+        if (!in_array('1', $status) && in_array('2', $status) && in_array('3', $status)) {
+            // INACTIVE OR DECOM
+            return '(s.active = 0 || s.decommissioned = 1)';
+        }
+        if (in_array('1', $status) && !in_array('2', $status) && !in_array('3', $status)) {
+            // ACTIVE
+            return '(s.active = 1)';
+        }
+        if (in_array('1', $status) && !in_array('2', $status) && in_array('3', $status)) {
+            // ACTIVE OR DECOM
+            return '(s.active = 1 || s.decommissioned = 1)';
+        }
+        if (in_array('1', $status) && in_array('2', $status) && !in_array('3', $status)) {
+            // ACTIVE OR INACTIVE
+            return '(s.decommissioned = 0)';
+        }
+        if (in_array('1', $status) && in_array('2', $status) && in_array('3', $status)) {
+            // ACTIVE OR INACTIVE OR DECOM
+            return '';
+        }
+    }
+
+    private function _getFilterForTypes($types = [])
+    {
+        $in = $this->_buildInParamsList('type', $types ?? false, '', '');
+        return "s.type IN(" . implode(',', $in).")";
+    }
+
+
     private function _debugQuery($sql, $params)
     {
         $sql_view = $sql;
@@ -1014,6 +1044,183 @@ EOD;
         return $stmt->fetchAll();
     }
 
+    public function getClePlanner($args)
+    {
+        $fields = [
+            "s.id",
+            "TRIM(s.khz) + 0 AS khz",
+            "s.call AS `call`",
+            "s.active",
+            "s.decommissioned",
+            "s.type",
+            "s.ID",
+            "s.QTH",
+            "s.SP",
+            "s.ITU",
+            "s.region",
+            "s.GSQ",
+            "s.notes",
+            "s.heard_in",
+            "s.heard_in_html",
+            "s.first_heard",
+            "s.last_heard",
+            "(CASE WHEN s.active = 0 THEN 1 ELSE 0 END) AS _active"
+        ];
+        $fields2 = [];
+        $this->query['param'] = [];
+        if ($args['date_1'] ?? false) {
+            $this->query['param']['date_1'] = $args['date_1']->format('Y-m-d');
+        }
+        if ($args['date_2'] ?? false) {
+            $this->query['param']['date_2'] = $args['date_2']->format('Y-m-d');
+        }
+        if ($args['khz_1'] ?? false) {
+            $this->query['param']['khz_1'] = $args['khz_1'];
+        }
+        if ($args['khz_2'] ?? false) {
+            $this->query['param']['khz_2'] = $args['khz_2'];
+        }
+        $status =   (($args['status'] ?? false) ?       $this->_getFilterForStatus($args['status']) : "");
+        $channels = (($args['channels'] ?? false) ?     $this->_getFilterForChannels($args['channels']) : "");
+        $types =    (($args['signalTypes'] ?? false) ?  $this->_getFilterForTypes($args['signalTypes']) : "");
+        foreach (self::regions as $r) {
+            $fields2[] =
+                "    (SELECT COUNT(*) FROM logs l WHERE l.signalID = s.ID AND l.region = '$r'"
+                . (($args['date_1'] ?? false) ? " AND l.date >= :date_1" : "")
+                . (($args['date_2'] ?? false) ? " AND l.date <= :date_2" : "")
+                . ") as `$r`";
+        }
+        $sql =
+            "SELECT\n"
+            . "    " . implode(",\n    ", $fields) . ",\n"
+            . implode(",\n", $fields2) . "\n"
+            . "FROM\n"
+            . "    signals s\n"
+            . "WHERE\n"
+            . "    s.last_heard IS NOT NULL\n"
+            . (($args['date_1'] ?? false) && !($args['date_2'] ?? false) ?
+                "    AND (SELECT COUNT(id) FROM logs l WHERE l.signalID = s.ID AND l.date >= :date_1) > 0\n"
+                : ""
+            )
+            . (!($args['date_1'] ?? false) && ($args['date_2'] ?? false) ?
+                "    AND (SELECT COUNT(id) FROM logs l WHERE l.signalID = s.ID AND l.date <= :date_2) > 0\n"
+                : ""
+            )
+            . (($args['date_1'] ?? false) && ($args['date_2'] ?? false) ?
+                "    AND (SELECT COUNT(id) FROM logs l WHERE l.signalID = s.ID AND l.date BETWEEN :date_1 AND :date_2) > 0\n"
+                : ""
+            )
+            . (($args['khz_1'] ?? false) ?      "    AND s.khz >= :khz_1\n" : "")
+            . (($args['khz_2'] ?? false) ?      "    AND s.khz <= :khz_2\n" : "")
+            . ($status ?                        "    AND " . $status . "\n" : "")
+            . ($channels ?                      "    AND " . $channels . "\n" : "")
+            . ($types ?                         "    AND " . $types . "\n" : "")
+
+            . "ORDER BY\n"
+            . "    `_active`,\n"
+            . "    `khz`,\n"
+            . "    `call`\n";
+
+        if (is_numeric($args['limit']) && (int)$args['limit'] !== -1) {
+            $limit =    (int)$args['limit'];
+            $offset =   (int)$args['page'] * (int)$args['limit'];
+            $sql .=     "LIMIT\n    {$offset}, {$limit}";
+        }
+
+
+        $stmt = $this->connection->prepare($sql);
+        $stmt->execute($this->query['param']);
+
+//        return [$args, $sql, $this->query['param'], $this->_debugQuery($sql, $this->query['param'])];
+        return $stmt->fetchAllAssociative();
+    }
+
+    public function getClePlannerCount($args)
+    {
+        $this->query['param'] = [];
+        if ($args['date_1'] ?? false) {
+            $this->query['param']['date_1'] = $args['date_1']->format('Y-m-d');
+        }
+        if ($args['date_2'] ?? false) {
+            $this->query['param']['date_2'] = $args['date_2']->format('Y-m-d');
+        }
+        if ($args['khz_1'] ?? false) {
+            $this->query['param']['khz_1'] = $args['khz_1'];
+        }
+        if ($args['khz_2'] ?? false) {
+            $this->query['param']['khz_2'] = $args['khz_2'];
+        }
+        $status =   (($args['status'] ?? false) ?       $this->_getFilterForStatus($args['status']) : "");
+        $channels = (($args['channels'] ?? false) ?     $this->_getFilterForChannels($args['channels']) : "");
+        $types =    (($args['signalTypes'] ?? false) ?  $this->_getFilterForTypes($args['signalTypes']) : "");
+        $sql =
+            "SELECT\n"
+            . "    COUNT(*)\n"
+            . "FROM\n"
+            . "    signals s\n"
+            . "WHERE\n"
+            . "    s.last_heard IS NOT NULL\n"
+            . (($args['date_1'] ?? false) && !($args['date_2'] ?? false) ?
+                "    AND (SELECT COUNT(id) FROM logs l WHERE l.signalID = s.ID AND l.date >= :date_1) > 0\n"
+                : ""
+            )
+            . (!($args['date_1'] ?? false) && ($args['date_2'] ?? false) ?
+                "    AND (SELECT COUNT(id) FROM logs l WHERE l.signalID = s.ID AND l.date <= :date_2) > 0\n"
+                : ""
+            )
+            . (($args['date_1'] ?? false) && ($args['date_2'] ?? false) ?
+                "    AND (SELECT COUNT(id) FROM logs l WHERE l.signalID = s.ID AND l.date BETWEEN :date_1 AND :date_2) > 0\n"
+                : ""
+            )
+            . (($args['khz_1'] ?? false) ?      "    AND s.khz >= :khz_1\n" : "")
+            . (($args['khz_2'] ?? false) ?      "    AND s.khz <= :khz_2\n" : "")
+            . ($status ?                        "    AND " . $status . "\n" : "")
+            . ($channels ?                      "    AND " . $channels . "\n" : "")
+            . ($types ?                         "    AND " . $types . "\n" : "");
+
+        $stmt = $this->connection->prepare($sql);
+        $stmt->execute($this->query['param']);
+        return $stmt->fetchColumn();
+    }
+
+    public function getClePlannerStats($args)
+    {
+        $this->query['param'] = [];
+        if ($args['date_1'] ?? false) {
+            $this->query['param']['date_1'] = $args['date_1']->format('Y-m-d');
+        }
+        if ($args['date_2'] ?? false) {
+            $this->query['param']['date_2'] = $args['date_2']->format('Y-m-d');
+        }
+        if ($args['khz_1'] ?? false) {
+            $this->query['param']['khz_1'] = $args['khz_1'];
+        }
+        if ($args['khz_2'] ?? false) {
+            $this->query['param']['khz_2'] = $args['khz_2'];
+        }
+        $status =   (($args['status'] ?? false) ?       $this->_getFilterForStatus($args['status']) : "");
+        $channels = (($args['channels'] ?? false) ?     $this->_getFilterForChannels($args['channels']) : "");
+        $types =    (($args['signalTypes'] ?? false) ?  $this->_getFilterForTypes($args['signalTypes']) : "");
+        foreach (self::regions as $r) {
+            $fields[] =
+                "    (SELECT COUNT(DISTINCT SignalID) FROM logs l INNER JOIN signals s on l.signalID = s.ID WHERE l.region = '$r'"
+                . (($args['date_1'] ?? false) ?     " AND l.date >= :date_1" : "")
+                . (($args['date_2'] ?? false) ?     " AND l.date <= :date_2" : "")
+                . (($args['khz_1'] ?? false) ?      " AND s.khz >= :khz_1" : "")
+                . (($args['khz_2'] ?? false) ?      " AND s.khz <= :khz_2" : "")
+                . ($status ?                        " AND " . $status : "")
+                . ($channels ?                      " AND " . $channels : "")
+                . ($types ?                         " AND " . $types : "")
+                . ") as `$r`";
+        }
+        $sql =
+            "SELECT\n"
+            . "    " . implode(",\n    ", $fields) . "\n";
+        $stmt = $this->connection->prepare($sql);
+        $stmt->execute($this->query['param']);
+        return $stmt->fetchAllAssociative();
+    }
+
     /**
      * @param $system
      * @param $args
@@ -1077,13 +1284,10 @@ EOD;
         switch ($mode) {
             case 'listeners':
                 return $this->signalListenersColumns;
-                break;
             case 'logs':
                 return $this->signalLogsColumns;
-                break;
             case 'signals':
                 return $this->signalsColumns;
-                break;
         }
         return false;
     }

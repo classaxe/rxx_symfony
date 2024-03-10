@@ -1,0 +1,18 @@
+{% extends 'main.html.twig' %}
+
+{% block body %}
+    <div class="main">
+        <div class="text-center center-block">
+            <h1>{{ mode | trans }}</h1>
+            {% set form_title='Customise Parameters' | trans | format(system | upper) %}
+            {% set form_class='cle_planner' %}
+            {% include 'cle_planner/form.html.twig' %}
+        </div>
+        {% include 'cle_planner/list.html.twig' %}
+        {% include 'forms/pagingbottom.html.twig' %}
+    </div>
+
+    <script>
+        initClePlannerForm(msg.paging_s, {{ results.total }});
+    </script>
+{% endblock %}

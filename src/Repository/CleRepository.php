@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Columns\ClePlanner as ClePlannerColumns;
 use App\Entity\Cle;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -9,15 +10,34 @@ use Doctrine\Persistence\ManagerRegistry;
 class CleRepository extends ServiceEntityRepository
 {
     private $cle;
+    private $plannerColumns;
+
     /**
      * CleRepository constructor.
      * @param ManagerRegistry $registry
+     * @param ClePlannerColumns $clePlanner
      */
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $registry,  ClePlannerColumns $clePlanner)
     {
         parent::__construct($registry, Cle::class);
+        $this->plannerColumns = $clePlanner->getColumns();
+
         $this->cle = $this->find(1);
     }
+
+    /**
+     * @param string $mode
+     * @return false|array
+     */
+    public function getColumns($mode = '')
+    {
+        switch ($mode) {
+            case 'planner':
+                return $this->plannerColumns;
+        }
+        return false;
+    }
+
 
     public function getRecord() {
         return $this->cle;

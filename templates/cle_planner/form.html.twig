@@ -1,0 +1,41 @@
+{# Include our twig widget customisations #}
+{% form_theme form 'forms/custom.html.twig' %}
+<div class="controlPanel {{ form_class }}">
+    <div class="header">{{ form_title }}</div>
+    <div class="content clearfix">
+{{ form_start(form) }}
+        <div id="form">
+{% include 'forms/paging.html.twig' %}
+            {{ form_row(form.type) }}
+            <div>
+                <fieldset style="display:inline-block; width:auto; float: left;">
+                    {{ form_label(form.status) }}
+                    {{ form_widget(form.status) }}
+                </fieldset>
+                <fieldset style="display:inline-block; width:auto; float: left;">
+                    {{ form_label(form.khz_1) }}
+                    {{ form_widget(form.khz_1) }}
+                    <span>-</span>
+                    <label for="form_khz_2" class="sr-only">{% trans %}Freq. 2{% endtrans %}</label>
+                    {{ form_widget(form.khz_2) }}
+                </fieldset>
+                <fieldset style="display:inline-block; width:auto; float: left;">
+                    {{ form_label(form.date_1) }}
+                    {{ form_widget(form.date_1) }}
+                    <span>-</span>
+                    <label for="form_date_2" class="sr-only">{% trans %}Date. 2{% endtrans %}</label>
+                    {{ form_widget(form.date_2) }}
+                </fieldset>
+                <fieldset style="display:inline-block; width:auto; float: left;">
+                    {{ form_label(form.channels) }}
+                    {{ form_widget(form.channels) }}
+                </fieldset>
+            </div>
+            <fieldset class="actionButtons">
+                {{ form_widget(form.submit) }}
+                {{ form_widget(form.clear) }}
+            </fieldset>
+        </div>
+{{ form_end(form, {'render_rest': false}) }}
+    </div>
+</div>

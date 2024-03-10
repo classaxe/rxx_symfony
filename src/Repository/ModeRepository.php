@@ -184,7 +184,7 @@ class ModeRepository
                 'access' => User::MASTER,
                 'admin' =>  true,
                 'guest' =>  false,
-                'menu' =>   'Gift',
+                'menu' =>   'Gifts',
                 'title' =>  'Gifts received',
                 'url'=>     false
             ],
@@ -196,7 +196,6 @@ class ModeRepository
                 'title' =>  'Admin Help',
                 'url'=>     false
             ],
-/*
             'clePlanner' => [
                 'access' => User::CLE | User::MASTER,
                 'admin' =>  true,
@@ -205,7 +204,6 @@ class ModeRepository
                 'title' =>  'View loggings for various ranges',
                 'url'=>     false
             ],
-*/
             'profile' => [
                 'access' => User::USER | User::CLE | User::AWARDS | User::ADMIN | User::MASTER,
                 'admin' =>  true,
