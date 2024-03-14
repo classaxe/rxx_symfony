@@ -676,7 +676,7 @@ var SIGNALS = {
                         case 'type':
                             break;
                         default:
-                            row += tds + value + tde;
+                            row += tds + (!!value ? value : '') + tde;
                             break;
                     }
                 }

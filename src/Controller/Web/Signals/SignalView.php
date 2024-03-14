@@ -101,13 +101,17 @@ class SignalView extends Base
                 $GSQ =
                     strtoUpper(substr($form_data['gsq'], 0, 4))
                     .strtoLower(substr($form_data['gsq'], 4, 2));
-                $a =    $this->rxx::convertGsqToDegrees($GSQ);
-                $lat =  $a["lat"];
-                $lon =  $a["lon"];
+                if ($a = $this->rxx::convertGsqToDegrees($GSQ)) {
+                    $lat =  $a["lat"];
+                    $lon =  $a["lon"];
+                } else {
+                    $lat = null;
+                    $lon = null;
+                }
             } else {
                 $GSQ =  '';
-                $lat =  0;
-                $lon =  0;
+                $lat =  null;
+                $lon =  null;
             }
             $lsbApprox = substr($form_data['lsb'], 0, 1) === '~' ? '~' : null;
             $usbApprox = substr($form_data['usb'], 0, 1) === '~' ? '~' : null;

@@ -580,18 +580,20 @@ class SignalRepository extends ServiceEntityRepository
     {
         if (($this->args['range_gsq'] ?? false) && $lat_lon = Rxx::convertGsqToDegrees($this->args['range_gsq'])) {
             $this->query['select'][] = <<< EOD
-                CAST( #1
-                    COALESCE( #2
-                        ROUND( #3
-                            DEGREES( #4
-                                ATAN2( #5
-                                    (SIN(RADIANS(s.lon) - RADIANS(:lon)) * COS(RADIANS(s.lat))),
-                                    (COS(RADIANS(:lat)) * SIN(RADIANS(s.lat)) - SIN(RADIANS(:lat)) * COS(RADIANS(s.lat)) * COS(RADIANS(s.lon) - RADIANS(:lon)))
-                                )
-                            ) + 360
-                        ) MOD 360,
-                        ''
-                    ) AS UNSIGNED
+                IF (s.lat is null or s.lon is null, null, 
+                    CAST( #1
+                        COALESCE( #2
+                            ROUND( #3
+                                DEGREES( #4
+                                    ATAN2( #5
+                                        (SIN(RADIANS(s.lon) - RADIANS(:lon)) * COS(RADIANS(s.lat))),
+                                        (COS(RADIANS(:lat)) * SIN(RADIANS(s.lat)) - SIN(RADIANS(:lat)) * COS(RADIANS(s.lat)) * COS(RADIANS(s.lon) - RADIANS(:lon)))
+                                    )
+                                ) + 360
+                            ) MOD 360,
+                            ''
+                        ) AS UNSIGNED
+                    )
                 ) AS range_deg
 EOD;
             $this->query['param']['lat'] = $lat_lon['lat'];
@@ -605,18 +607,20 @@ EOD;
     private function _addSelectColumnRangeKm() {
         if (($this->args['range_gsq'] ?? false) && $lat_lon = Rxx::convertGsqToDegrees($this->args['range_gsq'])) {
             $this->query['select'][] = <<< EOD
-                CAST(
-                    COALESCE(
-                        ROUND(
-                            DEGREES(
-                                ACOS(
-                                    (SIN(RADIANS(:lat)) * SIN(RADIANS(s.lat))) + (COS(RADIANS(:lat)) * COS(RADIANS(s.lat)) * COS(RADIANS(:lon - s.lon)))
-                                )
-                            ) * :KM,
-                            2
-                        ),
-                        ''
-                    ) AS UNSIGNED
+                IF (s.lat is null or s.lon is null, null, 
+                    CAST(
+                        COALESCE(
+                            ROUND(
+                                DEGREES(
+                                    ACOS(
+                                        (SIN(RADIANS(:lat)) * SIN(RADIANS(s.lat))) + (COS(RADIANS(:lat)) * COS(RADIANS(s.lat)) * COS(RADIANS(:lon - s.lon)))
+                                    )
+                                ) * :KM,
+                                2
+                            ),
+                            ''
+                        ) AS UNSIGNED
+                    )
                 ) AS range_km
 EOD;
             $this->query['param']['KM'] = RXX::DEG_KM_MULTIPLIER;
@@ -632,18 +636,20 @@ EOD;
     {
         if (($this->args['range_gsq'] ?? false) && $lat_lon = Rxx::convertGsqToDegrees($this->args['range_gsq'])) {
             $this->query['select'][] = <<< EOD
-                CAST(
-                    COALESCE(
-                        ROUND(
-                            DEGREES(
-                                ACOS(
-                                    (SIN(RADIANS(:lat)) * SIN(RADIANS(s.lat))) + (COS(RADIANS(:lat)) * COS(RADIANS(s.lat)) * COS(RADIANS(:lon - s.lon)))
-                                )
-                            ) * :MI,
-                            2
-                        ),
-                        ''
-                    ) AS UNSIGNED
+                IF (s.lat is null or s.lon is null, null, 
+                    CAST(
+                        COALESCE(
+                            ROUND(
+                                DEGREES(
+                                    ACOS(
+                                        (SIN(RADIANS(:lat)) * SIN(RADIANS(s.lat))) + (COS(RADIANS(:lat)) * COS(RADIANS(s.lat)) * COS(RADIANS(:lon - s.lon)))
+                                    )
+                                ) * :MI,
+                                2
+                            ),
+                            ''
+                        ) AS UNSIGNED
+                    )
                 ) AS range_mi
 EOD;
             $this->query['param']['MI'] = RXX::DEG_MI_MULTIPLIER;
