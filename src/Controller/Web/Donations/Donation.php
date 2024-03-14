@@ -78,7 +78,7 @@ class Donation extends Base
         foreach (static::EDITABLE_FIELDS as $f) {
             $args[$f] = $donation->{'get' . ucfirst($f)}();
         }
-        $args['date'] = $donation->getDate() ? $donation->getDate()->format('Y-m-d') : '';
+        $args['date'] = $donation->getDate() ? $donation->getDate()->format('Y-m-d') : (new DateTime())->format('Y-m-d');
         $form = $donationForm->buildForm(
             $this->createFormBuilder(),
             $args
