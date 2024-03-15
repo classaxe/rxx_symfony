@@ -329,7 +329,7 @@ var SIGNALS_FORM = {
         if (enable) {
             $('#form_personalise').change(function () {
                 var lbl = $('#form_personalise option:selected').text();
-                var gsq = (lbl.split('|').length === 2 ? lbl.split('|')[1] : '').trim();
+                var gsq = (lbl.split('|').length === 3 ? lbl.split('|')[1] : '').trim();
                 var form_range_gsq = $('#form_range_gsq');
                 form_range_gsq.val(gsq);
                 form_range_gsq.trigger('keyup');

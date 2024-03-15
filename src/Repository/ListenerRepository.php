@@ -589,7 +589,7 @@ EOD;
             $qb =
                 $this
                     ->createQueryBuilder('l')
-                    ->select('l.id, l.active, l.name, l.qth, l.sp, l.itu, l.gsq, l.primaryQth, l.callsign, l.multiOperator')
+                    ->select('l.id, l.active, l.name, l.qth, l.sp, l.itu, l.gsq, l.primaryQth, l.callsign, l.multiOperator, l.countLogs')
                     ->addOrderBy('l.name', 'ASC')
                     ->addOrderBy('l.primaryQth', 'DESC');
             $this->addFilterSystem($qb, $system);
@@ -617,6 +617,7 @@ EOD;
                     . " "
                     . $row['itu']
                     . ($row['gsq'] ? ' | ' . $row['gsq'] : '')
+                    . ($row['countLogs'] ? ' | ' . $row['countLogs'] . ' logs': '')
                 ] = $row['id'];
             } else {
                 $out[
