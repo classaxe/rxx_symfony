@@ -31,7 +31,8 @@
     }
 }
 
-table.responsive {
+table.responsive,
+table.simple {
     padding: 0;
     margin: 0.5em 0 1em 0;
     border-radius: 5px;
@@ -40,9 +41,7 @@ table.responsive {
         tr {
             th {
                 vertical-align: top;
-                padding: 0 0.25em;
                 line-height: 1.5em;
-                width: 12em;
                 text-align: right;
                 border-right: 1px solid #888;
                 b {
@@ -54,7 +53,6 @@ table.responsive {
             }
             td {
                 vertical-align: top;
-                padding: 0 0 0 0.25em;
                 line-height: 1.5em;
                 text-align: left !important;
                 b {
@@ -63,6 +61,20 @@ table.responsive {
                     border: 1px solid #b0b000;
                     border-radius: 2px;
                 }
+            }
+        }
+    }
+}
+
+table.responsive {
+    tbody {
+        tr {
+            th {
+                width: 12em;
+                padding: 0 0.25em;
+            }
+            td {
+                padding: 0 0 0 0.25em;
             }
         }
     }

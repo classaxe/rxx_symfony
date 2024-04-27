@@ -17,9 +17,22 @@
             }) | raw }}</p>
     <hr>
     <h2>{{ mode }}</h2>
-    <p><strong>{% trans %}Dates:{% endtrans %}</strong> {{ cle.dateTimespan|raw }}<br />
-    <strong>{% trans %}Scope:{% endtrans %}</strong> {{ cle.scope|raw }}<br />
-    {% if (cle.additional) %}<strong>{% trans %}Details:{% endtrans %}</strong> {{ cle.additional|unescape|raw|replace({'<p>' : '', '</p>' : ''})|raw }}{% endif %}
+    <table style="width: 80%" class="simple">
+        <tr>
+            <th>{% trans %}Dates:{% endtrans %}</th>
+            <td>{{ cle.dateTimespan|raw }}</td>
+        </tr>
+        <tr>
+            <th>{% trans %}Scope:{% endtrans %}</th>
+            <td>{{ cle.scope|raw }}</td>
+        </tr>
+        {% if (cle.additional) %}
+        <tr>
+            <th>{% trans %}Details:{% endtrans %}</th>
+            <td>{{ cle.additional|unescape|raw|replace({'<p>' : '', '</p>' : ''})|raw }}</td>
+        </tr>
+        {% endif %}
+    </table>
 
     <h2>{% trans %}Links for Each Region{% endtrans %}</h2>
     <div class="row cle_links">
