@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.64.3
- * Date:       2024-03-15
+ * Version:    2.64.7
+ * Date:       2024-05-09
  * Licence:    LGPL
  * Copyright:  2024 Martin Francis
  */
@@ -2954,6 +2954,7 @@ var SIGNALS_FORM = {
     ituSps: {
         AUS : 'AT NN NW QD SA TA VI WE',
         CAN : 'AB BC MB NB NL NS NT NU ON PE QC SK YT',
+        NZL : 'CI NI SI',
         USA : 'AL AR AZ CA CO CT DC DE FL GA IA ID IL IN KS KY LA MA MD ME MI MN MO MS MT NC ND NE NH NJ NM NV NY OH OK OR PA RI SC SD TN TX UT VA VT WA WI WV WY'
     },
 
