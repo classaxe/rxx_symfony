@@ -74,6 +74,8 @@ class Tools extends Base
                 return $this->logsDaytime();
             case 'logSessionStats':
                 return $this->logsSessionStats();
+            case 'logsHeardIn':
+                return $this->logsUpdateHeardin();
             case 'signalsLatLon':
                 return $this->signalsLatLon();
             case 'signalsStats':
@@ -155,6 +157,14 @@ class Tools extends Base
         $start =    time();
         $affected = $this->listenerRepository->updateAllInvalidLogSessions();
         $this->setMessage('Logs', 'Update Log Session Stats', $affected, $start);
+
+        return $this->redirectToRoute('admin/tools', [ 'system' => $this->system ]);
+    }
+
+    private function logsUpdateHeardin() {
+        $start =    time();
+        $affected = $this->logRepository->updateHeardIn();
+        $this->setMessage('Logs', "Update 'Heard in'", $affected, $start);
 
         return $this->redirectToRoute('admin/tools', [ 'system' => $this->system ]);
     }

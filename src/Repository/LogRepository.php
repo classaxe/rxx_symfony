@@ -871,4 +871,22 @@ EOD;
         $stmt->execute();
         return $stmt->rowCount();
     }
+
+    public function updateHeardIn($listenerId = false, $signalId = false, $sessionId = false)
+    {
+        $where = $this->getLogWhereClause($listenerId, $signalId, $sessionId);
+        $sql = <<< EOD
+        UPDATE
+            logs
+        INNER JOIN listeners l ON
+            logs.listenerID = l.ID
+        SET
+            logs.heard_in = IF(l.SP <>'', l.SP, l.ITU)
+        $where
+EOD;
+        $stmt = $this->connection->prepare($sql);
+        $stmt->execute();
+        return $stmt->rowCount();
+    }
+
 }
