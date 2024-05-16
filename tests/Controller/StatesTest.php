@@ -43,7 +43,7 @@ class StatesTest extends Base
             $this->assertEquals($expected, $actual, $message);
 
             $maplinks =     $this->getMyCrawler()->filter('.zone .header .links a:contains("Map")');
-            $expected =     count($this->getCountriesHavingStates());
+            $expected =     count($this->getCountriesHavingStatesAndMaps());
             $actual =       $maplinks->count();
             $message =      $this->getError(4, [$url,  $expected, $actual]);
             $this->assertEquals($expected, $actual, $message);

@@ -23,10 +23,18 @@ abstract class Base extends WebTestCase
         return [
             'aus' => ['title' => 'Australia',            'map' => 'map_au'],
             'can' => ['title' => 'Canada',               'map' => 'map_na'],
+            'nzl' => ['title' => 'New Zealand',          'map' => ''],
             'usa' => ['title' => 'USA',                  'map' => 'map_na']
         ];
     }
 
+    protected function getCountriesHavingStatesAndMaps()
+    {
+        $data = $this->getCountriesHavingStates();
+        return array_filter($data, function($item) {
+            return $item['map'];
+        });
+    }
     protected function getMap($area)
     {
         return $this->getMaps()[$area];
