@@ -45,7 +45,7 @@ var SMap = {
     },
 
     drawGrid : function() {
-        return drawGrid(SMap.map, layers);
+        return drawGrid(SMap.map, layers, true);
     },
 
     drawMarkers : function() {

@@ -31,7 +31,7 @@ var LMap = {
     },
 
     drawGrid : function() {
-        return drawGrid(map, layers);
+        return drawGrid(map, layers, true);
     },
 
     drawMarkers : function() {

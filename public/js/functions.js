@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.64.7
- * Date:       2024-05-09
+ * Version:    2.64.9
+ * Date:       2024-06-06
  * Licence:    LGPL
  * Copyright:  2024 Martin Francis
  */
@@ -1133,7 +1133,7 @@ var LMap = {
     },
 
     drawGrid : function() {
-        return drawGrid(map, layers);
+        return drawGrid(map, layers, true);
     },
 
     drawMarkers : function() {
@@ -2060,9 +2060,9 @@ function logsShowRemainder() {
     $('#issueCount').text(remainder.length);
 }
 
-function drawGrid(map, layers) {
+function drawGrid(map, layers, squares) {
     TxtOverlay =    initMapsTxtOverlay();
-    var i, la, lo;
+    var i, la, laf, lo, lof;
     for (la=0; la<180; la+=10) {
         layers.grid.push(
             new google.maps.Polyline({
@@ -2073,23 +2073,50 @@ function drawGrid(map, layers) {
                 strokeWeight: 0.5
             })
         );
+        if (typeof squares !== 'undefined' && squares) {
+            for(laf=0; laf<10; laf++) {
+                layers.grid.push(
+                    new google.maps.Polyline({
+                        path: [{lat: laf + (la-90), lng: -180}, {lat: laf + (la-90), lng: 0}, {lat: laf +  (la-90), lng: 180}],
+                        geodesic: false,
+                        strokeColor: gridColor,
+                        strokeOpacity: gridOpacity,
+                        strokeWeight: 0.25
+                    })
+                );
+            }
+        }
     }
     for (lo=0; lo<360; lo+=20) {
         layers.grid.push(
             new google.maps.Polyline({
-                path: [{lat:85.05, lng: lo}, {lat:-85.05, lng: lo}],
+                path: [{lat: 85.05, lng: lo}, {lat: -85.05, lng: lo}],
                 geodesic: false,
                 strokeColor: gridColor,
                 strokeOpacity: gridOpacity,
                 strokeWeight: 0.5
             })
         );
+        if (typeof squares !== 'undefined' && squares) {
+            for (lof = 0; lof < 20; lof += 2) {
+                layers.grid.push(
+                    new google.maps.Polyline({
+                        path: [{lat: 85.05, lng: lo + lof}, {lat: -85.05, lng: lo + lof}],
+                        geodesic: false,
+                        strokeColor: gridColor,
+                        strokeOpacity: gridOpacity,
+                        strokeWeight: 0.25
+                    })
+                );
+
+            }
+        }
     }
     for (la=10; la<170; la+=10) {
         for (lo = 0; lo < 360; lo += 20) {
             layers.grid.push(
                 new TxtOverlay(
-                    new google.maps.LatLng(la -90 +5,lo -180 + 10),
+                    new google.maps.LatLng(la -90 + 5.17,lo -180 + 9.625),
                     String.fromCharCode((lo/20) +65) + String.fromCharCode((la/10) +65),
                     'gridLabel',
                     map
@@ -2671,7 +2698,7 @@ var SMap = {
     },
 
     drawGrid : function() {
-        return drawGrid(SMap.map, layers);
+        return drawGrid(SMap.map, layers, true);
     },
 
     drawMarkers : function() {
