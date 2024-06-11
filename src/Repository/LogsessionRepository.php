@@ -236,7 +236,7 @@ class LogsessionRepository extends ServiceEntityRepository
             $idx = $reportColumns[$args['sort']];
 
             $qb->addSelect(
-                "(CASE WHEN ".$idx['sort']." IS NULL OR ".$idx['sort']." = '' THEN 1 ELSE 0 END) AS _blank"
+                "(CASE WHEN COALESCE(".$idx['sort'].",'') = '' THEN 1 ELSE 0 END) AS _blank"
             )
             ->addOrderBy(
                 '_blank',
