@@ -704,6 +704,11 @@ EOD;
                 $this->query['select'][] =
                     "(CASE WHEN (s.lat is null or s.lat = 0) AND (s.lon is null or s.lon = 0) THEN 1 ELSE 0 END) AS _empty";
                 break;
+            case "s.first_heard":
+            case "s.last_heard":
+                $this->query['select'][] =
+                    "(CASE WHEN " . $column . " IS NULL THEN 1 ELSE 0 END) AS _empty";
+                break;
             default:
                 $this->query['select'][] =
                     "(CASE WHEN " . $column . " = '' OR " . $column . " IS NULL THEN 1 ELSE 0 END) AS _empty";

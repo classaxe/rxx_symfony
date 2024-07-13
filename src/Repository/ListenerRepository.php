@@ -649,7 +649,7 @@ EOD;
 
         if (isset($args['sort']) && ($this->listenersColumns[$args['sort']]['sort'] ?? false)) {
             $qb->addSelect(
-                "(CASE WHEN (".$this->listenersColumns[$args['sort']]['sort'].") = '' THEN 1 ELSE 0 END) AS _blank"
+                "(CASE WHEN COALESCE(".$this->listenersColumns[$args['sort']]['sort'].",'') = '' THEN 1 ELSE 0 END) AS _blank"
             );
         }
 
@@ -728,7 +728,7 @@ EOD;
                 $out[] = $value[0];
             }
         }
-        return $out ? $out : $result;
+        return $out ?: $result;
     }
 
     public function getFilteredListenersCount($system, $args)

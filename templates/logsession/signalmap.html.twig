@@ -56,7 +56,7 @@ $(document).ready( function() {
 //]]>
 </script>
 <script src="{{ asset('js/nite-overlay/nite-overlay.js') }}"></script>
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCmvsfY0bgnVB-gl_nMHGQ71rp1WTz9tGM&callback=SMap.init"></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key={{ getEnv('GOOGLE_MAPS_API_KEY') }}&callback=SMap.init"></script>
 
 <div class="main fullwidth">
     {% include 'logsession/tabs.html.twig' %}

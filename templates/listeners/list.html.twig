@@ -109,7 +109,7 @@
                     %}{%
                     endif %}{%
                 elseif key == 'countRemoteLogSessions'
-                    %}{% if l.countSignals %}<a href="{{ url('listener_remote_logsessions', { 'system' : system, 'id' : l.ID }) }}" data-popup="1">{{ value }}</a>{% endif %}{%
+                    %}{% if l.countRemoteLogSessions %}<a href="{{ url('listener_remote_logsessions', { 'system' : system, 'id' : l.ID }) }}" data-popup="1">{{ value }}</a>{% endif %}{%
                 elseif key == 'addlog'
                     %}{% if isAdmin %}<a href="{{ url('listener_logsupload', { 'system' : system, 'id': l.id }) }}" data-popup="1" class="add">+</a>{% endif %}{%
                 elseif key == 'delete'

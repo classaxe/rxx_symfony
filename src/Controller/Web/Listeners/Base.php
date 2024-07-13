@@ -32,7 +32,7 @@ class Base extends WebBase
         if (!$listener = $this->getValidListener($id)) {
             return false;
         }
-        if (!$listener->getCountLogs()) {
+        if (!$listener->getCountLogs() && !$listener->getCountRemoteLogs()) {
             $this->session->set('lastError', "Listener <strong>".$listener->getName()."</strong> has submitted no logs.");
             return false;
         }
