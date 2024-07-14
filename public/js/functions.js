@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.64.9
- * Date:       2024-06-06
+ * Version:    2.64.14
+ * Date:       2024-07-14
  * Licence:    LGPL
  * Copyright:  2024 Martin Francis
  */
@@ -2985,6 +2985,22 @@ var SIGNALS_FORM = {
         USA : 'AL AR AZ CA CO CT DC DE FL GA IA ID IL IN KS KY LA MA MD ME MI MN MO MS MT NC ND NE NH NJ NM NV NY OH OK OR PA RI SC SD TN TX UT VA VT WA WI WV WY'
     },
 
+    getExportAllArgs: function() {
+        var args = [];
+        var types = shareableLink.getFromTypes()
+        var admin_mode = shareableLink.getFromField('admin_mode', ['0', '1', '2']);
+        if (types) {
+            args.push(types.substring(1));
+        }
+        if (admin_mode) {
+            args.push(admin_mode.substring(1));
+        }
+
+        if (args.length) {
+            return '?' + args.join('&');
+        }
+    },
+
     setActions : function() {
         $('#btn_csv_all').click(function () {
             if (confirm(
@@ -2993,7 +3009,7 @@ var SIGNALS_FORM = {
                     .replace(':format', '.csv') +
                 "\n" + msg.export2
             )) {
-                window.location.assign(window.location + '/export/csv' + shareableLink.getFromTypes());
+                window.location.assign(window.location + '/export/csv' + SIGNALS_FORM.getExportAllArgs());
             }
         });
         $('#btn_kml_all').click(function () {
@@ -3003,18 +3019,17 @@ var SIGNALS_FORM = {
                     .replace(':format', '.kml') +
                 "\n" + msg.export2
             )) {
-                window.location.assign(window.location + '/export/kml' + shareableLink.getFromTypes());
+                window.location.assign(window.location + '/export/kml' + SIGNALS_FORM.getExportAllArgs());
             }
         });
         $('#btn_txt_all').click(function () {
-            shareableLink.getFromTypes()
             if (confirm(
                 msg.export
                     .replace(':system', system.toUpperCase())
                     .replace(':format', '.txt') +
                 "\n" + msg.export2
             )) {
-                window.location.assign(window.location + '/export/txt' + shareableLink.getFromTypes());
+                window.location.assign(window.location + '/export/txt' + SIGNALS_FORM.getExportAllArgs());
             }
         });
         $('#btn_psk_all').click(function () {
@@ -3025,7 +3040,7 @@ var SIGNALS_FORM = {
                 "\n" + msg.export2 +
                 (system.toUpperCase() === 'RWW' ? '' : "\n\n" + msg.export3)
             )) {
-                window.location.assign(window.location + '/export/xls' + shareableLink.getFromTypes());
+                window.location.assign(window.location + '/export/xls' + SIGNALS_FORM.getExportAllArgs());
             }
         });
         $('#btn_csv_fil').click(function () {

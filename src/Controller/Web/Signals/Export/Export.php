@@ -125,11 +125,13 @@ class Export extends Base
             'limit' =>          -1,
             'order' =>          $this->signalRepository::defaultOrder,
             'signalTypes' =>    [0],
+            'admin_mode' =>     0,
             'sort' =>           $this->signalRepository::defaultSorting,
             'system' =>         $system,
         ];
         $this->setTypeFromRequest($args, $request);
         $args['signalTypes'] =  $this->typeRepository->getSignalTypesSearched($args['type'] ?? ['NDB']);
+        $this->setValueFromRequest($args, $request, 'admin_mode', [0,1,2]);
         $signals = $this->signalRepository->getFilteredSignals($system, $args);
         $signalTypes = [];
         foreach ($signals as $signal) {
