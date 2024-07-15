@@ -1043,6 +1043,7 @@ EOD;
         $sql = $this->_buildQuery();
 
         $stmt = $this->connection->prepare($sql);
+        $this->debug(print_r($this->args, true), ($this->args['source'] ?? ''));
         $this->debug($this->_debugQuery($sql, $this->query['param']), ($this->args['source'] ?? ''));
 
         foreach ($this->query['param'] as $key => $value) {

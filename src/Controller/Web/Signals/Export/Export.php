@@ -122,6 +122,7 @@ class Export extends Base
         Request $request
     ) {
         $args = [
+            'isAdmin' =>        $this->parameters['isAdmin'],
             'limit' =>          -1,
             'order' =>          $this->signalRepository::defaultOrder,
             'signalTypes' =>    [0],
