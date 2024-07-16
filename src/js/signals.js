@@ -65,10 +65,10 @@ var SIGNALS_FORM = {
         if (admin_mode) {
             args.push(admin_mode.substring(1));
         }
-
         if (args.length) {
             return '?' + args.join('&');
         }
+        return '';
     },
 
     setActions : function() {
