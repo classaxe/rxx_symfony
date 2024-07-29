@@ -1,8 +1,8 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.64.4
- * Date:       2024-04-26
+ * Version:    2.64.17
+ * Date:       2024-07-29
  * Licence:    LGPL
  * Copyright:  2024 Martin Francis
  */
@@ -1257,7 +1257,8 @@ body {
   -webkit-writing-mode: vertical-rl;
   writing-mode: vertical-rl;
   white-space: nowrap;
-  padding-bottom: 0.5em;
+  margin-bottom: 0.25em;
+  text-align: right;
   display: table;
   border-spacing: 0;
 }
@@ -2142,7 +2143,7 @@ table.logsessions tbody tr.selected td {
   padding: 0 0 0 0.25em !important;
 }
 .signal_list #listener_selection_help {
-  width: 130px;
+  width: 130px !important;
   height: 120px;
   margin: 0.5em 0 0 0;
   font-size: 80% !important;
@@ -2150,7 +2151,7 @@ table.logsessions tbody tr.selected td {
 }
 .signal_list #listener_type {
   clear: both;
-  width: 130px;
+  width: 130px !important;
 }
 .signal_list #listener_type label {
   font-weight: bold;
@@ -3359,12 +3360,12 @@ div.scroll div table.results_noaction img {
 }
 .results thead th.sort,
 .results_noaction thead th.sort {
-  border-bottom: 3px solid #a0a0a0;
+  border-bottom: 3px solid #a0a0a0 !important;
 }
 .results thead th.nosort,
 .results_noaction thead th.nosort {
   background: #008000;
-  border-bottom: 3px solid #006000;
+  border-bottom: 3px solid #006000 !important;
 }
 .results thead th.sort:hover,
 .results_noaction thead th.sort:hover,
