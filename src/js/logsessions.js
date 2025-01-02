@@ -19,6 +19,11 @@ var logSessions = {
                 var listenerId = $(this).closest('tr').attr('id').split('_')[2];
                 var logSessionId = $(this).closest('tr').attr('id').split('_')[3];
                 logSessions.getLogSessionLogs(listenerId, logSessionId);
+                $('.export a').each(function(i, obj) {
+                    var bits = $(obj).attr('href').split('/');
+                    bits[6] = logSessionId;
+                    $(obj).attr('href', bits.join('/'));
+                });
             });
             $('.logsessions tbody').children('tr:first').trigger('click');
         });

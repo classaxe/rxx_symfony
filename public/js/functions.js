@@ -1,7 +1,7 @@
 /*
  * Project:    RXX - NDB Logging Database
  * Homepage:   https://rxx.classaxe.com
- * Version:    2.64.16
+ * Version:    2.65.0
  * Date:       2025-01-02
  * Licence:    LGPL
  * Copyright:  2025 Martin Francis
@@ -1667,6 +1667,11 @@ var logSessions = {
                 var listenerId = $(this).closest('tr').attr('id').split('_')[2];
                 var logSessionId = $(this).closest('tr').attr('id').split('_')[3];
                 logSessions.getLogSessionLogs(listenerId, logSessionId);
+                $('.export a').each(function(i, obj) {
+                    var bits = $(obj).attr('href').split('/');
+                    bits[6] = logSessionId;
+                    $(obj).attr('href', bits.join('/'));
+                });
             });
             $('.logsessions tbody').children('tr:first').trigger('click');
         });

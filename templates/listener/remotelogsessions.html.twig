@@ -13,7 +13,21 @@
                 {{ form_end(form, {'render_rest': false}) }}
                 {% include 'listener/logsessions.grid.html.twig' %}
             </div>
-            <h2>{% trans %}Logs Uploaded in Selected Session{% endtrans %}</h2>
+            <h2>{% trans %}Logs Uploaded in Selected Session{% endtrans %}
+                <sup>
+                    [ {% trans %}Export{% endtrans %}
+                    <span class="export">
+                        <a title="Export as CSV" href="{{ url('logsession_logs_export_csv', { 'system' : system, 'id': 'YYY' }) }}">
+                            <span class='ui-icon ui-icon-document'></span>.csv
+                        </a>
+                    |
+                        <a title="Export as TXT" href="{{ url('logsession_logs_export_txt', { 'system' : system, 'id': 'YYY' }) }}">
+                            <span class='ui-icon ui-icon-document'></span>.txt
+                        </a>
+                    </span>
+                    ]
+                </sup>
+            </h2>
             <div class="scroll" style="background: #fff" id="list2"></div>
         </div>
     </div>
