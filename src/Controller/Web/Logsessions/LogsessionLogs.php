@@ -45,7 +45,7 @@ class LogsessionLogs extends Base
             return $this->redirectToRoute('logsession', ['system' => $system]);
         }
         $args = [
-            'logsessionID' =>   $id,
+            'logSessionId' =>   $id,
             'limit' =>          static::defaultlimit,
             'order' =>          static::defaultOrder,
             'page' =>           0,

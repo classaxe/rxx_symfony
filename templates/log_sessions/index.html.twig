@@ -53,7 +53,18 @@
     <h2>{% trans %}Logs Uploaded in Selected Session{% endtrans %} <sup>[
         <a id="section_logsessionlogs_show" style="display:none">{% trans %}Show{% endtrans %}</a>
         <a id="section_logsessionlogs_hide" style="display:none">{% trans %}Hide{% endtrans %}</a>
+        |
+        <span class="export">
+            <a title="Export as CSV" href="{{ url('logsession_logs_export_csv', { 'system' : system, 'id': 'YYY' }) }}">
+                <span class='ui-icon ui-icon-document'></span>.csv
+            </a>
+        |
+            <a title="Export as TXT" href="{{ url('logsession_logs_export_txt', { 'system' : system, 'id': 'YYY' }) }}">
+                <span class='ui-icon ui-icon-document'></span>.txt
+            </a>
+        </span>
     ]</sup></h2>
+
     <div id="section_logsessionlogs" style="display:none">
     <div class="scroll" style="background: #fff" id="list2"></div>
     </div>

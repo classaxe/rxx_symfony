@@ -18,7 +18,7 @@ var logSessions = {
             $('.logsessions tbody tr').on('click', function () {
                 var listenerId = $(this).closest('tr').attr('id').split('_')[2];
                 var logSessionId = $(this).closest('tr').attr('id').split('_')[3];
-                logSessions.getLogSessionLogs(listenerId, logSessionId)
+                logSessions.getLogSessionLogs(listenerId, logSessionId);
             });
             $('.logsessions tbody').children('tr:first').trigger('click');
         });
@@ -45,7 +45,12 @@ var logSessions = {
             $('.logsessions tbody tr').on('click', function () {
                 var listenerId = $(this).closest('tr').attr('id').split('_')[2];
                 var logSessionId = $(this).closest('tr').attr('id').split('_')[3];
-                logSessions.getLogSessionLogs(listenerId, logSessionId)
+                logSessions.getLogSessionLogs(listenerId, logSessionId);
+                $('.export a').each(function(i, obj) {
+                    var bits = $(obj).attr('href').split('/');
+                    bits[6] = logSessionId;
+                    $(obj).attr('href', bits.join('/'));
+                });
             });
             $('.logsessions tbody').children('tr:first').trigger('click');
             COMMON_FORM.setLogSessionLogsActions();
@@ -57,6 +62,9 @@ var logSessions = {
         $('.logsessions tbody tr#log_session_' + listenerId + '_' + logSessionId).addClass('selected');
         var url = logSessions.baseUrl.replace('XXX', listenerId).replace('YYY', logSessionId);
         $('#list2').load(url);
+        $('.export a').each(function(i, obj) {
+            $(obj).attr('href', $(obj).attr('href').replace('YYY', logSessionId));
+        });
         return false;
     }
 };
