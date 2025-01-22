@@ -6,17 +6,16 @@ A - {% trans %}Active{% endtrans %}
 D - {% trans %}Logged between 10am and 2pm local time{% endtrans %}
 
 -----------------------------------------------------------------------------------------------------------------------
-YYYY-MM-DD hh:mm {{
-"% -#{strlen.khz}s" | format('khz ') }}{{
-"% -#{strlen.call}s" | format('ID ') }} Type  A {%
+YYYY-MM-DD hh:mm {%
+  if(strlen.khz)%}{{     "% -#{strlen.khz}s"    | format('khz')}} {% endif %}{%
+  if(strlen.call)%}{{    "% -#{strlen.call}s"   | format('ID')}} {% endif %}Type  A {%
   if(strlen.lsb)%}{{     "% #{strlen.lsb}s"     | format('LSB')}} {% endif %}{%
   if(strlen.usb)%}{{     "% #{strlen.usb}s"     | format('USB')}} {% endif %}{%
   if(strlen.sec)%}{{     "% #{strlen.sec}s"     | format('sec')}} {% endif %}{%
   if(strlen.format)%}{{  "% -#{strlen.format}s" | format('fmt')}} {% endif %}{%
   if(strlen.pwr)%}{{     "% #{strlen.pwr}s"     | format('PWR')}} {% endif %}{%
   if(strlen.dxKm)%}{{    "% #{strlen.dxKm}s"    | format('KM') }} {% endif %}{%
-  if(strlen.dxMiles)%}{{ "% #{strlen.dxMiles}s" | format('Mi') }} {% endif %}
-GSQ         Lat       Lon D SP ITU QTH
+  if(strlen.dxMiles)%}{{ "% #{strlen.dxMiles}s" | format('Mi') }} {% endif %}GSQ         Lat       Lon D SP ITU QTH
 -----------------------------------------------------------------------------------------------------------------------
 {% for l in logs %}{{
     l.logDate | date('Y-m-d') }} {{
