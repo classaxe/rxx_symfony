@@ -193,7 +193,7 @@ EOD;
             .'s.lat,'
             .'s.lon,'
             .'(CASE WHEN s.sp = \'\' THEN s.itu ELSE s.sp END) as place,'
-            .'trim(l.sec)+0 as sec,'
+            .'trim(l.sec) as sec,'
             .'(CASE WHEN trim(l.sec)+0 = 0 THEN \'\' ELSE trim(l.sec)+0 END) as secF,'
             .'CONCAT(l.lsbApprox,l.lsb) AS lsb,'
             .'CONCAT(l.usbApprox,l.usb) AS usb,'
@@ -260,9 +260,13 @@ EOD;
             }
         }
 
-        $result = $qb->getQuery()->execute();
+        $rows = $qb->getQuery()->execute();
+        foreach($rows as &$row) {
+            $row['lat'] = number_format($row['lat'], 4);
+            $row['lon'] = number_format($row['lon'], 4);
+        }
 //        print "<pre>".print_r($qb->getQuery()->getSQL(), true)."</pre>";
-        return $result;
+        return $rows;
     }
 
     private function _checkLogDateTokens(&$tokens, &$logHas) {

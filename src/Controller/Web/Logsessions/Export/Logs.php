@@ -84,15 +84,38 @@ class Logs extends Base
             'order' =>      'a',
         ];
         $logs = $this->logRepository->getLogs($args, $sortableColumns);
-
+        $strlen = [
+            'khz' =>        0,
+            'call' =>       0,
+            'lsb' =>        0,
+            'usb' =>        0,
+            'sec' =>        0,
+            'format' =>     0,
+            'pwr' =>        0,
+            'dxKm' =>       0,
+            'dxMiles' =>    0,
+            'lat' =>        0,
+            'lon' =>        0,
+        ];
+        foreach ($strlen as $k => $v) {
+            $strlen[$k] = max(
+                array_map('strlen', array_column($logs, $k))
+            );
+        }
+//        print "<pre>" . print_r($strlen, true) . "</pre>";die;
+        $title =
+            'RXX-ID ' . $listener->getId() . ' | '
+            . $listener->getFormattedNameAndLocation()
+            . ($listener->getMultiOperator() === 'Y' ? ' | Operator: ' . $logs[0]['operator'] : '') ;
         $parameters = [
             '_locale' =>            $_locale,
-            'title' =>              strToUpper($system) . ' logs for Log session '.$id . ' for ' . $listener->getFormattedNameAndLocation(),
-            'subtitle' =>           '(' . count($logs) . ' records sorted by Frequency and Callsign)',
+            'title' =>              $title,
+            'subtitle' =>           'Session #' . $id . ' has ' . count($logs) . ' logs, output is sorted by Frequency and Callsign',
             'system' =>             $system,
             'listener' =>           $listener,
             'logsession' =>         $logsession,
             'logs' =>               $logs,
+            'strlen' =>             $strlen,
             'typeRepository' =>     $this->typeRepository
         ];
         $parameters = array_merge($parameters, $this->parameters);

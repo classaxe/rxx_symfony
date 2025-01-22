@@ -1,36 +1,44 @@
 {{ title }}
-{% if listener.multiOperator == 'Y' %}Operator: {{ logs[0].operator }}
-{% endif %}
 {{ subtitle }}
 
 A - {% trans %}Active{% endtrans %}
 
 D - {% trans %}Logged between 10am and 2pm local time{% endtrans %}
 
--------------------------------------------------------------------------------------------------------------------------------------------------------------------
-YYYY-MM-DD hh:mm KHZ      ID         Type   A  LSB   USB    sec      fmt    PWR    KM    Miles GSQ    Lat      Lon      D SP ITU QTH
--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------
+YYYY-MM-DD hh:mm {{
+"% -#{strlen.khz}s" | format('khz ') }}{{
+"% -#{strlen.call}s" | format('ID ') }} Type  A {%
+  if(strlen.lsb)%}{{     "% #{strlen.lsb}s"     | format('LSB')}} {% endif %}{%
+  if(strlen.usb)%}{{     "% #{strlen.usb}s"     | format('USB')}} {% endif %}{%
+  if(strlen.sec)%}{{     "% #{strlen.sec}s"     | format('sec')}} {% endif %}{%
+  if(strlen.format)%}{{  "% -#{strlen.format}s" | format('fmt')}} {% endif %}{%
+  if(strlen.pwr)%}{{     "% #{strlen.pwr}s"     | format('PWR')}} {% endif %}{%
+  if(strlen.dxKm)%}{{    "% #{strlen.dxKm}s"    | format('KM') }} {% endif %}{%
+  if(strlen.dxMiles)%}{{ "% #{strlen.dxMiles}s" | format('Mi') }} {% endif %}
+GSQ         Lat       Lon D SP ITU QTH
+-----------------------------------------------------------------------------------------------------------------------
 {% for l in logs %}{{
     l.logDate | date('Y-m-d') }} {{
     l.logTime|slice(0,2) }}:{{ l.logTime|slice(2,2) }} {{
-    "% -8s"  | format(l.khz) }} {{
-    "% -10s" | format(l.call) }} {{
-    "% -6s"  | format( typeRepository.typeForCode(l.type)['label']|trans) }} {{
-    "% -1s"  | format(l.active ? 'Y' : 'N') }} {{
-    "% 5s"   | format(l.lsb ? l.lsb : '') }} {{
-    "% 5s"   | format(l.usb ? l.usb : '') }} {{
-    "% 6s"   | format(l.sec ? l.sec : '') }} {{
-    "% 10s"  | format(l.format ? l.format : '') }} {{
-    "% 4s"   | format(l.pwr ? l.pwr : '') }} {{
-    "% 6s"   | format(l.dxKm) }} {{
-    "% 6s"   | format(l.dxMiles) }} {{
+    "% -#{strlen.khz}s"    | format(l.khz) }} {{
+    "% -#{strlen.call}s"   | format(l.call) }} {{
+    "% -6s"  | format( typeRepository.typeForCode(l.type)['label']|trans) }}{{
+    "% -1s"  | format(l.active ? 'Y' : 'N') }} {%
+  if(strlen.lsb)%}{{     "% #{strlen.lsb}s"     | format(l.lsb ? l.lsb : '')}} {% endif %}{%
+  if(strlen.usb)%}{{     "% #{strlen.usb}s"     | format(l.usb ? l.usb : '')}} {% endif %}{%
+  if(strlen.sec)%}{{     "% #{strlen.sec}s"     | format(l.sec ? l.sec : '')}} {% endif %}{%
+  if(strlen.format)%}{{  "% -#{strlen.format}s" | format(l.format ? l.format : '')}} {% endif %}{%
+  if(strlen.pwr)%}{{     "% #{strlen.pwr}s"     | format(l.pwr ? l.pwr : '')}} {% endif %}{%
+  if(strlen.dxKm)%}{{    "% #{strlen.dxKm}s"    | format(l.dxKm) }} {% endif %}{%
+  if(strlen.dxMiles)%}{{ "% #{strlen.dxMiles}s" | format(l.dxMiles) }} {% endif %}{{
     "% 6s"   | format(l.gsq) }} {{
     "% 8s"   | format(l.lat) }} {{
-    "% 8s"   | format(l.lon) }} {{
+    "% 9s"   | format(l.lon) }} {{
     "% 1s"   | format(l.daytime ? 'Y' : 'N') }} {{
     "% 2s"   | format(l.sp) }} {{
     "% 3s"   | format(l.itu) }} {{
-    l.qth|raw|replace({'  ': ' '})
+    l.qth|raw|replace({'  ': ' '})|replace({'&#039;' : '\''})
 }}
 {% endfor %}
----------------------------------------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------
