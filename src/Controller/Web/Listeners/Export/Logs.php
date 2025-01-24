@@ -87,13 +87,42 @@ class Logs extends Base
         ];
         $logs = $this->logRepository->getLogs($args, $sortableColumns);
 
+        $strlen = [
+            'operator' =>   0,
+            'khz' =>        0,
+            'call' =>       0,
+            'lsb' =>        0,
+            'usb' =>        0,
+            'sec' =>        0,
+            'format' =>     0,
+            'pwr' =>        0,
+            'dxKm' =>       0,
+            'dxMiles' =>    0,
+            'lat' =>        0,
+            'lon' =>        0,
+        ];
+        foreach ($strlen as $k => $v) {
+            $strlen[$k] = max(
+                array_map('strlen', array_column($logs, $k))
+            );
+        }
+
+        $title = strToUpper($system) . ' logs for RXX-ID ' . $listener->getId() . ' | '
+            . $listener->getFormattedNameAndLocation() . ' | '
+            . 'Date: ' . date('Y-m-d');
+
+        $subtitle = 'Showing ' . count($logs) . ' logs | '
+            . 'Output sorted by Date and Time | '
+            . 'Date: ' . date('Y-m-d');
+
         $parameters = [
             '_locale' =>            $_locale,
-            'title' =>              strToUpper($system) . ' log for '.$listener->getName() . " on " . date('Y-m-d'),
-            'subtitle' =>           '(' . count($logs) . ' records sorted by Date and Time)',
+            'title' =>              $title,
+            'subtitle' =>           $subtitle,
             'system' =>             $system,
             'listener' =>           $listener,
             'logs' =>               $logs,
+            'strlen' =>             $strlen,
             'typeRepository' =>     $this->typeRepository
         ];
         $parameters = array_merge($parameters, $this->parameters);

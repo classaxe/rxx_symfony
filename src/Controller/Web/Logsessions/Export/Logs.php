@@ -102,15 +102,19 @@ class Logs extends Base
                 array_map('strlen', array_column($logs, $k))
             );
         }
-//        print "<pre>" . print_r($strlen, true) . "</pre>";die;
-        $title =
-            'RXX-ID ' . $listener->getId() . ' | '
+
+        $title = strToUpper($system) . ' log session for RXX-ID ' . $listener->getId() . ' | '
             . $listener->getFormattedNameAndLocation()
-            . ($listener->getMultiOperator() === 'Y' ? ' | Operator: ' . $logs[0]['operator'] : '') ;
+            . ($listener->getMultiOperator() === 'Y' ? ' | Operator: ' . $logs[0]['operator'] : '');
+
+        $subtitle = 'Session ' . $id . ' has ' . count($logs) . ' logs | '
+            . 'Output sorted by Frequency and Callsign | '
+            . 'Date: ' . date('Y-m-d');
+
         $parameters = [
             '_locale' =>            $_locale,
             'title' =>              $title,
-            'subtitle' =>           'Session #' . $id . ' has ' . count($logs) . ' logs, output is sorted by Frequency and Callsign',
+            'subtitle' =>           $subtitle,
             'system' =>             $system,
             'listener' =>           $listener,
             'logsession' =>         $logsession,
