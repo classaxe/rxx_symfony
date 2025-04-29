@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Columns\Donations;
 use App\Entity\Donation;
 use App\Columns\Donations as DonationsColumns;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -60,18 +61,18 @@ class DonationRepository extends ServiceEntityRepository
         $qb = $this
             ->createQueryBuilder('d')
             ->select('
-                d.id,
-                d.date,
+                d.id AS id,
+                d.date AS date,
                 d.donorID,
-                d.amount,
-                d.message,
-                donor.anonymous,
-                donor.name,
-                donor.display,
-                donor.callsign,
-                donor.sp,
-                donor.itu,
-                donor.notes,
+                d.amount AS amount,
+                d.message AS message,
+                donor.anonymous AS anonymous,
+                donor.name AS name,
+                donor.display AS display,
+                donor.callsign AS callsign,
+                donor.sp AS sp,
+                donor.itu AS itu,
+                donor.notes AS notes,
                 donor.id AS donor_id
             ')
             ->innerJoin(
@@ -80,8 +81,7 @@ class DonationRepository extends ServiceEntityRepository
                 Join::WITH,
                 'd.donorID = donor.id'
             )
-
-            ->addOrderBy('d.' . $args['sort'], $args['order'] === 'a' ? 'ASC' : 'DESC');
+            ->addOrderBy($args['sort'], $args['order'] === 'a' ? 'ASC' : 'DESC');
 
         if (is_numeric($args['limit']) && (int)$args['limit'] !== -1) {
             $qb

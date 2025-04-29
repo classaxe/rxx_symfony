@@ -17,7 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;  // Required for annotations
 class Collection extends WebBase
 {
     const defaultlimit =     100;
-    const defaultSorting =  'id';
+    const defaultSorting =  'd.id';
     const defaultOrder =    'd';
 
     /**
