@@ -29,7 +29,7 @@ class SystemRepository
     const AWARDS = [
         [
             'callsign' =>   'KJ8O',
-            'email' =>      'kj8o.ham@gmail.com',
+            'email' =>      'kj8o@californiamail.com',
             'name' =>       'Joseph Miller',
             'role' =>       'Awards Coordinator',
             'show_email' => false
